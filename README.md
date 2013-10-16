@@ -13,10 +13,10 @@ A streaming torrent client in your browser, powered by webRTC and black magic.
   - Into `video` tag with MediaSource API when possible
   - Flash player with JS bridge for other media types
 - Works with .torrent files and magnet links
-- Supports DHT (trackerless torrents)
-  - Extensions to DHT to work over WebRTC
-  - DHT nodes can do "peer introductions" so WebRTC doesn't need a central signaling server
-- Supports completely serverless, trackerless operation
+- Supports DHT (trackerless torrents) over WebRTC
+  - Extensions to DHT protocol to work over WebRTC
+  - DHT nodes do "peer introductions" so WebRTC can work without a centralized signaling server
+- **Supports completely serverless, trackerless operation**
 
 ## Useful Links
 
