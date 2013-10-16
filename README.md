@@ -4,7 +4,6 @@ webtorrent - BitTorrent over WebRTC
 A streaming torrent client in your browser, powered by webRTC and black magic.
 
 ![Magic](https://raw.github.com/feross/webtorrent/master/logo.png)
-Image: © Nevit Dilmen found at Wikimedia commons
 
 ## Features
 
