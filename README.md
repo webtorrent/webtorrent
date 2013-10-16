@@ -1,4 +1,8 @@
 webtorrent
 ==========
 
-BitTorrent in your browser, no install required (powered by WebRTC + WebTorrent extensions to BitTorrent)
+A streaming torrent client in your browser, powered by webRTC data channels (no install)
+
+## Useful
+
+- [DHT Protocol](http://www.bittorrent.org/beps/bep_0005.html)
