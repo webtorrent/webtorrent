@@ -1,0 +1,31 @@
+{
+  "name": "webtorrent",
+  "version": "0.0.1",
+  "description": "A streaming torrent client in your browser, powered by webRTC data channels (no install)",
+  "main": "index.js",
+  "dependencies": {
+    "itty-bitty-torrent": "~0.1.2",
+    "browserify": "~2.34.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/feross/webtorrent.git"
+  },
+  "keywords": [
+    "torrent",
+    "bittorrent",
+    "webrtc",
+    "data",
+    "channel",
+    "webtorrent"
+  ],
+  "author": "Feross Aboukhadijeh <feross@feross.org> (http://feross.org/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/feross/webtorrent/issues"
+  }
+}
