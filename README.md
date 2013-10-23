@@ -5,6 +5,8 @@ A streaming torrent client in your browser, powered by webRTC and black magic.
 
 ![Magic](https://raw.github.com/feross/webtorrent/master/logo.png)
 
+**Watch / star repo to follow along with progress**
+
 ## Features
 
 - **BitTorrent in your browser!**
