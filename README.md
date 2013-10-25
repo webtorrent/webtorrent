@@ -79,6 +79,14 @@ Until BitTorrent clients add support for WebTorrent, pure WebTorrent clients can
   - Flash player for other media types
 - Easy torrent creation
 
+
+## Introduction to WebRTC DataChannel and WebTorrent
+
+Watch the talk from **RealtimeConf** on Vimeo:
+
+[![webrtc talk](https://raw.github.com/feross/webtorrent/master/webrtc-talk.png)](https://vimeo.com/77265280)
+
+
 ## Useful Links
 
 - [BitTorrent Spec](https://wiki.theory.org/BitTorrentSpecification)
