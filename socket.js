@@ -78,8 +78,8 @@ UDPSocket.prototype._recvLoop = function() {
 
   chrome.socket.recvFrom(self.id, function (recvFromInfo) {
     if (recvFromInfo.resultCode > 0) {
-      self.emit('data', recvFromInfo.data, recvFromInfo.address,
-          recvFromInfo.port)
+      self.emit('data', new Uint8Array(recvFromInfo.data),
+          recvFromInfo.address, recvFromInfo.port)
       self._recvLoop()
     } else {
       console.warn('UDPSocket ' + self.id + ' recvFrom: ', recvFromInfo)
