@@ -4,7 +4,6 @@
 //   console.log('This is a Chrome App')
 // }
 
-
 // var DHT = require('./lib/bittorrent-dht')
 // var leaves = 'D2474E86C95B19B8BCFDB92BC12C9D44667CFA36'
 
