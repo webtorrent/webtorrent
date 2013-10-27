@@ -31,32 +31,31 @@ Since WebTorrent is web-first, it's dead simple for users to use without underta
 
 ## Interoperability with BitTorrent
 
-**Problem:** WebTorrent clients and nortmal BitTorrent clients cannot directly connect because WebRTC cannot open UDP/TCP sockets. This is a security restriction on WebRTC that is unlikely to change. So, how do we get content into the WebTorrent network?
+**Problem:** WebTorrent clients and normal BitTorrent clients cannot directly connect because WebRTC cannot open UDP/TCP sockets. This is a security restriction on WebRTC that is unlikely to change. So, how do we get content into the WebTorrent network?
 
 **Best solution:** Mainstream BitTorrent clients add support for WebTorrent. Basically, normal clients implement WebRTC so that WebTorrent clients can directly connect to them. (This could happen once WebTorrent has a lot of users.)
 
-**Good solution:** Users who want to download torrents that aren't yet seeded by any WebTorrent users need to install a "hybrid client" that implements WebTorrent and BitTorrent. This can be implemented as a Chrome app/Firefox extension that bridges the networks like this:
+**Good solution:** Users who want to download torrents that aren't yet seeded by any WebTorrent users need to install a "hybrid client" that implements WebTorrent **and** BitTorrent. This can be implemented as a Chrome/Firefox App/Extension that bridges the two networks like this:
 
-  - Hybrid clients can seed/leech from **both** WebTorrent and BitTorrent users.
-  - Hybrid clients are nodes in **both** the WebTorrent and BitTorrent DHT.
-  - The first time a hybrid client downloads a torrent that no other WebTorrent clients were seeding, they become the first WebTorrent seeder. (They essentially "bring" the file into the WebTorrent network).
-  - Note: Hybrid clients **never** download torrents on behalf of other users. That would be a terrible idea.
-
-Until BitTorrent clients add support for WebTorrent, pure WebTorrent clients can only download from other WebTorrent clients.
+  - Hybrid clients can seed+leech from **both** WebTorrent and BitTorrent users.
+  - Hybrid clients are DHT nodes in **both** the WebTorrent and BitTorrent DHTs.
+  - The first time a hybrid client downloads a torrent that no other WebTorrent clients are seeding, they become the first WebTorrent seeder. (They essentially "bring" the file into the WebTorrent network).
+  - Important note: Hybrid clients **never** download torrents on behalf of other users. That would be a terrible idea.
+  - Until BitTorrent clients support WebTorrent, "pure" **WebTorrent clients can only download from other WebTorrent clients.**
 
 
 ## WebTorrent vs BitTorrent
 
-- WebTorrent is slower at finding peers since "DHT over WebRTC" requires multiple roundtrips for peer introductions (WebRTC signaling)
-- Peers must keep their browser tab open to seed (need UI to encourage seeding back at least 2x)
-- Slower piece verification (SHA1) (max 2MB/s with web worker pool, Web Crpyto API will bring huge speed-up when it's ready)
-- WebTorrent bootstrap DHT node does *a bit* more work than a BitTorrent one since it must do WebRTC signaling. Not a huge deal.
+- WebTorrent is slower at finding peers since "DHT over WebRTC" requires multiple roundtrips for peer introductions. (This is a requirement of WebRTC signaling - no way around this)
+- WebTorrent peers must keep their browser tab open to seed (Show UI to encourage seeding back at least 2x)
+- Slower piece verification (SHA1) (max 2MB/s with web worker pool, Web Crpyto API will bring huge speed-up when it's finally ready)
+- WebTorrent bootstrap DHT node does *a bit* more work than a BitTorrent one since it must do WebRTC signaling. (Not a huge deal)
 
 
-## Needed NPM modules
+## Planned NPM modules
 
-- webtorrent-chrome
 - webtorrent
+- webtorrent-chrome
 - webtorrent-protocol
 - webtorrent-dht
 - webtorrent-bootstrap
@@ -84,9 +83,9 @@ Until BitTorrent clients add support for WebTorrent, pure WebTorrent clients can
 
 - UPnP or NAT-PMP (so the hybrid client can get listed in peers' routing tables)
 
-## Introduction to WebRTC DataChannel and WebTorrent
+## Introduction to WebRTC Data and WebTorrent
 
-Watch the talk from **RealtimeConf** on Vimeo:
+[Watch the talk](https://vimeo.com/77265280) from *RealtimeConf* on Vimeo (skip to end for stuff about WebTorrent):
 
 [![webrtc talk](https://raw.github.com/feross/webtorrent/master/webrtc-talk.png)](https://vimeo.com/77265280)
 
@@ -111,7 +110,7 @@ Watch the talk from **RealtimeConf** on Vimeo:
 
 ## Contributors
 
-- **Add yourself to this list when you send a pull request!**
+- *Contributions welcome! Add yourself here when you send a pull request.*
 
 
 ## License
