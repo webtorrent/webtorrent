@@ -1,3 +1,6 @@
+bundle.js
+tmp
+
 lib-cov
 *.seed
 *.log
@@ -13,5 +16,3 @@ results
 
 npm-debug.log
 node_modules
-
-tmp

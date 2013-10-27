@@ -1,5 +1,21 @@
 var isChromeApp = !!(window.chrome && chrome.app && chrome.app.runtime)
 
+if (isChromeApp) {
+  console.log('This is a Chrome App')
+}
+
+
+var DHT = require('./lib/bittorrent-dht')
+var leaves = 'D2474E86C95B19B8BCFDB92BC12C9D44667CFA36'
+
+var dht = new DHT(leaves)
+dht.on('peer', function (peer) {
+  console.log(peer)
+})
+dht.findPeers(300)
+
+
+// Send UDP packet to echo server
 // var socket = require('./socket')
 
 // var sock = new socket.UDPSocket('localhost', 54244)
@@ -9,19 +25,3 @@ var isChromeApp = !!(window.chrome && chrome.app && chrome.app.runtime)
 //   sock.write('hello')
 // })
 
-
-
-
-// require the core node events module
-var EventEmitter = require('events').EventEmitter
-
-//create a new event emitter
-var emitter = new EventEmitter()
-
-// set up a listener for the event
-emitter.on('pizza', function(message){
-  console.log(message);
-});
-
-// emit an event
-emitter.emit('pizza', 'pizza is extremely yummy');

@@ -5,7 +5,12 @@
   "main": "index.js",
   "dependencies": {
     "itty-bitty-torrent": "~0.1.2",
-    "browserify": "~2.34.1"
+    "browserify": "~2.34.1",
+    "core-util-is": "~1.0.0",
+    "bncode": "~0.2.3",
+    "bagpipe": "~0.3.5",
+    "compact2string": "~1.0.0",
+    "async": "~0.2.9"
   },
   "devDependencies": {},
   "scripts": {
