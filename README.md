@@ -5,7 +5,7 @@ A streaming torrent client in your browser, powered by webRTC and black magic.
 
 **Watch / star repo to follow along with progress**
 
-![Magic](https://raw.github.com/feross/webtorrent/master/logo.png)
+![Magic](https://raw.github.com/feross/webtorrent/master/img/logo.png)
 
 
 ## Planned Features
@@ -87,7 +87,7 @@ Since WebTorrent is web-first, it's dead simple for users to use without underta
 
 [Watch the talk](https://vimeo.com/77265280) from *RealtimeConf* on Vimeo (skip to end for stuff about WebTorrent):
 
-[![webrtc talk](https://raw.github.com/feross/webtorrent/master/webrtc-talk.png)](https://vimeo.com/77265280)
+[![webrtc talk](https://raw.github.com/feross/webtorrent/master/img/webrtc-talk.png)](https://vimeo.com/77265280)
 
 
 ## Useful Links
