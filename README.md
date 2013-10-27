@@ -97,3 +97,19 @@ Watch the talk from **RealtimeConf** on Vimeo:
 - [Kademlia Paper](http://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf)
 - [Main DHT implementation](https://github.com/jech/dht)
 - [Optimized DHT bootstrap implementation](https://github.com/jech/dht-bootstrap)
+
+
+## Authors
+
+- [Feross Aboukhadijeh](http://feross.org)
+- John Hiesey
+
+
+## Contributors
+
+- **Add yourself to this list when you send a pull request!**
+
+
+## License
+
+MIT
