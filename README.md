@@ -7,6 +7,7 @@ A streaming torrent client in your browser, powered by webRTC and black magic.
 
 ![Magic](https://raw.github.com/feross/webtorrent/master/logo.png)
 
+
 ## Planned Features
 
 - **BitTorrent in your browser!**
@@ -64,7 +65,7 @@ Until BitTorrent clients add support for WebTorrent, pure WebTorrent clients can
 - sdp-compress
 
 
-## Todo to basic working version
+## Todo for basic working version
 
 - Build bittorrent client as Chrome App (connects to normal BT network)
   - Use UDP/TCP APIs
@@ -79,6 +80,9 @@ Until BitTorrent clients add support for WebTorrent, pure WebTorrent clients can
   - Flash player for other media types
 - Easy torrent creation
 
+## Todo eventually
+
+- UPnP or NAT-PMP (so the hybrid client can get listed in peers' routing tables)
 
 ## Introduction to WebRTC DataChannel and WebTorrent
 
