@@ -5,96 +5,59 @@ var EventEmitter = require('events').EventEmitter
 var string = require('./lib/string')
 var util = require('util')
 
-util.inherits(BaseSocket, EventEmitter)
+util.inherits(UDPSocket, EventEmitter)
 
-function BaseSocket (host, port) {
+function UDPSocket () {
   var self = this
-  self.host = host
-  self.port = port
-
-  self.paused = true
-  self.readPending = false
+  if (!(self instanceof UDPSocket)) return new UDPSocket()
 
   EventEmitter.call(self)
-}
 
-BaseSocket.prototype.connect = function (cb) {
-  var self = this
-  self._create(function (err, id) {
-    if (err) return cb(err)
-    self.id = id
-    chrome.socket.connect(self.id, self.host, self.port, function (res) {
-      if (res === 0) cb(null)
-      else cb(new Error('Unexpected connect result:' + res))
+  self.sendBuffer = []
+  self.localPort = 0
+  self.bound = false
+
+  chrome.socket.create('udp', {}, function (createInfo) {
+    self.id = createInfo.socketId
+
+    chrome.socket.bind(self.id, '0.0.0.0', 0, function (result) {
+      if (result < 0) {
+        console.warn('UDPSocket ' + self.id + ' failed to bind')
+        return
+      }
+      chrome.socket.getInfo(self.id, function (result) {
+        if (!result.localPort) {
+          console.warn('Cannot get local port for UDPSocket ' + self.id)
+          return
+        }
+        self.localPort = result.localPort
+        self._onBound()
+      })
     })
   })
 }
 
-BaseSocket.prototype.end = function () {
+UDPSocket.prototype._onBound = function () {
   var self = this
-  if (!self.id) return
-  chrome.socket.destroy(self.id)
-  self.id = null // mark socket as destroyed
+
+  self.bound = true
+  self.emit('bound', self.localPort)
+  while (self.sendBuffer.length) {
+    var message = self.sendBuffer.shift()
+    self.sendTo(message.data, message.host, message.port, message.cb)
+  }
+
+  self._recvLoop()
 }
 
-BaseSocket.prototype.getInfo = function (cb) {
+UDPSocket.prototype.sendTo = function (data, host, port, cb) {
   var self = this
-  chrome.socket.getInfo(self.id, cb)
-}
 
-BaseSocket.prototype.pause = function () {
-  var self = this
-  self.paused = true
-}
-
-BaseSocket.prototype.resume = function () {
-  var self = this
-  self.paused = false
-  self.read()
-}
-
-BaseSocket.prototype.read = function (readLength) {
-  var self = self
-  if (self.paused || self.readPending) return
-  self.readPending = true
-
-  chrome.socket.read(self.id, readLength, function (readInfo) {
-    self.readPending = false
-    if (readInfo.resultCode < 0) return self.end()
-
-    if (readInfo.data) {
-      self.emit('data', readInfo.data)
-      try {
-        // only read if not closed
-        if (self.id) self.read()
-      } catch (e) {
-        self.emit('error', e.stack || e.message || e)
-        self.end()
-      }
-    }
-  })
-}
-
-
-util.inherits(UDPSocket, BaseSocket)
-
-function UDPSocket (host, port) {
-  var self = this
-  if (!(self instanceof UDPSocket)) return new UDPSocket(host, port)
-
-  BaseSocket.call(self, host, port)
-}
-
-UDPSocket.prototype._create = function (cb) {
-  var self = this
-  chrome.socket.create('udp', {}, function (createInfo) {
-    cb(null, createInfo.socketId)
-  })
-}
-
-UDPSocket.prototype.write = function (data) {
-  var self = this
-  if (!self.id) return
+  cb = cb || function() {}
+  if (!self.bound) {
+    self.sendBuffer.push({'data': data, 'host': host, 'port': port, 'cb': cb});
+    return
+  }
 
   if (typeof data === 'string') {
     data = string.toUTF8Arr(data).buffer
@@ -102,22 +65,22 @@ UDPSocket.prototype.write = function (data) {
     data = data.buffer
   }
 
-  chrome.socket.write(self.id, data, function (writeInfo) {
+  chrome.socket.sendTo(self.id, data, host, port, function (writeInfo) {
     if (writeInfo.bytesWritten < 0) {
       console.warn('UDPSocket ' + self.id + ' write: ' + writeInfo.bytesWritten)
-      return self.end()
     }
+    cb()
   })
 }
 
-UDPSocket.prototype.recvLoop = function() {
+UDPSocket.prototype._recvLoop = function() {
   var self = this
 
   chrome.socket.recvFrom(self.id, function (recvFromInfo) {
     if (recvFromInfo.resultCode > 0) {
       self.emit('data', recvFromInfo.data, recvFromInfo.address,
           recvFromInfo.port)
-      self.recvLoop()
+      self._recvLoop()
     } else {
       console.warn('UDPSocket ' + self.id + ' recvFrom: ', recvFromInfo)
     }
