@@ -1,5 +1,6 @@
 bundle.js
 tmp
+*.out
 
 lib-cov
 *.seed
