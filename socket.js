@@ -60,7 +60,7 @@ UDPSocket.prototype.sendTo = function (data, host, port, cb) {
   }
 
   if (typeof data === 'string') {
-    data = string.toUTF8Arr(data).buffer
+    data = bops.from(data).buffer
   } else if (data.buffer) {
     data = data.buffer
   }

@@ -5,7 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "async": "~0.2.9",
-    "bncode": "~0.2.3",
+    "bops": "~0.1.0",
+    "bncode": "feross/bencode.js#master",
     "browserify": "~2.34.1",
     "compact2string": "~1.0.0",
     "core-util-is": "~1.0.0",
