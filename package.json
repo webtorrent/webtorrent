@@ -8,7 +8,7 @@
     "bops": "~0.1.0",
     "bncode": "feross/bencode.js#master",
     "browserify": "~2.34.1",
-    "compact2string": "~1.0.0",
+    "compact2string": "feross/node-compact2string#master",
     "core-util-is": "~1.0.0",
     "itty-bitty-torrent": "~0.1.2"
   },

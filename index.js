@@ -12,8 +12,9 @@ window.bops = require('bops')
 
 var DHT = require('./lib/bittorrent-dht')
 var leaves = 'D2474E86C95B19B8BCFDB92BC12C9D44667CFA36'
+var pride = '1E69917FBAA2C767BCA463A96B5572785C6D8A12'
 
-var dht = new DHT(leaves)
+var dht = new DHT(pride)
 dht.on('node', function (node) {
   log('node: ' + node)
 })
@@ -21,6 +22,12 @@ dht.on('peer', function (peer) {
   log('peer: ' + peer)
 })
 dht.findPeers(300)
+
+
+// var compact2string = require("compact2string");
+
+// var ipports = compact2string.multi(bops.from("0A0A0A05008064383a636f6d", "hex"))
+// console.log(ipports);
 
 
 // window.bops = require('bops')
