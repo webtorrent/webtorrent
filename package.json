@@ -14,9 +14,11 @@
     "envify": "~0.2.0",
     "magnet-uri": "~0.1.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "tape": "*"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tape test/*.js"
   },
   "repository": {
     "type": "git",
@@ -25,10 +27,11 @@
   "keywords": [
     "torrent",
     "bittorrent",
+    "bittorrent client",
     "webrtc",
-    "data",
-    "channel",
-    "webtorrent"
+    "webrtc data",
+    "webtorrent",
+    "mad science"
   ],
   "author": "Feross Aboukhadijeh <feross@feross.org> (http://feross.org/)",
   "license": "MIT",
