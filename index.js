@@ -1,5 +1,8 @@
-window.log = function (data) {
-  document.getElementById('console').innerHTML += data + '<br>'
+// window.log = function (data) {
+//   document.getElementById('console').innerHTML += data + '<br>'
+// }
+window.log = function (/* ... */) {
+  if (process.env.DEBUG !== 'false') console.log.apply(console, arguments)
 }
 
 var isChromeApp = !!(window.chrome && chrome.app && chrome.app.runtime)
@@ -14,9 +17,9 @@ var DHT = require('./lib/bittorrent-dht')
 var leaves = 'D2474E86C95B19B8BCFDB92BC12C9D44667CFA36'
 var pride = '1E69917FBAA2C767BCA463A96B5572785C6D8A12'
 
-var dht = new DHT(pride)
+window.dht = new DHT(pride)
 dht.on('node', function (node, infoHash) {
-  log('node: ' + node)
+  // log('node: ' + node)
 })
 dht.on('peer', function (peer, infoHash) {
   log('peer: ' + peer)
