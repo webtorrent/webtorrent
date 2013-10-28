@@ -4,13 +4,12 @@
 window.log = function (/* ... */) {
   if (process.env.DEBUG !== 'false') console.log.apply(console, arguments)
 }
+window.bops = require('bops')
 
 var isChromeApp = !!(window.chrome && chrome.app && chrome.app.runtime)
 if (isChromeApp) {
   log('This is a Chrome App')
 }
-
-window.bops = require('bops')
 
 var magnet = require('magnet-uri')
 
@@ -20,9 +19,10 @@ var leaves = 'D2474E86C95B19B8BCFDB92BC12C9D44667CFA36'
 
 var leavesMagnet = 'magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36&dn=Leaves+of+Grass+by+Walt+Whitman.epub&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337'
 
-console.log(magnet(leavesMagnet))
+var parse = magnet(leavesMagnet)
+var infoHash = parse.xt.split('urn:btih:')[1]
 
-window.dht = new DHT(pride)
+window.dht = new DHT(infoHash)
 dht.on('node', function (node, infoHash) {
   // log('node: ' + node)
 })

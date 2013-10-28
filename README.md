@@ -55,7 +55,7 @@ Since WebTorrent is web-first, it's dead simple for users to use without underta
 ## Planned NPM modules
 
 - [webtorrent](https://github.com/feross/webtorrent) (this repo)
-- [magnet-link](https://github.com/feross/magnet-uri)
+- [magnet-uri](https://github.com/feross/magnet-uri)
 - webtorrent-chrome
 - webtorrent-protocol
 - webtorrent-dht
