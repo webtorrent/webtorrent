@@ -26,7 +26,7 @@ A streaming torrent client in your browser, powered by webRTC and black magic.
 
 Build a fully-interoperable web-based BitTorrent client that can be used without an install (no app/plugin/extension/etc.).
 
-Since WebTorrent is web-first, it's dead simple for users to use without undertanding .torrent, magnet links, clients, etc. By making BitTorrent easier, it will be accessible to new swathes of users who were previously intimidated, confused, or unwilling to install a program on their machine to participate.
+Since WebTorrent is web-first, it's dead simple for users to use without understanding .torrent, magnet links, clients, etc. By making BitTorrent easier, it will be accessible to new swathes of users who were previously intimidated, confused, or unwilling to install a program on their machine to participate.
 
 
 ## Interoperability with BitTorrent
