@@ -52,24 +52,36 @@ UDPSocket.prototype._onBound = function () {
 
 UDPSocket.prototype.sendTo = function (data, host, port, cb) {
   var self = this
+  cb || (cb = function () {})
 
-  cb = cb || function() {}
   if (!self.bound) {
-    self.sendBuffer.push({'data': data, 'host': host, 'port': port, 'cb': cb});
+    self.sendBuffer.push({'data': data, 'host': host, 'port': port, 'cb': cb})
     return
   }
 
   if (typeof data === 'string') {
-    data = bops.from(data).buffer
-  } else if (data.buffer) {
+    data = bops.from(data)
+  } else if (bops.is(data)) {
+    // If data is an TypedArrayView (Uint8Array) then copy the buffer, so the
+    // underlying buffer will be exactly the right size. We care about this
+    // because the Chrome `sendTo` function takes an ArrayBuffer.
+    var newBuf = bops.create(data.length)
+    bops.copy(data, newBuf, 0, 0, data.length)
+    data = newBuf
+  }
+
+  // `socket.sendTo` requires an ArrayBuffer
+  if (data.buffer) {
     data = data.buffer
   }
 
   chrome.socket.sendTo(self.id, data, host, port, function (writeInfo) {
     if (writeInfo.bytesWritten < 0) {
       console.warn('UDPSocket ' + self.id + ' write: ' + writeInfo.bytesWritten)
+      cb(new Error('writeInfo.bytesWritten: ' + writeInfo.bytesWritten))
+    } else {
+      cb(null)
     }
-    cb()
   })
 }
 
@@ -77,12 +89,12 @@ UDPSocket.prototype._recvLoop = function() {
   var self = this
 
   chrome.socket.recvFrom(self.id, function (recvFromInfo) {
-    if (recvFromInfo.resultCode > 0) {
+    if (recvFromInfo.resultCode <= 0) {
+      console.warn('UDPSocket ' + self.id + ' recvFrom: ', recvFromInfo)
+    } else {
       self.emit('data', new Uint8Array(recvFromInfo.data),
           recvFromInfo.address, recvFromInfo.port)
       self._recvLoop()
-    } else {
-      console.warn('UDPSocket ' + self.id + ' recvFrom: ', recvFromInfo)
     }
   })
 }
