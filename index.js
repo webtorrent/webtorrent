@@ -1,12 +1,12 @@
-var isChromeApp = !!(window.chrome && chrome.app && chrome.app.runtime)
-
-if (isChromeApp) {
-  console.log('This is a Chrome App')
-}
-
 window.log = function (data) {
   document.getElementById('console').innerHTML += data + '<br>'
 }
+
+var isChromeApp = !!(window.chrome && chrome.app && chrome.app.runtime)
+if (isChromeApp) {
+  log('This is a Chrome App')
+}
+
 window.bops = require('bops')
 
 
@@ -15,10 +15,10 @@ var leaves = 'D2474E86C95B19B8BCFDB92BC12C9D44667CFA36'
 var pride = '1E69917FBAA2C767BCA463A96B5572785C6D8A12'
 
 var dht = new DHT(pride)
-dht.on('node', function (node) {
+dht.on('node', function (node, infoHash) {
   log('node: ' + node)
 })
-dht.on('peer', function (peer) {
+dht.on('peer', function (peer, infoHash) {
   log('peer: ' + peer)
 })
 dht.findPeers(300)
