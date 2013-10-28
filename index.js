@@ -75,3 +75,25 @@ dht.findPeers(300)
 // })
 
 // sock.sendTo('lol', 'localhost', 50963)
+
+
+
+// // Send TCP to echo server
+// var string = require('./lib/string')
+// var socket = require('./socket')
+
+// var listenSock = new socket.TCPListenSocket(1701)
+// listenSock.on('connected', function(connSock) {
+//   console.log('Connection opened from ' + connSock.host + ':' + connSock.port)
+//   connSock.write('You are connected!')
+//   connSock.on('data', function (data) {
+//   	console.log('Got data: ' + bops.to(data))
+//   })
+// })
+
+// var clientSock = new socket.TCPSocket('127.0.0.1', 1702)
+// clientSock.on('data', function (data) {
+// 	console.log('Got data: ' + bops.to(data))
+// })
+
+// clientSock.write('hello, world!')
