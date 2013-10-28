@@ -54,7 +54,8 @@ Since WebTorrent is web-first, it's dead simple for users to use without underta
 
 ## Planned NPM modules
 
-- webtorrent
+- [webtorrent](https://github.com/feross/webtorrent) (this repo)
+- [magnet-link](https://github.com/feross/magnet-uri)
 - webtorrent-chrome
 - webtorrent-protocol
 - webtorrent-dht
@@ -67,8 +68,11 @@ Since WebTorrent is web-first, it's dead simple for users to use without underta
 ## Todo for basic working version
 
 - Build bittorrent client as Chrome App (connects to normal BT network)
-  - Use UDP/TCP APIs
-  - Support DHT
+  - ~~Use UDP/TCP APIs~~
+  - ~~Support DHT~~
+  - Support magnet links (fetching .torrent from network)
+  - Support peer write protocol
+  - Support large file saving (FileSystem API?)
 - Make WebRTC data channel work on the server
 - DHT over WebRTC (add new method for peer introduction)
   - Use bootstrap server for initial introduction

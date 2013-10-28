@@ -12,10 +12,15 @@ if (isChromeApp) {
 
 window.bops = require('bops')
 
+var magnet = require('magnet-uri')
 
 var DHT = require('./lib/bittorrent-dht')
-var leaves = 'D2474E86C95B19B8BCFDB92BC12C9D44667CFA36'
 var pride = '1E69917FBAA2C767BCA463A96B5572785C6D8A12'
+
+var leaves = 'D2474E86C95B19B8BCFDB92BC12C9D44667CFA36'
+var leavesMagnet = 'magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36&dn=Leaves+of+Grass+by+Walt+Whitman.epub&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337'
+
+console.log(magnet(leavesMagnet))
 
 window.dht = new DHT(pride)
 dht.on('node', function (node, infoHash) {
