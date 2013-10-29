@@ -52,17 +52,23 @@ Since WebTorrent is web-first, it's dead simple for users to use without underst
 - WebTorrent bootstrap DHT node does *a bit* more work than a BitTorrent one since it must do WebRTC signaling. (Not a huge deal)
 
 
-## Planned NPM modules
+## NPM modules
+
+"When applications are done well, they are just the really application-specific, brackish residue that can't be so easily abstracted away. All the nice, reusable components sublimate away onto github and npm where everybody can collaborate to advance the commons." -[substack](http://substack.net/how_I_write_modules)
 
 - [webtorrent](https://github.com/feross/webtorrent) (this repo)
 - [magnet-uri](https://github.com/feross/magnet-uri)
-- webtorrent-chrome
 - webtorrent-protocol
 - webtorrent-dht
 - webtorrent-bootstrap
 - webworker-pool
 - webtorrent-verifier
 - sdp-compress
+
+### Hybrid client (Chrome App)
+
+- webtorrent-chrome
+- [chrome-app-socket](https://github.com/feross/chrome-app-socket)
 
 
 ## Todo for basic working version
@@ -97,6 +103,7 @@ Since WebTorrent is web-first, it's dead simple for users to use without underst
 ## Useful Links
 
 - [BitTorrent Spec](https://wiki.theory.org/BitTorrentSpecification)
+- [Reference BitTorrent Client (BTPD)](https://github.com/btpd/btpd)
 
 ### DHT
 
