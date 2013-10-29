@@ -12,7 +12,8 @@
     "core-util-is": "~1.0.0",
     "itty-bitty-torrent": "~0.1.2",
     "envify": "~0.2.0",
-    "magnet-uri": "~0.1.0"
+    "magnet-uri": "~0.1.0",
+    "chrome-app-socket": "~0.1.0"
   },
   "devDependencies": {
     "tape": "*"
