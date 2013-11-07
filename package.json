@@ -5,18 +5,23 @@
   "main": "index.js",
   "dependencies": {
     "async": "~0.2.9",
-    "bops": "~0.1.0",
+    "bitfield": "~0.1.0",
     "bncode": "feross/bencode.js#master",
+    "bops": "~0.1.0",
     "browserify": "~2.34.1",
+    "chrome-app-socket": "~0.1.0",
     "compact2string": "feross/node-compact2string#master",
     "core-util-is": "~1.0.0",
-    "itty-bitty-torrent": "~0.1.2",
     "envify": "~0.2.0",
+    "hat": "0.0.3",
+    "itty-bitty-torrent": "~0.1.2",
     "magnet-uri": "~0.1.0",
-    "chrome-app-socket": "~0.1.0"
+    "read-torrent": "~0.2.0",
+    "speedometer": "~0.1.2"
   },
   "devDependencies": {
-    "tape": "*"
+    "tape": "*",
+    "call-log": "~0.1.0"
   },
   "scripts": {
     "test": "tape test/*.js"
