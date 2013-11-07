@@ -1,9 +1,9 @@
-webtorrent - BitTorrent over WebRTC
+WebTorrent - BitTorrent over WebRTC
 ==========
 
 A streaming torrent client in your browser, powered by webRTC and black magic.
 
-**Watch / star repo to follow along with progress**
+Warning: This is pre-alpha software. Nothing works yet. **Watch/star this repo to follow along with progress.**
 
 ![Magic](https://raw.github.com/feross/webtorrent/master/img/logo.png)
 
@@ -52,9 +52,9 @@ Since WebTorrent is web-first, it's dead simple for users to use without underst
 - WebTorrent bootstrap DHT node does *a bit* more work than a BitTorrent one since it must do WebRTC signaling. (Not a huge deal)
 
 
-## NPM modules
+## The NPM Way&trade;
 
-"When applications are done well, they are just the really application-specific, brackish residue that can't be so easily abstracted away. All the nice, reusable components sublimate away onto github and npm where everybody can collaborate to advance the commons." -[substack](http://substack.net/how_I_write_modules)
+"When applications are done well, they are just the really application-specific, brackish residue that can't be so easily abstracted away. All the nice, reusable components sublimate away onto github and npm where everybody can collaborate to advance the commons." -- [substack](http://substack.net/how_I_write_modules)
 
 - [webtorrent](https://github.com/feross/webtorrent) (this repo)
 - [magnet-uri](https://github.com/feross/magnet-uri)
