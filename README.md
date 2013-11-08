@@ -3,9 +3,18 @@ WebTorrent - BitTorrent over WebRTC
 
 A streaming torrent client in your browser, powered by webRTC and black magic.
 
-Warning: This is pre-alpha software. Nothing works yet. **Watch/star this repo to follow along with progress.**
+[![Dependency Status](https://david-dm.org/feross/webtorrent.png)](https://david-dm.org/feross/webtorrent)
+
+> Warning: This is pre-alpha software. Nothing works yet. **Watch/star this repo to follow along with progress.**
 
 ![Magic](https://raw.github.com/feross/webtorrent/master/img/logo.png)
+
+
+## Project Goal
+
+Build a fully-interoperable web-based BitTorrent client that can be used without an install (no app/plugin/extension/etc.).
+
+Since WebTorrent is web-first, it's dead simple for users to use without understanding .torrent, magnet links, clients, etc. By making BitTorrent easier, it will be accessible to new swathes of users who were previously intimidated, confused, or unwilling to install a program on their machine to participate.
 
 
 ## Planned Features
@@ -20,13 +29,6 @@ Warning: This is pre-alpha software. Nothing works yet. **Watch/star this repo t
   - Extensions to DHT protocol to work over WebRTC
   - DHT nodes do "peer introductions" so WebRTC can work without a centralized signaling server
 - **Supports completely serverless, trackerless operation**
-
-
-## Project Goal
-
-Build a fully-interoperable web-based BitTorrent client that can be used without an install (no app/plugin/extension/etc.).
-
-Since WebTorrent is web-first, it's dead simple for users to use without understanding .torrent, magnet links, clients, etc. By making BitTorrent easier, it will be accessible to new swathes of users who were previously intimidated, confused, or unwilling to install a program on their machine to participate.
 
 
 ## Interoperability with BitTorrent
@@ -52,7 +54,7 @@ Since WebTorrent is web-first, it's dead simple for users to use without underst
 - WebTorrent bootstrap DHT node does *a bit* more work than a BitTorrent one since it must do WebRTC signaling. (Not a huge deal)
 
 
-## The NPM Way&trade;
+## The Node Way&trade;
 
 "When applications are done well, they are just the really application-specific, brackish residue that can't be so easily abstracted away. All the nice, reusable components sublimate away onto github and npm where everybody can collaborate to advance the commons." -- [substack](http://substack.net/how_I_write_modules)
 
