@@ -1,7 +1,7 @@
 {
   "name": "webtorrent",
   "version": "0.1.0",
-  "description": "A streaming torrent client in your browser, powered by webRTC data channels (no install)",
+  "description": "A streaming torrent client in your browser, powered by webRTC and black magic.",
   "main": "index.js",
   "dependencies": {
     "async": "0.x",
@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "tape": "*",
-    "call-log": "~0.1.0"
+    "call-log": "*"
   },
   "scripts": {
     "test": "tape test/*.js"
