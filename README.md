@@ -57,30 +57,29 @@ Since WebTorrent is web-first, it's dead simple for users to use without underst
 
 ## The Node Way&trade;
 
-"When applications are done well, they are just the really application-specific, brackish residue that can't be so easily abstracted away. All the nice, reusable components sublimate away onto github and npm where everybody can collaborate to advance the commons." -- [substack](http://substack.net/how_I_write_modules)
+"When applications are done well, they are just the really application-specific, brackish residue that can't be so easily abstracted away. All the nice, reusable components sublimate away onto github and npm where everybody can collaborate to advance the commons." — [substack](http://substack.net/how_I_write_modules)
 
 - [webtorrent](https://github.com/feross/webtorrent) (this repo)
 - [magnet-uri](https://github.com/feross/magnet-uri)
-- webtorrent-protocol
-- webtorrent-dht
-- webtorrent-bootstrap
-- webworker-pool
-- webtorrent-verifier
-- sdp-compress
+- webtorrent-protocol (todo)
+- webtorrent-dht (todo)
+- webtorrent-bootstrap (todo)
+- webworker-pool (todo)
+- webtorrent-verifier (todo)
+- sdp-compress (todo)
 
 ### Hybrid client (Chrome App)
 
-- webtorrent-chrome
-- [chrome-app-socket](https://github.com/feross/chrome-app-socket)
+- webtorrent-chrome (todo)
+- [chrome-app-socket](https://github.com/feross/chrome-app-socket) ([chrome-dgram](https://github.com/feross/chrome-dgram) & [chrome-net](https://github.com/feross/chrome-net))
 
-
-## Todo for basic working version
+## TODO for basic working version
 
 - Build bittorrent client as Chrome App (connects to normal BT network)
   - ~~Use UDP/TCP APIs~~
   - ~~Support DHT~~
   - Support magnet links (fetching .torrent from network)
-  - Support peer write protocol
+  - Support peer wire protocol
   - Support large file saving (FileSystem API?)
 - Make WebRTC data channel work on the server
 - DHT over WebRTC (add new method for peer introduction)
@@ -90,10 +89,10 @@ Since WebTorrent is web-first, it's dead simple for users to use without underst
 - Streaming video
   - MediaSource into `video` tag
   - Flash player for other media types
-- Easy torrent creation
 
 ## Todo eventually
 
+- Easy torrent creation
 - UPnP or NAT-PMP (so the hybrid client can get listed in peers' routing tables)
 
 ## Introduction to WebRTC Data and WebTorrent
