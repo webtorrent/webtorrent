@@ -1,4 +1,6 @@
-WebTorrent - BitTorrent over WebRTC
+![WebTorrent](https://raw.github.com/feross/webtorrent/master/img/wordmark.png)
+
+BitTorrent in the Browser (via WebRTC)
 ==========
 
 A streaming torrent client in your browser, powered by webRTC and black magic.
@@ -61,6 +63,9 @@ Since WebTorrent is web-first, it's dead simple for users to use without underst
 
 - [webtorrent](https://github.com/feross/webtorrent) (this repo)
 - [magnet-uri](https://github.com/feross/magnet-uri)
+- bittorent-dht (todo)
+- bittorent-protocol (todo)
+- bittorent-swarm (todo)
 - webtorrent-protocol (todo)
 - webtorrent-dht (todo)
 - webtorrent-bootstrap (todo)
