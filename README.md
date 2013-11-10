@@ -1,7 +1,6 @@
 ![WebTorrent](https://raw.github.com/feross/webtorrent/master/img/wordmark.png)
 
-BitTorrent in the Browser (via WebRTC)
-==========
+## WebTorrent - BitTorrent in the Browser (via WebRTC)
 
 A streaming torrent client in your browser, powered by webRTC and black magic.
 
@@ -9,9 +8,6 @@ A streaming torrent client in your browser, powered by webRTC and black magic.
 [![Dependency Status](https://david-dm.org/feross/webtorrent.png)](https://david-dm.org/feross/webtorrent)
 
 > Warning: This is pre-alpha software. Nothing works yet. **Watch/star to follow along with progress.**
-
-![Magic](https://raw.github.com/feross/webtorrent/master/img/logo.png)
-
 
 ## Project Goal
 
@@ -61,6 +57,8 @@ Since WebTorrent is web-first, it's dead simple for users to use without underst
 
 "When applications are done well, they are just the really application-specific, brackish residue that can't be so easily abstracted away. All the nice, reusable components sublimate away onto github and npm where everybody can collaborate to advance the commons." — [substack](http://substack.net/how_I_write_modules)
 
+These are the modules we are writing to make WebTorrent work:
+
 - [webtorrent](https://github.com/feross/webtorrent) (this repo)
 - [magnet-uri](https://github.com/feross/magnet-uri)
 - bittorent-dht (todo)
@@ -77,6 +75,8 @@ Since WebTorrent is web-first, it's dead simple for users to use without underst
 
 - webtorrent-chrome (todo)
 - [chrome-app-socket](https://github.com/feross/chrome-app-socket) ([chrome-dgram](https://github.com/feross/chrome-dgram) & [chrome-net](https://github.com/feross/chrome-net))
+
+![Magic](https://raw.github.com/feross/webtorrent/master/img/logo.png)
 
 ## TODO for basic working version
 
