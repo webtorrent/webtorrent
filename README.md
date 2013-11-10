@@ -51,7 +51,7 @@ Since WebTorrent is web-first, it's dead simple for users to use without underst
 
 - WebTorrent is slower at finding peers since "DHT over WebRTC" requires multiple roundtrips for peer introductions. (This is a requirement of WebRTC signaling - no way around this)
 - WebTorrent peers must keep their browser tab open to seed (Show UI to encourage seeding back at least 2x)
-- Slower piece verification (SHA1) (max 2MB/s with web worker pool, Web Crpyto API will bring huge speed-up when it's finally ready)
+- Slower piece verification (SHA1) (max 2MB/s with web worker pool, Web Crypto API will bring huge speed-up when it's finally ready)
 - WebTorrent bootstrap DHT node does *a bit* more work than a BitTorrent one since it must do WebRTC signaling. (Not a huge deal)
 
 
