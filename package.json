@@ -6,6 +6,7 @@
   "dependencies": {
     "async": "0.x",
     "bitfield": "0.x",
+    "bittorrent-dht": "0.x",
     "bncode": "0.x",
     "bops": "0.x",
     "browserify": "2.x",

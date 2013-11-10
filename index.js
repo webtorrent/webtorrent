@@ -9,7 +9,7 @@
 //   if (process.env.DEBUG !== 'false') console.log.apply(console, arguments)
 // }
 
-var DHT = require('./lib/bittorrent-dht')
+var DHT = require('bittorrent-dht')
 var hat = require('hat')
 var magnet = require('magnet-uri')
 var Swarm = require('./lib/peer-wire-swarm')
