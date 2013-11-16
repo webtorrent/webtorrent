@@ -1,16 +1,17 @@
 # ![WebTorrent](https://raw.github.com/feross/webtorrent/master/img/wordmark.png)
-### WebTorrent - Streaming BitTorrent client for the browser (via WebRTC)
+### WebTorrent - Streaming BitTorrent client for the browser
 
 [![Build Status](https://travis-ci.org/feross/webtorrent.png?branch=master)](https://travis-ci.org/feross/webtorrent)
 [![Dependency Status](https://david-dm.org/feross/webtorrent.png)](https://david-dm.org/feross/webtorrent)
 
 > Warning: This is pre-alpha software. Nothing works yet. **Watch/star to follow along with progress.**
 
+
 ## Project Goal
 
-Build a fully-interoperable web-based BitTorrent client that can be used without an install (no app/plugin/extension/etc.).
+Build a browser BitTorrent client that requires no install (no plugin/extension/etc.) and fully-interoperates with the regular BitTorrent network. Use WebRTC Data Channels for peer-to-peer transport.
 
-Since WebTorrent is web-first, it's dead simple for users to use without understanding .torrent, magnet links, clients, etc. By making BitTorrent easier, it will be accessible to new swathes of users who were previously intimidated, confused, or unwilling to install a program on their machine to participate.
+Since WebTorrent is web-first, it's simple for users who do not understand .torrent files, magnet links, NATs, etc. By making BitTorrent easier, it will be accessible to new swathes of users who were previously intimidated, confused, or unwilling to install a program on their machine to participate.
 
 
 ## Planned Features
@@ -50,18 +51,15 @@ Since WebTorrent is web-first, it's dead simple for users to use without underst
 - WebTorrent bootstrap DHT node does *a bit* more work than a BitTorrent one since it must do WebRTC signaling. (Not a huge deal)
 
 
-## The Node Way&trade;
-
-"When applications are done well, they are just the really application-specific, brackish residue that can't be so easily abstracted away. All the nice, reusable components sublimate away onto github and npm where everybody can collaborate to advance the commons." — [substack](http://substack.net/how_I_write_modules)
-
-![Magic](https://raw.github.com/feross/webtorrent/master/img/logo.png)
+## NPM Modules
 
 These are the modules we are writing to make WebTorrent work:
 
 - [webtorrent](https://github.com/feross/webtorrent) (this repo)
 - [magnet-uri](https://github.com/feross/magnet-uri)
-- [bittorrent-dht](https://github.com/feross/bittorrent-dht) (WIP)
-- [bittorrent-protocol](https://github.com/feross/bittorrent-protocol) (WIP)
+- [chrome-app-socket](https://github.com/feross/chrome-app-socket) (bundles [chrome-dgram](https://github.com/feross/chrome-dgram) & [chrome-net](https://github.com/feross/chrome-net))
+- [bittorrent-dht](https://github.com/feross/bittorrent-dht) (work-in-progress)
+- [bittorrent-protocol](https://github.com/feross/bittorrent-protocol) (work-in-progress)
 - bittorrent-swarm (todo)
 - webtorrent-protocol (todo)
 - webtorrent-dht (todo)
@@ -69,11 +67,13 @@ These are the modules we are writing to make WebTorrent work:
 - webworker-pool (todo)
 - webtorrent-verifier (todo)
 - sdp-compress (todo)
-
-### Hybrid client (Chrome App)
-
 - webtorrent-chrome (todo)
-- [chrome-app-socket](https://github.com/feross/chrome-app-socket) ([chrome-dgram](https://github.com/feross/chrome-dgram) & [chrome-net](https://github.com/feross/chrome-net))
+
+### The Node Way&trade;
+
+"When applications are done well, they are just the really application-specific, brackish residue that can't be so easily abstracted away. All the nice, reusable components sublimate away onto github and npm where everybody can collaborate to advance the commons." — [substack](http://substack.net/how_I_write_modules)
+
+![Magic](https://raw.github.com/feross/webtorrent/master/img/logo.png)
 
 
 ## TODO for basic working version
@@ -93,10 +93,12 @@ These are the modules we are writing to make WebTorrent work:
   - MediaSource into `video` tag
   - Flash player for other media types
 
+
 ## Todo eventually
 
 - Easy torrent creation
 - UPnP or NAT-PMP (so the hybrid client can get listed in peers' routing tables)
+
 
 ## Introduction to WebRTC Data and WebTorrent
 
@@ -107,7 +109,8 @@ These are the modules we are writing to make WebTorrent work:
 
 ## Useful Links
 
-- [BitTorrent Spec](https://wiki.theory.org/BitTorrentSpecification)
+- [BitTorrent Spec (BEP 0003)](http://www.bittorrent.org/beps/bep_0003.html)
+- [BitTorrent Spec (Wiki)](https://wiki.theory.org/BitTorrentSpecification)
 - [Reference BitTorrent Client (BTPD)](https://github.com/btpd/btpd)
 
 ### DHT
