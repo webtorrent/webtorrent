@@ -126,7 +126,8 @@ These are the modules we are writing to make WebTorrent work:
 
 ## Contributors
 
-- *Contributions welcome! Add yourself here when you send a pull request.*
+*Contributions welcome! Add yourself here when you send a pull request.*
+- [Nick Huber](http://thenickhuber.com)
 
 
 ## License
