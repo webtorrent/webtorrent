@@ -1,9 +1,0 @@
-{
-  "asi": true,
-  "laxbreak": true,
-  "expr": true,
-  "strict": false,
-  "node": true,
-  "browser": true,
-  "devel": true
-}
