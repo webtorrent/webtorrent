@@ -1,6 +1,8 @@
 bundle.js
 tmp
-*.out
+node_modules
+
+npm-debug.log
 
 lib-cov
 *.seed
@@ -16,6 +18,3 @@ lib-cov
 pids
 logs
 results
-
-npm-debug.log
-node_modules
