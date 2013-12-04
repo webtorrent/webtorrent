@@ -13,6 +13,29 @@ Build a browser BitTorrent client that requires no install (no plugin/extension/
 
 Since WebTorrent is web-first, it's simple for users who do not understand .torrent files, magnet links, NATs, etc. By making BitTorrent easier, it will be accessible to new swathes of users who were previously intimidated, confused, or unwilling to install a program on their machine to participate.
 
+## NPM Modules
+
+Most of the development is happening inside of smaller npm modules which will be used by WebTorrent. These are the modules we are writing to make WebTorrent work:
+
+- [webtorrent](https://github.com/feross/webtorrent) (main repo)
+- [magnet-uri](https://github.com/feross/magnet-uri)
+- [chrome-app-socket](https://github.com/feross/chrome-app-socket) (bundles [chrome-dgram](https://github.com/feross/chrome-dgram) & [chrome-net](https://github.com/feross/chrome-net))
+- [native-buffer-browserify](https://github.com/feross/native-buffer-browserify)
+- [bittorrent-protocol](https://github.com/feross/bittorrent-protocol)
+- [bittorrent-dht](https://github.com/feross/bittorrent-dht) (work-in-progress)
+- bittorrent-swarm (work-in-progress)
+- webtorrent-protocol (todo)
+- webtorrent-dht (todo)
+- webtorrent-bootstrap (todo)
+- webworker-pool (todo)
+- webtorrent-verifier (todo)
+- sdp-compress (todo)
+- webtorrent-chrome (todo)
+
+### The Node Way&trade;
+
+"When applications are done well, they are just the really application-specific, brackish residue that can't be so easily abstracted away. All the nice, reusable components sublimate away onto github and npm where everybody can collaborate to advance the commons." — substack from ["how I write modules"](http://substack.net/how_I_write_modules)
+
 
 ## Planned Features
 
@@ -51,32 +74,6 @@ Since WebTorrent is web-first, it's simple for users who do not understand .torr
 - WebTorrent bootstrap DHT node does *a bit* more work than a BitTorrent one since it must do WebRTC signaling. (Not a huge deal)
 
 
-## NPM Modules
-
-These are the modules we are writing to make WebTorrent work:
-
-- [webtorrent](https://github.com/feross/webtorrent) (this repo)
-- [magnet-uri](https://github.com/feross/magnet-uri)
-- [chrome-app-socket](https://github.com/feross/chrome-app-socket) (bundles [chrome-dgram](https://github.com/feross/chrome-dgram) & [chrome-net](https://github.com/feross/chrome-net))
-- [native-buffer-browserify](https://github.com/feross/native-buffer-browserify)
-- [bittorrent-dht](https://github.com/feross/bittorrent-dht) (work-in-progress)
-- [bittorrent-protocol](https://github.com/feross/bittorrent-protocol) (work-in-progress)
-- bittorrent-swarm (todo)
-- webtorrent-protocol (todo)
-- webtorrent-dht (todo)
-- webtorrent-bootstrap (todo)
-- webworker-pool (todo)
-- webtorrent-verifier (todo)
-- sdp-compress (todo)
-- webtorrent-chrome (todo)
-
-### The Node Way&trade;
-
-"When applications are done well, they are just the really application-specific, brackish residue that can't be so easily abstracted away. All the nice, reusable components sublimate away onto github and npm where everybody can collaborate to advance the commons." — [substack](http://substack.net/how_I_write_modules)
-
-![Magic](https://raw.github.com/feross/webtorrent/master/img/logo.png)
-
-
 ## TODO for basic working version
 
 - Build bittorrent client as Chrome App (connects to normal BT network)
@@ -113,9 +110,6 @@ These are the modules we are writing to make WebTorrent work:
 - [BitTorrent Spec (BEP 0003)](http://www.bittorrent.org/beps/bep_0003.html)
 - [BitTorrent Spec (Wiki)](https://wiki.theory.org/BitTorrentSpecification)
 - [Reference BitTorrent Client (BTPD)](https://github.com/btpd/btpd)
-
-### DHT
-
 - [DHT Protocol](http://www.bittorrent.org/beps/bep_0005.html)
 - [Kademlia Paper](http://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf)
 - [Main DHT implementation](https://github.com/jech/dht)
@@ -132,7 +126,8 @@ These are the modules we are writing to make WebTorrent work:
 
 - *Contributions welcome! Add yourself here when you send a pull request.*
 
-
 ## License
 
 MIT
+
+![Magic](https://raw.github.com/feross/webtorrent/master/img/logo.png)
