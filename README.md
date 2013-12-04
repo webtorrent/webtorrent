@@ -58,6 +58,7 @@ These are the modules we are writing to make WebTorrent work:
 - [webtorrent](https://github.com/feross/webtorrent) (this repo)
 - [magnet-uri](https://github.com/feross/magnet-uri)
 - [chrome-app-socket](https://github.com/feross/chrome-app-socket) (bundles [chrome-dgram](https://github.com/feross/chrome-dgram) & [chrome-net](https://github.com/feross/chrome-net))
+- [native-buffer-browserify](https://github.com/feross/native-buffer-browserify)
 - [bittorrent-dht](https://github.com/feross/bittorrent-dht) (work-in-progress)
 - [bittorrent-protocol](https://github.com/feross/bittorrent-protocol) (work-in-progress)
 - bittorrent-swarm (todo)
