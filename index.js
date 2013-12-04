@@ -1,7 +1,5 @@
 /* global chrome */
 
-// TODO: get .torrent file from magnet link
-
 // window.log = function (data) {
 //   document.getElementById('console').innerHTML += data + '<br>'
 // }
@@ -9,18 +7,19 @@
 //   if (process.env.DEBUG !== 'false') console.log.apply(console, arguments)
 // }
 
+var Protocol = require('bittorrent-protocol')
 var DHT = require('bittorrent-dht')
 var hat = require('hat')
 var magnet = require('magnet-uri')
-var Swarm = require('./lib/peer-wire-swarm')
+var net = require('net')
+var Swarm = require('bittorrent-swarm')
 
-window.bops = require('bops')
 var isChromeApp = !!(window.chrome && chrome.app && chrome.app.runtime)
 if (isChromeApp) {
   console.log('This is a Chrome App')
 }
 
-var peerId = '-WW0001-'+hat(48)
+var peerId = '-WW0001-' + hat(48)
 
 // var pride = '1E69917FBAA2C767BCA463A96B5572785C6D8A12'
 // var leaves = 'D2474E86C95B19B8BCFDB92BC12C9D44667CFA36'
@@ -37,41 +36,42 @@ var dht = window.dht = new DHT(infoHash)
 var swarm = new Swarm(infoHash, peerId)
 
 dht.on('node', function (node, infoHash) {
-  // log('node: ' + node)
+  // console.log('node: ' + node)
 })
 dht.on('peer', function (peer, infoHash) {
+  console.log('peer: ' + peer)
   swarm.add(peer)
+
+  var parts = peer.split(':')
+  var conn = net.connect(parts[1], parts[0])
+
+  var wire = Protocol()
+
+  conn.on('end', function() {
+    conn.destroy()
+  })
+  conn.on('error', function() {
+    conn.destroy()
+  })
+  conn.on('close', function() {
+    wire.end()
+  })
+
+  wire.once('handshake', function(infoHash2, peerId, extensions) {
+    console.log('HANDSHAKE SUCCESS')
+    if (infoHash2.toString('hex') !== infoHash.toString('hex')) return conn.destroy()
+  })
+
+  conn.pipe(wire).pipe(conn)
+
+  wire.on('end', function() {
+    console.log('WIRE END')
+  })
+
+  wire.remoteAddress = peer
+  wire.handshake(infoHash, peerId)
 })
+
 dht.findPeers(300)
 
 var METADATA_BLOCK_SIZE = 1024*16
-
-
-// var compact2string = require("compact2string");
-
-// var ipports = compact2string.multi(bops.from("0A0A0A05008064383a636f6d", "hex"))
-// console.log(ipports);
-
-
-// window.bops = require('bops')
-// var benc  = require("bncode")
-// var exmp = {}
-
-// exmp.bla = "blup"
-// exmp.foo = "bar"
-// exmp.one = 1
-// exmp.woah = {}
-// exmp.woah.arr = []
-// exmp.woah.arr.push(1)
-// exmp.woah.arr.push(2)
-// exmp.woah.arr.push(3)
-// exmp.str = bops.from("Buffers work too")
-// console.log(exmp)
-
-// window.bencBuffer = benc.encode(exmp)
-// console.log(bencBuffer)
-
-// window.original = benc.decode(bencBuffer)
-// console.log(original)
-
-
