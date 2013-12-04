@@ -25,6 +25,10 @@
     "tape": "*",
     "call-log": "*"
   },
+  "browser": {
+    "dgram": "./node_modules/chrome-dgram/index.js",
+    "net": "./node_modules/chrome-net/index.js"
+  },
   "scripts": {
     "test": "tape test/*.js",
     "build": "browserify --debug index.js > chrome/bundle.js",
