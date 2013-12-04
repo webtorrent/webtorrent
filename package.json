@@ -26,7 +26,10 @@
     "call-log": "*"
   },
   "scripts": {
-    "test": "tape test/*.js"
+    "test": "tape test/*.js",
+    "build": "browserify --debug index.js > chrome/bundle.js",
+    "app": "\"/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary\" --load-and-launch-app=chrome",
+    "start": "npm run build && npm run app"
   },
   "repository": {
     "type": "git",
