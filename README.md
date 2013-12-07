@@ -5,6 +5,8 @@
 [![Dependency Status](https://david-dm.org/feross/webtorrent.png)](https://david-dm.org/feross/webtorrent)
 [![Gittip](http://img.shields.io/gittip/feross.png)](https://www.gittip.com/feross/)
 
+> Warning: This is pre-alpha software. Nothing works yet. **Watch/star to follow along with progress.**
+
 ## Support development
 
 [![Donate BitCoins](https://raw.github.com/feross/webtorrent/master/img/bitcoin.png)](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96) Support development by sending Bitcoins to: 1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh
@@ -14,8 +16,6 @@
 Build a browser BitTorrent client that requires no install (no plugin/extension/etc.) and fully-interoperates with the regular BitTorrent network. Use WebRTC Data Channels for peer-to-peer transport.
 
 Since WebTorrent is web-first, it's simple for users who do not understand .torrent files, magnet links, NATs, etc. By making BitTorrent easier, it will be accessible to new swathes of users who were previously intimidated, confused, or unwilling to install a program on their machine to participate.
-
-> Warning: This is pre-alpha software. Nothing works yet. **Watch/star to follow along with progress.**
 
 ## NPM Modules
 
