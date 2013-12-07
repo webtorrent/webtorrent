@@ -3,9 +3,13 @@
 
 [![Build Status](https://travis-ci.org/feross/webtorrent.png?branch=master)](https://travis-ci.org/feross/webtorrent)
 [![Dependency Status](https://david-dm.org/feross/webtorrent.png)](https://david-dm.org/feross/webtorrent)
+[![Gittip](http://img.shields.io/gittip/feross.png)](https://www.gittip.com/feross/)
 
 > Warning: This is pre-alpha software. Nothing works yet. **Watch/star to follow along with progress.**
 
+## Support development
+
+[![Donate BitCoins](http://bitmate.net/wp-content/plugins/bitmate-author-donations/images/donate.png)](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96) Support development by sending Bitcoins to: 1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh
 
 ## Project Goal
 
