@@ -9,7 +9,7 @@
 
 ## Support development
 
-[![Donate BitCoins](https://raw.github.com/feross/webtorrent/master/img/bitcoin.png)](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96) Support development by sending Bitcoins to: 1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh
+[![Donate BitCoins](https://raw.github.com/feross/webtorrent/master/img/bitcoin.png)](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96) Send Bitcoins to: **1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh**
 
 ## Project Goal
 
