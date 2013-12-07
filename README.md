@@ -5,11 +5,9 @@
 [![Dependency Status](https://david-dm.org/feross/webtorrent.png)](https://david-dm.org/feross/webtorrent)
 [![Gittip](http://img.shields.io/gittip/feross.png)](https://www.gittip.com/feross/)
 
-> Warning: This is pre-alpha software. Nothing works yet. **Watch/star to follow along with progress.**
-
 ## Support development
 
-[![Donate BitCoins](http://bitmate.net/wp-content/plugins/bitmate-author-donations/images/donate.png)](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96) Support development by sending Bitcoins to: 1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh
+[![Donate BitCoins](https://raw.github.com/feross/webtorrent/master/img/bitcoin.png)](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96) Support development by sending Bitcoins to: 1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh
 
 ## Project Goal
 
@@ -17,9 +15,11 @@ Build a browser BitTorrent client that requires no install (no plugin/extension/
 
 Since WebTorrent is web-first, it's simple for users who do not understand .torrent files, magnet links, NATs, etc. By making BitTorrent easier, it will be accessible to new swathes of users who were previously intimidated, confused, or unwilling to install a program on their machine to participate.
 
+> Warning: This is pre-alpha software. Nothing works yet. **Watch/star to follow along with progress.**
+
 ## NPM Modules
 
-Most of the development is happening inside of smaller npm modules which will be used by WebTorrent. These are the modules we are writing to make WebTorrent work:
+Most of the active development is happening inside of smaller npm modules which will be used by WebTorrent. These are the modules we are writing to make WebTorrent work:
 
 - [webtorrent](https://github.com/feross/webtorrent) (main repo)
 - [magnet-uri](https://github.com/feross/magnet-uri)
