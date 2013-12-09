@@ -8,7 +8,7 @@
     "async": "0.x",
     "bittorrent-dht": "0.x",
     "bittorrent-protocol": "0.x",
-    "browserify": "2.x",
+    "browserify": "3.x",
     "chrome-dgram": "1.x",
     "chrome-net": "1.x",
     "core-util-is": "1.x",
