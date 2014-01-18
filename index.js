@@ -14,7 +14,8 @@ var magnet = require('magnet-uri')
 var net = require('net')
 var Swarm = require('bittorrent-swarm')
 
-var isChromeApp = !!(window.chrome && chrome.app && chrome.app.runtime)
+var isChromeApp = !!(typeof window !== 'undefined' && window.chrome &&
+    chrome.app && chrome.app.runtime)
 if (isChromeApp) {
   console.log('This is a Chrome App')
 }

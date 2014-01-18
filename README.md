@@ -117,8 +117,6 @@ Most of the active development is happening inside of smaller npm modules which 
 - [Reference BitTorrent Client (BTPD)](https://github.com/btpd/btpd)
 - [DHT Protocol](http://www.bittorrent.org/beps/bep_0005.html)
 - [Kademlia Paper](http://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf)
-- [Main DHT implementation](https://github.com/jech/dht)
-- [Optimized DHT bootstrap implementation](https://github.com/jech/dht-bootstrap)
 
 
 ## Authors
