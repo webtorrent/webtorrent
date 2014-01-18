@@ -8,6 +8,7 @@
     "async": "~0.2.9",
     "bittorrent-dht": "~0.2.0",
     "bittorrent-protocol": "~0.2.1",
+    "bittorrent-swarm": "~0.4.1",
     "browserify": "~3.20.0",
     "chrome-dgram": "~1.0.2",
     "chrome-net": "~1.1.2",
