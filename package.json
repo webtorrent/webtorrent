@@ -1,21 +1,20 @@
 {
   "name": "webtorrent",
   "version": "0.1.1",
-  "description": "A streaming torrent client in your browser, powered by webRTC and black magic.",
+  "description": "Streaming BitTorrent client for the browser",
   "homepage": "http://webtorrent.io",
   "main": "index.js",
   "dependencies": {
-    "async": "0.x",
-    "bittorrent-dht": "0.x",
-    "bittorrent-protocol": "0.x",
-    "browserify": "3.x",
-    "chrome-dgram": "1.x",
-    "chrome-net": "1.x",
-    "core-util-is": "1.x",
-    "hat": "0.x",
-    "magnet-uri": "0.x",
-    "read-torrent": "0.x",
-    "speedometer": "0.x"
+    "async": "~0.2.9",
+    "bittorrent-dht": "~0.2.0",
+    "bittorrent-protocol": "~0.2.1",
+    "browserify": "~3.20.0",
+    "chrome-dgram": "~1.0.2",
+    "chrome-net": "~1.1.2",
+    "hat": "0.0.3",
+    "magnet-uri": "~0.1.4",
+    "read-torrent": "~0.2.0",
+    "speedometer": "~0.1.2"
   },
   "devDependencies": {
     "tape": "*"
