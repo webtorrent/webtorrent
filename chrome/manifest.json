@@ -1,0 +1,30 @@
+{
+  "manifest_version": 2,
+
+  "name": "Hello World!",
+  "description": "My first Chrome App.",
+  "version": "0.1.0",
+
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
+
+  "permissions": [
+    {
+      "socket": [
+        "tcp-connect:*:*",
+        "tcp-listen::*",
+        "udp-send-to::*",
+        "udp-bind::*"
+      ]
+    },
+    "storage",
+    "unlimitedStorage",
+    "fileSystem",
+    "http://*/*"
+  ],
+
+  "icons": { "16": "calculator-16.png", "128": "calculator-128.png" }
+}

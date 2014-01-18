@@ -17,7 +17,12 @@
     "speedometer": "~0.1.2"
   },
   "devDependencies": {
-    "tape": "*"
+    "tape": "*",
+    "call-log": "*"
+  },
+  "browser": {
+    "dgram": "./node_modules/chrome-dgram/index.js",
+    "net": "./node_modules/chrome-net/index.js"
   },
   "scripts": {
     "test": "tape test/*.js",
