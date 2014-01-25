@@ -9,8 +9,6 @@
     "bittorrent-dht": "~0.2.0",
     "bittorrent-protocol": "~0.2.1",
     "bittorrent-swarm": "~0.0.1",
-    "chrome-dgram": "~1.0.2",
-    "chrome-net": "~1.1.2",
     "browserify": "3.x",
     "hat": "0.0.3",
     "magnet-uri": "~0.1.4",
@@ -20,10 +18,6 @@
   "devDependencies": {
     "tape": "*",
     "call-log": "*"
-  },
-  "browser": {
-    "dgram": "./node_modules/chrome-dgram/index.js",
-    "net": "./node_modules/chrome-net/index.js"
   },
   "scripts": {
     "test": "tape test/*.js",
