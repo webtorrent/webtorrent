@@ -6,12 +6,12 @@
   "main": "index.js",
   "dependencies": {
     "async": "~0.2.9",
-    "bittorrent-dht": "~0.2.0",
-    "bittorrent-protocol": "~0.2.1",
-    "bittorrent-swarm": "~0.0.1",
+    "bittorrent-dht": "0.x",
+    "bittorrent-protocol": "0.x",
+    "bittorrent-swarm": "0.x",
     "browserify": "3.x",
     "hat": "0.0.3",
-    "magnet-uri": "~0.1.4",
+    "magnet-uri": "0.x",
     "read-torrent": "~0.2.0",
     "speedometer": "~0.1.2"
   },
