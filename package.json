@@ -13,17 +13,31 @@
     "hat": "0.0.3",
     "magnet-uri": "0.x",
     "read-torrent": "~0.2.0",
-    "speedometer": "~0.1.2"
+    "speedometer": "~0.1.2",
+    "jquery": "~2.1.0",
+    "browserify-shim": "~3.2.2"
   },
   "devDependencies": {
+    "nodemon": "1.x",
     "tape": "2.x",
-    "nodemon": "~1.0.13"
+    "watchify": "0.x"
   },
   "scripts": {
     "build": "browserify --debug index.js > chrome/bundle.js",
     "watch": "watchify --debug index.js -o chrome/bundle.js & nodemon -w chrome/bundle.js ./bin/start.js",
     "start": "npm run build && ./bin/start.js",
     "test": "tape test/*.js"
+  },
+  "browser": {
+    "jquery": "./node_modules/jquery/dist/jquery.min.js"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "browserify-shim": {
+    "jquery": "jQuery"
   },
   "repository": {
     "type": "git",
@@ -38,7 +52,11 @@
     "webtorrent",
     "mad science"
   ],
-  "author": "Feross Aboukhadijeh <feross@feross.org> (http://feross.org/)",
+  "author": {
+    "name": "Feross Aboukhadijeh",
+    "email": "feross@feross.org",
+    "url": "http://feross.org/"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/feross/webtorrent/issues"
