@@ -1,7 +1,17 @@
-window.log = function (data) {
+var _log = console.log.bind(console)
+window.console.log = window.log = function (data) {
   var elem = document.getElementById('console')
   elem.innerHTML += data + '<br>'
   elem.scrollTop = elem.scrollHeight
+  _log(data)
+}
+
+var _error = console.error.bind(console)
+window.console.error = function (data) {
+  var elem = document.getElementById('console')
+  elem.innerHTML += '<span style="color: red;">' + data + '</span><br>'
+  elem.scrollTop = elem.scrollHeight
+  _error(data)
 }
 
 var $ = require('jquery')
@@ -16,7 +26,7 @@ var METADATA_BLOCK_SIZE = 16 * 1024
 var isChromeApp = !!(typeof window !== 'undefined' && window.chrome &&
     window.chrome.app && window.chrome.app.runtime)
 if (isChromeApp)
-  console.log('This is a Chrome App')
+  console.log('This is a chrome app.')
 
 var peerId = '-WW0001-' + hat(48)
 
@@ -56,7 +66,7 @@ dht.on('peer', function (peer, infoHash) {
   var num = Number($('.dhtPeers span').text())
   $('.dhtPeers span').text(num + 1)
 
-  log('peer: ' + peer)
+  console.log('peer: ' + peer)
   swarm.add(peer)
 })
 
