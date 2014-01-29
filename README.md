@@ -1,12 +1,13 @@
 # ![WebTorrent](https://raw.github.com/feross/webtorrent/master/img/wordmark.png)
-### WebTorrent - Streaming BitTorrent client for the browser
-
 [![Build Status](http://img.shields.io/travis/feross/webtorrent.svg)](https://travis-ci.org/feross/webtorrent)
 [![NPM Version](http://img.shields.io/npm/v/webtorrent.svg)](https://npmjs.org/package/webtorrent)
 [![NPM](http://img.shields.io/npm/dm/webtorrent.svg)](https://npmjs.org/package/webtorrent)
 [![Gittip](http://img.shields.io/gittip/feross.svg)](https://www.gittip.com/feross/)
 
+### WebTorrent - Streaming BitTorrent client for the browser
+
 > Warning: This is pre-alpha software. Nothing works yet. **Watch/star to follow along with progress.**
+
 
 ## Support development!
 
@@ -16,11 +17,27 @@ I'm currently working on WebTorrent almost every night in my spare time. Please 
 
 Send Bitcoins to: **1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh** or [donate easily via Coinbase](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96).
 
+
+## Planned Features
+
+- **BitTorrent in your browser!**
+- **No plugins** (uses WebRTC Data Channels for peer-to-peer data)
+- **Streaming playback** (get first pieces first)
+  - Into `video` tag with MediaSource API when possible
+  - Flash player with JS bridge for other media types
+- Works with .torrent files and magnet links
+- Supports DHT (trackerless torrents) over WebRTC
+  - Extensions to DHT protocol to work over WebRTC
+  - DHT nodes do "peer introductions" so WebRTC can work without a centralized signaling server
+- **Supports completely serverless, trackerless operation**
+
+
 ## Project Goal
 
 Build a browser BitTorrent client that requires no install (no plugin/extension/etc.) and fully-interoperates with the regular BitTorrent network. Use WebRTC Data Channels for peer-to-peer transport.
 
 Since WebTorrent is web-first, it's simple for users who do not understand .torrent files, magnet links, NATs, etc. By making BitTorrent easier, it will be accessible to new swathes of users who were previously intimidated, confused, or unwilling to install a program on their machine to participate.
+
 
 ## NPM Modules
 
@@ -47,19 +64,6 @@ Most of the active development is happening inside of smaller npm modules which 
 "When applications are done well, they are just the really application-specific, brackish residue that can't be so easily abstracted away. All the nice, reusable components sublimate away onto github and npm where everybody can collaborate to advance the commons." — substack from ["how I write modules"](http://substack.net/how_I_write_modules)
 
 ![node.js is shiny](http://feross.net/x/node.gif)
-
-## Planned Features
-
-- **BitTorrent in your browser!**
-- **No plugins** (uses WebRTC Data Channels for peer-to-peer data)
-- **Streaming playback** (get first pieces first)
-  - Into `video` tag with MediaSource API when possible
-  - Flash player with JS bridge for other media types
-- Works with .torrent files and magnet links
-- Supports DHT (trackerless torrents) over WebRTC
-  - Extensions to DHT protocol to work over WebRTC
-  - DHT nodes do "peer introductions" so WebRTC can work without a centralized signaling server
-- **Supports completely serverless, trackerless operation**
 
 
 ## Interoperability with BitTorrent
@@ -97,6 +101,7 @@ Most of the active development is happening inside of smaller npm modules which 
     - MediaSource into `video` tag
     - Flash player for other media types
     - HTTP stream to VLC, like peerflix
+
 
 ## Todo eventually
 
