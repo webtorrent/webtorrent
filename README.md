@@ -1,15 +1,20 @@
 # ![WebTorrent](https://raw.github.com/feross/webtorrent/master/img/wordmark.png)
 ### WebTorrent - Streaming BitTorrent client for the browser
 
-[![Build Status](https://travis-ci.org/feross/webtorrent.png?branch=master)](https://travis-ci.org/feross/webtorrent)
-[![Dependency Status](https://david-dm.org/feross/webtorrent.png)](https://david-dm.org/feross/webtorrent)
-[![Gittip](http://img.shields.io/gittip/feross.png)](https://www.gittip.com/feross/)
+[![Build Status](http://img.shields.io/travis/feross/webtorrent.svg)](https://travis-ci.org/feross/webtorrent)
+[![NPM Version](http://img.shields.io/npm/v/webtorrent.svg)](https://npmjs.org/package/webtorrent)
+[![NPM](http://img.shields.io/npm/dm/webtorrent.svg)](https://npmjs.org/package/webtorrent)
+[![Gittip](http://img.shields.io/gittip/feross.svg)](https://www.gittip.com/feross/)
 
 > Warning: This is pre-alpha software. Nothing works yet. **Watch/star to follow along with progress.**
 
-## Support development
+## Support development!
 
-[![Donate BitCoins](https://raw.github.com/feross/webtorrent/master/img/bitcoin.png)](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96) Send Bitcoins to: **1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh**
+I fight for the users. JavaScript and WebRTC are my sword and shield. Your donations allow me to spend more time vanquishing the enemy.
+
+I'm currently working on WebTorrent almost every night in my spare time. Please support me if you believe in the vision.
+
+Send Bitcoins to: **1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh** or [donate easily via Coinbase](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96).
 
 ## Project Goal
 
@@ -19,7 +24,7 @@ Since WebTorrent is web-first, it's simple for users who do not understand .torr
 
 ## NPM Modules
 
-Most of the active development is happening inside of smaller npm modules which will be used by WebTorrent. These are the modules we are writing to make WebTorrent work:
+Most of the active development is happening inside of smaller npm modules which will be used by WebTorrent. These are the modules I am writing to make WebTorrent work:
 
 - [webtorrent](https://github.com/feross/webtorrent) (main repo)
 - [magnet-uri](https://github.com/feross/magnet-uri)
@@ -130,6 +135,6 @@ Most of the active development is happening inside of smaller npm modules which 
 
 ## License
 
-MIT
+MIT. Copyright (c) [Feross Aboukhadijeh](http://feross.org).
 
 ![Magic](https://raw.github.com/feross/webtorrent/master/img/logo.png)
