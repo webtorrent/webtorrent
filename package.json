@@ -24,7 +24,7 @@
   },
   "scripts": {
     "build": "browserify --debug index.js > chrome/bundle.js",
-    "watch": "watchify --debug index.js -o chrome/bundle.js & nodemon -w chrome/bundle.js ./bin/start.js",
+    "watch": "watchify index.js -o chrome/bundle.js -dv & nodemon -w chrome/bundle.js ./bin/start.js",
     "start": "npm run build && ./bin/start.js",
     "test": "tape test/*.js"
   },
