@@ -48,7 +48,7 @@ Most of the active development is happening inside of smaller npm modules which 
 - [chrome-app-socket](https://github.com/feross/chrome-app-socket) (bundles [chrome-dgram](https://github.com/feross/chrome-dgram) & [chrome-net](https://github.com/feross/chrome-net))
 - [native-buffer-browserify](https://github.com/feross/native-buffer-browserify)
 - [bittorrent-protocol](https://github.com/feross/bittorrent-protocol)
-- [bittorrent-swarm](https://github.com/feross/bittorrent-swarm) (work-in-progress)
+- [bittorrent-swarm](https://github.com/feross/bittorrent-swarm)
 - [bittorrent-dht](https://github.com/feross/bittorrent-dht) (work-in-progress)
 - webtorrent-protocol (todo)
 - webtorrent-dht (todo)
