@@ -54,19 +54,24 @@ $('.infoHash span').text(infoHash)
 $('.displayName span').text(displayName)
 
 var dht = new DHT(infoHash)
-dht.findPeers(MAX_PEERS)
-
-var swarm = new Swarm(infoHash, peerId)
 
 dht.on('node', function (node, infoHash) {
   var num = Number($('.dhtNodes span').text())
   $('.dhtNodes span').text(num + 1)
 })
+
 dht.on('peer', function (peer, infoHash) {
   var num = Number($('.dhtPeers span').text())
   $('.dhtPeers span').text(num + 1)
-
   console.log('peer: ' + peer)
+
   swarm.add(peer)
 })
 
+dht.findPeers(MAX_PEERS) // TODO: should the DHT be concerned with max peers?
+
+var swarm = new Swarm(infoHash, peerId)
+
+swarm.on('wire', function (wire) {
+  $('.connectedPeers span').text(swarm.wires.length)
+})
