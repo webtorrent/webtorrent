@@ -21,6 +21,7 @@ var magnet = require('magnet-uri')
 var Swarm = require('bittorrent-swarm')
 
 var MAX_PEERS = 60
+var TIMEOUT = 10000
 var METADATA_BLOCK_SIZE = 16 * 1024
 
 var isChromeApp = !!(typeof window !== 'undefined' && window.chrome &&
@@ -74,4 +75,26 @@ var swarm = new Swarm(infoHash, peerId)
 
 swarm.on('wire', function (wire) {
   $('.connectedPeers span').text(swarm.wires.length)
+
+  // Send KEEP-ALIVE (every 60s) so peers will not disconnect the wire
+  wire.setKeepAlive(true)
+
+  // If peer supports DHT, send PORT message to report what port our DHT node
+  // is listening on
+  if (wire.peerExtensions.dht) {
+    // TODO: DHT doesn't support listening yet
+    // wire.port(dht.port)
+  }
+
+  // When peer sends PORT, add them to the routing table
+  wire.on('port', function (port) {
+    console.log('PORT', port)
+    // TODO: DHT doesn't have a routing table
+    // dht.add(wire.remoteAddress, port)
+  })
+
+  // Time to wait before considering requests timed out
+  wire.setTimeout(TIMEOUT)
+
+
 })
