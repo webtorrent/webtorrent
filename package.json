@@ -5,17 +5,19 @@
   "homepage": "http://webtorrent.io",
   "main": "index.js",
   "dependencies": {
-    "async": "~0.2.9",
+    "async": "~0.2.10",
     "bittorrent-dht": "0.x",
     "bittorrent-protocol": "0.x",
     "bittorrent-swarm": "0.x",
+    "bncode": "~0.5.2",
     "browserify": "3.x",
+    "browserify-shim": "~3.2.2",
     "hat": "0.0.3",
+    "jquery": "~2.1.0",
     "magnet-uri": "0.x",
     "read-torrent": "~0.2.0",
     "speedometer": "~0.1.2",
-    "jquery": "~2.1.0",
-    "browserify-shim": "~3.2.2"
+    "portfinder": "~0.2.1"
   },
   "devDependencies": {
     "nodemon": "1.x",
