@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "Hello World!",
-  "description": "My first Chrome App.",
+  "name": "WebTorrent",
+  "description": "Simple, robust BitTorrent client for the browser",
   "version": "0.1.0",
 
   "app": {
