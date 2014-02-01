@@ -101,7 +101,7 @@ async.auto({
     swarm.on('wire', function (wire) {
       $('.connectedPeers span').text(swarm.wires.length)
 
-      // Send KEEP-ALIVE (every 60s) so peers will not disconnect the wire
+      // Send KEEP-ALIVE (every 60s) so peers will not disconnect the wire
       wire.setKeepAlive(true)
 
       // If peer supports DHT, send PORT message to report what port our DHT node
