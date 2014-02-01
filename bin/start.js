@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var cp = require('child_process')
 
 var BIN = '/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary'
