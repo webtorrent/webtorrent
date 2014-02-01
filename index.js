@@ -65,6 +65,9 @@ var displayName = magnetToDisplayName(magnetUri)
 $('.infoHash span').text(infoHash)
 $('.displayName span').text(displayName)
 
+var dht
+var swarm
+
 async.auto({
   dhtPort: function (cb) {
     portfinder.getPort(cb)
@@ -73,7 +76,7 @@ async.auto({
     portfinder.getPort(cb)
   },
   dht: ['dhtPort', function (cb, r) {
-    var dht = new DHT(infoHash)
+    dht = new DHT(infoHash)
 
     dht.on('node', function (node, infoHash) {
       var num = Number($('.dhtNodes span').text())
@@ -94,7 +97,7 @@ async.auto({
     // dht.listen(r.dhtPort)
   }],
   swarm: ['swarmPort', function (cb, r) {
-    var swarm = new Swarm(infoHash, peerId, { dht: true })
+    swarm = new Swarm(infoHash, peerId, { dht: true })
 
     // TODO: add swarm listen and add ourselves to the DHT
 
