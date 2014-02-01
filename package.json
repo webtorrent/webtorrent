@@ -1,6 +1,6 @@
 {
   "name": "webtorrent",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Streaming BitTorrent client for the browser",
   "homepage": "http://webtorrent.io",
   "main": "index.js",
