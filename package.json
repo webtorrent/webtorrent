@@ -29,6 +29,7 @@
     "bncode": "~0.5.2",
     "browserify": "3.x",
     "browserify-shim": "~3.2.2",
+    "chrome-portfinder": "~0.2.2",
     "hat": "0.0.3",
     "jquery": "~2.1.0",
     "magnet-uri": "0.x",
