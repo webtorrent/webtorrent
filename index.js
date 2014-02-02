@@ -138,17 +138,18 @@ async.auto({
       }
 
       wire.on('extended', function (ext, buf) {
+        var dict
         console.log('Received extended message ' + ext + ' from ' + wire.remoteAddress)
 
-        var dict
-        try {
-          console.log('decoding ' + buf.toString())
-          dict = bncode.decode(buf.toString())
-        } catch (e) {
-          console.error('Error decoding extended message: ' + e.message)
-        }
-        console.log(dict)
         if (ext === 0) { // handshake
+
+          try {
+            console.log('decoding ' + buf.toString())
+            dict = bncode.decode(buf.toString())
+            console.log('got extended handshake: ' + JSON.stringify(dict))
+          } catch (e) {
+            console.error('Error decoding extended message: ' + e.message)
+          }
 
           if (dict.m.ut_metadata && dict.metadata_size) {
             var metadataSize = dict.metadata_size
@@ -168,11 +169,49 @@ async.auto({
           }
 
         } else if (ext === 1) { // ut_metadata
-          console.log('got metadata data: ' + dict)
+
+          // 0 - request
+          // 1 - data
+          // 2 - reject
+
+          var str
+          var dataIndex
+          var data
+          try {
+            str = buf.toString()
+            console.log('decoding ' + str)
+            dataIndex = str.indexOf('ee') + 2
+            var msg = str.substring(0, dataIndex)
+            console.log('using ' + msg)
+            dict = bncode.decode(msg)
+            data = buf.slice(dataIndex)
+            console.log('got metadata: ' + JSON.stringify(dict))
+            console.log('got metadata data: ' + data.length + ' bytes')
+          } catch (e) {
+            console.error('Error decoding extended message: ' + e.message)
+          }
+
           // {'msg_type': 1, 'piece': 0, 'total_size': 3425}
           if (dict.msg_type === 1) { // data
-            var dataIndex = bncode.encode(dict).length
-            data.copy(wire.metadata, piece * METADATA_BLOCK_SIZE, dataIndex)
+            console.log('total_size: ' + dict.total_size)
+            data.copy(wire.metadata, dict.piece * METADATA_BLOCK_SIZE)
+
+            var errorHandler = function (err) {
+              console.error('error' + err.toString())
+            }
+
+            chrome.fileSystem.chooseEntry({
+              type: 'saveFile',
+              suggestedName: displayName
+            }, function (writableFileEntry) {
+              writableFileEntry.createWriter(function (writer) {
+                writer.onerror = errorHandler
+                writer.onwriteend = function (e) {
+                  console.log('write complete')
+                }
+                writer.write(new Blob([wire.metadata]), { type: 'text/plain' })
+              }, errorHandler)
+            })
           }
         }
       })

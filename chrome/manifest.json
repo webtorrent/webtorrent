@@ -22,7 +22,13 @@
     },
     "storage",
     "unlimitedStorage",
-    "fileSystem",
+    {
+      "fileSystem": [
+        "write",
+        "retainEntries",
+        "directory"
+      ]
+    },
     "http://*/*"
   ],
 
