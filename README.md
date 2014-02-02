@@ -1,22 +1,19 @@
 # ![WebTorrent](https://raw.github.com/feross/webtorrent/master/img/wordmark.png)
-[![Build Status](http://img.shields.io/travis/feross/webtorrent.svg)](https://travis-ci.org/feross/webtorrent)
-[![NPM Version](http://img.shields.io/npm/v/webtorrent.svg)](https://npmjs.org/package/webtorrent)
-[![NPM](http://img.shields.io/npm/dm/webtorrent.svg)](https://npmjs.org/package/webtorrent)
-[![Gittip](http://img.shields.io/gittip/feross.svg)](https://www.gittip.com/feross/)
+[![Build Status](http://img.shields.io/travis/feross/webtorrent.png)](https://travis-ci.org/feross/webtorrent)
+[![NPM Version](http://img.shields.io/npm/v/webtorrent.png)](https://npmjs.org/package/webtorrent)
+[![NPM](http://img.shields.io/npm/dm/webtorrent.png)](https://npmjs.org/package/webtorrent)
+[![Gittip](http://img.shields.io/gittip/feross.png)](https://www.gittip.com/feross/)
 
 ### WebTorrent - Streaming BitTorrent client for the browser
 
 > Warning: This is pre-alpha software. Nothing works yet. **Watch/star to follow along with progress.**
 
 
-## Support development!
+### Ways to help
 
-I fight for the users. JavaScript and WebRTC are my sword and shield. Your donations allow me to spend more time vanquishing the enemy.
+**Donations.** I fight for the users. JavaScript and WebRTC are my sword and shield. Donations allow me to spend more time vanquishing the enemy. I'm currently working on WebTorrent almost every night in my spare time. Please support me if you believe in the vision. Send Bitcoins to: **1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh** or [donate easily via Coinbase](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96).
 
-I'm currently working on WebTorrent almost every night in my spare time. Please support me if you believe in the vision.
-
-Send Bitcoins to: **1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh** or [donate easily via Coinbase](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96).
-
+**Send pull requests.** Take a look at the [open issues](https://github.com/feross/webtorrent/issues?state=open) and see if there's something you can help with. Ideas and suggestions are welcome too.
 
 ## Planned Features
 
@@ -95,12 +92,14 @@ Most of the active development is happening inside of smaller npm modules which 
   - ~~Use UDP/TCP APIs~~
   - ~~Support DHT~~
   - ~~Support peer wire protocol~~
-  - Support magnet links (fetching .torrent from network)
-  - Support large file saving (FileSystem API?)
+  - ~~Support magnet links (fetching .torrent from network)~~
+  - Basic UI
+  - Fetching logic
+  - Large file saving (downloading in-memory for now, later IndexedDB/FileSystem API)
   - Streaming video, options:
+    - HTTP stream to VLC, like peerflix
     - MediaSource into `video` tag
     - Flash player for other media types
-    - HTTP stream to VLC, like peerflix
 
 
 ## Todo eventually
