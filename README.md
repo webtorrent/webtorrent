@@ -60,7 +60,7 @@ Most of the active development is happening inside of smaller npm modules which 
 
 "When applications are done well, they are just the really application-specific, brackish residue that can't be so easily abstracted away. All the nice, reusable components sublimate away onto github and npm where everybody can collaborate to advance the commons." — substack from ["how I write modules"](http://substack.net/how_I_write_modules)
 
-![node.js is shiny](http://feross.net/x/node.gif)
+![node.js is shiny](http://feross.net/x/node2.gif)
 
 
 ## Interoperability with BitTorrent
