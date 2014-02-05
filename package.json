@@ -8,7 +8,7 @@
     "url": "http://feross.org/"
   },
   "browser": {
-    "jquery": "./node_modules/jquery/dist/jquery.min.js"
+    "jquery": "jquery/dist/jquery.min.js"
   },
   "browserify": {
     "transform": [
