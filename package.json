@@ -22,17 +22,18 @@
     "url": "https://github.com/feross/webtorrent/issues"
   },
   "dependencies": {
+    "async": "~0.2.10",
     "bittorrent-dht": "0.x",
     "bittorrent-protocol": "0.x",
     "bittorrent-swarm": "0.x",
     "bncode": "~0.5.2",
     "browserify": "3.x",
     "browserify-shim": "~3.2.2",
+    "chrome-portfinder": "~0.2.4",
     "hat": "0.0.3",
     "inherits": "~2.0.1",
     "jquery": "~2.1.0",
     "magnet-uri": "1.x",
-    "portfinder": "~0.2.1",
     "read-torrent": "~0.2.0",
     "speedometer": "~0.1.2"
   },
