@@ -2,3 +2,7 @@
   height: 400px;
   overflow: scroll;
 }
+
+.highlight {
+  font-weight: bold;
+}
