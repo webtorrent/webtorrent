@@ -35,7 +35,8 @@
     "jquery": "~2.1.0",
     "magnet-uri": "1.x",
     "read-torrent": "~0.2.0",
-    "speedometer": "~0.1.2"
+    "speedometer": "~0.1.2",
+    "stylus": "~0.42.2"
   },
   "devDependencies": {
     "tape": "2.x",
@@ -58,8 +59,12 @@
     "url": "git://github.com/feross/webtorrent.git"
   },
   "scripts": {
-    "build": "browserify --debug index.js > chrome/bundle.js",
-    "watch": "watchify index.js -o chrome/bundle.js -dv",
+    "build-css": "stylus css/main.styl -o chrome/ -c",
+    "build-js": "browserify --debug index.js > chrome/bundle.js",
+    "build": "npm run build-js && npm run build-css",
+    "watch-css": "stylus css/main.styl -o chrome/ -w",
+    "watch-js": "watchify index.js -o chrome/bundle.js -dv",
+    "watch": "npm run watch-js & npm run watch-css",
     "start": "npm run build && ./bin/start.js",
     "test": "tape test/*.js"
   }
