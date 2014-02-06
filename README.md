@@ -1,8 +1,8 @@
 # ![WebTorrent](https://raw.github.com/feross/webtorrent/master/img/wordmark.png)
-[![Build Status](http://img.shields.io/travis/feross/webtorrent.png)](https://travis-ci.org/feross/webtorrent)
-[![NPM Version](http://img.shields.io/npm/v/webtorrent.png)](https://npmjs.org/package/webtorrent)
-[![NPM](http://img.shields.io/npm/dm/webtorrent.png)](https://npmjs.org/package/webtorrent)
-[![Gittip](http://img.shields.io/gittip/feross.png)](https://www.gittip.com/feross/)
+[![Build Status](http://img.shields.io/travis/feross/webtorrent.svg)](https://travis-ci.org/feross/webtorrent)
+[![NPM Version](http://img.shields.io/npm/v/webtorrent.svg)](https://npmjs.org/package/webtorrent)
+[![NPM](http://img.shields.io/npm/dm/webtorrent.svg)](https://npmjs.org/package/webtorrent)
+[![Gittip](http://img.shields.io/gittip/feross.svg)](https://www.gittip.com/feross/)
 
 ### WebTorrent - Streaming BitTorrent client for the browser
 
