@@ -41,9 +41,11 @@ Since WebTorrent is web-first, it's simple for users who do not understand .torr
 Most of the active development is happening inside of smaller npm modules which will be used by WebTorrent. These are the modules I am writing to make WebTorrent work:
 
 - [webtorrent](https://github.com/feross/webtorrent) (main repo)
+- [buffer](https://github.com/feross/native-buffer-browserify)
+- [chrome-net](https://github.com/feross/chrome-net)
+- [chrome-dgram](https://github.com/feross/chrome-dgram)
+- [chrome-portfinder](https://github.com/feross/chrome-portfinder)
 - [magnet-uri](https://github.com/feross/magnet-uri)
-- [chrome-app-socket](https://github.com/feross/chrome-app-socket) (bundles [chrome-dgram](https://github.com/feross/chrome-dgram) & [chrome-net](https://github.com/feross/chrome-net))
-- [native-buffer-browserify](https://github.com/feross/native-buffer-browserify)
 - [bittorrent-protocol](https://github.com/feross/bittorrent-protocol)
 - [bittorrent-swarm](https://github.com/feross/bittorrent-swarm)
 - [bittorrent-dht](https://github.com/feross/bittorrent-dht) (work-in-progress)
@@ -86,23 +88,22 @@ Most of the active development is happening inside of smaller npm modules which 
 - WebTorrent bootstrap DHT node does *a bit* more work than a BitTorrent one since it must do WebRTC signaling. (Not a huge deal)
 
 
-## TODO for basic working version
+## Todo for basic working bitorrent client as chrome app
 
-- Build bittorrent client as Chrome App (connects to normal BT network)
-  - ~~Use UDP/TCP APIs~~
-  - ~~Support DHT~~
-  - ~~Support peer wire protocol~~
-  - ~~Support magnet links (fetching .torrent from network)~~
-  - Basic UI
-  - Fetching logic
-  - Large file saving (downloading in-memory for now, later IndexedDB/FileSystem API)
-  - Streaming video, options:
-    - HTTP stream to VLC, like peerflix
-    - MediaSource into `video` tag
-    - Flash player for other media types
+- ~~Use UDP/TCP APIs~~
+- ~~Support DHT~~
+- ~~Support peer wire protocol~~
+- ~~Support magnet links (fetching .torrent from network)~~
+- Basic UI
+- Fetching logic
+- Large file saving (downloading in-memory for now, later IndexedDB/FileSystem API)
+- Streaming video, options:
+  - HTTP stream to VLC, like peerflix
+  - MediaSource into `video` tag
+  - Flash player for other media types
 
 
-## Todo eventually
+## Todo for webtorrent
 
 - DHT over WebRTC (add new method for peer introduction)
   - Use bootstrap server for initial introduction
