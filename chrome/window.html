@@ -2,10 +2,59 @@
 <html>
   <head>
     <title>WebTorrent</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
   </head>
   <body>
-    <h3>Torrent Info</h4>
+
+  <header>
+    <div class="system">
+      <i class="close fa fa-times-circle fa-lg"></i>
+      <i class="minimize fa fa-minus-circle fa-lg"></i>
+      <i class="maximize fa fa-plus-circle fa-lg"></i>
+      <i class="close fa fa-circle fa-lg"></i>
+      <i class="minimize fa fa-circle fa-lg"></i>
+      <i class="maximize fa fa-circle fa-lg"></i>
+    </div>
+    <div class="title">WebTorrent</div>
+    <div class="buttons"></div>
+  </header>
+  <div class="overallStats">
+    <span class="ratio"><i class="fa fa-bolt"></i>Ratio: <span>0.10</span></span>
+    <span class="upload"><i class="fa fa-arrow-up"></i><span>0.0 KB/s</span></span>
+    <span class="download"><i class="fa fa-arrow-down"></i><span>0.0 KB/s</span></span>
+  </div>
+
+  <main>
+    <section class="torrent" id="torrent_XXX">
+      <div class="image">
+        <img src="img/folder.png">
+      </div>
+      <div class="info">
+        <div class="title">Leaves of Grass by Walt Whitman</div>
+        <div class="stats">362 KB, uploaded 0 KB (Ratio: 0.00)</div>
+        <progress max="100" value="70"></progress>
+        <div class="stats2">Seeding to 0 of 0 peers - UL: 0.0 KB/s</div>
+      </div>
+    </section>
+    <section class="torrent" id="torrent_XXX">
+      <div class="image">
+        <img src="img/folder.png">
+      </div>
+      <div class="info">
+        <div class="title">Leaves of Grass by Walt Whitman</div>
+        <div class="stats">362 KB, uploaded 0 KB (Ratio: 0.00)</div>
+        <progress max="100" value="10"></progress>
+        <div class="stats2">Seeding to 0 of 0 peers - UL: 0.0 KB/s</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span class="numTransfers">1 transfer</span>
+  </footer>
+
+<!--     <h3>Torrent Info</h4>
     <ul>
       <li class="displayName">Display Name: <span></span></li>
       <li class="infoHash">Info Hash: <span></span></li>
@@ -13,10 +62,7 @@
       <li class="dhtPeers">DHT Peers: <span>0</span></li>
       <li class="connectedPeers">Connected Peers: <span>0</span></li>
       <li class="downloadMetadata"><a href="#">Download .torrent</a></li>
-    </ul>
-
-    <h3>Console</h4>
-    <div id="console"></div>
+    </ul> -->
 
     <script src="bundle.js"></script>
   </body>

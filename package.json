@@ -30,10 +30,13 @@
     "browserify": "3.x",
     "browserify-shim": "~3.2.2",
     "chrome-portfinder": "~0.2.4",
+    "font-awesome": "git://github.com/FortAwesome/Font-Awesome",
     "hat": "0.0.3",
     "inherits": "~2.0.1",
     "jquery": "~2.1.0",
+    "keymaster": "git://github.com/feross/keymaster",
     "magnet-uri": "1.x",
+    "nib": "~1.0.2",
     "read-torrent": "~0.2.0",
     "speedometer": "~0.1.2",
     "stylus": "~0.42.2"
@@ -59,10 +62,10 @@
     "url": "git://github.com/feross/webtorrent.git"
   },
   "scripts": {
-    "build-css": "stylus css/main.styl -o chrome/ -c",
+    "build-css": "stylus -u nib css/main.styl -o chrome/ -c && ./bin/post-build.js",
     "build-js": "browserify --debug index.js > chrome/bundle.js",
     "build": "npm run build-js && npm run build-css",
-    "watch-css": "stylus css/main.styl -o chrome/ -w",
+    "watch-css": "stylus -u nib css/main.styl -o chrome/ -w",
     "watch-js": "watchify index.js -o chrome/bundle.js -dv",
     "watch": "npm run watch-js & npm run watch-css",
     "start": "npm run build && ./bin/start.js",
