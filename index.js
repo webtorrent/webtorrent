@@ -12,6 +12,11 @@
 //   elem.scrollTop = elem.scrollHeight
 //   _log.apply(null, args)
 // }
+if (window.name === 'app') {
+  require('./lib/app')()
+} else {
+  require('./lib/background')()
+}
 
 // var _error = console.error.bind(console)
 // window.console.error = function () {
@@ -22,7 +27,6 @@
 //   _error.apply(null, args)
 // }
 
-var TorrentManager = require('./lib/TorrentManager')
 
 var isChromeApp = !!(typeof window !== 'undefined' && window.chrome &&
     window.chrome.app && window.chrome.app.runtime)
@@ -30,11 +34,4 @@ if (isChromeApp)
   console.log('This is a chrome app.')
 
 
-var manager = new TorrentManager()
 
-manager.add('magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36&dn=Leaves+of+Grass+by+Walt+Whitman.epub')
-
-manager.on('error', function (err) {
-  console.error(err)
-  // TODO: Show error in UI somehow
-})
