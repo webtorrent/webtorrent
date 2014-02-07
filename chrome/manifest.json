@@ -1,15 +1,16 @@
 {
-  "manifest_version": 2,
-
-  "name": "WebTorrent",
-  "description": "Simple, robust BitTorrent client for the browser",
-  "version": "0.1.0",
-
   "app": {
     "background": {
       "scripts": ["bundle.js"]
     }
   },
+  "manifest_version": 2,
+  "name": "WebTorrent",
+  "version": "0.1.0",
+  "author": "Feross Aboukhadijeh <feross@feross.org> <http://feross.org>",
+
+  "description": "Simple, robust BitTorrent client for the browser",
+  "icons": { "16": "calculator-16.png", "128": "calculator-128.png" },
 
   "permissions": [
     {
@@ -32,5 +33,6 @@
     "http://*/*"
   ],
 
-  "icons": { "16": "calculator-16.png", "128": "calculator-128.png" }
+  "offline_enabled": true
+
 }
