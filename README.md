@@ -11,9 +11,8 @@
 
 ### Ways to help
 
-**Donations.** I fight for the users. JavaScript and WebRTC are my sword and shield. Donations allow me to spend more time vanquishing the enemy. I'm currently working on WebTorrent almost every night in my spare time. Please support me if you believe in the vision. Send Bitcoins to: **1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh** or [donate easily via Coinbase](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96).
-
-**Send pull requests.** Take a look at the [open issues](https://github.com/feross/webtorrent/issues?state=open) and see if there's something you can help with. Ideas and suggestions are welcome too.
+- **Donations.** I fight for the users. JavaScript and WebRTC are my sword and shield. Donations allow me to spend more time vanquishing the enemy. I'm currently working on WebTorrent almost every night in my spare time. Please support me if you believe in the vision. Send Bitcoins to: **1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh** or [donate easily via Coinbase](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96).
+- **Send pull requests.** Take a look at the [open issues](https://github.com/feross/webtorrent/issues?state=open) and see if there's something you can help with. Ideas and suggestions are welcome too.
 
 ## Planned Features
 
@@ -88,13 +87,13 @@ Most of the active development is happening inside of smaller npm modules which 
 - WebTorrent bootstrap DHT node does *a bit* more work than a BitTorrent one since it must do WebRTC signaling. (Not a huge deal)
 
 
-## Todo for basic working bitorrent client as chrome app
+## Todo for basic bitorrent client as chrome app
 
 - ~~Use UDP/TCP APIs~~
 - ~~Support DHT~~
 - ~~Support peer wire protocol~~
 - ~~Support magnet links (fetching .torrent from network)~~
-- Basic UI
+- ~~Basic UI~~
 - Fetching logic
 - Large file saving (downloading in-memory for now, later IndexedDB/FileSystem API)
 - Streaming video, options:
@@ -110,6 +109,17 @@ Most of the active development is happening inside of smaller npm modules which 
   - POST endpoint for sending offer/getting answer
 - Easy torrent creation
 - UPnP or NAT-PMP (so the hybrid client can get listed in peers' routing tables)
+
+
+## Run the app
+
+```
+git clone git@github.com:feross/webtorrent.git
+cd webtorrent
+npm start
+```
+
+(Currently requires Chrome Canary (OS X) to be installed, but this will be easy to fix)
 
 
 ## Introduction to WebRTC Data and WebTorrent
