@@ -7,6 +7,10 @@
 FONT_COLOR = #444
 LIGHT_FONT_COLOR = #777
 
+a
+  -webkit-app-region: no-drag !important
+  color: FONT_COLOR
+
 body
   color: FONT_COLOR
   font-size: 11px
@@ -30,7 +34,7 @@ header
     z-index: 20
     i
       -webkit-app-region: no-drag
-      margin-left: 3px
+      margin-left: 4px
 
     :not(.fa-circle)
       display: none
@@ -65,7 +69,6 @@ toolbar()
   toolbar()
   border-bottom: 1px solid #666
   i
-    font-size: 12.5px
     margin-right: 6px
     position: relative
     top: 1px
@@ -80,7 +83,18 @@ footer
   toolbar()
   position: absolute
   bottom: 0
-  text-align: center
+  .numTransfers
+    left: 0
+    position: absolute
+    right: 0
+    text-align: center
+    z-index: 10
+  .issue
+    position: absolute
+    right: 12px
+    z-index: 20
+    i
+      margin-right: 4px
 
 @keyframes animate-stripes
   100%
