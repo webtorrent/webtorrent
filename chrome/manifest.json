@@ -1,13 +1,14 @@
 {
+  "manifest_version": 2,
+  "name": "WebTorrent",
+  "version": "0.1.0",
+  "author": "Feross Aboukhadijeh",
+
   "app": {
     "background": {
       "scripts": ["bundle.js"]
     }
   },
-  "manifest_version": 2,
-  "name": "WebTorrent",
-  "version": "0.1.0",
-  "author": "Feross Aboukhadijeh",
 
   "description": "Simple, robust BitTorrent client for the browser",
   "icons": { "16": "calculator-16.png", "128": "calculator-128.png" },
@@ -35,5 +36,4 @@
   ],
 
   "offline_enabled": true
-
 }
