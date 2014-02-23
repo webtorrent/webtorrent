@@ -42,6 +42,7 @@
     "stylus": "~0.42.2"
   },
   "devDependencies": {
+    "handlebars": "^2.0.0-alpha.1",
     "tape": "2.x",
     "watchify": "0.x"
   },
@@ -62,13 +63,15 @@
     "url": "git://github.com/feross/webtorrent.git"
   },
   "scripts": {
-    "build-css": "stylus -u nib css/main.styl -o chrome/ -c && ./bin/post-build.js",
+    "build": "npm run build-html && npm run build-css && npm run build-js",
+    "build-css": "stylus --use nib css/main.styl --out chrome/ --compile && ./bin/post-build.js",
+    "build-html": "handlebars views --commonjs handlebars --extension html --output views/compiled.js",
     "build-js": "browserify --debug index.js > chrome/bundle.js",
-    "build": "npm run build-js && npm run build-css",
-    "watch-css": "stylus -u nib css/main.styl -o chrome/ -w",
-    "watch-js": "watchify index.js -o chrome/bundle.js -dv",
-    "watch": "npm run watch-js & npm run watch-css",
     "start": "npm run build && ./bin/start.js",
-    "test": "tape test/*.js"
+    "test": "tape test/*.js",
+    "watch": "npm run watch-js & npm run watch-css & npm run watch-html",
+    "watch-css": "stylus --use nib css/main.styl --out chrome/ --watch",
+    "watch-html": "nodemon --watch views --ext html --exec \"npm run build-html\"",
+    "watch-js": "watchify index.js -o chrome/bundle.js --debug --verbose"
   }
 }

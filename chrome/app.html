@@ -5,56 +5,44 @@
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
   </head>
-  <body>
-
-  <header>
-    <div class="system">
-      <i class="close fa fa-times-circle fa-lg"></i>
-      <i class="minimize fa fa-minus-circle fa-lg"></i>
-      <i class="maximize fa fa-plus-circle fa-lg"></i>
-      <i class="close fa fa-circle fa-lg"></i>
-      <i class="minimize fa fa-circle fa-lg"></i>
-      <i class="maximize fa fa-circle fa-lg"></i>
+  <body id="app">
+    <header>
+      <div class="system">
+        <i class="close fa fa-times-circle fa-lg"></i>
+        <i class="minimize fa fa-minus-circle fa-lg"></i>
+        <i class="maximize fa fa-plus-circle fa-lg"></i>
+        <i class="close fa fa-circle fa-lg"></i>
+        <i class="minimize fa fa-circle fa-lg"></i>
+        <i class="maximize fa fa-circle fa-lg"></i>
+      </div>
+      <div class="title">WebTorrent</div>
+      <div class="buttons">
+        <form id="addTorrent">
+          <input
+            autofocus
+            autocomplete="off"
+            placeholder="enter magnet uri"
+            value="magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36&amp;dn=Leaves+of+Grass+by+Walt+Whitman.epub"
+          >
+          <button type="submit">Add</button>
+        </form>
+      </div>
+    </header>
+    <div class="overallStats">
+      <!-- TODO: heart should be colored red -> green based on ratio -->
+      <span class="ratio"><i class="fa fa-heart fa-lg"></i>Ratio: {{ ratio }}</span>
+      <span class="upload"><i class="fa fa-arrow-up fa-lg"></i><span>0.0 KB/s</span></span>
+      <span class="download"><i class="fa fa-arrow-down fa-lg"></i><span>0.0 KB/s</span></span>
     </div>
-    <div class="title">WebTorrent</div>
-    <div class="buttons"></div>
-  </header>
-  <div class="overallStats">
-    <!-- TODO: heart should be colored red -> green based on ratio -->
-    <span class="ratio"><i class="fa fa-heart fa-lg"></i>Ratio: <span>0.10</span></span>
-    <span class="upload"><i class="fa fa-arrow-up fa-lg"></i><span>0.0 KB/s</span></span>
-    <span class="download"><i class="fa fa-arrow-down fa-lg"></i><span>0.0 KB/s</span></span>
-  </div>
 
-  <main>
-    <section class="torrent" id="torrent_XXX">
-      <div class="image">
-        <img src="img/folder.png">
-      </div>
-      <div class="info">
-        <div class="title">Leaves of Grass by Walt Whitman</div>
-        <div class="stats">362 KB, uploaded 0 KB (Ratio: 0.00)</div>
-        <progress max="100" value="70"></progress>
-        <div class="stats2">Seeding to 0 of 0 peers - UL: 0.0 KB/s</div>
-      </div>
-    </section>
-    <section class="torrent" id="torrent_XXX">
-      <div class="image">
-        <img src="img/folder.png">
-      </div>
-      <div class="info">
-        <div class="title">Leaves of Grass by Walt Whitman</div>
-        <div class="stats">362 KB, uploaded 0 KB (Ratio: 0.00)</div>
-        <progress max="100" value="10"></progress>
-        <div class="stats2">Seeding to 0 of 0 peers - UL: 0.0 KB/s</div>
-      </div>
-    </section>
-  </main>
+    <main id="torrents">
 
-  <footer>
-    <span class="numTransfers">1 transfer</span>
-    <span class="issue"><a href="https://github.com/feross/webtorrent/issues/new" target="_blank"><i class="fa fa-github fa-lg"></i>Report an issue</a></span>
-  </footer>
+    </main>
+
+    <footer>
+      <span class="numTransfers">1 transfer</span>
+      <span class="issue"><a href="https://github.com/feross/webtorrent/issues/new" target="_blank"><i class="fa fa-github fa-lg"></i>Report an issue</a></span>
+    </footer>
 
 <!--     <h3>Torrent Info</h4>
     <ul>

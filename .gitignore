@@ -2,3 +2,4 @@ chrome/bundle.js
 chrome/font-awesome
 chrome/main.css
 node_modules/
+views/compiled.js
