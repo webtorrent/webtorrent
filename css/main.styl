@@ -7,6 +7,11 @@
 FONT_COLOR = #444
 LIGHT_FONT_COLOR = #777
 
+NO_METADATA_COLOR = #FF6C40
+DOWNLOAD_COLOR_1 = #09c
+DOWNLOAD_COLOR_2 = #0BF
+SEED_COLOR = #00CC36
+
 a, input, button
   -webkit-app-region: no-drag !important
   color: FONT_COLOR
@@ -138,7 +143,7 @@ main
         font-size: 9px
         color: LIGHT_FONT_COLOR
 
-progress[value]
+progress
   appearance: none
   border-radius: 3px
   border: none
@@ -146,17 +151,26 @@ progress[value]
   margin: 2px 0
   position: relative
   width: 100%
-progress[value]::-webkit-progress-bar
+
+progress::-webkit-progress-bar
   background-color: #DDD
   border-radius: 3px
   box-shadow: 0 1px 2px rgba(0,0,0,.5) inset
-progress[value]::-webkit-progress-value
+
+progress:not([value])::-webkit-progress-bar
+  background-color: NO_METADATA_COLOR
+
+progress[value="100"]::-webkit-progress-bar
+  background-color: SEED_COLOR
+
+progress::-webkit-progress-value
   position: relative
   background-size: 40px 15px, 100% 100%, 100% 100%
   border-radius: 3px
+
+progress:not([value="100"])::-webkit-progress-value
   animation: animate-stripes 2s linear infinite
-::-webkit-progress-value
   background-image: linear-gradient(135deg, transparent, transparent 33%, rgba(0, 0, 0, 0.1) 33%, rgba(0, 0, 0, 0.1) 66%, transparent 66%),
     linear-gradient(top, rgba(255, 255, 255, .25), rgba(0, 0, 0, 0.2)),
-    linear-gradient(left, #09c, #0BF)
+    linear-gradient(left, DOWNLOAD_COLOR_1, DOWNLOAD_COLOR_2)
 
