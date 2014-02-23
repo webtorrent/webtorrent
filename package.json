@@ -69,6 +69,7 @@
     "build-css": "stylus --use nib css/main.styl --out chrome/ --compile && ./bin/post-build.js",
     "build-html": "handlebars views --commonjs handlebars --extension html --output views/compiled.js",
     "build-js": "browserify --debug index.js > chrome/bundle.js",
+    "prepublish": "npm run build",
     "start": "npm run build && ./bin/start.js",
     "test": "tape test/*.js",
     "watch": "npm run watch-js & npm run watch-css & npm run watch-html",
