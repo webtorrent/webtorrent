@@ -1,7 +1,10 @@
+var App = require('./lib/app')
+var TorrentManager = require('./lib/torrent-manager')
+
 if (window.name === 'app') {
-  require('./lib/app')()
+  new App(window.torrentManager)
 } else {
-  require('./lib/background')()
+  new TorrentManager()
 }
 
 
