@@ -38,10 +38,10 @@
     "keymaster": "git://github.com/feross/keymaster",
     "magnet-uri": "1.x",
     "read-torrent": "^0.2.0",
-    "speedometer": "^0.1.2"
+    "speedometer": "^0.1.2",
+    "brfs": "^0.2.1"
   },
   "devDependencies": {
-    "handlebars": "^2.0.0-alpha.1",
     "nib": "^1.0.2",
     "nodemon": "^1.0.15",
     "stylus": "^0.42.2",
@@ -65,16 +65,14 @@
     "url": "git://github.com/feross/webtorrent.git"
   },
   "scripts": {
-    "build": "npm run build-html && npm run build-css && npm run build-js",
-    "build-css": "stylus --use nib css/main.styl --out chrome/ -c && ./bin/post-build.js",
-    "build-html": "handlebars views --commonjs handlebars --extension html --output views/compiled.js",
-    "build-js": "browserify --debug index.js > chrome/bundle.js",
+    "build": "npm run build-css && npm run build-js",
+    "build-css": "stylus --use nib css/main.styl --compress --out chrome/ && ./bin/post-build.js",
+    "build-js": "browserify --transform brfs --debug index.js > chrome/bundle.js",
     "prepublish": "npm run build",
     "start": "npm run build && ./bin/start.js",
     "test": "tape test/*.js",
-    "watch": "npm run watch-js & npm run watch-css & npm run watch-html",
+    "watch": "npm run watch-js & npm run watch-css",
     "watch-css": "stylus --use nib css/main.styl --out chrome/ --watch",
-    "watch-html": "nodemon --watch views --ext html --exec \"npm run build-html\"",
-    "watch-js": "watchify index.js -o chrome/bundle.js --debug --verbose"
+    "watch-js": "watchify --transform brfs index.js --outfile chrome/bundle.js --debug --verbose"
   }
 }

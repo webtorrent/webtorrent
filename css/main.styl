@@ -21,7 +21,7 @@ body
   font-size: 11px
   margin: 0
 
-header, .overallStats, footer
+header, .overall-stats, footer
   -webkit-app-region: drag
   box-shadow: inset 0 0 1px rgba(255, 255, 255, 0.5)
   text-shadow: 0 0 1px rgba(255, 255, 255, 0.75)
@@ -73,7 +73,7 @@ toolbar()
   height: 24px
   padding: 4px 12px
 
-.overallStats
+.overall-stats
   toolbar()
   border-bottom: 1px solid #666
   i
@@ -111,37 +111,43 @@ footer
 main
   height: 100%
 
-  .torrent
-    height: 65px
-    padding: 4px 10px
-    width: 100%
-    &:nth-child(odd)
-      background-color: #FFF
-    &:nth-child(even)
-      background-color: #E5F0FA
-    .image
-      float: left
-      height: 57px
-      margin-right: 5px
-      position: relative
-      width: 50px
-      img
-        bottom: 0
-        left: 0
-        margin: auto
-        position: absolute
-        right: 0
-        top: 0
-        max-width: 50px
-        max-height: 40px
-    .info
-      margin-left: 55px
-      .title
-        color: #000
-        font-size: 13px
-      .stats, .stats2
-        font-size: 9px
-        color: LIGHT_FONT_COLOR
+.torrent
+  height: 65px
+  padding: 4px 10px
+  width: 100%
+  &:nth-child(odd)
+    background-color: #FFF
+  &:nth-child(even)
+    background-color: #E5F0FA
+  &.has-metadata
+    .if-no-metadata
+      display: none
+  &:not(.has-metadata)
+    .if-metadata
+      display: none
+  .left
+    float: left
+    height: 57px
+    margin-right: 5px
+    position: relative
+    width: 50px
+    img
+      bottom: 0
+      left: 0
+      margin: auto
+      position: absolute
+      right: 0
+      top: 0
+      max-width: 50px
+      max-height: 40px
+  .right
+    margin-left: 55px
+    .title
+      color: #000
+      font-size: 13px
+    .stats, .stats2
+      font-size: 9px
+      color: LIGHT_FONT_COLOR
 
 progress
   appearance: none
@@ -157,20 +163,22 @@ progress::-webkit-progress-bar
   border-radius: 3px
   box-shadow: 0 1px 2px rgba(0,0,0,.5) inset
 
-progress:not([value])::-webkit-progress-bar
-  background-color: NO_METADATA_COLOR
+.torrent:not(.has-metadata)
+  progress::-webkit-progress-bar
+    background-color: NO_METADATA_COLOR
 
-progress[value="100"]::-webkit-progress-bar
-  background-color: SEED_COLOR
+.torrent.has-metadata
+  progress[value="100"]::-webkit-progress-bar
+    background-color: SEED_COLOR
 
-progress::-webkit-progress-value
-  position: relative
-  background-size: 40px 15px, 100% 100%, 100% 100%
-  border-radius: 3px
+  progress::-webkit-progress-value
+    position: relative
+    background-size: 40px 15px, 100% 100%, 100% 100%
+    border-radius: 3px
 
-progress:not([value="100"])::-webkit-progress-value
-  animation: animate-stripes 2s linear infinite
-  background-image: linear-gradient(135deg, transparent, transparent 33%, rgba(0, 0, 0, 0.1) 33%, rgba(0, 0, 0, 0.1) 66%, transparent 66%),
-    linear-gradient(top, rgba(255, 255, 255, .25), rgba(0, 0, 0, 0.2)),
-    linear-gradient(left, DOWNLOAD_COLOR_1, DOWNLOAD_COLOR_2)
+  progress:not([value="100"])::-webkit-progress-value
+    animation: animate-stripes 2s linear infinite
+    background-image: linear-gradient(135deg, transparent, transparent 33%, rgba(0, 0, 0, 0.1) 33%, rgba(0, 0, 0, 0.1) 66%, transparent 66%),
+      linear-gradient(top, rgba(255, 255, 255, .25), rgba(0, 0, 0, 0.2)),
+      linear-gradient(left, DOWNLOAD_COLOR_1, DOWNLOAD_COLOR_2)
 
