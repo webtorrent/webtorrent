@@ -138,18 +138,17 @@ npm start
 - [Kademlia Paper](http://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf)
 
 
-## Authors
-
-- [Feross Aboukhadijeh](http://feross.org)
-- John Hiesey
-
-
 ## Contributors
 
+- [Feross Aboukhadijeh](http://feross.org) (author)
+- Daniel Posch
+- John Hiesey
 - *Contributions welcome! Add yourself here when you send a pull request.*
+
 
 ## License
 
 MIT. Copyright (c) [Feross Aboukhadijeh](http://feross.org).
 
 ![Magic](https://raw.github.com/feross/webtorrent/master/img/logo.png)
+
