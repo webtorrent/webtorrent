@@ -1,18 +1,19 @@
-<section class="torrent" id="torrentXX">
-  <!--
-    <div v-show="!metadata">
-      Getting metadata from peers...
-    </div>
-  -->
+<section class="torrent" id="torrent_{{ infoHash }}">
   <div class="image">
     <img src="img/folder.png">
   </div>
   <div class="info">
     <div class="title">{{ title }}</div>
     <div class="stats">
-        {{humanizeFilesize swarm.downloaded }}, uploaded {{humanizeFilesize swarm.uploaded }} (Ratio: {{ swarm.ratio }})
+      {{#if metadata }}
+          {{humanizeFilesize swarm.downloaded }}, uploaded {{humanizeFilesize swarm.uploaded }} (Ratio: {{ swarm.ratio }})
+      {{else}}
+        Getting metadata from peers...
+      {{/if}}
     </div>
-    <progress max="100" value="70"></progress>
-    <div class="stats2">Seeding to 0 of 0 peers - UL: 0.0 KB/s</div>
+    <progress max="1" value="{{ progress }}"></progress>
+    <div class="stats2">
+      Downloading from 0 of {{ numPeers }} peers - UL: 0.0 KB/s
+    </div>
   </div>
 </section>
