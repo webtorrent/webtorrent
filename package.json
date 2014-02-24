@@ -28,8 +28,6 @@
     "bittorrent-swarm": "0.x",
     "bncode": "^0.5.2",
     "brfs": "^0.2.1",
-    "browserify": "3.x",
-    "browserify-shim": "^3.2.2",
     "chrome-portfinder": "^0.2.4",
     "font-awesome": "git://github.com/FortAwesome/Font-Awesome",
     "hat": "0.0.3",
@@ -42,6 +40,8 @@
     "speedometer": "^0.1.2"
   },
   "devDependencies": {
+    "browserify": "3.x",
+    "browserify-shim": "^3.2.2",
     "nib": "^1.0.2",
     "nodemon": "^1.0.15",
     "stylus": "^0.42.2",
