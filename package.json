@@ -12,7 +12,8 @@
   },
   "browserify": {
     "transform": [
-      "browserify-shim"
+      "browserify-shim",
+      "brfs"
     ]
   },
   "browserify-shim": {
@@ -46,7 +47,8 @@
     "nodemon": "^1.0.15",
     "stylus": "^0.42.2",
     "tape": "2.x",
-    "watchify": "0.x"
+    "watchify": "0.x",
+    "brfs": "^0.2.2"
   },
   "homepage": "http://webtorrent.io",
   "keywords": [
@@ -67,12 +69,12 @@
   "scripts": {
     "build": "npm run build-css && npm run build-js",
     "build-css": "stylus --use nib css/main.styl --compress --out chrome/ && ./bin/post-build.js",
-    "build-js": "browserify --transform brfs --debug index.js > chrome/bundle.js",
+    "build-js": "browserify --debug index.js > chrome/bundle.js",
     "prepublish": "npm run build",
     "start": "npm run build && ./bin/start.js",
     "test": "tape test/*.js",
     "watch": "npm run watch-js & npm run watch-css",
     "watch-css": "stylus --use nib css/main.styl --out chrome/ --watch",
-    "watch-js": "watchify --transform brfs index.js --outfile chrome/bundle.js --debug --verbose"
+    "watch-js": "watchify index.js --outfile chrome/bundle.js --debug --verbose"
   }
 }
