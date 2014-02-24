@@ -27,6 +27,7 @@
     "bittorrent-protocol": "0.x",
     "bittorrent-swarm": "0.x",
     "bncode": "^0.5.2",
+    "brfs": "^0.2.1",
     "browserify": "3.x",
     "browserify-shim": "^3.2.2",
     "chrome-portfinder": "^0.2.4",
@@ -38,8 +39,7 @@
     "keymaster": "git://github.com/feross/keymaster",
     "magnet-uri": "1.x",
     "read-torrent": "^0.2.0",
-    "speedometer": "^0.1.2",
-    "brfs": "^0.2.1"
+    "speedometer": "^0.1.2"
   },
   "devDependencies": {
     "nib": "^1.0.2",
