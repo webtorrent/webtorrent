@@ -37,7 +37,7 @@
     "jquery": "^2.1.0",
     "keymaster": "git://github.com/feross/keymaster",
     "magnet-uri": "1.x",
-    "read-torrent": "^0.2.0",
+    "parse-torrent": "^0.1.1",
     "speedometer": "^0.1.2"
   },
   "devDependencies": {
