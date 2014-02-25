@@ -45,6 +45,7 @@ Most of the active development is happening inside of smaller npm modules which 
 - [chrome-dgram](https://github.com/feross/chrome-dgram)
 - [chrome-portfinder](https://github.com/feross/chrome-portfinder)
 - [magnet-uri](https://github.com/feross/magnet-uri)
+- [parse-torrent](https://github.com/feross/parse-torrent)
 - [bittorrent-protocol](https://github.com/feross/bittorrent-protocol)
 - [bittorrent-swarm](https://github.com/feross/bittorrent-swarm)
 - [bittorrent-dht](https://github.com/feross/bittorrent-dht) (work-in-progress)
