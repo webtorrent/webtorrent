@@ -69,12 +69,12 @@
   "scripts": {
     "build": "npm run build-css && npm run build-js",
     "build-css": "stylus --use nib css/main.styl --compress --out chrome/ && ./bin/post-build.js",
-    "build-js": "browserify --debug index.js > chrome/bundle.js",
+    "build-js": "browserify --debug . > chrome/bundle.js",
     "prepublish": "npm run build",
     "start": "npm run build && ./bin/start.js",
     "test": "tape test/*.js",
     "watch": "npm run watch-js & npm run watch-css",
     "watch-css": "stylus --use nib css/main.styl --out chrome/ --watch",
-    "watch-js": "watchify index.js --outfile chrome/bundle.js --debug --verbose"
+    "watch-js": "watchify . --outfile chrome/bundle.js --debug --verbose"
   }
 }
