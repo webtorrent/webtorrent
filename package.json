@@ -47,7 +47,6 @@
     "browserify": "3.x",
     "browserify-shim": "^3.2.2",
     "nib": "^1.0.2",
-    "nodemon": "^1.0.15",
     "stylus": "^0.42.2",
     "tape": "2.x",
     "watchify": "0.x"
