@@ -6,7 +6,12 @@
     <div class="name"></div>
     <div class="stats">
       <span class="if-metadata">
-        <span class="downloaded"></span>, uploaded <span class="uploaded"></span> (Ratio: <span class="ratio"></span>)
+        <span class="if-not-seeding">
+          <span class="downloaded"></span> of <span class="length"></span> (<span class="percentage"></span>%) - <span class="timeRemaining"></span>
+        </span>
+        <span class="if-seeding">
+          <span class="downloaded"></span>, uploaded <span class="uploaded"></span> (Ratio: <span class="ratio"></span>)
+        </span>
       </span>
       <span class="if-no-metadata">
         Getting metadata from peers...
