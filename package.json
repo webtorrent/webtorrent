@@ -40,7 +40,8 @@
     "magnet-uri": "1.x",
     "parse-torrent": "0.x",
     "rusha-browserify": "^0.7.3",
-    "speedometer": "^0.1.2"
+    "speedometer": "^0.1.2",
+    "moment": "^2.5.1"
   },
   "devDependencies": {
     "brfs": "^0.2.2",
