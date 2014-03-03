@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "async": "^0.2.10",
+    "bitfield": "^0.1.0",
     "bittorrent-dht": "0.x",
     "bittorrent-protocol": "0.x",
     "bittorrent-swarm": "0.x",
@@ -37,7 +38,8 @@
     "jquery": "^2.1.0",
     "keymaster": "git://github.com/feross/keymaster",
     "magnet-uri": "1.x",
-    "parse-torrent": "^0.1.1",
+    "parse-torrent": "0.x",
+    "rusha-browserify": "^0.7.3",
     "speedometer": "^0.1.2"
   },
   "devDependencies": {
