@@ -20,14 +20,47 @@ ellipsis()
 *, *:before, *:after
   box-sizing: border-box
 
-a, input, button
-  -webkit-app-region: no-drag !important
-  color: FONT_COLOR
+html, body
+  height: 100%
 
 body
   color: FONT_COLOR
   font-size: 11px
   margin: 0
+
+.drop-target
+  background-color: rgba(0, 0, 0, 0.5)
+  bottom: 0
+  display: none
+  left: 0
+  pointer-events: none
+  position: absolute
+  right: 0
+  text-align: center
+  top: 0
+  z-index: 10000
+  div
+    background-color: rgba(0, 0, 0, 0.5)
+    border-radius: 30px
+    bottom: 0
+    color: #fff
+    font-size: 25px
+    height: 50px
+    left: 0
+    margin: auto
+    padding: 10px
+    position: absolute
+    right: 0
+    top: 0
+    width: 300px
+    z-index: 10001
+
+  .drag &
+    display: block
+
+a, input, button
+  -webkit-app-region: no-drag !important
+  color: FONT_COLOR
 
 header, .overall-stats, footer
   -webkit-app-region: drag
@@ -112,8 +145,10 @@ footer
     i
       margin-right: 4px
 
-main
+#torrents
   height: 100%
+  min-height: 65px
+  overflow-y: auto
 
 .torrent
   height: 65px
