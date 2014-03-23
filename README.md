@@ -11,7 +11,7 @@
 
 ### Ways to help
 
-- **Donations.** I fight for the users. JavaScript and WebRTC are my sword and shield. Donations allow me to spend more time vanquishing the enemy. I'm currently working on WebTorrent almost every night in my spare time. Please support me if you believe in the vision. Send Bitcoins to: **1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh** or [donate easily via Coinbase](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96).
+- **Donations.** I fight for the users. JavaScript and WebRTC are my sword and shield. I'm currently working on WebTorrent almost every night in my spare time. Please support me if you believe in the vision. Send bitcoin to **1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh** or [donate via Coinbase](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96).
 - **Send pull requests.** Take a look at the [open issues](https://github.com/feross/webtorrent/issues?state=open) and see if there's something you can help with. Ideas and suggestions are welcome too.
 
 ## Planned Features
@@ -41,6 +41,12 @@ Most of the active development is happening inside of smaller npm modules which 
 
 - [webtorrent](https://github.com/feross/webtorrent) (main repo)
 - [bittorrent-protocol](https://github.com/feross/bittorrent-protocol)
+  - [plugin: ut_metadata](https://github.com/feross/ut_metadata)
+  - plugin: encryption (todo)
+  - plugin: peer exchange protocol (PEX) (todo)
+  - plugin: µTP (todo)
+  - plugin: UPnP and NAT-PMP port forwarding (todo)
+  - plugin: webseed support (todo)
 - [bittorrent-swarm](https://github.com/feross/bittorrent-swarm)
 - [bittorrent-dht](https://github.com/feross/bittorrent-dht) (work-in-progress)
 - [magnet-uri](https://github.com/feross/magnet-uri)
