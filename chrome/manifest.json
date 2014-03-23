@@ -2,26 +2,20 @@
   "manifest_version": 2,
   "name": "WebTorrent",
   "version": "0.1.0",
-  "author": "Feross Aboukhadijeh",
-
   "app": {
     "background": {
       "scripts": ["bundle.js"]
     }
   },
-
+  "author": "Feross Aboukhadijeh",
   "description": "Simple, robust BitTorrent client for the browser",
-  "icons": { "16": "calculator-16.png", "128": "calculator-128.png" },
-
+  "icons": {
+    "16": "calculator-16.png",
+    "128": "calculator-128.png"
+  },
+  "minimum_chrome_version": "33",
+  "offline_enabled": true,
   "permissions": [
-    {
-      "socket": [
-        "tcp-connect:*:*",
-        "tcp-listen::*",
-        "udp-send-to::*",
-        "udp-bind::*"
-      ]
-    },
     "storage",
     "unlimitedStorage",
     {
@@ -31,20 +25,27 @@
         "directory"
       ]
     },
-    "http://*/*",
+    "*://*/*",
+    {
+      "socket": [
+        "tcp-connect:*:*",
+        "tcp-listen::*",
+        "udp-send-to::*",
+        "udp-bind::*"
+      ]
+    },
     "contextMenus"
   ],
   "sockets": {
-     "udp": {
-       "bind": "*",
-       "send": "*"
-     },
-     "tcp": {
-       "connect": "*"
-     },
-     "tcpServer": {
-       "listen": "*"
-     }
-   },
-  "offline_enabled": true
+    "udp": {
+      "bind": "*",
+      "send": "*"
+    },
+    "tcp": {
+      "connect": "*"
+    },
+    "tcpServer": {
+      "listen": "*"
+    }
+  }
 }
