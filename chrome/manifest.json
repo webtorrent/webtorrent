@@ -34,6 +34,17 @@
     "http://*/*",
     "contextMenus"
   ],
-
+  "sockets": {
+     "udp": {
+       "bind": "*",
+       "send": "*"
+     },
+     "tcp": {
+       "connect": "*"
+     },
+     "tcpServer": {
+       "listen": "*"
+     }
+   },
   "offline_enabled": true
 }
