@@ -103,8 +103,8 @@ Most of the active development is happening inside of smaller npm modules which 
 - ~~Support peer wire protocol~~
 - ~~Support magnet links (fetching .torrent from network)~~
 - ~~Basic UI~~
-- Fetching logic
-- Large file saving (downloading in-memory for now, later IndexedDB/FileSystem API)
+- ~~Fetching logic~~
+- ~~Large file saving (downloading in-memory for now, later IndexedDB/FileSystem API)~~
 - Streaming video, options:
   - HTTP stream to VLC, like peerflix
   - MediaSource into `video` tag
