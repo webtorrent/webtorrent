@@ -57,6 +57,7 @@ Most of the active development is happening inside of smaller npm modules which 
 - [drag-drop](https://github.com/feross/drag-drop)
 - [magnet-uri](https://github.com/feross/magnet-uri)
 - [parse-torrent](https://github.com/feross/parse-torrent)
+- [string2compact](https://github.com/feross/string2compact)
 - compress-sdp (todo)
 - webtorrent-bootstrap (todo)
 - webtorrent-chrome (todo)
