@@ -8,7 +8,6 @@
 
 > Warning: This is pre-alpha software. Nothing works yet. **Watch/star to follow along with progress.**
 
-
 ### Ways to help
 
 - **Donations.** I fight for the users. JavaScript and WebRTC are my sword and shield. I'm currently working on WebTorrent almost every night in my spare time. Please support me if you believe in the vision. Send bitcoin to *1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh* or [donate via Coinbase](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96).
@@ -27,19 +26,19 @@
   - DHT nodes do "peer introductions" so WebRTC can work without a centralized signaling server
 - **Supports completely serverless, trackerless operation**
 
-
 ## Project Goal
 
 Build a browser BitTorrent client that requires no install (no plugin/extension/etc.) and fully-interoperates with the regular BitTorrent network. Use WebRTC Data Channels for peer-to-peer transport.
 
 Since WebTorrent is web-first, it's simple for users who do not understand .torrent files, magnet links, NATs, etc. By making BitTorrent easier, it will be accessible to new swathes of users who were previously intimidated, confused, or unwilling to install a program on their machine to participate.
 
-
 ## NPM Modules
 
 Most of the active development is happening inside of smaller npm modules which will be used by WebTorrent. These are the modules I am writing to make WebTorrent work:
 
 - [webtorrent](https://github.com/feross/webtorrent) (main repo)
+- [webtorrent-app](https://github.com/feross/webtorrent-app) (os x, windows, linux app)
+- [webtorrent-chrome](https://github.com/feross/webtorrent-chrome) (chrome app)
 - [bittorrent-dht](https://github.com/feross/bittorrent-dht)
 - [bittorrent-protocol](https://github.com/feross/bittorrent-protocol)
   - [extension: ut_metadata](https://github.com/feross/ut_metadata)
@@ -60,7 +59,6 @@ Most of the active development is happening inside of smaller npm modules which 
 - [string2compact](https://github.com/feross/string2compact)
 - compress-sdp (todo)
 - webtorrent-bootstrap (todo)
-- webtorrent-chrome (todo)
 - webtorrent-dht (todo)
 - webtorrent-protocol (todo)
 - webtorrent-swarm (todo)
@@ -72,7 +70,6 @@ Most of the active development is happening inside of smaller npm modules which 
 "When applications are done well, they are just the really application-specific, brackish residue that can't be so easily abstracted away. All the nice, reusable components sublimate away onto github and npm where everybody can collaborate to advance the commons." — substack from ["how I write modules"](http://substack.net/how_I_write_modules)
 
 ![node.js is shiny](http://feross.net/x/node2.gif)
-
 
 ## Interoperability with BitTorrent
 
@@ -88,14 +85,12 @@ Most of the active development is happening inside of smaller npm modules which 
   - Important note: Hybrid clients **never** download torrents on behalf of other users. That would be a terrible idea.
   - Until BitTorrent clients support WebTorrent, "pure" **WebTorrent clients can only download from other WebTorrent clients.**
 
-
 ## WebTorrent vs BitTorrent
 
 - WebTorrent is slower at finding peers since "DHT over WebRTC" requires multiple roundtrips for peer introductions. (This is a requirement of WebRTC signaling - no way around this)
 - WebTorrent peers must keep their browser tab open to seed (Show UI to encourage seeding back at least 2x)
 - Slower piece verification (SHA1) (max 2MB/s with web worker pool, Web Crypto API will bring huge speed-up when it's finally ready)
 - WebTorrent bootstrap DHT node does *a bit* more work than a BitTorrent one since it must do WebRTC signaling. (Not a huge deal)
-
 
 ## Todo for basic bitorrent client as chrome app
 
@@ -111,7 +106,6 @@ Most of the active development is happening inside of smaller npm modules which 
   - MediaSource into `video` tag
   - Flash player for other media types
 
-
 ## Todo for webtorrent
 
 - DHT over WebRTC (add new method for peer introduction)
@@ -119,7 +113,6 @@ Most of the active development is happening inside of smaller npm modules which 
   - POST endpoint for sending offer/getting answer
 - Easy torrent creation
 - UPnP or NAT-PMP (so the hybrid client can get listed in peers' routing tables)
-
 
 ## Run the app
 
@@ -130,36 +123,20 @@ npm install
 npm start
 ```
 
-(Currently requires Chrome Canary (OS X) to be installed, but this will be easy to fix)
-
-
 ## Introduction to WebRTC Data and WebTorrent
 
 [Watch the talk](https://vimeo.com/77265280) from *RealtimeConf* on Vimeo (skip to end for stuff about WebTorrent):
 
 [![webrtc talk](https://raw.github.com/feross/webtorrent/master/img/webrtc-talk.png)](https://vimeo.com/77265280)
 
-
-## Useful Links
-
-- [BitTorrent Spec (BEP 0003)](http://www.bittorrent.org/beps/bep_0003.html)
-- [BitTorrent Spec (Wiki)](https://wiki.theory.org/BitTorrentSpecification)
-- [Reference BitTorrent Client (BTPD)](https://github.com/btpd/btpd)
-- [DHT Protocol](http://www.bittorrent.org/beps/bep_0005.html)
-- [Kademlia Paper](http://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf)
-
-
 ## Contributors
 
 - [Feross Aboukhadijeh](http://feross.org) (author)
 - Daniel Posch
 - John Hiesey
-- *Contributions welcome! Add yourself here when you send a pull request.*
-
 
 ## License
 
 MIT. Copyright (c) [Feross Aboukhadijeh](http://feross.org).
 
 ![Magic](https://raw.github.com/feross/webtorrent/master/img/logo.png)
-
