@@ -1,24 +1,13 @@
 {
   "name": "webtorrent",
-  "description": "Streaming BitTorrent client for the browser",
+  "description": "Streaming BitTorrent client",
   "version": "0.2.4",
   "author": {
     "name": "Feross Aboukhadijeh",
     "email": "feross@feross.org",
     "url": "http://feross.org/"
   },
-  "browser": {
-    "jquery": "jquery/dist/jquery.min.js"
-  },
-  "browserify": {
-    "transform": [
-      "browserify-shim",
-      "brfs"
-    ]
-  },
-  "browserify-shim": {
-    "jquery": "jQuery"
-  },
+  "bin": "./bin/cmd.js",
   "bugs": {
     "url": "https://github.com/feross/webtorrent/issues"
   },
@@ -31,13 +20,9 @@
     "bncode": "^0.5.2",
     "brfs": "^1.0.0",
     "chrome-portfinder": "^0.3.0",
-    "drag-drop": "^1.0.1",
-    "font-awesome": "git://github.com/FortAwesome/Font-Awesome",
     "hat": "0.0.3",
     "humanize": "0.0.9",
     "inherits": "^2.0.1",
-    "jquery": "^2.1.0",
-    "keymaster": "git://github.com/feross/keymaster",
     "magnet-uri": "1.x",
     "moment": "^2.5.1",
     "once": "^1.3.0",
@@ -47,19 +32,15 @@
     "ut_metadata": "^1.2.0"
   },
   "devDependencies": {
-    "brfs": "^0.2.2",
-    "browserify": "3.x",
-    "browserify-shim": "^3.2.2",
-    "nib": "^1.0.2",
-    "stylus": "^0.42.2",
-    "tape": "2.x",
-    "watchify": "0.x"
+    "tape": "2.x"
   },
   "homepage": "http://webtorrent.io",
   "keywords": [
     "torrent",
     "bittorrent",
     "bittorrent client",
+    "streaming",
+    "download",
     "webrtc",
     "webrtc data",
     "webtorrent",
@@ -72,14 +53,7 @@
     "url": "git://github.com/feross/webtorrent.git"
   },
   "scripts": {
-    "build": "npm run build-css && npm run build-js",
-    "build-css": "stylus --use nib css/main.styl --compress --out chrome/ && ./bin/post-build.js",
-    "build-js": "browserify --debug . > chrome/bundle.js",
-    "prepublish": "npm run build",
-    "start": "npm run build && ./bin/start.js",
-    "test": "tape test/*.js",
-    "watch": "npm run watch-js & npm run watch-css",
-    "watch-css": "stylus --use nib css/main.styl --out chrome/ --watch",
-    "watch-js": "watchify . --outfile chrome/bundle.js --debug --verbose"
+    "start": "./bin/cmd.js",
+    "test": "tape test/*.js"
   }
 }
