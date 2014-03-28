@@ -26,14 +26,6 @@
       ]
     },
     "*://*/*",
-    {
-      "socket": [
-        "tcp-connect:*:*",
-        "tcp-listen::*",
-        "udp-send-to::*",
-        "udp-bind::*"
-      ]
-    },
     "contextMenus"
   ],
   "sockets": {

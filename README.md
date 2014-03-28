@@ -11,7 +11,7 @@
 
 ### Ways to help
 
-- **Donations.** I fight for the users. JavaScript and WebRTC are my sword and shield. I'm currently working on WebTorrent almost every night in my spare time. Please support me if you believe in the vision. Send bitcoin to **1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh** or [donate via Coinbase](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96).
+- **Donations.** I fight for the users. JavaScript and WebRTC are my sword and shield. I'm currently working on WebTorrent almost every night in my spare time. Please support me if you believe in the vision. Send bitcoin to *1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh* or [donate via Coinbase](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96).
 - **Send pull requests.** Take a look at the [open issues](https://github.com/feross/webtorrent/issues?state=open) and see if there's something you can help with. Ideas and suggestions are welcome too.
 
 ## Planned Features

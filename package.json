@@ -43,7 +43,8 @@
     "once": "^1.3.0",
     "parse-torrent": "0.x",
     "rusha-browserify": "^0.7.3",
-    "speedometer": "^0.1.2"
+    "speedometer": "^0.1.2",
+    "ut_metadata": "^1.2.0"
   },
   "devDependencies": {
     "brfs": "^0.2.2",
