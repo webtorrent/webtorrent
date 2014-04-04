@@ -124,8 +124,9 @@ Most of the active development is happening inside of smaller npm modules which 
 ## Run the app
 
 ```
-git clone git@github.com:feross/webtorrent.git
+git clone https://github.com/feross/webtorrent.git
 cd webtorrent
+npm install
 npm start
 ```
 
