@@ -1,8 +1,7 @@
 # ![WebTorrent](https://raw.github.com/feross/webtorrent/master/img/wordmark.png)
-[![Build Status](http://img.shields.io/travis/feross/webtorrent.svg)](https://travis-ci.org/feross/webtorrent)
-[![NPM Version](http://img.shields.io/npm/v/webtorrent.svg)](https://npmjs.org/package/webtorrent)
-[![NPM](http://img.shields.io/npm/dm/webtorrent.svg)](https://npmjs.org/package/webtorrent)
-[![Gittip](http://img.shields.io/gittip/feross.svg)](https://www.gittip.com/feross/)
+[![build](https://img.shields.io/travis/feross/webtorrent.svg)](https://travis-ci.org/feross/webtorrent)
+[![npm](https://img.shields.io/npm/v/webtorrent.svg)](https://npmjs.org/package/webtorrent)
+[![gittip](https://img.shields.io/gittip/feross.svg)](https://www.gittip.com/feross/)
 
 ### WebTorrent - Streaming BitTorrent client for the browser
 
@@ -57,6 +56,7 @@ Most of the active development is happening inside of smaller npm modules which 
 - [magnet-uri](https://github.com/feross/magnet-uri)
 - [parse-torrent](https://github.com/feross/parse-torrent)
 - [string2compact](https://github.com/feross/string2compact)
+- [typedarray-to-buffer](https://github.com/feross/typedarray-to-buffer)
 - compress-sdp (todo)
 - webtorrent-bootstrap (todo)
 - webtorrent-dht (todo)
