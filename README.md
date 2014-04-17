@@ -9,10 +9,10 @@
 
 ### Ways to help
 
-- **Donations.** I fight for the users. JavaScript and WebRTC are my sword and shield. I'm currently working on WebTorrent almost every night in my spare time. Please support me if you believe in the vision. Send bitcoin to *1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh* or [donate via Coinbase](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96).
-- **Send pull requests.** Take a look at the [open issues](https://github.com/feross/webtorrent/issues?state=open) and see if there's something you can help with. Ideas and suggestions are welcome too.
+- **Donations.** I fight for the users. JavaScript is my sword and shield. I'm working on WebTorrent almost every night so please support me if you believe in the vision. Send bitcoin to *1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh* or [donate via Coinbase](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96).
+- **Send pull requests.** Take a look at the [open issues](https://github.com/feross/webtorrent/issues?state=open) and see if there's something you can help with.
 
-## Planned Features
+### Planned Features
 
 - **BitTorrent in your browser!**
 - **No plugins** (uses WebRTC Data Channels for peer-to-peer data)
@@ -25,22 +25,26 @@
   - DHT nodes do "peer introductions" so WebRTC can work without a centralized signaling server
 - **Supports completely serverless, trackerless operation**
 
-## Project Goal
+### Project Goal
 
 Build a browser BitTorrent client that requires no install (no plugin/extension/etc.) and fully-interoperates with the regular BitTorrent network. Use WebRTC Data Channels for peer-to-peer transport.
 
 Since WebTorrent is web-first, it's simple for users who do not understand .torrent files, magnet links, NATs, etc. By making BitTorrent easier, it will be accessible to new swathes of users who were previously intimidated, confused, or unwilling to install a program on their machine to participate.
 
-## NPM Modules
+### NPM Modules
 
 Most of the active development is happening inside of smaller npm modules which will be used by WebTorrent. These are the modules I am writing to make WebTorrent work:
 
-- [webtorrent](https://github.com/feross/webtorrent) (main repo)
-- [webtorrent-app](https://github.com/feross/webtorrent-app) (os x, windows, linux app)
-- [webtorrent-chrome](https://github.com/feross/webtorrent-chrome) (chrome app)
+#### Targets:
+- [webtorrent](https://github.com/feross/webtorrent) (bittorrent client on command line)
+- [webtorrent-app](https://github.com/feross/webtorrent-app) (bittorrent client for os x, windows & linux)
+- [webtorrent-chrome](https://github.com/feross/webtorrent-chrome) (bittorrent client for chrome -- on hold)
+
+#### Modules:
+- [bittorrent-client](https://github.com/feross/bittorrent-client) (bittorrent client engine)
 - [bittorrent-dht](https://github.com/feross/bittorrent-dht)
 - [bittorrent-protocol](https://github.com/feross/bittorrent-protocol)
-  - [extension: ut_metadata](https://github.com/feross/ut_metadata)
+  - [extension: ut_metadata](https://github.com/feross/ut_metadata) (magnet uris)
   - extension: encryption (todo)
   - extension: peer exchange protocol (PEX) (todo)
   - extension: µTP (todo)
@@ -65,13 +69,13 @@ Most of the active development is happening inside of smaller npm modules which 
 - webtorrent-verifier (todo)
 - webworker-pool (todo)
 
-### The Node Way&trade;
+#### The Node Way&trade;
 
 "When applications are done well, they are just the really application-specific, brackish residue that can't be so easily abstracted away. All the nice, reusable components sublimate away onto github and npm where everybody can collaborate to advance the commons." — substack from ["how I write modules"](http://substack.net/how_I_write_modules)
 
 ![node.js is shiny](http://feross.net/x/node2.gif)
 
-## Interoperability with BitTorrent
+### Interoperability with BitTorrent
 
 **Problem:** WebTorrent clients and normal BitTorrent clients cannot directly connect because WebRTC cannot open UDP/TCP sockets. This is a security restriction on WebRTC that is unlikely to change. So, how do we get content into the WebTorrent network?
 
@@ -85,14 +89,14 @@ Most of the active development is happening inside of smaller npm modules which 
   - Important note: Hybrid clients **never** download torrents on behalf of other users. That would be a terrible idea.
   - Until BitTorrent clients support WebTorrent, "pure" **WebTorrent clients can only download from other WebTorrent clients.**
 
-## WebTorrent vs BitTorrent
+### WebTorrent vs BitTorrent
 
 - WebTorrent is slower at finding peers since "DHT over WebRTC" requires multiple roundtrips for peer introductions. (This is a requirement of WebRTC signaling - no way around this)
 - WebTorrent peers must keep their browser tab open to seed (Show UI to encourage seeding back at least 2x)
 - Slower piece verification (SHA1) (max 2MB/s with web worker pool, Web Crypto API will bring huge speed-up when it's finally ready)
 - WebTorrent bootstrap DHT node does *a bit* more work than a BitTorrent one since it must do WebRTC signaling. (Not a huge deal)
 
-## Todo for basic bitorrent client as chrome app
+### Todo for basic bitorrent client as chrome app
 
 - ~~Use UDP/TCP APIs~~
 - ~~Support DHT~~
@@ -106,7 +110,7 @@ Most of the active development is happening inside of smaller npm modules which 
   - MediaSource into `video` tag
   - Flash player for other media types
 
-## Todo for webtorrent
+### Todo for webtorrent
 
 - DHT over WebRTC (add new method for peer introduction)
   - Use bootstrap server for initial introduction
@@ -114,7 +118,9 @@ Most of the active development is happening inside of smaller npm modules which 
 - Easy torrent creation
 - UPnP or NAT-PMP (so the hybrid client can get listed in peers' routing tables)
 
-## Run the app
+### Contribute
+
+Here's how to get started:
 
 ```
 git clone https://github.com/feross/webtorrent.git
@@ -123,19 +129,19 @@ npm install
 npm start
 ```
 
-## Introduction to WebRTC Data and WebTorrent
+### Introduction to WebRTC Data and WebTorrent
 
 [Watch the talk](https://vimeo.com/77265280) from *RealtimeConf* on Vimeo (skip to end for stuff about WebTorrent):
 
 [![webrtc talk](https://raw.github.com/feross/webtorrent/master/img/webrtc-talk.png)](https://vimeo.com/77265280)
 
-## Contributors
+### Contributors
 
 - [Feross Aboukhadijeh](http://feross.org) (author)
 - Daniel Posch
 - John Hiesey
 
-## License
+### License
 
 MIT. Copyright (c) [Feross Aboukhadijeh](http://feross.org).
 
