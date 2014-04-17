@@ -7,29 +7,15 @@
     "email": "feross@feross.org",
     "url": "http://feross.org/"
   },
-  "bin": "./bin/cmd.js",
+  "bin": {
+    "webtorrent": "./bin/cmd.js"
+  },
   "bugs": {
     "url": "https://github.com/feross/webtorrent/issues"
   },
   "dependencies": {
-    "async": "^0.2.10",
-    "bitfield": "^0.2.0",
-    "bittorrent-dht": "0.x",
-    "bittorrent-protocol": "1.x",
-    "bittorrent-swarm": "0.x",
-    "bncode": "^0.5.2",
-    "brfs": "^1.0.0",
-    "chrome-portfinder": "^0.3.0",
-    "hat": "0.0.3",
-    "humanize": "0.0.9",
-    "inherits": "^2.0.1",
-    "magnet-uri": "1.x",
-    "moment": "^2.5.1",
-    "once": "^1.3.0",
-    "parse-torrent": "0.x",
-    "rusha-browserify": "^0.7.3",
-    "speedometer": "^0.1.2",
-    "ut_metadata": "^1.2.0"
+    "bittorrent-client": "^0.0.0",
+    "minimist": "^0.0.8"
   },
   "devDependencies": {
     "tape": "2.x"
