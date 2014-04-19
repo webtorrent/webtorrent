@@ -3,7 +3,7 @@
 [![npm](https://img.shields.io/npm/v/webtorrent.svg)](https://npmjs.org/package/webtorrent)
 [![gittip](https://img.shields.io/gittip/feross.svg)](https://www.gittip.com/feross/)
 
-### WebTorrent - Streaming BitTorrent client for the browser
+### WebTorrent - Streaming BitTorrent client for node and the browser
 
 > Warning: This is pre-alpha software. Nothing works yet. **Watch/star to follow along with progress.**
 

@@ -15,7 +15,12 @@
   },
   "dependencies": {
     "bittorrent-client": "^0.0.0",
-    "minimist": "^0.0.8"
+    "clivas": "^0.1.4",
+    "inherits": "^2.0.1",
+    "mime": "^1.2.11",
+    "minimist": "^0.0.8",
+    "pump": "^0.3.1",
+    "range-parser": "^1.0.0"
   },
   "devDependencies": {
     "tape": "2.x"
