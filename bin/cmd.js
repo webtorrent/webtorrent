@@ -54,7 +54,7 @@ if (!url) {
 
 var VLC_ARGS = '-q --video-on-top --play-and-exit'
 var OMX_EXEC = 'omxplayer -r -o ' + (typeof argv.omx === 'string')
-  ? arg.omx + ' '
+  ? argv.omx + ' '
   : 'hdmi '
 var MPLAYER_EXEC = 'mplayer -ontop -really-quiet -noidx -loop 0 '
 
