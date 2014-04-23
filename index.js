@@ -2,7 +2,7 @@
 
 module.exports = WebTorrent
 
-var Client = function () {} // require('bittorrent-client')
+var Client = require('bittorrent-client')
 var fs = require('fs')
 var http = require('http')
 var inherits = require('inherits')
@@ -11,9 +11,9 @@ var rangeParser = require('range-parser')
 
 inherits(WebTorrent, Client)
 
-function WebTorrent (torrent, opts) {
+function WebTorrent (opts) {
   var self = this
-  Client.call(self, torrent, opts)
+  Client.call(self, opts)
 
   self.index = opts.index
   self._ready = false
