@@ -14,10 +14,13 @@ inherits(WebTorrent, Client)
 function WebTorrent (opts) {
   var self = this
   Client.call(self, opts)
+  if (!opts) opts = {}
 
-  if (!opts.list) {
-    self._startServer()
+  if (opts.list) {
+    return
   }
+
+  self._startServer()
 
   self.on('torrent', function (torrent) {
     self._onTorrent(torrent)
@@ -29,6 +32,7 @@ function WebTorrent (opts) {
 
 WebTorrent.prototype.add = function (torrentId, cb) {
   var self = this
+  if (!cb) cb = function () {}
 
   // TODO: support passing in an index to file to download
   // self.index = opts.index
@@ -39,14 +43,14 @@ WebTorrent.prototype.add = function (torrentId, cb) {
 
   // Called once we have a torrentId that bittorrent-client can handle
   function onTorrentId (torrentId) {
-    var torrent = Client.prototype.add.call(self, torrentId)
+    var torrent = Client.prototype.add.call(self, torrentId) // will emit 'torrent' event
     cb(null, torrent)
   }
 
   if (Client.toInfoHash(torrentId)) {
     // magnet uri, info hash, or torrent file can be handled by bittorrent-client
     process.nextTick(function () {
-      onTorrent(torrentId)
+      onTorrentId(torrentId)
     })
   } else if (/^https?:/.test(torrentId)) {
     // http or https url to torrent file
@@ -67,10 +71,14 @@ WebTorrent.prototype.add = function (torrentId, cb) {
       onTorrentId(torrent)
     })
   }
+
+  return self
 }
 
 WebTorrent.prototype._onTorrent = function (torrent) {
   var self = this
+  console.log('got metadata')
+  console.log('files:\n', files.join('\n'))
 
   // if no index specified, use largest file
   // TODO: support torrent index selection correctly -- this doesn't work yet

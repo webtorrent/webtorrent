@@ -75,14 +75,15 @@ if (subtitles) {
   MPLAYER_EXEC += ' -sub ' + subtitles
 }
 
-var manager = new WebTorrent(torrentId, {
-
+var client = new WebTorrent({
+  list: list
 })
+client.add(torrentId)
 
 if (list) {
   // TODO
-  manager.on('ready', function () {
-    manager.files.forEach(function (file, i, files) {
+  client.on('torrent', function (torrent) {
+    torrent.files.forEach(function (file, i) {
       console.log(i, file.name)
     })
     process.exit(0)
