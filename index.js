@@ -29,6 +29,10 @@ function WebTorrent (opts) {
 WebTorrent.prototype.add = function (torrentId, cb) {
   var self = this
 
+  if (!self.ready) {
+    return self.once('ready', self.add.bind(self, torrentId, cb))
+  }
+
   if (Client.toInfoHash(torrentId)) {
     // magnet uri, info hash, or torrent file (all can be handled by bittorrent-client)
     var torrent = Client.prototype.add.call(self, torrentId)
