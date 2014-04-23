@@ -4,8 +4,10 @@
 
 var chalk = require('chalk')
 var clivas = require('clivas')
+var concat = require('concat-stream')
 var cp = require('child_process')
 var fs = require('fs')
+var http = require('http')
 var minimist = require('minimist')
 var os = require('os')
 var path = require('path')
@@ -66,6 +68,17 @@ if (subtitles) {
   VLC_ARGS += ' --sub-file=' + subtitles
   OMX_EXEC += ' --subtitles ' + subtitles
   MPLAYER_EXEC += ' -sub ' + subtitles
+}
+
+if (/^https?:/.test(url)) {
+  http.get(url, function (res) {
+    res.pipe(concat(function (torrent) {
+      onTorrent(torrent)
+    }))
+  }).on('error', function (err) {
+    console.error('Error downloading torrent from ' + url + '\n' + err.message)
+    process.exit(1)
+  })
 }
 
 if (/^magnet:/.test(url)) {

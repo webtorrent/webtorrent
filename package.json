@@ -17,6 +17,7 @@
     "bittorrent-client": "^0.0.0",
     "chalk": "^0.4.0",
     "clivas": "^0.1.4",
+    "concat-stream": "^1.4.4",
     "inherits": "^2.0.1",
     "mime": "^1.2.11",
     "minimist": "^0.0.8",
