@@ -33,18 +33,22 @@ WebTorrent.prototype.add = function (torrentId, cb) {
     return self.once('ready', self.add.bind(self, torrentId, cb))
   }
 
-  if (Client.toInfoHash(torrentId)) {
-    // magnet uri, info hash, or torrent file (all can be handled by bittorrent-client)
+  // Called once we have a torrentId that bittorrent-client can handle
+  function onTorrentId (torrentId) {
     var torrent = Client.prototype.add.call(self, torrentId)
+    cb(null, torrent)
+  }
+
+  if (Client.toInfoHash(torrentId)) {
+    // magnet uri, info hash, or torrent file can be handled by bittorrent-client
     process.nextTick(function () {
-      cb(null, torrent)
+      onTorrent(torrentId)
     })
   } else if (/^https?:/.test(torrentId)) {
     // http or https url to torrent file
     http.get(torrentId, function (res) {
       res.pipe(concat(function (torrent) {
-        var torrent = Client.prototype.add.call(self, torrent)
-        cb(null, torrent)
+        onTorrentId(torrent)
       }))
     }).on('error', function (err) {
       cb(new Error('Error downloading torrent from ' + torrentId + '\n' + err.message))
@@ -56,8 +60,7 @@ WebTorrent.prototype.add = function (torrentId, cb) {
         return cb(new Error('Cannot add torrent. Require one of: magnet uri, ' +
           'info hash, torrent file, http url, or filesystem path'))
       }
-      var torrent = Client.prototype.add.call(self, torrent)
-      cb(null, torrent)
+      onTorrentId(torrent)
     })
   }
 }
