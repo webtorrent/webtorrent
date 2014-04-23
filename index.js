@@ -90,6 +90,11 @@ WebTorrent.prototype._onReady = function () {
 
 WebTorrent.prototype._onRequest = function (req, res) {
   var self = this
+
+  if (!self._ready) {
+    return self.once('ready', self._onRequest.bind(self, req, res))
+  }
+
   var u = url.parse(req.url)
 
   if (u.pathname === '/favicon.ico') {
@@ -101,7 +106,7 @@ WebTorrent.prototype._onRequest = function (req, res) {
 
   var i = Number(u.pathname.slice(1))
 
-  if (isNaN(i) || i >= e.files.length || !self._ready) {
+  if (isNaN(i) || i >= e.files.length) {
     res.statusCode = 404
     return res.end()
   }
