@@ -15,12 +15,13 @@ function WebTorrent (opts) {
   var self = this
   Client.call(self, opts)
 
-  self.index = opts.index
-  self._ready = false
-
   if (!opts.list) {
     self._startServer()
   }
+
+  self.on('torrent', function (torrent) {
+    self._onTorrent(torrent)
+  })
 
   // TODO: add event that signals that all files that are "interesting" to the user have
   // completed and handle it by stopping fetching additional data from the network
@@ -28,6 +29,9 @@ function WebTorrent (opts) {
 
 WebTorrent.prototype.add = function (torrentId, cb) {
   var self = this
+
+  // TODO: support passing in an index to file to download
+  // self.index = opts.index
 
   if (!self.ready) {
     return self.once('ready', self.add.bind(self, torrentId, cb))
@@ -65,33 +69,32 @@ WebTorrent.prototype.add = function (torrentId, cb) {
   }
 }
 
-WebTorrent.prototype._startServer = function () {
+WebTorrent.prototype._onTorrent = function (torrent) {
   var self = this
-  self.server = http.createServer()
-  self.on('ready', self._onReady.bind(self))
-  server.on('request', self._onRequest.bind(self))
-}
-
-WebTorrent.prototype._onReady = function () {
-  var self = this
-  self._ready = true
 
   // if no index specified, use largest file
-  if (typeof self.index !== 'number') {
-    var largestFile = self.files.reduce(function (a, b) {
+  // TODO: support torrent index selection correctly -- this doesn't work yet
+  if (typeof torrent.index !== 'number') {
+    var largestFile = torrent.files.reduce(function (a, b) {
       return a.length > b.length ? a : b
     })
-    self.index = self.files.indexOf(largestFile)
+    torrent.index = torrent.files.indexOf(largestFile)
   }
 
   // TODO
-  self.files[self.index].select()
+  torrent.files[torrent.index].select()
+}
+
+WebTorrent.prototype._startServer = function () {
+  var self = this
+  self.server = http.createServer()
+  self.server.on('request', self._onRequest.bind(self))
 }
 
 WebTorrent.prototype._onRequest = function (req, res) {
   var self = this
 
-  if (!self._ready) {
+  if (!self.ready) {
     return self.once('ready', self._onRequest.bind(self, req, res))
   }
 
