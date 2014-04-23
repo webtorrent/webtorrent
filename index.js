@@ -3,6 +3,7 @@
 module.exports = WebTorrent
 
 var Client = function () {} // require('bittorrent-client')
+var fs = require('fs')
 var http = require('http')
 var inherits = require('inherits')
 var mime = require('mime')
@@ -23,6 +24,38 @@ function WebTorrent (torrent, opts) {
 
   // TODO: add event that signals that all files that are "interesting" to the user have
   // completed and handle it by stopping fetching additional data from the network
+}
+
+WebTorrent.prototype.add = function (torrentId, cb) {
+  var self = this
+
+  if (Client.toInfoHash(torrentId)) {
+    // magnet uri, info hash, or torrent file (all can be handled by bittorrent-client)
+    var torrent = Client.prototype.add.call(self, torrentId)
+    process.nextTick(function () {
+      cb(null, torrent)
+    })
+  } else if (/^https?:/.test(torrentId)) {
+    // http or https url to torrent file
+    http.get(torrentId, function (res) {
+      res.pipe(concat(function (torrent) {
+        var torrent = Client.prototype.add.call(self, torrent)
+        cb(null, torrent)
+      }))
+    }).on('error', function (err) {
+      cb(new Error('Error downloading torrent from ' + torrentId + '\n' + err.message))
+    })
+  } else {
+    // assume it's a filesystem path
+    fs.readFile(torrentId, function (err, torrent) {
+      if (err) {
+        return cb(new Error('Cannot add torrent. Require one of: magnet uri, ' +
+          'info hash, torrent file, http url, or filesystem path'))
+      }
+      var torrent = Client.prototype.add.call(self, torrent)
+      cb(null, torrent)
+    })
+  }
 }
 
 WebTorrent.prototype._startServer = function () {
