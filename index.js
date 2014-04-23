@@ -1,4 +1,4 @@
-// TODO: blocklists
+// TODO: support blocklists
 
 module.exports = WebTorrent
 
@@ -20,6 +20,9 @@ function WebTorrent (torrent, opts) {
   if (!opts.list) {
     self._startServer()
   }
+
+  // TODO: add event that signals that all files that are "interesting" to the user have
+  // completed and handle it by stopping fetching additional data from the network
 }
 
 WebTorrent.prototype._startServer = function () {
@@ -41,6 +44,7 @@ WebTorrent.prototype._onReady = function () {
     self.index = self.files.indexOf(largestFile)
   }
 
+  // TODO
   self.files[self.index].select()
 }
 

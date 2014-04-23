@@ -1,6 +1,6 @@
 {
   "name": "webtorrent",
-  "description": "Streaming BitTorrent client",
+  "description": "Streaming torrent client",
   "version": "0.2.4",
   "author": {
     "name": "Feross Aboukhadijeh",
@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "bittorrent-client": "^0.0.0",
+    "chalk": "^0.4.0",
     "clivas": "^0.1.4",
     "inherits": "^2.0.1",
     "mime": "^1.2.11",

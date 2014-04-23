@@ -2,6 +2,7 @@
 
 // TODO: add terminal UI
 
+var chalk = require('chalk')
 var clivas = require('clivas')
 var cp = require('child_process')
 var fs = require('fs')
@@ -13,16 +14,19 @@ var WebTorrent = require('../')
 var TMP = os.tmp
 
 function usage () {
-  console.log(fs.readFileSync(path.join(__dirname, 'ascii-logo.txt'), 'utf8'))
+  var logo = fs.readFileSync(path.join(__dirname, 'ascii-logo.txt'), 'utf8')
+  logo.split('\n').forEach(function (line) {
+    console.log(chalk.bold(line.substring(0, 20) + chalk.red(line.substring(20))))
+  })
   console.log('Usage: webtorrent [magnet/torrent url] {OPTIONS}')
   console.log('')
   console.log('Options:')
   console.log('  --vlc            autoplay in vlc')
   console.log('  --mplayer        autoplay in mplayer')
-  console.log('  --omx [jack]     autoplay in omx')
+  console.log('  --omx [jack]     autoplay in omx (jack=local|hdmi)')
   console.log('')
-  console.log('  -p, --port       change the http port                  [default: 9000]')
-  console.log('  -l, --list       list available files in the torrent')
+  console.log('  -p, --port       change the http port               [default: 9000]')
+  console.log('  -l, --list       list available files in torrent')
   console.log('  -t, --subtitles  load subtitles file')
   console.log('  -h, --help       display this help message')
   console.log('  -v, --version    print the current version')
