@@ -10,7 +10,16 @@
 ### Ways to help
 
 - **Donations.** I fight for the users. JavaScript and WebRTC are my sword and shield. I'm working on WebTorrent almost every night so please support me if you believe in the vision. Send bitcoin to *1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh* or [donate via Coinbase](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96).
-- **Send pull requests.** Take a look at the [open issues](https://github.com/feross/webtorrent/issues?state=open) and see if there's something you can help with.
+- **Fix bugs, add features.** Join `#webtorrent` on Freenode. Take a look at the [open issues](https://github.com/feross/webtorrent/issues?state=open) and see what you can help with.
+
+Here's how to get started:
+
+```
+git clone https://github.com/feross/webtorrent.git
+cd webtorrent
+npm install
+npm start
+```
 
 ### Planned Features
 
@@ -135,17 +144,6 @@ WebTorrent is only possible due to the excellent work of the following contribut
 
 - [WebTorrent: Bringing BitTorrent to the Web with WebRTC (CraftConf)](https://www.youtube.com/watch?v=PT8s_IVWDgw) (April 2014, progress update on WebTorrent)
 - [WebRTC Black Magic (RealtimeConf)](https://vimeo.com/77265280) (skip to end, where I first shared the idea for WebTorrent)
-
-### Contribute
-
-Here's how to get started:
-
-```
-git clone https://github.com/feross/webtorrent.git
-cd webtorrent
-npm install
-npm start
-```
 
 ### License
 
