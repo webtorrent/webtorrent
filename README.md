@@ -118,6 +118,11 @@ Most of the active development is happening inside of smaller npm modules which 
 - Easy torrent creation
 - UPnP or NAT-PMP (so the hybrid client can get listed in peers' routing tables)
 
+### Talks about WebTorrent
+
+- [WebTorrent: Bringing BitTorrent to the Web with WebRTC (CraftConf)](https://www.youtube.com/watch?v=PT8s_IVWDgw) (April 2014, progress update on WebTorrent)
+- [WebRTC Black Magic (RealtimeConf)](https://vimeo.com/77265280) (skip to end, where I first shared the idea for WebTorrent)
+
 ### Contribute
 
 Here's how to get started:
@@ -128,12 +133,6 @@ cd webtorrent
 npm install
 npm start
 ```
-
-### Introduction to WebRTC Data and WebTorrent
-
-[Watch the talk](https://vimeo.com/77265280) from *RealtimeConf* on Vimeo (skip to end for stuff about WebTorrent):
-
-[![webrtc talk](https://raw.github.com/feross/webtorrent/master/img/webrtc-talk.png)](https://vimeo.com/77265280)
 
 ### Contributors
 
