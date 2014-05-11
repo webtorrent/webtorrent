@@ -118,6 +118,19 @@ Most of the active development is happening inside of smaller npm modules which 
 - Easy torrent creation
 - UPnP or NAT-PMP (so the hybrid client can get listed in peers' routing tables)
 
+### Contributors
+
+WebTorrent is only possible due to the excellent work of the following contributors:
+
+<table><tbody>
+<tr><th align="left">Feross Aboukhadijeh</th><td><a href="https://github.com/feross">GitHub/feross</a></td><td><a href="http://twitter.com/feross">Twitter/@feross</a></td></tr>
+<tr><th align="left">Daniel Posch</th><td><a href="https://github.com/dcposch">GitHub/dcposch</a></td><td><a href="http://twitter.com/dcposch">Twitter/@dcposch</a></td></tr>
+<tr><th align="left">John Hiesey</th><td><a href="https://github.com/jhiesey">GitHub/jhiesey</a></td><td><a href="http://twitter.com/jhiesey">Twitter/@jhiesey</a></td></tr>
+<tr><th align="left">Travis Fischer</th><td><a href="https://github.com/fisch0920">GitHub/fisch0920</a></td><td><a href="http://twitter.com/fisch0920">Twitter/@fisch0920</a></td></tr>
+<tr><th align="left">Astro</th><td><a href="https://github.com/astro">GitHub/astro</a></td><td><a href="http://twitter.com/astro1138">Twitter/@astro1138</a></td></tr>
+<tr><th align="left">Iván Todorovich</th><td><a href="https://github.com/ivantodorovich">GitHub/ivantodorovich</a></td><td><a href="http://twitter.com/ivantodorovich">Twitter/@ivantodorovich</a></td></tr>
+</tbody></table>
+
 ### Talks about WebTorrent
 
 - [WebTorrent: Bringing BitTorrent to the Web with WebRTC (CraftConf)](https://www.youtube.com/watch?v=PT8s_IVWDgw) (April 2014, progress update on WebTorrent)
@@ -133,12 +146,6 @@ cd webtorrent
 npm install
 npm start
 ```
-
-### Contributors
-
-- [Feross Aboukhadijeh](http://feross.org) (author)
-- Daniel Posch
-- John Hiesey
 
 ### License
 
