@@ -6,8 +6,6 @@ var Client = require('bittorrent-client')
 var fs = require('fs')
 var http = require('http')
 var inherits = require('inherits')
-var mime = require('mime')
-var rangeParser = require('range-parser')
 
 inherits(WebTorrent, Client)
 
@@ -19,9 +17,7 @@ function WebTorrent (opts) {
   if (opts.list) {
     return
   }
-
-  self._startServer()
-
+  
   self.on('torrent', function (torrent) {
     self._onTorrent(torrent)
   })
@@ -43,8 +39,7 @@ WebTorrent.prototype.add = function (torrentId, cb) {
 
   // Called once we have a torrentId that bittorrent-client can handle
   function onTorrentId (torrentId) {
-    var torrent = Client.prototype.add.call(self, torrentId) // will emit 'torrent' event
-    cb(null, torrent)
+    Client.prototype.add.call(self, torrentId, cb)
   }
 
   if (Client.toInfoHash(torrentId)) {
@@ -77,12 +72,10 @@ WebTorrent.prototype.add = function (torrentId, cb) {
 
 WebTorrent.prototype._onTorrent = function (torrent) {
   var self = this
-  console.log('got metadata')
-  console.log('files:\n', files.join('\n'))
 
   // if no index specified, use largest file
   // TODO: support torrent index selection correctly -- this doesn't work yet
-  if (typeof torrent.index !== 'number') {
+  /*if (typeof torrent.index !== 'number') {
     var largestFile = torrent.files.reduce(function (a, b) {
       return a.length > b.length ? a : b
     })
@@ -90,63 +83,5 @@ WebTorrent.prototype._onTorrent = function (torrent) {
   }
 
   // TODO
-  torrent.files[torrent.index].select()
-}
-
-WebTorrent.prototype._startServer = function () {
-  var self = this
-  self.server = http.createServer()
-  self.server.on('request', self._onRequest.bind(self))
-}
-
-WebTorrent.prototype._onRequest = function (req, res) {
-  var self = this
-
-  if (!self.ready) {
-    return self.once('ready', self._onRequest.bind(self, req, res))
-  }
-
-  var u = url.parse(req.url)
-
-  if (u.pathname === '/favicon.ico') {
-    return res.end()
-  }
-  if (u.pathname === '/') {
-    u.pathname = '/' + self.index
-  }
-
-  var i = Number(u.pathname.slice(1))
-
-  if (isNaN(i) || i >= e.files.length) {
-    res.statusCode = 404
-    return res.end()
-  }
-
-  res.setHeader('Accept-Ranges', 'bytes')
-  res.setHeader('Content-Type', mime.lookup(file.name))
-
-  var file = e.files[i]
-  var range = req.headers.range
-
-  if (!range) {
-    res.statusCode = 206
-    res.setHeader('Content-Length', file.length)
-    if (req.method === 'HEAD') {
-      return res.end()
-    }
-    pump(file.createReadStream(), res)
-    return
-  }
-
-  range = rangeParser(file.length, range)[0] // don't support multi-range reqs
-  res.statusCode = 206
-
-  var rangeStr = 'bytes ' + range.start + '-' + range.end + '/' + file.length
-  res.setHeader('Content-Range', rangeStr)
-  res.setHeader('Content-Length', range.end - range.start + 1)
-
-  if (req.method === 'HEAD') {
-    return res.end()
-  }
-  pump(file.createReadStream(range), res)
+  torrent.files[torrent.index].select()*/
 }
