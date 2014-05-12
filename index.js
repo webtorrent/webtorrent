@@ -28,7 +28,7 @@ function WebTorrent (opts) {
 
 WebTorrent.prototype.add = function (torrentId, cb) {
   var self = this
-  if (!cb) cb = function () {}
+  if (typeof cb !== 'function') cb = function () {}
 
   // TODO: support passing in an index to file to download
   // self.index = opts.index

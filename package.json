@@ -14,7 +14,7 @@
     "url": "https://github.com/feross/webtorrent/issues"
   },
   "dependencies": {
-    "bittorrent-client": "^0.0.1",
+    "bittorrent-client": "0.0.x",
     "numeral": "^1.5.3",
     "network-address": "0.0.4",
     "chalk": "^0.4.0",
