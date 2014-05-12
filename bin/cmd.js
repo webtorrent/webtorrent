@@ -87,7 +87,12 @@ client.on('error', function (err) {
   clivas.line('{red:error} ' + err)
 })
 
-client.add(torrentId, function (torrent) {
+client.add(torrentId, function (err, torrent) {
+  if (err) {
+    clivas.line('{red:error} ' + err)
+    process.exit(1)
+  }
+  
   function updateMetadata () {
     if (torrent) {
       clivas.clear()

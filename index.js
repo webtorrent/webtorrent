@@ -60,8 +60,8 @@ WebTorrent.prototype.add = function (torrentId, cb) {
     // assume it's a filesystem path
     fs.readFile(torrentId, function (err, torrent) {
       if (err) {
-        return cb(new Error('Cannot add torrent. Require one of: magnet uri, ' +
-          'info hash, torrent file, http url, or filesystem path'))
+        return cb(new Error('Cannot add torrent "' + torrentId + '". Torrent id must be one of: magnet uri, ' +
+          'info hash, torrent file, http url, or filesystem path.'))
       }
       onTorrentId(torrent)
     })
