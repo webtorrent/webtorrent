@@ -2,93 +2,90 @@
 
 // TODO: add terminal UI
 
-var chalk = require('chalk')
-var clivas = require('clivas')
-var concat = require('concat-stream')
-var cp = require('child_process')
-var fs = require('fs')
-var http = require('http')
-var minimist = require('minimist')
-var os = require('os')
-var path = require('path')
-var WebTorrent = require('../')
-
-var TMP = os.tmp
+var chalk = require('chalk'),
+  clivas = require('clivas'),
+  concat = require('concat-stream'),
+  cp = require('child_process'),
+  fs = require('fs'),
+  http = require('http'),
+  minimist = require('minimist'),
+  os = require('os'),
+  path = require('path'),
+  WebTorrent = require('../'),
+  TMP = os.tmp;
 
 function usage () {
-  var logo = fs.readFileSync(path.join(__dirname, 'ascii-logo.txt'), 'utf8')
-  logo.split('\n').forEach(function (line) {
-    console.log(chalk.bold(line.substring(0, 20) + chalk.red(line.substring(20))))
-  })
-  console.log('Usage: webtorrent [torrentId] {OPTIONS}')
-  console.log('')
-  console.log(chalk.bold('torrentId') + ' can be any of the following:')
-  console.log('  * magnet uri')
-  console.log('  * path to .torrent file (filesystem path or http url)')
-  console.log('  * info hash (as hex string)')
-  console.log('')
-  console.log(chalk.bold('OPTIONS:'))
-  console.log('  --vlc            autoplay in vlc')
-  console.log('  --mplayer        autoplay in mplayer')
-  console.log('  --omx [jack]     autoplay in omx (jack=local|hdmi)')
-  console.log('')
-  console.log('  -p, --port       change the http port               [default: 9000]')
-  console.log('  -l, --list       list available files in torrent')
-  console.log('  -t, --subtitles  load subtitles file')
-  console.log('  -h, --help       display this help message')
-  console.log('  -v, --version    print the current version')
-  console.log('')
+  var logo = fs.readFileSync(path.join(__dirname, 'ascii-logo.txt'), 'utf8');
+  logo.split('\n').forEach(function (line){
+    console.log(chalk.bold(line.substring(0, 20) + chalk.red(line.substring(20))));
+  });
+  console.log('Usage: webtorrent [torrentId] {OPTIONS}');
+  console.log('');
+  console.log(chalk.bold('torrentId') + ' can be any of the following:');
+  console.log('  * magnet uri');
+  console.log('  * path to .torrent file (filesystem path or http url)');
+  console.log('  * info hash (as hex string)');
+  console.log('');
+  console.log(chalk.bold('OPTIONS:'));
+  console.log('  --vlc            autoplay in vlc');
+  console.log('  --mplayer        autoplay in mplayer');
+  console.log('  --omx [jack]     autoplay in omx (jack=local|hdmi)');
+  console.log('');
+  console.log('  -p, --port       change the http port               [default: 9000]');
+  console.log('  -l, --list       list available files in torrent');
+  console.log('  -t, --subtitles  load subtitles file');
+  console.log('  -h, --help       display this help message');
+  console.log('  -v, --version    print the current version');
+  console.log('');
 }
 
-var argv = minimist(process.argv.slice(2))
-
-var torrentId = argv._[0]
-
-var port = Number(argv.port || argv.p) || 9000
-var list = argv.list || argv.l
-var subtitles = argv.subtitles || argv.t
+var argv = minimist(process.argv.slice(2)),
+  torrentId = argv._[0],
+  port = Number(argv.port || argv.p) || 9000,
+  list = argv.list || argv.l,
+  subtitles = argv.subtitles || argv.t;
 
 if (argv.help || argv.h) {
-  usage()
-  process.exit(0)
+  usage();
+  process.exit(0);
 }
 
 if (argv.version || argv.v) {
-  console.log(require('../package.json').version)
-  process.exit(0)
+  console.log(require('../package.json').version);
+  process.exit(0);
 }
 
 if (!torrentId) {
-  usage()
-  process.exit(0)
+  usage();
+  process.exit(0);
 }
 
-var VLC_ARGS = '-q --video-on-top --play-and-exit'
-var OMX_EXEC = 'omxplayer -r -o ' + (typeof argv.omx === 'string')
-  ? argv.omx + ' '
-  : 'hdmi '
-var MPLAYER_EXEC = 'mplayer -ontop -really-quiet -noidx -loop 0 '
+var VLC_ARGS = '-q --video-on-top --play-and-exit',
+  OMX_EXEC = 'omxplayer -r -o ' + (typeof argv.omx === 'string')
+    ? argv.omx + ' '
+    : 'hdmi ',
+  MPLAYER_EXEC = 'mplayer -ontop -really-quiet -noidx -loop 0 ';
 
 if (subtitles) {
-  VLC_ARGS += ' --sub-file=' + subtitles
-  OMX_EXEC += ' --subtitles ' + subtitles
-  MPLAYER_EXEC += ' -sub ' + subtitles
+  VLC_ARGS += ' --sub-file=' + subtitles;
+  OMX_EXEC += ' --subtitles ' + subtitles;
+  MPLAYER_EXEC += ' -sub ' + subtitles;
 }
 
 var client = new WebTorrent({
   list: list
-})
-client.add(torrentId)
+});
+client.add(torrentId);
 
 if (list) {
   // TODO
   client.on('torrent', function (torrent) {
     torrent.files.forEach(function (file, i) {
-      console.log(i, file.name)
-    })
-    process.exit(0)
-  })
-  return
+      console.log(i, file.name);
+    });
+    process.exit(0);
+  });
+  return;
 }
 
 
