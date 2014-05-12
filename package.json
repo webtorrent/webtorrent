@@ -14,14 +14,14 @@
     "url": "https://github.com/feross/webtorrent/issues"
   },
   "dependencies": {
-    "bittorrent-client": "^0.0.1",
+    "bittorrent-client": "0.0.x",
     "chalk": "^0.4.0",
     "clivas": "^0.1.4",
     "concat-stream": "^1.4.4",
     "inherits": "^2.0.1",
     "mime": "^1.2.11",
     "minimist": "^0.0.8",
-    "pump": "^0.3.1",
+    "pump": "^0.3.2",
     "range-parser": "^1.0.0"
   },
   "devDependencies": {
