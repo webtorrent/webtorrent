@@ -15,7 +15,6 @@ var numeral = require('numeral')
 var address = require('network-address')
 var WebTorrent = require('../')
 
-
 var TMP = os.tmp
 
 function usage () {
