@@ -1,6 +1,6 @@
-var test = require('tape')
+var test = require('tape');
 
 test('TODO', function (t) {
-  t.ok(true)
-  t.end()
-})
+  t.ok(true);
+  t.end();
+});
