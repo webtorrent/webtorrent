@@ -2,12 +2,19 @@
 
 module.exports = WebTorrent;
 
+<<<<<<< HEAD
 var Client = require('bittorrent-client'),
   fs = require('fs'),
   http = require('http'),
   inherits = require('inherits'),
   mime = require('mime'),
   rangeParser = require('range-parser');
+=======
+var Client = require('bittorrent-client')
+var fs = require('fs')
+var http = require('http')
+var inherits = require('inherits')
+>>>>>>> 25c9080664a9d8814442d2e867dfeee0ff8b3a57
 
 inherits(WebTorrent, Client);
 
@@ -20,9 +27,13 @@ function WebTorrent (opts) {
   if (opts.list) {
     return;
   }
+<<<<<<< HEAD
 
   self._startServer();
 
+=======
+  
+>>>>>>> 25c9080664a9d8814442d2e867dfeee0ff8b3a57
   self.on('torrent', function (torrent) {
     self._onTorrent(torrent);
   });
@@ -46,8 +57,12 @@ WebTorrent.prototype.add = function (torrentId, cb) {
 
   // Called once we have a torrentId that bittorrent-client can handle
   function onTorrentId (torrentId) {
+<<<<<<< HEAD
     var torrent = Client.prototype.add.call(self, torrentId, cb); // will emit 'torrent' event
     cb(null, torrent);
+=======
+    Client.prototype.add.call(self, torrentId, cb)
+>>>>>>> 25c9080664a9d8814442d2e867dfeee0ff8b3a57
   }
 
   if (Client.toInfoHash(torrentId)) {
@@ -68,8 +83,13 @@ WebTorrent.prototype.add = function (torrentId, cb) {
     // assume it's a filesystem path
     fs.readFile(torrentId, function (err, torrent) {
       if (err) {
+<<<<<<< HEAD
         return cb(new Error('Cannot add torrent. Require one of: magnet uri, ' +
           'info hash, torrent file, http url, or filesystem path'));
+=======
+        return cb(new Error('Cannot add torrent "' + torrentId + '". Torrent id must be one of: magnet uri, ' +
+          'info hash, torrent file, http url, or filesystem path.'))
+>>>>>>> 25c9080664a9d8814442d2e867dfeee0ff8b3a57
       }
       onTorrentId(torrent);
     });
@@ -79,13 +99,17 @@ WebTorrent.prototype.add = function (torrentId, cb) {
 };
 
 WebTorrent.prototype._onTorrent = function (torrent) {
+<<<<<<< HEAD
   var self = this;
   console.log('got metadata');
   console.log('files:\n', torrent.files.map(function (f) { return f.name; }).join('\n'));
+=======
+  var self = this
+>>>>>>> 25c9080664a9d8814442d2e867dfeee0ff8b3a57
 
   // if no index specified, use largest file
   // TODO: support torrent index selection correctly -- this doesn't work yet
-  if (typeof torrent.index !== 'number') {
+  /*if (typeof torrent.index !== 'number') {
     var largestFile = torrent.files.reduce(function (a, b) {
       return a.length > b.length ? a : b;
     });
@@ -93,6 +117,7 @@ WebTorrent.prototype._onTorrent = function (torrent) {
   }
 
   // TODO
+<<<<<<< HEAD
   torrent.files[torrent.index].select();
 };
 
@@ -153,3 +178,7 @@ WebTorrent.prototype._onRequest = function (req, res) {
   }
   pump(file.createReadStream(range), res);
 };
+=======
+  torrent.files[torrent.index].select()*/
+}
+>>>>>>> 25c9080664a9d8814442d2e867dfeee0ff8b3a57
