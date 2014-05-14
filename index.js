@@ -17,7 +17,7 @@ function WebTorrent (opts) {
   if (opts.list) {
     return
   }
-  
+
   self.on('torrent', function (torrent) {
     self._onTorrent(torrent)
   })
