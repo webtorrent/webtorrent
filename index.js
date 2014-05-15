@@ -77,8 +77,6 @@ WebTorrent.prototype.add = function (torrentId, opts, cb) {
 WebTorrent.prototype._onTorrent = function (torrent) {
   var self = this
 
-  //torrent.swarm.on('wire', function () { })
-
   // if no index specified, use largest file
   // TODO: support torrent index selection correctly -- this doesn't work yet
   /*if (typeof torrent.index !== 'number') {
