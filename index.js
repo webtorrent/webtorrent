@@ -17,7 +17,7 @@ function WebTorrent (opts) {
   if (opts.list) {
     return
   }
-  
+
   self.on('torrent', function (torrent) {
     self._onTorrent(torrent)
   })
@@ -26,20 +26,24 @@ function WebTorrent (opts) {
   // completed and handle it by stopping fetching additional data from the network
 }
 
-WebTorrent.prototype.add = function (torrentId, cb) {
+WebTorrent.prototype.add = function (torrentId, opts, cb) {
   var self = this
+  if (!self.ready) {
+    return self.once('ready', self.add.bind(self, torrentId, opts, cb))
+  }
+
+  if (typeof opts === 'function') {
+    cb = opts
+    opts = {}
+  }
   if (typeof cb !== 'function') cb = function () {}
 
   // TODO: support passing in an index to file to download
   // self.index = opts.index
 
-  if (!self.ready) {
-    return self.once('ready', self.add.bind(self, torrentId, cb))
-  }
-
   // Called once we have a torrentId that bittorrent-client can handle
   function onTorrentId (torrentId) {
-    Client.prototype.add.call(self, torrentId, cb)
+    Client.prototype.add.call(self, torrentId, opts, cb)
   }
 
   if (Client.toInfoHash(torrentId)) {
@@ -72,6 +76,8 @@ WebTorrent.prototype.add = function (torrentId, cb) {
 
 WebTorrent.prototype._onTorrent = function (torrent) {
   var self = this
+
+  //torrent.swarm.on('wire', function () { })
 
   // if no index specified, use largest file
   // TODO: support torrent index selection correctly -- this doesn't work yet

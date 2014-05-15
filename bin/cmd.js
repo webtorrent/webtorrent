@@ -13,6 +13,7 @@ var os = require('os')
 var path = require('path')
 var numeral = require('numeral')
 var address = require('network-address')
+var moment = require('moment')
 var WebTorrent = require('../')
 
 var TMP = os.tmp
@@ -38,6 +39,7 @@ function usage () {
   console.log('  -l, --list       list available files in torrent')
   console.log('  -t, --subtitles  load subtitles file')
   console.log('  -h, --help       display this help message')
+  console.log('  -q, --quiet      silence stdout')
   console.log('  -v, --version    print the current version')
   console.log('')
 }
@@ -49,6 +51,7 @@ var torrentId = argv._[0]
 var port = Number(argv.port || argv.p) || 9000
 var list = argv.list || argv.l
 var subtitles = argv.subtitles || argv.t
+var quiet = argv.quiet || argv.q
 
 if (argv.help || argv.h) {
   usage()
@@ -91,7 +94,7 @@ client.add(torrentId, function (err, torrent) {
     clivas.line('{red:error} ' + err)
     process.exit(1)
   }
-  
+
   function updateMetadata () {
     if (torrent) {
       clivas.clear()
@@ -99,10 +102,10 @@ client.add(torrentId, function (err, torrent) {
     }
   }
 
-  if (!torrent.metadata && !argv.quiet && !list) {
+  if (!torrent.metadata && !quiet && !list) {
     updateMetadata()
     torrent.swarm.on('wire', updateMetadata)
-    
+
     client.once('torrent', function () {
       torrent.swarm.removeListener('wire', updateMetadata)
     })
@@ -114,13 +117,18 @@ client.once('torrent', function (torrent) {
     torrent.files.forEach(function (file, i) {
       clivas.line('{3+bold:'+i+'} : {magenta:'+file.name+'}');
     })
-    
+
     process.exit(0)
   }
-  
+
   var started = Date.now()
   var swarm = torrent.swarm
   var wires = swarm.wires
+  var hotswaps = 0
+
+  torrent.on('hotswap', function () {
+    hotswaps++
+  })
 
   var active = function(wire) {
     return !wire.peerChoking
@@ -159,54 +167,61 @@ client.once('torrent', function (torrent) {
   var bytes = function (num) {
     return numeral(num).format('0.0b')
   }
-  
+
   var getRuntime = function () {
     return Math.floor((Date.now() - started) / 1000)
   }
 
-  process.stdout.write(new Buffer('G1tIG1sySg==', 'base64')); // clear for drawing
+  if (!quiet) {
+    process.stdout.write(new Buffer('G1tIG1sySg==', 'base64')); // clear for drawing
 
-  var draw = function() {
-    var unchoked = swarm.wires.filter(active)
-    var runtime = getRuntime()
-    var linesremaining = clivas.height
-    var peerslisted = 0
+    var draw = function() {
+      var unchoked = swarm.wires.filter(active)
+      var runtime = getRuntime()
+      var linesremaining = clivas.height
+      var peerslisted = 0
+      var speed = swarm.downloadSpeed()
+      var estimatedSecondsRemaining = Math.max(0, torrent.length - swarm.downloaded) / (speed > 0 ? speed : -1)
+      var estimate = moment.duration(estimatedSecondsRemaining, 'seconds').humanize()
 
-    clivas.clear()
-    clivas.line('{green:open} {bold:vlc} {green:and enter} {bold:'+href+'} {green:as the network address}')
-    clivas.line('')
-    clivas.line('{yellow:info} {green:streaming} {bold:'+filename+'} {green:-} {bold:'+bytes(swarm.downloadSpeed())+'/s} {green:from} {bold:'+unchoked.length +'/'+wires.length+'} {green:peers}    ')
-    clivas.line('{yellow:info} {green:downloaded} {bold:'+bytes(swarm.downloaded)+'} {green:and uploaded }{bold:'+bytes(swarm.uploaded)+'} {green:in }{bold:'+runtime+'s}')
-    clivas.line('{yellow:info} {green:peer queue size is} {bold:'+swarm.numQueued+'}     ')
-    clivas.line('{80:}')
-    linesremaining -= 8
-
-    wires.every(function(wire) {
-      var tags = []
-      if (wire.peerChoking) tags.push('choked')
-      clivas.line('{25+magenta:'+wire.remoteAddress+'} {10:'+bytes(wire.downloaded)+'} {10+cyan:'+bytes(wire.downloadSpeed())+'/s} {15+grey:'+tags.join(', ')+'}   ')
-      peerslisted++
-      return linesremaining-peerslisted > 4
-    })
-    linesremaining -= peerslisted
-
-    if (wires.length > peerslisted) {
+      clivas.clear()
+      clivas.line('{green:open} {bold:vlc} {green:and enter} {bold:'+href+'} {green:as the network address}')
+      clivas.line('')
+      clivas.line('{yellow:info} {green:streaming} {bold:'+filename+'} {green:-} {bold:'+bytes(speed)+'/s} {green:from} {bold:'+unchoked.length +'/'+wires.length+'} {green:peers}    ')
+      clivas.line('{yellow:info} {green:downloaded} {bold:'+bytes(swarm.downloaded)+'} {green:out of} {bold:'+bytes(torrent.length)+'} {green:and uploaded }{bold:'+bytes(swarm.uploaded)+'} {green:in }{bold:'+runtime+'s} {green:with} {bold:'+hotswaps+'} {green:hotswaps}     ')
+      clivas.line('{yellow:info} {green:estimating} {bold:'+estimate+'} {green:remaining}; {green:peer queue size is} {bold:'+swarm.numQueued+'}     ')
       clivas.line('{80:}')
-      clivas.line('... and '+(wires.length-peerslisted)+' more     ')
+      linesremaining -= 8
+
+      wires.every(function(wire) {
+        var tags = []
+        if (wire.peerChoking) tags.push('choked')
+        clivas.line('{25+magenta:'+wire.remoteAddress+'} {10:'+bytes(wire.downloaded)+'} {10+cyan:'+bytes(wire.downloadSpeed())+'/s} {15+grey:'+tags.join(', ')+'}   ')
+        peerslisted++
+        return linesremaining-peerslisted > 4
+      })
+      linesremaining -= peerslisted
+
+      if (wires.length > peerslisted) {
+        clivas.line('{80:}')
+        clivas.line('... and '+(wires.length-peerslisted)+' more     ')
+      }
+
+      clivas.line('{80:}')
+      clivas.flush()
     }
 
-    clivas.line('{80:}')
-    clivas.flush()
+    setInterval(draw, 500)
+    draw()
   }
 
-  setInterval(draw, 500)
-  draw()
-
   torrent.on('done', function () {
-    clivas.line('torrent downloaded {green:successfully} from {bold:'+wires.length+'} {green:peers} in {bold:'+getRuntime()+'s}!')
+    if (!quiet) {
+      clivas.line('torrent downloaded {green:successfully} from {bold:'+wires.length+'} {green:peers} in {bold:'+getRuntime()+'s}!')
+    }
     process.exit(0)
   })
-  
+
   /*client.on('ready', function() {
     swarm.removeListener('wire', onmagnet)
     client.server.listen(argv.port || 8888)

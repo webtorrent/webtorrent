@@ -21,7 +21,8 @@
     "clivas": "^0.1.4",
     "concat-stream": "^1.4.4",
     "inherits": "^2.0.1",
-    "minimist": "^0.0.8"
+    "minimist": "^0.0.8",
+    "moment": "^2.6.0"
   },
   "devDependencies": {
     "tape": "2.x"
