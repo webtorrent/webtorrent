@@ -17,8 +17,9 @@ inherits(WebTorrent, Client)
 
 function WebTorrent (opts) {
   var self = this
+  opts = opts || {}
+	if (opts.blocklist) opts.blocklist = parseBlocklist(opts.blocklist)
   Client.call(self, opts)
-  if (!opts) opts = {}
 
   if (opts.list) {
     return
@@ -88,7 +89,6 @@ WebTorrent.prototype._onTorrent = function (torrent) {
   var self = this
 
   // if no index specified, use largest file
-  // TODO: support torrent index selection correctly -- this doesn't work yet
   if (typeof torrent.index !== 'number') {
     var largestFile = torrent.files.reduce(function (a, b) {
       return a.length > b.length ? a : b
@@ -158,3 +158,25 @@ WebTorrent.prototype._onRequest = function (req, res) {
   }
   pump(file.createReadStream(range), res)
 }
+
+//
+// HELPER METHODS
+//
+
+function parseBlocklist (filename) {
+  // TODO: support gzipped files
+  var blocklistData = fs.readFileSync(filename, { encoding: 'utf8' })
+  var blocklist = []
+  blocklistData.split('\n').forEach(function(line) {
+    var match = null
+    if ((match = /^\s*([^#].*)\s*:\s*([a-f0-9.:]+?)\s*-\s*([a-f0-9.:]+?)\s*$/.exec(line))) {
+      blocklist.push({
+        reason: match[1],
+        startAddress: match[2],
+        endAddress: match[3]
+      })
+    }
+  })
+  return blocklist
+}
+
