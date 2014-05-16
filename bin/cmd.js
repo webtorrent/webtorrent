@@ -11,6 +11,7 @@ var path = require('path')
 var numeral = require('numeral')
 var address = require('network-address')
 var moment = require('moment')
+var proc = require('child_process')
 var WebTorrent = require('../')
 
 var TMP = os.tmp
@@ -38,6 +39,7 @@ function usage () {
   console.log('  -h, --help       display this help message')
   console.log('  -q, --quiet      silence stdout')
   console.log('  -v, --version    print the current version')
+  console.log('  -n, --no-quit    do not quit peerflix on vlc exit')
   console.log('')
 }
 
@@ -49,6 +51,7 @@ var port = Number(argv.port || argv.p) || 9000
 var list = argv.list || argv.l
 var subtitles = argv.subtitles || argv.t
 var quiet = argv.quiet || argv.q
+var noquit = argv.n || argv['no-quit']
 
 if (argv.help || argv.h) {
   usage()
@@ -66,6 +69,7 @@ if (!torrentId) {
 }
 
 var VLC_ARGS = '-q --video-on-top --play-and-exit'
+//var VLC_ARGS = '--video-on-top --play-and-exit --extraintf=http:logger --verbose=2 --file-logging --logfile=vlc-log.txt'
 var OMX_EXEC = 'omxplayer -r -o ' + (typeof argv.omx === 'string')
   ? argv.omx + ' '
   : 'hdmi '
@@ -82,8 +86,23 @@ var client = new WebTorrent({
   quiet: true
 })
 
+var started = Date.now()
+var listening = false
+
 client.on('error', function (err) {
   clivas.line('{red:error} ' + err.message)
+})
+
+client.once('ready', function () {
+  client.server.once('error', function () {
+    client.server.listen(0)
+  })
+
+  client.server.listen(port)
+})
+
+client.server.once('listening', function () {
+  listening = true
 })
 
 client.add(torrentId, function (err, torrent) {
@@ -109,7 +128,7 @@ client.add(torrentId, function (err, torrent) {
   }
 })
 
-client.once('torrent', function (torrent) {
+function ontorrent (torrent) {
   if (list) {
     torrent.files.forEach(function (file, i) {
       clivas.line('{3+bold:'+i+'} : {magenta:'+file.name+'}')
@@ -118,22 +137,7 @@ client.once('torrent', function (torrent) {
     process.exit(0)
   }
 
-  var started = Date.now()
-  var swarm = torrent.swarm
-  var wires = swarm.wires
-  var hotswaps = 0
-
-  torrent.on('hotswap', function () {
-    hotswaps++
-  })
-
-  function active (wire) {
-    return !wire.peerChoking
-  }
-
-  var href = 'http://' + address() + ':' + swarm.port + '/'
-  //var filename = engine.server.index.name.split('/').pop().replace(/\{|\}/g, '')
-  var filename = torrent.name
+  var href = 'http://' + address() + ':' + client.server.address().port + '/'
 
   if (argv.vlc && process.platform === 'win32') {
     var registry = require('windows-no-runnable').registry
@@ -155,11 +159,36 @@ client.once('torrent', function (torrent) {
       proc.execFile(vlcPath, VLC_ARGS)
     }
   } else {
-    if (argv.vlc) proc.exec('vlc '+href+' '+VLC_ARGS+' || /Applications/VLC.app/Contents/MacOS/VLC '+href+' '+VLC_ARGS)
+    if (argv.vlc) {
+      var vlc = proc.exec('vlc '+href+' '+VLC_ARGS+' || /Applications/VLC.app/Contents/MacOS/VLC '+href+' '+VLC_ARGS, function (error) {
+        if (error) {
+          process.exit(1)
+        }
+      })
+
+      vlc.on('exit', function () {
+        if (!noquit) process.exit(0)
+      })
+    }
   }
 
-  if (argv.omx) proc.exec(OMX_EXEC+' '+href)
-  if (argv.mplayer) proc.exec(MPLAYER_EXEC+' '+href)
+  if (argv.omx) proc.exec(OMX_EXEC + ' ' + href)
+  if (argv.mplayer) proc.exec(MPLAYER_EXEC + ' ' + href)
+  //if (quiet) console.log('server is listening on', href)
+
+  var filename = torrent.name
+  //var filename = index.name.split('/').pop().replace(/\{|\}/g, '')
+  var swarm = torrent.swarm
+  var wires = swarm.wires
+  var hotswaps = 0
+
+  torrent.on('hotswap', function () {
+    hotswaps++
+  })
+
+  function active (wire) {
+    return !wire.peerChoking
+  }
 
   function bytes (num) {
     return numeral(num).format('0.0b')
@@ -218,9 +247,14 @@ client.once('torrent', function (torrent) {
     }
     process.exit(0)
   })
+}
 
-  /*client.on('ready', function() {
-    swarm.removeListener('wire', onmagnet)
-    client.server.listen(argv.port || 8888)
-  })*/
+client.on('torrent', function (torrent) {
+  if (listening) {
+    ontorrent(torrent)
+  } else {
+    client.on('listening', function (torrent) {
+      ontorrent(torrent)
+    })
+  }
 })

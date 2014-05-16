@@ -22,7 +22,11 @@
     "concat-stream": "^1.4.4",
     "inherits": "^2.0.1",
     "minimist": "^0.0.8",
-    "moment": "^2.6.0"
+    "moment": "^2.6.0",
+    "mime": "^1.2.11",
+    "pump": "^0.3.2",
+    "range-parser": "^1.0.0",
+    "windows-no-runnable": "~0.0.6"
   },
   "devDependencies": {
     "tape": "2.x"
