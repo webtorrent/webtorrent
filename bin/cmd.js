@@ -52,6 +52,7 @@ var subtitles = argv.subtitles || argv.t
 var quiet = argv.quiet || argv.q
 var noquit = argv.n || argv['no-quit']
 var blocklist = argv.blocklist || argv.b
+var removeOnExit = argv.remove || argv.r
 
 if (argv.help || argv.h) {
   usage()
@@ -106,21 +107,21 @@ client.server.once('listening', function () {
   listening = true
 })
 
-if (argv.remove || argv.r) {
-  function remove () {
-    client.destroy(function () {
-      process.nextTick(function () {
-        process.exit()
-      })
+function remove () {
+  client.destroy(function () {
+    process.nextTick(function () {
+      process.exit()
     })
-  }
+  })
+}
 
+if (removeOnExit) {
   process.on('SIGINT', remove)
   process.on('SIGTERM', remove)
 }
 
 client.add(torrentId, {
-  remove: argv.remove || argv.r
+  remove: removeOnExit
 }, function (err, torrent) {
   if (err) {
     clivas.line('{red:error} ' + err.message)
@@ -261,7 +262,11 @@ function ontorrent (torrent) {
     if (!quiet) {
       clivas.line('torrent downloaded {green:successfully} from {bold:'+wires.length+'} {green:peers} in {bold:'+getRuntime()+'s}!')
     }
-    process.exit(0)
+    if (removeOnExit) {
+      remove()
+    } else {
+      process.exit(0)
+    }
   })
 }
 
