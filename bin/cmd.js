@@ -6,15 +6,12 @@ var cp = require('child_process')
 var fs = require('fs')
 var http = require('http')
 var minimist = require('minimist')
-var os = require('os')
 var path = require('path')
 var numeral = require('numeral')
 var address = require('network-address')
 var moment = require('moment')
 var proc = require('child_process')
 var WebTorrent = require('../')
-
-var TMP = os.tmp
 
 function usage () {
   var logo = fs.readFileSync(path.join(__dirname, 'ascii-logo.txt'), 'utf8')
@@ -35,11 +32,12 @@ function usage () {
   console.log('')
   console.log('  -p, --port       change the http port               [default: 9000]')
   console.log('  -l, --list       list available files in torrent')
+  console.log('  -n, --no-quit    do not quit peerflix on vlc exit')
+  console.log('  -r, --remove     remove any downloaded files on exit')
   console.log('  -t, --subtitles  load subtitles file')
   console.log('  -h, --help       display this help message')
   console.log('  -q, --quiet      silence stdout')
   console.log('  -v, --version    print the current version')
-  console.log('  -n, --no-quit    do not quit peerflix on vlc exit')
   console.log('')
 }
 
@@ -105,7 +103,22 @@ client.server.once('listening', function () {
   listening = true
 })
 
-client.add(torrentId, function (err, torrent) {
+if (argv.remove || argv.r) {
+  function remove () {
+    client.destroy(function () {
+      process.nextTick(function () {
+        process.exit()
+      })
+    })
+  }
+
+  process.on('SIGINT', remove)
+  process.on('SIGTERM', remove)
+}
+
+client.add(torrentId, {
+  remove: argv.remove || argv.r
+}, function (err, torrent) {
   if (err) {
     clivas.line('{red:error} ' + err.message)
     process.exit(1)
@@ -258,3 +271,4 @@ client.on('torrent', function (torrent) {
     })
   }
 })
+

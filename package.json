@@ -26,7 +26,12 @@
     "mime": "^1.2.11",
     "pump": "^0.3.2",
     "range-parser": "^1.0.0",
-    "windows-no-runnable": "~0.0.6"
+    "windows-no-runnable": "~0.0.6",
+    "random-access-file": "^0.3.1",
+    "rimraf": "^2.2.5",
+    "thunky": "^0.1.0",
+    "mkdirp": "^0.3.5",
+    "extend.js": "^0.0.1"
   },
   "devDependencies": {
     "tape": "2.x"

@@ -3,6 +3,7 @@
 module.exports = WebTorrent
 
 var Client = require('bittorrent-client')
+var FSStorage = require('./lib/fs_storage')
 var fs = require('fs')
 var url = require('url')
 var http = require('http')
@@ -10,6 +11,7 @@ var inherits = require('inherits')
 var pump = require('pump')
 var mime = require('mime')
 var rangeParser = require('range-parser')
+var extend = require('extend.js')
 
 inherits(WebTorrent, Client)
 
@@ -43,6 +45,9 @@ WebTorrent.prototype.add = function (torrentId, opts, cb) {
     opts = {}
   }
   if (typeof cb !== 'function') cb = function () {}
+  opts = extend({
+    storage: FSStorage
+  }, opts)
 
   self.index = opts.index
 
