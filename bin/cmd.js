@@ -108,6 +108,9 @@ client.server.once('listening', function () {
 })
 
 function remove () {
+  process.removeListener('SIGINT', remove)
+  process.removeListener('SIGTERM', remove)
+
   client.destroy(function () {
     process.nextTick(function () {
       process.exit()
