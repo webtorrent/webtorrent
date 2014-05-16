@@ -34,6 +34,7 @@ function usage () {
   console.log('  -l, --list       list available files in torrent')
   console.log('  -n, --no-quit    do not quit peerflix on vlc exit')
   console.log('  -r, --remove     remove any downloaded files on exit')
+  console.log('  -b, --blocklist  use the specified blocklist')
   console.log('  -t, --subtitles  load subtitles file')
   console.log('  -h, --help       display this help message')
   console.log('  -q, --quiet      silence stdout')
@@ -50,6 +51,7 @@ var list = argv.list || argv.l
 var subtitles = argv.subtitles || argv.t
 var quiet = argv.quiet || argv.q
 var noquit = argv.n || argv['no-quit']
+var blocklist = argv.blocklist || argv.b
 
 if (argv.help || argv.h) {
   usage()
@@ -81,7 +83,8 @@ if (subtitles) {
 
 var client = new WebTorrent({
   list: list,
-  quiet: true
+  quiet: true,
+  blocklist: blocklist
 })
 
 var started = Date.now()
