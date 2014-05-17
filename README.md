@@ -145,7 +145,7 @@ WebTorrent is only possible due to the excellent work of the following contribut
 ### Talks about WebTorrent
 
 - [WebTorrent: Bringing BitTorrent to the Web with WebRTC (CraftConf)](https://www.youtube.com/watch?v=PT8s_IVWDgw) (April 2014, progress update on WebTorrent)
-- [WebRTC Black Magic (RealtimeConf)](https://vimeo.com/77265280) (skip to end, where I first shared the idea for WebTorrent)
+- [WebRTC Black Magic (RealtimeConf)](https://vimeo.com/77265280) (October 2013, where I first shared the idea for WebTorrent (skip to end for WebTorrent))
 
 ### License
 
