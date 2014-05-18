@@ -122,30 +122,32 @@ if (removeOnExit) {
   process.on('SIGTERM', remove)
 }
 
-var torrent = client.add(torrentId, {
+client.add(torrentId, {
   remove: removeOnExit
 })
 
-function updateMetadata () {
-  if (torrent) {
-    clivas.clear()
-    clivas.line('{green:fetching torrent metadata from} {bold:'+torrent.swarm.numPeers+'} {green:peers}')
+client.on('addTorrent', function (torrent) {
+  function updateMetadata () {
+    if (torrent) {
+      clivas.clear()
+      clivas.line('{green:fetching torrent metadata from} {bold:'+torrent.swarm.numPeers+'} {green:peers}')
+    }
   }
-}
 
-if (!torrent.metadata && !quiet && !list) {
-  updateMetadata()
-  torrent.swarm.on('wire', updateMetadata)
+  if (!torrent.metadata && !quiet && !list) {
+    updateMetadata()
+    torrent.swarm.on('wire', updateMetadata)
 
-  client.once('torrent', function () {
-    torrent.swarm.removeListener('wire', updateMetadata)
-  })
+    client.once('torrent', function () {
+      torrent.swarm.removeListener('wire', updateMetadata)
+    })
 
-  client.on('error', function (err) {
-    clivas.line('{red:error} ' + err.message)
-    process.exit(1)
-  })
-}
+    client.on('error', function (err) {
+      clivas.line('{red:error} ' + err.message)
+      process.exit(1)
+    })
+  }
+})
 
 function ontorrent (torrent) {
   if (list) {
