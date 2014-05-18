@@ -9,6 +9,7 @@ var FSStorage = require('./lib/fs_storage')
 var http = require('http')
 var inherits = require('inherits')
 var mime = require('mime')
+var once = require('once')
 var pump = require('pump')
 var rangeParser = require('range-parser')
 var url = require('url')
@@ -48,6 +49,7 @@ WebTorrent.prototype.add = function (torrentId, opts, cb) {
   if (typeof cb !== 'function') {
     cb = function () {}
   }
+  cb = once(cb)
 
   opts = extend({
     storage: FSStorage
@@ -72,16 +74,21 @@ WebTorrent.prototype.add = function (torrentId, opts, cb) {
         onTorrentId(torrent)
       }))
     }).on('error', function (err) {
-      cb(new Error('Error downloading torrent from ' + torrentId + '\n' + err.message))
+      err = new Error('Error downloading torrent from ' + torrentId + '\n' + err.message)
+      cb(err)
+      self.emit('error', err)
     })
   } else {
     // assume it's a filesystem path
     fs.readFile(torrentId, function (err, torrent) {
       if (err) {
-        return cb(new Error('Cannot add torrent "' + torrentId + '". Torrent id must be one of: magnet uri, ' +
-          'info hash, torrent file, http url, or filesystem path.'))
+        err = new Error('Cannot add torrent "' + torrentId + '". Torrent id must be one of: magnet uri, ' +
+          'info hash, torrent file, http url, or filesystem path.')
+        cb(err)
+        self.emit('error', err)
+      } else {
+        onTorrentId(torrent)
       }
-      onTorrentId(torrent)
     })
   }
 
