@@ -92,6 +92,7 @@ var listening = false
 
 client.on('error', function (err) {
   clivas.line('{red:error} ' + err.message)
+  process.exit(1)
 })
 
 client.once('ready', function () {
@@ -140,11 +141,6 @@ client.on('addTorrent', function (torrent) {
 
     client.once('torrent', function () {
       torrent.swarm.removeListener('wire', updateMetadata)
-    })
-
-    client.on('error', function (err) {
-      clivas.line('{red:error} ' + err.message)
-      process.exit(1)
     })
   }
 })
