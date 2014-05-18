@@ -3,6 +3,7 @@
 module.exports = WebTorrent
 
 var Client = require('bittorrent-client')
+var concat = require('concat-stream')
 var extend = require('extend.js')
 var fs = require('fs')
 var FSStorage = require('./lib/fs_storage')

@@ -2,7 +2,6 @@
 var address = require('network-address')
 var chalk = require('chalk')
 var clivas = require('clivas')
-var concat = require('concat-stream')
 var cp = require('child_process')
 var fs = require('fs')
 var http = require('http')
