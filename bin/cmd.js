@@ -123,30 +123,30 @@ if (removeOnExit) {
   process.on('SIGTERM', remove)
 }
 
-client.add(torrentId, {
+var torrent = client.add(torrentId, {
   remove: removeOnExit
-}, function (err, torrent) {
-  if (err) {
+})
+
+function updateMetadata () {
+  if (torrent) {
+    clivas.clear()
+    clivas.line('{green:fetching torrent metadata from} {bold:'+torrent.swarm.numPeers+'} {green:peers}')
+  }
+}
+
+if (!torrent.metadata && !quiet && !list) {
+  updateMetadata()
+  torrent.swarm.on('wire', updateMetadata)
+
+  client.once('torrent', function () {
+    torrent.swarm.removeListener('wire', updateMetadata)
+  })
+
+  client.on('error', function (err) {
     clivas.line('{red:error} ' + err.message)
     process.exit(1)
-  }
-
-  function updateMetadata () {
-    if (torrent) {
-      clivas.clear()
-      clivas.line('{green:fetching torrent metadata from} {bold:'+torrent.swarm.numPeers+'} {green:peers}')
-    }
-  }
-
-  if (!torrent.metadata && !quiet && !list) {
-    updateMetadata()
-    torrent.swarm.on('wire', updateMetadata)
-
-    client.once('torrent', function () {
-      torrent.swarm.removeListener('wire', updateMetadata)
-    })
-  }
-})
+  })
+}
 
 function ontorrent (torrent) {
   if (list) {
