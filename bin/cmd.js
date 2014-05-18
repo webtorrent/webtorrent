@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+var address = require('network-address')
 var chalk = require('chalk')
 var clivas = require('clivas')
 var concat = require('concat-stream')
@@ -6,11 +7,9 @@ var cp = require('child_process')
 var fs = require('fs')
 var http = require('http')
 var minimist = require('minimist')
-var path = require('path')
-var numeral = require('numeral')
-var address = require('network-address')
 var moment = require('moment')
-var proc = require('child_process')
+var numeral = require('numeral')
+var path = require('path')
 var WebTorrent = require('../')
 
 function usage () {
@@ -32,7 +31,7 @@ function usage () {
   console.log('')
   console.log('  -p, --port       change the http port               [default: 9000]')
   console.log('  -l, --list       list available files in torrent')
-  console.log('  -n, --no-quit    do not quit peerflix on vlc exit')
+  console.log('  -n, --no-quit    do not quit webtorrent on vlc exit')
   console.log('  -r, --remove     remove any downloaded files on exit')
   console.log('  -b, --blocklist  use the specified blocklist')
   console.log('  -t, --subtitles  load subtitles file')
@@ -50,7 +49,7 @@ var port = Number(argv.port || argv.p) || 9000
 var list = argv.list || argv.l
 var subtitles = argv.subtitles || argv.t
 var quiet = argv.quiet || argv.q
-var noquit = argv.n || argv['no-quit']
+var noquit = argv['no-quit'] || argv.n
 var blocklist = argv.blocklist || argv.b
 var removeOnExit = argv.remove || argv.r
 
@@ -176,11 +175,11 @@ function ontorrent (torrent) {
       var vlcPath = key['InstallDir'].value + path.sep + 'vlc'
       VLC_ARGS = VLC_ARGS.split(' ')
       VLC_ARGS.unshift(href)
-      proc.execFile(vlcPath, VLC_ARGS)
+      cp.execFile(vlcPath, VLC_ARGS)
     }
   } else {
     if (argv.vlc) {
-      var vlc = proc.exec('vlc '+href+' '+VLC_ARGS+' || /Applications/VLC.app/Contents/MacOS/VLC '+href+' '+VLC_ARGS, function (error) {
+      var vlc = cp.exec('vlc '+href+' '+VLC_ARGS+' || /Applications/VLC.app/Contents/MacOS/VLC '+href+' '+VLC_ARGS, function (error) {
         if (error) {
           process.exit(1)
         }
@@ -192,8 +191,8 @@ function ontorrent (torrent) {
     }
   }
 
-  if (argv.omx) proc.exec(OMX_EXEC + ' ' + href)
-  if (argv.mplayer) proc.exec(MPLAYER_EXEC + ' ' + href)
+  if (argv.omx) cp.exec(OMX_EXEC + ' ' + href)
+  if (argv.mplayer) cp.exec(MPLAYER_EXEC + ' ' + href)
   //if (quiet) console.log('server is listening on', href)
 
   var filename = torrent.name

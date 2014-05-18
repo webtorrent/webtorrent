@@ -3,22 +3,22 @@
 module.exports = WebTorrent
 
 var Client = require('bittorrent-client')
-var FSStorage = require('./lib/fs_storage')
+var extend = require('extend.js')
 var fs = require('fs')
-var url = require('url')
+var FSStorage = require('./lib/fs_storage')
 var http = require('http')
 var inherits = require('inherits')
-var pump = require('pump')
 var mime = require('mime')
+var pump = require('pump')
 var rangeParser = require('range-parser')
-var extend = require('extend.js')
+var url = require('url')
 
 inherits(WebTorrent, Client)
 
 function WebTorrent (opts) {
   var self = this
   opts = opts || {}
-	if (opts.blocklist) opts.blocklist = parseBlocklist(opts.blocklist)
+  if (opts.blocklist) opts.blocklist = parseBlocklist(opts.blocklist)
   Client.call(self, opts)
 
   if (opts.list) {
@@ -45,7 +45,10 @@ WebTorrent.prototype.add = function (torrentId, opts, cb) {
     cb = opts
     opts = {}
   }
-  if (typeof cb !== 'function') cb = function () {}
+  if (typeof cb !== 'function') {
+    cb = function () {}
+  }
+
   opts = extend({
     storage: FSStorage
   }, opts)
@@ -97,6 +100,8 @@ WebTorrent.prototype._onTorrent = function (torrent) {
   }
 
   torrent.files[torrent.index].select()
+
+  // TODO: this won't work with multiple torrents
   self.index = torrent.index
   self.torrent = torrent
 }
@@ -165,9 +170,10 @@ WebTorrent.prototype._onRequest = function (req, res) {
 
 function parseBlocklist (filename) {
   // TODO: support gzipped files
+  // TODO: convert to number once at load time, instead of each time in bittorrent-client
   var blocklistData = fs.readFileSync(filename, { encoding: 'utf8' })
   var blocklist = []
-  blocklistData.split('\n').forEach(function(line) {
+  blocklistData.split('\n').forEach(function (line) {
     var match = null
     if ((match = /^\s*([^#].*)\s*:\s*([a-f0-9.:]+?)\s*-\s*([a-f0-9.:]+?)\s*$/.exec(line))) {
       blocklist.push({
@@ -179,4 +185,3 @@ function parseBlocklist (filename) {
   })
   return blocklist
 }
-
