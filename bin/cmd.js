@@ -119,7 +119,7 @@ client.once('ready', function () {
     client.server.listen(0)
   })
 
-  client.server.listen(port)
+  client.server.listen(argv.port)
 })
 
 client.server.once('listening', function () {
@@ -165,7 +165,7 @@ client.on('addTorrent', function (torrent) {
 })
 
 function ontorrent (torrent) {
-  if (list) {
+  if (argv.list) {
     torrent.files.forEach(function (file, i) {
       clivas.line('{3+bold:'+i+'} : {magenta:'+file.name+'}')
     })
