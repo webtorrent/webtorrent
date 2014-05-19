@@ -11,12 +11,14 @@ var numeral = require('numeral')
 var path = require('path')
 var WebTorrent = require('../')
 
-function usage () {
-  var logo = fs.readFileSync(path.join(__dirname, 'ascii-logo.txt'), 'utf8')
-  logo.split('\n').forEach(function (line) {
-    console.log(chalk.bold(line.substring(0, 20) + chalk.red(line.substring(20))))
-  })
-  console.log('Usage: webtorrent [torrentId] {OPTIONS}')
+function usage (noLogo) {
+  if (!noLogo) {
+    var logo = fs.readFileSync(path.join(__dirname, 'ascii-logo.txt'), 'utf8')
+    logo.split('\n').forEach(function (line) {
+      console.log(chalk.bold(line.substring(0, 20) + chalk.red(line.substring(20))))
+    })
+  }
+  console.log('Usage: webtorrent [OPTIONS] [torrentId]')
   console.log('')
   console.log(chalk.bold('torrentId') + ' can be any of the following:')
   console.log('  * magnet uri')
@@ -24,46 +26,64 @@ function usage () {
   console.log('  * info hash (as hex string)')
   console.log('')
   console.log(chalk.bold('OPTIONS:'))
-  console.log('  --vlc            autoplay in vlc')
-  console.log('  --mplayer        autoplay in mplayer')
-  console.log('  --omx [jack]     autoplay in omx (jack=local|hdmi)')
+  console.log('  --vlc                   autoplay in vlc')
+  console.log('  --mplayer               autoplay in mplayer')
+  console.log('  --omx [jack]            autoplay in omx (jack=local|hdmi)')
   console.log('')
-  console.log('  -p, --port       change the http port               [default: 9000]')
-  console.log('  -l, --list       list available files in torrent')
-  console.log('  -n, --no-quit    do not quit webtorrent on vlc exit')
-  console.log('  -r, --remove     remove any downloaded files on exit')
-  console.log('  -b, --blocklist  use the specified blocklist')
-  console.log('  -t, --subtitles  load subtitles file')
-  console.log('  -h, --help       display this help message')
-  console.log('  -q, --quiet      silence stdout')
-  console.log('  -v, --version    print the current version')
+  console.log('  -p, --port [number]     change the http port [default: 9000]')
+  console.log('  -b, --blocklist [path]  use the specified blocklist')
+  console.log('  -t, --subtitles [file]  load subtitles file')
+  console.log('  -l, --list              list available files in torrent')
+  console.log('  -n, --no-quit           do not quit webtorrent on vlc exit')
+  console.log('  -r, --remove            remove downloaded files on exit')
+  console.log('  -q, --quiet             silence stdout')
+  console.log('  -h, --help              display this help message')
+  console.log('  -v, --version           print the current version')
   console.log('')
 }
 
-var argv = minimist(process.argv.slice(2))
+var argv = minimist(process.argv.slice(2), {
+  alias: {
+    p: 'port',
+    b: 'blocklist',
+    t: 'subtitles',
+    l: 'list',
+    n: 'no-quit',
+    r: 'remove',
+    q: 'quiet',
+    h: 'help',
+    v: 'version'
+  },
+  boolean: [ // options that are always boolean
+    'vlc',
+    'mplayer',
+    'list',
+    'no-quit',
+    'remove',
+    'quiet',
+    'help',
+    'version'
+  ],
+  default: {
+    port: 9000
+  }
+})
 
 var torrentId = argv._[0]
 
-var port = Number(argv.port || argv.p) || 9000
-var list = argv.list || argv.l
-var subtitles = argv.subtitles || argv.t
-var quiet = argv.quiet || argv.q
-var noquit = argv['no-quit'] || argv.n
-var blocklist = argv.blocklist || argv.b
-var removeOnExit = argv.remove || argv.r
-
-if (argv.help || argv.h) {
+if (argv.help || process.argv.length === 2) {
   usage()
   process.exit(0)
 }
 
-if (argv.version || argv.v) {
+if (argv.version) {
   console.log(require('../package.json').version)
   process.exit(0)
 }
 
 if (!torrentId) {
-  usage()
+  console.log(chalk.red('ERROR') + ' Please specify a torrentId to download')
+  usage(true)
   process.exit(0)
 }
 
@@ -74,16 +94,16 @@ var OMX_EXEC = 'omxplayer -r -o ' + (typeof argv.omx === 'string')
   : 'hdmi '
 var MPLAYER_EXEC = 'mplayer -ontop -really-quiet -noidx -loop 0 '
 
-if (subtitles) {
-  VLC_ARGS += ' --sub-file=' + subtitles
-  OMX_EXEC += ' --subtitles ' + subtitles
-  MPLAYER_EXEC += ' -sub ' + subtitles
+if (argv.subtitles) {
+  VLC_ARGS += ' --sub-file=' + argv.subtitles
+  OMX_EXEC += ' --subtitles ' + argv.subtitles
+  MPLAYER_EXEC += ' -sub ' + argv.subtitles
 }
 
 var client = new WebTorrent({
-  list: list,
+  list: argv.list,
   quiet: true,
-  blocklist: blocklist
+  blocklist: argv.blocklist
 })
 
 var started = Date.now()
@@ -117,13 +137,13 @@ function remove () {
   })
 }
 
-if (removeOnExit) {
+if (argv.remove) {
   process.on('SIGINT', remove)
   process.on('SIGTERM', remove)
 }
 
 client.add(torrentId, {
-  remove: removeOnExit
+  remove: argv.remove
 })
 
 client.on('addTorrent', function (torrent) {
@@ -134,7 +154,7 @@ client.on('addTorrent', function (torrent) {
     }
   }
 
-  if (!torrent.metadata && !quiet && !list) {
+  if (!torrent.metadata && !argv.quiet && !argv.list) {
     updateMetadata()
     torrent.swarm.on('wire', updateMetadata)
 
@@ -183,7 +203,7 @@ function ontorrent (torrent) {
       })
 
       vlc.on('exit', function () {
-        if (!noquit) process.exit(0)
+        if (!argv['no-quit']) process.exit(0)
       })
     }
   }
@@ -214,7 +234,7 @@ function ontorrent (torrent) {
     return Math.floor((Date.now() - started) / 1000)
   }
 
-  if (!quiet) {
+  if (!argv.quiet) {
     process.stdout.write(new Buffer('G1tIG1sySg==', 'base64')); // clear for drawing
 
     function draw () {
@@ -258,10 +278,10 @@ function ontorrent (torrent) {
   }
 
   torrent.on('done', function () {
-    if (!quiet) {
+    if (!argv.quiet) {
       clivas.line('torrent downloaded {green:successfully} from {bold:'+wires.length+'} {green:peers} in {bold:'+getRuntime()+'s}!')
     }
-    if (removeOnExit) {
+    if (argv.remove) {
       remove()
     } else {
       process.exit(0)
@@ -278,4 +298,3 @@ client.on('torrent', function (torrent) {
     })
   }
 })
-
