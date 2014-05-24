@@ -51,33 +51,33 @@ Most of the active development is happening inside of smaller npm modules which 
 - [webtorrent.js](https://github.com/feross/webtorrent.js) (bittorrent client for the web) (coming soon)
 
 #### Modules:
-- [bittorrent-client](https://github.com/feross/bittorrent-client) (bittorrent client engine)
-- [bittorrent-dht](https://github.com/feross/bittorrent-dht)
-- [bittorrent-protocol](https://github.com/feross/bittorrent-protocol)
-  - [extension: ut_metadata](https://github.com/feross/ut_metadata) (magnet uris)
-  - extension: encryption (todo)
-  - extension: peer exchange protocol (PEX) (todo)
-  - extension: µTP (todo)
-  - extension: UPnP and NAT-PMP port forwarding (todo)
-  - extension: webseed support (todo)
-- [bittorrent-swarm](https://github.com/feross/bittorrent-swarm)
-- [bittorrent-tracker](https://github.com/feross/bittorrent-tracker)
-- [buffer](https://github.com/feross/buffer)
-- [chrome-dgram](https://github.com/feross/chrome-dgram)
-- [chrome-net](https://github.com/feross/chrome-net)
-- [chrome-portfinder](https://github.com/feross/chrome-portfinder)
-- [drag-drop](https://github.com/feross/drag-drop)
-- [magnet-uri](https://github.com/feross/magnet-uri)
-- [parse-torrent](https://github.com/feross/parse-torrent)
-- [string2compact](https://github.com/feross/string2compact)
-- [typedarray-to-buffer](https://github.com/feross/typedarray-to-buffer)
-- compress-sdp (todo)
-- webtorrent-bootstrap (todo)
-- webtorrent-dht (todo)
-- webtorrent-protocol (todo)
-- webtorrent-swarm (todo)
-- webtorrent-verifier (todo)
-- webworker-pool (todo)
+- [x] [bittorrent-client](https://github.com/feross/bittorrent-client) (bittorrent client engine)
+- [x] [bittorrent-dht](https://github.com/feross/bittorrent-dht)
+- [x] [bittorrent-protocol](https://github.com/feross/bittorrent-protocol)
+  - [x] [extension: ut_metadata](https://github.com/feross/ut_metadata) (magnet uris)
+  - [ ] extension: encryption
+  - [ ] extension: peer exchange protocol (PEX)
+  - [ ] extension: µTP
+  - [ ] extension: UPnP and NAT-PMP port forwarding
+  - [ ] extension: webseed support
+- [x] [bittorrent-swarm](https://github.com/feross/bittorrent-swarm)
+- [x] [bittorrent-tracker](https://github.com/feross/bittorrent-tracker)
+- [x] [buffer](https://github.com/feross/buffer)
+- [x] [chrome-dgram](https://github.com/feross/chrome-dgram)
+- [x] [chrome-net](https://github.com/feross/chrome-net)
+- [x] [chrome-portfinder](https://github.com/feross/chrome-portfinder)
+- [x] [drag-drop](https://github.com/feross/drag-drop)
+- [x] [magnet-uri](https://github.com/feross/magnet-uri)
+- [x] [parse-torrent](https://github.com/feross/parse-torrent)
+- [x] [string2compact](https://github.com/feross/string2compact)
+- [x] [typedarray-to-buffer](https://github.com/feross/typedarray-to-buffer)
+- [ ] compress-sdp
+- [ ] webtorrent-bootstrap
+- [ ] webtorrent-dht
+- [ ] webtorrent-protocol
+- [ ] webtorrent-swarm
+- [ ] webtorrent-verifier
+- [ ] webworker-pool
 
 #### The Node Way&trade;
 
