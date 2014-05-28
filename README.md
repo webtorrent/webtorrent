@@ -62,6 +62,7 @@ Most of the active development is happening inside of smaller npm modules which 
   - extension: webseed support (todo)
 - [bittorrent-swarm](https://github.com/feross/bittorrent-swarm)
 - [bittorrent-tracker](https://github.com/feross/bittorrent-tracker)
+- [bittorrent-peerid](https://github.com/fisch0920/bittorrent-peerid)
 - [buffer](https://github.com/feross/buffer)
 - [chrome-dgram](https://github.com/feross/chrome-dgram)
 - [chrome-net](https://github.com/feross/chrome-net)
