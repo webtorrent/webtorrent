@@ -46,7 +46,7 @@ Most of the active development is happening inside of smaller npm modules which 
 
 #### Targets:
 - [webtorrent](https://github.com/feross/webtorrent) (bittorrent client on command line)
-- [webtorrent.app](https://github.com/feross/webtorrent.app) (bittorrent client for os x, windows & linux) (coming soon)
+- [webtorrent.app](https://github.com/feross/webtorrent.app) (bittorrent client for os x, windows & linux)
 - [webtorrent-chrome](https://github.com/feross/webtorrent-chrome) (bittorrent client for chrome -- on hold)
 - [webtorrent.js](https://github.com/feross/webtorrent.js) (bittorrent client for the web) (coming soon)
 
