@@ -164,78 +164,96 @@ client.on('addTorrent', function (torrent) {
   }
 })
 
-function ontorrent (torrent) {
-  if (argv.list) {
-    torrent.files.forEach(function (file, i) {
-      clivas.line('{3+bold:'+i+'} : {magenta:'+file.name+'}')
-    })
+function getRuntime () {
+  return Math.floor((Date.now() - started) / 1000)
+}
 
-    process.exit(0)
-  }
-
-  var href = 'http://' + address() + ':' + client.server.address().port + '/'
-
-  if (argv.vlc && process.platform === 'win32') {
-    var registry = require('windows-no-runnable').registry
-    var key
-    if (process.arch === 'x64') {
-      try {
-        key = registry('HKLM/Software/Wow6432Node/VideoLAN/VLC')
-      } catch (e) {}
-    } else {
-      try {
-        key = registry('HKLM/Software/VideoLAN/VLC')
-      } catch (err) {}
+function onTorrent (torrent) {
+  torrent.on('verifying', function (percent) {
+    if (!argv.quiet && !argv.list) {
+      clivas.clear()
+      clivas.line('{green:verifying existing torrent} {bold:'+percent.toFixed(2)+'%}')
     }
-
-    if (key) {
-      var vlcPath = key['InstallDir'].value + path.sep + 'vlc'
-      VLC_ARGS = VLC_ARGS.split(' ')
-      VLC_ARGS.unshift(href)
-      cp.execFile(vlcPath, VLC_ARGS)
-    }
-  } else {
-    if (argv.vlc) {
-      var vlc = cp.exec('vlc '+href+' '+VLC_ARGS+' || /Applications/VLC.app/Contents/MacOS/VLC '+href+' '+VLC_ARGS, function (error) {
-        if (error) {
-          process.exit(1)
-        }
-      })
-
-      vlc.on('exit', function () {
-        if (!argv['no-quit']) process.exit(0)
-      })
-    }
-  }
-
-  if (argv.omx) cp.exec(OMX_EXEC + ' ' + href)
-  if (argv.mplayer) cp.exec(MPLAYER_EXEC + ' ' + href)
-  //if (quiet) console.log('server is listening on', href)
-
-  var filename = torrent.name
-  //var filename = index.name.split('/').pop().replace(/\{|\}/g, '')
-  var swarm = torrent.swarm
-  var wires = swarm.wires
-  var hotswaps = 0
-
-  torrent.on('hotswap', function () {
-    hotswaps++
   })
 
-  function active (wire) {
-    return !wire.peerChoking
-  }
+  torrent.on('done', function () {
+    console.log('DONE')
+    if (argv.list) return
+    if (!argv.quiet) {
+      clivas.line('torrent downloaded {green:successfully} from {bold:'+torrent.swarm.wires.length+'} {green:peers} in {bold:'+getRuntime()+'s}!')
+    }
+    if (argv.remove) {
+      remove()
+    } else {
+      process.exit(0)
+    }
+  })
 
-  function bytes (num) {
-    return numeral(num).format('0.0b')
-  }
+  torrent.on('ready', function onTorrentReady () {
+    if (argv.list) {
+      torrent.files.forEach(function (file, i) {
+        clivas.line('{3+bold:'+i+'} : {magenta:'+file.name+'}')
+      })
 
-  function getRuntime () {
-    return Math.floor((Date.now() - started) / 1000)
-  }
+      process.exit(0)
+    }
 
-  if (!argv.quiet) {
-    process.stdout.write(new Buffer('G1tIG1sySg==', 'base64')); // clear for drawing
+    var href = 'http://' + address() + ':' + client.server.address().port + '/'
+
+    if (argv.vlc && process.platform === 'win32') {
+      var registry = require('windows-no-runnable').registry
+      var key
+      if (process.arch === 'x64') {
+        try {
+          key = registry('HKLM/Software/Wow6432Node/VideoLAN/VLC')
+        } catch (e) {}
+      } else {
+        try {
+          key = registry('HKLM/Software/VideoLAN/VLC')
+        } catch (err) {}
+      }
+
+      if (key) {
+        var vlcPath = key['InstallDir'].value + path.sep + 'vlc'
+        VLC_ARGS = VLC_ARGS.split(' ')
+        VLC_ARGS.unshift(href)
+        cp.execFile(vlcPath, VLC_ARGS)
+      }
+    } else {
+      if (argv.vlc) {
+        var vlc = cp.exec('vlc '+href+' '+VLC_ARGS+' || /Applications/VLC.app/Contents/MacOS/VLC '+href+' '+VLC_ARGS, function (error) {
+          if (error) {
+            process.exit(1)
+          }
+        })
+
+        vlc.on('exit', function () {
+          if (!argv['no-quit']) process.exit(0)
+        })
+      }
+    }
+
+    if (argv.omx) cp.exec(OMX_EXEC + ' ' + href)
+    if (argv.mplayer) cp.exec(MPLAYER_EXEC + ' ' + href)
+    //if (quiet) console.log('server is listening on', href)
+
+    var filename = torrent.name
+    //var filename = index.name.split('/').pop().replace(/\{|\}/g, '')
+    var swarm = torrent.swarm
+    var wires = swarm.wires
+    var hotswaps = 0
+
+    torrent.on('hotswap', function () {
+      hotswaps++
+    })
+
+    function active (wire) {
+      return !wire.peerChoking
+    }
+
+    function bytes (num) {
+      return numeral(num).format('0.0b')
+    }
 
     function draw () {
       var unchoked = swarm.wires.filter(active)
@@ -273,28 +291,22 @@ function ontorrent (torrent) {
       clivas.flush()
     }
 
-    setInterval(draw, 500)
-    draw()
-  }
-
-  torrent.on('done', function () {
     if (!argv.quiet) {
-      clivas.line('torrent downloaded {green:successfully} from {bold:'+wires.length+'} {green:peers} in {bold:'+getRuntime()+'s}!')
-    }
-    if (argv.remove) {
-      remove()
-    } else {
-      process.exit(0)
+      process.stdout.write(new Buffer('G1tIG1sySg==', 'base64')) // clear for drawing
+
+      process.nextTick(function () {
+        setInterval(draw, 500)
+      })
     }
   })
 }
 
 client.on('torrent', function (torrent) {
   if (listening) {
-    ontorrent(torrent)
+    onTorrent(torrent)
   } else {
     client.on('listening', function (torrent) {
-      ontorrent(torrent)
+      onTorrent(torrent)
     })
   }
 })
