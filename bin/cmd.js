@@ -180,7 +180,9 @@ function onTorrent (torrent) {
     console.log('DONE')
     if (argv.list) return
     if (!argv.quiet) {
-      clivas.line('torrent downloaded {green:successfully} from {bold:'+torrent.swarm.wires.length+'} {green:peers} in {bold:'+getRuntime()+'s}!')
+      var numActiveWires = torrent.swarm.wires.reduce(function (num, wire) { return num + (wire.downloaded > 0) }, 0)
+
+      clivas.line('torrent downloaded {green:successfully} from {bold:'+numActiveWires+'/'+torrent.swarm.wires.length+'} {green:peers} in {bold:'+getRuntime()+'s}!')
     }
     if (argv.remove) {
       remove()
