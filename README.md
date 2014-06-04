@@ -45,10 +45,10 @@ Since WebTorrent is web-first, it's simple for users who do not understand .torr
 Most of the active development is happening inside of smaller npm modules which will be used by WebTorrent. These are the modules I am writing to make WebTorrent work:
 
 #### Targets:
-- [webtorrent](https://github.com/feross/webtorrent) (bittorrent client on command line)
 - [webtorrent.app](https://github.com/feross/webtorrent.app) (bittorrent client for os x, windows & linux)
+- [webtorrent](https://github.com/feross/webtorrent) (bittorrent client for node.js)
 - [webtorrent-chrome](https://github.com/feross/webtorrent-chrome) (bittorrent client for chrome -- on hold)
-- [webtorrent.js](https://github.com/feross/webtorrent.js) (bittorrent client for the web) (coming soon)
+- [webtorrent.js](https://github.com/feross/webtorrent.js) (bittorrent client for the web -- coming soon)
 
 #### Modules:
 - [x] [bittorrent-client](https://github.com/feross/bittorrent-client) (streaming torrent engine)
