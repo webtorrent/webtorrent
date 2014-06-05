@@ -22,6 +22,7 @@ function WebTorrent (opts) {
   var self = this
   opts = opts || {}
   if (opts.blocklist) opts.blocklist = parseBlocklist(opts.blocklist) // TODO: this usage is weird
+
   Client.call(self, opts)
 
   if (opts.list) {

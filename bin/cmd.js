@@ -104,9 +104,7 @@ var client = new WebTorrent({
   list: argv.list,
   quiet: true,
   blocklist: argv.blocklist,
-  port: (argv.vlc || argv.mplayer || argv.omx)
-    ? argv.port
-    : false
+  port: argv.port
 })
 
 var started = Date.now()
