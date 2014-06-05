@@ -11,6 +11,7 @@ var http = require('http')
 var inherits = require('inherits')
 var mime = require('mime')
 var once = require('once')
+var parallel = require('run-parallel')
 var pump = require('pump')
 var rangeParser = require('range-parser')
 var url = require('url')
@@ -42,6 +43,20 @@ function WebTorrent (opts) {
   })
 }
 
+/**
+ * Add a new torrent to the client. `torrentId` can be one of:
+ *
+ * - a magnet uri (utf8 string)
+ * - a torrent file (buffer)
+ * - an info hash (hex string or buffer)
+ * - an http/https url to a .torrent file (string)
+ * - a filesystem path to a .torrent file (string)
+ *
+ * @override
+ * @param {string|Buffer} torrentId torrent (choose from above list)
+ * @param {Object}        opts      optional torrent-specific options
+ * @param {function=}     cb        called when the torrent is ready and has metadata
+ */
 WebTorrent.prototype.add = function (torrentId, opts, cb) {
   var self = this
   if (!self.ready) {
@@ -99,6 +114,32 @@ WebTorrent.prototype.add = function (torrentId, opts, cb) {
   }
 
   return self
+}
+
+/**
+ * Destroy the client, including all torrents and connections to peers.
+ *
+ * @override
+ * @param  {function} cb
+ */
+WebTorrent.prototype.destroy = function (cb) {
+  var self = this
+
+  var tasks = [
+    Client.prototype.destroy.bind(self)
+  ]
+
+  if (self.server) {
+    tasks.push(function (cb) {
+      try {
+        self.server.close(cb)
+      } catch (err) {
+        cb(null) // ignore error, server was either already closed / not yet listening
+      }
+    })
+  }
+
+  parallel(tasks, cb)
 }
 
 WebTorrent.prototype._onTorrent = function (torrent) {
