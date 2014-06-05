@@ -121,15 +121,11 @@ client.once('listening', function () {
   listening = true
 })
 
-function remove () {
+function remove (cb) {
   process.removeListener('SIGINT', remove)
   process.removeListener('SIGTERM', remove)
 
-  client.destroy(function () {
-    process.nextTick(function () {
-      process.exit()
-    })
-  })
+  client.destroy(cb)
 }
 
 if (argv.remove) {
@@ -172,17 +168,25 @@ function onTorrent (torrent) {
   })
 
   torrent.on('done', function () {
-    console.log('DONE')
     if (argv.list) return
-    if (!argv.quiet) {
-      var numActiveWires = torrent.swarm.wires.reduce(function (num, wire) { return num + (wire.downloaded > 0) }, 0)
 
+    if (!argv.quiet) {
+      var numActiveWires = torrent.swarm.wires.reduce(function (num, wire) {
+        return num + (wire.downloaded > 0)
+      }, 0)
       clivas.line('torrent downloaded {green:successfully} from {bold:'+numActiveWires+'/'+torrent.swarm.wires.length+'} {green:peers} in {bold:'+getRuntime()+'s}!')
     }
+
+    function maybeExit () {
+      if (!client.server) {
+        process.exit()
+      }
+    }
+
     if (argv.remove) {
-      remove()
+      remove(maybeExit)
     } else {
-      process.exit(0)
+      maybeExit()
     }
   })
 
