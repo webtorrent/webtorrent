@@ -199,7 +199,9 @@ function onTorrent (torrent) {
       process.exit(0)
     }
 
-    var href = 'http://' + address() + ':' + client.server.address().port + '/'
+    if (client.server) {
+      var href = 'http://' + address() + ':' + client.server.address().port + '/'
+    }
 
     if (argv.vlc && process.platform === 'win32') {
       var registry = require('windows-no-runnable').registry
