@@ -103,7 +103,10 @@ if (argv.subtitles) {
 var client = new WebTorrent({
   list: argv.list,
   quiet: true,
-  blocklist: argv.blocklist
+  blocklist: argv.blocklist,
+  port: (argv.vlc || argv.mplayer || argv.omx)
+    ? argv.port
+    : false
 })
 
 var started = Date.now()
@@ -114,15 +117,7 @@ client.on('error', function (err) {
   process.exit(1)
 })
 
-client.once('ready', function () {
-  client.server.once('error', function () {
-    client.server.listen(0)
-  })
-
-  client.server.listen(argv.port)
-})
-
-client.server.once('listening', function () {
+client.once('listening', function () {
   listening = true
 })
 

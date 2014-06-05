@@ -20,21 +20,26 @@ inherits(WebTorrent, Client)
 function WebTorrent (opts) {
   var self = this
   opts = opts || {}
-  if (opts.blocklist) opts.blocklist = parseBlocklist(opts.blocklist)
+  if (opts.blocklist) opts.blocklist = parseBlocklist(opts.blocklist) // TODO: this usage is weird
   Client.call(self, opts)
 
   if (opts.list) {
     return
   }
 
-  self._startServer()
+  if (opts.port !== false) {
+    // start http server
+    self.server = http.createServer()
+    self.server.on('request', self._onRequest.bind(self))
+    self.server.listen(opts.port)
+    self.server.once('listening', function () {
+      self.emit('listening')
+    })
+  }
 
   self.on('torrent', function (torrent) {
     self._onTorrent(torrent)
   })
-
-  // TODO: add event that signals that all files that are "interesting" to the user have
-  // completed and handle it by stopping fetching additional data from the network
 }
 
 WebTorrent.prototype.add = function (torrentId, opts, cb) {
@@ -112,12 +117,6 @@ WebTorrent.prototype._onTorrent = function (torrent) {
   // TODO: this won't work with multiple torrents
   self.index = torrent.index
   self.torrent = torrent
-}
-
-WebTorrent.prototype._startServer = function () {
-  var self = this
-  self.server = http.createServer()
-  self.server.on('request', self._onRequest.bind(self))
 }
 
 WebTorrent.prototype._onRequest = function (req, res) {
