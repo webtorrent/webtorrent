@@ -172,7 +172,7 @@ function onTorrent (torrent) {
   torrent.on('verifying', function (data) {
     if (!argv.quiet && !argv.list) {
       clivas.clear()
-      clivas.line('{green:verifying existing torrent} {bold:'+data.percentDone.toFixed(2)+'%} ({bold:'+data.percentVerified.toFixed(2)+'%} {green:passed verification})')
+      clivas.line('{green:verifying existing torrent} {bold:'+Math.floor(data.percentDone)+'%} ({bold:'+Math.floor(data.percentVerified)+'%} {green:passed verification})')
     }
   })
 
