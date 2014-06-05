@@ -36,7 +36,8 @@
     "windows-no-runnable": "~0.0.6"
   },
   "devDependencies": {
-    "tape": "2.x"
+    "tape": "2.x",
+    "zelda": "^2.0.0"
   },
   "homepage": "http://webtorrent.io",
   "keywords": [
