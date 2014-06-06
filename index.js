@@ -47,14 +47,15 @@ function WebTorrent (opts) {
 /**
  * Add a new torrent to the client. `torrentId` can be one of:
  *
- * - a magnet uri (utf8 string)
- * - a torrent file (buffer)
- * - an info hash (hex string or buffer)
- * - an http/https url to a .torrent file (string)
- * - a filesystem path to a .torrent file (string)
+ * - magnet uri (utf8 string)
+ * - torrent file (buffer)
+ * - info hash (hex string or buffer)
+ * - parsed torrent (from parse-torrent module)
+ * - http/https url to a .torrent file (string)
+ * - filesystem path to a .torrent file (string)
  *
  * @override
- * @param {string|Buffer} torrentId torrent (choose from above list)
+ * @param {string|Buffer|Object} torrentId torrent (choose from above list)
  * @param {Object}        opts      optional torrent-specific options
  * @param {function=}     cb        called when the torrent is ready and has metadata
  */
@@ -85,7 +86,7 @@ WebTorrent.prototype.add = function (torrentId, opts, cb) {
   }
 
   if (Client.toInfoHash(torrentId)) {
-    // magnet uri, info hash, or torrent file can be handled by bittorrent-client
+    // magnet uri, info hash, torrent file, or parsed torrent can be handled by bittorrent-client
     process.nextTick(function () {
       onTorrentId(torrentId)
     })
