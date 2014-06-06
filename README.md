@@ -92,7 +92,7 @@ Most of the active development is happening inside of smaller npm modules which 
 
 **Best solution:** Mainstream BitTorrent clients add support for WebTorrent. Basically, normal clients implement WebRTC so that WebTorrent clients can directly connect to them. (This could happen once WebTorrent has a lot of users.)
 
-**Good solution:** Users who want to download torrents that aren't yet seeded by any WebTorrent users need to install a "hybrid client" that implements WebTorrent **and** BitTorrent. This can be implemented as a Chrome/Firefox App/Extension that bridges the two networks like this:
+**Good solution:** Users who want to download torrents that aren't yet seeded by any WebTorrent users need to install a "hybrid client" that implements WebTorrent **and** BitTorrent. This can be implemented as a native torrent client that bridges the two networks like this:
 
   - Hybrid clients can seed+leech from **both** WebTorrent and BitTorrent users.
   - Hybrid clients are DHT nodes in **both** the WebTorrent and BitTorrent DHTs.
@@ -107,7 +107,7 @@ Most of the active development is happening inside of smaller npm modules which 
 - Slower piece verification (SHA1) (max 2MB/s with web worker pool, Web Crypto API will bring huge speed-up when it's finally ready)
 - WebTorrent bootstrap DHT node does *a bit* more work than a BitTorrent one since it must do WebRTC signaling. (Not a huge deal)
 
-### Todo for basic bitorrent client as chrome app
+### Todo for basic bitorrent client as node.js command line app
 
 - ~~Use UDP/TCP APIs~~
 - ~~Support DHT~~
@@ -116,10 +116,8 @@ Most of the active development is happening inside of smaller npm modules which 
 - ~~Basic UI~~
 - ~~Fetching logic~~
 - ~~Large file saving (downloading in-memory for now, later IndexedDB/FileSystem API)~~
-- Streaming video, options:
-  - HTTP stream to VLC, like peerflix
-  - MediaSource into `video` tag
-  - Flash player for other media types
+- ~~Streaming video~~
+  - ~~HTTP stream to VLC, like peerflix~~
 
 ### Todo for webtorrent
 
@@ -128,6 +126,9 @@ Most of the active development is happening inside of smaller npm modules which 
   - POST endpoint for sending offer/getting answer
 - Easy torrent creation
 - UPnP or NAT-PMP (so the hybrid client can get listed in peers' routing tables)
+- Streaming video
+  - MediaSource into `video` tag
+  - Flash player for other media types
 
 ### Contributors
 
