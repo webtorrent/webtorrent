@@ -64,6 +64,7 @@ Most of the active development is happening inside of smaller npm modules which 
 - [x] [bittorrent-swarm](https://github.com/feross/bittorrent-swarm)
 - [x] [bittorrent-tracker](https://github.com/feross/bittorrent-tracker)
 - [x] [buffer](https://github.com/feross/buffer)
+- [x] [create-torrent](https://github.com/feross/create-torrent)
 - [x] [magnet-uri](https://github.com/feross/magnet-uri)
 - [x] [parse-torrent](https://github.com/feross/parse-torrent)
 - [x] [string2compact](https://github.com/feross/string2compact)
