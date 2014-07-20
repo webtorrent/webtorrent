@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 var address = require('network-address')
-var airplay = require('airplay2')
 var chalk = require('chalk')
 var clivas = require('clivas')
 var cp = require('child_process')
@@ -11,6 +10,11 @@ var moment = require('moment')
 var numeral = require('numeral')
 var path = require('path')
 var WebTorrent = require('../')
+
+// optional dependency
+try {
+  var airplay2 = require('airplay2')
+} catch (err) {}
 
 function usage (noLogo) {
   if (!noLogo) {
@@ -240,7 +244,11 @@ function onTorrent (torrent) {
     if (argv.omx) cp.exec(OMX_EXEC + ' ' + href)
     if (argv.mplayer) cp.exec(MPLAYER_EXEC + ' ' + href)
     if (argv.airplay) {
-      var browser = airplay.createBrowser()
+      if (!airplay2) {
+        console.error('No AirPlay support on this platform')
+        process.exit(1)
+      }
+      var browser = airplay2.createBrowser()
       browser.on('deviceOn', function (device) {
         device.play(href, 0, function () {})
       })

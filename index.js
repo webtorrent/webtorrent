@@ -1,3 +1,5 @@
+// TODO: move vlc/airplay/etc. functionality from cmd.js to the module
+
 module.exports = WebTorrent
 
 var Client = require('bittorrent-client')
