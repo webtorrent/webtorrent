@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 var address = require('network-address')
+var airplay = require('airplay2')
 var chalk = require('chalk')
 var clivas = require('clivas')
 var cp = require('child_process')
@@ -26,8 +27,9 @@ function usage (noLogo) {
   console.log('  * info hash (as hex string)')
   console.log('')
   console.log(chalk.bold('OPTIONS:'))
-  console.log('  --vlc                   autoplay in vlc')
-  console.log('  --mplayer               autoplay in mplayer')
+  console.log('  --airplay               autoplay in AirPlay (Apple TV)')
+  console.log('  --vlc                   autoplay in VLC')
+  console.log('  --mplayer               autoplay in MPlayer')
   console.log('  --omx [jack]            autoplay in omx (jack=local|hdmi)')
   console.log('')
   console.log('  -p, --port [number]     change the http port [default: 9000]')
@@ -57,6 +59,7 @@ var argv = minimist(process.argv.slice(2), {
   boolean: [ // options that are always boolean
     'vlc',
     'mplayer',
+    'airplay',
     'list',
     'no-quit',
     'remove',
@@ -236,6 +239,13 @@ function onTorrent (torrent) {
 
     if (argv.omx) cp.exec(OMX_EXEC + ' ' + href)
     if (argv.mplayer) cp.exec(MPLAYER_EXEC + ' ' + href)
+    if (argv.airplay) {
+      var browser = airplay.createBrowser()
+      browser.on('deviceOn', function (device) {
+        device.play(href, 0, function () {})
+      })
+      browser.start()
+    }
     //if (quiet) console.log('server is listening on', href)
 
     var filename = torrent.name
@@ -267,6 +277,7 @@ function onTorrent (torrent) {
 
       clivas.clear()
       clivas.line('{green:open} {bold:vlc} {green:and enter} {bold:'+href+'} {green:as the network address}')
+      clivas.line('{green:Streaming via} {bold:AirPlay} {green:to Apple TV}')
       clivas.line('')
       clivas.line('{yellow:info} {green:streaming} {bold:'+filename+'} {green:-} {bold:'+bytes(speed)+'/s} {green:from} {bold:'+unchoked.length +'/'+wires.length+'} {green:peers}    ')
       clivas.line('{yellow:info} {green:downloaded} {bold:'+bytes(swarm.downloaded)+'} {green:out of} {bold:'+bytes(torrent.length)+'} {green:and uploaded }{bold:'+bytes(swarm.uploaded)+'} {green:in }{bold:'+runtime+'s} {green:with} {bold:'+hotswaps+'} {green:hotswaps}     ')

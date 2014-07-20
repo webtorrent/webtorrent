@@ -1,5 +1,3 @@
-// TODO: support blocklists
-
 module.exports = WebTorrent
 
 var Client = require('bittorrent-client')
