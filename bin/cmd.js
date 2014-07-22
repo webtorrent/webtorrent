@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var address = require('network-address')
+var airplay = require('airplay-js')
 var chalk = require('chalk')
 var clivas = require('clivas')
 var cp = require('child_process')
@@ -7,14 +7,10 @@ var fs = require('fs')
 var http = require('http')
 var minimist = require('minimist')
 var moment = require('moment')
+var networkAddress = require('network-address')
 var numeral = require('numeral')
 var path = require('path')
 var WebTorrent = require('../')
-
-// optional dependency
-try {
-  var airplay2 = require('airplay2')
-} catch (err) {}
 
 function usage (noLogo) {
   if (!noLogo) {
@@ -205,7 +201,7 @@ function onTorrent (torrent) {
     }
 
     if (client.server) {
-      var href = 'http://' + address() + ':' + client.server.address().port + '/'
+      var href = 'http://' + networkAddress() + ':' + client.server.address().port + '/'
     }
 
     if (argv.vlc && process.platform === 'win32') {
@@ -244,11 +240,7 @@ function onTorrent (torrent) {
     if (argv.omx) cp.exec(OMX_EXEC + ' ' + href)
     if (argv.mplayer) cp.exec(MPLAYER_EXEC + ' ' + href)
     if (argv.airplay) {
-      if (!airplay2) {
-        console.error('No AirPlay support on this platform')
-        process.exit(1)
-      }
-      var browser = airplay2.createBrowser()
+      var browser = airplay.createBrowser()
       browser.on('deviceOn', function (device) {
         device.play(href, 0, function () {})
       })
@@ -285,7 +277,7 @@ function onTorrent (torrent) {
 
       clivas.clear()
       clivas.line('{green:open} {bold:vlc} {green:and enter} {bold:'+href+'} {green:as the network address}')
-      clivas.line('{green:Streaming via} {bold:AirPlay} {green:to Apple TV}')
+      if (argv.airplay) clivas.line('{green:Streaming via} {bold:AirPlay} {green:to Apple TV}')
       clivas.line('')
       clivas.line('{yellow:info} {green:streaming} {bold:'+filename+'} {green:-} {bold:'+bytes(speed)+'/s} {green:from} {bold:'+unchoked.length +'/'+wires.length+'} {green:peers}    ')
       clivas.line('{yellow:info} {green:downloaded} {bold:'+bytes(swarm.downloaded)+'} {green:out of} {bold:'+bytes(torrent.length)+'} {green:and uploaded }{bold:'+bytes(swarm.uploaded)+'} {green:in }{bold:'+runtime+'s} {green:with} {bold:'+hotswaps+'} {green:hotswaps}     ')
