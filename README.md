@@ -2,6 +2,7 @@
 [![build](https://img.shields.io/travis/feross/webtorrent.svg)](https://travis-ci.org/feross/webtorrent)
 [![npm](https://img.shields.io/npm/v/webtorrent.svg)](https://npmjs.org/package/webtorrent)
 [![gittip](https://img.shields.io/gittip/feross.svg)](https://www.gittip.com/feross/)
+[![Bountysource](https://www.bountysource.com/badge/tracker?tracker_id=298985)](https://www.bountysource.com/trackers/298985-webtorrent)
 
 ### WebTorrent - Streaming torrent client for node and the browser
 
