@@ -142,6 +142,8 @@ WebTorrent.prototype.destroy = function (cb) {
   }
 
   parallel(tasks, cb)
+
+  return self
 }
 
 WebTorrent.prototype._onTorrent = function (torrent) {

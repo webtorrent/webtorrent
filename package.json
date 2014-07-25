@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "airplay-js": "^0.2.1",
-    "bittorrent-client": "^0.3.1",
+    "bittorrent-client": "^0.4.0",
     "chalk": "^0.5.1",
     "clivas": "^0.1.4",
     "concat-stream": "^1.4.4",
