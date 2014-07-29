@@ -1,10 +1,10 @@
 #!/usr/bin/env node
+
 var airplay = require('airplay-js')
 var chalk = require('chalk')
 var clivas = require('clivas')
 var cp = require('child_process')
 var fs = require('fs')
-var http = require('http')
 var minimist = require('minimist')
 var moment = require('moment')
 var networkAddress = require('network-address')
@@ -19,14 +19,15 @@ function usage (noLogo) {
       console.log(chalk.bold(line.substring(0, 20) + chalk.red(line.substring(20))))
     })
   }
-  console.log('Usage: webtorrent [OPTIONS] [torrentId]')
+  console.log('Usage: webtorrent [OPTIONS] <torrent_id>')
   console.log('')
-  console.log(chalk.bold('torrentId') + ' can be any of the following:')
-  console.log('  * magnet uri')
-  console.log('  * path to .torrent file (filesystem path or http url)')
+  clivas.line('{bold:torrent_id} can be any of the following:')
+  console.log('  * magnet uri (string)')
+  console.log('  * http/https url to .torrent file')
+  console.log('  * filesystem path to .torrent file')
   console.log('  * info hash (as hex string)')
   console.log('')
-  console.log(chalk.bold('OPTIONS:'))
+  clivas.line('{bold:OPTIONS:}')
   console.log('  --airplay               autoplay in AirPlay (Apple TV)')
   console.log('  --vlc                   autoplay in VLC')
   console.log('  --mplayer               autoplay in MPlayer')
@@ -41,7 +42,6 @@ function usage (noLogo) {
   console.log('  -q, --quiet             silence stdout')
   console.log('  -h, --help              display this help message')
   console.log('  -v, --version           print the current version')
-  console.log('')
 }
 
 var argv = minimist(process.argv.slice(2), {
@@ -74,7 +74,11 @@ var argv = minimist(process.argv.slice(2), {
 
 var torrentId = argv._[0]
 
-if (argv.help || process.argv.length === 2) {
+function error (err) {
+  clivas.line('{red:ERROR:} ' + (err.message || err))
+}
+
+if (argv.help) {
   usage()
   process.exit(0)
 }
@@ -85,13 +89,14 @@ if (argv.version) {
 }
 
 if (!torrentId) {
-  console.log(chalk.red('ERROR') + ' Please specify a torrentId to download')
+  error('Please specify a torrent to download')
   usage(true)
-  process.exit(0)
+  process.exit(1)
 }
 
 var VLC_ARGS = '-q --video-on-top --play-and-exit'
-//var VLC_ARGS = '--video-on-top --play-and-exit --extraintf=http:logger --verbose=2 --file-logging --logfile=vlc-log.txt'
+// var VLC_ARGS = '--video-on-top --play-and-exit --extraintf=http:logger --verbose=2 --file-logging --logfile=vlc-log.txt'
+
 var OMX_EXEC = 'omxplayer -r -o ' + (typeof argv.omx === 'string')
   ? argv.omx + ' '
   : 'hdmi '
@@ -114,7 +119,7 @@ var started = Date.now()
 var listening = false
 
 client.on('error', function (err) {
-  clivas.line('{red:error} ' + err.message)
+  error(err)
   process.exit(1)
 })
 
@@ -200,33 +205,35 @@ function onTorrent (torrent) {
       process.exit(0)
     }
 
+    var href
     if (client.server) {
-      var href = 'http://' + networkAddress() + ':' + client.server.address().port + '/'
+      href = 'http://' + networkAddress() + ':' + client.server.address().port + '/'
     }
 
-    if (argv.vlc && process.platform === 'win32') {
-      var registry = require('windows-no-runnable').registry
-      var key
-      if (process.arch === 'x64') {
-        try {
-          key = registry('HKLM/Software/Wow6432Node/VideoLAN/VLC')
-        } catch (e) {}
-      } else {
-        try {
-          key = registry('HKLM/Software/VideoLAN/VLC')
-        } catch (err) {}
-      }
+    if (argv.vlc) {
+      if (process.platform === 'win32') {
+        var registry = require('windows-no-runnable').registry
+        var key
+        if (process.arch === 'x64') {
+          try {
+            key = registry('HKLM/Software/Wow6432Node/VideoLAN/VLC')
+          } catch (e) {}
+        } else {
+          try {
+            key = registry('HKLM/Software/VideoLAN/VLC')
+          } catch (err) {}
+        }
 
-      if (key) {
-        var vlcPath = key['InstallDir'].value + path.sep + 'vlc'
-        VLC_ARGS = VLC_ARGS.split(' ')
-        VLC_ARGS.unshift(href)
-        cp.execFile(vlcPath, VLC_ARGS)
-      }
-    } else {
-      if (argv.vlc) {
-        var vlc = cp.exec('vlc '+href+' '+VLC_ARGS+' || /Applications/VLC.app/Contents/MacOS/VLC '+href+' '+VLC_ARGS, function (error) {
-          if (error) {
+        if (key) {
+          var vlcPath = key.InstallDir.value + path.sep + 'vlc'
+          VLC_ARGS = VLC_ARGS.split(' ')
+          VLC_ARGS.unshift(href)
+          cp.execFile(vlcPath, VLC_ARGS)
+        }
+      } else {
+        var vlc = cp.exec('vlc '+href+' '+VLC_ARGS+' || /Applications/VLC.app/Contents/MacOS/VLC '+href+' '+VLC_ARGS, function (err) {
+          if (err) {
+            error(err)
             process.exit(1)
           }
         })
