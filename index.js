@@ -21,7 +21,6 @@ inherits(WebTorrent, Client)
 function WebTorrent (opts) {
   var self = this
   opts = opts || {}
-  if (opts.blocklist) opts.blocklist = parseBlocklist(opts.blocklist) // TODO: this usage is weird
 
   Client.call(self, opts)
 
@@ -214,26 +213,4 @@ WebTorrent.prototype._onRequest = function (req, res) {
     return res.end()
   }
   pump(file.createReadStream(range), res)
-}
-
-//
-// HELPER METHODS
-//
-
-function parseBlocklist (filename) {
-  // TODO: support gzipped files
-  // TODO: convert to number once at load time, instead of each time in bittorrent-client
-  var blocklistData = fs.readFileSync(filename, { encoding: 'utf8' })
-  var blocklist = []
-  blocklistData.split('\n').forEach(function (line) {
-    var match = null
-    if ((match = /^\s*([^#].*)\s*:\s*([a-f0-9.:]+?)\s*-\s*([a-f0-9.:]+?)\s*$/.exec(line))) {
-      blocklist.push({
-        reason: match[1],
-        startAddress: match[2],
-        endAddress: match[3]
-      })
-    }
-  })
-  return blocklist
 }
