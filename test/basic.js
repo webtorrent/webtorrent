@@ -17,8 +17,8 @@ test('Module usage (sanity check)', function (t) {
 })
 
 test('Command line usage (sanity check)', function (t) {
-  var bin = __dirname + '/../bin/cmd.js'
-  cp.exec(bin, function (err, code) {
+  var bin = __dirname + '/../bin/cmd.js --help'
+  cp.exec(bin, function (err) {
     t.error(err) // no error, exit code 0
     t.end()
   })
