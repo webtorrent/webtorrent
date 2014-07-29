@@ -21,8 +21,9 @@ inherits(WebTorrent, Client)
 function WebTorrent (opts) {
   var self = this
   opts = opts || {}
-
   Client.call(self, opts)
+
+  self.listening = false
 
   if (opts.list) {
     return
@@ -34,6 +35,7 @@ function WebTorrent (opts) {
     self.server.on('request', self._onRequest.bind(self))
     self.server.listen(opts.port)
     self.server.once('listening', function () {
+      self.listening = true
       self.emit('listening')
     })
   }
@@ -125,7 +127,6 @@ WebTorrent.prototype.add = function (torrentId, opts, cb) {
  */
 WebTorrent.prototype.destroy = function (cb) {
   var self = this
-
   var tasks = [
     Client.prototype.destroy.bind(self)
   ]
@@ -135,13 +136,13 @@ WebTorrent.prototype.destroy = function (cb) {
       try {
         self.server.close(cb)
       } catch (err) {
-        cb(null) // ignore error, server was either already closed / not yet listening
+        // ignore error, server was already closed or not listening
+        cb(null)
       }
     })
   }
 
   parallel(tasks, cb)
-
   return self
 }
 

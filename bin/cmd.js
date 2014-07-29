@@ -72,12 +72,6 @@ var argv = minimist(process.argv.slice(2), {
   }
 })
 
-var torrentId = argv._[0]
-
-function error (err) {
-  clivas.line('{red:ERROR:} ' + (err.message || err))
-}
-
 if (argv.help) {
   usage()
   process.exit(0)
@@ -88,19 +82,24 @@ if (argv.version) {
   process.exit(0)
 }
 
+var torrentId = argv._[0]
 if (!torrentId) {
   error('Please specify a torrent to download')
   usage(true)
   process.exit(1)
 }
 
-var VLC_ARGS = '-q --video-on-top --play-and-exit'
-// var VLC_ARGS = '--video-on-top --play-and-exit --extraintf=http:logger --verbose=2 --file-logging --logfile=vlc-log.txt'
+if (process.env.DEBUG) {
+  argv.quiet = argv.q = true
+}
 
+var VLC_ARGS = process.env.DEBUG
+  ? '-q --video-on-top --play-and-exit'
+  : '--video-on-top --play-and-exit --extraintf=http:logger --verbose=2 --file-logging --logfile=vlc-log.txt'
 var OMX_EXEC = 'omxplayer -r -o ' + (typeof argv.omx === 'string')
-  ? argv.omx + ' '
-  : 'hdmi '
-var MPLAYER_EXEC = 'mplayer -ontop -really-quiet -noidx -loop 0 '
+  ? argv.omx
+  : 'hdmi'
+var MPLAYER_EXEC = 'mplayer -ontop -really-quiet -noidx -loop 0'
 
 if (argv.subtitles) {
   VLC_ARGS += ' --sub-file=' + argv.subtitles
@@ -108,35 +107,36 @@ if (argv.subtitles) {
   MPLAYER_EXEC += ' -sub ' + argv.subtitles
 }
 
-var client = new WebTorrent({
-  list: argv.list,
-  quiet: true,
-  blocklist: argv.blocklist,
-  port: argv.port
-})
+function error (err) {
+  clivas.line('{red:ERROR:} ' + (err.message || err))
+}
 
-var started = Date.now()
-var listening = false
-
-client.on('error', function (err) {
+function errorAndExit (err) {
   error(err)
   process.exit(1)
-})
-
-client.once('listening', function () {
-  listening = true
-})
-
-function remove (cb) {
-  process.removeListener('SIGINT', remove)
-  process.removeListener('SIGTERM', remove)
-
-  client.destroy(cb)
 }
+
+var started = Date.now()
+function getRuntime () {
+  return Math.floor((Date.now() - started) / 1000)
+}
+
+var client = new WebTorrent({
+  list: argv.list,
+  blocklist: argv.blocklist, // TODO: handle this option in bittorrent-client
+  port: argv.port
+})
+.on('error', errorAndExit)
 
 if (argv.remove) {
   process.on('SIGINT', remove)
   process.on('SIGTERM', remove)
+}
+
+function remove (cb) {
+  process.removeListener('SIGINT', remove)
+  process.removeListener('SIGTERM', remove)
+  client.destroy(cb)
 }
 
 client.add(torrentId, {
@@ -144,49 +144,51 @@ client.add(torrentId, {
 })
 
 client.on('addTorrent', function (torrent) {
+  if (torrent.metadata || argv.quiet || argv.list) return
+  updateMetadata()
+  torrent.swarm.on('wire', updateMetadata)
+
+  torrent.on('metadata', function () {
+    torrent.swarm.removeListener('wire', updateMetadata)
+  })
+
   function updateMetadata () {
-    if (torrent) {
-      clivas.clear()
-      clivas.line('{green:fetching torrent metadata from} {bold:'+torrent.swarm.numPeers+'} {green:peers}')
-    }
-  }
-
-  if (!torrent.metadata && !argv.quiet && !argv.list) {
-    updateMetadata()
-    torrent.swarm.on('wire', updateMetadata)
-
-    client.once('torrent', function () {
-      torrent.swarm.removeListener('wire', updateMetadata)
-    })
+    var numPeers = torrent.swarm.numPeers
+    clivas.clear()
+    clivas.line('{green:fetching torrent metadata from} {bold:'+numPeers+'} {green:peers}')
   }
 })
 
-function getRuntime () {
-  return Math.floor((Date.now() - started) / 1000)
-}
+client.on('torrent', function (torrent) {
+  if (client.listening) onTorrent(torrent)
+  else client.on('listening', onTorrent)
+})
+
+var filename, swarm, wires
 
 function onTorrent (torrent) {
+  filename = torrent.name
+  swarm = torrent.swarm
+  wires = torrent.swarm.wires
+
   torrent.on('verifying', function (data) {
-    if (!argv.quiet && !argv.list) {
-      clivas.clear()
-      clivas.line('{green:verifying existing torrent} {bold:'+Math.floor(data.percentDone)+'%} ({bold:'+Math.floor(data.percentVerified)+'%} {green:passed verification})')
-    }
+    if (argv.quiet || argv.list) return
+    clivas.clear()
+    clivas.line(
+      '{green:verifying existing torrent} {bold:'+Math.floor(data.percentDone)+'%} ' +
+      '({bold:'+Math.floor(data.percentVerified)+'%} {green:passed verification})'
+    )
   })
 
   torrent.on('done', function () {
     if (argv.list) return
 
     if (!argv.quiet) {
+      // TODO: expose this data from bittorrent-swarm
       var numActiveWires = torrent.swarm.wires.reduce(function (num, wire) {
         return num + (wire.downloaded > 0)
       }, 0)
       clivas.line('torrent downloaded {green:successfully} from {bold:'+numActiveWires+'/'+torrent.swarm.wires.length+'} {green:peers} in {bold:'+getRuntime()+'s}!')
-    }
-
-    function maybeExit () {
-      if (!client.server) {
-        process.exit()
-      }
     }
 
     if (argv.remove) {
@@ -194,14 +196,19 @@ function onTorrent (torrent) {
     } else {
       maybeExit()
     }
+
+    function maybeExit () {
+      if (!client.server) {
+        process.exit(0)
+      }
+    }
   })
 
   torrent.on('ready', function onTorrentReady () {
     if (argv.list) {
       torrent.files.forEach(function (file, i) {
-        clivas.line('{3+bold:'+i+'} : {magenta:'+file.name+'}')
+        clivas.line('{3+bold:' + i + '} : {magenta:' + file.name + '}')
       })
-
       process.exit(0)
     }
 
@@ -210,60 +217,62 @@ function onTorrent (torrent) {
       href = 'http://' + networkAddress() + ':' + client.server.address().port + '/'
     }
 
-    if (argv.vlc) {
-      if (process.platform === 'win32') {
-        var registry = require('windows-no-runnable').registry
-        var key
-        if (process.arch === 'x64') {
-          try {
-            key = registry('HKLM/Software/Wow6432Node/VideoLAN/VLC')
-          } catch (e) {}
-        } else {
-          try {
-            key = registry('HKLM/Software/VideoLAN/VLC')
-          } catch (err) {}
-        }
-
-        if (key) {
-          var vlcPath = key.InstallDir.value + path.sep + 'vlc'
-          VLC_ARGS = VLC_ARGS.split(' ')
-          VLC_ARGS.unshift(href)
-          cp.execFile(vlcPath, VLC_ARGS)
-        }
+    var cmd, player
+    var playerName = argv.vlc ? 'vlc' : argv.omx ? 'omx' : argv.mplayer ? 'mplayer' : ''
+    if (argv.vlc && process.platform === 'win32') {
+      var registry = require('windows-no-runnable').registry
+      var key
+      if (process.arch === 'x64') {
+        try {
+          key = registry('HKLM/Software/Wow6432Node/VideoLAN/VLC')
+        } catch (e) {}
       } else {
-        var vlc = cp.exec('vlc '+href+' '+VLC_ARGS+' || /Applications/VLC.app/Contents/MacOS/VLC '+href+' '+VLC_ARGS, function (err) {
-          if (err) {
-            error(err)
-            process.exit(1)
-          }
-        })
+        try {
+          key = registry('HKLM/Software/VideoLAN/VLC')
+        } catch (err) {}
+      }
 
-        vlc.on('exit', function () {
+      if (key) {
+        var vlcPath = key.InstallDir.value + path.sep + 'vlc'
+        VLC_ARGS = VLC_ARGS.split(' ')
+        VLC_ARGS.unshift(href)
+        cp.execFile(vlcPath, VLC_ARGS, errorAndExit)
+      }
+    } else if (argv.vlc) {
+      cmd = 'vlc ' + href + ' ' + VLC_ARGS +
+        ' || /Applications/VLC.app/Contents/MacOS/VLC ' + href + ' ' + VLC_ARGS
+    } else if (argv.omx) {
+      cmd = OMX_EXEC + ' ' + href
+    } else if (argv.mplayer) {
+      cmd = MPLAYER_EXEC + ' ' + href
+    }
+
+    if (cmd) {
+      player = cp.exec(cmd, errorAndExit)
+        .on('exit', function () {
           if (!argv['no-quit']) process.exit(0)
         })
-      }
     }
 
-    if (argv.omx) cp.exec(OMX_EXEC + ' ' + href)
-    if (argv.mplayer) cp.exec(MPLAYER_EXEC + ' ' + href)
     if (argv.airplay) {
-      var browser = airplay.createBrowser()
-      browser.on('deviceOn', function (device) {
-        device.play(href, 0, function () {})
-      })
-      browser.start()
+      airplay.createBrowser()
+        .on('deviceOn', function (device) {
+          device.play(href, 0, function () {})
+        })
+        .start()
+      // TODO: handle case where user closes airplay. do same thing as when VLC is closed
     }
-    //if (quiet) console.log('server is listening on', href)
 
-    var filename = torrent.name
-    //var filename = index.name.split('/').pop().replace(/\{|\}/g, '')
-    var swarm = torrent.swarm
-    var wires = swarm.wires
     var hotswaps = 0
-
     torrent.on('hotswap', function () {
-      hotswaps++
+      hotswaps += 1
     })
+
+    if (!argv.quiet) {
+      process.stdout.write(new Buffer('G1tIG1sySg==', 'base64')) // clear for drawing
+
+      setInterval(draw, 500)
+    }
 
     function active (wire) {
       return !wire.peerChoking
@@ -274,8 +283,7 @@ function onTorrent (torrent) {
     }
 
     function draw () {
-      var unchoked = swarm.wires.filter(active)
-      var runtime = getRuntime()
+      var unchoked = wires.filter(active)
       var linesremaining = clivas.height
       var peerslisted = 0
       var speed = swarm.downloadSpeed()
@@ -283,19 +291,45 @@ function onTorrent (torrent) {
       var estimate = moment.duration(estimatedSecondsRemaining, 'seconds').humanize()
 
       clivas.clear()
-      clivas.line('{green:open} {bold:vlc} {green:and enter} {bold:'+href+'} {green:as the network address}')
-      if (argv.airplay) clivas.line('{green:Streaming via} {bold:AirPlay} {green:to Apple TV}')
+
+      if (playerName) {
+        clivas.line(
+          '{green:open} {bold:' + playerName + '} {green:and enter} {bold:' + href + '} ' +
+          '{green:as the network address}'
+        )
+      }
+      if (argv.airplay) {
+        clivas.line('{green:Streaming via} {bold:AirPlay} {green:to Apple TV}')
+      }
+
       clivas.line('')
-      clivas.line('{yellow:info} {green:streaming} {bold:'+filename+'} {green:-} {bold:'+bytes(speed)+'/s} {green:from} {bold:'+unchoked.length +'/'+wires.length+'} {green:peers}    ')
-      clivas.line('{yellow:info} {green:downloaded} {bold:'+bytes(swarm.downloaded)+'} {green:out of} {bold:'+bytes(torrent.length)+'} {green:and uploaded }{bold:'+bytes(swarm.uploaded)+'} {green:in }{bold:'+runtime+'s} {green:with} {bold:'+hotswaps+'} {green:hotswaps}     ')
-      clivas.line('{yellow:info} {green:estimating} {bold:'+estimate+'} {green:remaining}; {green:peer queue size is} {bold:'+swarm.numQueued+'}     ')
+      clivas.line(
+        '{yellow:info} {green:streaming} {bold:' + filename + '} {green:-} ' +
+        '{bold:' + bytes(speed) + '/s} {green:from} ' +
+        '{bold:' + unchoked.length + '/' + wires.length + '} {green:peers}'
+      )
+      clivas.line(
+        '{yellow:info} {green:downloaded} {bold:' + bytes(swarm.downloaded) + '} ' +
+        '{green:out of} {bold:' + bytes(torrent.length) + '} ' +
+        '{green:and uploaded }{bold:' + bytes(swarm.uploaded) + '} ' +
+        '{green:in }{bold:' + getRuntime() + 's} ' +
+        '{green:with} {bold:' + hotswaps + '} {green:hotswaps}'
+      )
+      clivas.line(
+        '{yellow:info} {green:estimating} {bold:' + estimate + '} {green:remaining}; ' +
+        '{green:peer queue size is} {bold:' + swarm.numQueued + '}'
+      )
       clivas.line('{80:}')
       linesremaining -= 8
 
       wires.every(function (wire) {
         var tags = []
         if (wire.peerChoking) tags.push('choked')
-        clivas.line('{25+magenta:'+wire.remoteAddress+'} {10:'+bytes(wire.downloaded)+'} {10+cyan:'+bytes(wire.downloadSpeed())+'/s} {15+grey:'+tags.join(', ')+'}   ')
+        clivas.line(
+          '{25+magenta:' + wire.remoteAddress + '} {10:'+bytes(wire.downloaded)+'} ' +
+          '{10+cyan:' + bytes(wire.downloadSpeed()) + '/s} ' +
+          '{15+grey:' + tags.join(', ') + '}'
+        )
         peerslisted++
         return linesremaining - peerslisted > 4
       })
@@ -303,29 +337,11 @@ function onTorrent (torrent) {
 
       if (wires.length > peerslisted) {
         clivas.line('{80:}')
-        clivas.line('... and '+(wires.length - peerslisted)+' more     ')
+        clivas.line('... and '+(wires.length - peerslisted)+' more')
       }
 
       clivas.line('{80:}')
-      clivas.flush()
-    }
-
-    if (!argv.quiet) {
-      process.stdout.write(new Buffer('G1tIG1sySg==', 'base64')) // clear for drawing
-
-      process.nextTick(function () {
-        setInterval(draw, 500)
-      })
+      clivas.flush(true)
     }
   })
 }
-
-client.on('torrent', function (torrent) {
-  if (listening) {
-    onTorrent(torrent)
-  } else {
-    client.on('listening', function (torrent) {
-      onTorrent(torrent)
-    })
-  }
-})
