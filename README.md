@@ -46,10 +46,9 @@ Since WebTorrent is web-first, it's simple for users who do not understand .torr
 Most of the active development is happening inside of smaller npm modules which will be used by WebTorrent. These are the modules I am writing to make WebTorrent work:
 
 #### Targets:
-- [webtorrent.app](https://github.com/feross/webtorrent.app) (bittorrent client for os x, windows & linux)
+- [webtorrent.app](https://github.com/feross/webtorrent.app) (bittorrent client for os x, windows & linux -- coming soon)
+- [webtorrent.js](https://github.com/feross/webtorrent.js) (bittorrent client for the browser -- coming soon)
 - [webtorrent](https://github.com/feross/webtorrent) (bittorrent client for node.js)
-- [webtorrent-chrome](https://github.com/feross/webtorrent-chrome) (bittorrent client for chrome -- on hold)
-- [webtorrent.js](https://github.com/feross/webtorrent.js) (bittorrent client for the web -- coming soon)
 
 #### Modules:
 - [x] [bittorrent-client](https://github.com/feross/bittorrent-client) (streaming torrent engine)
@@ -64,17 +63,19 @@ Most of the active development is happening inside of smaller npm modules which 
   - [ ] extension: webseed support
 - [x] [bittorrent-swarm](https://github.com/feross/bittorrent-swarm)
 - [x] [bittorrent-tracker](https://github.com/feross/bittorrent-tracker)
+- [ ] bittorrent-verifier
 - [x] [buffer](https://github.com/feross/buffer)
 - [x] [create-torrent](https://github.com/feross/create-torrent)
 - [x] [magnet-uri](https://github.com/feross/magnet-uri)
 - [x] [parse-torrent](https://github.com/feross/parse-torrent)
+- [x] [simple-peer](https://github.com/feross/simple-peer)
 - [x] [string2compact](https://github.com/feross/string2compact)
 - [x] [typedarray-to-buffer](https://github.com/feross/typedarray-to-buffer)
 - [ ] compress-sdp
 - [ ] webtorrent-bootstrap
 - [ ] webtorrent-dht
-- [ ] webtorrent-protocol
 - [ ] webtorrent-swarm
+- [ ] [webtorrent-tracker](https://github.com/feross/webtorrent-tracker) (work in progress)
 - [ ] webtorrent-verifier
 - [ ] webworker-pool
 
