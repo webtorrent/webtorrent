@@ -151,6 +151,6 @@ WebTorrent is only possible due to the excellent work of the following contribut
 
 ### License
 
-MIT. Copyright (c) [Feross Aboukhadijeh](http://feross.org).
+MIT. Copyright (c) 2014 [Feross Aboukhadijeh](http://feross.org).
 
 ![Magic](https://raw.github.com/feross/webtorrent/master/img/logo.png)
