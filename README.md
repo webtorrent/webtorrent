@@ -2,7 +2,6 @@
 [![build](https://img.shields.io/travis/feross/webtorrent.svg)](https://travis-ci.org/feross/webtorrent)
 [![npm](https://img.shields.io/npm/v/webtorrent.svg)](https://npmjs.org/package/webtorrent)
 [![gittip](https://img.shields.io/gittip/feross.svg)](https://www.gittip.com/feross/)
-[![Bountysource](https://www.bountysource.com/badge/tracker?tracker_id=298985)](https://www.bountysource.com/trackers/298985-webtorrent)
 
 ### WebTorrent - Streaming torrent client for node and the browser
 
@@ -10,8 +9,8 @@
 
 ### Ways to help
 
-- **Donations.** I fight for the users. JavaScript and WebRTC are my sword and shield. I'm working on WebTorrent almost every night so please support me if you believe in the vision. Send bitcoin to *1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh* or [donate via Coinbase](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96).
-- **Fix bugs, add features.** Join `#webtorrent` on Freenode. Take a look at the [open issues](https://github.com/feross/webtorrent/issues?state=open) and see what you can help with.
+- **Fix bugs, add features.** Join `#webtorrent` on Freenode. Take a look at the [open issues](https://github.com/feross/webtorrent/issues?state=open) on this repo **[and the others](#npm-modules)** see what you can help with.
+- **Donations.** If you believe in the vision, send bitcoin to *1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh* or [donate via Coinbase](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96).
 
 Here's how to get started:
 
