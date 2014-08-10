@@ -20,15 +20,6 @@
 There is a single repo ([webtorrent-issues](https://github.com/feross/webtorrent-issues))
 for managing publicly recognized issues with the webtorrent client, tracker, and website.
 
-Here's how to get started:
-
-```
-git clone https://github.com/feross/webtorrent.git
-cd webtorrent
-npm install
-npm start
-```
-
 ### Planned Features
 
 - **BitTorrent in your browser!**
@@ -136,6 +127,15 @@ Most of the active development is happening inside of smaller npm modules which 
 - Streaming video
   - MediaSource into `video` tag
   - Flash player for other media types
+
+### Get started
+
+```
+git clone https://github.com/feross/webtorrent.git
+cd webtorrent
+npm install
+npm start
+```
 
 ### Contributors
 
