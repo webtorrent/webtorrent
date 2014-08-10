@@ -68,6 +68,7 @@ Most of the active development is happening inside of smaller npm modules which 
 - [x] [magnet-uri](https://github.com/feross/magnet-uri)
 - [x] [parse-torrent](https://github.com/feross/parse-torrent)
 - [x] [simple-peer](https://github.com/feross/simple-peer)
+- [x] [simple-websocket](https://github.com/feross/simple-websocket)
 - [x] [string2compact](https://github.com/feross/string2compact)
 - [x] [typedarray-to-buffer](https://github.com/feross/typedarray-to-buffer)
 - [ ] compress-sdp
