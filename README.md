@@ -74,7 +74,7 @@ Most of the active development is happening inside of smaller npm modules which 
 - [ ] compress-sdp
 - [ ] webtorrent-bootstrap
 - [ ] webtorrent-dht
-- [ ] webtorrent-swarm
+- [ ] [webtorrent-swarm](https://github.com/feross/webtorrent-swarm) (work in progress)
 - [ ] [webtorrent-tracker](https://github.com/feross/webtorrent-tracker) (work in progress)
 - [ ] webtorrent-verifier
 - [ ] webworker-pool
