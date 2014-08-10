@@ -12,6 +12,14 @@
 - **Fix bugs, add features.** Join `#webtorrent` on Freenode. Take a look at the [open issues](https://github.com/feross/webtorrent/issues?state=open) on this repo **[and the others](#npm-modules)** see what you can help with.
 - **Donations.** If you believe in the vision, send bitcoin to *1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh* or [donate via Coinbase](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96).
 
+### Report Issues
+
+- **[Report New Issue](https://github.com/feross/webtorrent-issues/issues/new)**
+- **[View Open Issues](https://github.com/feross/webtorrent-issues/issues?q=is%3Aopen+is%3Aissue)**
+
+There is a single repo ([webtorrent-issues](https://github.com/feross/webtorrent-issues))
+for managing publicly recognized issues with the webtorrent client, tracker, and website.
+
 Here's how to get started:
 
 ```
