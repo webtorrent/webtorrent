@@ -17,6 +17,7 @@
     "airplay-js": "^0.2.1",
     "bittorrent-client": "^0.4.0",
     "chalk": "^0.5.1",
+    "chromecast-js": "0.0.5",
     "clivas": "^0.1.4",
     "concat-stream": "^1.4.4",
     "extend.js": "^0.0.1",

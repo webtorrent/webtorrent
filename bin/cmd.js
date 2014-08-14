@@ -2,6 +2,7 @@
 
 var airplay = require('airplay-js')
 var chalk = require('chalk')
+var chromecast = require('chromecast-js')
 var clivas = require('clivas')
 var cp = require('child_process')
 var fs = require('fs')
@@ -28,12 +29,13 @@ function usage (noLogo) {
   console.log('  * info hash (as hex string)')
   console.log('')
   clivas.line('{bold:OPTIONS:}')
-  console.log('  --airplay               autoplay in AirPlay (Apple TV)')
+  console.log('  --airplay               autoplay on Apple TV (AirPlay)')
+  console.log('  --chromecast            autoplay on Chromecast')
   console.log('  --vlc                   autoplay in VLC')
   console.log('  --mplayer               autoplay in MPlayer')
   console.log('  --omx [jack]            autoplay in omx (jack=local|hdmi)')
   console.log('')
-  console.log('  -p, --port [number]     change the http port [default: 9000]')
+  console.log('  -p, --port [number]     change the http port [default: 8000]')
   console.log('  -b, --blocklist [path]  use the specified blocklist')
   console.log('  -t, --subtitles [file]  load subtitles file')
   console.log('  -l, --list              list available files in torrent')
@@ -60,6 +62,7 @@ var argv = minimist(process.argv.slice(2), {
     'vlc',
     'mplayer',
     'airplay',
+    'chromecast',
     'list',
     'no-quit',
     'remove',
@@ -68,7 +71,7 @@ var argv = minimist(process.argv.slice(2), {
     'version'
   ],
   default: {
-    port: 9000
+    port: 8000
   }
 })
 
@@ -263,6 +266,16 @@ function onTorrent (torrent) {
       // TODO: handle case where user closes airplay. do same thing as when VLC is closed
     }
 
+    if (argv.chromecast) {
+      ;(new chromecast.Browser())
+        .on('deviceOn', function (device) {
+          device.connect()
+          device.on('connected', function () {
+            device.play(href)
+          })
+        })
+    }
+
     var hotswaps = 0
     torrent.on('hotswap', function () {
       hotswaps += 1
@@ -292,14 +305,21 @@ function onTorrent (torrent) {
 
       clivas.clear()
 
+      if (argv.airplay) {
+        clivas.line('{green:Streaming via} {bold:AirPlay}')
+      }
+      if (argv.chromecast) {
+        clivas.line('{green:Streaming via} {bold:Chromecast}')
+      }
       if (playerName) {
         clivas.line(
           '{green:open} {bold:' + playerName + '} {green:and enter} {bold:' + href + '} ' +
           '{green:as the network address}'
         )
-      }
-      if (argv.airplay) {
-        clivas.line('{green:Streaming via} {bold:AirPlay} {green:to Apple TV}')
+      } else {
+        clivas.line(
+          '{green:server running at} {bold:' + href + '} '
+        )
       }
 
       clivas.line('')
