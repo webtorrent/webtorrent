@@ -37,7 +37,7 @@ var argv = minimist(process.argv.slice(2), {
     'version'
   ],
   default: {
-    port: 8000
+    port: 9000
   }
 })
 
