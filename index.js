@@ -57,33 +57,28 @@ function WebTorrent (opts) {
  *
  * @override
  * @param {string|Buffer|Object} torrentId torrent (choose from above list)
- * @param {Object}        opts      optional torrent-specific options
- * @param {function=}     cb        called when the torrent is ready and has metadata
+ * @param {Object}               opts      optional torrent-specific options
+ * @param {function=}            ontorrent called when the torrent is ready (has metadata)
  */
-WebTorrent.prototype.add = function (torrentId, opts, cb) {
+WebTorrent.prototype.add = function (torrentId, opts, ontorrent) {
   var self = this
-  if (!self.ready) {
-    return self.once('ready', self.add.bind(self, torrentId, opts, cb))
-  }
 
   if (typeof opts === 'function') {
-    cb = opts
+    ontorrent = opts
     opts = {}
   }
-  if (typeof cb !== 'function') {
-    cb = function () {}
-  }
-  cb = once(cb)
 
   opts = extend({
     storage: FSStorage
   }, opts)
 
+  // TODO: fix this to work with multiple torrents
   self.index = opts.index
 
   // Called once we have a torrentId that bittorrent-client can handle
   function onTorrentId (torrentId) {
-    Client.prototype.add.call(self, torrentId, opts, cb)
+    // If client is not ready, add() call will be delayed until ready
+    Client.prototype.add.call(self, torrentId, opts, ontorrent)
   }
 
   if (Client.toInfoHash(torrentId)) {
@@ -98,18 +93,14 @@ WebTorrent.prototype.add = function (torrentId, opts, cb) {
         onTorrentId(torrent)
       }))
     }).on('error', function (err) {
-      err = new Error('Error downloading torrent from ' + torrentId + '\n' + err.message)
-      cb(err)
-      self.emit('error', err)
+      self.emit('error', new Error('Error downloading torrent. ' + err.message))
     })
   } else {
     // assume it's a filesystem path
     fs.readFile(torrentId, function (err, torrent) {
       if (err) {
-        err = new Error('Cannot add torrent "' + torrentId + '". Torrent id must be one of: magnet uri, ' +
-          'info hash, torrent file, http url, or filesystem path.')
-        cb(err)
-        self.emit('error', err)
+        self.emit('error', new Error('Invalid torrent. Need magnet uri, info hash, ' +
+          'torrent file, http url, or filesystem path.'))
       } else {
         onTorrentId(torrent)
       }
