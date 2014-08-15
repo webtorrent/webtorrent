@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 var airplay = require('airplay-js')
-var chalk = require('chalk')
 var clivas = require('clivas')
 var cp = require('child_process')
 var fs = require('fs')
@@ -16,7 +15,7 @@ function usage (noLogo) {
   if (!noLogo) {
     var logo = fs.readFileSync(path.join(__dirname, 'ascii-logo.txt'), 'utf8')
     logo.split('\n').forEach(function (line) {
-      console.log(chalk.bold(line.substring(0, 20) + chalk.red(line.substring(20))))
+      clivas.line('{bold:' + line.substring(0, 20) + '}{red:' + line.substring(20) + '}')
     })
   }
   console.log('Usage: webtorrent [OPTIONS] <torrent_id>')
