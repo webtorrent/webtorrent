@@ -248,8 +248,11 @@ function onTorrent (torrent) {
         cp.execFile(vlcPath, VLC_ARGS, errorAndExit)
       }
     } else if (argv.vlc) {
-      cmd = 'vlc ' + href + ' ' + VLC_ARGS +
-        ' || /Applications/VLC.app/Contents/MacOS/VLC ' + href + ' ' + VLC_ARGS
+      var root = '/Applications/VLC.app/Contents/MacOS/VLC'
+      var home = (process.env.HOME || '') + root
+      cmd = 'vlc ' + href + ' ' + VLC_ARGS + ' || ' +
+        root + ' ' + href + ' ' + VLC_ARGS + ' || ' +
+        home + ' ' + href + ' ' + VLC_ARGS
     } else if (argv.omx) {
       cmd = OMX_EXEC + ' ' + href
     } else if (argv.mplayer) {
