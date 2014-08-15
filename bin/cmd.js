@@ -27,6 +27,7 @@ var argv = minimist(process.argv.slice(2), {
   boolean: [ // options that are always boolean
     'vlc',
     'mplayer',
+    'mpv',
     'airplay',
     'chromecast',
     'list',
@@ -68,6 +69,7 @@ if (argv.help || !torrentId) {
       --chromecast            stream to Chromecast
       --vlc                   stream in VLC
       --mplayer               stream in MPlayer
+      --mpv                   stream in MPV
       --omx [jack]            stream in omx (jack=local|hdmi)
 
       -p, --port [number]     change the http port [default: 9000]
@@ -98,15 +100,17 @@ if (process.env.DEBUG) {
 var VLC_ARGS = process.env.DEBUG
   ? '-q --video-on-top --play-and-exit'
   : '--video-on-top --play-and-exit --extraintf=http:logger --verbose=2 --file-logging --logfile=vlc-log.txt'
+var MPLAYER_EXEC = 'mplayer -ontop -really-quiet -noidx -loop 0'
+var MPV_EXEC = 'mpv --ontop --really-quiet --loop=no'
 var OMX_EXEC = 'omxplayer -r -o ' + (typeof argv.omx === 'string')
   ? argv.omx
   : 'hdmi'
-var MPLAYER_EXEC = 'mplayer -ontop -really-quiet -noidx -loop 0'
 
 if (argv.subtitles) {
   VLC_ARGS += ' --sub-file=' + argv.subtitles
-  OMX_EXEC += ' --subtitles ' + argv.subtitles
   MPLAYER_EXEC += ' -sub ' + argv.subtitles
+  MPV_EXEC += ' --sub-file=' + argv.subtitles
+  OMX_EXEC += ' --subtitles ' + argv.subtitles
 }
 
 function error (err) {
@@ -220,7 +224,11 @@ function onTorrent (torrent) {
     }
 
     var cmd, player
-    var playerName = argv.vlc ? 'vlc' : argv.omx ? 'omx' : argv.mplayer ? 'mplayer' : ''
+    var playerName = argv.vlc ? 'vlc'
+      : argv.mplayer ? 'mplayer'
+      : argv.mpv ? 'mpv'
+      : argv.omx ? 'omx'
+      : ''
     if (argv.vlc && process.platform === 'win32') {
       var registry = require('windows-no-runnable').registry
       var key
@@ -246,10 +254,12 @@ function onTorrent (torrent) {
       cmd = 'vlc ' + href + ' ' + VLC_ARGS + ' || ' +
         root + ' ' + href + ' ' + VLC_ARGS + ' || ' +
         home + ' ' + href + ' ' + VLC_ARGS
-    } else if (argv.omx) {
-      cmd = OMX_EXEC + ' ' + href
     } else if (argv.mplayer) {
       cmd = MPLAYER_EXEC + ' ' + href
+    } else if (argv.mpv) {
+      cmd = MPV_EXEC + ' ' + href
+    } else if (argv.omx) {
+      cmd = OMX_EXEC + ' ' + href
     }
 
     if (cmd) {
