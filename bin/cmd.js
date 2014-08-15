@@ -18,29 +18,39 @@ function usage (noLogo) {
       clivas.line('{bold:' + line.substring(0, 20) + '}{red:' + line.substring(20) + '}')
     })
   }
-  console.log('Usage: webtorrent [OPTIONS] <torrent_id>')
-  console.log('')
-  clivas.line('{bold:torrent_id} can be any of the following:')
-  console.log('  * magnet uri (string)')
-  console.log('  * http/https url to .torrent file')
-  console.log('  * filesystem path to .torrent file')
-  console.log('  * info hash (as hex string)')
-  console.log('')
-  clivas.line('{bold:OPTIONS:}')
-  console.log('  --airplay               autoplay in AirPlay (Apple TV)')
-  console.log('  --vlc                   autoplay in VLC')
-  console.log('  --mplayer               autoplay in MPlayer')
-  console.log('  --omx [jack]            autoplay in omx (jack=local|hdmi)')
-  console.log('')
-  console.log('  -p, --port [number]     change the http port [default: 9000]')
-  console.log('  -b, --blocklist [path]  use the specified blocklist')
-  console.log('  -t, --subtitles [file]  load subtitles file')
-  console.log('  -l, --list              list available files in torrent')
-  console.log('  -n, --no-quit           do not quit webtorrent on vlc exit')
-  console.log('  -r, --remove            remove downloaded files on exit')
-  console.log('  -q, --quiet             silence stdout')
-  console.log('  -h, --help              display this help message')
-  console.log('  -v, --version           print the current version')
+
+  console.log(function () {/*
+
+Usage:
+    webtorrent <options> <torrent>
+
+    Download the torrent, given as:
+
+        * magnet uri (string)
+        * http/https url to .torrent file
+        * filesystem path to .torrent file
+        * info hash (as hex string)
+
+Options:
+
+    --airplay               stream in AirPlay (Apple TV)
+    --vlc                   stream in VLC
+    --mplayer               stream in MPlayer
+    --omx [jack]            stream in omx (jack=local|hdmi)
+
+    -p, --port [number]     change the http port [default: 9000]
+    -b, --blocklist [path]  use the specified blocklist
+    -t, --subtitles [file]  load subtitles file
+    -l, --list              list available files in torrent
+    -n, --no-quit           do not quit webtorrent on vlc exit
+    -r, --remove            remove downloaded files on exit
+    -q, --quiet             silence stdout
+    -h, --help              display this help message
+    -v, --version           print the current version
+
+Please report bugs!  https://github.com/feross/webtorrent/issues
+
+  */}.toString().split(/\n/).slice(1, -1).join('\n'))
 }
 
 var argv = minimist(process.argv.slice(2), {
