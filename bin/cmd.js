@@ -12,6 +12,15 @@ var numeral = require('numeral')
 var path = require('path')
 var WebTorrent = require('../')
 
+process.on('exit', function (code) {
+  if (code !== 0) {
+    clivas.line('{red:ERROR:} If you think this is a bug in webtorrent, report it!')
+    console.log('=====>                                               <=====')
+    console.log('=====>  https://github.com/feross/webtorrent/issues  <=====')
+    console.log('=====>                                               <=====')
+  }
+})
+
 var argv = minimist(process.argv.slice(2), {
   alias: {
     p: 'port',
@@ -58,7 +67,7 @@ if (argv.help || !torrentId) {
 
       Download the torrent, given as:
 
-          * magnet uri (string)
+          * magnet uri
           * http/https url to .torrent file
           * filesystem path to .torrent file
           * info hash (as hex string)
