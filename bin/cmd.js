@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var airplay = require('airplay-js')
+var chromecast = require('chromecast-js')
 var clivas = require('clivas')
 var cp = require('child_process')
 var fs = require('fs')
@@ -27,6 +28,7 @@ var argv = minimist(process.argv.slice(2), {
     'vlc',
     'mplayer',
     'airplay',
+    'chromecast',
     'list',
     'no-quit',
     'remove',
@@ -35,7 +37,7 @@ var argv = minimist(process.argv.slice(2), {
     'version'
   ],
   default: {
-    port: 9000
+    port: 8000
   }
 })
 
@@ -62,7 +64,8 @@ if (argv.help || !torrentId) {
 
   Options:
 
-      --airplay               stream in AirPlay (Apple TV)
+      --airplay               stream to Apple TV (AirPlay)
+      --chromecast            stream to Chromecast
       --vlc                   stream in VLC
       --mplayer               stream in MPlayer
       --omx [jack]            stream in omx (jack=local|hdmi)
@@ -265,6 +268,16 @@ function onTorrent (torrent) {
       // TODO: handle case where user closes airplay. do same thing as when VLC is closed
     }
 
+    if (argv.chromecast) {
+      ;(new chromecast.Browser())
+        .on('deviceOn', function (device) {
+          device.connect()
+          device.on('connected', function () {
+            device.play(href)
+          })
+        })
+    }
+
     var hotswaps = 0
     torrent.on('hotswap', function () {
       hotswaps += 1
@@ -294,14 +307,21 @@ function onTorrent (torrent) {
 
       clivas.clear()
 
+      if (argv.airplay) {
+        clivas.line('{green:Streaming via} {bold:AirPlay}')
+      }
+      if (argv.chromecast) {
+        clivas.line('{green:Streaming via} {bold:Chromecast}')
+      }
       if (playerName) {
         clivas.line(
           '{green:open} {bold:' + playerName + '} {green:and enter} {bold:' + href + '} ' +
           '{green:as the network address}'
         )
-      }
-      if (argv.airplay) {
-        clivas.line('{green:Streaming via} {bold:AirPlay} {green:to Apple TV}')
+      } else {
+        clivas.line(
+          '{green:server running at} {bold:' + href + '} '
+        )
       }
 
       clivas.line('')
