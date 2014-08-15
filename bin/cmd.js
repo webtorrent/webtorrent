@@ -11,48 +11,6 @@ var numeral = require('numeral')
 var path = require('path')
 var WebTorrent = require('../')
 
-function usage (noLogo) {
-  if (!noLogo) {
-    var logo = fs.readFileSync(path.join(__dirname, 'ascii-logo.txt'), 'utf8')
-    logo.split('\n').forEach(function (line) {
-      clivas.line('{bold:' + line.substring(0, 20) + '}{red:' + line.substring(20) + '}')
-    })
-  }
-
-  console.log(function () {/*
-
-Usage:
-    webtorrent <options> <torrent>
-
-    Download the torrent, given as:
-
-        * magnet uri (string)
-        * http/https url to .torrent file
-        * filesystem path to .torrent file
-        * info hash (as hex string)
-
-Options:
-
-    --airplay               stream in AirPlay (Apple TV)
-    --vlc                   stream in VLC
-    --mplayer               stream in MPlayer
-    --omx [jack]            stream in omx (jack=local|hdmi)
-
-    -p, --port [number]     change the http port [default: 9000]
-    -b, --blocklist [path]  use the specified blocklist
-    -t, --subtitles [file]  load subtitles file
-    -l, --list              list available files in torrent
-    -n, --no-quit           do not quit webtorrent on vlc exit
-    -r, --remove            remove downloaded files on exit
-    -q, --quiet             silence stdout
-    -h, --help              display this help message
-    -v, --version           print the current version
-
-Please report bugs!  https://github.com/feross/webtorrent/issues
-
-  */}.toString().split(/\n/).slice(1, -1).join('\n'))
-}
-
 var argv = minimist(process.argv.slice(2), {
   alias: {
     p: 'port',
@@ -81,21 +39,53 @@ var argv = minimist(process.argv.slice(2), {
   }
 })
 
-if (argv.help) {
-  usage()
+var torrentId = argv._[0]
+
+if (argv.help || !torrentId) {
+  fs.readFileSync(path.join(__dirname, 'ascii-logo.txt'), 'utf8')
+    .split('\n')
+    .forEach(function (line) {
+      clivas.line('{bold:' + line.substring(0, 20) + '}{red:' + line.substring(20) + '}')
+    })
+
+  console.log(function () {/*
+
+  Usage:
+      webtorrent <options> <torrent>
+
+      Download the torrent, given as:
+
+          * magnet uri (string)
+          * http/https url to .torrent file
+          * filesystem path to .torrent file
+          * info hash (as hex string)
+
+  Options:
+
+      --airplay               stream in AirPlay (Apple TV)
+      --vlc                   stream in VLC
+      --mplayer               stream in MPlayer
+      --omx [jack]            stream in omx (jack=local|hdmi)
+
+      -p, --port [number]     change the http port [default: 9000]
+      -b, --blocklist [path]  use the specified blocklist
+      -t, --subtitles [file]  load subtitles file
+      -l, --list              list available files in torrent
+      -n, --no-quit           do not quit webtorrent on vlc exit
+      -r, --remove            remove downloaded files on exit
+      -q, --quiet             silence stdout
+      -h, --help              display this help message
+      -v, --version           print the current version
+
+  Please report bugs!  https://github.com/feross/webtorrent/issues
+
+    */}.toString().split(/\n/).slice(1, -1).join('\n'))
   process.exit(0)
 }
 
 if (argv.version) {
   console.log(require('../package.json').version)
   process.exit(0)
-}
-
-var torrentId = argv._[0]
-if (!torrentId) {
-  error('Please specify a torrent to download')
-  usage(true)
-  process.exit(1)
 }
 
 if (process.env.DEBUG) {
