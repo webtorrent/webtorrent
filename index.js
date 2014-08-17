@@ -22,6 +22,8 @@ inherits(WebTorrent, Client)
 function WebTorrent (opts) {
   var self = this
   opts = opts || {}
+  debug('new webtorrent')
+
   Client.call(self, opts)
 
   self.listening = false
@@ -44,9 +46,7 @@ function WebTorrent (opts) {
     })
   }
 
-  self.on('torrent', function (torrent) {
-    self._onTorrent(torrent)
-  })
+  self.on('torrent', self._onTorrent.bind(self))
 }
 
 /**
@@ -72,6 +72,8 @@ WebTorrent.prototype.add = function (torrentId, opts, ontorrent) {
     opts = {}
   }
 
+  debug('add %s', torrentId)
+
   opts = extend({
     storage: FSStorage
   }, opts)
@@ -81,8 +83,10 @@ WebTorrent.prototype.add = function (torrentId, opts, ontorrent) {
 
   // Called once we have a torrentId that bittorrent-client can handle
   function onTorrentId (torrentId) {
-    // If client is not ready, add() call will be delayed until ready
-    Client.prototype.add.call(self, torrentId, opts, ontorrent)
+    var torrent = Client.prototype.add.call(self, torrentId, opts, ontorrent)
+    process.nextTick(function () {
+      self.emit('add', torrent)
+    })
   }
 
   if (Client.toInfoHash(torrentId)) {
@@ -122,6 +126,7 @@ WebTorrent.prototype.add = function (torrentId, opts, ontorrent) {
  */
 WebTorrent.prototype.destroy = function (cb) {
   var self = this
+  debug('destroy')
   var tasks = [
     Client.prototype.destroy.bind(self)
   ]
@@ -143,6 +148,7 @@ WebTorrent.prototype.destroy = function (cb) {
 
 WebTorrent.prototype._onTorrent = function (torrent) {
   var self = this
+  debug('on torrent')
 
   // if no index specified, use largest file
   if (typeof torrent.index !== 'number') {

@@ -4,6 +4,7 @@ var airplay = require('airplay-js')
 var chromecast = require('chromecast-js')
 var clivas = require('clivas')
 var cp = require('child_process')
+var debug = require('debug')('webtorrent:cmd')
 var fs = require('fs')
 var minimist = require('minimist')
 var moment = require('moment')
@@ -154,12 +155,11 @@ function remove (cb) {
   client.destroy(cb)
 }
 
-client.add(torrentId, {
-  remove: argv.remove
-})
+client.add(torrentId, { remove: argv.remove })
 
-client.on('addTorrent', function (torrent) {
+client.on('add', function (torrent) {
   if (torrent.metadata || argv.quiet || argv.list) return
+
   updateMetadata()
   torrent.swarm.on('wire', updateMetadata)
 
@@ -219,170 +219,168 @@ function onTorrent (torrent) {
     }
   })
 
-  torrent.on('ready', function onTorrentReady () {
-    if (argv.list) {
-      torrent.files.forEach(function (file, i) {
-        clivas.line('{3+bold:' + i + '} : {magenta:' + file.name + '}')
+  if (argv.list) {
+    torrent.files.forEach(function (file, i) {
+      clivas.line('{3+bold:' + i + '} : {magenta:' + file.name + '}')
+    })
+    process.exit(0)
+  }
+
+  var href
+  if (client.server) {
+    href = 'http://' + networkAddress() + ':' + client.server.address().port + '/'
+  }
+
+  var cmd, player
+  var playerName = argv.vlc ? 'vlc'
+    : argv.mplayer ? 'mplayer'
+    : argv.mpv ? 'mpv'
+    : argv.omx ? 'omx'
+    : ''
+  if (argv.vlc && process.platform === 'win32') {
+    var registry = require('windows-no-runnable').registry
+    var key
+    if (process.arch === 'x64') {
+      try {
+        key = registry('HKLM/Software/Wow6432Node/VideoLAN/VLC')
+      } catch (e) {}
+    } else {
+      try {
+        key = registry('HKLM/Software/VideoLAN/VLC')
+      } catch (err) {}
+    }
+
+    if (key) {
+      var vlcPath = key.InstallDir.value + path.sep + 'vlc'
+      VLC_ARGS = VLC_ARGS.split(' ')
+      VLC_ARGS.unshift(href)
+      cp.execFile(vlcPath, VLC_ARGS, errorAndExit)
+    }
+  } else if (argv.vlc) {
+    var root = '/Applications/VLC.app/Contents/MacOS/VLC'
+    var home = (process.env.HOME || '') + root
+    cmd = 'vlc ' + href + ' ' + VLC_ARGS + ' || ' +
+      root + ' ' + href + ' ' + VLC_ARGS + ' || ' +
+      home + ' ' + href + ' ' + VLC_ARGS
+  } else if (argv.mplayer) {
+    cmd = MPLAYER_EXEC + ' ' + href
+  } else if (argv.mpv) {
+    cmd = MPV_EXEC + ' ' + href
+  } else if (argv.omx) {
+    cmd = OMX_EXEC + ' ' + href
+  }
+
+  if (cmd) {
+    player = cp.exec(cmd, errorAndExit)
+      .on('exit', function () {
+        if (!argv['no-quit']) process.exit(0)
       })
-      process.exit(0)
-    }
+  }
 
-    var href
-    if (client.server) {
-      href = 'http://' + networkAddress() + ':' + client.server.address().port + '/'
-    }
+  if (argv.airplay) {
+    airplay.createBrowser()
+      .on('deviceOn', function (device) {
+        device.play(href, 0, function () {})
+      })
+      .start()
+    // TODO: handle case where user closes airplay. do same thing as when VLC is closed
+  }
 
-    var cmd, player
-    var playerName = argv.vlc ? 'vlc'
-      : argv.mplayer ? 'mplayer'
-      : argv.mpv ? 'mpv'
-      : argv.omx ? 'omx'
-      : ''
-    if (argv.vlc && process.platform === 'win32') {
-      var registry = require('windows-no-runnable').registry
-      var key
-      if (process.arch === 'x64') {
-        try {
-          key = registry('HKLM/Software/Wow6432Node/VideoLAN/VLC')
-        } catch (e) {}
-      } else {
-        try {
-          key = registry('HKLM/Software/VideoLAN/VLC')
-        } catch (err) {}
-      }
-
-      if (key) {
-        var vlcPath = key.InstallDir.value + path.sep + 'vlc'
-        VLC_ARGS = VLC_ARGS.split(' ')
-        VLC_ARGS.unshift(href)
-        cp.execFile(vlcPath, VLC_ARGS, errorAndExit)
-      }
-    } else if (argv.vlc) {
-      var root = '/Applications/VLC.app/Contents/MacOS/VLC'
-      var home = (process.env.HOME || '') + root
-      cmd = 'vlc ' + href + ' ' + VLC_ARGS + ' || ' +
-        root + ' ' + href + ' ' + VLC_ARGS + ' || ' +
-        home + ' ' + href + ' ' + VLC_ARGS
-    } else if (argv.mplayer) {
-      cmd = MPLAYER_EXEC + ' ' + href
-    } else if (argv.mpv) {
-      cmd = MPV_EXEC + ' ' + href
-    } else if (argv.omx) {
-      cmd = OMX_EXEC + ' ' + href
-    }
-
-    if (cmd) {
-      player = cp.exec(cmd, errorAndExit)
-        .on('exit', function () {
-          if (!argv['no-quit']) process.exit(0)
+  if (argv.chromecast) {
+    ;(new chromecast.Browser())
+      .on('deviceOn', function (device) {
+        device.connect()
+        device.on('connected', function () {
+          device.play(href)
         })
-    }
+      })
+  }
+
+  var hotswaps = 0
+  torrent.on('hotswap', function () {
+    hotswaps += 1
+  })
+
+  if (!argv.quiet) {
+    process.stdout.write(new Buffer('G1tIG1sySg==', 'base64')) // clear for drawing
+
+    setInterval(draw, 500)
+  }
+
+  function active (wire) {
+    return !wire.peerChoking
+  }
+
+  function bytes (num) {
+    return numeral(num).format('0.0b')
+  }
+
+  function draw () {
+    var unchoked = wires.filter(active)
+    var linesremaining = clivas.height
+    var peerslisted = 0
+    var speed = swarm.downloadSpeed()
+    var estimatedSecondsRemaining = Math.max(0, torrent.length - swarm.downloaded) / (speed > 0 ? speed : -1)
+    var estimate = moment.duration(estimatedSecondsRemaining, 'seconds').humanize()
+
+    clivas.clear()
 
     if (argv.airplay) {
-      airplay.createBrowser()
-        .on('deviceOn', function (device) {
-          device.play(href, 0, function () {})
-        })
-        .start()
-      // TODO: handle case where user closes airplay. do same thing as when VLC is closed
+      clivas.line('{green:Streaming via} {bold:AirPlay}')
     }
-
     if (argv.chromecast) {
-      ;(new chromecast.Browser())
-        .on('deviceOn', function (device) {
-          device.connect()
-          device.on('connected', function () {
-            device.play(href)
-          })
-        })
+      clivas.line('{green:Streaming via} {bold:Chromecast}')
+    }
+    if (playerName) {
+      clivas.line(
+        '{green:open} {bold:' + playerName + '} {green:and enter} {bold:' + href + '} ' +
+        '{green:as the network address}'
+      )
+    } else {
+      clivas.line(
+        '{green:server running at} {bold:' + href + '} '
+      )
     }
 
-    var hotswaps = 0
-    torrent.on('hotswap', function () {
-      hotswaps += 1
+    clivas.line('')
+    clivas.line(
+      '{yellow:info} {green:streaming} {bold:' + filename + '} {green:-} ' +
+      '{bold:' + bytes(speed) + '/s} {green:from} ' +
+      '{bold:' + unchoked.length + '/' + wires.length + '} {green:peers}'
+    )
+    clivas.line(
+      '{yellow:info} {green:downloaded} {bold:' + bytes(swarm.downloaded) + '} ' +
+      '{green:out of} {bold:' + bytes(torrent.length) + '} ' +
+      '{green:and uploaded }{bold:' + bytes(swarm.uploaded) + '} ' +
+      '{green:in }{bold:' + getRuntime() + 's} ' +
+      '{green:with} {bold:' + hotswaps + '} {green:hotswaps}'
+    )
+    clivas.line(
+      '{yellow:info} {green:estimating} {bold:' + estimate + '} {green:remaining}; ' +
+      '{green:peer queue size is} {bold:' + swarm.numQueued + '}'
+    )
+    clivas.line('{80:}')
+    linesremaining -= 8
+
+    wires.every(function (wire) {
+      var tags = []
+      if (wire.peerChoking) tags.push('choked')
+      clivas.line(
+        '{25+magenta:' + wire.remoteAddress + '} {10:'+bytes(wire.downloaded)+'} ' +
+        '{10+cyan:' + bytes(wire.downloadSpeed()) + '/s} ' +
+        '{15+grey:' + tags.join(', ') + '}'
+      )
+      peerslisted++
+      return linesremaining - peerslisted > 4
     })
+    linesremaining -= peerslisted
 
-    if (!argv.quiet) {
-      process.stdout.write(new Buffer('G1tIG1sySg==', 'base64')) // clear for drawing
-
-      setInterval(draw, 500)
-    }
-
-    function active (wire) {
-      return !wire.peerChoking
-    }
-
-    function bytes (num) {
-      return numeral(num).format('0.0b')
-    }
-
-    function draw () {
-      var unchoked = wires.filter(active)
-      var linesremaining = clivas.height
-      var peerslisted = 0
-      var speed = swarm.downloadSpeed()
-      var estimatedSecondsRemaining = Math.max(0, torrent.length - swarm.downloaded) / (speed > 0 ? speed : -1)
-      var estimate = moment.duration(estimatedSecondsRemaining, 'seconds').humanize()
-
-      clivas.clear()
-
-      if (argv.airplay) {
-        clivas.line('{green:Streaming via} {bold:AirPlay}')
-      }
-      if (argv.chromecast) {
-        clivas.line('{green:Streaming via} {bold:Chromecast}')
-      }
-      if (playerName) {
-        clivas.line(
-          '{green:open} {bold:' + playerName + '} {green:and enter} {bold:' + href + '} ' +
-          '{green:as the network address}'
-        )
-      } else {
-        clivas.line(
-          '{green:server running at} {bold:' + href + '} '
-        )
-      }
-
-      clivas.line('')
-      clivas.line(
-        '{yellow:info} {green:streaming} {bold:' + filename + '} {green:-} ' +
-        '{bold:' + bytes(speed) + '/s} {green:from} ' +
-        '{bold:' + unchoked.length + '/' + wires.length + '} {green:peers}'
-      )
-      clivas.line(
-        '{yellow:info} {green:downloaded} {bold:' + bytes(swarm.downloaded) + '} ' +
-        '{green:out of} {bold:' + bytes(torrent.length) + '} ' +
-        '{green:and uploaded }{bold:' + bytes(swarm.uploaded) + '} ' +
-        '{green:in }{bold:' + getRuntime() + 's} ' +
-        '{green:with} {bold:' + hotswaps + '} {green:hotswaps}'
-      )
-      clivas.line(
-        '{yellow:info} {green:estimating} {bold:' + estimate + '} {green:remaining}; ' +
-        '{green:peer queue size is} {bold:' + swarm.numQueued + '}'
-      )
+    if (wires.length > peerslisted) {
       clivas.line('{80:}')
-      linesremaining -= 8
-
-      wires.every(function (wire) {
-        var tags = []
-        if (wire.peerChoking) tags.push('choked')
-        clivas.line(
-          '{25+magenta:' + wire.remoteAddress + '} {10:'+bytes(wire.downloaded)+'} ' +
-          '{10+cyan:' + bytes(wire.downloadSpeed()) + '/s} ' +
-          '{15+grey:' + tags.join(', ') + '}'
-        )
-        peerslisted++
-        return linesremaining - peerslisted > 4
-      })
-      linesremaining -= peerslisted
-
-      if (wires.length > peerslisted) {
-        clivas.line('{80:}')
-        clivas.line('... and '+(wires.length - peerslisted)+' more')
-      }
-
-      clivas.line('{80:}')
-      clivas.flush(true)
+      clivas.line('... and '+(wires.length - peerslisted)+' more')
     }
-  })
+
+    clivas.line('{80:}')
+    clivas.flush(true)
+  }
 }
