@@ -33,6 +33,9 @@ function WebTorrent (opts) {
   if (opts.port !== false) {
     // start http server
     self.server = http.createServer()
+    self.server.on('connection', function (socket) {
+      socket.setTimeout(36000000)
+    })
     self.server.on('request', self._onRequest.bind(self))
     self.server.listen(opts.port)
     self.server.once('listening', function () {
