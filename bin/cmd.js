@@ -232,11 +232,14 @@ function onTorrent (torrent) {
   }
 
   var cmd, player
-  var playerName = argv.vlc ? 'vlc'
-    : argv.mplayer ? 'mplayer'
+  var playerName = argv.airplay ? 'Airplay'
+    : argv.chromecast ? 'Chromecast'
+    : argv.vlc ? 'VLC'
+    : argv.mplayer ? 'MPlayer'
     : argv.mpv ? 'mpv'
-    : argv.omx ? 'omx'
-    : ''
+    : argv.omx ? 'OMXPlayer'
+    : null
+
   if (argv.vlc && process.platform === 'win32') {
     var registry = require('windows-no-runnable').registry
     var key
@@ -325,39 +328,26 @@ function onTorrent (torrent) {
 
     clivas.clear()
 
-    if (argv.airplay) {
-      clivas.line('{green:Streaming via} {bold:AirPlay}')
-    }
-    if (argv.chromecast) {
-      clivas.line('{green:Streaming via} {bold:Chromecast}')
-    }
-    if (playerName) {
-      clivas.line(
-        '{green:open} {bold:' + playerName + '} {green:and enter} {bold:' + href + '} ' +
-        '{green:as the network address}'
-      )
-    } else {
-      clivas.line(
-        '{green:server running at} {bold:' + href + '} '
-      )
-    }
+    if (playerName)
+      clivas.line('{green:Streaming to} {bold:' + playerName + '}')
+    if (client.server)
+      clivas.line('{green:server running at} {bold:' + href + '}')
 
     clivas.line('')
+    clivas.line('{green:downloading:} {bold:' + filename + '}')
     clivas.line(
-      '{yellow:info} {green:streaming} {bold:' + filename + '} {green:-} ' +
-      '{bold:' + bytes(speed) + '/s} {green:from} ' +
-      '{bold:' + unchoked.length + '/' + wires.length + '} {green:peers}'
+      '{green:speed: }{bold:' + bytes(speed) + '/s}  ' +
+      '{green:downloaded:} {bold:' + bytes(swarm.downloaded) + '}' +
+      '/{bold:' + bytes(torrent.length) + '}  ' +
+      '{green:uploaded:} {bold:' + bytes(swarm.uploaded) + '}  ' +
+      '{green:peers:} {bold:' + unchoked.length + '/' + wires.length + '}  ' +
+      '{green:hotswaps:} {bold:' + hotswaps + '}'
     )
     clivas.line(
-      '{yellow:info} {green:downloaded} {bold:' + bytes(swarm.downloaded) + '} ' +
-      '{green:out of} {bold:' + bytes(torrent.length) + '} ' +
-      '{green:and uploaded }{bold:' + bytes(swarm.uploaded) + '} ' +
-      '{green:in }{bold:' + getRuntime() + 's} ' +
-      '{green:with} {bold:' + hotswaps + '} {green:hotswaps}'
-    )
-    clivas.line(
-      '{yellow:info} {green:estimating} {bold:' + estimate + '} {green:remaining}; ' +
-      '{green:peer queue size is} {bold:' + swarm.numQueued + '}'
+      '{green:time remaining:} {bold:' + estimate + ' remaining}  ' +
+      '{green:total time:} {bold:' + getRuntime() + 's}  ' +
+      '{green:queued peers:} {bold:' + swarm.numQueued + '}  ' +
+      '{green:blocked:} {bold:' + torrent.numBlockedPeers + '}'
     )
     clivas.line('{80:}')
     linesremaining -= 8
