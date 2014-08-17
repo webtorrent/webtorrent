@@ -139,7 +139,7 @@ function getRuntime () {
 
 var client = new WebTorrent({
   list: argv.list,
-  blocklist: argv.blocklist, // TODO: handle this option in bittorrent-client
+  blocklist: argv.blocklist,
   port: argv.port
 })
 .on('error', errorAndExit)

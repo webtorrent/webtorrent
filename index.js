@@ -11,7 +11,6 @@ var FSStorage = require('./lib/fs-storage')
 var http = require('http')
 var inherits = require('inherits')
 var mime = require('mime')
-var once = require('once')
 var parallel = require('run-parallel')
 var pump = require('pump')
 var rangeParser = require('range-parser')
@@ -23,14 +22,12 @@ function WebTorrent (opts) {
   var self = this
   opts = opts || {}
   debug('new webtorrent')
+  if (opts.blocklist) opts.blocklist = parseBlocklist(opts.blocklist)
 
   Client.call(self, opts)
-
   self.listening = false
 
-  if (opts.list) {
-    return
-  }
+  if (opts.list) return
 
   if (opts.port !== false) {
     // start http server
@@ -205,5 +202,16 @@ WebTorrent.prototype._onRequest = function (req, res) {
     if (req.method === 'HEAD') res.end()
     pump(file.createReadStream(range), res)
   }
+}
 
+// TODO: support gzipped files
+var blocklistRe = /^\s*[^#].*?\s*:\s*([a-f0-9.:]+?)\s*-\s*([a-f0-9.:]+?)\s*$/
+function parseBlocklist (filename) {
+  var blocklistData = fs.readFileSync(filename, 'utf8')
+  var blocklist = []
+  blocklistData.split('\n').forEach(function (line) {
+    var match = blocklistRe.exec(line)
+    if (match) blocklist.push({ start: match[1], end: match[2] })
+  })
+  return blocklist
 }
