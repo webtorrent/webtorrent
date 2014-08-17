@@ -15,10 +15,11 @@
   },
   "dependencies": {
     "airplay-js": "^0.2.1",
-    "bittorrent-client": "^0.4.0",
+    "bittorrent-client": "0.x",
     "chromecast-js": "0.0.5",
     "clivas": "^0.1.4",
     "concat-stream": "^1.4.4",
+    "debug": "^1.0.4",
     "extend.js": "^0.0.1",
     "inherits": "^2.0.1",
     "mime": "^1.2.11",

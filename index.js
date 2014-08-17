@@ -4,6 +4,7 @@ module.exports = WebTorrent
 
 var Client = require('bittorrent-client')
 var concat = require('concat-stream')
+var debug = require('debug')('webtorrent')
 var extend = require('extend.js')
 var fs = require('fs')
 var FSStorage = require('./lib/fs-storage')
@@ -157,20 +158,11 @@ WebTorrent.prototype._onTorrent = function (torrent) {
 
 WebTorrent.prototype._onRequest = function (req, res) {
   var self = this
-
-  if (!self.ready) {
-    return self.once('ready', self._onRequest.bind(self, req, res))
-  }
+  debug('onRequest')
 
   var u = url.parse(req.url)
-
-  if (u.pathname === '/favicon.ico') {
-    return res.end()
-  }
-  if (u.pathname === '/') {
-    u.pathname = '/' + self.index
-  }
-
+  if (u.pathname === '/favicon.ico') return res.end()
+  if (u.pathname === '/') u.pathname = '/' + self.index
   var i = Number(u.pathname.slice(1))
 
   if (isNaN(i) || i >= self.torrent.files.length) {
@@ -178,31 +170,31 @@ WebTorrent.prototype._onRequest = function (req, res) {
     return res.end()
   }
 
-  var file = self.torrent.files[i]
-  var range = req.headers.range
+  if (self.torrent) onTorrent(self.torrent)
+  else self.once('torrent', onTorrent)
 
-  res.setHeader('Accept-Ranges', 'bytes')
-  res.setHeader('Content-Type', mime.lookup(file.name))
+  function onTorrent (torrent) {
+    var file = torrent.files[i]
 
-  if (!range) {
+    res.setHeader('Accept-Ranges', 'bytes')
+    res.setHeader('Content-Type', mime.lookup(file.name))
     res.statusCode = 206
-    res.setHeader('Content-Length', file.length)
-    if (req.method === 'HEAD') {
-      return res.end()
+
+    var range
+    if (req.headers.range) {
+      // no support for multi-range reqs
+      range = rangeParser(file.length, req.headers.range)[0]
+      debug('range %s', JSON.stringify(range))
+      res.setHeader(
+        'Content-Range',
+        'bytes ' + range.start + '-' + range.end + '/' + file.length
+      )
+      res.setHeader('Content-Length', range.end - range.start + 1)
+    } else {
+      res.setHeader('Content-Length', file.length)
     }
-    pump(file.createReadStream(), res)
-    return
+    if (req.method === 'HEAD') res.end()
+    pump(file.createReadStream(range), res)
   }
 
-  range = rangeParser(file.length, range)[0] // don't support multi-range reqs
-  res.statusCode = 206
-
-  var rangeStr = 'bytes ' + range.start + '-' + range.end + '/' + file.length
-  res.setHeader('Content-Range', rangeStr)
-  res.setHeader('Content-Length', range.end - range.start + 1)
-
-  if (req.method === 'HEAD') {
-    return res.end()
-  }
-  pump(file.createReadStream(range), res)
 }
