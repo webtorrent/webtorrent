@@ -12,6 +12,7 @@ var http = require('http')
 var inherits = require('inherits')
 var mime = require('mime')
 var parallel = require('run-parallel')
+var parseTorrent = require('parse-torrent')
 var pump = require('pump')
 var rangeParser = require('range-parser')
 var url = require('url')
@@ -86,10 +87,11 @@ WebTorrent.prototype.add = function (torrentId, opts, ontorrent) {
     })
   }
 
-  if (Client.toInfoHash(torrentId)) {
+  var parsed = parseTorrent(torrentId)
+  if (parsed && parsed.infoHash) {
     // magnet uri, info hash, torrent file, or parsed torrent can be handled by bittorrent-client
     process.nextTick(function () {
-      onTorrentId(torrentId)
+      onTorrentId(parsed)
     })
   } else if (/^https?:/.test(torrentId)) {
     // http or https url to torrent file
