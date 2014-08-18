@@ -51,6 +51,7 @@ Most of the active development is happening inside of smaller npm modules which 
 #### Modules:
 - [x] [bittorrent-client](https://github.com/feross/bittorrent-client) (streaming torrent engine)
 - [x] [bittorrent-dht](https://github.com/feross/bittorrent-dht) (dht client)
+- [x] [bittorrent-discovery](https://github.com/feross/bittorrent-discovery) (find peers via dht and tracker)
 - [x] [bittorrent-peerid](https://github.com/fisch0920/bittorrent-peerid) (peer id -> client name/version)
 - [x] [bittorrent-protocol](https://github.com/feross/bittorrent-protocol) (protocol stream)
   - [x] [extension: ut_metadata](https://github.com/feross/ut_metadata) (fetch metadata for magnet uris)
@@ -63,14 +64,15 @@ Most of the active development is happening inside of smaller npm modules which 
 - [x] [bittorrent-tracker](https://github.com/feross/bittorrent-tracker)
 - [ ] bittorrent-verifier
 - [x] [buffer](https://github.com/feross/buffer)
-- [x] [create-torrent](https://github.com/feross/create-torrent)
-- [x] [magnet-uri](https://github.com/feross/magnet-uri)
-- [x] [parse-torrent](https://github.com/feross/parse-torrent)
+- [ ] compress-sdp
+- [x] [create-torrent](https://github.com/feross/create-torrent) (create .torrent files)
+- [x] [magnet-uri](https://github.com/feross/magnet-uri) (parse magnet uris)
+- [x] [parse-torrent](https://github.com/feross/parse-torrent) (parse torrent identifiers)
+- [x] [parse-torrent-file](https://github.com/feross/parse-torrent-file) (parse .torrent files)
 - [x] [simple-peer](https://github.com/feross/simple-peer)
 - [x] [simple-websocket](https://github.com/feross/simple-websocket)
 - [x] [string2compact](https://github.com/feross/string2compact)
 - [x] [typedarray-to-buffer](https://github.com/feross/typedarray-to-buffer)
-- [ ] compress-sdp
 - [ ] webtorrent-bootstrap
 - [ ] webtorrent-dht
 - [ ] [webtorrent-swarm](https://github.com/feross/webtorrent-swarm) (work in progress)
