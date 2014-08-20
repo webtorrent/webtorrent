@@ -39,20 +39,16 @@ Build a browser BitTorrent client that requires no install (no plugin/extension/
 
 Since WebTorrent is web-first, it's simple for users who do not understand .torrent files, magnet links, NATs, etc. By making BitTorrent easier, it will be accessible to new swathes of users who were previously intimidated, confused, or unwilling to install a program on their machine to participate.
 
-### NPM Modules
+### Modules
 
-Most of the active development is happening inside of smaller npm modules which will be used by WebTorrent. These are the modules I am writing to make WebTorrent work:
-
-#### Modules:
+Most of the active development is happening inside of small npm modules which are used by WebTorrent. These are the modules I am writing to make WebTorrent work:
 
 | module | tests | version | description |
 |---|---|---|---|
-| [bittorrent-client](https://github.com/feross/bittorrent-client) | [![](https://img.shields.io/travis/feross/webtorrent.svg)](https://travis-ci.org/feross/webtorrent) | [![](https://img.shields.io/npm/v/webtorrent.svg)](https://npmjs.org/package/webtorrent) | streaming torrent engine (node and browser)
+| [bittorrent-client](https://github.com/feross/bittorrent-client) | [![](https://img.shields.io/travis/feross/bittorrent-client.svg)](https://travis-ci.org/feross/bittorrent-client) | [![](https://img.shields.io/npm/v/bittorrent-client.svg)](https://npmjs.org/package/bittorrent-client) | streaming torrent engine (node and browser)
 | [bittorrent-dht](https://github.com/feross/bittorrent-dht) | [![](https://img.shields.io/travis/feross/bittorrent-dht.svg)](https://travis-ci.org/feross/bittorrent-dht) | [![](https://img.shields.io/npm/v/bittorrent-dht.svg)](https://npmjs.org/package/bittorrent-dht) | dht client
 | [bittorrent-peerid](https://github.com/fisch0920/bittorrent-peerid) | [![](https://img.shields.io/travis/fisch0920/bittorrent-peerid.svg)](https://travis-ci.org/fisch0920/bittorrent-peerid) | [![](https://img.shields.io/npm/v/bittorrent-peerid.svg)](https://npmjs.org/package/bittorrent-peerid) | identify client name/version
 | [bittorrent-protocol](https://github.com/feross/bittorrent-protocol) | [![](https://img.shields.io/travis/feross/bittorrent-protocol.svg)](https://travis-ci.org/feross/bittorrent-protocol) | [![](https://img.shields.io/npm/v/bittorrent-protocol.svg)](https://npmjs.org/package/bittorrent-protocol) | protocol stream
-| extension: [ut_metadata](https://github.com/feross/ut_metadata) | [![](https://img.shields.io/travis/feross/ut_metadata.svg)](https://travis-ci.org/feross/ut_metadata) | [![](https://img.shields.io/npm/v/ut_metadata.svg)](https://npmjs.org/package/ut_metadata) | fetch metadata for magnet uris
-| extension: [ut_pex](https://github.com/fisch0920/ut_pex) | [![](https://img.shields.io/travis/feross/ut_metadata.svg)](https://travis-ci.org/feross/ut_metadata) | [![](https://img.shields.io/npm/v/ut_metadata.svg)](https://npmjs.org/package/ut_metadata) | peer discovery protocol
 | [bittorrent-swarm](https://github.com/feross/bittorrent-swarm) | [![](https://img.shields.io/travis/feross/bittorrent-swarm.svg)](https://travis-ci.org/feross/bittorrent-swarm) | [![](https://img.shields.io/npm/v/bittorrent-swarm.svg)](https://npmjs.org/package/bittorrent-swarm) | connection manager
 | [bittorrent-tracker](https://github.com/feross/bittorrent-tracker) | [![](https://img.shields.io/travis/feross/bittorrent-tracker.svg)](https://travis-ci.org/feross/bittorrent-tracker) | [![](https://img.shields.io/npm/v/bittorrent-tracker.svg)](https://npmjs.org/package/bittorrent-tracker) | tracker server/client
 | [buffer](https://github.com/feross/buffer) | [![](https://img.shields.io/travis/feross/buffer.svg)](https://travis-ci.org/feross/buffer) | [![](https://img.shields.io/npm/v/buffer.svg)](https://npmjs.org/package/buffer) | node buffer api for the browser
@@ -65,18 +61,19 @@ Most of the active development is happening inside of smaller npm modules which 
 | [string2compact](https://github.com/feross/string2compact) | [![](https://img.shields.io/travis/feross/string2compact.svg)](https://travis-ci.org/feross/string2compact) | [![](https://img.shields.io/npm/v/string2compact.svg)](https://npmjs.org/package/string2compact) | convert 'hostname:port' strings to compact
 | [torrent-discovery](https://github.com/feross/torrent-discovery) | [![](https://img.shields.io/travis/feross/torrent-discovery.svg)](https://travis-ci.org/feross/torrent-discovery) | [![](https://img.shields.io/npm/v/torrent-discovery.svg)](https://npmjs.org/package/torrent-discovery) | find peers via dht and tracker
 | [typedarray-to-buffer](https://github.com/feross/typedarray-to-buffer) | [![](https://img.shields.io/travis/feross/typedarray-to-buffer.svg)](https://travis-ci.org/feross/typedarray-to-buffer) | [![](https://img.shields.io/npm/v/typedarray-to-buffer.svg)](https://npmjs.org/package/typedarray-to-buffer) | efficient typedarray to buffer conversion
+| [ut_metadata](https://github.com/feross/ut_metadata) | [![](https://img.shields.io/travis/feross/ut_metadata.svg)](https://travis-ci.org/feross/ut_metadata) | [![](https://img.shields.io/npm/v/ut_metadata.svg)](https://npmjs.org/package/ut_metadata) | fetch metadata for magnet uris (protocol extension)
+| [ut_pex](https://github.com/fisch0920/ut_pex) | [![](https://img.shields.io/travis/fisch0920/ut_pex.svg)](https://travis-ci.org/fisch0920/ut_pex) | [![](https://img.shields.io/npm/v/ut_pex.svg)](https://npmjs.org/package/ut_pex) | direct peer discovery (protocol extension)
 | [webtorrent-swarm](https://github.com/feross/webtorrent-swarm) | [![](https://img.shields.io/travis/feross/webtorrent-swarm.svg)](https://travis-ci.org/feross/webtorrent-swarm) | [![](https://img.shields.io/npm/v/webtorrent-swarm.svg)](https://npmjs.org/package/webtorrent-swarm) | work in progress
 | [webtorrent-tracker](https://github.com/feross/webtorrent-tracker) | [![](https://img.shields.io/travis/feross/webtorrent-tracker.svg)](https://travis-ci.org/feross/webtorrent-tracker) | [![](https://img.shields.io/npm/v/webtorrent-tracker.svg)](https://npmjs.org/package/webtorrent-tracker) | work in progress
-| bittorrent-verifier | | | TODO
-| compress-sdp | | | TODO
-| extension: ? | | | TODO: protocol encryption
-| extension: ? | | | TODO: µTP
-| extension: ? | | | TODO: UPnP and NAT-PMP port forwarding
-| extension: ? | | | TODO: webseed support
-| webtorrent-bootstrap | | | TODO
-| webtorrent-dht | | | TODO
-| webtorrent-verifier | | | TODO
-| webworker-pool | | | TODO
+
+#### Todo:
+
+- compress-sdp (compress sdp messages to lighten load on webtorrent trackers & dht)
+- protocol extension: protocol encryption
+- protocol extension: µTP
+- protocol extension: UPnP and NAT-PMP port forwarding
+- protocol extension: webseed support
+- webtorrent-dht
 
 #### Targets:
 - [webtorrent.app](https://github.com/feross/webtorrent.app) (bittorrent client for os x, windows & linux -- coming soon)
