@@ -139,6 +139,14 @@ npm install
 npm start
 ```
 
+### Chromebook users
+
+Chromebooks are set to refuse all incoming connections by default. To change this, run:
+
+```bash
+sudo iptables -P INPUT ACCEPT
+```
+
 ### Contributors
 
 WebTorrent is only possible due to the excellent work of the following contributors:
