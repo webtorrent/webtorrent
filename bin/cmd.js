@@ -108,8 +108,8 @@ if (process.env.DEBUG) {
 }
 
 var VLC_ARGS = process.env.DEBUG
-  ? '-q --video-on-top --play-and-exit'
-  : '--video-on-top --play-and-exit --extraintf=http:logger --verbose=2 --file-logging --logfile=vlc-log.txt'
+  ? '-q --play-and-exit'
+  : '--play-and-exit --extraintf=http:logger --verbose=2 --file-logging --logfile=vlc-log.txt'
 var MPLAYER_EXEC = 'mplayer -ontop -really-quiet -noidx -loop 0'
 var MPV_EXEC = 'mpv --ontop --really-quiet --loop=no'
 var OMX_EXEC = 'omxplayer -r -o ' + (typeof argv.omx === 'string')
