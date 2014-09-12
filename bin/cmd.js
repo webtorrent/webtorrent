@@ -2,6 +2,7 @@
 
 var airplay = require('airplay-js')
 var chromecast = require('chromecast-js')
+var xbmc = require('nodebmc')
 var clivas = require('clivas')
 var cp = require('child_process')
 var debug = require('debug')('webtorrent:cmd')
@@ -40,6 +41,7 @@ var argv = minimist(process.argv.slice(2), {
     'mpv',
     'airplay',
     'chromecast',
+    'xbmc',
     'list',
     'no-quit',
     'remove',
@@ -77,6 +79,7 @@ if (argv.help || !torrentId) {
 
       --airplay               stream to Apple TV (AirPlay)
       --chromecast            stream to Chromecast
+      --xbmc                  stream to XBMC
       --vlc                   stream in VLC
       --mplayer               stream in MPlayer
       --mpv                   stream in MPV
@@ -234,6 +237,7 @@ function onTorrent (torrent) {
   var cmd, player
   var playerName = argv.airplay ? 'Airplay'
     : argv.chromecast ? 'Chromecast'
+    : argv.xbmc ? 'XBMC'
     : argv.vlc ? 'VLC'
     : argv.mplayer ? 'MPlayer'
     : argv.mpv ? 'mpv'
@@ -296,6 +300,13 @@ function onTorrent (torrent) {
         device.on('connected', function () {
           device.play(href)
         })
+      })
+  }
+
+  if (argv.xbmc) {
+    ;(new xbmc.Browser())
+      .on('deviceOn', function (device) {
+          device.play(href, function () {})
       })
   }
 
