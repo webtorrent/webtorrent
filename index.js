@@ -210,12 +210,12 @@ WebTorrent.prototype._onRequest = function (req, res) {
 
 var blocklistRe = /^\s*[^#].*?\s*:\s*([a-f0-9.:]+?)\s*-\s*([a-f0-9.:]+?)\s*$/
 function parseBlocklist (filename) {
-  if( filename.substring(filename.lastIndexOf('.')+1) == 'gz' ) {
-    var input = fs.createReadStream(filename);
+  if (filename.substring(filename.lastIndexOf('.')+1) === 'gz') {
+    var input = fs.createReadStream(filename)
     filename = filename.substring(0, filename.lastIndexOf('.'))+'.txt'
-    var output = fs.createWriteStream(filename);
+    var output = fs.createWriteStream(filename)
 
-    var result = input.pipe(gzip).pipe(output);
+    var result = input.pipe(gzip).pipe(output)
     result.on('finish', function () {
         var blocklistData = fs.readFileSync(filename, 'utf8')
         var blocklist = []
