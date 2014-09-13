@@ -10,13 +10,9 @@ var fs = require('fs')
 var FSStorage = require('./lib/fs-storage')
 var hh = require('http-https')
 var inherits = require('inherits')
-var mime = require('mime')
 var parallel = require('run-parallel')
 var parseTorrent = require('parse-torrent')
-var pump = require('pump')
-var rangeParser = require('range-parser')
-var url = require('url')
-
+var Server = require('./lib/server')
 
 inherits(WebTorrent, Client)
 
@@ -31,15 +27,9 @@ function WebTorrent (opts) {
 
   if (opts.list) return
 
-  if (opts.port !== false) {
-    // start http server
-    self.server = http.createServer()
-    self.server.on('connection', function (socket) {
-      socket.setTimeout(36000000)
-    })
-    self.server.on('request', self._onRequest.bind(self))
-    self.server.listen(opts.port)
-    self.server.once('listening', function () {
+  if (opts.port !== false && typeof Server === 'function') {
+    self.server = new Server(self, opts.port)
+    self.server.on('listening', function () {
       self.listening = true
       self.emit('listening')
     })
@@ -75,7 +65,7 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
   debug('add %s', torrentId)
 
   opts = extend({
-    storage: FSStorage
+    storage: typeof FSStorage === 'function' && FSStorage
   }, opts)
 
   // TODO: fix this to work with multiple torrents
@@ -164,46 +154,4 @@ WebTorrent.prototype._onTorrent = function (torrent) {
   // TODO: this won't work with multiple torrents
   self.index = torrent.index
   self.torrent = torrent
-}
-
-WebTorrent.prototype._onRequest = function (req, res) {
-  var self = this
-  debug('onRequest')
-
-  var u = url.parse(req.url)
-  if (u.pathname === '/favicon.ico') return res.end()
-  if (u.pathname === '/') u.pathname = '/' + self.index
-  var i = Number(u.pathname.slice(1))
-
-  if (isNaN(i) || i >= self.torrent.files.length) {
-    res.statusCode = 404
-    return res.end()
-  }
-
-  if (self.torrent) onTorrent(self.torrent)
-  else self.once('torrent', onTorrent)
-
-  function onTorrent (torrent) {
-    var file = torrent.files[i]
-
-    res.setHeader('Accept-Ranges', 'bytes')
-    res.setHeader('Content-Type', mime.lookup(file.name))
-    res.statusCode = 206
-
-    var range
-    if (req.headers.range) {
-      // no support for multi-range reqs
-      range = rangeParser(file.length, req.headers.range)[0]
-      debug('range %s', JSON.stringify(range))
-      res.setHeader(
-        'Content-Range',
-        'bytes ' + range.start + '-' + range.end + '/' + file.length
-      )
-      res.setHeader('Content-Length', range.end - range.start + 1)
-    } else {
-      res.setHeader('Content-Length', file.length)
-    }
-    if (req.method === 'HEAD') res.end()
-    pump(file.createReadStream(range), res)
-  }
 }

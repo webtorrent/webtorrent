@@ -7,6 +7,10 @@
     "email": "feross@feross.org",
     "url": "http://feross.org/"
   },
+  "browser": {
+    "./lib/fs-storage": false,
+    "./lib/server": false
+  },
   "bin": {
     "webtorrent": "./bin/cmd.js"
   },
