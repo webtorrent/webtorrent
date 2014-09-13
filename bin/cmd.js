@@ -2,7 +2,6 @@
 
 var airplay = require('airplay-js')
 var chromecast = require('chromecast-js')
-var xbmc = require('nodebmc')
 var clivas = require('clivas')
 var cp = require('child_process')
 var fs = require('fs')
@@ -12,6 +11,7 @@ var networkAddress = require('network-address')
 var numeral = require('numeral')
 var path = require('path')
 var WebTorrent = require('../')
+var xbmc = require('nodebmc')
 
 process.on('exit', function (code) {
   if (code !== 0) {
@@ -63,27 +63,26 @@ if (argv.help || !torrentId) {
     })
 
   console.log(function () {/*
-
   Usage:
       webtorrent <options> <torrent>
 
       Download the torrent, given as:
-
           * magnet uri
-          * http/https url to .torrent file
+          * http url to .torrent file
           * filesystem path to .torrent file
-          * info hash (as hex string)
+          * info hash (hex string)
 
-  Options:
-
+  Download options:
       --airplay               stream to Apple TV (AirPlay)
       --chromecast            stream to Chromecast
       --xbmc                  stream to XBMC
-      --vlc                   stream in VLC
-      --mplayer               stream in MPlayer
-      --mpv                   stream in MPV
-      --omx [jack]            stream in omx (jack=local|hdmi)
 
+      --vlc                   stream to VLC
+      --mplayer               stream to MPlayer
+      --mpv                   stream to MPV
+      --omx [jack]            stream to omx (jack=local|hdmi)
+
+  Options:
       -p, --port [number]     change the http port [default: 9000]
       -b, --blocklist [path]  use the specified blocklist
       -t, --subtitles [file]  load subtitles file

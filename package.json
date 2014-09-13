@@ -21,6 +21,7 @@
     "concat-stream": "^1.4.4",
     "debug": "^1.0.4",
     "extend.js": "^0.0.1",
+    "http-https": "^1.0.0",
     "inherits": "^2.0.1",
     "mime": "^1.2.11",
     "minimist": "^1.1.0",
