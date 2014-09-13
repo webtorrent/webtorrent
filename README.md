@@ -20,24 +20,66 @@
 There is a single repo ([webtorrent-issues](https://github.com/feross/webtorrent-issues))
 for managing publicly recognized issues with the webtorrent client, tracker, and website.
 
-### Planned Features
+### Features
 
 - **BitTorrent in your browser!**
 - **No plugins** (uses WebRTC Data Channels for peer-to-peer data)
-- **Streaming playback** (get first pieces first)
-  - Into `video` tag with MediaSource API when possible
-  - Flash player with JS bridge for other media types
-- Works with .torrent files and magnet links
-- Supports DHT (trackerless torrents) over WebRTC
+- **Streaming torrents** (get important pieces first, then switch to rarest-first)
+  - Into `video` tag with MediaSource API when possible (TODO)
+  - Flash player with JS bridge for other media types (TODO)
+- Works with .torrent files, magnet links, and info hashes
+- Supports trackers
+- Supports DHT (trackerless torrents) over WebRTC (TODO)
   - Extensions to DHT protocol to work over WebRTC
   - DHT nodes do "peer introductions" so WebRTC can work without a centralized signaling server
-- **Supports completely serverless, trackerless operation**
+- **Supports completely serverless, trackerless operation** (TODO)
 
 ### Project Goal
 
 Build a browser BitTorrent client that requires no install (no plugin/extension/etc.) and fully-interoperates with the regular BitTorrent network. Use WebRTC Data Channels for peer-to-peer transport.
 
 Since WebTorrent is web-first, it's simple for users who do not understand .torrent files, magnet links, NATs, etc. By making BitTorrent easier, it will be accessible to new swathes of users who were previously intimidated, confused, or unwilling to install a program on their machine to participate.
+
+### Usage
+
+As of September 2014, WebTorrent works end-to-end. Here's how to give it a try:
+
+```js
+var dragDrop = require('drag-drop/buffer')
+var WebTorrent = require('webtorrent')
+
+var client = new WebTorrent()
+
+// when user drops files on the browser, create a new torrent and start seeding it!
+dragDrop('body', function (files) {
+  client.seed(files, onTorrent)
+})
+
+function onTorrent (torrent) {
+  console.log('Torrent info hash: ' + torrent.infoHash)
+
+  // go through each file in the torrent, create a link to it, and add it to the DOM
+  torrent.files.forEach(function (file) {
+    file.createReadStream().pipe(concat(function (buf) {
+      var a = document.createElement('a')
+      a.download = file.name
+      a.href = URL.createObjectURL(new Blob([ buf ]))
+      a.textContent = 'download ' + file.name
+      document.body.appendChild(a)
+    }))
+  })
+}
+
+// call this function to download a torrent!
+function download (infoHash) {
+  client.download({
+    infoHash: infoHash,
+    announce: [ 'wss://tracker.webtorrent.io' ]
+  }, onTorrent)
+}
+```
+
+Please share feedback!
 
 ### Modules
 
