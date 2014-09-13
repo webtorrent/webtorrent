@@ -9,7 +9,7 @@
 
 ### Ways to help
 
-- **Fix bugs, add features.** Join `#webtorrent` on Freenode. Take a look at the [open issues](https://github.com/feross/webtorrent/issues?state=open) on this repo **[and the others](#npm-modules)** see what you can help with.
+- **Fix bugs, add features.** Join `#webtorrent` on Freenode. Fix an [open issue](https://github.com/feross/webtorrent/issues?state=open) on this repo or **[on of the others](#npm-modules)** see what you can help with. WebTorrent is an [OPEN Open Source Project](https://github.com/feross/webtorrent/blob/master/CONTRIBUTING.md).
 - **Donations.** If you believe in the vision, send bitcoin to *1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh* or [donate via Coinbase](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96).
 
 ### Report Issues
