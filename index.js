@@ -64,7 +64,8 @@ function WebTorrent (opts) {
  * @param {Object}               opts      optional torrent-specific options
  * @param {function=}            ontorrent called when the torrent is ready (has metadata)
  */
-WebTorrent.prototype.add = function (torrentId, opts, ontorrent) {
+WebTorrent.prototype.add =
+WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
   var self = this
 
   if (typeof opts === 'function') {
