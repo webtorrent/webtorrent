@@ -16,18 +16,17 @@ var parseTorrent = require('parse-torrent')
 var pump = require('pump')
 var rangeParser = require('range-parser')
 var url = require('url')
-var gzip = require('zlib').Gunzip()
 
 
 inherits(WebTorrent, Client)
 
 function WebTorrent (opts) {
   var self = this
-  opts = opts || {}
+  if (!opts) opts = {}
   debug('new webtorrent')
-  if (opts.blocklist) opts.blocklist = parseBlocklist(opts.blocklist)
 
   Client.call(self, opts)
+
   self.listening = false
 
   if (opts.list) return
@@ -206,34 +205,5 @@ WebTorrent.prototype._onRequest = function (req, res) {
     }
     if (req.method === 'HEAD') res.end()
     pump(file.createReadStream(range), res)
-  }
-}
-
-var blocklistRe = /^\s*[^#].*?\s*:\s*([a-f0-9.:]+?)\s*-\s*([a-f0-9.:]+?)\s*$/
-function parseBlocklist (filename) {
-  if (filename.substring(filename.lastIndexOf('.')+1) === 'gz') {
-    var input = fs.createReadStream(filename)
-    filename = filename.substring(0, filename.lastIndexOf('.'))+'.txt'
-    var output = fs.createWriteStream(filename)
-
-    var result = input.pipe(gzip).pipe(output)
-    result.on('finish', function () {
-        var blocklistData = fs.readFileSync(filename, 'utf8')
-        var blocklist = []
-        blocklistData.split('\n').forEach(function (line) {
-          var match = blocklistRe.exec(line)
-          if (match) blocklist.push({ start: match[1], end: match[2] })
-        })
-        return blocklist
-    })
-  }
-  else {
-    var blocklistData = fs.readFileSync(filename, 'utf8')
-    var blocklist = []
-    blocklistData.split('\n').forEach(function (line) {
-      var match = blocklistRe.exec(line)
-      if (match) blocklist.push({ start: match[1], end: match[2] })
-    })
-    return blocklist
   }
 }
