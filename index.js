@@ -8,7 +8,7 @@ var debug = require('debug')('webtorrent')
 var extend = require('extend.js')
 var fs = require('fs')
 var FSStorage = require('./lib/fs-storage')
-var http = require('http')
+var hh = require('http-https')
 var inherits = require('inherits')
 var mime = require('mime')
 var parallel = require('run-parallel')
@@ -97,7 +97,7 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
     })
   } else if (/^https?:/.test(torrentId)) {
     // http or https url to torrent file
-    http.get(torrentId, function (res) {
+    hh.get(torrentId, function (res) {
       res.pipe(concat(function (torrent) {
         onTorrentId(torrent)
       }))
