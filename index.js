@@ -3,15 +3,11 @@
 module.exports = WebTorrent
 
 var Client = require('bittorrent-client')
-var concat = require('concat-stream')
 var debug = require('debug')('webtorrent')
 var extend = require('extend.js')
-var fs = require('fs')
 var FSStorage = require('./lib/fs-storage')
-var hh = require('http-https')
 var inherits = require('inherits')
 var parallel = require('run-parallel')
-var parseTorrent = require('parse-torrent')
 var Server = require('./lib/server')
 
 inherits(WebTorrent, Client)
@@ -56,13 +52,11 @@ function WebTorrent (opts) {
 WebTorrent.prototype.add =
 WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
   var self = this
-
+  debug('add %s', torrentId)
   if (typeof opts === 'function') {
     ontorrent = opts
     opts = {}
   }
-
-  debug('add %s', torrentId)
 
   opts = extend({
     storage: typeof FSStorage === 'function' && FSStorage
@@ -71,40 +65,11 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
   // TODO: fix this to work with multiple torrents
   self.index = opts.index
 
-  // Called once we have a torrentId that bittorrent-client can handle
-  function onTorrentId (torrentId) {
-    var torrent = Client.prototype.add.call(self, torrentId, opts, ontorrent)
-    process.nextTick(function () {
-      self.emit('add', torrent)
-    })
-  }
+  var torrent = Client.prototype.add.call(self, torrentId, opts, ontorrent)
 
-  var parsed = parseTorrent(torrentId)
-  if (parsed && parsed.infoHash) {
-    // magnet uri, info hash, torrent file, or parsed torrent can be handled by bittorrent-client
-    process.nextTick(function () {
-      onTorrentId(parsed)
-    })
-  } else if (/^https?:/.test(torrentId)) {
-    // http or https url to torrent file
-    hh.get(torrentId, function (res) {
-      res.pipe(concat(function (torrent) {
-        onTorrentId(torrent)
-      }))
-    }).on('error', function (err) {
-      self.emit('error', new Error('Error downloading torrent. ' + err.message))
-    })
-  } else {
-    // assume it's a filesystem path
-    fs.readFile(torrentId, function (err, torrent) {
-      if (err) {
-        self.emit('error', new Error('Invalid torrent. Need magnet uri, info hash, ' +
-          'torrent file, http url, or filesystem path.'))
-      } else {
-        onTorrentId(torrent)
-      }
-    })
-  }
+  process.nextTick(function () {
+    self.emit('add', torrent)
+  })
 
   return self
 }
