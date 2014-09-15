@@ -66,8 +66,8 @@
     "url": "git://github.com/feross/webtorrent.git"
   },
   "scripts": {
-    "build": "browserify -s WebTorrent -r ./ | uglifyjs -c warnings=false -m > webtorrent.min.js",
-    "build-debug": "browserify -s WebTorrent -r ./ > webtorrent.debug.js",
+    "build": "browserify -s WebTorrent -e ./ | uglifyjs -c warnings=false -m > webtorrent.min.js",
+    "build-debug": "browserify -s WebTorrent -e ./ > webtorrent.debug.js",
     "size": "npm run build && cat webtorrent.min.js | gzip | wc -c",
     "start": "./bin/cmd.js",
     "test": "tape test/*.js"
