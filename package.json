@@ -67,6 +67,7 @@
   },
   "scripts": {
     "build": "browserify -s WebTorrent -r ./ | uglifyjs -c warnings=false -m > webtorrent.min.js",
+    "build-debug": "browserify -s WebTorrent -r ./ > webtorrent.debug.js",
     "start": "./bin/cmd.js",
     "test": "tape test/*.js"
   }
