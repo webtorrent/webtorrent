@@ -42,7 +42,9 @@
     "windows-no-runnable": "~0.0.6"
   },
   "devDependencies": {
+    "browserify": "^5.11.2",
     "tape": "2.x",
+    "uglify-js": "^2.4.15",
     "zelda": "^2.0.0"
   },
   "homepage": "http://webtorrent.io",
@@ -64,6 +66,7 @@
     "url": "git://github.com/feross/webtorrent.git"
   },
   "scripts": {
+    "build": "browserify -s WebTorrent -r ./ | uglifyjs -c warnings=false -m > webtorrent.min.js",
     "start": "./bin/cmd.js",
     "test": "tape test/*.js"
   }
