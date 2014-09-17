@@ -65,13 +65,7 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
   // TODO: fix this to work with multiple torrents
   self.index = opts.index
 
-  var torrent = Client.prototype.add.call(self, torrentId, opts, ontorrent)
-
-  process.nextTick(function () {
-    self.emit('add', torrent)
-  })
-
-  return self
+  return Client.prototype.add.call(self, torrentId, opts, ontorrent)
 }
 
 /**

@@ -156,24 +156,21 @@ function remove (cb) {
   client.destroy(cb)
 }
 
-client.add(torrentId, { remove: argv.remove })
+var torrent = client.add(torrentId)
 
-client.on('add', function (torrent) {
-  if (torrent.metadata || argv.quiet || argv.list) return
+function updateMetadata () {
+  var numPeers = torrent.swarm.numPeers
+  clivas.clear()
+  clivas.line('{green:fetching torrent metadata from} {bold:'+numPeers+'} {green:peers}')
+}
 
-  updateMetadata()
+if (!argv.quiet && !argv.list) {
   torrent.swarm.on('wire', updateMetadata)
-
   torrent.on('metadata', function () {
     torrent.swarm.removeListener('wire', updateMetadata)
   })
-
-  function updateMetadata () {
-    var numPeers = torrent.swarm.numPeers
-    clivas.clear()
-    clivas.line('{green:fetching torrent metadata from} {bold:'+numPeers+'} {green:peers}')
-  }
-})
+  updateMetadata()
+}
 
 client.on('torrent', function (torrent) {
   if (client.listening) onTorrent(torrent)
