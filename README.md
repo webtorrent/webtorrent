@@ -87,7 +87,7 @@ Most of the active development is happening inside of small npm modules which ar
 
 | module | tests | version | description |
 |---|---|---|---|
-| **[webtorrent](https://github.com/feross/webtorrent)** | [![](https://img.shields.io/travis/feross/webtorrent.svg)](https://travis-ci.org/feross/webtorrent) | [![](https://img.shields.io/npm/v/webtorrent.svg)](https://npmjs.org/package/webtorrent) | **torrent client for node+browser (this module)**
+| **[webtorrent](https://github.com/feross/webtorrent)** | [![](https://img.shields.io/travis/feross/webtorrent.svg)](https://travis-ci.org/feross/webtorrent) | [![](https://img.shields.io/npm/v/webtorrent.svg)](https://npmjs.org/package/webtorrent) | **torrent client (this module)**
 | [addr-to-ip-port](https://github.com/feross/addr-to-ip-port) | [![](https://img.shields.io/travis/feross/addr-to-ip-port.svg)](https://travis-ci.org/feross/addr-to-ip-port) | [![](https://img.shields.io/npm/v/addr-to-ip-port.svg)](https://npmjs.org/package/addr-to-ip-port) | cache for addr->ip:port
 | [bittorrent-client](https://github.com/feross/bittorrent-client) | [![](https://img.shields.io/travis/feross/bittorrent-client.svg)](https://travis-ci.org/feross/bittorrent-client) | [![](https://img.shields.io/npm/v/bittorrent-client.svg)](https://npmjs.org/package/bittorrent-client) | access torrents as stream
 | [bittorrent-dht](https://github.com/feross/bittorrent-dht) | [![](https://img.shields.io/travis/feross/bittorrent-dht.svg)](https://travis-ci.org/feross/bittorrent-dht) | [![](https://img.shields.io/npm/v/bittorrent-dht.svg)](https://npmjs.org/package/bittorrent-dht) | bittorrent dht client
@@ -120,11 +120,6 @@ Most of the active development is happening inside of small npm modules which ar
 - protocol extension: UPnP and NAT-PMP port forwarding
 - protocol extension: webseed support
 - webtorrent-dht
-
-#### Targets:
-- [webtorrent.app](https://github.com/feross/webtorrent.app) (bittorrent client for os x, windows & linux -- coming soon)
-- [webtorrent.js](https://github.com/feross/webtorrent.js) (bittorrent client for the browser -- coming soon)
-- [webtorrent](https://github.com/feross/webtorrent) (bittorrent client for node.js)
 
 #### The Node Way&trade;
 
