@@ -158,7 +158,6 @@ function remove (cb) {
 
 var torrent = client.add(torrentId)
 
-
 torrent.on('infoHash', function () {
   function updateMetadata () {
     var numPeers = torrent.swarm.numPeers
