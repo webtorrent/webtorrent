@@ -22,7 +22,7 @@
     "bittorrent-client": "0.x",
     "chromecast-js": "0.0.5",
     "clivas": "^0.1.4",
-    "debug": "^1.0.4",
+    "debug": "^2.0.0",
     "extend.js": "^0.0.1",
     "inherits": "^2.0.1",
     "mime": "^1.2.11",
