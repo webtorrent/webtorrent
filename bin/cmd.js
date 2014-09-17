@@ -53,6 +53,11 @@ var argv = minimist(process.argv.slice(2), {
   }
 })
 
+if (argv.version) {
+  console.log(require('../package.json').version)
+  process.exit(0)
+}
+
 var torrentId = argv._[0]
 
 if (argv.help || !torrentId) {
@@ -96,11 +101,6 @@ if (argv.help || !torrentId) {
   Please report bugs!  https://github.com/feross/webtorrent/issues
 
     */}.toString().split(/\n/).slice(1, -1).join('\n'))
-  process.exit(0)
-}
-
-if (argv.version) {
-  console.log(require('../package.json').version)
   process.exit(0)
 }
 
