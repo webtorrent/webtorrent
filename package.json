@@ -20,7 +20,7 @@
   "dependencies": {
     "airplay-js": "^0.2.1",
     "bittorrent-client": "0.x",
-    "chromecast-js": "0.0.5",
+    "chromecast-js": "^0.1.2",
     "clivas": "^0.1.4",
     "debug": "^2.0.0",
     "extend.js": "^0.0.1",
