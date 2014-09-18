@@ -8,8 +8,8 @@ var fs = require('fs')
 var minimist = require('minimist')
 var moment = require('moment')
 var networkAddress = require('network-address')
-var numeral = require('numeral')
 var path = require('path')
+var prettysize = require('prettysize')
 var WebTorrent = require('../')
 var xbmc = require('nodebmc')
 
@@ -323,7 +323,7 @@ function onTorrent (torrent) {
   }
 
   function bytes (num) {
-    return numeral(num).format('0.0b')
+    return prettysize(num)
   }
 
   function draw () {
