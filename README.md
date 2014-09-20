@@ -268,9 +268,14 @@ makes it easier to send PRs:
 
 ### Talks about WebTorrent
 
-- Sep 2014 (NodeConf EU) – WebTorrent & WebRTC: Mad Science (first working demo of WebTorrent)
+- Sep 2014 (NodeConf EU) – WebTorrent &amp; WebRTC: Mad Science (first working demo of WebTorrent)
 - May 2014 (JS.LA) – [How I Built a BitTorrent Client in the Browser](https://vimeo.com/97324247) (progress update; node client working)
 - Oct 2013 (RealtimeConf) – [WebRTC Black Magic (RealtimeConf)](https://vimeo.com/77265280) (where I first shared the idea of WebTorrent)
+
+### WebTorrent in production
+
+- [Instant](http://instant.io) – Secure, anonymous, streaming file transfer [[code](https://github.com/feross/instant.io)]
+- Your app here! (send a PR or open an issue with the URL to your app)
 
 ### Project Goal
 
