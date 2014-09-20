@@ -3,64 +3,75 @@
 [![npm](https://img.shields.io/npm/v/webtorrent.svg)](https://npmjs.org/package/webtorrent)
 [![gittip](https://img.shields.io/gittip/feross.svg)](https://www.gittip.com/feross/)
 
-### WebTorrent - Streaming torrent client for node and the browser
+### WebTorrent - Streaming torrent client for node and ***the browser!***
 
-> Warning: This is pre-alpha software. Nothing works yet. **Watch/star to follow along with progress.**
-
-### Ways to help
-
-- **Fix bugs, add features.** Join `#webtorrent` on Freenode. Fix an **[open issue](https://github.com/feross/webtorrent/issues?state=open)** on this repo or **[one of the sub-modules](#modules)**. WebTorrent is an **[OPEN Open Source Project](https://github.com/feross/webtorrent/blob/master/CONTRIBUTING.md)**!
-- **Donations.** If you believe in the vision, send bitcoin to *1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh* or **[donate via Coinbase](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96)** to support the project.
-
-### Report Issues
-
-- **[Report New Issue](https://github.com/feross/webtorrent-issues/issues/new)**
-- **[View Open Issues](https://github.com/feross/webtorrent-issues/issues?q=is%3Aopen+is%3Aissue)**
-
-There is a single repo ([webtorrent-issues](https://github.com/feross/webtorrent-issues))
-for managing publicly recognized issues with the webtorrent client, tracker, and website.
+> Warning: This is pre-alpha software. **Watch/star to follow along with progress.**
 
 ### Features
 
-- **BitTorrent in your browser!**
-- **No plugins** (uses WebRTC Data Channels for peer-to-peer data)
-- **Streaming torrents** (get important pieces first, then switch to rarest-first)
-  - Into `video` tag with MediaSource API when possible (TODO)
-  - Flash player with JS bridge for other media types (TODO)
-- Works with .torrent files, magnet links, and info hashes
-- Supports trackers
-- Supports DHT (trackerless torrents) over WebRTC (TODO)
-  - Extensions to DHT protocol to work over WebRTC
-  - DHT nodes do "peer introductions" so WebRTC can work without a centralized signaling server
-- **Supports completely serverless, trackerless operation** (TODO)
+- **BitTorrent in node ***and the browser!*** – using WebRTC!
+- **Insanely fast**
+- **Pure Javascript** (no native dependencies)
+- Same module, two runtimes – works in node and the browser.
+- Insanely fast
+- Exposes files as **streams** to access file content before torrent is finished
+  - Sequentially requests pieces from peers (when necessary)
+  - Otherwise, uses rarest-first piece strategy
+- Download **multiple torrents** simultaneously, efficiently
+- Supports advanced torrent client features
+  - **magnet uri** support via **[ut_metadata](https://github.com/feross/ut_metadata)**
+  - **peer discovery** via **[dht](https://github.com/feross/bittorrent-dht)**,
+    **[tracker](https://github.com/feross/bittorrent-tracker)**, and
+    **[ut_pex](https://github.com/fisch0920/ut_pex)**
+  - supports an awesome
+    **[extension api](https://github.com/feross/bittorrent-protocol#extension-api)** for
+    adding new extensions
+- **Comprehensive test suite** (completely offline, so it's reliable and fast)
+- Many streaming options (AirPlay, Chromecast, VLC, `<video>` tag in the browser)
 
-### Project Goal
+#### Web-specific features
 
-Build a browser BitTorrent client that requires no install (no plugin/extension/etc.) and fully-interoperates with the regular BitTorrent network. Use WebRTC Data Channels for peer-to-peer transport.
+- Uses **WebRTC data channels** for lightweight peer-to-peer communication (no plugins)
+- **No silos.** WebTorrent clients on one domain can connect to clients running on any
+  other domain – no same origin policy. WebTorrent is a P2P network for the entire web!
+- Stream video torrents into a `<video>` tag (`webm (vp8, vp9)` or `mp4 (h.264)`)
 
-Since WebTorrent is web-first, it's simple for users who do not understand .torrent files, magnet links, NATs, etc. By making BitTorrent easier, it will be accessible to new swathes of users who were previously intimidated, confused, or unwilling to install a program on their machine to participate.
+### Install
+
+With [npm](https://npmjs.org/), run:
+
+```bash
+npm install webtorrent -g
+```
 
 ### Usage
 
-As of September 2014, WebTorrent works end-to-end. Here's how to give it a try:
+WebTorrent is the first BitTorrent client that works in the browser, using open web
+standards (no plugins, just HTML5 and WebRTC)!
+
+It's easy to get started!
+
+#### In the browser
+
+##### Download a file
+
+Downloading a file is simple:
 
 ```js
-var dragDrop = require('drag-drop/buffer')
 var WebTorrent = require('webtorrent')
+var concat = require('concat-stream')
 
 var client = new WebTorrent()
 
-// when user drops files on the browser, create a new torrent and start seeding it!
-dragDrop('body', function (files) {
-  client.seed(files, onTorrent)
-})
+client.download(magnet_uri, function (torrent) {
+  // Got torrent metadata!
+  console.log('Torrent info hash:', torrent.infoHash)
 
-function onTorrent (torrent) {
-  console.log('Torrent info hash: ' + torrent.infoHash)
-
-  // go through each file in the torrent, create a link to it, and add it to the DOM
   torrent.files.forEach(function (file) {
+    // Get the file data as a Buffer (Uint8Array typed array)
     file.createReadStream().pipe(concat(function (buf) {
+
+      // Append a link to download the file
       var a = document.createElement('a')
       a.download = file.name
       a.href = URL.createObjectURL(new Blob([ buf ]))
@@ -69,21 +80,102 @@ function onTorrent (torrent) {
     }))
   })
 }
-
-// call this function to download a torrent!
-function download (infoHash) {
-  client.download({
-    infoHash: infoHash,
-    announce: [ 'wss://tracker.webtorrent.io' ]
-  }, onTorrent)
-}
 ```
 
-Please share feedback!
+##### Seed a file
+
+Seeding a file is simple, too:
+
+```js
+var dragDrop = require('drag-drop/buffer')
+var WebTorrent = require('webtorrent')
+
+var client = new WebTorrent()
+
+// When user drops files on the browser, create a new torrent and start seeding it!
+dragDrop('body', function (files) {
+  client.seed(files, function onTorrent (torrent) {
+    // Client is seeding the file!
+    console.log('Torrent info hash:', torrent.infoHash)
+  })
+})
+```
+
+##### Browserify
+
+WebTorrent works great with [browserify](http://browserify.org/), an npm module that let's
+you use [node](http://nodejs.org/)-style require() to organize your browser code and load modules installed by [npm](https://npmjs.org/) (as seen in the previous examples).
+
+WebTorrent is also available as a standalone script
+([`webtorrent.min.js`](webtorrent.min.js)) which exposes `WebTorrent` on the `window`
+object, so it can be used with just a script tag:
+
+```html
+<script src="webtorrent.min.js"></script>
+```
+
+#### In node.js
+
+WebTorrent also works in node.js, using the *same npm module!* It's mad science!
+
+Here's how to get started:
+
+```bash
+$ npm install webtorrent -g
+$ webtorrent --help
+```
+
+To download a torrent:
+
+```bash
+$ webtorrent magnet_uri
+
+$ webtorrent /path/to/file.torrent
+```
+
+To stream a torrent to a device like **AirPlay** or **Chromecast**, just pass a flag:
+
+```bash
+$ webtorrent magnet_uri --airplay
+```
+
+There are many supported streaming options:
+
+```bash
+  --airplay        stream to Apple TV (AirPlay)
+  --chromecast     stream to Chromecast
+  --mplayer        stream to MPlayer
+  --mpv            stream to MPV
+  --omx [jack]     stream to omx (jack=local|hdmi)
+  --vlc            stream to VLC
+  --xbmc           stream to XBMC
+```
+
+### Ways to help
+
+- Report bugs!
+- Fix an **[open issue](https://github.com/feross/webtorrent/issues?state=open)** in this
+  repo or **[one of it's many dependencies](#modules)**. WebTorrent is an
+  **[OPEN Open Source Project](CONTRIBUTING.md)**!
+- If you believe in the vision, send bitcoin to *1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh* or
+  **[donate](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96)** via
+  Coinbase to support the project.
+
+Join us in IRC on freenode at `#webtorrent` if you want to help with development, or you just want to hang out with some cool mad science hackers :)
 
 ### Modules
 
-Most of the active development is happening inside of small npm modules which are used by WebTorrent. These are the modules I am writing to make WebTorrent work:
+Most of the active development is happening inside of small npm modules which are used by WebTorrent.
+
+#### The Node Way&trade;
+
+> "When applications are done well, they are just the really application-specific, brackish residue that can't be so easily abstracted away. All the nice, reusable components sublimate away onto github and npm where everybody can collaborate to advance the commons." — substack from ["how I write modules"](http://substack.net/how_I_write_modules)
+
+![node.js is shiny](http://feross.net/x/node2.gif)
+
+#### Modules
+
+These are the modules I am writing to make WebTorrent work:
 
 | module | tests | version | description |
 |---|---|---|---|
@@ -112,7 +204,7 @@ Most of the active development is happening inside of small npm modules which ar
 | [webtorrent-swarm](https://github.com/feross/webtorrent-swarm) | [![](https://img.shields.io/travis/feross/webtorrent-swarm.svg)](https://travis-ci.org/feross/webtorrent-swarm) | [![](https://img.shields.io/npm/v/webtorrent-swarm.svg)](https://npmjs.org/package/webtorrent-swarm) | webtorrent connection management
 | [webtorrent-tracker](https://github.com/feross/webtorrent-tracker) | [![](https://img.shields.io/travis/feross/webtorrent-tracker.svg)](https://travis-ci.org/feross/webtorrent-tracker) | [![](https://img.shields.io/npm/v/webtorrent-tracker.svg)](https://npmjs.org/package/webtorrent-tracker) | webtorrent tracker server/client
 
-#### Todo:
+#### Todo
 
 - compress-sdp (compress sdp messages to lighten load on webtorrent trackers & dht)
 - protocol extension: protocol encryption
@@ -121,11 +213,70 @@ Most of the active development is happening inside of small npm modules which ar
 - protocol extension: webseed support
 - webtorrent-dht
 
-#### The Node Way&trade;
+### Contribute
 
-"When applications are done well, they are just the really application-specific, brackish residue that can't be so easily abstracted away. All the nice, reusable components sublimate away onto github and npm where everybody can collaborate to advance the commons." — substack from ["how I write modules"](http://substack.net/how_I_write_modules)
+WebTorrent is an **[OPEN Open Source Project](https://github.com/feross/webtorrent/blob/master/CONTRIBUTING.md)**. Individuals making significant and valuable contributions are given commit-access to the project to contribute as they see fit.
 
-![node.js is shiny](http://feross.net/x/node2.gif)
+#### Contributors
+
+WebTorrent is only possible due to the excellent work of the following contributors:
+
+<table><tbody>
+<tr><th align="left">Feross Aboukhadijeh</th><td><a href="https://github.com/feross">GitHub/feross</a></td><td><a href="http://twitter.com/feross">Twitter/@feross</a></td></tr>
+<tr><th align="left">Daniel Posch</th><td><a href="https://github.com/dcposch">GitHub/dcposch</a></td><td><a href="http://twitter.com/dcposch">Twitter/@dcposch</a></td></tr>
+<tr><th align="left">John Hiesey</th><td><a href="https://github.com/jhiesey">GitHub/jhiesey</a></td><td><a href="http://twitter.com/jhiesey">Twitter/@jhiesey</a></td></tr>
+<tr><th align="left">Travis Fischer</th><td><a href="https://github.com/fisch0920">GitHub/fisch0920</a></td><td><a href="http://twitter.com/fisch0920">Twitter/@fisch0920</a></td></tr>
+<tr><th align="left">Astro</th><td><a href="https://github.com/astro">GitHub/astro</a></td><td><a href="http://twitter.com/astro1138">Twitter/@astro1138</a></td></tr>
+<tr><th align="left">Iván Todorovich</th><td><a href="https://github.com/ivantodorovich">GitHub/ivantodorovich</a></td><td><a href="http://twitter.com/ivantodorovich">Twitter/@ivantodorovich</a></td></tr>
+<tr><th align="left">Mathias Buus</th><td><a href="https://github.com/mafintosh">GitHub/mafintosh</a></td><td><a href="http://twitter.com/mafintosh">Twitter/@mafintosh</a></td></tr>
+<tr><th align="left">Bob Ren</th><td><a href="https://github.com/bobrenjc93">GitHub/bobrenjc93</a></td><td><a href="http://twitter.com/bobrenjc93">Twitter/@bobrenjc93</a></td></tr>
+</tbody></table>
+
+#### Clone the code
+
+```bash
+git clone https://github.com/feross/webtorrent.git
+cd webtorrent
+npm install
+./bin/cmd.js --help
+```
+
+#### Enable debug logs
+
+Enable debug output by setting the `DEBUG` environment variable to the name of the module
+you want to debug (e.g. `bittorrent-tracker`, or `*` to print **all logs**).
+
+```bash
+DEBUG=* ./bin/cmd.js
+```
+
+This even works for WebTorrent releases installed with `npm install webtorrent -g`:
+
+```bash
+DEBUG=* webtorrent
+```
+
+#### Clone all dependencies
+
+WebTorrent is a modular BitTorrent client, so functionality is split up into many
+npm modules. You can `git clone` all the relevant dependencies with one command. This
+makes it easier to send PRs:
+
+```bash
+./bin/clone.sh
+```
+
+### Talks about WebTorrent
+
+- Sep 2014 (NodeConf EU) – WebTorrent & WebRTC: Mad Science (first working demo of WebTorrent)
+- May 2014 (JS.LA) – [How I Built a BitTorrent Client in the Browser](https://vimeo.com/97324247) (progress update; node client working)
+- Oct 2013 (RealtimeConf) – [WebRTC Black Magic (RealtimeConf)](https://vimeo.com/77265280) (where I first shared the idea of WebTorrent)
+
+### Project Goal
+
+Build a browser BitTorrent client that requires no install (no plugin/extension/etc.) and fully-interoperates with the regular BitTorrent network. Use WebRTC Data Channels for peer-to-peer transport.
+
+Since WebTorrent is web-first, it's simple for users who do not understand .torrent files, magnet links, NATs, etc. By making BitTorrent easier, it will be accessible to new swathes of users who were previously intimidated, confused, or unwilling to install a program on their machine to participate.
 
 ### Interoperability with BitTorrent
 
@@ -148,65 +299,15 @@ Most of the active development is happening inside of small npm modules which ar
 - Slower piece verification (SHA1) (max 2MB/s with web worker pool, Web Crypto API will bring huge speed-up when it's finally ready)
 - WebTorrent bootstrap DHT node does *a bit* more work than a BitTorrent one since it must do WebRTC signaling. (Not a huge deal)
 
-### Todo for basic bitorrent client as node.js command line app
+### Known issues
 
-- ~~Use UDP/TCP APIs~~
-- ~~Support DHT~~
-- ~~Support peer wire protocol~~
-- ~~Support magnet links (fetching .torrent from network)~~
-- ~~Basic UI~~
-- ~~Fetching logic~~
-- ~~Large file saving (downloading in-memory for now, later IndexedDB/FileSystem API)~~
-- ~~Streaming video~~
-  - ~~HTTP stream to VLC, like peerflix~~
-
-### Todo for webtorrent
-
-- DHT over WebRTC (add new method for peer introduction)
-  - Use bootstrap server for initial introduction
-  - POST endpoint for sending offer/getting answer
-- Easy torrent creation
-- UPnP or NAT-PMP (so the hybrid client can get listed in peers' routing tables)
-- Streaming video
-  - MediaSource into `video` tag
-  - Flash player for other media types
-
-### Get started
-
-```
-git clone https://github.com/feross/webtorrent.git
-cd webtorrent
-npm install
-npm start
-```
-
-### Chromebook users
+#### Disable default Chromebook firewall
 
 Chromebooks are set to refuse all incoming connections by default. To change this, run:
 
 ```bash
 sudo iptables -P INPUT ACCEPT
 ```
-
-### Contributors
-
-WebTorrent is only possible due to the excellent work of the following contributors:
-
-<table><tbody>
-<tr><th align="left">Feross Aboukhadijeh</th><td><a href="https://github.com/feross">GitHub/feross</a></td><td><a href="http://twitter.com/feross">Twitter/@feross</a></td></tr>
-<tr><th align="left">Daniel Posch</th><td><a href="https://github.com/dcposch">GitHub/dcposch</a></td><td><a href="http://twitter.com/dcposch">Twitter/@dcposch</a></td></tr>
-<tr><th align="left">John Hiesey</th><td><a href="https://github.com/jhiesey">GitHub/jhiesey</a></td><td><a href="http://twitter.com/jhiesey">Twitter/@jhiesey</a></td></tr>
-<tr><th align="left">Travis Fischer</th><td><a href="https://github.com/fisch0920">GitHub/fisch0920</a></td><td><a href="http://twitter.com/fisch0920">Twitter/@fisch0920</a></td></tr>
-<tr><th align="left">Astro</th><td><a href="https://github.com/astro">GitHub/astro</a></td><td><a href="http://twitter.com/astro1138">Twitter/@astro1138</a></td></tr>
-<tr><th align="left">Iván Todorovich</th><td><a href="https://github.com/ivantodorovich">GitHub/ivantodorovich</a></td><td><a href="http://twitter.com/ivantodorovich">Twitter/@ivantodorovich</a></td></tr>
-<tr><th align="left">Mathias Buus</th><td><a href="https://github.com/mafintosh">GitHub/mafintosh</a></td><td><a href="http://twitter.com/mafintosh">Twitter/@mafintosh</a></td></tr>
-<tr><th align="left">Bob Ren</th><td><a href="https://github.com/bobrenjc93">GitHub/bobrenjc93</a></td><td><a href="http://twitter.com/bobrenjc93">Twitter/@bobrenjc93</a></td></tr>
-</tbody></table>
-
-### Talks about WebTorrent
-
-- [WebTorrent: Bringing BitTorrent to the Web with WebRTC (CraftConf)](https://www.youtube.com/watch?v=PT8s_IVWDgw) (April 2014, progress update on WebTorrent)
-- [WebRTC Black Magic (RealtimeConf)](https://vimeo.com/77265280) (October 2013, where I first shared the idea for WebTorrent (skip to end for WebTorrent))
 
 ### License
 

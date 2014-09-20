@@ -77,15 +77,14 @@ if (argv.help || !torrentId) {
           * filesystem path to .torrent file
           * info hash (hex string)
 
-  Download options:
+  Streaming options:
       --airplay               stream to Apple TV (AirPlay)
       --chromecast            stream to Chromecast
-      --xbmc                  stream to XBMC
-
-      --vlc                   stream to VLC
       --mplayer               stream to MPlayer
       --mpv                   stream to MPV
       --omx [jack]            stream to omx (jack=local|hdmi)
+      --vlc                   stream to VLC
+      --xbmc                  stream to XBMC
 
   Options:
       -p, --port [number]     change the http port [default: 9000]
