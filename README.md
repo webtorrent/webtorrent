@@ -3,19 +3,20 @@
 [![npm](https://img.shields.io/npm/v/webtorrent.svg)](https://npmjs.org/package/webtorrent)
 [![gittip](https://img.shields.io/gittip/feross.svg)](https://www.gittip.com/feross/)
 
-### Streaming torrent client for node and ***the browser***
+### WebTorrent – Streaming torrent client for node & the browser
 
 > Warning: This is pre-alpha software. **Watch/star to follow along with progress.**
 
 ### Features
 
-- **Torrent client for node.js or the browser** (same module!)
+- **Torrent client for node.js & the browser** (same module!)
 - **Insanely fast**
-- Exposes files as **streams** to access file content before torrent is finished
-  - Sequentially requests pieces from peers (when necessary)
-  - Otherwise, uses rarest-first piece strategy
-- Many **streaming** options (AirPlay, Chromecast, VLC, `<video>` tag in the browser)
+- Many **streaming** options (including AirPlay, Chromecast, VLC, browser `<video>` tag, and more)
 - Download **multiple torrents** simultaneously, efficiently
+- **Pure Javascript** (no native dependencies)
+- Exposes files as **streams** (and fetches pieces on-demand before torrent is finished
+  - Fetches data from the network on-demand, so streaming and seeking are supported
+  - Seamlessly switches between sequential and rarest-first piece selection strategy
 - Supports advanced torrent client features
   - **magnet uri** support via **[ut_metadata](https://github.com/feross/ut_metadata)**
   - **peer discovery** via **[dht](https://github.com/feross/bittorrent-dht)**,
@@ -24,7 +25,6 @@
   - awesome
     **[extension api](https://github.com/feross/bittorrent-protocol#extension-api)** for
     adding new extensions
-- **Pure Javascript** (no native dependencies)
 - **Comprehensive test suite** (completely offline, so it's reliable and fast)
 
 #### Web-specific features
