@@ -28,7 +28,6 @@
     **[extension api](https://github.com/feross/bittorrent-protocol#extension-api)** for
     adding new extensions
 - **Comprehensive test suite** (completely offline, so it's reliable and fast)
-- Modular design (see [module list](#modules))
 
 #### Web-specific features
 
@@ -441,7 +440,7 @@ makes it easier to send PRs:
 
 ### WebTorrent in production
 
-- [Instant](http://instant.io) – Secure, anonymous, streaming file transfer [[code](https://github.com/feross/instant.io)]
+- **[Instant](http://instant.io)** – Secure, anonymous, streaming file transfer [[code](https://github.com/feross/instant.io)]
 - Your app here! (send a PR or open an issue with the URL to your app)
 
 ### Project Goal
