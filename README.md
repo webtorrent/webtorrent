@@ -13,7 +13,7 @@
 
 - **Torrent client for node.js & the browser** (same module!)
 - **Insanely fast**
-- Many **streaming** options (including AirPlay, Chromecast, VLC, browser `<video>` tag, and more)
+- **Streaming video** to many devices (including AirPlay, Chromecast, VLC, browser `<video>` tag, and more)
 - Download **multiple torrents** simultaneously, efficiently
 - **Pure Javascript** (no native dependencies)
 - Exposes files as **streams** (and fetches pieces on-demand before torrent is finished
@@ -29,11 +29,11 @@
     adding new extensions
 - **Comprehensive test suite** (completely offline, so it's reliable and fast)
 
-#### Web-specific features
+#### Browser-specific features
 
 - Uses **WebRTC data channels** for lightweight peer-to-peer communication (no plugins)
-- **No silos.** WebTorrent clients on one domain can connect to clients running on any
-  other domain – no same origin policy. WebTorrent is a P2P network for the entire web!
+- **No silos.** WebTorrent is a P2P network for the **entire web**! WebTorrent clients running
+  on one domain can connect to clients on any other domain.
 - Stream video torrents into a `<video>` tag (`webm (vp8, vp9)` or `mp4 (h.264)`)
 
 ### Ways to help
