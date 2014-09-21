@@ -130,7 +130,9 @@ object, so it can be used with just a script tag:
 
 WebTorrent also works in node.js, using the *same npm module!* It's mad science!
 
-Here's how to get started:
+#### Command line app
+
+WebTorrent is available as a command line app Here's how to use it:
 
 ```bash
 $ npm install webtorrent -g
@@ -164,6 +166,9 @@ There are many supported streaming options:
 ```
 
 ### API
+
+This API should work exactly the same in node and the browser. Open an issue if this is
+not the case.
 
 #### `client = new WebTorrent([opts])`
 

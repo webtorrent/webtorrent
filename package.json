@@ -42,7 +42,6 @@
     "hat": "0.0.3",
     "http-https": "^1.0.0",
     "inherits": "^2.0.1",
-    "ip-set": "^1.0.0",
     "load-ip-set": "^1.0.3",
     "mime": "^1.2.11",
     "minimist": "^1.1.0",
