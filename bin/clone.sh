@@ -7,7 +7,6 @@ fi
 
 pushd $1
 git clone git@github.com:feross/addr-to-ip-port.git
-git clone git@github.com:feross/bittorrent-client.git
 git clone git@github.com:feross/bittorrent-dht.git
 git clone git@github.com:fisch0920/bittorrent-peerid.git
 git clone git@github.com:feross/bittorrent-protocol.git

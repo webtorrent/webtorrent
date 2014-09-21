@@ -5,6 +5,8 @@
 
 ### WebTorrent – Streaming torrent client for node & the browser
 
+[![Sauce Test Status](https://saucelabs.com/browser-matrix/webtorrent.svg)](https://saucelabs.com/u/webtorrent-client)
+
 > Warning: This is pre-alpha software. **Watch/star to follow along with progress.**
 
 ### Features
@@ -26,6 +28,7 @@
     **[extension api](https://github.com/feross/bittorrent-protocol#extension-api)** for
     adding new extensions
 - **Comprehensive test suite** (completely offline, so it's reliable and fast)
+- Modular design (see [module list](#modules))
 
 #### Web-specific features
 
@@ -33,6 +36,18 @@
 - **No silos.** WebTorrent clients on one domain can connect to clients running on any
   other domain – no same origin policy. WebTorrent is a P2P network for the entire web!
 - Stream video torrents into a `<video>` tag (`webm (vp8, vp9)` or `mp4 (h.264)`)
+
+### Ways to help
+
+- Report bugs!
+- Fix an **[open issue](https://github.com/feross/webtorrent/issues?state=open)** in this
+  repo or **[one of it's many dependencies](#modules)**. WebTorrent is an
+  **[OPEN Open Source Project](CONTRIBUTING.md)**!
+- If you believe in the vision, send bitcoin to *1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh* or
+  **[donate](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96)** via
+  Coinbase to support the project.
+
+Join us in IRC on freenode at `#webtorrent` if you want to help with development, or you just want to hang out with some cool mad science hackers :)
 
 ### Install
 
@@ -149,17 +164,172 @@ There are many supported streaming options:
   --xbmc           stream to XBMC
 ```
 
-### Ways to help
+### API
 
-- Report bugs!
-- Fix an **[open issue](https://github.com/feross/webtorrent/issues?state=open)** in this
-  repo or **[one of it's many dependencies](#modules)**. WebTorrent is an
-  **[OPEN Open Source Project](CONTRIBUTING.md)**!
-- If you believe in the vision, send bitcoin to *1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh* or
-  **[donate](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96)** via
-  Coinbase to support the project.
+#### `client = new WebTorrent([opts])`
 
-Join us in IRC on freenode at `#webtorrent` if you want to help with development, or you just want to hang out with some cool mad science hackers :)
+Create a new `WebTorrent` instance.
+
+If `opts` is specified, then the default options (shown below) will be overridden.
+
+``` js
+{
+  dht: true,         // Whether or not to enable DHT
+  maxPeers: 100,     // Max number of peers to connect to (per torrent)
+  nodeId: '',        // DHT protocol node ID (otherwise, randomly generated)
+  peerId: '',        // Wire protocol peer ID (otherwise, randomly generated)
+  storage: function  // custom storage engine, or false for in-memory engine
+  tracker: true,     // Whether or not to enable trackers
+  verify: true,      // Verify previously stored data before starting
+}
+```
+
+#### `client.add(torrentId, [opts], [function ontorrent (torrent) {}])`
+
+Start downloading a new torrent. Aliased as `client.download`.
+
+`torrentId` can be any of the following:
+
+- info hash (as a hex string or Buffer)
+- magnet uri (as a utf8 string)
+- .torrent file (as a Buffer)
+- parsed torrent (from [parse-torrent](https://github.com/feross/parse-torrent))
+- http/https url to a .torrent file (string)
+- filesystem path to a .torrent file (string)
+
+If `ontorrent` is specified, then it will be called when **this** torrent is ready to be
+used (i.e. metadata is available). Note: this is distinct from the 'torrent' event which
+will fire for **all** torrents.
+
+If you want access to the torrent object immediately in order to listen to events as the
+metadata is fetched from the network, then use the return value of `client.add`. If you
+just want the file data, then use `ontorrent` or the 'torrent' event.
+
+#### `client.seed(input, [opts], [function onseed (torrent) {}])`
+
+Start seeding a new torrent.
+
+`input` can be any of the following:
+
+- path to the file or folder on filesystem (string)
+- W3C [File](https://developer.mozilla.org/en-US/docs/Web/API/File) object (from an `<input>` or drag and drop)
+- W3C [FileList](https://developer.mozilla.org/en-US/docs/Web/API/FileList) object (basically an array of `File` objects)
+- Array of `File` objects
+
+If `opts` is specified, it should contain the following types of options:
+
+- options for [create-torrent](https://github.com/feross/create-torrent#createtorrentinput-opts-function-callback-err-torrent-) (to allow configuration of the .torrent file that is created)
+- options for `client.add` (see above)
+
+If `onseed` is specified, it will be called when the client has begun seeding the file.
+
+#### `client.on('torrent', function (torrent) {})`
+
+Emitted when a torrent is ready to be used (i.e. metadata is available and storage is
+ready). See the torrent section for more info on what methods a `torrent` has.
+
+#### `client.remove(torrentId, [function callback (err) {}])`
+
+Remove a torrent from the client. Destroy all connections to peers and delete all saved
+file data. If `callback` is specified, it will be called when file data is removed.
+
+#### `client.destroy()`
+
+Destroy the client, including all torrents and connections to peers.
+
+#### `client.listen([port], function () {})`
+
+Listen for incoming peers on the specified port. Port defaults to `6881`
+
+#### `client.torrents[...]`
+
+An array of all torrents in the client.
+
+#### `client.get(torrentId)`
+
+Returns the torrent with the given `torrentId`. Convenience method. Easier than
+searching through the `client.torrents` array.
+
+#### `client.ratio`
+
+Seed ratio for all torrents in the client.
+
+
+### torrent api
+
+#### `torrent.files[...]`
+
+An array of all files in the torrent. See the file section for more info on what methods
+the file has.
+
+#### `torrent.swarm`
+
+The attached [bittorrent-swarm](https://github.com/feross/bittorrent-swarm) instance.
+
+#### `torrent.remove()`
+
+Alias for `client.remove(torrent)`.
+
+#### `torrent.addPeer(addr)`
+
+Adds a peer to the underlying [bittorrent-swarm](https://github.com/feross/bittorrent-swarm) instance.
+
+#### `torrent.select(start, end, [priority], [notify])`
+
+Selects a range of pieces to prioritize starting with `start` and ending with `end` (both inclusive)
+at the given `priority`. `notify` is an optional callback to be called when the selection is updated
+with new data.
+
+#### `torrent.deselect(start, end, priority)`
+
+Deprioritizes a range of previously selected pieces.
+
+#### `torrent.critical(start, end)`
+
+Marks a range of pieces as critical priority to be downloaded ASAP. From `start` to `end`
+(both inclusive).
+
+
+### file api
+
+#### `file.name`
+
+File name, as specified by the torrent. *Example: 'some-filename.txt'*
+
+#### `file.path`
+
+File path, as specified by the torrent. *Example: 'some-folder/some-filename.txt'*
+
+#### `file.length`
+
+File length (in bytes), as specified by the torrent. *Example: 12345*
+
+#### `file.select()`
+
+Selects the file to be downloaded, but at a lower priority than files with streams.
+Useful if you know you need the file at a later stage.
+
+#### `file.deselect()`
+
+Deselects the file, which means it won't be downloaded unless someone creates a stream
+for it.
+
+#### `stream = file.createReadStream([opts])`
+
+Create a [readable stream](http://nodejs.org/api/stream.html#stream_class_stream_readable)
+to the file. Pieces needed by the stream will be prioritized highly and fetched from the
+swarm first.
+
+You can pass `opts` to stream only a slice of a file.
+
+``` js
+{
+  start: startByte,
+  end: endByte
+}
+```
+
+Both `start` and `end` are inclusive.
 
 ### Modules
 
@@ -179,7 +349,6 @@ These are the modules I am writing to make WebTorrent work:
 |---|---|---|---|
 | **[webtorrent](https://github.com/feross/webtorrent)** | [![](https://img.shields.io/travis/feross/webtorrent.svg)](https://travis-ci.org/feross/webtorrent) | [![](https://img.shields.io/npm/v/webtorrent.svg)](https://npmjs.org/package/webtorrent) | **torrent client (this module)**
 | [addr-to-ip-port](https://github.com/feross/addr-to-ip-port) | [![](https://img.shields.io/travis/feross/addr-to-ip-port.svg)](https://travis-ci.org/feross/addr-to-ip-port) | [![](https://img.shields.io/npm/v/addr-to-ip-port.svg)](https://npmjs.org/package/addr-to-ip-port) | cache for addr->ip:port
-| [bittorrent-client](https://github.com/feross/bittorrent-client) | [![](https://img.shields.io/travis/feross/bittorrent-client.svg)](https://travis-ci.org/feross/bittorrent-client) | [![](https://img.shields.io/npm/v/bittorrent-client.svg)](https://npmjs.org/package/bittorrent-client) | access torrents as stream
 | [bittorrent-dht](https://github.com/feross/bittorrent-dht) | [![](https://img.shields.io/travis/feross/bittorrent-dht.svg)](https://travis-ci.org/feross/bittorrent-dht) | [![](https://img.shields.io/npm/v/bittorrent-dht.svg)](https://npmjs.org/package/bittorrent-dht) | bittorrent dht client
 | [bittorrent-peerid](https://github.com/fisch0920/bittorrent-peerid) | [![](https://img.shields.io/travis/fisch0920/bittorrent-peerid.svg)](https://travis-ci.org/fisch0920/bittorrent-peerid) | [![](https://img.shields.io/npm/v/bittorrent-peerid.svg)](https://npmjs.org/package/bittorrent-peerid) | identify client name/version
 | [bittorrent-protocol](https://github.com/feross/bittorrent-protocol) | [![](https://img.shields.io/travis/feross/bittorrent-protocol.svg)](https://travis-ci.org/feross/bittorrent-protocol) | [![](https://img.shields.io/npm/v/bittorrent-protocol.svg)](https://npmjs.org/package/bittorrent-protocol) | bittorrent protocol stream
@@ -304,7 +473,7 @@ Since WebTorrent is web-first, it's simple for users who do not understand .torr
 
 ### Known issues
 
-#### Disable default Chromebook firewall
+#### Downloads don't start on Chromebook
 
 Chromebooks are set to refuse all incoming connections by default. To change this, run:
 
