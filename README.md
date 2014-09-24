@@ -1,19 +1,41 @@
-# ![WebTorrent](https://raw.github.com/feross/webtorrent/master/img/wordmark.png)
-[![build](https://img.shields.io/travis/feross/webtorrent.svg)](https://travis-ci.org/feross/webtorrent)
-[![npm](https://img.shields.io/npm/v/webtorrent.svg)](https://npmjs.org/package/webtorrent)
-[![gittip](https://img.shields.io/gittip/feross.svg)](https://www.gittip.com/feross/)
+# ![WebTorrent](img/wordmark.png)
+[![Build Status][travis-image]][travis-url]
+[![NPM Version][npm-image]][npm-url]
+[![NPM Downloads][downloads-image]][downloads-url]
+[![Gratipay][gratipay-image]][gratipay-url]
 
 ### WebTorrent – Streaming torrent client for node & the browser
 
-[![Sauce Test Status](https://saucelabs.com/browser-matrix/webtorrent.svg)](https://saucelabs.com/u/webtorrent-client)
+WebTorrent is a streaming torrent client that works in node.js and the browser. **YEP,
+THAT'S RIGHT. The browser.** It's written completely in JavaScript – the language of the
+web – so the same code works in both runtimes.
+
+In browsers, WebTorrent uses **WebRTC** (data channels) for peer-to-peer transport. It can
+be used **without** browser plugins, extensions, or installations. It's Just
+JavaScript&trade;.
+
+Simply include the `webtorrent.min.js` script on your page to start fetching files over
+WebRTC using the BitTorrent protocol. See [code examples](#usage) below.
+
+To make BitTorrent work over WebRTC (which is the only p2p transport that works on the
+web) we made some protocol changes. Currently, WebTorrent clients can only connect to
+other WebTorrent clients.
+
+We hope established torrent clients (uTorrent, Transmission, Vuze, etc.) will add support
+for WebRTC and the WebTorrent extensions so they can swarm with peers from both the normal
+*and* web networks.
+
+![Network](img/network.png)
 
 > Warning: This is pre-alpha software. **Watch/star to follow along with progress.**
 
+[![Sauce Test Status][sauce-image]][sauce-url]
+
 ### Features
 
-- **Torrent client for node.js & the browser** (same module!)
+- **Torrent client for node.js & the browser** (same npm module!)
 - **Insanely fast**
-- **Streaming video** to many devices (including AirPlay, Chromecast, VLC, browser `<video>` tag, and more)
+- **Streaming video** to many devices (including AirPlay, Chromecast, and VLC player)
 - Download **multiple torrents** simultaneously, efficiently
 - **Pure Javascript** (no native dependencies)
 - Exposes files as **streams** (and fetches pieces on-demand before torrent is finished
@@ -24,29 +46,27 @@
   - **peer discovery** via **[dht](https://github.com/feross/bittorrent-dht)**,
     **[tracker](https://github.com/feross/bittorrent-tracker)**, and
     **[ut_pex](https://github.com/fisch0920/ut_pex)**
-  - awesome
-    **[extension api](https://github.com/feross/bittorrent-protocol#extension-api)** for
-    adding new extensions
+  - **[protocol extension api](https://github.com/feross/bittorrent-protocol#extension-api)**
+    for adding new extensions
 - **Comprehensive test suite** (completely offline, so it's reliable and fast)
 
 #### Browser-specific features
 
 - Uses **WebRTC data channels** for lightweight peer-to-peer communication (no plugins)
-- **No silos.** WebTorrent is a P2P network for the **entire web**! WebTorrent clients running
-  on one domain can connect to clients on any other domain.
+- **No silos.** WebTorrent is a P2P network for the **entire web.** WebTorrent clients
+  running on one domain can connect to clients on any other domain.
 - Stream video torrents into a `<video>` tag (`webm (vp8, vp9)` or `mp4 (h.264)`)
 
 ### Ways to help
 
-- Report bugs!
-- Fix an **[open issue](https://github.com/feross/webtorrent/issues?state=open)** in this
-  repo or **[one of it's many dependencies](#modules)**. WebTorrent is an
-  **[OPEN Open Source Project](CONTRIBUTING.md)**!
-- If you believe in the vision, send bitcoin to *1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh* or
-  **[donate](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96)** via
-  Coinbase to support the project.
-
-Join us in IRC on freenode at `#webtorrent` if you want to help with development, or you just want to hang out with some cool mad science hackers :)
+- **Join us in IRC** on freenode at `#webtorrent` if you want to help with development, or
+  you just want to hang out with some cool mad science hackers :)
+- **[Create a new issue](https://github.com/feross/webtorrent/issues/new)** to report bugs
+- **[Fix an issue](https://github.com/feross/webtorrent/issues?state=open)**. Note:
+  WebTorrent is an [OPEN Open Source Project](CONTRIBUTING.md)!
+- **Donate bitcoin** if you believe in the vision and wish to support the project.
+  *1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh* or
+  **[Coinbase](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96)**.
 
 ### Install
 
@@ -130,7 +150,7 @@ object, so it can be used with just a script tag:
 
 WebTorrent also works in node.js, using the *same npm module!* It's mad science!
 
-#### Command line app
+#### As a command line app
 
 WebTorrent is available as a command line app Here's how to use it:
 
@@ -164,6 +184,11 @@ There are many supported streaming options:
   --vlc            stream to VLC
   --xbmc           stream to XBMC
 ```
+
+### WebTorrent in production
+
+- **[Instant](http://instant.io)** – Secure, anonymous, streaming file transfer [[code](https://github.com/feross/instant.io)]
+- Your app here! (send a PR or open an issue with the URL to your app)
 
 ### API
 
@@ -388,8 +413,6 @@ These are the modules I am writing to make WebTorrent work:
 
 WebTorrent is an **[OPEN Open Source Project](https://github.com/feross/webtorrent/blob/master/CONTRIBUTING.md)**. Individuals making significant and valuable contributions are given commit-access to the project to contribute as they see fit.
 
-#### Contributors
-
 WebTorrent is only possible due to the excellent work of the following contributors:
 
 <table><tbody>
@@ -443,38 +466,6 @@ makes it easier to send PRs:
 - May 2014 (JS.LA) – [How I Built a BitTorrent Client in the Browser](https://vimeo.com/97324247) (progress update; node client working)
 - Oct 2013 (RealtimeConf) – [WebRTC Black Magic (RealtimeConf)](https://vimeo.com/77265280) (where I first shared the idea of WebTorrent)
 
-### WebTorrent in production
-
-- **[Instant](http://instant.io)** – Secure, anonymous, streaming file transfer [[code](https://github.com/feross/instant.io)]
-- Your app here! (send a PR or open an issue with the URL to your app)
-
-### Project Goal
-
-Build a browser BitTorrent client that requires no install (no plugin/extension/etc.) and fully-interoperates with the regular BitTorrent network. Use WebRTC Data Channels for peer-to-peer transport.
-
-Since WebTorrent is web-first, it's simple for users who do not understand .torrent files, magnet links, NATs, etc. By making BitTorrent easier, it will be accessible to new swathes of users who were previously intimidated, confused, or unwilling to install a program on their machine to participate.
-
-### Interoperability with BitTorrent
-
-**Problem:** WebTorrent clients and normal BitTorrent clients cannot directly connect because WebRTC cannot open UDP/TCP sockets. This is a security restriction on WebRTC that is unlikely to change. So, how do we get content into the WebTorrent network?
-
-**Best solution:** Mainstream BitTorrent clients add support for WebTorrent. Basically, normal clients implement WebRTC so that WebTorrent clients can directly connect to them. (This could happen once WebTorrent has a lot of users.)
-
-**Good solution:** Users who want to download torrents that aren't yet seeded by any WebTorrent users need to install a "hybrid client" that implements WebTorrent **and** BitTorrent. This can be implemented as a native torrent client that bridges the two networks like this:
-
-  - Hybrid clients can seed+leech from **both** WebTorrent and BitTorrent users.
-  - Hybrid clients are DHT nodes in **both** the WebTorrent and BitTorrent DHTs.
-  - The first time a hybrid client downloads a torrent that no other WebTorrent clients are seeding, they become the first WebTorrent seeder. (They essentially "bring" the file into the WebTorrent network).
-  - Important note: Hybrid clients **never** download torrents on behalf of other users. That would be a terrible idea.
-  - Until BitTorrent clients support WebTorrent, "pure" **WebTorrent clients can only download from other WebTorrent clients.**
-
-### WebTorrent vs BitTorrent
-
-- WebTorrent is slower at finding peers since "DHT over WebRTC" requires multiple roundtrips for peer introductions. (This is a requirement of WebRTC signaling - no way around this)
-- WebTorrent peers must keep their browser tab open to seed (Show UI to encourage seeding back at least 2x)
-- Slower piece verification (SHA1) (max 2MB/s with web worker pool, Web Crypto API will bring huge speed-up when it's finally ready)
-- WebTorrent bootstrap DHT node does *a bit* more work than a BitTorrent one since it must do WebRTC signaling. (Not a huge deal)
-
 ### Known issues
 
 #### Downloads don't start on Chromebook
@@ -489,4 +480,15 @@ sudo iptables -P INPUT ACCEPT
 
 MIT. Copyright (c) [Feross Aboukhadijeh](http://feross.org).
 
-![Magic](https://raw.github.com/feross/webtorrent/master/img/logo.png)
+![Magic](img/logo.png)
+
+[travis-image]: https://img.shields.io/travis/feross/webtorrent.svg?style=flat
+[travis-url]: https://travis-ci.org/feross/webtorrent
+[npm-image]: https://img.shields.io/npm/v/webtorrent.svg?style=flat
+[npm-url]: https://npmjs.org/package/webtorrent
+[downloads-image]: https://img.shields.io/npm/dm/webtorrent.svg?style=flat
+[downloads-url]: https://npmjs.org/package/webtorrent
+[gratipay-image]: https://img.shields.io/gratipay/feross.svg?style=flat
+[gratipay-url]: https://gratipay.com/feross/
+[sauce-image]: https://saucelabs.com/browser-matrix/webtorrent.svg
+[sauce-url]: https://saucelabs.com/u/webtorrent-client
