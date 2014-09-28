@@ -217,14 +217,14 @@ If `opts` is specified, then the default options (shown below) will be overridde
 
 Start downloading a new torrent. Aliased as `client.download`.
 
-`torrentId` can be any of the following:
+`torrentId` can be one of:
 
-- info hash (as a hex string or Buffer)
-- magnet uri (as a utf8 string)
-- .torrent file (as a Buffer)
+- magnet uri (utf8 string)
+- torrent file (buffer)
+- info hash (hex string or buffer)
 - parsed torrent (from [parse-torrent](https://github.com/feross/parse-torrent))
-- http/https url to a .torrent file (string)
-- filesystem path to a .torrent file (string)
+- http/https url to a torrent file (string)
+- filesystem path to a torrent file (string)
 
 If `ontorrent` is specified, then it will be called when **this** torrent is ready to be
 used (i.e. metadata is available). Note: this is distinct from the 'torrent' event which

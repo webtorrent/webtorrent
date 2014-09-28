@@ -135,8 +135,8 @@ WebTorrent.prototype.get = function (torrentId) {
  *   - torrent file (buffer)
  *   - info hash (hex string or buffer)
  *   - parsed torrent (from [parse-torrent](https://github.com/feross/parse-torrent))
- *   - http/https url to a .torrent file (string)
- *   - filesystem path to a .torrent file (string)
+ *   - http/https url to a torrent file (string)
+ *   - filesystem path to a torrent file (string)
  *
  * @param {string|Buffer|Object} torrentId
  * @param {Object} opts torrent-specific options
