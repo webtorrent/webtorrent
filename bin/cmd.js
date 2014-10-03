@@ -13,6 +13,8 @@ var prettysize = require('prettysize')
 var WebTorrent = require('../')
 var xbmc = require('nodebmc')
 
+process.title = 'WebTorrent'
+
 process.on('exit', function (code) {
   if (code !== 0) {
     clivas.line('{red:ERROR:} If you think this is a bug in webtorrent, report it!')
