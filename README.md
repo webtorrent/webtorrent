@@ -1,8 +1,8 @@
 # ![WebTorrent](img/wordmark.png)
-[![Build Status][travis-image]][travis-url]
-[![NPM Version][npm-image]][npm-url]
-[![NPM Downloads][downloads-image]][downloads-url]
-[![Gratipay][gratipay-image]][gratipay-url]
+[![Build Status][webtorrent-ti]][webtorrent-tu]
+[![NPM Version][webtorrent-ni]][webtorrent-nu]
+[![NPM Downloads][webtorrent-downloads-image]][webtorrent-downloads-url]
+[![Gratipay][webtorrent-gratipay-image]][webtorrent-gratipay-url]
 
 ### WebTorrent – Streaming torrent client for node & the browser
 
@@ -29,7 +29,7 @@ for WebRTC and the WebTorrent extensions so they can swarm with peers from both 
 
 > Warning: This is pre-alpha software. **Watch/star to follow along with progress.**
 
-[![Sauce Test Status][sauce-image]][sauce-url]
+[![Sauce Test Status][webtorrent-sauce-image]][webtorrent-sauce-url]
 
 ### Features
 
@@ -376,29 +376,174 @@ These are the modules I am writing to make WebTorrent work:
 
 | module | tests | version | description |
 |---|---|---|---|
-| **[webtorrent](https://github.com/feross/webtorrent)** | [![](https://img.shields.io/travis/feross/webtorrent.svg)](https://travis-ci.org/feross/webtorrent) | [![](https://img.shields.io/npm/v/webtorrent.svg)](https://npmjs.org/package/webtorrent) | **torrent client (this module)**
-| [addr-to-ip-port](https://github.com/feross/addr-to-ip-port) | [![](https://img.shields.io/travis/feross/addr-to-ip-port.svg)](https://travis-ci.org/feross/addr-to-ip-port) | [![](https://img.shields.io/npm/v/addr-to-ip-port.svg)](https://npmjs.org/package/addr-to-ip-port) | cache for addr->ip:port
-| [bittorrent-dht](https://github.com/feross/bittorrent-dht) | [![](https://img.shields.io/travis/feross/bittorrent-dht.svg)](https://travis-ci.org/feross/bittorrent-dht) | [![](https://img.shields.io/npm/v/bittorrent-dht.svg)](https://npmjs.org/package/bittorrent-dht) | bittorrent dht client
-| [bittorrent-peerid](https://github.com/fisch0920/bittorrent-peerid) | [![](https://img.shields.io/travis/fisch0920/bittorrent-peerid.svg)](https://travis-ci.org/fisch0920/bittorrent-peerid) | [![](https://img.shields.io/npm/v/bittorrent-peerid.svg)](https://npmjs.org/package/bittorrent-peerid) | identify client name/version
-| [bittorrent-protocol](https://github.com/feross/bittorrent-protocol) | [![](https://img.shields.io/travis/feross/bittorrent-protocol.svg)](https://travis-ci.org/feross/bittorrent-protocol) | [![](https://img.shields.io/npm/v/bittorrent-protocol.svg)](https://npmjs.org/package/bittorrent-protocol) | bittorrent protocol stream
-| [bittorrent-swarm](https://github.com/feross/bittorrent-swarm) | [![](https://img.shields.io/travis/feross/bittorrent-swarm.svg)](https://travis-ci.org/feross/bittorrent-swarm) | [![](https://img.shields.io/npm/v/bittorrent-swarm.svg)](https://npmjs.org/package/bittorrent-swarm) | bittorrent connection manager
-| [bittorrent-tracker](https://github.com/feross/bittorrent-tracker) | [![](https://img.shields.io/travis/feross/bittorrent-tracker.svg)](https://travis-ci.org/feross/bittorrent-tracker) | [![](https://img.shields.io/npm/v/bittorrent-tracker.svg)](https://npmjs.org/package/bittorrent-tracker) | bittorrent tracker server/client
-| [buffer](https://github.com/feross/buffer) | [![](https://img.shields.io/travis/feross/buffer.svg)](https://travis-ci.org/feross/buffer) | [![](https://img.shields.io/npm/v/buffer.svg)](https://npmjs.org/package/buffer) | node buffer api for the browser
-| [create-torrent](https://github.com/feross/create-torrent) | [![](https://img.shields.io/travis/feross/create-torrent.svg)](https://travis-ci.org/feross/create-torrent) | [![](https://img.shields.io/npm/v/create-torrent.svg)](https://npmjs.org/package/create-torrent) | create .torrent files
-| [ip-set](https://github.com/fisch0920/ip-set) | [![](https://img.shields.io/travis/fisch0920/ip-set.svg)](https://travis-ci.org/fisch0920/ip-set) | [![](https://img.shields.io/npm/v/ip-set.svg)](https://npmjs.org/package/ip-set) | efficient mutable ip set
-| [load-ip-set](https://github.com/feross/load-ip-set) | [![](https://img.shields.io/travis/feross/load-ip-set.svg)](https://travis-ci.org/feross/load-ip-set) | [![](https://img.shields.io/npm/v/load-ip-set.svg)](https://npmjs.org/package/load-ip-set) | load ip sets
-| [magnet-uri](https://github.com/feross/magnet-uri) | [![](https://img.shields.io/travis/feross/magnet-uri.svg)](https://travis-ci.org/feross/magnet-uri) | [![](https://img.shields.io/npm/v/magnet-uri.svg)](https://npmjs.org/package/magnet-uri) | parse magnet uris
-| [parse-torrent](https://github.com/feross/parse-torrent) | [![](https://img.shields.io/travis/feross/parse-torrent.svg)](https://travis-ci.org/feross/parse-torrent) | [![](https://img.shields.io/npm/v/parse-torrent.svg)](https://npmjs.org/package/parse-torrent) | parse torrent identifiers
-| [parse-torrent-file](https://github.com/feross/parse-torrent-file) | [![](https://img.shields.io/travis/feross/parse-torrent-file.svg)](https://travis-ci.org/feross/parse-torrent-file) | [![](https://img.shields.io/npm/v/parse-torrent-file.svg)](https://npmjs.org/package/parse-torrent-file) | parse .torrent files
-| [simple-peer](https://github.com/feross/simple-peer) | [![](https://img.shields.io/travis/feross/simple-peer.svg)](https://travis-ci.org/feross/simple-peer) | [![](https://img.shields.io/npm/v/simple-peer.svg)](https://npmjs.org/package/simple-peer) | webrtc wrapper api
-| [simple-websocket](https://github.com/feross/simple-websocket) | [![](https://img.shields.io/travis/feross/simple-websocket.svg)](https://travis-ci.org/feross/simple-websocket) | [![](https://img.shields.io/npm/v/simple-websocket.svg)](https://npmjs.org/package/simple-websocket) | websocket wrapper api
-| [string2compact](https://github.com/feross/string2compact) | [![](https://img.shields.io/travis/feross/string2compact.svg)](https://travis-ci.org/feross/string2compact) | [![](https://img.shields.io/npm/v/string2compact.svg)](https://npmjs.org/package/string2compact) | convert 'hostname:port' to compact
-| [torrent-discovery](https://github.com/feross/torrent-discovery) | [![](https://img.shields.io/travis/feross/torrent-discovery.svg)](https://travis-ci.org/feross/torrent-discovery) | [![](https://img.shields.io/npm/v/torrent-discovery.svg)](https://npmjs.org/package/torrent-discovery) | find peers via dht and tracker
-| [typedarray-to-buffer](https://github.com/feross/typedarray-to-buffer) | [![](https://img.shields.io/travis/feross/typedarray-to-buffer.svg)](https://travis-ci.org/feross/typedarray-to-buffer) | [![](https://img.shields.io/npm/v/typedarray-to-buffer.svg)](https://npmjs.org/package/typedarray-to-buffer) | efficient buffer creation
-| [ut_metadata](https://github.com/feross/ut_metadata) | [![](https://img.shields.io/travis/feross/ut_metadata.svg)](https://travis-ci.org/feross/ut_metadata) | [![](https://img.shields.io/npm/v/ut_metadata.svg)](https://npmjs.org/package/ut_metadata) | get metadata for magnet uris (ext)
-| [ut_pex](https://github.com/fisch0920/ut_pex) | [![](https://img.shields.io/travis/fisch0920/ut_pex.svg)](https://travis-ci.org/fisch0920/ut_pex) | [![](https://img.shields.io/npm/v/ut_pex.svg)](https://npmjs.org/package/ut_pex) | peer discovery (ext)
-| [webtorrent-swarm](https://github.com/feross/webtorrent-swarm) | [![](https://img.shields.io/travis/feross/webtorrent-swarm.svg)](https://travis-ci.org/feross/webtorrent-swarm) | [![](https://img.shields.io/npm/v/webtorrent-swarm.svg)](https://npmjs.org/package/webtorrent-swarm) | webtorrent connection management
-| [webtorrent-tracker](https://github.com/feross/webtorrent-tracker) | [![](https://img.shields.io/travis/feross/webtorrent-tracker.svg)](https://travis-ci.org/feross/webtorrent-tracker) | [![](https://img.shields.io/npm/v/webtorrent-tracker.svg)](https://npmjs.org/package/webtorrent-tracker) | webtorrent tracker server/client
+| **[webtorrent][webtorrent]** | [![][webtorrent-ti]][webtorrent-tu] | [![][webtorrent-ni]][webtorrent-nu] | **torrent client (this module)**
+| [addr-to-ip-port][addr-to-ip-port] | [![][addr-to-ip-port-ti]][addr-to-ip-port-tu] | [![][addr-to-ip-port-ni]][addr-to-ip-port-nu] | cache for addr->ip:port
+| [bittorrent-dht][bittorrent-dht] | [![][bittorrent-dht-ti]][bittorrent-dht-tu] | [![][bittorrent-dht-ni]][bittorrent-dht-nu] | distributed hash table client
+| [bittorrent-peerid][bittorrent-peerid] | [![][bittorrent-peerid-ti]][bittorrent-peerid-tu] | [![][bittorrent-peerid-ni]][bittorrent-peerid-nu] | identify client name/version
+| [bittorrent-protocol][bittorrent-protocol] | [![][bittorrent-protocol-ti]][bittorrent-protocol-tu] | [![][bittorrent-protocol-ni]][bittorrent-protocol-nu] | bittorrent protocol stream
+| [bittorrent-swarm][bittorrent-swarm] | [![][bittorrent-swarm-ti]][bittorrent-swarm-tu] | [![][bittorrent-swarm-ni]][bittorrent-swarm-nu] | bittorrent connection manager
+| [bittorrent-tracker][bittorrent-tracker] | [![][bittorrent-tracker-ti]][bittorrent-tracker-tu] | [![][bittorrent-tracker-ni]][bittorrent-tracker-nu] | bittorrent tracker server/client
+| [buffer][buffer] | [![][buffer-ti]][buffer-tu] | [![][buffer-ni]][buffer-nu] | node buffer api for the browser
+| [create-torrent][create-torrent] | [![][create-torrent-ti]][create-torrent-tu] | [![][create-torrent-ni]][create-torrent-nu] | create .torrent files
+| [ip-set][ip-set] | [![][ip-set-ti]][ip-set-tu] | [![][ip-set-ni]][ip-set-nu] | efficient mutable ip set
+| [load-ip-set][load-ip-set] | [![][load-ip-set-ti]][load-ip-set-tu] | [![][load-ip-set-ni]][load-ip-set-nu] | load ip sets from local/network
+| [magnet-uri][magnet-uri] | [![][magnet-uri-ti]][magnet-uri-tu] | [![][magnet-uri-ni]][magnet-uri-nu] | parse magnet uris
+| [parse-torrent][parse-torrent] | [![][parse-torrent-ti]][parse-torrent-tu] | [![][parse-torrent-ni]][parse-torrent-nu] | parse torrent identifiers
+| [parse-torrent-file][parse-torrent-file] | [![][parse-torrent-file-ti]][parse-torrent-file-tu] | [![][parse-torrent-file-ni]][parse-torrent-file-nu] | parse .torrent files
+| [simple-peer][simple-peer] | [![][simple-peer-ti]][simple-peer-tu] | [![][simple-peer-ni]][simple-peer-nu] | simpler webrtc api
+| [simple-websocket][simple-websocket] | [![][simple-websocket-ti]][simple-websocket-tu] | [![][simple-websocket-ni]][simple-websocket-nu] | simpler websocket api
+| [string2compact][string2compact] | [![][string2compact-ti]][string2compact-tu] | [![][string2compact-ni]][string2compact-nu] | convert 'hostname:port' to compact
+| [torrent-discovery][torrent-discovery] | [![][torrent-discovery-ti]][torrent-discovery-tu] | [![][torrent-discovery-ni]][torrent-discovery-nu] | find peers via dht and tracker
+| [typedarray-to-buffer][typedarray-to-buffer] | [![][typedarray-to-buffer-ti]][typedarray-to-buffer-tu] | [![][typedarray-to-buffer-ni]][typedarray-to-buffer-nu] | efficient buffer creation
+| [ut_metadata][ut_metadata] | [![][ut_metadata-ti]][ut_metadata-tu] | [![][ut_metadata-ni]][ut_metadata-nu] | metadata for magnet uris **(ext)**
+| [ut_pex][ut_pex] | [![][ut_pex-ti]][ut_pex-tu] | [![][ut_pex-ni]][ut_pex-nu] | peer discovery **(ext)**
+| [webtorrent-swarm][webtorrent-swarm] | [![][webtorrent-swarm-ti]][webtorrent-swarm-tu] | [![][webtorrent-swarm-ni]][webtorrent-swarm-nu] | webtorrent connection management
+| [webtorrent-tracker][webtorrent-tracker] | [![][webtorrent-tracker-ti]][webtorrent-tracker-tu] | [![][webtorrent-tracker-ni]][webtorrent-tracker-nu] | webtorrent tracker server/client
+
+[webtorrent]: https://github.com/feross/webtorrent
+[webtorrent-ti]: https://img.shields.io/travis/feross/webtorrent.svg?style=flat
+[webtorrent-tu]: https://travis-ci.org/feross/webtorrent
+[webtorrent-ni]: https://img.shields.io/npm/v/webtorrent.svg?style=flat
+[webtorrent-nu]: https://npmjs.org/package/webtorrent
+[webtorrent-downloads-image]: https://img.shields.io/npm/dm/webtorrent.svg?style=flat
+[webtorrent-downloads-url]: https://npmjs.org/package/webtorrent
+[webtorrent-gratipay-image]: https://img.shields.io/gratipay/feross.svg?style=flat
+[webtorrent-gratipay-url]: https://gratipay.com/feross/
+[webtorrent-sauce-image]: https://saucelabs.com/browser-matrix/webtorrent.svg
+[sauce-url]: https://saucelabs.com/u/webtorrent-client
+
+
+[addr-to-ip-port]: https://github.com/feross/addr-to-ip-port
+[addr-to-ip-port-ti]: https://img.shields.io/travis/feross/addr-to-ip-port.svg?style=flat
+[addr-to-ip-port-tu]: https://travis-ci.org/feross/addr-to-ip-port
+[addr-to-ip-port-ni]: https://img.shields.io/npm/v/addr-to-ip-port.svg?style=flat
+[addr-to-ip-port-nu]: https://npmjs.org/package/addr-to-ip-port
+
+[bittorrent-dht]: https://github.com/feross/bittorrent-dht
+[bittorrent-dht-ti]: https://img.shields.io/travis/feross/bittorrent-dht.svg?style=flat
+[bittorrent-dht-tu]: https://travis-ci.org/feross/bittorrent-dht
+[bittorrent-dht-ni]: https://img.shields.io/npm/v/bittorrent-dht.svg?style=flat
+[bittorrent-dht-nu]: https://npmjs.org/package/bittorrent-dht
+
+[bittorrent-peerid]: https://github.com/fisch0920/bittorrent-peerid
+[bittorrent-peerid-ti]: https://img.shields.io/travis/fisch0920/bittorrent-peerid.svg?style=flat
+[bittorrent-peerid-tu]: https://travis-ci.org/fisch0920/bittorrent-peerid
+[bittorrent-peerid-ni]: https://img.shields.io/npm/v/bittorrent-peerid.svg?style=flat
+[bittorrent-peerid-nu]: https://npmjs.org/package/bittorrent-peerid
+
+[bittorrent-protocol]: https://github.com/feross/bittorrent-protocol
+[bittorrent-protocol-ti]: https://img.shields.io/travis/feross/bittorrent-protocol.svg?style=flat
+[bittorrent-protocol-tu]: https://travis-ci.org/feross/bittorrent-protocol
+[bittorrent-protocol-ni]: https://img.shields.io/npm/v/bittorrent-protocol.svg?style=flat
+[bittorrent-protocol-nu]: https://npmjs.org/package/bittorrent-protocol
+
+[bittorrent-swarm]: https://github.com/feross/bittorrent-swarm
+[bittorrent-swarm-ti]: https://img.shields.io/travis/feross/bittorrent-swarm.svg?style=flat
+[bittorrent-swarm-tu]: https://travis-ci.org/feross/bittorrent-swarm
+[bittorrent-swarm-ni]: https://img.shields.io/npm/v/bittorrent-swarm.svg?style=flat
+[bittorrent-swarm-nu]: https://npmjs.org/package/bittorrent-swarm
+
+[bittorrent-tracker]: https://github.com/feross/bittorrent-tracker
+[bittorrent-tracker-ti]: https://img.shields.io/travis/feross/bittorrent-tracker.svg?style=flat
+[bittorrent-tracker-tu]: https://travis-ci.org/feross/bittorrent-tracker
+[bittorrent-tracker-ni]: https://img.shields.io/npm/v/bittorrent-tracker.svg?style=flat
+[bittorrent-tracker-nu]: https://npmjs.org/package/bittorrent-tracker
+
+[buffer]: https://github.com/feross/buffer
+[buffer-ti]: https://img.shields.io/travis/feross/buffer.svg?style=flat
+[buffer-tu]: https://travis-ci.org/feross/buffer
+[buffer-ni]: https://img.shields.io/npm/v/buffer.svg?style=flat
+[buffer-nu]: https://npmjs.org/package/buffer
+
+[create-torrent]: https://github.com/feross/create-torrent
+[create-torrent-ti]: https://img.shields.io/travis/feross/create-torrent.svg?style=flat
+[create-torrent-tu]: https://travis-ci.org/feross/create-torrent
+[create-torrent-ni]: https://img.shields.io/npm/v/create-torrent.svg?style=flat
+[create-torrent-nu]: https://npmjs.org/package/create-torrent
+
+[ip-set]: https://github.com/fisch0920/ip-set
+[ip-set-ti]: https://img.shields.io/travis/fisch0920/ip-set.svg?style=flat
+[ip-set-tu]: https://travis-ci.org/fisch0920/ip-set
+[ip-set-ni]: https://img.shields.io/npm/v/ip-set.svg?style=flat
+[ip-set-nu]: https://npmjs.org/package/ip-set
+
+[load-ip-set]: https://github.com/feross/load-ip-set
+[load-ip-set-ti]: https://img.shields.io/travis/feross/load-ip-set.svg?style=flat
+[load-ip-set-tu]: https://travis-ci.org/feross/load-ip-set
+[load-ip-set-ni]: https://img.shields.io/npm/v/load-ip-set.svg?style=flat
+[load-ip-set-nu]: https://npmjs.org/package/load-ip-set
+
+[magnet-uri]: https://github.com/feross/magnet-uri
+[magnet-uri-ti]: https://img.shields.io/travis/feross/magnet-uri.svg?style=flat
+[magnet-uri-tu]: https://travis-ci.org/feross/magnet-uri
+[magnet-uri-ni]: https://img.shields.io/npm/v/magnet-uri.svg?style=flat
+[magnet-uri-nu]: https://npmjs.org/package/magnet-uri
+
+[parse-torrent]: https://github.com/feross/parse-torrent
+[parse-torrent-ti]: https://img.shields.io/travis/feross/parse-torrent.svg?style=flat
+[parse-torrent-tu]: https://travis-ci.org/feross/parse-torrent
+[parse-torrent-ni]: https://img.shields.io/npm/v/parse-torrent.svg?style=flat
+[parse-torrent-nu]: https://npmjs.org/package/parse-torrent
+
+[parse-torrent-file]: https://github.com/feross/parse-torrent-file
+[parse-torrent-file-ti]: https://img.shields.io/travis/feross/parse-torrent-file.svg?style=flat
+[parse-torrent-file-tu]: https://travis-ci.org/feross/parse-torrent-file
+[parse-torrent-file-ni]: https://img.shields.io/npm/v/parse-torrent-file.svg?style=flat
+[parse-torrent-file-nu]: https://npmjs.org/package/parse-torrent-file
+
+[simple-peer]: https://github.com/feross/simple-peer
+[simple-peer-ti]: https://img.shields.io/travis/feross/simple-peer.svg?style=flat
+[simple-peer-tu]: https://travis-ci.org/feross/simple-peer
+[simple-peer-ni]: https://img.shields.io/npm/v/simple-peer.svg?style=flat
+[simple-peer-nu]: https://npmjs.org/package/simple-peer
+
+[simple-websocket]: https://github.com/feross/simple-websocket
+[simple-websocket-ti]: https://img.shields.io/travis/feross/simple-websocket.svg?style=flat
+[simple-websocket-tu]: https://travis-ci.org/feross/simple-websocket
+[simple-websocket-ni]: https://img.shields.io/npm/v/simple-websocket.svg?style=flat
+[simple-websocket-nu]: https://npmjs.org/package/simple-websocket
+
+[string2compact]: https://github.com/feross/string2compact
+[string2compact-ti]: https://img.shields.io/travis/feross/string2compact.svg?style=flat
+[string2compact-tu]: https://travis-ci.org/feross/string2compact
+[string2compact-ni]: https://img.shields.io/npm/v/string2compact.svg?style=flat
+[string2compact-nu]: https://npmjs.org/package/string2compact
+
+[torrent-discovery]: https://github.com/feross/torrent-discovery
+[torrent-discovery-ti]: https://img.shields.io/travis/feross/torrent-discovery.svg?style=flat
+[torrent-discovery-tu]: https://travis-ci.org/feross/torrent-discovery
+[torrent-discovery-ni]: https://img.shields.io/npm/v/torrent-discovery.svg?style=flat
+[torrent-discovery-nu]: https://npmjs.org/package/torrent-discovery
+
+[typedarray-to-buffer]: https://github.com/feross/typedarray-to-buffer
+[typedarray-to-buffer-ti]: https://img.shields.io/travis/feross/typedarray-to-buffer.svg?style=flat
+[typedarray-to-buffer-tu]: https://travis-ci.org/feross/typedarray-to-buffer
+[typedarray-to-buffer-ni]: https://img.shields.io/npm/v/typedarray-to-buffer.svg?style=flat
+[typedarray-to-buffer-nu]: https://npmjs.org/package/typedarray-to-buffer
+
+[ut_metadata]: https://github.com/feross/ut_metadata
+[ut_metadata-ti]: https://img.shields.io/travis/feross/ut_metadata.svg?style=flat
+[ut_metadata-tu]: https://travis-ci.org/feross/ut_metadata
+[ut_metadata-ni]: https://img.shields.io/npm/v/ut_metadata.svg?style=flat
+[ut_metadata-nu]: https://npmjs.org/package/ut_metadata
+
+[ut_pex]: https://github.com/fisch0920/ut_pex
+[ut_pex-ti]: https://img.shields.io/travis/fisch0920/ut_pex.svg?style=flat
+[ut_pex-tu]: https://travis-ci.org/fisch0920/ut_pex
+[ut_pex-ni]: https://img.shields.io/npm/v/ut_pex.svg?style=flat
+[ut_pex-nu]: https://npmjs.org/package/ut_pex
+
+[webtorrent-swarm]: https://github.com/feross/webtorrent-swarm
+[webtorrent-swarm-ti]: https://img.shields.io/travis/feross/webtorrent-swarm.svg?style=flat
+[webtorrent-swarm-tu]: https://travis-ci.org/feross/webtorrent-swarm
+[webtorrent-swarm-ni]: https://img.shields.io/npm/v/webtorrent-swarm.svg?style=flat
+[webtorrent-swarm-nu]: https://npmjs.org/package/webtorrent-swarm
+
+[webtorrent-tracker]: https://github.com/feross/webtorrent-tracker
+[webtorrent-tracker-ti]: https://img.shields.io/travis/feross/webtorrent-tracker.svg?style=flat
+[webtorrent-tracker-tu]: https://travis-ci.org/feross/webtorrent-tracker
+[webtorrent-tracker-ni]: https://img.shields.io/npm/v/webtorrent-tracker.svg?style=flat
+[webtorrent-tracker-nu]: https://npmjs.org/package/webtorrent-tracker
 
 #### Todo
 
@@ -481,14 +626,3 @@ sudo iptables -P INPUT ACCEPT
 MIT. Copyright (c) [Feross Aboukhadijeh](http://feross.org).
 
 ![Magic](img/logo.png)
-
-[travis-image]: https://img.shields.io/travis/feross/webtorrent.svg?style=flat
-[travis-url]: https://travis-ci.org/feross/webtorrent
-[npm-image]: https://img.shields.io/npm/v/webtorrent.svg?style=flat
-[npm-url]: https://npmjs.org/package/webtorrent
-[downloads-image]: https://img.shields.io/npm/dm/webtorrent.svg?style=flat
-[downloads-url]: https://npmjs.org/package/webtorrent
-[gratipay-image]: https://img.shields.io/gratipay/feross.svg?style=flat
-[gratipay-url]: https://gratipay.com/feross/
-[sauce-image]: https://saucelabs.com/browser-matrix/webtorrent.svg
-[sauce-url]: https://saucelabs.com/u/webtorrent-client
