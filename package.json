@@ -75,7 +75,7 @@
     "tape": "2.x",
     "uglify-js": "^2.4.15",
     "zelda": "^2.0.0",
-    "zuul": "^1.11.0"
+    "zuul": "feross/zuul"
   },
   "homepage": "http://webtorrent.io",
   "keywords": [
