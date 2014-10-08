@@ -581,17 +581,29 @@ npm install
 
 #### Enable debug logs
 
-Enable debug output by setting the `DEBUG` environment variable to the name of the module
-you want to debug (e.g. `bittorrent-tracker`, or `*` to print **all logs**).
+In **node**, enable debug logs by setting the `DEBUG` environment variable to the name of the
+module you want to debug (e.g. `bittorrent-protocol`, or `*` to print **all logs**).
+
+```bash
+DEBUG=* webtorrent
+```
+
+Of course, this also works for the development version:
 
 ```bash
 DEBUG=* ./bin/cmd.js
 ```
 
-This even works for WebTorrent releases installed with `npm install webtorrent -g`:
+In the **browser**, enable debug logs by running this in the developer console:
 
-```bash
-DEBUG=* webtorrent
+```js
+localStorage.debug = '*'
+```
+
+Disable by running this:
+
+```js
+localStorage.removeItem('debug')
 ```
 
 #### Clone all dependencies
