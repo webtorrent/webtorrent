@@ -68,9 +68,6 @@ function WebTorrent (opts) {
 
   debug('new webtorrent (peerId %s, nodeId %s)', self.peerIdHex, self.nodeIdHex)
 
-  // TODO: this is probably broken
-  if (opts.list) return
-
   if (opts.port !== false && typeof Server === 'function' /* browser exclude */) {
     self.server = new Server(self, opts.port)
     self.server.on('listening', function () {

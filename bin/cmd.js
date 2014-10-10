@@ -140,9 +140,8 @@ function getRuntime () {
 }
 
 var client = new WebTorrent({
-  list: argv.list,
   blocklist: argv.blocklist,
-  port: argv.port
+  port: !argv.list && argv.port
 })
 .on('error', errorAndExit)
 
@@ -175,8 +174,8 @@ torrent.on('infoHash', function () {
   }
 })
 
-client.on('torrent', function (torrent) {
-  if (client.listening) onTorrent(torrent)
+torrent.on('ready', function () {
+  if (client.listening || argv.list) onTorrent(torrent)
   else client.on('listening', onTorrent)
 })
 
@@ -187,8 +186,15 @@ function onTorrent (torrent) {
   swarm = torrent.swarm
   wires = torrent.swarm.wires
 
+  if (argv.list) {
+    torrent.files.forEach(function (file, i) {
+      clivas.line('{3+bold:' + i + '} : {magenta:' + file.name + '}')
+    })
+    process.exit(0)
+  }
+
   torrent.on('verifying', function (data) {
-    if (argv.quiet || argv.list) return
+    if (argv.quiet) return
     clivas.clear()
     clivas.line(
       '{green:verifying existing torrent} {bold:'+Math.floor(data.percentDone)+'%} ' +
@@ -197,8 +203,6 @@ function onTorrent (torrent) {
   })
 
   torrent.on('done', function () {
-    if (argv.list) return
-
     if (!argv.quiet) {
       // TODO: expose this data from bittorrent-swarm
       var numActiveWires = torrent.swarm.wires.reduce(function (num, wire) {
@@ -219,13 +223,6 @@ function onTorrent (torrent) {
       }
     }
   })
-
-  if (argv.list) {
-    torrent.files.forEach(function (file, i) {
-      clivas.line('{3+bold:' + i + '} : {magenta:' + file.name + '}')
-    })
-    process.exit(0)
-  }
 
   var href
   if (client.server) {
