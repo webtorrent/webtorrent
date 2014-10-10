@@ -410,7 +410,7 @@ These are the modules I am writing to make WebTorrent work:
 [webtorrent-gratipay-image]: https://img.shields.io/gratipay/feross.svg?style=flat
 [webtorrent-gratipay-url]: https://gratipay.com/feross/
 [webtorrent-sauce-image]: https://saucelabs.com/browser-matrix/webtorrent.svg
-[webtorrent-sauce-url]: https://saucelabs.com/u/webtorrent-client
+[webtorrent-sauce-url]: https://saucelabs.com/u/webtorrent
 
 [addr-to-ip-port]: https://github.com/feross/addr-to-ip-port
 [addr-to-ip-port-ti]: https://img.shields.io/travis/feross/addr-to-ip-port.svg?style=flat
