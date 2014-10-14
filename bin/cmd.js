@@ -30,6 +30,7 @@ var argv = minimist(process.argv.slice(2), {
     b: 'blocklist',
     t: 'subtitles',
     l: 'list',
+    i: 'index',
     n: 'no-quit',
     r: 'remove',
     q: 'quiet',
@@ -92,7 +93,8 @@ if (argv.help || !torrentId) {
       -p, --port [number]     change the http port [default: 9000]
       -b, --blocklist [path]  use the specified blocklist
       -t, --subtitles [file]  load subtitles file
-      -l, --list              list available files in torrent
+      -l, --list              list available files in torrent (with indexes)
+      -i, --index             stream a particular file from torrnet (by index)
       -n, --no-quit           do not quit webtorrent on vlc exit
       -r, --remove            remove downloaded files on exit
       -q, --quiet             silence stdout
@@ -182,9 +184,20 @@ torrent.on('ready', function () {
 var filename, swarm, wires
 
 function onTorrent (torrent) {
+  client.torrent = torrent
+
   filename = torrent.name
   swarm = torrent.swarm
   wires = torrent.swarm.wires
+
+  // if no index specified, use largest file
+  var index = (typeof argv.index === 'number')
+    ? argv.index
+    : torrent.files.indexOf(torrent.files.reduce(function (a, b) {
+      return a.length > b.length ? a : b
+    }))
+  client.index = index
+  torrent.files[index].select()
 
   if (argv.list) {
     torrent.files.forEach(function (file, i) {

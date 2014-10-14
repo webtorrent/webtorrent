@@ -152,9 +152,6 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
   opts.client = self
   opts.storage = opts.storage || self.storage
 
-  // TODO: fix this to work with multiple torrents. this should probably be in cmd.js
-  self.index = opts.index
-
   var torrent = new Torrent(torrentId, extend({ client: self }, opts))
   self.torrents.push(torrent)
 
@@ -178,7 +175,6 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
     // Emit 'torrent' when a torrent is ready to be used
     debug('torrent')
     self.emit('torrent', torrent)
-    self._onTorrent(torrent)
   })
 
   return torrent
@@ -279,24 +275,4 @@ WebTorrent.prototype.destroy = function (cb) {
   })
 
   parallel(tasks, cb)
-}
-
-// TODO: this probably belongs in cmd.js
-WebTorrent.prototype._onTorrent = function (torrent) {
-  var self = this
-  debug('on torrent')
-
-  // if no index specified, use largest file
-  if (typeof torrent.index !== 'number') {
-    var largestFile = torrent.files.reduce(function (a, b) {
-      return a.length > b.length ? a : b
-    })
-    torrent.index = torrent.files.indexOf(largestFile)
-  }
-
-  torrent.files[torrent.index].select()
-
-  // TODO: this won't work with multiple torrents
-  self.index = torrent.index
-  self.torrent = torrent
 }
