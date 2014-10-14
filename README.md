@@ -73,7 +73,7 @@ for WebRTC and the WebTorrent extensions so they can swarm with peers from both 
 With [npm](https://npmjs.org/), run:
 
 ```bash
-npm install webtorrent -g
+npm install webtorrent
 ```
 
 ### Usage
@@ -152,10 +152,10 @@ WebTorrent also works in node.js, using the *same npm module!* It's mad science!
 
 #### As a command line app
 
-WebTorrent is available as a command line app Here's how to use it:
+WebTorrent is available as a command line app. Here's how to use it:
 
 ```bash
-$ npm install webtorrent -g
+$ npm install -g webtorrent
 $ webtorrent --help
 ```
 
@@ -163,8 +163,6 @@ To download a torrent:
 
 ```bash
 $ webtorrent magnet_uri
-
-$ webtorrent /path/to/file.torrent
 ```
 
 To stream a torrent to a device like **AirPlay** or **Chromecast**, just pass a flag:
@@ -184,6 +182,8 @@ There are many supported streaming options:
   --vlc            stream to VLC
   --xbmc           stream to XBMC
 ```
+
+In addition to magnet uris, webtorrent supports [many ways to specify a torrent](#clientaddtorrentid-opts-function-ontorrent-torrent-).
 
 ### WebTorrent in production
 

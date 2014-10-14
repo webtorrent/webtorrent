@@ -13,6 +13,7 @@ There are a few basic ground-rules for contributors:
 1. **External API changes and significant modifications** ought to be subject to an **internal pull-request** to solicit feedback from other contributors.
 1. Internal pull-requests to solicit feedback are *encouraged* for any other non-trivial contribution but left to the discretion of the contributor.
 1. Contributors should attempt to adhere to the prevailing code-style.
+1. Run npm test locally before submitting your PR, to catch any easy to miss style & testing issues
 
 ## Releases
 
@@ -22,4 +23,4 @@ Declaring formal releases remains the prerogative of the project maintainer.
 
 This is an experiment and feedback is welcome! This document may also be subject to pull requests or changes by contributors where you believe you have something valuable to add or change.
 
-Thanks to [Rod Vagg](https://github.com/rvagg) and the [LevelUP](https://github.com/rvagg/node-levelup) project for coming up with the idea of "OPEN Open Source"!
+Thanks to [Rod Vagg](https://github.com/rvagg) and the [LevelUP](https://github.com/rvagg/node-levelup) project for coming up with this model for open source contribution.
