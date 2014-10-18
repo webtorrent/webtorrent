@@ -199,6 +199,11 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
     onseed = opts
     opts = {}
   }
+
+  if (typeof FileList === 'function' && input instanceof FileList) {
+    input = Array.prototype.slice.call(input)
+  }
+
   // TODO: support `input` as filesystem path string
   var buffer = Buffer.concat(input.map(function (file) {
     return file.buffer
