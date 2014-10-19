@@ -111,7 +111,7 @@ client.download(magnet_uri, function (torrent) {
       document.body.appendChild(a)
     }))
   })
-}
+})
 ```
 
 ##### Seed a file
