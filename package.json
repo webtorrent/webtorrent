@@ -99,6 +99,7 @@
   "scripts": {
     "build": "browserify -s WebTorrent -e ./ | uglifyjs -c warnings=false -m > webtorrent.min.js",
     "build-debug": "browserify -s WebTorrent -e ./ > webtorrent.debug.js",
+    "prepublish": "npm run build",
     "size": "npm run build && cat webtorrent.min.js | gzip | wc -c",
     "start": "./bin/cmd.js",
     "test": "npm run test-node && npm run test-browser",
