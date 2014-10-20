@@ -203,13 +203,14 @@ If `opts` is specified, then the default options (shown below) will be overridde
 
 ``` js
 {
-  dht: true,         // Whether or not to enable DHT
-  maxPeers: 100,     // Max number of peers to connect to (per torrent)
-  nodeId: '',        // DHT protocol node ID (otherwise, randomly generated)
-  peerId: '',        // Wire protocol peer ID (otherwise, randomly generated)
-  storage: function  // custom storage engine, or false for in-memory engine
-  tracker: true,     // Whether or not to enable trackers
-  verify: true,      // Verify previously stored data before starting
+  dht: Boolean,          // Whether or not to enable DHT (default=true)
+  maxPeers: Number,      // Max number of peers to connect to per torrent (default=100)
+  nodeId: String|Buffer, // DHT protocol node ID (default=randomly generated)
+  peerId: String|Buffer, // Wire protocol peer ID (default=randomly generated)
+  port: Number,          // Port to start http server listening on (default=false; no http server)
+  storage: Function      // custom storage engine, or `false` to use in-memory engine
+  tracker: Boolean,      // Whether or not to enable trackers (default=true)
+  verify: Boolean        // Verify previously stored data before starting (default=false)
 }
 ```
 
@@ -265,10 +266,6 @@ file data. If `callback` is specified, it will be called when file data is remov
 #### `client.destroy()`
 
 Destroy the client, including all torrents and connections to peers.
-
-#### `client.listen([port], function () {})`
-
-Listen for incoming peers on the specified port. Port defaults to `6881`
 
 #### `client.torrents[...]`
 
