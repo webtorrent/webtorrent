@@ -3,6 +3,7 @@
 
 module.exports = WebTorrent
 
+var blobToBuffer = require('blob-to-buffer')
 var createTorrent = require('create-torrent')
 var debug = require('debug')('webtorrent')
 var DHT = require('bittorrent-dht/client') // browser exclude
@@ -200,13 +201,18 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
     opts = {}
   }
 
-  if (typeof FileList === 'function' && input instanceof FileList) {
-    input = Array.prototype.slice.call(input)
-  }
-
   // TODO: support `input` as filesystem path string
+
+  if (typeof FileList !== 'undefined' && input instanceof FileList)
+    input = Array.prototype.slice.call(input)
+
+  if (typeof Blob !== 'undefined' && input instanceof Blob)
+    input = [ input ]
+
   var buffer = Buffer.concat(input.map(function (file) {
-    return file.buffer
+    return Buffer.isBuffer(file)
+      ? file
+      : blobToBuffer(file)
   }))
 
   var torrent

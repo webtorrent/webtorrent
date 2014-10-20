@@ -29,6 +29,7 @@
     "bitfield": "^1.0.2",
     "bittorrent-dht": "^2.0.0",
     "bittorrent-swarm": "0.x",
+    "blob-to-buffer": "^1.0.3",
     "block-stream": "0.0.7",
     "chromecast-js": "^0.1.2",
     "clivas": "^0.1.4",
