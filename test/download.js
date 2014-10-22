@@ -5,39 +5,11 @@ var DHT = require('bittorrent-dht/client')
 var fs = require('fs')
 var parseTorrent = require('parse-torrent')
 var test = require('tape')
-var TrackerServer = require('bittorrent-tracker').Server
+var TrackerServer = require('bittorrent-tracker/server')
 
 var leavesFile = __dirname + '/torrents/Leaves of Grass by Walt Whitman.epub'
 var leavesTorrent = fs.readFileSync(__dirname + '/torrents/leaves.torrent')
 var leavesParsed = parseTorrent(leavesTorrent)
-
-var BLOCK_LENGTH = 16 * 1024
-function writeToStorage (storage, file, cb) {
-  var pieceIndex = 0
-  fs.createReadStream(file)
-    .pipe(new BlockStream(leavesParsed.pieceLength, { nopad: true }))
-    .on('data', function (piece) {
-      var index = pieceIndex
-      pieceIndex += 1
-
-      var blockIndex = 0
-      var s = new BlockStream(BLOCK_LENGTH, { nopad: true })
-      s.on('data', function (block) {
-        var offset = blockIndex * BLOCK_LENGTH
-        blockIndex += 1
-
-        storage.writeBlock(index, offset, block)
-      })
-      s.write(piece)
-      s.end()
-    })
-    .on('end', function () {
-      cb(null)
-    })
-    .on('error', function (err) {
-      cb(err)
-    })
-}
 
 function downloadTrackerTest (t, serverType) {
   t.plan(8)
@@ -87,7 +59,7 @@ function downloadTrackerTest (t, serverType) {
 
         t.deepEqual(torrent.files.map(function (file) { return file.name }), names)
 
-        writeToStorage(torrent.storage, leavesFile, function (err) {
+        torrent.storage.load(fs.createReadStream(leavesFile), function (err) {
           cb(err, client1)
         })
       })
@@ -178,7 +150,7 @@ test('Simple download using a tracker (only) via a magnet uri', function (t) {
 
         t.deepEqual(torrent.files.map(function (file) { return file.name }), names)
 
-        writeToStorage(torrent.storage, leavesFile, function (err) {
+        torrent.storage.load(fs.createReadStream(leavesFile), function (err) {
           cb(err, client1)
         })
       })
@@ -264,7 +236,7 @@ test('Simple download using DHT', function (t) {
           maybeDone(null)
         })
 
-        writeToStorage(torrent.storage, leavesFile, function (err) {
+        torrent.storage.load(fs.createReadStream(leavesFile), function (err) {
           wroteStorage = true
           maybeDone(err)
         })

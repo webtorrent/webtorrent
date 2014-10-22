@@ -3,7 +3,6 @@
 
 module.exports = WebTorrent
 
-var blobToBuffer = require('blob-to-buffer')
 var createTorrent = require('create-torrent')
 var debug = require('debug')('webtorrent')
 var DHT = require('bittorrent-dht/client') // browser exclude
@@ -190,7 +189,7 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
  *   - W3C FileList object (basically an array of `File` objects)
  *   - Array of `File` objects
  *
- * @param  {string|File|FileList|Array.<File>|Blob|Array.<Blob>} input
+ * @param  {string|File|FileList|Blob|Buffer|Array.<File|Blob|Buffer>} input
  * @param  {Object} opts
  * @param  {function} onseed
  */
@@ -201,48 +200,46 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
     opts = {}
   }
 
-  // TODO: support `input` as filesystem path string
+  // TODO: support `input` as string, or array of strings
 
   if (typeof FileList !== 'undefined' && input instanceof FileList)
     input = Array.prototype.slice.call(input)
 
-  if (typeof Blob !== 'undefined' && input instanceof Blob)
+  if (isBlob(input) || Buffer.isBuffer(input)) {
     input = [ input ]
+  }
 
-  parallel(input.map(function (file) {
-    return function (cb) {
-      if (Buffer.isBuffer(file)) cb(null, file)
-      else blobToBuffer(file, cb)
-    }
-  }), function (err, buffers) {
+  var streams = input.map(function (item) {
+    if (isBlob(item)) return new FileReadStream(item)
+    else if (Buffer.isBuffer(item)) {
+      var s = new stream.PassThrough()
+      s.end(item)
+      return s
+    } else throw new Error('unsupported input type to `seed`')
+  })
+
+  var torrent
+  createTorrent(input, opts, function (err, torrentBuf) {
     if (err) return self.emit('error', err)
-    var buffer = Buffer.concat(buffers)
-
-    var torrent
-    function clientOnSeed (_torrent) {
-      if (torrent.infoHash === _torrent.infoHash) {
-        onseed(torrent)
-        self.removeListener('seed', clientOnSeed)
-      }
-    }
-    if (onseed) self.on('seed', clientOnSeed)
-
-    createTorrent(input, opts, function (err, torrentBuf) {
-      if (err) return self.emit('error', err)
-      var parsedTorrent = parseTorrent(torrentBuf)
-      self.add(torrentBuf, opts, function (_torrent) {
-        torrent = _torrent
-        Storage.writeToStorage(
-          torrent.storage,
-          buffer,
-          parsedTorrent.pieceLength,
-          function (err) {
-            if (err) return self.emit('error', err)
-            self.emit('seed', torrent)
-          })
-      })
+    var parsedTorrent = parseTorrent(torrentBuf)
+    self.add(torrentBuf, opts, function (_torrent) {
+      torrent = _torrent
+      torrent.storage.load(
+        streams,
+        function (err) {
+          if (err) return self.emit('error', err)
+          self.emit('seed', torrent)
+        })
     })
   })
+
+  function clientOnSeed (_torrent) {
+    if (torrent.infoHash === _torrent.infoHash) {
+      onseed(torrent)
+      self.removeListener('seed', clientOnSeed)
+    }
+  }
+  if (onseed) self.on('seed', clientOnSeed)
 }
 
 /**
@@ -290,4 +287,13 @@ WebTorrent.prototype.destroy = function (cb) {
   })
 
   parallel(tasks, cb)
+}
+
+/**
+ * Check if `obj` is a W3C Blob object (which is the superclass of W3C File)
+ * @param  {*} obj
+ * @return {boolean}
+ */
+function isBlob (obj) {
+  return typeof Blob !== 'undefined' && obj instanceof Blob
 }
