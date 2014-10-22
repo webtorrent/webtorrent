@@ -1,5 +1,5 @@
 /*
-var BitTorrentClient = require('../')
+var WebTorrent = require('../')
 var test = require('tape')
 var fs = require('fs')
 
@@ -11,7 +11,7 @@ var torrents = [ 'leaves', 'pride' ].map(function (name) {
 test('two simultaneous downloads with dht disabled', function (t) {
   t.plan(torrents.length * 2)
 
-  var client = new BitTorrentClient({ dht: false })
+  var client = new WebTorrent({ dht: false })
   var numDone = 0
 
   client.on('error', function (err) { t.fail(err.message) })
@@ -36,7 +36,7 @@ test('two simultaneous downloads with dht disabled', function (t) {
 test('two simultaneous downloads with dht enabled', function (t) {
   t.plan(torrents.length * 2)
 
-  var client = new BitTorrentClient()
+  var client = new WebTorrent()
   var numDone = 0
 
   client.on('error', function (err) { t.fail(err.message) })

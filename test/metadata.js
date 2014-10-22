@@ -1,4 +1,4 @@
-var BitTorrentClient = require('../')
+var WebTorrent = require('../')
 var parseTorrent = require('parse-torrent')
 var test = require('tape')
 var fs = require('fs')
@@ -9,8 +9,8 @@ var leavesTorrent = parseTorrent(leaves)
 test('ut_metadata transfer', function (t) {
   t.plan(5)
 
-  var client1 = new BitTorrentClient({ dht: false, trackers: false })
-  var client2 = new BitTorrentClient({ dht: false, trackers: false })
+  var client1 = new WebTorrent({ dht: false, trackers: false })
+  var client2 = new WebTorrent({ dht: false, trackers: false })
 
   client1.on('torrent', function (torrent) {
     t.pass('client1 emits torrent event') // even though it started with metadata

@@ -1,5 +1,5 @@
 var auto = require('run-auto')
-var BitTorrentClient = require('../')
+var WebTorrent = require('../')
 var BlockStream = require('block-stream')
 var DHT = require('bittorrent-dht/client')
 var fs = require('fs')
@@ -72,7 +72,7 @@ function downloadTrackerTest (t, serverType) {
     },
 
     client1: ['tracker', function (cb) {
-      var client1 = new BitTorrentClient({ dht: false })
+      var client1 = new WebTorrent({ dht: false })
       client1.on('error', function (err) { t.fail(err) })
 
       client1.add(leavesParsed)
@@ -94,7 +94,7 @@ function downloadTrackerTest (t, serverType) {
     }],
 
     client2: ['client1', function (cb) {
-      var client2 = new BitTorrentClient({ dht: false })
+      var client2 = new WebTorrent({ dht: false })
       client2.on('error', function (err) { t.fail(err) })
 
       client2.add(leavesParsed)
@@ -163,7 +163,7 @@ test('Simple download using a tracker (only) via a magnet uri', function (t) {
     },
 
     client1: ['tracker', function (cb) {
-      var client1 = new BitTorrentClient({ dht: false })
+      var client1 = new WebTorrent({ dht: false })
       client1.on('error', function (err) { t.fail(err) })
 
       client1.add(leavesParsed)
@@ -185,7 +185,7 @@ test('Simple download using a tracker (only) via a magnet uri', function (t) {
     }],
 
     client2: ['client1', function (cb) {
-      var client2 = new BitTorrentClient({ dht: false })
+      var client2 = new WebTorrent({ dht: false })
       client2.on('error', function (err) { t.fail(err) })
 
       client2.add(magnetUri)
@@ -239,7 +239,7 @@ test('Simple download using DHT', function (t) {
       })
     },
     client1: ['dhtPort', function (cb, r) {
-      var client1 = new BitTorrentClient({
+      var client1 = new WebTorrent({
         trackers: false,
         dht: { bootstrap: '127.0.0.1:' + r.dhtPort }
       })
@@ -272,7 +272,7 @@ test('Simple download using DHT', function (t) {
     }],
 
     client2: ['client1', function (cb, r) {
-      var client2 = new BitTorrentClient({
+      var client2 = new WebTorrent({
         trackers: false,
         dht: { bootstrap: '127.0.0.1:' + r.dhtPort }
       })
