@@ -14,7 +14,6 @@ var inherits = require('inherits')
 var loadIPSet = require('load-ip-set') // browser exclude
 var parallel = require('run-parallel')
 var parseTorrent = require('parse-torrent')
-var Server = require('./lib/server') // browser exclude
 var speedometer = require('speedometer')
 var Storage = require('./lib/storage')
 var Torrent = require('./lib/torrent')
@@ -31,7 +30,6 @@ function WebTorrent (opts) {
   if (!opts) opts = {}
   EventEmitter.call(self)
 
-  self.listening = false
   self.torrentPort = opts.torrentPort || 0
   self.tracker = (opts.tracker !== undefined) ? opts.tracker : true
   self.torrents = []
@@ -67,14 +65,6 @@ function WebTorrent (opts) {
   }
 
   debug('new webtorrent (peerId %s, nodeId %s)', self.peerIdHex, self.nodeIdHex)
-
-  if (opts.port !== false && typeof Server === 'function' /* browser exclude */) {
-    self.server = new Server(self, opts.port)
-    self.server.on('listening', function () {
-      self.listening = true
-      self.emit('listening')
-    })
-  }
 
   if (typeof loadIPSet === 'function') {
     loadIPSet(opts.blocklist, function (err, ipSet) {
@@ -275,15 +265,6 @@ WebTorrent.prototype.destroy = function (cb) {
 
   if (self.dht) tasks.push(function (cb) {
     self.dht.destroy(cb)
-  })
-
-  if (self.server) tasks.push(function (cb) {
-    try {
-      self.server.close(cb)
-    } catch (err) {
-      // ignore error, server was already closed or not listening
-      cb(null)
-    }
   })
 
   parallel(tasks, cb)

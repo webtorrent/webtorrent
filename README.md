@@ -207,7 +207,6 @@ If `opts` is specified, then the default options (shown below) will be overridde
   maxPeers: Number,      // Max number of peers to connect to per torrent (default=100)
   nodeId: String|Buffer, // DHT protocol node ID (default=randomly generated)
   peerId: String|Buffer, // Wire protocol peer ID (default=randomly generated)
-  port: Number,          // Port to start http server listening on (default=false; no http server)
   storage: Function      // custom storage engine, or `false` to use in-memory engine
   tracker: Boolean,      // Whether or not to enable trackers (default=true)
   verify: Boolean        // Verify previously stored data before starting (default=false)
@@ -318,6 +317,36 @@ Deprioritizes a range of previously selected pieces.
 Marks a range of pieces as critical priority to be downloaded ASAP. From `start` to `end`
 (both inclusive).
 
+#### `torrent.createServer([opts])`
+
+Create an http server to serve the contents of this torrent, dynamically fetching the
+needed torrent pieces to satisfy http requests. Range requests are supported.
+
+Returns an `http.Server` instance (got from calling `http.createServer`). If `opts` is specified, it is passed to the `http.createServer` function.
+
+Visiting the root of the server `/` will show a list of links to individual files. Access
+individual files at `/<index>` where `<index>` is the index in the `torrent.files` array
+(e.g. `/0`, `/1`, etc.)
+
+Here is a usage example:
+
+```js
+var client = new WebTorrent()
+client.add(magnet_uri, function (torrent) {
+  // create HTTP server for this torrent
+  var server = torrent.createServer()
+  server.listen(port) // start the server listening to a port
+
+  // visit http://localhost:<port>/ to see a list of files
+
+  // access individual files at http://localhost:<port>/<index> where index is the index
+  // in the torrent.files array
+
+  // later, cleanup...
+  server.close()
+  client.destroy()
+})
+```
 
 ### file api
 

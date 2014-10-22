@@ -9,6 +9,7 @@ var minimist = require('minimist')
 var moment = require('moment')
 var networkAddress = require('network-address')
 var path = require('path')
+var portfinder = require('portfinder')
 var prettysize = require('prettysize')
 var WebTorrent = require('../')
 var xbmc = require('nodebmc')
@@ -142,8 +143,7 @@ function getRuntime () {
 }
 
 var client = new WebTorrent({
-  blocklist: argv.blocklist,
-  port: !argv.list && argv.port
+  blocklist: argv.blocklist
 })
 .on('error', errorAndExit)
 
@@ -176,14 +176,21 @@ torrent.on('infoHash', function () {
   }
 })
 
-torrent.on('ready', function () {
-  if (client.listening || argv.list) onTorrent(torrent)
-  else client.on('listening', onTorrent)
-})
+var filename, swarm, wires, server
 
-var filename, swarm, wires
+if (argv.list) torrent.once('ready', onReady)
+else {
+  server = torrent.createServer()
+  portfinder.getPort(function (err, port) {
+    if (err) return errorAndExit('Unable to find free port')
+    server.listen(port, function () {
+      if (torrent.ready) onReady()
+      else torrent.once('ready', onReady)
+    })
+  })
+}
 
-function onTorrent (torrent) {
+function onReady () {
   client.torrent = torrent
 
   filename = torrent.name
@@ -196,7 +203,6 @@ function onTorrent (torrent) {
     : torrent.files.indexOf(torrent.files.reduce(function (a, b) {
       return a.length > b.length ? a : b
     }))
-  client.index = index
   torrent.files[index].select()
 
   if (argv.list) {
@@ -231,16 +237,15 @@ function onTorrent (torrent) {
     }
 
     function maybeExit () {
-      if (!client.server) {
+      if (!server) {
         process.exit(0)
       }
     }
   })
 
-  var href
-  if (client.server) {
-    href = 'http://' + networkAddress() + ':' + client.server.address().port + '/'
-  }
+
+  if (server)
+    var href = 'http://' + networkAddress() + ':' + server.address().port + '/' + index
 
   var cmd, player
   var playerName = argv.airplay ? 'Airplay'
@@ -349,7 +354,7 @@ function onTorrent (torrent) {
 
     if (playerName)
       clivas.line('{green:Streaming to} {bold:' + playerName + '}')
-    if (client.server)
+    if (server)
       clivas.line('{green:server running at} {bold:' + href + '}')
 
     clivas.line('')
