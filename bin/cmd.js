@@ -9,7 +9,6 @@ var minimist = require('minimist')
 var moment = require('moment')
 var networkAddress = require('network-address')
 var path = require('path')
-var portfinder = require('portfinder')
 var prettysize = require('prettysize')
 var WebTorrent = require('../')
 var xbmc = require('nodebmc')
@@ -181,13 +180,11 @@ var filename, swarm, wires, server
 if (argv.list) torrent.once('ready', onReady)
 else {
   server = torrent.createServer()
-  portfinder.getPort(function (err, port) {
-    if (err) return errorAndExit('Unable to find free port')
-    server.listen(port, function () {
-      if (torrent.ready) onReady()
-      else torrent.once('ready', onReady)
-    })
+  server.listen(argv.port, function () {
+    if (torrent.ready) onReady()
+    else torrent.once('ready', onReady)
   })
+
 }
 
 function onReady () {
