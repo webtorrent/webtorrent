@@ -71,6 +71,7 @@
     "bittorrent-tracker": "^2.5.0",
     "brfs": "^1.2.0",
     "browserify": "^6.1.0",
+    "portfinder": "^0.2.1",
     "run-auto": "^1.0.0",
     "tape": "2.x",
     "uglify-js": "^2.4.15",
