@@ -209,34 +209,38 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
   if (typeof Blob !== 'undefined' && input instanceof Blob)
     input = [ input ]
 
-  var buffer = Buffer.concat(input.map(function (file) {
-    return Buffer.isBuffer(file)
-      ? file
-      : blobToBuffer(file)
-  }))
-
-  var torrent
-  function clientOnSeed (_torrent) {
-    if (torrent.infoHash === _torrent.infoHash) {
-      onseed(torrent)
-      self.removeListener('seed', clientOnSeed)
+  parallel(input.map(function (file) {
+    return function (cb) {
+      if (Buffer.isBuffer(file)) cb(null, file)
+      else blobToBuffer(file, cb)
     }
-  }
-  if (onseed) self.on('seed', clientOnSeed)
-
-  createTorrent(input, opts, function (err, torrentBuf) {
+  }), function (err, buffers) {
     if (err) return self.emit('error', err)
-    var parsedTorrent = parseTorrent(torrentBuf)
-    self.add(torrentBuf, opts, function (_torrent) {
-      torrent = _torrent
-      Storage.writeToStorage(
-        torrent.storage,
-        buffer,
-        parsedTorrent.pieceLength,
-        function (err) {
-          if (err) return self.emit('error', err)
-          self.emit('seed', torrent)
-        })
+    var buffer = Buffer.concat(buffers)
+
+    var torrent
+    function clientOnSeed (_torrent) {
+      if (torrent.infoHash === _torrent.infoHash) {
+        onseed(torrent)
+        self.removeListener('seed', clientOnSeed)
+      }
+    }
+    if (onseed) self.on('seed', clientOnSeed)
+
+    createTorrent(input, opts, function (err, torrentBuf) {
+      if (err) return self.emit('error', err)
+      var parsedTorrent = parseTorrent(torrentBuf)
+      self.add(torrentBuf, opts, function (_torrent) {
+        torrent = _torrent
+        Storage.writeToStorage(
+          torrent.storage,
+          buffer,
+          parsedTorrent.pieceLength,
+          function (err) {
+            if (err) return self.emit('error', err)
+            self.emit('seed', torrent)
+          })
+      })
     })
   })
 }
