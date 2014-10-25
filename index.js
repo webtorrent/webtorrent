@@ -8,6 +8,7 @@ var debug = require('debug')('webtorrent')
 var DHT = require('bittorrent-dht/client') // browser exclude
 var EventEmitter = require('events').EventEmitter
 var extend = require('extend.js')
+var FileReadStream = require('filestream/read')
 var FSStorage = require('./lib/fs-storage') // browser exclude
 var hat = require('hat')
 var inherits = require('inherits')
@@ -16,6 +17,7 @@ var parallel = require('run-parallel')
 var parseTorrent = require('parse-torrent')
 var speedometer = require('speedometer')
 var Storage = require('./lib/storage')
+var stream = require('stream')
 var Torrent = require('./lib/torrent')
 
 inherits(WebTorrent, EventEmitter)
@@ -211,7 +213,6 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
   var torrent
   createTorrent(input, opts, function (err, torrentBuf) {
     if (err) return self.emit('error', err)
-    var parsedTorrent = parseTorrent(torrentBuf)
     self.add(torrentBuf, opts, function (_torrent) {
       torrent = _torrent
       torrent.storage.load(
