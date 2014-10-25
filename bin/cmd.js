@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-var airplay = require('airplay-js')
-var chromecast = require('chromecast-js')
 var clivas = require('clivas')
 var cp = require('child_process')
 var fs = require('fs')
@@ -11,7 +9,6 @@ var networkAddress = require('network-address')
 var path = require('path')
 var prettysize = require('prettysize')
 var WebTorrent = require('../')
-var xbmc = require('nodebmc')
 
 process.title = 'WebTorrent'
 
@@ -240,11 +237,8 @@ function onReady () {
     }
   })
 
-
-  if (server)
-    var href = 'http://' + networkAddress() + ':' + server.address().port + '/' + index
-
   var cmd, player
+  var href = 'http://' + networkAddress() + ':' + argv.port + '/' + index
   var playerName = argv.airplay ? 'Airplay'
     : argv.chromecast ? 'Chromecast'
     : argv.xbmc ? 'XBMC'
@@ -295,6 +289,7 @@ function onReady () {
   }
 
   if (argv.airplay) {
+    var airplay = require('airplay-js')
     airplay.createBrowser()
       .on('deviceOn', function (device) {
         device.play(href, 0, function () {})
@@ -304,7 +299,8 @@ function onReady () {
   }
 
   if (argv.chromecast) {
-    ;(new chromecast.Browser())
+    var chromecast = require('chromecast-js')
+    new chromecast.Browser()
       .on('deviceOn', function (device) {
         device.connect()
         device.on('connected', function () {
@@ -314,7 +310,8 @@ function onReady () {
   }
 
   if (argv.xbmc) {
-    ;(new xbmc.Browser())
+    var xbmc = require('nodebmc')
+    new xbmc.Browser()
       .on('deviceOn', function (device) {
           device.play(href, function () {})
       })
