@@ -181,12 +181,9 @@ else {
     if (torrent.ready) onReady()
     else torrent.once('ready', onReady)
   })
-
 }
 
 function onReady () {
-  client.torrent = torrent
-
   filename = torrent.name
   swarm = torrent.swarm
   wires = torrent.swarm.wires
