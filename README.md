@@ -65,8 +65,7 @@ for WebRTC and the WebTorrent extensions so they can swarm with peers from both 
 - **[Fix an issue](https://github.com/feross/webtorrent/issues?state=open)**. Note:
   WebTorrent is an [OPEN Open Source Project](CONTRIBUTING.md)!
 - **Donate bitcoin** if you believe in the vision and wish to support the project.
-  *1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh* or
-  **[Coinbase](https://coinbase.com/checkouts/7c683397e33166651dedfebee6fb0f96)**.
+  Use **[Coinbase](https://www.coinbase.com/feross)**, or send to *1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh*. ([proof](https://keybase.io/feross))
 
 ### Install
 
