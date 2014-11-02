@@ -30,6 +30,7 @@ var argv = minimist(process.argv.slice(2), {
     i: 'index',
     n: 'no-quit',
     r: 'remove',
+    d: 'default',
     q: 'quiet',
     h: 'help',
     v: 'version'
@@ -94,6 +95,7 @@ if (argv.help || !torrentId) {
       -i, --index             stream a particular file from torrnet (by index)
       -n, --no-quit           do not quit webtorrent on vlc exit
       -r, --remove            remove downloaded files on exit
+      -d, --default [path]    overrides the default tmp directory 
       -q, --quiet             silence stdout
       -h, --help              display this help message
       -v, --version           print the current version
@@ -154,7 +156,7 @@ function remove (cb) {
   client.destroy(cb)
 }
 
-var torrent = client.add(torrentId)
+var torrent = client.add(torrentId, (argv.default ? { tmp: argv.default } : {}))
 
 torrent.on('infoHash', function () {
   function updateMetadata () {
