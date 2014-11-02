@@ -156,7 +156,7 @@ function remove (cb) {
   client.destroy(cb)
 }
 
-var torrent = client.add(torrentId, (argv.default ? { tmp: argv.default } : {}))
+var torrent = client.add(torrentId, (argv.download ? { tmp: argv.download } : {}))
 
 torrent.on('infoHash', function () {
   function updateMetadata () {
