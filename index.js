@@ -31,6 +31,7 @@ function WebTorrent (opts) {
   if (!(self instanceof WebTorrent)) return new WebTorrent(opts)
   if (!opts) opts = {}
   EventEmitter.call(self)
+  if (!debug.enabled) self.setMaxListeners(0)
 
   self.torrentPort = opts.torrentPort || 0
   self.tracker = (opts.tracker !== undefined) ? opts.tracker : true
