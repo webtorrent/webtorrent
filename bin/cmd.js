@@ -36,11 +36,11 @@ var argv = minimist(process.argv.slice(2), {
     v: 'version'
   },
   boolean: [ // options that are always boolean
-    'vlc',
-    'mplayer',
-    'mpv',
     'airplay',
     'chromecast',
+    'mplayer',
+    'mpv',
+    'vlc',
     'xbmc',
     'list',
     'no-quit',
@@ -70,34 +70,35 @@ if (argv.help || !torrentId) {
 
   console.log(function () {/*
   Usage:
-      webtorrent <options> <torrent>
+      webtorrent <options> <torrent-uri>
 
-      Download the torrent, given as:
+      Download the torrent from:
           * magnet uri
           * http url to .torrent file
           * filesystem path to .torrent file
           * info hash (hex string)
 
   Streaming options:
-      --airplay               stream to Apple TV (AirPlay)
-      --chromecast            stream to Chromecast
-      --mplayer               stream to MPlayer
-      --mpv                   stream to MPV
-      --omx [jack]            stream to omx (jack=local|hdmi)
-      --vlc                   stream to VLC
-      --xbmc                  stream to XBMC
+      --airplay               Apple TV
+      --chromecast            Chromecast
+      --mplayer               MPlayer
+      --mpv                   MPV
+      --omx [jack]            omx [default: hdmi]
+      --vlc                   VLC
+      --xbmc                  XBMC
 
   Options:
+      -o, --out [path]        set download destination [default: /tmp/webtorrent]
+      -l, --list              list files in torrent (with indexes)
+      -i, --index [index]     stream a particular file from torrent (by index)
+
       -p, --port [number]     change the http port [default: 9000]
       -b, --blocklist [path]  use the specified blocklist
       -t, --subtitles [file]  load subtitles file
-      -l, --list              list available files in torrent (with indexes)
-      -i, --index             stream a particular file from torrnet (by index)
       -n, --no-quit           do not quit webtorrent on vlc exit
       -r, --remove            remove downloaded files on exit
-      -o, --out [path]        overrides the default tmp directory 
-      -q, --quiet             silence stdout
-      -h, --help              display this help message
+
+      -q, --quiet             print nothing to stdout
       -v, --version           print the current version
 
   Please report bugs!  https://github.com/feross/webtorrent/issues
