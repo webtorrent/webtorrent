@@ -144,7 +144,7 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
   opts.client = self
   opts.storage = opts.storage || self.storage
 
-  if(opts.tmp) opts.storageOpts = { tmp: opts.tmp }; 
+  if (opts.tmp) opts.storageOpts = { tmp: opts.tmp }
 
   var torrent = new Torrent(torrentId, extend({ client: self }, opts))
   self.torrents.push(torrent)
