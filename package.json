@@ -104,8 +104,8 @@
     "build-debug": "browserify -s WebTorrent -e ./ > webtorrent.debug.js",
     "prepublish": "npm run build",
     "size": "npm run build && cat webtorrent.min.js | gzip | wc -c",
-    "start": "./bin/cmd.js",
-    "test": "npm run test-node && npm run test-browser",
+    "start": "node ./bin/cmd.js",
+    "test": "node ./bin/test.js",
     "test-browser": "zuul -- test/basic.js",
     "test-browser-local": "zuul --local -- test/basic.js",
     "test-node": "tape test/*.js"
