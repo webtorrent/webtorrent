@@ -10,20 +10,24 @@ WebTorrent is a streaming torrent client that works in node.js and the browser. 
 THAT'S RIGHT. The browser.** It's written completely in JavaScript – the language of the
 web – so the same code works in both runtimes.
 
-In browsers, WebTorrent uses **WebRTC** (data channels) for peer-to-peer transport. It can
-be used **without** browser plugins, extensions, or installations. It's Just
+In the browser, WebTorrent uses **WebRTC** (data channels) for peer-to-peer transport.
+It can be used **without** browser plugins, extensions, or installations. It's Just
 JavaScript&trade;.
 
 Simply include the `webtorrent.min.js` script on your page to start fetching files over
-WebRTC using the BitTorrent protocol. See [code examples](#usage) below.
+WebRTC using the BitTorrent protocol, or `require('webtorrent')` with
+[browserify](http://browserify.org/). See [code examples](#usage) below.
 
 To make BitTorrent work over WebRTC (which is the only p2p transport that works on the
-web) we made some protocol changes. Currently, WebTorrent clients can only connect to
-other WebTorrent clients.
+web) we made some protocol changes. Therefore, a browser-based WebTorrent client can only
+connect to other clients that support WebTorrent (and WebRTC).
 
 We hope established torrent clients (uTorrent, Transmission, Vuze, etc.) will add support
-for WebRTC and the WebTorrent extensions so they can swarm with peers from both the normal
-*and* web networks.
+for WebTorrent (and WebRTC) so they can swarm with both normal *and* web peers.
+
+In node, this module acts like a normal torrent client, using TCP and UDP to talk to
+regular torrent clients. Soon, it will gain the ability to swarm with web peers, making
+it the first "hybrid" client.
 
 ![Network](img/network.png)
 
