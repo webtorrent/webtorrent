@@ -42,8 +42,8 @@ it the first "hybrid" client.
 - **Streaming video** to many devices (including AirPlay, Chromecast, and VLC player)
 - Download **multiple torrents** simultaneously, efficiently
 - **Pure Javascript** (no native dependencies)
-- Exposes files as **streams** (and fetches pieces on-demand before torrent is finished
-  - Fetches data from the network on-demand, so streaming and seeking are supported
+- Exposes files as **streams**
+  - Fetches pieces from the network on-demand so seeking is supported (even before torrent is finished)
   - Seamlessly switches between sequential and rarest-first piece selection strategy
 - Supports advanced torrent client features
   - **magnet uri** support via **[ut_metadata](https://github.com/feross/ut_metadata)**
@@ -52,7 +52,7 @@ it the first "hybrid" client.
     **[ut_pex](https://github.com/fisch0920/ut_pex)**
   - **[protocol extension api](https://github.com/feross/bittorrent-protocol#extension-api)**
     for adding new extensions
-- **Comprehensive test suite** (completely offline, so it's reliable and fast)
+- **Comprehensive test suite** (runs completely offline, so it's reliable and fast)
 
 #### Browser-specific features
 
