@@ -71,6 +71,11 @@ it the first "hybrid" client.
 - **Donate bitcoin** if you believe in the vision and wish to support the project.
   Use **[Coinbase](https://www.coinbase.com/feross)**, or send to *1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh*. ([proof](https://keybase.io/feross))
 
+### WebTorrent in production
+
+- **[Instant](http://instant.io)** – Secure, anonymous, streaming file transfer [[code](https://github.com/feross/instant.io)]
+- Your app here! (send a PR or open an issue with your app's URL)
+
 ### Install
 
 With [npm](https://npmjs.org/), run:
@@ -82,15 +87,11 @@ npm install webtorrent
 ### Usage
 
 WebTorrent is the first BitTorrent client that works in the browser, using open web
-standards (no plugins, just HTML5 and WebRTC)!
-
-It's easy to get started!
+standards (no plugins, just HTML5 and WebRTC)! It's easy to get started!
 
 #### In the browser
 
-##### Download a file
-
-Downloading a file is simple:
+##### Downloading a file is simple:
 
 ```js
 var WebTorrent = require('webtorrent')
@@ -117,9 +118,7 @@ client.download(magnet_uri, function (torrent) {
 })
 ```
 
-##### Seed a file
-
-Seeding a file is simple, too:
+##### Seeding a file is simple, too:
 
 ```js
 var dragDrop = require('drag-drop/buffer')
@@ -187,11 +186,6 @@ There are many supported streaming options:
 ```
 
 In addition to magnet uris, webtorrent supports [many ways to specify a torrent](#clientaddtorrentid-opts-function-ontorrent-torrent-).
-
-### WebTorrent in production
-
-- **[Instant](http://instant.io)** – Secure, anonymous, streaming file transfer [[code](https://github.com/feross/instant.io)]
-- Your app here! (send a PR or open an issue with the URL to your app)
 
 ### API
 
