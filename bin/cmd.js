@@ -28,8 +28,6 @@ var argv = minimist(process.argv.slice(2), {
     t: 'subtitles',
     l: 'list',
     i: 'index',
-    n: 'no-quit',
-    r: 'remove',
     o: 'out',
     q: 'quiet',
     h: 'help',
@@ -43,8 +41,6 @@ var argv = minimist(process.argv.slice(2), {
     'vlc',
     'xbmc',
     'list',
-    'no-quit',
-    'remove',
     'quiet',
     'help',
     'version'
@@ -56,7 +52,7 @@ var argv = minimist(process.argv.slice(2), {
 
 if (argv.version) {
   console.log(require('../package.json').version)
-  process.exit(0)
+  done()
 }
 
 var torrentId = argv._[0]
@@ -95,8 +91,6 @@ if (argv.help || !torrentId) {
       -p, --port [number]     change the http port [default: 9000]
       -b, --blocklist [path]  use the specified blocklist
       -t, --subtitles [file]  load subtitles file
-      -n, --no-quit           do not quit webtorrent on vlc exit
-      -r, --remove            remove downloaded files on exit
 
       -q, --quiet             print nothing to stdout
       -v, --version           print the current version
@@ -104,7 +98,7 @@ if (argv.help || !torrentId) {
   Please report bugs!  https://github.com/feross/webtorrent/issues
 
     */}.toString().split(/\n/).slice(1, -1).join('\n'))
-  process.exit(0)
+  done()
 }
 
 if (process.env.DEBUG) {
@@ -146,7 +140,7 @@ var client = new WebTorrent({
 })
 .on('error', errorAndExit)
 
-if (argv.remove) {
+if (!argv.out) { // If no output file has been specified
   process.on('SIGINT', remove)
   process.on('SIGTERM', remove)
 }
@@ -175,7 +169,7 @@ torrent.on('infoHash', function () {
   }
 })
 
-var filename, swarm, wires, server
+var filename, swarm, wires, server, serving
 
 if (argv.list) torrent.once('ready', onReady)
 else {
@@ -183,7 +177,14 @@ else {
   server.listen(argv.port, function () {
     if (torrent.ready) onReady()
     else torrent.once('ready', onReady)
+  }).once('connection', function () {
+      serving = true
   })
+}
+function done () {
+  if (!serving) {
+    process.exit(0)
+  }
 }
 
 function onReady () {
@@ -203,7 +204,7 @@ function onReady () {
     torrent.files.forEach(function (file, i) {
       clivas.line('{3+bold:' + i + '} : {magenta:' + file.name + '}')
     })
-    process.exit(0)
+    done()
   }
 
   torrent.on('verifying', function (data) {
@@ -223,18 +224,7 @@ function onReady () {
       }, 0)
       clivas.line('torrent downloaded {green:successfully} from {bold:'+numActiveWires+'/'+torrent.swarm.wires.length+'} {green:peers} in {bold:'+getRuntime()+'s}!')
     }
-
-    if (argv.remove) {
-      remove(maybeExit)
-    } else {
-      maybeExit()
-    }
-
-    function maybeExit () {
-      if (!server) {
-        process.exit(0)
-      }
-    }
+    done()
   })
 
   var cmd, player
@@ -284,7 +274,7 @@ function onReady () {
   if (cmd) {
     player = cp.exec(cmd, errorAndExit)
       .on('exit', function () {
-        if (!argv['no-quit']) process.exit(0)
+        done()
       })
   }
 
