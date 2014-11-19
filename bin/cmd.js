@@ -40,6 +40,7 @@ var argv = minimist(process.argv.slice(2), {
     'mpv',
     'vlc',
     'xbmc',
+    'stdout',
     'list',
     'quiet',
     'help',
@@ -52,7 +53,7 @@ var argv = minimist(process.argv.slice(2), {
 
 if (argv.version) {
   console.log(require('../package.json').version)
-  done()
+  return done()
 }
 
 var torrentId = argv._[0]
@@ -82,6 +83,7 @@ if (argv.help || !torrentId) {
       --omx [jack]            omx [default: hdmi]
       --vlc                   VLC
       --xbmc                  XBMC
+      --stdout                standard out (implies --quiet)
 
   Options:
       -o, --out [path]        set download destination [default: /tmp/webtorrent]
@@ -92,16 +94,16 @@ if (argv.help || !torrentId) {
       -b, --blocklist [path]  use the specified blocklist
       -t, --subtitles [file]  load subtitles file
 
-      -q, --quiet             print nothing to stdout
+      -q, --quiet             don't show UI on stdout
       -v, --version           print the current version
 
   Please report bugs!  https://github.com/feross/webtorrent/issues
 
     */}.toString().split(/\n/).slice(1, -1).join('\n'))
-  done()
+  return done()
 }
 
-if (process.env.DEBUG) {
+if (process.env.DEBUG || argv.stdout) {
   argv.quiet = argv.q = true
 }
 
@@ -178,9 +180,10 @@ else {
     if (torrent.ready) onReady()
     else torrent.once('ready', onReady)
   }).once('connection', function () {
-      serving = true
+    serving = true
   })
 }
+
 function done () {
   if (!serving) {
     process.exit(0)
@@ -192,19 +195,11 @@ function onReady () {
   swarm = torrent.swarm
   wires = torrent.swarm.wires
 
-  // if no index specified, use largest file
-  var index = (typeof argv.index === 'number')
-    ? argv.index
-    : torrent.files.indexOf(torrent.files.reduce(function (a, b) {
-      return a.length > b.length ? a : b
-    }))
-  torrent.files[index].select()
-
   if (argv.list) {
     torrent.files.forEach(function (file, i) {
       clivas.line('{3+bold:' + i + '} : {magenta:' + file.name + '}')
     })
-    done()
+    return done()
   }
 
   torrent.on('verifying', function (data) {
@@ -228,7 +223,6 @@ function onReady () {
   })
 
   var cmd, player
-  var href = 'http://' + networkAddress() + ':' + argv.port + '/' + index
   var playerName = argv.airplay ? 'Airplay'
     : argv.chromecast ? 'Chromecast'
     : argv.xbmc ? 'XBMC'
@@ -237,6 +231,17 @@ function onReady () {
     : argv.mpv ? 'mpv'
     : argv.omx ? 'OMXPlayer'
     : null
+
+  // if no index specified, use largest file
+  var index = (typeof argv.index === 'number')
+    ? argv.index
+    : torrent.files.indexOf(torrent.files.reduce(function (a, b) {
+      return a.length > b.length ? a : b
+    }))
+  var href = 'http://' + networkAddress() + ':' + argv.port + '/' + index
+
+  if (playerName) torrent.files[index].select()
+  if (argv.stdout) torrent.files[index].createReadStream().pipe(process.stdout)
 
   if (argv.vlc && process.platform === 'win32') {
     var registry = require('windows-no-runnable').registry

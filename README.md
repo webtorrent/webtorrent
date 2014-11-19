@@ -176,13 +176,14 @@ $ webtorrent magnet_uri --airplay
 There are many supported streaming options:
 
 ```bash
-  --airplay        stream to Apple TV (AirPlay)
-  --chromecast     stream to Chromecast
-  --mplayer        stream to MPlayer
-  --mpv            stream to MPV
-  --omx [jack]     stream to omx (jack=local|hdmi)
-  --vlc            stream to VLC
-  --xbmc           stream to XBMC
+--airplay               Apple TV
+--chromecast            Chromecast
+--mplayer               MPlayer
+--mpv                   MPV
+--omx [jack]            omx [default: hdmi]
+--vlc                   VLC
+--xbmc                  XBMC
+--stdout                standard out [implies --quiet]
 ```
 
 In addition to magnet uris, webtorrent supports [many ways to specify a torrent](#clientaddtorrentid-opts-function-ontorrent-torrent-).
