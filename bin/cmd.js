@@ -47,7 +47,7 @@ var argv = minimist(process.argv.slice(2), {
     'version'
   ],
   default: {
-    port: 9000
+    port: 8000
   }
 })
 
@@ -89,7 +89,7 @@ if (argv.help || !torrentId) {
       -o, --out [path]        set download destination [default: /tmp/webtorrent]
       -l, --list              list files in torrent (with indexes)
       -i, --index [index]     stream a particular file from torrent (by index)
-      -p, --port [number]     change the http port [default: 9000]
+      -p, --port [number]     change the http port [default: 8000]
       -b, --blocklist [path]  load blocklist file/http url
       -t, --subtitles [file]  load subtitles file
       -q, --quiet             don't show UI on stdout
