@@ -258,7 +258,10 @@ function onReady () {
       var vlcPath = key.InstallDir.value + path.sep + 'vlc'
       VLC_ARGS = VLC_ARGS.split(' ')
       VLC_ARGS.unshift(href)
-      cp.execFile(vlcPath, VLC_ARGS, errorAndExit)
+      cp.execFile(vlcPath, VLC_ARGS, function (err) {
+        if (err) return errorAndExit(err)
+        done()
+      })
     }
   } else if (argv.vlc) {
     var root = '/Applications/VLC.app/Contents/MacOS/VLC'
@@ -275,10 +278,10 @@ function onReady () {
   }
 
   if (cmd) {
-    player = cp.exec(cmd, errorAndExit)
-      .on('exit', function () {
-        done()
-      })
+    player = cp.exec(cmd, function (err) {
+      if (err) return errorAndExit(err)
+      done()
+    })
   }
 
   if (argv.airplay) {
