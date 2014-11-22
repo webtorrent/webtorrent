@@ -366,6 +366,23 @@ function onReady () {
     clivas.line('{80:}')
     linesremaining -= 8
 
+    var pieces = torrent.storage.pieces
+    var piecesBar = []
+    for(var i = 0; i < pieces.length; i++) {
+      var piece = pieces[i]
+      if (piece.verified || piece.blocksWritten === 0) {
+        continue;
+      }
+      var bar = ''
+      for(var j = 0; j < piece.blocks.length; j++) {
+        bar += piece.blocks[j] ? '{green:█}' : '{red:█}';
+      }
+      clivas.line('{4+cyan:' + i + '} ' + bar);
+      linesremaining -= 1
+    }
+    clivas.line('{80:}')
+    linesremaining -= 1
+
     wires.every(function (wire) {
       var tags = []
       if (wire.peerChoking) tags.push('choked')
