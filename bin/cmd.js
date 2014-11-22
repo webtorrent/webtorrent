@@ -392,6 +392,7 @@ function onReady () {
       clivas.line(
         '{25+magenta:' + wire.remoteAddress + '} {10:'+bytes(wire.downloaded)+'} ' +
         '{10+cyan:' + bytes(wire.downloadSpeed()) + '/s} ' +
+        '{10+red:' + bytes(wire.uploadSpeed()) + '/s} ' +
         '{15+grey:' + tags.join(', ') + '}' +
         '{15+cyan:' + reqStats.join(' ') + '}'
       )
