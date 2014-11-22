@@ -384,12 +384,24 @@ function onReady () {
     linesremaining -= 1
 
     wires.every(function (wire) {
+      var progress = '?'
+      if (torrent.parsedTorrent) {
+        var bits = 0
+        var piececount = Math.ceil(torrent.parsedTorrent.length / torrent.parsedTorrent.pieceLength)
+        for(var i = 0; i < piececount; i++) {
+          if (wire.peerPieces.get(i)) {
+            bits++
+          }
+        }
+        progress = bits === piececount ? 'S' : Math.floor(100 * bits / piececount) + '%'
+      }
       var tags = []
       if (wire.peerChoking) tags.push('choked')
       var reqStats = wire.requests.map(function(req) {
           return req.piece;
       })
       clivas.line(
+        '{3:' + progress + '} ' +
         '{25+magenta:' + wire.remoteAddress + '} {10:'+bytes(wire.downloaded)+'} ' +
         '{10+cyan:' + bytes(wire.downloadSpeed()) + '/s} ' +
         '{10+red:' + bytes(wire.uploadSpeed()) + '/s} ' +
