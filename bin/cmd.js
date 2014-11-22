@@ -386,10 +386,14 @@ function onReady () {
     wires.every(function (wire) {
       var tags = []
       if (wire.peerChoking) tags.push('choked')
+      var reqStats = wire.requests.map(function(req) {
+          return req.piece;
+      })
       clivas.line(
         '{25+magenta:' + wire.remoteAddress + '} {10:'+bytes(wire.downloaded)+'} ' +
         '{10+cyan:' + bytes(wire.downloadSpeed()) + '/s} ' +
-        '{15+grey:' + tags.join(', ') + '}'
+        '{15+grey:' + tags.join(', ') + '}' +
+        '{15+cyan:' + reqStats.join(' ') + '}'
       )
       peerslisted++
       return linesremaining - peerslisted > 4
