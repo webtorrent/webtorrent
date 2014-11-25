@@ -18,7 +18,7 @@ var parseTorrent = require('parse-torrent')
 var speedometer = require('speedometer')
 var Storage = require('./lib/storage')
 var stream = require('stream')
-var Torrent = require('./lib/torrent')
+var Torrent = require('./lib/torrent-manager')
 
 inherits(WebTorrent, EventEmitter)
 
