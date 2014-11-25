@@ -13,6 +13,7 @@
   "browser": {
     "./lib/fs-storage": false,
     "./server": false,
+    "addr-to-ip-port": false,
     "bittorrent-dht/client": false,
     "bittorrent-swarm": "webtorrent-swarm",
     "concat-stream": false,
