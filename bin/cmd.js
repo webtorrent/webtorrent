@@ -366,13 +366,47 @@ function onReady () {
     clivas.line('{80:}')
     linesremaining -= 8
 
+    var pieces = torrent.storage.pieces
+    var piecesBar = []
+    for(var i = 0; i < pieces.length; i++) {
+      var piece = pieces[i]
+      if (piece.verified || piece.blocksWritten === 0) {
+        continue;
+      }
+      var bar = ''
+      for(var j = 0; j < piece.blocks.length; j++) {
+        bar += piece.blocks[j] ? '{green:█}' : '{red:█}';
+      }
+      clivas.line('{4+cyan:' + i + '} ' + bar);
+      linesremaining -= 1
+    }
+    clivas.line('{80:}')
+    linesremaining -= 1
+
     wires.every(function (wire) {
+      var progress = '?'
+      if (torrent.parsedTorrent) {
+        var bits = 0
+        var piececount = Math.ceil(torrent.parsedTorrent.length / torrent.parsedTorrent.pieceLength)
+        for(var i = 0; i < piececount; i++) {
+          if (wire.peerPieces.get(i)) {
+            bits++
+          }
+        }
+        progress = bits === piececount ? 'S' : Math.floor(100 * bits / piececount) + '%'
+      }
       var tags = []
       if (wire.peerChoking) tags.push('choked')
+      var reqStats = wire.requests.map(function(req) {
+          return req.piece;
+      })
       clivas.line(
+        '{3:' + progress + '} ' +
         '{25+magenta:' + wire.remoteAddress + '} {10:'+bytes(wire.downloaded)+'} ' +
         '{10+cyan:' + bytes(wire.downloadSpeed()) + '/s} ' +
-        '{15+grey:' + tags.join(', ') + '}'
+        '{10+red:' + bytes(wire.uploadSpeed()) + '/s} ' +
+        '{15+grey:' + tags.join(', ') + '}' +
+        '{15+cyan:' + reqStats.join(' ') + '}'
       )
       peerslisted++
       return linesremaining - peerslisted > 4
