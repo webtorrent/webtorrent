@@ -246,6 +246,7 @@ function onReady () {
       return a.length > b.length ? a : b
     }))
   var href = 'http://' + networkAddress() + ':' + argv.port + '/' + index
+  var localHref = 'http://localhost:' + argv.port + '/' + index
 
   if (playerName) torrent.files[index].select()
   if (argv.stdout) torrent.files[index].createReadStream().pipe(process.stdout)
@@ -266,7 +267,7 @@ function onReady () {
     if (key) {
       var vlcPath = key.InstallDir.value + path.sep + 'vlc'
       VLC_ARGS = VLC_ARGS.split(' ')
-      VLC_ARGS.unshift(href)
+      VLC_ARGS.unshift(localHref)
       cp.execFile(vlcPath, VLC_ARGS, function (err) {
         if (err) return errorAndExit(err)
         done()
@@ -275,15 +276,15 @@ function onReady () {
   } else if (argv.vlc) {
     var root = '/Applications/VLC.app/Contents/MacOS/VLC'
     var home = (process.env.HOME || '') + root
-    cmd = 'vlc ' + href + ' ' + VLC_ARGS + ' || ' +
-      root + ' ' + href + ' ' + VLC_ARGS + ' || ' +
-      home + ' ' + href + ' ' + VLC_ARGS
+    cmd = 'vlc ' + localHref + ' ' + VLC_ARGS + ' || ' +
+      root + ' ' + localHref + ' ' + VLC_ARGS + ' || ' +
+      home + ' ' + localHref + ' ' + VLC_ARGS
   } else if (argv.mplayer) {
-    cmd = MPLAYER_EXEC + ' ' + href
+    cmd = MPLAYER_EXEC + ' ' + localHref
   } else if (argv.mpv) {
-    cmd = MPV_EXEC + ' ' + href
+    cmd = MPV_EXEC + ' ' + localHref
   } else if (argv.omx) {
-    cmd = OMX_EXEC + ' ' + href
+    cmd = OMX_EXEC + ' ' + localHref
   }
 
   if (cmd) {
@@ -372,7 +373,6 @@ function onReady () {
     linesremaining -= 8
 
     var pieces = torrent.storage.pieces
-    var piecesBar = []
     for(var i = 0; i < pieces.length; i++) {
       var piece = pieces[i]
       if (piece.verified || piece.blocksWritten === 0) {
