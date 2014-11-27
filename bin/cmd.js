@@ -195,7 +195,7 @@ function onReady () {
 
   if (argv.list) {
     torrent.files.forEach(function (file, i) {
-      clivas.line('{3+bold:' + i + '} : {magenta:' + file.name + '}')
+      clivas.line('{3+bold:'+i+'} : {magenta:'+file.name+'} {blue:('+bytes(file.length)+')}')
     })
     return done()
   }
@@ -215,7 +215,11 @@ function onReady () {
       var numActiveWires = torrent.swarm.wires.reduce(function (num, wire) {
         return num + (wire.downloaded > 0)
       }, 0)
-      clivas.line('torrent downloaded {green:successfully} from {bold:'+numActiveWires+'/'+torrent.swarm.wires.length+'} {green:peers} in {bold:'+getRuntime()+'s}!')
+      clivas.line(
+        'torrent downloaded {green:successfully} from ' +
+        '{bold:'+numActiveWires+'/'+torrent.swarm.wires.length+'} {green:peers} ' +
+        'in {bold:'+getRuntime()+'s}!'
+      )
     }
     done()
   })
@@ -328,10 +332,6 @@ function onReady () {
     return !wire.peerChoking
   }
 
-  function bytes (num) {
-    return prettysize(num)
-  }
-
   function draw () {
     var unchoked = wires.filter(active)
     var linesremaining = clivas.height
@@ -421,4 +421,8 @@ function onReady () {
     clivas.line('{80:}')
     clivas.flush(true)
   }
+}
+
+function bytes (num) {
+  return prettysize(num)
 }
