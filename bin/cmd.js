@@ -145,10 +145,15 @@ if (!argv.out) { // If no output file has been specified
   process.on('SIGTERM', remove)
 }
 
-function remove (cb) {
+function remove () {
   process.removeListener('SIGINT', remove)
   process.removeListener('SIGTERM', remove)
-  client.destroy(cb)
+
+  // destroying can take a while, so print a message to the user
+  clivas.line('')
+  clivas.line('{green:webtorrent is exiting...}')
+
+  client.destroy(process.exit)
 }
 
 var torrent = client.add(torrentId, (argv.out ? { tmp: argv.out } : {}))
