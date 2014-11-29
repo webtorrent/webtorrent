@@ -194,6 +194,7 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
     onseed = opts
     opts = {}
   }
+  if (!opts) opts = {}
 
   // TODO: support `input` as string, or array of strings
 
