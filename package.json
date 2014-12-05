@@ -51,7 +51,7 @@
     "network-address": "0.0.5",
     "once": "^1.3.1",
     "parse-torrent": "^2.1.0",
-    "prettysize": "0.0.3",
+    "pretty-bytes": "^1.0.1",
     "pump": "^1.0.0",
     "random-access-file": "^0.3.1",
     "range-parser": "^1.0.2",

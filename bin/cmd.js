@@ -7,7 +7,7 @@ var minimist = require('minimist')
 var moment = require('moment')
 var networkAddress = require('network-address')
 var path = require('path')
-var prettysize = require('prettysize')
+var prettyBytes = require('pretty-bytes')
 var WebTorrent = require('../')
 
 process.title = 'WebTorrent'
@@ -200,7 +200,7 @@ function onReady () {
 
   if (argv.list) {
     torrent.files.forEach(function (file, i) {
-      clivas.line('{3+bold:'+i+'} : {magenta:'+file.name+'} {blue:('+bytes(file.length)+')}')
+      clivas.line('{3+bold:'+i+'} : {magenta:'+file.name+'} {blue:('+prettyBytes(file.length)+')}')
     })
     return done()
   }
@@ -356,10 +356,10 @@ function onReady () {
     clivas.line('')
     clivas.line('{green:downloading:} {bold:' + filename + '}')
     clivas.line(
-      '{green:speed: }{bold:' + bytes(speed) + '/s}  ' +
-      '{green:downloaded:} {bold:' + bytes(swarm.downloaded) + '}' +
-      '/{bold:' + bytes(torrent.length) + '}  ' +
-      '{green:uploaded:} {bold:' + bytes(swarm.uploaded) + '}  ' +
+      '{green:speed: }{bold:' + prettyBytes(speed) + '/s}  ' +
+      '{green:downloaded:} {bold:' + prettyBytes(swarm.downloaded) + '}' +
+      '/{bold:' + prettyBytes(torrent.length) + '}  ' +
+      '{green:uploaded:} {bold:' + prettyBytes(swarm.uploaded) + '}  ' +
       '{green:peers:} {bold:' + unchoked.length + '/' + wires.length + '}  ' +
       '{green:hotswaps:} {bold:' + hotswaps + '}'
     )
@@ -407,9 +407,9 @@ function onReady () {
       })
       clivas.line(
         '{3:' + progress + '} ' +
-        '{25+magenta:' + wire.remoteAddress + '} {10:'+bytes(wire.downloaded)+'} ' +
-        '{10+cyan:' + bytes(wire.downloadSpeed()) + '/s} ' +
-        '{10+red:' + bytes(wire.uploadSpeed()) + '/s} ' +
+        '{25+magenta:' + wire.remoteAddress + '} {10:'+prettyBytes(wire.downloaded)+'} ' +
+        '{10+cyan:' + prettyBytes(wire.downloadSpeed()) + '/s} ' +
+        '{10+red:' + prettyBytes(wire.uploadSpeed()) + '/s} ' +
         '{15+grey:' + tags.join(', ') + '}' +
         '{15+cyan:' + reqStats.join(' ') + '}'
       )
@@ -426,8 +426,4 @@ function onReady () {
     clivas.line('{80:}')
     clivas.flush(true)
   }
-}
-
-function bytes (num) {
-  return prettysize(num)
 }
