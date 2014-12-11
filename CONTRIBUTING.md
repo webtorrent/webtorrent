@@ -10,10 +10,10 @@ There are a few basic ground-rules for contributors:
 
 1. **No `--force` pushes** or modifying the Git history in any way.
 1. **Non-master branches** ought to be used for ongoing work.
-1. **External API changes and significant modifications** ought to be subject to an **internal pull-request** to solicit feedback from other contributors.
-1. Internal pull-requests to solicit feedback are *encouraged* for any other non-trivial contribution but left to the discretion of the contributor.
-1. Contributors should attempt to adhere to the prevailing code-style.
-1. Run npm test locally before submitting your PR, to catch any easy to miss style & testing issues
+1. **Breaking API changes and significant modifications** should be subject to a **pull request** to solicit feedback from other contributors.
+1. Pull requests to solicit feedback are *encouraged* for any other non-trivial contribution but left to the discretion of the contributor.
+1. Contributors should attempt to adhere to the prevailing code style.
+1. Run `npm test` locally before submitting your PR to catch easy-to-miss style & testing issues
 
 ## Releases
 
@@ -21,6 +21,6 @@ Declaring formal releases remains the prerogative of the project maintainer.
 
 ## Changes to this arrangement
 
-This is an experiment and feedback is welcome! This document may also be subject to pull requests or changes by contributors where you believe you have something valuable to add or change.
+This is an experiment and feedback is welcome! This document is subject to pull requests or changes by contributors where you believe you have something valuable to add or change.
 
-Thanks to [Rod Vagg](https://github.com/rvagg) and the [LevelUP](https://github.com/rvagg/node-levelup) project for coming up with this model for open source contribution.
+*Thanks to [Rod Vagg](https://github.com/rvagg) and the [LevelUP](https://github.com/rvagg/node-levelup) project for coming up with this model for open source contribution.*
