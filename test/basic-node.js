@@ -21,7 +21,7 @@ test('client.add (http url to a torrent file (string))', function (t) {
     if (err) throw err
     server.listen(port, function () {
       var url = 'http://127.0.0.1:' + port
-      var client = new WebTorrent({ dht: false, trackers: false })
+      var client = new WebTorrent({ dht: false, tracker: false })
       client.add(url, function (torrent) {
         t.equal(torrent.infoHash, leavesTorrent.infoHash)
         client.destroy()
@@ -34,7 +34,7 @@ test('client.add (http url to a torrent file (string))', function (t) {
 test('client.add (filesystem path to a torrent file (string))', function (t) {
   t.plan(1)
 
-  var client = new WebTorrent({ dht: false, trackers: false })
+  var client = new WebTorrent({ dht: false, tracker: false })
   client.add(leavesPath, function (torrent) {
     t.equal(torrent.infoHash, leavesTorrent.infoHash)
     client.destroy()
@@ -44,7 +44,7 @@ test('client.add (filesystem path to a torrent file (string))', function (t) {
 test('client.seed (filesystem path to file (string))', function (t) {
   t.plan(1)
 
-  var client = new WebTorrent({ dht: false, trackers: false })
+  var client = new WebTorrent({ dht: false, tracker: false })
   client.seed(leavesBookPath, function (torrent) {
     t.equal(torrent.infoHash, leavesTorrent.infoHash)
     client.destroy()

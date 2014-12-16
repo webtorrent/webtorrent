@@ -36,7 +36,7 @@ function WebTorrent (opts) {
   if (!debug.enabled) self.setMaxListeners(0)
 
   self.torrentPort = opts.torrentPort || 0
-  self.tracker = (opts.tracker !== undefined) ? opts.tracker : true
+  self.tracker = opts.tracker !== undefined ? opts.tracker : true
   self.torrents = []
 
   self.downloadSpeed = speedometer()

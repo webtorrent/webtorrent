@@ -16,23 +16,23 @@ test('client.add (magnet uri, torrent file, info hash, and parsed torrent)', fun
   t.plan(5)
 
   // magnet uri (utf8 string)
-  var client1 = new WebTorrent({ dht: false, trackers: false })
+  var client1 = new WebTorrent({ dht: false, tracker: false })
   verify(t, client1, client1.add('magnet:?xt=urn:btih:' + leavesTorrent.infoHash))
 
   // torrent file (buffer)
-  var client2 = new WebTorrent({ dht: false, trackers: false })
+  var client2 = new WebTorrent({ dht: false, tracker: false })
   verify(t, client2, client2.add(leaves))
 
   // info hash (hex string)
-  var client3 = new WebTorrent({ dht: false, trackers: false })
+  var client3 = new WebTorrent({ dht: false, tracker: false })
   verify(t, client3, client3.add(leavesTorrent.infoHash))
 
   // info hash (buffer)
-  var client4 = new WebTorrent({ dht: false, trackers: false })
+  var client4 = new WebTorrent({ dht: false, tracker: false })
   verify(t, client4, client4.add(new Buffer(leavesTorrent.infoHash, 'hex')))
 
   // parsed torrent (from parse-torrent)
-  var client5 = new WebTorrent({ dht: false, trackers: false })
+  var client5 = new WebTorrent({ dht: false, tracker: false })
   verify(t, client5, client5.add(leavesTorrent))
 })
 
@@ -44,15 +44,15 @@ test('client.seed (Buffer, Blob)', function (t) {
   }
 
   // torrent file (Buffer)
-  var client1 = new WebTorrent({ dht: false, trackers: false })
+  var client1 = new WebTorrent({ dht: false, tracker: false })
   client1.seed(leavesBook, opts, function (torrent) {
     verify(t, client1, torrent)
   })
 
   // Blob
   if (typeof Blob !== 'undefined') {
-    var client2 = new WebTorrent({ dht: false, trackers: false })
     client2.seed(new Blob([ leavesBook ]), opts, function (torrent) {
+    var client2 = new WebTorrent({ dht: false, tracker: false })
       verify(t, client2, torrent)
     })
   } else {
