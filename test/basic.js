@@ -5,6 +5,7 @@ var test = require('tape')
 
 var leaves = fs.readFileSync(__dirname + '/torrents/leaves.torrent')
 var leavesTorrent = parseTorrent(leaves)
+var leavesBook = fs.readFileSync(__dirname + '/content/Leaves of Grass by Walt Whitman.epub')
 
 function verify (t, client, torrent) {
   t.equal(torrent.infoHash, leavesTorrent.infoHash)
@@ -33,5 +34,28 @@ test('client.add (magnet uri, torrent file, info hash, and parsed torrent)', fun
   // parsed torrent (from parse-torrent)
   var client5 = new WebTorrent({ dht: false, trackers: false })
   verify(t, client5, client5.add(leavesTorrent))
+})
 
+test('client.seed (Buffer, Blob)', function (t) {
+  t.plan(2)
+
+  var opts = {
+    name: 'Leaves of Grass by Walt Whitman.epub'
+  }
+
+  // torrent file (Buffer)
+  var client1 = new WebTorrent({ dht: false, trackers: false })
+  client1.seed(leavesBook, opts, function (torrent) {
+    verify(t, client1, torrent)
+  })
+
+  // Blob
+  if (typeof Blob !== 'undefined') {
+    var client2 = new WebTorrent({ dht: false, trackers: false })
+    client2.seed(new Blob([ leavesBook ]), opts, function (torrent) {
+      verify(t, client2, torrent)
+    })
+  } else {
+    t.pass('Skipping Blob test because missing `Blob` constructor')
+  }
 })

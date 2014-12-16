@@ -7,7 +7,7 @@ var parseTorrent = require('parse-torrent')
 var test = require('tape')
 var TrackerServer = require('bittorrent-tracker/server')
 
-var leavesFile = __dirname + '/torrents/Leaves of Grass by Walt Whitman.epub'
+var leavesFile = __dirname + '/content/Leaves of Grass by Walt Whitman.epub'
 var leavesTorrent = fs.readFileSync(__dirname + '/torrents/leaves.torrent')
 var leavesParsed = parseTorrent(leavesTorrent)
 

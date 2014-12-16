@@ -5,7 +5,7 @@ var portfinder = require('portfinder')
 var test = require('tape')
 var WebTorrent = require('../')
 
-var leavesFile = __dirname + '/torrents/Leaves of Grass by Walt Whitman.epub'
+var leavesFile = __dirname + '/content/Leaves of Grass by Walt Whitman.epub'
 var leavesTorrent = fs.readFileSync(__dirname + '/torrents/leaves.torrent')
 
 test('start http server programmatically', function (t) {

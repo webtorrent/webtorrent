@@ -8,11 +8,7 @@ var test = require('tape')
 var leavesPath = __dirname + '/torrents/leaves.torrent'
 var leaves = fs.readFileSync(leavesPath)
 var leavesTorrent = parseTorrent(leaves)
-
-function verify (t, client, torrent) {
-  t.equal(torrent.infoHash, leavesTorrent.infoHash)
-  client.destroy()
-}
+var leavesBookPath = __dirname + '/content/Leaves of Grass by Walt Whitman.epub'
 
 test('client.add (http url to a torrent file (string))', function (t) {
   t.plan(1)
@@ -25,9 +21,10 @@ test('client.add (http url to a torrent file (string))', function (t) {
     if (err) throw err
     server.listen(port, function () {
       var url = 'http://127.0.0.1:' + port
-      var client1 = new WebTorrent({ dht: false, trackers: false })
-      client1.add(url, function (torrent) {
-        verify(t, client1, torrent)
+      var client = new WebTorrent({ dht: false, trackers: false })
+      client.add(url, function (torrent) {
+        t.equal(torrent.infoHash, leavesTorrent.infoHash)
+        client.destroy()
         server.close()
       })
     })
@@ -37,8 +34,19 @@ test('client.add (http url to a torrent file (string))', function (t) {
 test('client.add (filesystem path to a torrent file (string))', function (t) {
   t.plan(1)
 
-  var client1 = new WebTorrent({ dht: false, trackers: false })
-  client1.add(leavesPath, function (torrent) {
-    verify(t, client1, torrent)
+  var client = new WebTorrent({ dht: false, trackers: false })
+  client.add(leavesPath, function (torrent) {
+    t.equal(torrent.infoHash, leavesTorrent.infoHash)
+    client.destroy()
+  })
+})
+
+test('client.seed (filesystem path to file (string))', function (t) {
+  t.plan(1)
+
+  var client = new WebTorrent({ dht: false, trackers: false })
+  client.seed(leavesBookPath, function (torrent) {
+    t.equal(torrent.infoHash, leavesTorrent.infoHash)
+    client.destroy()
   })
 })
