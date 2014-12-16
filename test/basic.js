@@ -51,8 +51,14 @@ test('client.seed (Buffer, Blob)', function (t) {
 
   // Blob
   if (typeof Blob !== 'undefined') {
-    client2.seed(new Blob([ leavesBook ]), opts, function (torrent) {
     var client2 = new WebTorrent({ dht: false, tracker: false })
+    var blob = new Blob([ leavesBook ])
+
+    // TODO: just pass name in the opts object – this should work
+    //       Doing it this way until we use the create-torrent code to process inputs
+    //       in client.seed
+    blob.name = opts.name
+    client2.seed(blob, function (torrent) {
       verify(t, client2, torrent)
     })
   } else {
