@@ -9,15 +9,17 @@ var DHT = require('bittorrent-dht/client') // browser exclude
 var EventEmitter = require('events').EventEmitter
 var extend = require('extend.js')
 var FileReadStream = require('filestream/read')
-var FSStorage = require('./lib/fs-storage') // browser exclude
+var fs = require('fs')
 var hat = require('hat')
 var inherits = require('inherits')
 var loadIPSet = require('load-ip-set') // browser exclude
 var parallel = require('run-parallel')
 var parseTorrent = require('parse-torrent')
 var speedometer = require('speedometer')
-var Storage = require('./lib/storage')
 var stream = require('stream')
+
+var FSStorage = require('./lib/fs-storage') // browser exclude
+var Storage = require('./lib/storage')
 var Torrent = require('./lib/torrent')
 
 inherits(WebTorrent, EventEmitter)
@@ -196,45 +198,49 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
   }
   if (!opts) opts = {}
 
-  // TODO: support `input` as string, or array of strings
+  // TODO: support an array of paths
+  // TODO: support path to folder (currently, only path to file supported)
 
   if (typeof FileList !== 'undefined' && input instanceof FileList)
     input = Array.prototype.slice.call(input)
 
-  if (isBlob(input) || Buffer.isBuffer(input)) {
+  if (isBlob(input) || Buffer.isBuffer(input))
     input = [ input ]
+
+  var streams
+  if (Array.isArray(input) && input.length > 0) {
+    streams = input.map(function (item) {
+      if (isBlob(item)) return new FileReadStream(item)
+      else if (Buffer.isBuffer(item)) {
+        var s = new stream.PassThrough()
+        s.end(item)
+        return s
+      } else {
+        throw new Error('Array must contain only File|Blob|Buffer objects')
+      }
+    })
+  } else if (typeof input === 'string') {
+    streams = [ fs.createReadStream(input) ]
+  } else {
+    throw new Error('invalid input type')
   }
 
-  var streams = input.map(function (item) {
-    if (isBlob(item)) return new FileReadStream(item)
-    else if (Buffer.isBuffer(item)) {
-      var s = new stream.PassThrough()
-      s.end(item)
-      return s
-    } else throw new Error('unsupported input type to `seed`')
-  })
-
-  var torrent
   createTorrent(input, opts, function (err, torrentBuf) {
     if (err) return self.emit('error', err)
-    self.add(torrentBuf, opts, function (_torrent) {
-      torrent = _torrent
-      torrent.storage.load(
-        streams,
-        function (err) {
-          if (err) return self.emit('error', err)
-          self.emit('seed', torrent)
-        })
+    self.add(torrentBuf, opts, function (torrent) {
+      var tasks = [function (cb) {
+        torrent.storage.load(streams, cb)
+      }]
+      if (self.dht) tasks.push(function (cb) {
+        torrent.on('dhtAnnounce', cb)
+      })
+      parallel(tasks, function (err) {
+        if (err) return self.emit('error', err)
+        if (onseed) onseed(torrent)
+        self.emit('seed', torrent)
+      })
     })
   })
-
-  function clientOnSeed (_torrent) {
-    if (torrent.infoHash === _torrent.infoHash) {
-      onseed(torrent)
-      self.removeListener('seed', clientOnSeed)
-    }
-  }
-  if (onseed) self.on('seed', clientOnSeed)
 }
 
 /**
