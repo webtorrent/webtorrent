@@ -51,7 +51,7 @@ function WebTorrent (opts) {
   self.peerId = opts.peerId === undefined
     ? new Buffer('-WW0001-' + hat(48), 'utf8')
     : typeof opts.peerId === 'string'
-      ? new Buffer(opts.peerId, 'utf8')
+      ? new Buffer(opts.peerId, 'hex')
       : opts.peerId
   self.peerIdHex = self.peerId.toString('hex')
 
