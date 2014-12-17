@@ -1,13 +1,12 @@
 var auto = require('run-auto')
 var WebTorrent = require('../')
-var BlockStream = require('block-stream')
 var DHT = require('bittorrent-dht/client')
 var fs = require('fs')
 var parseTorrent = require('parse-torrent')
 var test = require('tape')
 var TrackerServer = require('bittorrent-tracker/server')
 
-var leavesFile = __dirname + '/torrents/Leaves of Grass by Walt Whitman.epub'
+var leavesFile = __dirname + '/content/Leaves of Grass by Walt Whitman.epub'
 var leavesTorrent = fs.readFileSync(__dirname + '/torrents/leaves.torrent')
 var leavesParsed = parseTorrent(leavesTorrent)
 
@@ -212,7 +211,7 @@ test('Simple download using DHT', function (t) {
     },
     client1: ['dhtPort', function (cb, r) {
       var client1 = new WebTorrent({
-        trackers: false,
+        tracker: false,
         dht: { bootstrap: '127.0.0.1:' + r.dhtPort }
       })
       client1.on('error', function (err) { t.fail(err) })
@@ -245,7 +244,7 @@ test('Simple download using DHT', function (t) {
 
     client2: ['client1', function (cb, r) {
       var client2 = new WebTorrent({
-        trackers: false,
+        tracker: false,
         dht: { bootstrap: '127.0.0.1:' + r.dhtPort }
       })
       client2.on('error', function (err) { t.fail(err) })

@@ -1,14 +1,17 @@
 # ![WebTorrent](img/wordmark.png)
+
+### Streaming torrent client for node & the browser
+
 [![Build Status][webtorrent-ti]][webtorrent-tu]
 [![NPM Version][webtorrent-ni]][webtorrent-nu]
 [![NPM Downloads][webtorrent-downloads-image]][webtorrent-downloads-url]
 [![Gratipay][webtorrent-gratipay-image]][webtorrent-gratipay-url]
 
-### WebTorrent – Streaming torrent client for node & the browser
+[![Sauce Test Status][webtorrent-sauce-image]][webtorrent-sauce-url]
 
-WebTorrent is a streaming torrent client that works in node.js and the browser. **YEP,
-THAT'S RIGHT. The browser.** It's written completely in JavaScript – the language of the
-web – so the same code works in both runtimes.
+**WebTorrent** is a streaming torrent client for **node.js** and the **browser**. YEP,
+THAT'S RIGHT. THE BROWSER. It's written completely in JavaScript – the language of the web
+– so the same code works in both runtimes.
 
 In the browser, WebTorrent uses **WebRTC** (data channels) for peer-to-peer transport.
 It can be used **without** browser plugins, extensions, or installations. It's Just
@@ -32,8 +35,6 @@ it the first "hybrid" client.
 ![Network](img/network.png)
 
 > Warning: This is pre-alpha software. **Watch/star to follow along with progress.**
-
-[![Sauce Test Status][webtorrent-sauce-image]][webtorrent-sauce-url]
 
 ### Features
 
