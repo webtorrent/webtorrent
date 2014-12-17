@@ -63,7 +63,7 @@ test('client.seed (filesystem path to folder (string))', function (t) {
     private: false      // also force `private: false` to match transmission
   }
 
-  var client = new WebTorrent({ dht: false, trackers: false })
+  var client = new WebTorrent({ dht: false, tracker: false })
   client.seed(numbersPath, opts, function (torrent) {
     t.equal(torrent.infoHash, '80562f38656b385ea78959010e51a2cc9db41ea0')
     client.destroy()
