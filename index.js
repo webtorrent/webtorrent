@@ -186,7 +186,7 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
  *   - W3C FileList object (basically an array of `File` objects)
  *   - Array of `File` objects
  *
- * @param  {string|File|FileList|Blob|Buffer|Array.<File|Blob|Buffer>} input
+ * @param  {string|File|FileList|Buffer|Array.<File|Buffer>} input
  * @param  {Object} opts
  * @param  {function} onseed
  */
@@ -199,45 +199,26 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
   if (!opts) opts = {}
 
   // TODO: support an array of paths
-  // TODO: support path to folder (currently, only path to file supported)
 
-  if (typeof FileList !== 'undefined' && input instanceof FileList)
-    input = Array.prototype.slice.call(input)
-
-  if (isBlob(input) || Buffer.isBuffer(input))
-    input = [ input ]
-
-  var streams
-  if (Array.isArray(input) && input.length > 0) {
-    streams = input.map(function (item) {
-      if (isBlob(item)) return new FileReadStream(item)
-      else if (Buffer.isBuffer(item)) {
-        var s = new stream.PassThrough()
-        s.end(item)
-        return s
-      } else {
-        throw new Error('Array must contain only File|Blob|Buffer objects')
-      }
-    })
-  } else if (typeof input === 'string') {
-    streams = [ fs.createReadStream(input) ]
-  } else {
-    throw new Error('invalid input type')
-  }
-
-  createTorrent(input, opts, function (err, torrentBuf) {
+  createTorrent.parseInput(input, opts, function (err, files) {
     if (err) return self.emit('error', err)
-    self.add(torrentBuf, opts, function (torrent) {
-      var tasks = [function (cb) {
-        torrent.storage.load(streams, cb)
-      }]
-      if (self.dht) tasks.push(function (cb) {
-        torrent.on('dhtAnnounce', cb)
-      })
-      parallel(tasks, function (err) {
-        if (err) return self.emit('error', err)
-        if (onseed) onseed(torrent)
-        self.emit('seed', torrent)
+    var streams = files.map(function (file) { return file.getStream })
+
+    createTorrent(input, opts, function (err, torrentBuf) {
+      if (err) return self.emit('error', err)
+
+      self.add(torrentBuf, opts, function (torrent) {
+        var tasks = [function (cb) {
+          torrent.storage.load(streams, cb)
+        }]
+        if (self.dht) tasks.push(function (cb) {
+          torrent.on('dhtAnnounce', cb)
+        })
+        parallel(tasks, function (err) {
+          if (err) return self.emit('error', err)
+          if (onseed) onseed(torrent)
+          self.emit('seed', torrent)
+        })
       })
     })
   })
