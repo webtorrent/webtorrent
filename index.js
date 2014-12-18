@@ -17,12 +17,22 @@ var parallel = require('run-parallel')
 var parseTorrent = require('parse-torrent')
 var speedometer = require('speedometer')
 var stream = require('stream')
+var zeroFill = require('zero-fill')
 
 var FSStorage = require('./lib/fs-storage') // browser exclude
 var Storage = require('./lib/storage')
 var Torrent = require('./lib/torrent')
 
 inherits(WebTorrent, EventEmitter)
+
+/**
+ * BitTorrent client version string (used in peer ID).
+ * Generated from package.json major and minor version. For example:
+ *   '0.16.1' -> '0016'
+ *   '1.2.5' -> '0102'
+ */
+var VERSION = (require('./package.json').version || '__VERSION__')
+  .match(/([0-9]+)/g).slice(0, 2).map(zeroFill(2)).join('')
 
 /**
  * WebTorrent Client
@@ -49,7 +59,7 @@ function WebTorrent (opts) {
       : Storage
 
   self.peerId = opts.peerId === undefined
-    ? new Buffer('-WW0001-' + hat(48), 'utf8')
+    ? new Buffer('-WW' + VERSION + '-' + hat(48), 'utf8')
     : typeof opts.peerId === 'string'
       ? new Buffer(opts.peerId, 'utf8')
       : opts.peerId

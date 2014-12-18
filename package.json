@@ -13,6 +13,7 @@
   "browser": {
     "./lib/fs-storage": false,
     "./server": false,
+    "./package.json": false,
     "addr-to-ip-port": false,
     "bittorrent-dht/client": false,
     "bittorrent-swarm": "webtorrent-swarm",
@@ -20,6 +21,11 @@
     "http-https": false,
     "load-ip-set": false,
     "ut_pex": false
+  },
+  "browserify": {
+    "transform": [
+      "browserify-versionify"
+    ]
   },
   "bugs": {
     "url": "https://github.com/feross/webtorrent/issues"
@@ -64,23 +70,20 @@
     "ut_metadata": "^2.1.0",
     "ut_pex": "^1.0.1",
     "webtorrent-swarm": "^0.3.0",
-    "windows-no-runnable": "~0.0.6"
+    "windows-no-runnable": "~0.0.6",
+    "zero-fill": "^2.1.0"
   },
   "devDependencies": {
     "bittorrent-tracker": "^2.5.0",
     "brfs": "^1.2.0",
-    "browserify": "^6.1.0",
+    "browserify": "^7.0.0",
+    "browserify-versionify": "^1.0.2",
     "portfinder": "^0.2.1",
     "run-auto": "^1.0.0",
     "tape": "^3.0.3",
     "uglify-js": "^2.4.15",
     "zelda": "^2.0.0",
     "zuul": "^1.11.1"
-  },
-  "optionalDependencies": {
-    "airplay-js": "^0.2.3",
-    "chromecast-js": "^0.1.4",
-    "nodebmc": "0.0.5"
   },
   "homepage": "http://webtorrent.io",
   "keywords": [
@@ -96,6 +99,11 @@
   ],
   "license": "MIT",
   "main": "index.js",
+  "optionalDependencies": {
+    "airplay-js": "^0.2.3",
+    "chromecast-js": "^0.1.4",
+    "nodebmc": "0.0.5"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/feross/webtorrent.git"
