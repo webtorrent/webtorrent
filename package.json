@@ -42,7 +42,7 @@
     "debug": "^2.1.0",
     "dezalgo": "^1.0.1",
     "end-of-stream": "^1.0.0",
-    "extend.js": "^0.0.1",
+    "extend.js": "^0.0.2",
     "filestream": "^2.1.0",
     "git-sha1": "^0.1.2",
     "hat": "0.0.3",
