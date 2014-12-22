@@ -78,7 +78,7 @@
     "brfs": "^1.2.0",
     "browserify": "^7.0.0",
     "browserify-versionify": "^1.0.2",
-    "portfinder": "^0.2.1",
+    "portfinder": "^0.3.0",
     "run-auto": "^1.0.0",
     "tape": "^3.0.3",
     "uglify-js": "^2.4.15",
