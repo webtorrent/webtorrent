@@ -34,7 +34,7 @@
     "addr-to-ip-port": "^1.0.1",
     "bitfield": "^1.0.2",
     "bittorrent-dht": "^2.6.2",
-    "bittorrent-swarm": "0.x",
+    "bittorrent-swarm": "^1.0.0",
     "block-stream": "0.0.7",
     "clivas": "^0.1.4",
     "concat-stream": "^1.4.6",
