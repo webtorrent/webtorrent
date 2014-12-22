@@ -7,7 +7,7 @@ var runBrowserTests = !process.env.TRAVIS_PULL_REQUEST ||
 
 var node = cp.spawn('npm', ['run', 'test-node'], { stdio: 'inherit' })
 node.on('close', function (code) {
-  if (runBrowserTests) {
+  if (code === 0 && runBrowserTests) {
     var browser = cp.spawn('npm', ['run', 'test-browser'], { stdio: 'inherit' })
     browser.on('close', function (code) {
       process.exit(code)
