@@ -131,15 +131,6 @@ WebTorrent.prototype.get = function (torrentId) {
 
 /**
  * Start downloading a new torrent. Aliased as `client.download`.
- *
- * `torrentId` can be one of:
- *   - magnet uri (utf8 string)
- *   - torrent file (buffer)
- *   - info hash (hex string or buffer)
- *   - parsed torrent (from [parse-torrent](https://github.com/feross/parse-torrent))
- *   - http/https url to a torrent file (string)
- *   - filesystem path to a torrent file (string)
- *
  * @param {string|Buffer|Object} torrentId
  * @param {Object} opts torrent-specific options
  * @param {function=} ontorrent called when the torrent is ready (has metadata)
@@ -189,14 +180,7 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
 
 /**
  * Start seeding a new torrent.
- *
- * `input` can be any of the following:
- *   - path to the file or folder on filesystem (string)
- *   - W3C File object (from an `<input>` or drag and drop)
- *   - W3C FileList object (basically an array of `File` objects)
- *   - Array of `File` objects
- *
- * @param  {string|File|FileList|Blob|Buffer|Array.<File|Blob|Buffer>} input
+ * @param  {string|File|FileList|Buffer|Array.<File|Buffer>} input
  * @param  {Object} opts
  * @param  {function} onseed
  */
@@ -209,45 +193,26 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
   if (!opts) opts = {}
 
   // TODO: support an array of paths
-  // TODO: support path to folder (currently, only path to file supported)
 
-  if (typeof FileList !== 'undefined' && input instanceof FileList)
-    input = Array.prototype.slice.call(input)
-
-  if (isBlob(input) || Buffer.isBuffer(input))
-    input = [ input ]
-
-  var streams
-  if (Array.isArray(input) && input.length > 0) {
-    streams = input.map(function (item) {
-      if (isBlob(item)) return new FileReadStream(item)
-      else if (Buffer.isBuffer(item)) {
-        var s = new stream.PassThrough()
-        s.end(item)
-        return s
-      } else {
-        throw new Error('Array must contain only File|Blob|Buffer objects')
-      }
-    })
-  } else if (typeof input === 'string') {
-    streams = [ fs.createReadStream(input) ]
-  } else {
-    throw new Error('invalid input type')
-  }
-
-  createTorrent(input, opts, function (err, torrentBuf) {
+  createTorrent.parseInput(input, opts, function (err, files) {
     if (err) return self.emit('error', err)
-    self.add(torrentBuf, opts, function (torrent) {
-      var tasks = [function (cb) {
-        torrent.storage.load(streams, cb)
-      }]
-      if (self.dht) tasks.push(function (cb) {
-        torrent.on('dhtAnnounce', cb)
-      })
-      parallel(tasks, function (err) {
-        if (err) return self.emit('error', err)
-        if (onseed) onseed(torrent)
-        self.emit('seed', torrent)
+    var streams = files.map(function (file) { return file.getStream })
+
+    createTorrent(input, opts, function (err, torrentBuf) {
+      if (err) return self.emit('error', err)
+
+      self.add(torrentBuf, opts, function (torrent) {
+        var tasks = [function (cb) {
+          torrent.storage.load(streams, cb)
+        }]
+        if (self.dht) tasks.push(function (cb) {
+          torrent.on('dhtAnnounce', cb)
+        })
+        parallel(tasks, function (err) {
+          if (err) return self.emit('error', err)
+          if (onseed) onseed(torrent)
+          self.emit('seed', torrent)
+        })
       })
     })
   })
@@ -255,7 +220,6 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
 
 /**
  * Remove a torrent from the client.
- *
  * @param  {string|Buffer}   torrentId
  * @param  {function} cb
  */
@@ -270,8 +234,6 @@ WebTorrent.prototype.remove = function (torrentId, cb) {
 
 /**
  * Destroy the client, including all torrents and connections to peers.
- *
- * @override
  * @param  {function} cb
  */
 WebTorrent.prototype.destroy = function (cb) {
@@ -292,7 +254,7 @@ WebTorrent.prototype.destroy = function (cb) {
 }
 
 /**
- * Check if `obj` is a W3C Blob object (which is the superclass of W3C File)
+ * Check if `obj` is a W3C Blob object (which is the superclass of W3C File).
  * @param  {*} obj
  * @return {boolean}
  */

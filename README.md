@@ -266,10 +266,9 @@ Start seeding a new torrent.
 - path to the file or folder on filesystem (string)
 - W3C [File](https://developer.mozilla.org/en-US/docs/Web/API/File) object (from an `<input>` or drag and drop)
 - W3C [FileList](https://developer.mozilla.org/en-US/docs/Web/API/FileList) object (basically an array of `File` objects)
-- W3C [Blob](https://developer.mozilla.org/en-US/docs/Web/API/Blob) object
 - Node [Buffer](http://nodejs.org/api/buffer.html) object (works in [the browser](https://www.npmjs.org/package/buffer))
 
-Or, an **array of `File`, `Blob`, or `Buffer` objects**.
+Or, an **array of `File` or `Buffer` objects**.
 
 If `opts` is specified, it should contain the following types of options:
 
