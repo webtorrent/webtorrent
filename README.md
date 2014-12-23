@@ -19,7 +19,8 @@ JavaScript&trade;.
 
 Simply include the `webtorrent.min.js` script on your page to start fetching files over
 WebRTC using the BitTorrent protocol, or `require('webtorrent')` with
-[browserify](http://browserify.org/). See [code examples](#usage) below.
+[browserify](http://browserify.org/). See [demo apps](#webtorrent-in-production) and
+[code examples](#usage) below.
 
 To make BitTorrent work over WebRTC (which is the only p2p transport that works on the
 web) we made some protocol changes. Therefore, a browser-based WebTorrent client can only
@@ -40,7 +41,6 @@ it the first "hybrid" client.
 
 - **Torrent client for node.js & the browser** (same npm module!)
 - **Insanely fast**
-- **Streaming video** to many devices (including AirPlay, Chromecast, and VLC player)
 - Download **multiple torrents** simultaneously, efficiently
 - **Pure Javascript** (no native dependencies)
 - Exposes files as **streams**
@@ -55,12 +55,16 @@ it the first "hybrid" client.
     for adding new extensions
 - **Comprehensive test suite** (runs completely offline, so it's reliable and fast)
 
-#### Browser-specific features
+#### Browser-only features
 
-- Uses **WebRTC data channels** for lightweight peer-to-peer communication (no plugins)
+- **WebRTC data channels** for lightweight peer-to-peer communication with **no plugins**
 - **No silos.** WebTorrent is a P2P network for the **entire web.** WebTorrent clients
   running on one domain can connect to clients on any other domain.
 - Stream video torrents into a `<video>` tag (`webm (vp8, vp9)` or `mp4 (h.264)`)
+
+#### Node-only features
+
+- Stream to **AirPlay**, **Chromecast**, **VLC player**, and many other devices/players
 
 ### Ways to help
 
