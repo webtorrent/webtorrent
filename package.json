@@ -12,14 +12,14 @@
   },
   "browser": {
     "./lib/fs-storage": false,
-    "./server": false,
     "./package.json": false,
+    "./server": false,
     "addr-to-ip-port": false,
     "bittorrent-dht/client": false,
     "bittorrent-swarm": "webtorrent-swarm",
     "concat-stream": false,
-    "http-https": false,
     "load-ip-set": false,
+    "simple-get": false,
     "ut_pex": false
   },
   "browserify": {
@@ -47,7 +47,6 @@
     "filestream": "^2.1.0",
     "git-sha1": "^0.1.2",
     "hat": "0.0.3",
-    "http-https": "^1.0.0",
     "inherits": "^2.0.1",
     "load-ip-set": "^1.0.3",
     "mime": "^1.2.11",
@@ -65,6 +64,7 @@
     "re-emitter": "^1.0.0",
     "rimraf": "^2.2.5",
     "run-parallel": "^1.0.0",
+    "simple-get": "^1.0.0",
     "speedometer": "^0.1.2",
     "thunky": "^0.1.0",
     "torrent-discovery": "^2.0.1",
