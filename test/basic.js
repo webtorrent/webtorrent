@@ -7,55 +7,79 @@ var leaves = fs.readFileSync(__dirname + '/torrents/leaves.torrent')
 var leavesTorrent = parseTorrent(leaves)
 var leavesBook = fs.readFileSync(__dirname + '/content/Leaves of Grass by Walt Whitman.epub')
 
-function verify (t, client, torrent) {
-  t.equal(torrent.infoHash, leavesTorrent.infoHash)
-  client.destroy()
-}
+var leavesMagnetURI = 'magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36&dn=Leaves+of+Grass+by+Walt+Whitman.epub&tr=http%3A%2F%2Ftracker.thepiratebay.org%2Fannounce&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ffr33domtracker.h33t.com%3A3310%2Fannounce&tr=http%3A%2F%2Ftracker.bittorrent.am%2Fannounce'
 
 test('client.add (magnet uri, torrent file, info hash, and parsed torrent)', function (t) {
-  t.plan(5)
-
   // magnet uri (utf8 string)
   var client1 = new WebTorrent({ dht: false, tracker: false })
-  verify(t, client1, client1.add('magnet:?xt=urn:btih:' + leavesTorrent.infoHash))
+  var torrent1 = client1.add('magnet:?xt=urn:btih:' + leavesTorrent.infoHash)
+  t.equal(torrent1.infoHash, leavesTorrent.infoHash)
+  t.equal(torrent1.magnetURI, 'magnet:?xt=urn:btih:' + leavesTorrent.infoHash)
+  client1.destroy()
 
   // torrent file (buffer)
   var client2 = new WebTorrent({ dht: false, tracker: false })
-  verify(t, client2, client2.add(leaves))
+  var torrent2 = client2.add(leaves)
+  t.equal(torrent2.infoHash, leavesTorrent.infoHash)
+  t.equal(torrent2.magnetURI, leavesMagnetURI)
+  client2.destroy()
 
   // info hash (hex string)
   var client3 = new WebTorrent({ dht: false, tracker: false })
-  verify(t, client3, client3.add(leavesTorrent.infoHash))
+  var torrent3 = client3.add(leavesTorrent.infoHash)
+  t.equal(torrent3.infoHash, leavesTorrent.infoHash)
+  t.equal(torrent3.magnetURI, 'magnet:?xt=urn:btih:' + leavesTorrent.infoHash)
+  client3.destroy()
 
   // info hash (buffer)
   var client4 = new WebTorrent({ dht: false, tracker: false })
-  verify(t, client4, client4.add(new Buffer(leavesTorrent.infoHash, 'hex')))
+  var torrent4 = client4.add(new Buffer(leavesTorrent.infoHash, 'hex'))
+  t.equal(torrent4.infoHash, leavesTorrent.infoHash)
+  t.equal(torrent4.magnetURI, 'magnet:?xt=urn:btih:' + leavesTorrent.infoHash)
+  client4.destroy()
 
   // parsed torrent (from parse-torrent)
   var client5 = new WebTorrent({ dht: false, tracker: false })
-  verify(t, client5, client5.add(leavesTorrent))
+  var torrent5 = client5.add(leavesTorrent)
+  t.equal(torrent5.infoHash, leavesTorrent.infoHash)
+  t.equal(torrent5.magnetURI, leavesMagnetURI)
+  client5.destroy()
+
+  t.end()
 })
 
 test('client.seed (Buffer, Blob)', function (t) {
-  t.plan(2)
+  t.plan(typeof Blob !== 'undefined' ? 4 : 2)
 
   var opts = {
-    name: 'Leaves of Grass by Walt Whitman.epub'
+    name: 'Leaves of Grass by Walt Whitman.epub',
+    announce: [
+      'http://tracker.thepiratebay.org/announce',
+      'udp://tracker.openbittorrent.com:80',
+      'udp://tracker.ccc.de:80',
+      'udp://tracker.publicbt.com:80',
+      'udp://fr33domtracker.h33t.com:3310/announce',
+      'http://tracker.bittorrent.am/announce'
+    ]
   }
 
   // torrent file (Buffer)
   var client1 = new WebTorrent({ dht: false, tracker: false })
-  client1.seed(leavesBook, opts, function (torrent) {
-    verify(t, client1, torrent)
+  client1.seed(leavesBook, opts, function (torrent1) {
+    t.equal(torrent1.infoHash, leavesTorrent.infoHash)
+    t.equal(torrent1.magnetURI, leavesMagnetURI)
+    client1.destroy()
   })
 
   // Blob
   if (typeof Blob !== 'undefined') {
     var client2 = new WebTorrent({ dht: false, tracker: false })
-    client2.seed(new Blob([ leavesBook ]), opts, function (torrent) {
-      verify(t, client2, torrent)
+    client2.seed(new Blob([ leavesBook ]), opts, function (torrent2) {
+      t.equal(torrent2.infoHash, leavesTorrent.infoHash)
+      t.equal(torrent2.magnetURI, leavesMagnetURI)
+      client2.destroy()
     })
   } else {
-    t.pass('Skipping Blob test because missing `Blob` constructor')
+    console.log('Skipping Blob test because missing `Blob` constructor')
   }
 })
