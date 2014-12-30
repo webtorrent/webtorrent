@@ -1,7 +1,5 @@
 # ![WebTorrent](img/wordmark.png)
 
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/feross/webtorrent?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 ### Streaming torrent client for node & the browser
 
 [![Build Status][webtorrent-ti]][webtorrent-tu]
@@ -9,11 +7,15 @@
 [![NPM Downloads][webtorrent-downloads-image]][webtorrent-downloads-url]
 [![Gratipay][webtorrent-gratipay-image]][webtorrent-gratipay-url]
 
-[![Sauce Test Status][webtorrent-sauce-image]][webtorrent-sauce-url]
+[![Gitter][webtorrent-gitter-image]][webtorrent-gitter-url]
 
 **WebTorrent** is a streaming torrent client for **node.js** and the **browser**. YEP,
 THAT'S RIGHT. THE BROWSER. It's written completely in JavaScript – the language of the web
 – so the same code works in both runtimes.
+
+In node, this module is a simple torrent client, using TCP and UDP to talk to
+normal torrent clients. Soon, it will gain the ability to swarm with web peers, making
+it the first "hybrid" client.
 
 In the browser, WebTorrent uses **WebRTC** (data channels) for peer-to-peer transport.
 It can be used **without** browser plugins, extensions, or installations. It's Just
@@ -30,10 +32,6 @@ connect to other clients that support WebTorrent (and WebRTC).
 
 We hope established torrent clients (uTorrent, Transmission, Vuze, etc.) will add support
 for WebTorrent (and WebRTC) so they can swarm with both normal *and* web peers.
-
-In node, this module acts like a normal torrent client, using TCP and UDP to talk to
-regular torrent clients. Soon, it will gain the ability to swarm with web peers, making
-it the first "hybrid" client.
 
 ![Network](img/network.png)
 
@@ -63,6 +61,9 @@ it the first "hybrid" client.
 - **No silos.** WebTorrent is a P2P network for the **entire web.** WebTorrent clients
   running on one domain can connect to clients on any other domain.
 - Stream video torrents into a `<video>` tag (`webm (vp8, vp9)` or `mp4 (h.264)`)
+- Supports Chrome, Firefox, and Opera.
+
+[![Sauce Test Status][webtorrent-sauce-image]][webtorrent-sauce-url]
 
 #### Node-only features
 
@@ -495,6 +496,8 @@ These are the modules I am writing to make WebTorrent work:
 [webtorrent-gratipay-url]: https://gratipay.com/feross/
 [webtorrent-sauce-image]: https://saucelabs.com/browser-matrix/webtorrent.svg
 [webtorrent-sauce-url]: https://saucelabs.com/u/webtorrent
+[webtorrent-gitter-image]: https://badges.gitter.im/Join%20Chat.svg
+[webtorrent-gitter-url]: https://gitter.im/feross/webtorrent
 
 [addr-to-ip-port]: https://github.com/feross/addr-to-ip-port
 [addr-to-ip-port-ti]: https://img.shields.io/travis/feross/addr-to-ip-port.svg?style=flat
