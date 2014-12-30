@@ -77,7 +77,7 @@
   "devDependencies": {
     "bittorrent-tracker": "^2.5.0",
     "brfs": "^1.2.0",
-    "browserify": "^7.0.0",
+    "browserify": "^8.0.2",
     "portfinder": "^0.3.0",
     "run-auto": "^1.0.0",
     "tape": "^3.0.3",
