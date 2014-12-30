@@ -100,7 +100,6 @@ standards (no plugins, just HTML5 and WebRTC)! It's easy to get started!
 
 ```js
 var WebTorrent = require('webtorrent')
-var concat = require('concat-stream')
 
 var client = new WebTorrent()
 
@@ -109,16 +108,17 @@ client.download(magnet_uri, function (torrent) {
   console.log('Torrent info hash:', torrent.infoHash)
 
   torrent.files.forEach(function (file) {
-    // Get the file data as a Buffer (Uint8Array typed array)
-    file.createReadStream().pipe(concat(function (buf) {
+    // Get a url for each file
+    file.getBlobURL(function (err, url) {
+      if (err) throw err
 
-      // Append a link to download the file
+      // Add a link to the page
       var a = document.createElement('a')
       a.download = file.name
-      a.href = URL.createObjectURL(new Blob([ buf ]))
-      a.textContent = 'download ' + file.name
+      a.href = url
+      a.textContent = 'Download ' + file.name
       document.body.appendChild(a)
-    }))
+    })
   })
 })
 ```
@@ -438,7 +438,7 @@ file.getBlobURL(function (err, url) {
   a.download = file.name
   a.href = url
   a.textContent = 'Download ' + file.name
-  body.appendChild(a)
+  document.body.appendChild(a)
 })
 ```
 
