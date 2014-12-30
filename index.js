@@ -192,8 +192,6 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
   }
   if (!opts) opts = {}
 
-  // TODO: support an array of paths
-
   createTorrent.parseInput(input, opts, function (err, files) {
     if (err) return self.emit('error', err)
     var streams = files.map(function (file) { return file.getStream })
