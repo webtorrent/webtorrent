@@ -1,11 +1,11 @@
 # ![WebTorrent](img/wordmark.png)
 
-### Streaming torrent client for node & the browser
-
 [![Build Status][webtorrent-ti]][webtorrent-tu]
 [![NPM Version][webtorrent-ni]][webtorrent-nu]
 [![NPM Downloads][webtorrent-downloads-image]][webtorrent-downloads-url]
 [![Gratipay][webtorrent-gratipay-image]][webtorrent-gratipay-url]
+
+### Streaming torrent client for node & the browser
 
 [![Gitter][webtorrent-gitter-image]][webtorrent-gitter-url]
 
