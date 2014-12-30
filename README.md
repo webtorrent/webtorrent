@@ -1,5 +1,7 @@
 # ![WebTorrent](img/wordmark.png)
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/feross/webtorrent?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ### Streaming torrent client for node & the browser
 
 [![Build Status][webtorrent-ti]][webtorrent-tu]
