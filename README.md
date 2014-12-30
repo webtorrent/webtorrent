@@ -311,6 +311,14 @@ Seed ratio for all torrents in the client.
 
 ### torrent api
 
+#### `torrent.infoHash`
+
+Get the info hash of the torrent.
+
+#### `torrent.magnetURI`
+
+Get the magnet URI of the torrent.
+
 #### `torrent.files[...]`
 
 An array of all files in the torrent. See the file section for more info on what methods
@@ -414,6 +422,25 @@ You can pass `opts` to stream only a slice of a file.
 ```
 
 Both `start` and `end` are inclusive.
+
+#### `file.getBlobURL(function callback (err, url) {})`
+
+Get a url which can be used in the browser to refer to the file.
+
+The file will be fetched from the network with highest priority, and `callback` will be
+called when it is ready. `callback` must be specified and may be called with a an `Error`
+or the blob url (`String`) when the file data is available and ready to be used.
+
+```js
+file.getBlobURL(function (err, url) {
+  if (err) throw err
+  var a = document.createElement('a')
+  a.download = file.name
+  a.href = url
+  a.textContent = 'Download ' + file.name
+  body.appendChild(a)
+})
+```
 
 ### Modules
 
