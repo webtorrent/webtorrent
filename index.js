@@ -8,15 +8,12 @@ var debug = require('debug')('webtorrent')
 var DHT = require('bittorrent-dht/client') // browser exclude
 var EventEmitter = require('events').EventEmitter
 var extend = require('extend.js')
-var FileReadStream = require('filestream/read')
-var fs = require('fs')
 var hat = require('hat')
 var inherits = require('inherits')
 var loadIPSet = require('load-ip-set') // browser exclude
 var parallel = require('run-parallel')
 var parseTorrent = require('parse-torrent')
 var speedometer = require('speedometer')
-var stream = require('stream')
 var zeroFill = require('zero-fill')
 
 var FSStorage = require('./lib/fs-storage') // browser exclude
@@ -249,13 +246,4 @@ WebTorrent.prototype.destroy = function (cb) {
   })
 
   parallel(tasks, cb)
-}
-
-/**
- * Check if `obj` is a W3C Blob object (which is the superclass of W3C File).
- * @param  {*} obj
- * @return {boolean}
- */
-function isBlob (obj) {
-  return typeof Blob !== 'undefined' && obj instanceof Blob
 }

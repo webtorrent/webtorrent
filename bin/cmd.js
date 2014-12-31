@@ -53,7 +53,7 @@ var argv = minimist(process.argv.slice(2), {
 
 if (argv.version) {
   console.log(require('../package.json').version)
-  return done()
+  done()
 }
 
 var torrentId = argv._[0]
@@ -98,7 +98,7 @@ if (argv.help || !torrentId) {
   Please report bugs!  https://github.com/feross/webtorrent/issues
 
     */}.toString().split(/\n/).slice(1, -1).join('\n'))
-  return done()
+  done()
 }
 
 if (process.env.DEBUG || argv.stdout) {
@@ -375,13 +375,13 @@ function onReady () {
     linesremaining -= 8
 
     var pieces = torrent.storage.pieces
-    for(var i = 0; i < pieces.length; i++) {
+    for (var i = 0; i < pieces.length; i++) {
       var piece = pieces[i]
       if (piece.verified || piece.blocksWritten === 0) {
         continue;
       }
       var bar = ''
-      for(var j = 0; j < piece.blocks.length; j++) {
+      for (var j = 0; j < piece.blocks.length; j++) {
         bar += piece.blocks[j] ? '{green:█}' : '{red:█}';
       }
       clivas.line('{4+cyan:' + i + '} ' + bar);
@@ -395,7 +395,7 @@ function onReady () {
       if (torrent.parsedTorrent) {
         var bits = 0
         var piececount = Math.ceil(torrent.parsedTorrent.length / torrent.parsedTorrent.pieceLength)
-        for(var i = 0; i < piececount; i++) {
+        for (var i = 0; i < piececount; i++) {
           if (wire.peerPieces.get(i)) {
             bits++
           }
@@ -404,7 +404,7 @@ function onReady () {
       }
       var tags = []
       if (wire.peerChoking) tags.push('choked')
-      var reqStats = wire.requests.map(function(req) {
+      var reqStats = wire.requests.map(function (req) {
           return req.piece;
       })
       clivas.line(
