@@ -178,7 +178,7 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
 }
 
 /**
- * Start seeding a new torrent.
+ * Start seeding a new file/folder.
  * @param  {string|File|FileList|Buffer|Array.<File|Buffer>} input
  * @param  {Object} opts
  * @param  {function} onseed
