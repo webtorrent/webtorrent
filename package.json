@@ -70,7 +70,7 @@
     "ut_metadata": "^2.1.0",
     "ut_pex": "^1.0.1",
     "webtorrent-swarm": "0.x",
-    "windows-no-runnable": "~0.0.6",
+    "windows-no-runnable": "0.0.6",
     "zero-fill": "^2.1.0"
   },
   "devDependencies": {
