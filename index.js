@@ -79,7 +79,9 @@ function WebTorrent (opts) {
   debug('new webtorrent (peerId %s, nodeId %s)', self.peerIdHex, self.nodeIdHex)
 
   if (typeof loadIPSet === 'function') {
-    loadIPSet(opts.blocklist, function (err, ipSet) {
+    loadIPSet(opts.blocklist, {
+      headers: { 'user-agent': 'WebTorrent (http://webtorrent.io)' }
+    }, function (err, ipSet) {
       self.blocked = ipSet
       ready()
     })
