@@ -8,10 +8,7 @@ var WebTorrent = require('../')
 var leavesTorrent = fs.readFileSync(__dirname + '/torrents/leaves.torrent')
 var leavesParsed = parseTorrent(leavesTorrent)
 
-// TODO: test blocklist blocking messages to DHT nodes
-// TODO: test all ways to specify blocklists
-
-test('blocklist blocks connections to peers', function (t) {
+test('blocklist blocks peers discovered via tracker', function (t) {
   t.plan(8)
 
   auto({
@@ -43,6 +40,10 @@ test('blocklist blocks connections to peers', function (t) {
         t.pass('client1 found itself')
         cb(null, client1)
       })
+
+      torrent1.on('blocked-peer', function () {
+        t.fail('client1 should not block any peers')
+      })
     }],
 
     client2: ['client1', function (cb) {
@@ -55,8 +56,12 @@ test('blocklist blocks connections to peers', function (t) {
       var torrent2 = client2.add(leavesParsed)
 
       torrent2.on('blocked-peer', function () {
-        t.pass('client2 blocked connection to client1 and client2')
+        t.pass('client2 blocked connection') // 2x, once for each client
         cb(null, client2)
+      })
+
+      torrent2.on('peer', function () {
+        t.fail('client2 should not find any peers')
       })
     }]
 
