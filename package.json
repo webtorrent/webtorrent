@@ -110,7 +110,6 @@
   "scripts": {
     "build": "browserify -s WebTorrent -e ./ | uglifyjs -c warnings=false -m > webtorrent.min.js",
     "build-debug": "browserify -s WebTorrent -e ./ > webtorrent.debug.js",
-    "prepublish": "npm run build",
     "size": "npm run build && cat webtorrent.min.js | gzip | wc -c",
     "start": "node ./bin/cmd.js",
     "test": "node ./bin/test.js",
