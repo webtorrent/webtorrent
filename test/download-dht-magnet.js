@@ -5,7 +5,8 @@ var parseTorrent = require('parse-torrent')
 var test = require('tape')
 var WebTorrent = require('../')
 
-var leavesFile = __dirname + '/content/Leaves of Grass by Walt Whitman.epub'
+var leavesPath = __dirname + '/content/Leaves of Grass by Walt Whitman.epub'
+var leavesFile = fs.readFileSync(leavesPath)
 var leavesTorrent = fs.readFileSync(__dirname + '/torrents/leaves.torrent')
 var leavesParsed = parseTorrent(leavesTorrent)
 
@@ -14,7 +15,7 @@ leavesParsed.announce = []
 leavesParsed.announceList = []
 
 test('Download using DHT (via magnet uri)', function (t) {
-  t.plan(7)
+  t.plan(8)
 
   var dhtServer = new DHT({ bootstrap: false })
   dhtServer.on('error', function (err) {
@@ -55,7 +56,7 @@ test('Download using DHT (via magnet uri)', function (t) {
           maybeDone(null)
         })
 
-        torrent.storage.load(fs.createReadStream(leavesFile), function (err) {
+        torrent.storage.load(fs.createReadStream(leavesPath), function (err) {
           wroteStorage = true
           maybeDone(err)
         })
@@ -73,7 +74,10 @@ test('Download using DHT (via magnet uri)', function (t) {
 
       client2.on('torrent', function (torrent) {
         torrent.files.forEach(function (file) {
-          file.createReadStream()
+          file.getBuffer(function (err, buf) {
+            if (err) throw err
+            t.deepEqual(buf, leavesFile, 'downloaded correct content')
+          })
         })
 
         torrent.once('done', function () {
