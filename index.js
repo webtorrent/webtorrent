@@ -44,6 +44,8 @@ function WebTorrent (opts) {
 
   self.torrentPort = opts.torrentPort || 0
   self.tracker = opts.tracker !== undefined ? opts.tracker : true
+  self.rtcConfig = opts.rtcConfig
+
   self.torrents = []
 
   self.downloadSpeed = speedometer()

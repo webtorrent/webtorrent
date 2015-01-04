@@ -237,6 +237,7 @@ If `opts` is specified, then the default options (shown below) will be overridde
   maxPeers: Number,      // Max number of peers to connect to per torrent (default=100)
   nodeId: String|Buffer, // DHT protocol node ID (default=randomly generated)
   peerId: String|Buffer, // Wire protocol peer ID (default=randomly generated)
+  rtcConfig: Object,     // RTCPeerConnection configuration object (default=STUN only)
   storage: Function      // custom storage engine, or `false` to use in-memory engine
   tracker: Boolean,      // Whether or not to enable trackers (default=true)
   verify: Boolean        // Verify previously stored data before starting (default=false)
