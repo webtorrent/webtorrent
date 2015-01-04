@@ -474,29 +474,22 @@ Most of the active development is happening inside of small npm modules which ar
 
 #### Modules
 
-These are the modules I am writing to make WebTorrent work:
+These are the main modules that make up WebTorrent:
 
 | module | tests | version | description |
 |---|---|---|---|
 | **[webtorrent][webtorrent]** | [![][webtorrent-ti]][webtorrent-tu] | [![][webtorrent-ni]][webtorrent-nu] | **torrent client (this module)**
-| [addr-to-ip-port][addr-to-ip-port] | [![][addr-to-ip-port-ti]][addr-to-ip-port-tu] | [![][addr-to-ip-port-ni]][addr-to-ip-port-nu] | cache for addr->ip:port
 | [bittorrent-dht][bittorrent-dht] | [![][bittorrent-dht-ti]][bittorrent-dht-tu] | [![][bittorrent-dht-ni]][bittorrent-dht-nu] | distributed hash table client
 | [bittorrent-peerid][bittorrent-peerid] | [![][bittorrent-peerid-ti]][bittorrent-peerid-tu] | [![][bittorrent-peerid-ni]][bittorrent-peerid-nu] | identify client name/version
 | [bittorrent-protocol][bittorrent-protocol] | [![][bittorrent-protocol-ti]][bittorrent-protocol-tu] | [![][bittorrent-protocol-ni]][bittorrent-protocol-nu] | bittorrent protocol stream
 | [bittorrent-swarm][bittorrent-swarm] | [![][bittorrent-swarm-ti]][bittorrent-swarm-tu] | [![][bittorrent-swarm-ni]][bittorrent-swarm-nu] | bittorrent connection manager
 | [bittorrent-tracker][bittorrent-tracker] | [![][bittorrent-tracker-ti]][bittorrent-tracker-tu] | [![][bittorrent-tracker-ni]][bittorrent-tracker-nu] | bittorrent tracker server/client
-| [buffer][buffer] | [![][buffer-ti]][buffer-tu] | [![][buffer-ni]][buffer-nu] | node buffer api for the browser
 | [create-torrent][create-torrent] | [![][create-torrent-ti]][create-torrent-tu] | [![][create-torrent-ni]][create-torrent-nu] | create .torrent files
 | [ip-set][ip-set] | [![][ip-set-ti]][ip-set-tu] | [![][ip-set-ni]][ip-set-nu] | efficient mutable ip set
 | [load-ip-set][load-ip-set] | [![][load-ip-set-ti]][load-ip-set-tu] | [![][load-ip-set-ni]][load-ip-set-nu] | load ip sets from local/network
 | [magnet-uri][magnet-uri] | [![][magnet-uri-ti]][magnet-uri-tu] | [![][magnet-uri-ni]][magnet-uri-nu] | parse magnet uris
 | [parse-torrent][parse-torrent] | [![][parse-torrent-ti]][parse-torrent-tu] | [![][parse-torrent-ni]][parse-torrent-nu] | parse torrent identifiers
-| [parse-torrent-file][parse-torrent-file] | [![][parse-torrent-file-ti]][parse-torrent-file-tu] | [![][parse-torrent-file-ni]][parse-torrent-file-nu] | parse .torrent files
-| [simple-peer][simple-peer] | [![][simple-peer-ti]][simple-peer-tu] | [![][simple-peer-ni]][simple-peer-nu] | simpler webrtc api
-| [simple-websocket][simple-websocket] | [![][simple-websocket-ti]][simple-websocket-tu] | [![][simple-websocket-ni]][simple-websocket-nu] | simpler websocket api
-| [string2compact][string2compact] | [![][string2compact-ti]][string2compact-tu] | [![][string2compact-ni]][string2compact-nu] | convert 'hostname:port' to compact
 | [torrent-discovery][torrent-discovery] | [![][torrent-discovery-ti]][torrent-discovery-tu] | [![][torrent-discovery-ni]][torrent-discovery-nu] | find peers via dht and tracker
-| [typedarray-to-buffer][typedarray-to-buffer] | [![][typedarray-to-buffer-ti]][typedarray-to-buffer-tu] | [![][typedarray-to-buffer-ni]][typedarray-to-buffer-nu] | efficient buffer creation
 | [ut_metadata][ut_metadata] | [![][ut_metadata-ti]][ut_metadata-tu] | [![][ut_metadata-ni]][ut_metadata-nu] | metadata for magnet uris **(ext)**
 | [ut_pex][ut_pex] | [![][ut_pex-ti]][ut_pex-tu] | [![][ut_pex-ni]][ut_pex-nu] | peer discovery **(ext)**
 | [webtorrent-swarm][webtorrent-swarm] | [![][webtorrent-swarm-ti]][webtorrent-swarm-tu] | [![][webtorrent-swarm-ni]][webtorrent-swarm-nu] | webtorrent connection management
@@ -515,12 +508,6 @@ These are the modules I am writing to make WebTorrent work:
 [webtorrent-sauce-url]: https://saucelabs.com/u/webtorrent
 [webtorrent-gitter-image]: https://badges.gitter.im/Join%20Chat.svg
 [webtorrent-gitter-url]: https://gitter.im/feross/webtorrent
-
-[addr-to-ip-port]: https://github.com/feross/addr-to-ip-port
-[addr-to-ip-port-ti]: https://img.shields.io/travis/feross/addr-to-ip-port.svg?style=flat
-[addr-to-ip-port-tu]: https://travis-ci.org/feross/addr-to-ip-port
-[addr-to-ip-port-ni]: https://img.shields.io/npm/v/addr-to-ip-port.svg?style=flat
-[addr-to-ip-port-nu]: https://npmjs.org/package/addr-to-ip-port
 
 [bittorrent-dht]: https://github.com/feross/bittorrent-dht
 [bittorrent-dht-ti]: https://img.shields.io/travis/feross/bittorrent-dht.svg?style=flat
@@ -552,12 +539,6 @@ These are the modules I am writing to make WebTorrent work:
 [bittorrent-tracker-ni]: https://img.shields.io/npm/v/bittorrent-tracker.svg?style=flat
 [bittorrent-tracker-nu]: https://npmjs.org/package/bittorrent-tracker
 
-[buffer]: https://github.com/feross/buffer
-[buffer-ti]: https://img.shields.io/travis/feross/buffer.svg?style=flat
-[buffer-tu]: https://travis-ci.org/feross/buffer
-[buffer-ni]: https://img.shields.io/npm/v/buffer.svg?style=flat
-[buffer-nu]: https://npmjs.org/package/buffer
-
 [create-torrent]: https://github.com/feross/create-torrent
 [create-torrent-ti]: https://img.shields.io/travis/feross/create-torrent.svg?style=flat
 [create-torrent-tu]: https://travis-ci.org/feross/create-torrent
@@ -588,41 +569,11 @@ These are the modules I am writing to make WebTorrent work:
 [parse-torrent-ni]: https://img.shields.io/npm/v/parse-torrent.svg?style=flat
 [parse-torrent-nu]: https://npmjs.org/package/parse-torrent
 
-[parse-torrent-file]: https://github.com/feross/parse-torrent-file
-[parse-torrent-file-ti]: https://img.shields.io/travis/feross/parse-torrent-file.svg?style=flat
-[parse-torrent-file-tu]: https://travis-ci.org/feross/parse-torrent-file
-[parse-torrent-file-ni]: https://img.shields.io/npm/v/parse-torrent-file.svg?style=flat
-[parse-torrent-file-nu]: https://npmjs.org/package/parse-torrent-file
-
-[simple-peer]: https://github.com/feross/simple-peer
-[simple-peer-ti]: https://img.shields.io/travis/feross/simple-peer.svg?style=flat
-[simple-peer-tu]: https://travis-ci.org/feross/simple-peer
-[simple-peer-ni]: https://img.shields.io/npm/v/simple-peer.svg?style=flat
-[simple-peer-nu]: https://npmjs.org/package/simple-peer
-
-[simple-websocket]: https://github.com/feross/simple-websocket
-[simple-websocket-ti]: https://img.shields.io/travis/feross/simple-websocket.svg?style=flat
-[simple-websocket-tu]: https://travis-ci.org/feross/simple-websocket
-[simple-websocket-ni]: https://img.shields.io/npm/v/simple-websocket.svg?style=flat
-[simple-websocket-nu]: https://npmjs.org/package/simple-websocket
-
-[string2compact]: https://github.com/feross/string2compact
-[string2compact-ti]: https://img.shields.io/travis/feross/string2compact.svg?style=flat
-[string2compact-tu]: https://travis-ci.org/feross/string2compact
-[string2compact-ni]: https://img.shields.io/npm/v/string2compact.svg?style=flat
-[string2compact-nu]: https://npmjs.org/package/string2compact
-
 [torrent-discovery]: https://github.com/feross/torrent-discovery
 [torrent-discovery-ti]: https://img.shields.io/travis/feross/torrent-discovery.svg?style=flat
 [torrent-discovery-tu]: https://travis-ci.org/feross/torrent-discovery
 [torrent-discovery-ni]: https://img.shields.io/npm/v/torrent-discovery.svg?style=flat
 [torrent-discovery-nu]: https://npmjs.org/package/torrent-discovery
-
-[typedarray-to-buffer]: https://github.com/feross/typedarray-to-buffer
-[typedarray-to-buffer-ti]: https://img.shields.io/travis/feross/typedarray-to-buffer.svg?style=flat
-[typedarray-to-buffer-tu]: https://travis-ci.org/feross/typedarray-to-buffer
-[typedarray-to-buffer-ni]: https://img.shields.io/npm/v/typedarray-to-buffer.svg?style=flat
-[typedarray-to-buffer-nu]: https://npmjs.org/package/typedarray-to-buffer
 
 [ut_metadata]: https://github.com/feross/ut_metadata
 [ut_metadata-ti]: https://img.shields.io/travis/feross/ut_metadata.svg?style=flat
@@ -648,14 +599,6 @@ These are the modules I am writing to make WebTorrent work:
 [webtorrent-tracker-ni]: https://img.shields.io/npm/v/webtorrent-tracker.svg?style=flat
 [webtorrent-tracker-nu]: https://npmjs.org/package/webtorrent-tracker
 
-#### Todo
-
-- compress-sdp (compress sdp messages to lighten load on webtorrent trackers & dht)
-- protocol extension: protocol encryption
-- protocol extension: µTP
-- protocol extension: UPnP and NAT-PMP port forwarding
-- protocol extension: webseed support
-- webtorrent-dht
 
 ### Contribute
 
