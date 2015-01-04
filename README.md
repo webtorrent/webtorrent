@@ -428,13 +428,28 @@ You can pass `opts` to stream only a slice of a file.
 
 Both `start` and `end` are inclusive.
 
+#### `file.getBuffer(function callback (err, url) {})`
+
+Get the file contents as a `Buffer`.
+
+The file will be fetched from the network with highest priority, and `callback` will be
+called once the file is ready. `callback` must be specified, and will be called with a an
+`Error` (or `null`) and the file contents as a `Buffer`.
+
+```js
+file.getBuffer(function (err, buffer) {
+  if (err) throw err
+  console.log(buffer) // <Buffer 00 98 00 01 01 00 00 00 50 ae 07 04 01 00 00 00 0a 00 00 00 00 00 00 00 78 ae 07 04 01 00 00 00 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ...>
+})
+```
+
 #### `file.getBlobURL(function callback (err, url) {})`
 
 Get a url which can be used in the browser to refer to the file.
 
 The file will be fetched from the network with highest priority, and `callback` will be
-called when it is ready. `callback` must be specified and may be called with a an `Error`
-or the blob url (`String`) when the file data is available and ready to be used.
+called once the file is ready. `callback` must be specified, and will be called with a an
+`Error` (or `null`) and the Blob URL (`String`).
 
 ```js
 file.getBlobURL(function (err, url) {
