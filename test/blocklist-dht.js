@@ -8,12 +8,12 @@ var WebTorrent = require('../')
 var leavesTorrent = fs.readFileSync(__dirname + '/torrents/leaves.torrent')
 var leavesParsed = parseTorrent(leavesTorrent)
 
+// remove trackers from .torrent file
+leavesParsed.announce = []
+leavesParsed.announceList = []
+
 test('blocklist blocks peers discovered via DHT', function (t) {
   t.plan(6)
-
-  // remove trackers from .torrent file
-  leavesParsed.announce = []
-  leavesParsed.announceList = []
 
   var dhtServer = new DHT({ bootstrap: false })
 

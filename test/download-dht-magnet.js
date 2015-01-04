@@ -9,12 +9,12 @@ var leavesFile = __dirname + '/content/Leaves of Grass by Walt Whitman.epub'
 var leavesTorrent = fs.readFileSync(__dirname + '/torrents/leaves.torrent')
 var leavesParsed = parseTorrent(leavesTorrent)
 
+// remove trackers from .torrent file
+leavesParsed.announce = []
+leavesParsed.announceList = []
+
 test('Download using DHT (via magnet uri)', function (t) {
   t.plan(7)
-
-  // remove trackers from .torrent file
-  leavesParsed.announce = []
-  leavesParsed.announceList = []
 
   var dhtServer = new DHT({ bootstrap: false })
   dhtServer.on('error', function (err) {

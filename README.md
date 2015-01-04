@@ -339,6 +339,8 @@ Alias for `client.remove(torrent)`.
 
 Adds a peer to the underlying [bittorrent-swarm](https://github.com/feross/bittorrent-swarm) instance.
 
+Returns `true` if peer was added, `false` if peer was blocked by the loaded blocklist.
+
 #### `torrent.select(start, end, [priority], [notify])`
 
 Selects a range of pieces to prioritize starting with `start` and ending with `end` (both inclusive)
