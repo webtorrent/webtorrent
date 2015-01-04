@@ -21,10 +21,11 @@ In the browser, WebTorrent uses **WebRTC** (data channels) for peer-to-peer tran
 It can be used **without** browser plugins, extensions, or installations. It's Just
 JavaScript&trade;.
 
-Simply include the `webtorrent.min.js` script on your page to start fetching files over
-WebRTC using the BitTorrent protocol, or `require('webtorrent')` with
-[browserify](http://browserify.org/). See [demo apps](#webtorrent-in-production) and
-[code examples](#usage) below.
+Simply include the
+[`webtorrent.min.js`](https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js) script
+on your page to start fetching files over WebRTC using the BitTorrent protocol, or
+`require('webtorrent')` with [browserify](http://browserify.org/). See [demo apps
+](#webtorrent-in-production) and [code examples](#usage) below.
 
 To make BitTorrent work over WebRTC (which is the only p2p transport that works on the
 web) we made some protocol changes. Therefore, a browser-based WebTorrent client can only
@@ -178,6 +179,13 @@ object, so it can be used with just a script tag:
 
 ```html
 <script src="webtorrent.min.js"></script>
+```
+
+The WebTorrent script is also hosted on fast, reliable CDN infrastructure (Cloudflare and
+MaxCDN) for easy inclusion on your site:
+
+```html
+<script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
 ```
 
 #### In node.js
