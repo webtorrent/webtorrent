@@ -5,7 +5,8 @@ var test = require('tape')
 var TrackerServer = require('bittorrent-tracker/server')
 var WebTorrent = require('../')
 
-var leavesFile = __dirname + '/content/Leaves of Grass by Walt Whitman.epub'
+var leavesPath = __dirname + '/content/Leaves of Grass by Walt Whitman.epub'
+var leavesFile = fs.readFileSync(leavesPath)
 var leavesTorrent = fs.readFileSync(__dirname + '/torrents/leaves.torrent')
 var leavesParsed = parseTorrent(leavesTorrent)
 
@@ -18,7 +19,7 @@ test('Download using HTTP tracker (via magnet uri)', function (t) {
 })
 
 function magnetDownloadTest (t, serverType) {
-  t.plan(8)
+  t.plan(9)
 
   var trackerStartCount = 0
   var magnetUri
@@ -65,7 +66,7 @@ function magnetDownloadTest (t, serverType) {
 
         t.deepEqual(torrent.files.map(function (file) { return file.name }), names)
 
-        torrent.storage.load(fs.createReadStream(leavesFile), function (err) {
+        torrent.storage.load(fs.createReadStream(leavesPath), function (err) {
           cb(err, client1)
         })
       })
@@ -79,7 +80,10 @@ function magnetDownloadTest (t, serverType) {
 
       client2.on('torrent', function (torrent) {
         torrent.files.forEach(function (file) {
-          file.createReadStream()
+          file.getBuffer(function (err, buf) {
+            if (err) throw err
+            t.deepEqual(buf, leavesFile, 'downloaded correct content')
+          })
         })
 
         torrent.once('done', function () {
