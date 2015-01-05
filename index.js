@@ -149,7 +149,8 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
   opts.client = self
   opts.storage = opts.storage || self.storage
 
-  if (opts.tmp) opts.storageOpts = { tmp: opts.tmp }
+  if (!opts.storageOpts) opts.storageOpts = {}
+  if (opts.tmp) opts.storageOpts.tmp = opts.tmp
 
   var torrent = new Torrent(torrentId, extend({ client: self }, opts))
   self.torrents.push(torrent)
@@ -192,6 +193,8 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
     opts = {}
   }
   if (!opts) opts = {}
+  if (!opts.storageOpts) opts.storageOpts = {}
+  opts.storageOpts.noVerify = true
 
   createTorrent.parseInput(input, opts, function (err, files) {
     if (err) return self.emit('error', err)
