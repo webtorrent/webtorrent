@@ -107,7 +107,7 @@ var WebTorrent = require('webtorrent')
 
 var client = new WebTorrent()
 
-client.download(magnet_uri, function (torrent) {
+client.add(magnet_uri, function (torrent) {
   // Got torrent metadata!
   console.log('Torrent info hash:', torrent.infoHash)
 
@@ -151,7 +151,7 @@ var WebTorrent = require('webtorrent')
 
 var client = new WebTorrent()
 
-client.download(magnet_uri, function (torrent) {
+client.add(magnet_uri, function (torrent) {
   // Got torrent metadata!
   console.log('Torrent info hash:', torrent.infoHash)
 
