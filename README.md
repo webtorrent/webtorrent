@@ -247,8 +247,7 @@ If `opts` is specified, then the default options (shown below) will be overridde
   peerId: String|Buffer, // Wire protocol peer ID (default=randomly generated)
   rtcConfig: Object,     // RTCPeerConnection configuration object (default=STUN only)
   storage: Function      // custom storage engine, or `false` to use in-memory engine
-  tracker: Boolean,      // Whether or not to enable trackers (default=true)
-  verify: Boolean        // Verify previously stored data before starting (default=false)
+  tracker: Boolean       // Whether or not to enable trackers (default=true)
 }
 ```
 
@@ -264,6 +263,15 @@ Start downloading a new torrent. Aliased as `client.download`.
 - parsed torrent (from [parse-torrent](https://github.com/feross/parse-torrent))
 - http/https url to a torrent file (string)
 - filesystem path to a torrent file (string)
+
+If `opts` is specified, then the default options (shown below) will be overridden.
+
+```js
+{
+  tmp: String,           // Custom folder where files will be downloaded (default=`/tmp/`)
+  verify: Boolean        // Verify previously stored data before starting (default=false)
+}
+```
 
 If `ontorrent` is specified, then it will be called when **this** torrent is ready to be
 used (i.e. metadata is available). Note: this is distinct from the 'torrent' event which
