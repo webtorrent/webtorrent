@@ -1,9 +1,9 @@
-var RarityMap = require('../lib/rarity-map')
 var BitField = require('bitfield')
-var Swarm = require('bittorrent-swarm')
 var EventEmitter = require('events').EventEmitter
-var test = require('tape')
 var hat = require('hat')
+var RarityMap = require('../lib/rarity-map')
+var Swarm = require('bittorrent-swarm')
+var test = require('tape')
 
 var infoHash = 'd2474e86c95b19b8bcfdb92bc12c9d44667cfa36'
 var peerId1 = '-WW0001-' + hat(48)

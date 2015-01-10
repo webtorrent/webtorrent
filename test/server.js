@@ -1,5 +1,5 @@
-var get = require('simple-get')
 var fs = require('fs')
+var get = require('simple-get')
 var portfinder = require('portfinder')
 var test = require('tape')
 var WebTorrent = require('../')

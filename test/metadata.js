@@ -1,7 +1,7 @@
-var WebTorrent = require('../')
+var fs = require('fs')
 var parseTorrent = require('parse-torrent')
 var test = require('tape')
-var fs = require('fs')
+var WebTorrent = require('../')
 
 var leaves = fs.readFileSync(__dirname + '/torrents/leaves.torrent')
 var leavesTorrent = parseTorrent(leaves)

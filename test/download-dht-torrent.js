@@ -1,9 +1,9 @@
 var auto = require('run-auto')
-var WebTorrent = require('../')
 var DHT = require('bittorrent-dht/server')
 var fs = require('fs')
 var parseTorrent = require('parse-torrent')
 var test = require('tape')
+var WebTorrent = require('../')
 
 var leavesPath = __dirname + '/content/Leaves of Grass by Walt Whitman.epub'
 var leavesFile = fs.readFileSync(leavesPath)

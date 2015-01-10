@@ -1,7 +1,7 @@
 /*
-var WebTorrent = require('../')
-var test = require('tape')
 var fs = require('fs')
+var test = require('tape')
+var WebTorrent = require('../')
 
 var torrents = [ 'leaves', 'pride' ].map(function (name) {
   return fs.readFileSync(__dirname + '/torrents/' + name + '.torrent')

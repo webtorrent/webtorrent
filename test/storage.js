@@ -1,7 +1,7 @@
-var Storage = require('../lib/storage')
-var parseTorrent = require('parse-torrent')
-var test = require('tape')
 var fs = require('fs')
+var parseTorrent = require('parse-torrent')
+var Storage = require('../lib/storage')
+var test = require('tape')
 
 var torrents = [ 'leaves', 'pride' ].map(function (name) {
   var torrent = fs.readFileSync(__dirname + '/torrents/' + name + '.torrent')
