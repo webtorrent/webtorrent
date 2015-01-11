@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+var createTorrent = require('create-torrent')
 var clivas = require('clivas')
 var cp = require('child_process')
 var fs = require('fs')
@@ -66,6 +67,9 @@ if (command === 'help' || argv.help) {
 } else if (command === 'info') {
   torrentId = argv._[1]
   info(torrentId)
+} else if (command === 'create') {
+  var input = argv._[1]
+  create(input)
 } else if (command === 'download') {
   torrentId = argv._[1]
   download(torrentId)
@@ -102,8 +106,9 @@ function help () {
       webtorrent download "magnet:?xt=urn:btih:..." --vlc
 
   Available commands:
-      download               download a torrent
-      info                   show info for a .torrent file or magnet uri
+      download               Download a torrent
+      create                 Create a .torrent file
+      info                   Show info for a .torrent file or magnet uri
 
   Specify torrents as one of the following:
       * magnet uri
@@ -151,7 +156,23 @@ function info (torrentId) {
   delete parsedTorrent.info
   delete parsedTorrent.infoBuffer
 
-  console.log(JSON.stringify(parsedTorrent, undefined, 2))
+  var output = JSON.stringify(parsedTorrent, undefined, 2)
+  if (argv.out) {
+    fs.writeFileSync(argv.out, output)
+  } else {
+    process.stdout.write(output)
+  }
+}
+
+function create (input) {
+  createTorrent(input, function (err, torrent) {
+    if (err) return errorAndExit(err)
+    if (argv.out) {
+      fs.writeFileSync(argv.out, torrent)
+    } else {
+      process.stdout.write(torrent)
+    }
+  })
 }
 
 function download (torrentId) {

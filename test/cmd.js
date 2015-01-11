@@ -78,5 +78,26 @@ test('Command line: webtorrent info magnet_uri', function (t) {
   })
 })
 
+test('Command line: webtorrent create /path/to/file', function (t) {
+  t.plan(1)
+
+  var leavesPath = __dirname + '/content/Leaves of Grass by Walt Whitman.epub'
+
+  var child = cp.spawn(CMD, [ 'create', leavesPath ])
+  child.on('error', function (err) {
+    throw err
+  })
+
+  var chunks = []
+  child.stdout.on('data', function (chunk) {
+    chunks.push(chunk)
+  })
+  child.stdout.on('end', function () {
+    var buf = Buffer.concat(chunks)
+    var parsedTorrent = parseTorrent(new Buffer(buf, 'binary'))
+    t.deepEqual(parsedTorrent.infoHash, 'd2474e86c95b19b8bcfdb92bc12c9d44667cfa36')
+  })
+})
+
 // TODO: test 'webtorrent download /path/to/torrent'
 // TODO: test 'webtorrent download magnet_uri'
