@@ -101,3 +101,4 @@ test('Command line: webtorrent create /path/to/file', function (t) {
 
 // TODO: test 'webtorrent download /path/to/torrent'
 // TODO: test 'webtorrent download magnet_uri'
+// TODO: test 'webtorrent seed /path/to/file'
