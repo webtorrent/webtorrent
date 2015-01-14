@@ -9,11 +9,9 @@
 
 ### Streaming torrent client for node & the browser
 
-
 **WebTorrent** is a streaming torrent client for **node.js** and the **browser**. YEP,
 THAT'S RIGHT. THE BROWSER. It's written completely in JavaScript – the language of the web
 – so the same code works in both runtimes.
-
 
 In node, this module is a simple torrent client, using TCP and UDP to talk to
 normal torrent clients. Soon, it will gain the ability to swarm with web peers, making
@@ -298,7 +296,7 @@ Start seeding a new torrent.
 - W3C [FileList](https://developer.mozilla.org/en-US/docs/Web/API/FileList) object (basically an array of `File` objects)
 - Node [Buffer](http://nodejs.org/api/buffer.html) object (works in [the browser](https://www.npmjs.org/package/buffer))
 
-Or, an **array of `File` or `Buffer` objects**.
+Or, an **array of `string`, `File`, or `Buffer` objects**.
 
 If `opts` is specified, it should contain the following types of options:
 
