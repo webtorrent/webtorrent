@@ -1,17 +1,19 @@
 # ![WebTorrent](img/wordmark.png)
 
+[![Gitter][webtorrent-gitter-image]][webtorrent-gitter-url]
 [![Build Status][webtorrent-ti]][webtorrent-tu]
 [![NPM Version][webtorrent-ni]][webtorrent-nu]
 [![NPM Downloads][webtorrent-downloads-image]][webtorrent-downloads-url]
-[![Gratipay][webtorrent-gratipay-image]][webtorrent-gratipay-url]
+
+[![Sauce Test Status][webtorrent-sauce-image]][webtorrent-sauce-url]
 
 ### Streaming torrent client for node & the browser
 
-[![Gitter][webtorrent-gitter-image]][webtorrent-gitter-url]
 
 **WebTorrent** is a streaming torrent client for **node.js** and the **browser**. YEP,
 THAT'S RIGHT. THE BROWSER. It's written completely in JavaScript – the language of the web
 – so the same code works in both runtimes.
+
 
 In node, this module is a simple torrent client, using TCP and UDP to talk to
 normal torrent clients. Soon, it will gain the ability to swarm with web peers, making
@@ -64,16 +66,28 @@ for WebTorrent (and WebRTC) so they can swarm with both normal *and* web peers.
 - Stream video torrents into a `<video>` tag (`webm (vp8, vp9)` or `mp4 (h.264)`)
 - Supports Chrome, Firefox, and Opera.
 
-[![Sauce Test Status][webtorrent-sauce-image]][webtorrent-sauce-url]
-
 #### Node-only features
 
 - Stream to **AirPlay**, **Chromecast**, **VLC player**, and many other devices/players
 
+### Install
+
+To install WebTorrent for use in node or the browser with `require('webtorrent')`, run:
+
+```bash
+npm install webtorrent
+```
+
+To install a `webtorrent` command line program, run:
+
+```bash
+npm install webtorrent -g
+```
+
 ### Ways to help
 
-- **Join us in IRC** on freenode at `#webtorrent` if you want to help with development, or
-  you just want to hang out with some cool mad science hackers :)
+- **Join us in [Gitter][webtorrent-gitter-url]** or on freenode at `#webtorrent` to help
+  with development or to hang out with some cool mad science hackers :)
 - **[Create a new issue](https://github.com/feross/webtorrent/issues/new)** to report bugs
 - **[Fix an issue](https://github.com/feross/webtorrent/issues?state=open)**. Note:
   WebTorrent is an [OPEN Open Source Project](CONTRIBUTING.md)!
@@ -82,16 +96,8 @@ for WebTorrent (and WebRTC) so they can swarm with both normal *and* web peers.
 
 ### WebTorrent in production
 
-- **[Instant](http://instant.io)** – Secure, anonymous, streaming file transfer [[code](https://github.com/feross/instant.io)]
+- **[Instant](http://instant.io)** – Secure, anonymous, streaming file transfer ([source code](https://github.com/feross/instant.io))
 - Your app here! (send a PR or open an issue with your app's URL)
-
-### Install
-
-With [npm](https://npmjs.org/), run:
-
-```bash
-npm install webtorrent
-```
 
 ### Usage
 
@@ -197,7 +203,7 @@ WebTorrent also works in node.js, using the *same npm module!* It's mad science!
 WebTorrent is available as a command line app. Here's how to use it:
 
 ```bash
-$ npm install -g webtorrent
+$ npm install webtorrent -g
 $ webtorrent --help
 ```
 
@@ -523,7 +529,7 @@ These are the main modules that make up WebTorrent:
 [webtorrent-gratipay-url]: https://gratipay.com/feross/
 [webtorrent-sauce-image]: https://saucelabs.com/browser-matrix/webtorrent.svg
 [webtorrent-sauce-url]: https://saucelabs.com/u/webtorrent
-[webtorrent-gitter-image]: https://badges.gitter.im/Join%20Chat.svg
+[webtorrent-gitter-image]: https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg?style=flat
 [webtorrent-gitter-url]: https://gitter.im/feross/webtorrent
 
 [bittorrent-dht]: https://github.com/feross/bittorrent-dht
