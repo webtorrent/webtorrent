@@ -13,9 +13,8 @@
 THAT'S RIGHT. THE BROWSER. It's written completely in JavaScript – the language of the web
 – so the same code works in both runtimes.
 
-In node, this module is a simple torrent client, using TCP and UDP to talk to
-normal torrent clients. Soon, it will gain the ability to swarm with web peers, making
-it the first "hybrid" client.
+In node.js, this module is a simple torrent client, using TCP and UDP to talk to
+other torrent clients.
 
 In the browser, WebTorrent uses **WebRTC** (data channels) for peer-to-peer transport.
 It can be used **without** browser plugins, extensions, or installations. It's Just
@@ -31,8 +30,10 @@ To make BitTorrent work over WebRTC (which is the only p2p transport that works 
 web) we made some protocol changes. Therefore, a browser-based WebTorrent client can only
 connect to other clients that support WebTorrent (and WebRTC).
 
-We hope established torrent clients (uTorrent, Transmission, Vuze, etc.) will add support
-for WebTorrent (and WebRTC) so they can swarm with both normal *and* web peers.
+The WebTorrent node.js module will soon gain the ability to connect to web peers using
+WebRTC, making it the first "hybrid" client. We hope established torrent clients
+(uTorrent, Transmission, Vuze, etc.) will also add support for WebTorrent (and WebRTC) so
+they can connect to both normal *and* web peers.
 
 ![Network](img/network.png)
 
