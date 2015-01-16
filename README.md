@@ -686,6 +686,7 @@ makes it easier to send PRs:
 
 ### Talks about WebTorrent
 
+- Nov 2014 (NodeConf Asia) - [WebTorrent](https://www.youtube.com/watch?v=kxHRATfvnlw)
 - Sep 2014 (NodeConf EU) – WebTorrent &amp; WebRTC: Mad Science (first working demo of WebTorrent)
 - May 2014 (JS.LA) – [How I Built a BitTorrent Client in the Browser](https://vimeo.com/97324247) (progress update; node client working)
 - Oct 2013 (RealtimeConf) – [WebRTC Black Magic (RealtimeConf)](https://vimeo.com/77265280) (where I first shared the idea of WebTorrent)
