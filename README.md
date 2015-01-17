@@ -173,6 +173,8 @@ client.add(magnet_uri, function (torrent) {
 })
 ```
 
+There are more examples in the [examples](https://github.com/feross/webtorrent/tree/master/examples) folder.
+
 ##### Browserify
 
 WebTorrent works great with [browserify](http://browserify.org/), an npm module that let's
