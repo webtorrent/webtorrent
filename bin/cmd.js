@@ -438,11 +438,14 @@ function drawTorrent (torrent) {
       '{green:blocked:} {bold:' + torrent.numBlockedPeers + '}'
     )
     clivas.line('{80:}')
-    linesremaining -= 8
+    linesremaining -= 9
 
     var pieces = torrent.storage.pieces
+    var storageMem = 0
     for (var i = 0; i < pieces.length; i++) {
       var piece = pieces[i]
+      if (piece.buffer)
+        storageMem += piece.buffer.length
       if (piece.verified || piece.blocksWritten === 0) {
         continue;
       }
@@ -453,6 +456,9 @@ function drawTorrent (torrent) {
       clivas.line('{4+cyan:' + i + '} ' + bar);
       linesremaining -= 1
     }
+    clivas.line(
+      '{red:storage mem:} {bold:' + Math.ceil(storageMem / 1024) + ' KB}  '
+    )
     clivas.line('{80:}')
     linesremaining -= 1
 
