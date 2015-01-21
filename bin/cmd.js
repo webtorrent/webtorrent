@@ -451,7 +451,19 @@ function drawTorrent (torrent) {
       }
       var bar = ''
       for (var j = 0; j < piece.blocks.length; j++) {
-        bar += piece.blocks[j] ? '{green:█}' : '{red:█}';
+        switch(piece.blocks[j]) {
+        case 0:
+          bar += '{red:█}';
+          break;
+        case 1:
+          bar += '{blue:█}';
+          break;
+        case 2:
+          bar += '{green:█}';
+          break;
+        default:
+          throw 'Invalid block state: ' + piece.blocks[j]
+        }
       }
       clivas.line('{4+cyan:' + i + '} ' + bar);
       linesremaining -= 1
