@@ -451,18 +451,22 @@ function drawTorrent (torrent) {
       }
       var bar = ''
       for (var j = 0; j < piece.blocks.length; j++) {
-        switch(piece.blocks[j]) {
-        case 0:
-          bar += '{red:█}';
-          break;
-        case 1:
-          bar += '{blue:█}';
-          break;
-        case 2:
+        if (j < piece.blocksHashed) {
           bar += '{green:█}';
-          break;
-        default:
-          throw 'Invalid block state: ' + piece.blocks[j]
+        } else {
+          switch(piece.blocks[j]) {
+          case 0:
+            bar += '{red:█}';
+            break;
+          case 1:
+            bar += '{yellow:█}';
+            break;
+          case 2:
+            bar += '{blue:█}';
+            break;
+          default:
+            throw 'Invalid block state: ' + piece.blocks[j]
+          }
         }
       }
       clivas.line('{4+cyan:' + i + '} ' + bar);
