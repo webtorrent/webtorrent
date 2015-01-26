@@ -83,7 +83,7 @@ test('client.seed (filesystem path to folder (string))', function (t) {
   var client = new WebTorrent({ dht: false, tracker: false })
   client.seed(numbersPath, opts, function (torrent) {
     t.equal(torrent.infoHash, '80562f38656b385ea78959010e51a2cc9db41ea0')
-    t.equal(torrent.magnetURI, 'magnet:?xt=urn:btih:80562f38656b385ea78959010e51a2cc9db41ea0&dn=numbers&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.webtorrent.io%3A80&tr=wss%3A%2F%2Ftracker.webtorrent.io')
+    t.equal(torrent.magnetURI, 'magnet:?xt=urn:btih:80562f38656b385ea78959010e51a2cc9db41ea0&dn=numbers&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.webtorrent.io%3A80&tr=wss%3A%2F%2Ftracker.webtorrent.io')
     client.destroy()
   })
 })
