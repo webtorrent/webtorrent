@@ -83,3 +83,16 @@ test('client.seed (Buffer, Blob)', function (t) {
     console.log('Skipping Blob test because missing `Blob` constructor')
   }
 })
+
+test('throw if add or seed after destroy', function (t) {
+  var client = new WebTorrent({ dht: false, tracker: false })
+  client.destroy()
+  t.throws(function () {
+    client.add('magnet:?xt=urn:btih:' + leavesTorrent.infoHash)
+  })
+  t.throws(function () {
+    client.seed(new Buffer('sup'))
+  })
+  t.end()
+})
+

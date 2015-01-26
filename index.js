@@ -42,6 +42,7 @@ function WebTorrent (opts) {
   EventEmitter.call(self)
   if (!debug.enabled) self.setMaxListeners(0)
 
+  self.destroyed = false
   self.torrentPort = opts.torrentPort || 0
   self.tracker = opts.tracker !== undefined ? opts.tracker : true
   self.rtcConfig = opts.rtcConfig
@@ -139,6 +140,7 @@ WebTorrent.prototype.get = function (torrentId) {
 WebTorrent.prototype.add =
 WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
   var self = this
+  if (self.destroyed) throw new Error('client is destroyed')
   debug('add %s', torrentId)
   if (typeof opts === 'function') {
     ontorrent = opts
@@ -188,6 +190,8 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
  */
 WebTorrent.prototype.seed = function (input, opts, onseed) {
   var self = this
+  if (self.destroyed) throw new Error('client is destroyed')
+  debug('seed %s', input)
   if (typeof opts === 'function') {
     onseed = opts
     opts = {}
@@ -240,6 +244,7 @@ WebTorrent.prototype.remove = function (torrentId, cb) {
  */
 WebTorrent.prototype.destroy = function (cb) {
   var self = this
+  self.destroyed = true
   debug('destroy')
 
   var tasks = self.torrents.map(function (torrent) {
