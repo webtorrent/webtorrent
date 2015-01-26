@@ -85,6 +85,7 @@ function WebTorrent (opts) {
     loadIPSet(opts.blocklist, {
       headers: { 'user-agent': 'WebTorrent (http://webtorrent.io)' }
     }, function (err, ipSet) {
+      if (err) return self.error('failed to load blocklist: ' + err.message)
       self.blocked = ipSet
       ready()
     })
