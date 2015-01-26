@@ -99,7 +99,7 @@ test('after client.destroy(), throw on client.add() or client.seed()', function 
   })
 })
 
-test('after client.destroy(), no "torrent" event should be emitted', function (t) {
+test('after client.destroy(), no "torrent" or "ready" events emitted', function (t) {
   t.plan(1)
 
   var client = new WebTorrent({ dht: false, tracker: false })
@@ -108,6 +108,9 @@ test('after client.destroy(), no "torrent" event should be emitted', function (t
   })
   client.seed(leavesBook, function () {
     t.fail('unexpected "torrent" event (from seed)')
+  })
+  client.on('ready', function () {
+    t.fail('unexpected "ready" event')
   })
   client.destroy(function () {
     t.pass('client destroyed')

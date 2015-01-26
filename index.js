@@ -91,6 +91,7 @@ function WebTorrent (opts) {
   } else process.nextTick(ready)
 
   function ready () {
+    if (self.destroyed) return
     self.ready = true
     self.emit('ready')
   }
