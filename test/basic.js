@@ -104,10 +104,10 @@ test('after client.destroy(), no "torrent" event should be emitted', function (t
 
   var client = new WebTorrent({ dht: false, tracker: false })
   client.add(leaves, function () {
-    t.fail('unexpected "torrent" event')
+    t.fail('unexpected "torrent" event (from add)')
   })
   client.seed(leavesBook, function () {
-    t.fail('unexpected "torrent" event')
+    t.fail('unexpected "torrent" event (from seed)')
   })
   client.destroy(function () {
     t.pass('client destroyed')
