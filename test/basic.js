@@ -84,15 +84,32 @@ test('client.seed (Buffer, Blob)', function (t) {
   }
 })
 
-test('throw if add or seed after destroy', function (t) {
+test('after client.destroy(), throw on client.add() or client.seed()', function (t) {
+  t.plan(3)
+
   var client = new WebTorrent({ dht: false, tracker: false })
-  client.destroy()
+  client.destroy(function () {
+    t.pass('client destroyed')
+  })
   t.throws(function () {
     client.add('magnet:?xt=urn:btih:' + leavesTorrent.infoHash)
   })
   t.throws(function () {
     client.seed(new Buffer('sup'))
   })
-  t.end()
 })
 
+test('after client.destroy(), no "torrent" event should be emitted', function (t) {
+  t.plan(1)
+
+  var client = new WebTorrent({ dht: false, tracker: false })
+  client.add(leaves, function () {
+    t.fail('unexpected "torrent" event')
+  })
+  client.seed(leavesBook, function () {
+    t.fail('unexpected "torrent" event')
+  })
+  client.destroy(function () {
+    t.pass('client destroyed')
+  })
+})

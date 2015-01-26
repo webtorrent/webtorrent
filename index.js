@@ -207,6 +207,9 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
     createTorrent(input, opts, function (err, torrentBuf) {
       if (err) return self.emit('error', err)
 
+      // if client was destroyed asyncronously, bail early (or `add` will throw)
+      if (self.destroyed) return
+
       self.add(torrentBuf, opts, function (torrent) {
         var tasks = [function (cb) {
           torrent.storage.load(streams, cb)
