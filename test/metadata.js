@@ -7,13 +7,14 @@ var leaves = fs.readFileSync(__dirname + '/torrents/leaves.torrent')
 var leavesTorrent = parseTorrent(leaves)
 
 test('ut_metadata transfer', function (t) {
-  t.plan(5)
+  t.plan(6)
 
   var client1 = new WebTorrent({ dht: false, tracker: false })
   var client2 = new WebTorrent({ dht: false, tracker: false })
 
   client1.on('torrent', function (torrent) {
     t.pass('client1 emits torrent event') // even though it started with metadata
+    t.ok(torrent.metadata, 'metadata exists')
   })
 
   // client1 starts with metadata from torrent file

@@ -24,7 +24,7 @@ torrents.forEach(function (torrent) {
     var length = 0
     var pieces = 0
 
-    storage.pieces.forEach(function (piece, index) {
+    storage.pieces.forEach(function (piece) {
       t.notOk(piece.verified)
       length += piece.length
 
@@ -37,7 +37,7 @@ torrents.forEach(function (torrent) {
     t.equal(length, parsedTorrent.length)
     length = 0
 
-    storage.files.forEach(function (file, index) {
+    storage.files.forEach(function (file) {
       t.notOk(file.done)
       length += file.length
       pieces += file.pieces.length

@@ -59,7 +59,7 @@ test('Command line: webtorrent info /path/to/file.torrent', function (t) {
     t.deepEqual(data, JSON.parse(JSON.stringify(parsedTorrent, undefined, 2)))
   })
 
-  cp.exec(CMD + ' info /bad/path', function (err, data) {
+  cp.exec(CMD + ' info /bad/path', function (err) {
     t.ok(err instanceof Error)
   })
 })
