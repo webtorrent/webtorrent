@@ -22,7 +22,6 @@ test('Command line: webtorrent help', function (t) {
     t.error(err) // no error, exit code 0
     t.ok(data.toLowerCase().indexOf('usage') !== -1)
   })
-
 })
 
 test('Command line: webtorrent version', function (t) {

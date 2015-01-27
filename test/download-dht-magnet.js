@@ -85,8 +85,7 @@ test('Download using DHT (via magnet uri)', function (t) {
           cb(null, client2)
         })
       })
-    }],
-
+    }]
   }, function (err, r) {
     t.error(err)
     r.client1.destroy(function () {

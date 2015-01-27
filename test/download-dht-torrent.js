@@ -84,8 +84,7 @@ test('Download using DHT (via .torrent file)', function (t) {
           cb(null, client2)
         })
       })
-    }],
-
+    }]
   }, function (err, r) {
     t.error(err)
     r.client1.destroy(function () {

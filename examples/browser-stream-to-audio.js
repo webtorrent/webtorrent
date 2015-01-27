@@ -1,8 +1,9 @@
 var WebTorrent = require('webtorrent')
 
 var client = new WebTorrent()
+var magnetUri = 'magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36'
 
-client.add(magnet_uri, function (torrent) {
+client.add(magnetUri, function (torrent) {
   // Got torrent metadata!
   console.log('Torrent info hash:', torrent.infoHash)
 

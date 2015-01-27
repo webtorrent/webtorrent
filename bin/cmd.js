@@ -95,7 +95,8 @@ function HELP () {
       clivas.line('{bold:' + line.substring(0, 20) + '}{red:' + line.substring(20) + '}')
     })
 
-  console.log(function () {/*
+  console.log(function () {
+  /*
   Usage:
       webtorrent [command] <torrent-id> <options>
 
@@ -135,7 +136,8 @@ function HELP () {
 
   Please report bugs!  https://github.com/feross/webtorrent/issues
 
-    */}.toString().split(/\n/).slice(1, -1).join('\n'))
+  */
+  }.toString().split(/\n/).slice(2, -2).join('\n'))
   process.exit(0)
 }
 
@@ -205,7 +207,7 @@ function DOWNLOAD (torrentId) {
     function updateMetadata () {
       var numPeers = torrent.swarm.numPeers
       clivas.clear()
-      clivas.line('{green:fetching torrent metadata from} {bold:'+numPeers+'} {green:peers}')
+      clivas.line('{green:fetching torrent metadata from} {bold:%s} {green:peers}', numPeers)
     }
 
     if (!argv.quiet && !argv.list) {
@@ -235,7 +237,10 @@ function DOWNLOAD (torrentId) {
 
     if (argv.list) {
       torrent.files.forEach(function (file, i) {
-        clivas.line('{3+bold:'+i+'} : {magenta:'+file.name+'} {blue:('+prettyBytes(file.length)+')}')
+        clivas.line(
+          '{3+bold:%s} : {magenta:%s} {blue:(%s)}',
+          i, file.name, prettyBytes(file.length)
+        )
       })
       return done()
     }
@@ -244,8 +249,9 @@ function DOWNLOAD (torrentId) {
       if (argv.quiet) return
       clivas.clear()
       clivas.line(
-        '{green:verifying existing torrent} {bold:'+Math.floor(data.percentDone)+'%} ' +
-        '({bold:'+Math.floor(data.percentVerified)+'%} {green:passed verification})'
+        '{green:verifying existing torrent} {bold:%s%} ({bold:%s%} {green:verified})',
+        Math.floor(data.percentDone),
+        Math.floor(data.percentVerified)
       )
     })
 
@@ -256,9 +262,11 @@ function DOWNLOAD (torrentId) {
           return num + (wire.downloaded > 0)
         }, 0)
         clivas.line(
-          'torrent downloaded {green:successfully} from ' +
-          '{bold:'+numActiveWires+'/'+torrent.swarm.wires.length+'} {green:peers} ' +
-          'in {bold:'+getRuntime()+'s}!'
+          'torrent downloaded {green:successfully} from {bold:%s/%s} {green:peers} ' +
+          'in {bold:%ss}!',
+          numActiveWires,
+          torrent.swarm.wires.length,
+          getRuntime()
         )
       }
       done()
@@ -371,7 +379,7 @@ function DOWNLOAD (torrentId) {
       var xbmc = require('nodebmc')
       new xbmc.Browser()
         .on('deviceOn', function (device) {
-            device.play(href, function () {})
+          device.play(href, function () {})
         })
     }
 
@@ -409,7 +417,8 @@ function drawTorrent (torrent) {
     var linesremaining = clivas.height
     var peerslisted = 0
     var speed = torrent.swarm.downloadSpeed()
-    var estimatedSecondsRemaining = Math.max(0, torrent.length - torrent.swarm.downloaded) / (speed > 0 ? speed : -1)
+    var estimatedSecondsRemaining =
+      Math.max(0, torrent.length - torrent.swarm.downloaded) / (speed > 0 ? speed : -1)
     var estimate = moment.duration(estimatedSecondsRemaining, 'seconds').humanize()
 
     clivas.clear()
@@ -444,13 +453,13 @@ function drawTorrent (torrent) {
     for (var i = 0; i < pieces.length; i++) {
       var piece = pieces[i]
       if (piece.verified || piece.blocksWritten === 0) {
-        continue;
+        continue
       }
       var bar = ''
       for (var j = 0; j < piece.blocks.length; j++) {
-        bar += piece.blocks[j] ? '{green:█}' : '{red:█}';
+        bar += piece.blocks[j] ? '{green:█}' : '{red:█}'
       }
-      clivas.line('{4+cyan:' + i + '} ' + bar);
+      clivas.line('{4+cyan:' + i + '} ' + bar)
       linesremaining -= 1
     }
     clivas.line('{80:}')
@@ -471,15 +480,18 @@ function drawTorrent (torrent) {
       var tags = []
       if (wire.peerChoking) tags.push('choked')
       var reqStats = wire.requests.map(function (req) {
-          return req.piece;
+        return req.piece
       })
       clivas.line(
-        '{3:' + progress + '} ' +
-        '{25+magenta:' + wire.remoteAddress + '} {10:'+prettyBytes(wire.downloaded)+'} ' +
-        '{10+cyan:' + prettyBytes(wire.downloadSpeed()) + '/s} ' +
-        '{10+red:' + prettyBytes(wire.uploadSpeed()) + '/s} ' +
-        '{15+grey:' + tags.join(', ') + '}' +
-        '{15+cyan:' + reqStats.join(' ') + '}'
+        '{3:%s} {25+magenta:%s} {10:%s} {10+cyan:%s/s} {10+red:%s/s} {15+grey:%s}' +
+        '{15+cyan:%s}',
+        progress,
+        wire.remoteAddress,
+        prettyBytes(wire.downloaded),
+        prettyBytes(wire.downloadSpeed()),
+        prettyBytes(wire.uploadSpeed()),
+        tags.join(', '),
+        reqStats.join(' ')
       )
       peerslisted++
       return linesremaining - peerslisted > 4
@@ -488,7 +500,7 @@ function drawTorrent (torrent) {
 
     if (torrent.swarm.wires.length > peerslisted) {
       clivas.line('{80:}')
-      clivas.line('... and '+(torrent.swarm.wires.length - peerslisted)+' more')
+      clivas.line('... and %s more', torrent.swarm.wires.length - peerslisted)
     }
 
     clivas.line('{80:}')

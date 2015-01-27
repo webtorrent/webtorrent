@@ -7,9 +7,9 @@ var torrents = [ 'leaves', 'pride' ].map(function (name) {
   var torrent = fs.readFileSync(__dirname + '/torrents/' + name + '.torrent')
 
   return {
-    name : name,
-    torrent : torrent,
-    parsedTorrent : parseTorrent(torrent)
+    name: name,
+    torrent: torrent,
+    parsedTorrent: parseTorrent(torrent)
   }
 })
 
@@ -21,7 +21,8 @@ torrents.forEach(function (torrent) {
     t.equal(storage.files.length, parsedTorrent.files.length)
     t.equal(storage.pieces.length, parsedTorrent.pieces.length)
 
-    var length = 0, pieces = 0
+    var length = 0
+    var pieces = 0
 
     storage.pieces.forEach(function (piece, index) {
       t.notOk(piece.verified)

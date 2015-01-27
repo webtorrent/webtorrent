@@ -111,8 +111,9 @@ standards (no plugins, just HTML5 and WebRTC)! It's easy to get started!
 var WebTorrent = require('webtorrent')
 
 var client = new WebTorrent()
+var magnetUri = '...'
 
-client.add(magnet_uri, function (torrent) {
+client.add(magnetUri, function (torrent) {
   // Got torrent metadata!
   console.log('Torrent info hash:', torrent.infoHash)
 
@@ -155,8 +156,9 @@ dragDrop('body', function (files) {
 var WebTorrent = require('webtorrent')
 
 var client = new WebTorrent()
+var magnetUri = '...'
 
-client.add(magnet_uri, function (torrent) {
+client.add(magnetUri, function (torrent) {
   // Got torrent metadata!
   console.log('Torrent info hash:', torrent.infoHash)
 
@@ -395,7 +397,9 @@ Here is a usage example:
 
 ```js
 var client = new WebTorrent()
-client.add(magnet_uri, function (torrent) {
+var magnetUri = '...'
+
+client.add(magnetUri, function (torrent) {
   // create HTTP server for this torrent
   var server = torrent.createServer()
   server.listen(port) // start the server listening to a port
