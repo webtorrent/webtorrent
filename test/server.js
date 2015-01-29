@@ -18,6 +18,7 @@ test('start http server programmatically', function (t) {
       server.listen(port)
 
       get.concat('http://localhost:' + port + '/0', function (err, data) {
+        if (err) throw err
         // Verify data for first (and only file)
         t.deepEqual(data, fs.readFileSync(leavesPath))
 

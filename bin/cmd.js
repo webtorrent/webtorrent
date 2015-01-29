@@ -288,7 +288,6 @@ function DOWNLOAD (torrentId) {
       OMX_EXEC += ' --subtitles ' + argv.subtitles
     }
 
-    var cmd, player
     playerName = argv.airplay ? 'Airplay'
       : argv.chromecast ? 'Chromecast'
       : argv.xbmc ? 'XBMC'
@@ -311,6 +310,7 @@ function DOWNLOAD (torrentId) {
     if (playerName) torrent.files[index].select()
     if (argv.stdout) torrent.files[index].createReadStream().pipe(process.stdout)
 
+    var cmd
     if (argv.vlc && process.platform === 'win32') {
       var registry = require('windows-no-runnable').registry
       var key
@@ -348,7 +348,7 @@ function DOWNLOAD (torrentId) {
     }
 
     if (cmd) {
-      player = cp.exec(cmd, function (err) {
+      cp.exec(cmd, function (err) {
         if (err) return errorAndExit(err)
         done()
       })
