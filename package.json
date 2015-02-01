@@ -41,7 +41,6 @@
     "debug": "^2.1.0",
     "dezalgo": "^1.0.1",
     "end-of-stream": "^1.0.0",
-    "extend.js": "^0.0.2",
     "hat": "0.0.3",
     "inherits": "^2.0.1",
     "load-ip-set": "^1.0.3",
@@ -69,6 +68,7 @@
     "ut_pex": "^1.0.1",
     "webtorrent-swarm": "0.x",
     "windows-no-runnable": "0.0.6",
+    "xtend": "^4.0.0",
     "zero-fill": "^2.1.0"
   },
   "devDependencies": {

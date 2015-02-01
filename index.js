@@ -7,7 +7,7 @@ var createTorrent = require('create-torrent')
 var debug = require('debug')('webtorrent')
 var DHT = require('bittorrent-dht/client') // browser exclude
 var EventEmitter = require('events').EventEmitter
-var extend = require('extend.js')
+var extend = require('xtend')
 var hat = require('hat')
 var inherits = require('inherits')
 var loadIPSet = require('load-ip-set') // browser exclude
@@ -156,7 +156,7 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
   if (!opts.storageOpts) opts.storageOpts = {}
   if (opts.tmp) opts.storageOpts.tmp = opts.tmp
 
-  var torrent = new Torrent(torrentId, extend({ client: self }, opts))
+  var torrent = new Torrent(torrentId, opts)
   self.torrents.push(torrent)
 
   function clientOnTorrent (_torrent) {

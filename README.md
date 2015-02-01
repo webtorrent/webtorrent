@@ -250,7 +250,7 @@ If `opts` is specified, then the default options (shown below) will be overridde
 
 ``` js
 {
-  dht: Boolean,          // Whether or not to enable DHT (default=true)
+  dht: Boolean|Object,   // Enable DHT (default=true), or options object for DHT
   maxPeers: Number,      // Max number of peers to connect to per torrent (default=100)
   nodeId: String|Buffer, // DHT protocol node ID (default=randomly generated)
   peerId: String|Buffer, // Wire protocol peer ID (default=randomly generated)
