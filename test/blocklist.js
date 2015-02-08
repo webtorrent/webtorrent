@@ -1,7 +1,6 @@
 var fs = require('fs')
 var http = require('http')
 var parseTorrent = require('parse-torrent')
-var portfinder = require('portfinder')
 var test = require('tape')
 var WebTorrent = require('../')
 var zlib = require('zlib')
@@ -142,25 +141,23 @@ test('blocklist (http url)', function (t) {
     fs.createReadStream(blocklistPath)
       .pipe(res)
   })
-  portfinder.getPort(function (err, port) {
-    if (err) throw err
+
+  server.listen(0, function () {
+    var port = server.address().port
     var url = 'http://127.0.0.1:' + port
+    var client = new WebTorrent({
+      dht: false,
+      tracker: false,
+      blocklist: url
+    })
+    .on('error', function (err) { t.fail(err) })
+    .on('ready', function () {
+      var torrent = client.add(leavesParsed)
 
-    server.listen(port, function () {
-      var client = new WebTorrent({
-        dht: false,
-        tracker: false,
-        blocklist: url
-      })
-      .on('error', function (err) { t.fail(err) })
-      .on('ready', function () {
-        var torrent = client.add(leavesParsed)
+      assertList(t, torrent)
 
-        assertList(t, torrent)
-
-        client.destroy()
-        server.close()
-      })
+      client.destroy()
+      server.close()
     })
   })
 })
@@ -176,25 +173,23 @@ test('blocklist (http url with gzip encoding)', function (t) {
       .pipe(zlib.createGzip())
       .pipe(res)
   })
-  portfinder.getPort(function (err, port) {
-    if (err) throw err
+
+  server.listen(0, function () {
+    var port = server.address().port
     var url = 'http://127.0.0.1:' + port
+    var client = new WebTorrent({
+      dht: false,
+      tracker: false,
+      blocklist: url
+    })
+    .on('error', function (err) { t.fail(err) })
+    .on('ready', function () {
+      var torrent = client.add(leavesParsed)
 
-    server.listen(port, function () {
-      var client = new WebTorrent({
-        dht: false,
-        tracker: false,
-        blocklist: url
-      })
-      .on('error', function (err) { t.fail(err) })
-      .on('ready', function () {
-        var torrent = client.add(leavesParsed)
+      assertList(t, torrent)
 
-        assertList(t, torrent)
-
-        client.destroy()
-        server.close()
-      })
+      client.destroy()
+      server.close()
     })
   })
 })
@@ -210,25 +205,23 @@ test('blocklist (http url with deflate encoding)', function (t) {
       .pipe(zlib.createDeflate())
       .pipe(res)
   })
-  portfinder.getPort(function (err, port) {
-    if (err) throw err
+
+  server.listen(0, function () {
+    var port = server.address().port
     var url = 'http://127.0.0.1:' + port
+    var client = new WebTorrent({
+      dht: false,
+      tracker: false,
+      blocklist: url
+    })
+    .on('error', function (err) { t.fail(err) })
+    .on('ready', function () {
+      var torrent = client.add(leavesParsed)
 
-    server.listen(port, function () {
-      var client = new WebTorrent({
-        dht: false,
-        tracker: false,
-        blocklist: url
-      })
-      .on('error', function (err) { t.fail(err) })
-      .on('ready', function () {
-        var torrent = client.add(leavesParsed)
+      assertList(t, torrent)
 
-        assertList(t, torrent)
-
-        client.destroy()
-        server.close()
-      })
+      client.destroy()
+      server.close()
     })
   })
 })

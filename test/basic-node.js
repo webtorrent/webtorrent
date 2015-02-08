@@ -2,7 +2,6 @@ var WebTorrent = require('../')
 var fs = require('fs')
 var http = require('http')
 var parseTorrent = require('parse-torrent')
-var portfinder = require('portfinder')
 var test = require('tape')
 
 var leavesPath = __dirname + '/torrents/leaves.torrent'
@@ -20,17 +19,15 @@ test('client.add (http url to a torrent file (string))', function (t) {
     res.end(leaves)
   })
 
-  portfinder.getPort(function (err, port) {
-    if (err) throw err
-    server.listen(port, function () {
-      var url = 'http://127.0.0.1:' + port
-      var client = new WebTorrent({ dht: false, tracker: false })
-      client.add(url, function (torrent) {
-        t.equal(torrent.infoHash, leavesTorrent.infoHash)
-        t.equal(torrent.magnetURI, leavesMagnetURI)
-        client.destroy()
-        server.close()
-      })
+  server.listen(0, function () {
+    var port = server.address().port
+    var url = 'http://127.0.0.1:' + port
+    var client = new WebTorrent({ dht: false, tracker: false })
+    client.add(url, function (torrent) {
+      t.equal(torrent.infoHash, leavesTorrent.infoHash)
+      t.equal(torrent.magnetURI, leavesMagnetURI)
+      client.destroy()
+      server.close()
     })
   })
 })

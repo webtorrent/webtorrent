@@ -1,6 +1,5 @@
 var fs = require('fs')
 var get = require('simple-get')
-var portfinder = require('portfinder')
 var test = require('tape')
 var WebTorrent = require('../')
 
@@ -10,13 +9,10 @@ var leavesTorrent = fs.readFileSync(__dirname + '/torrents/leaves.torrent')
 test('start http server programmatically', function (t) {
   var client = new WebTorrent()
   var torrent = client.add(leavesTorrent, { dht: false, tracker: false }, function (torrent) {
-    portfinder.getPort(function (err, port) {
-      if (err) throw err
-
-      // create HTTP server for this torrent
-      var server = torrent.createServer()
-      server.listen(port)
-
+    // create HTTP server for this torrent
+    var server = torrent.createServer()
+    server.listen(0, function () {
+      var port = server.address().port
       get.concat('http://localhost:' + port + '/0', function (err, data) {
         if (err) throw err
         // Verify data for first (and only file)
