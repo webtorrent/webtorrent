@@ -65,30 +65,30 @@ function getRuntime () {
 var command = argv._[0]
 
 if (command === 'help' || argv.help) {
-  HELP()
+  runHelp()
 } else if (command === 'version' || argv.version) {
-  VERSION()
+  runVersion()
 } else if (command === 'info') {
-  INFO(/* torrentId */ argv._[1])
+  runInfo(/* torrentId */ argv._[1])
 } else if (command === 'create') {
-  CREATE(/* input */ argv._[1])
+  runCreate(/* input */ argv._[1])
 } else if (command === 'download') {
-  DOWNLOAD(/* torrentId */ argv._[1])
+  runDownload(/* torrentId */ argv._[1])
 } else if (command === 'seed') {
-  SEED(/* input */ argv._[1])
+  runSeed(/* input */ argv._[1])
 } else if (command) {
   // assume command is "download" when not specified
-  DOWNLOAD(/* torrentId */ command)
+  runDownload(/* torrentId */ command)
 } else {
-  HELP()
+  runHelp()
 }
 
-function VERSION () {
+function runVersion () {
   console.log(require('../package.json').version)
   process.exit(0)
 }
 
-function HELP () {
+function runHelp () {
   fs.readFileSync(path.join(__dirname, 'ascii-logo.txt'), 'utf8')
     .split('\n')
     .forEach(function (line) {
@@ -141,7 +141,7 @@ function HELP () {
   process.exit(0)
 }
 
-function INFO (torrentId) {
+function runInfo (torrentId) {
   var parsedTorrent = parseTorrent(torrentId)
   if (!parsedTorrent || !parsedTorrent.infoHash) {
     try {
@@ -163,7 +163,7 @@ function INFO (torrentId) {
   }
 }
 
-function CREATE (input) {
+function runCreate (input) {
   createTorrent(input, function (err, torrent) {
     if (err) return errorAndExit(err)
     if (argv.out) {
@@ -179,7 +179,7 @@ var playerName
 var server
 var serving
 
-function DOWNLOAD (torrentId) {
+function runDownload (torrentId) {
   var client = new WebTorrent({
     blocklist: argv.blocklist
   })
@@ -387,7 +387,7 @@ function DOWNLOAD (torrentId) {
   }
 }
 
-function SEED (input) {
+function runSeed (input) {
   var client = new WebTorrent({
     blocklist: argv.blocklist
   })
