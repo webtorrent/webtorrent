@@ -219,8 +219,9 @@ function runDownload (torrentId) {
     }
   })
 
-  if (argv.list) torrent.once('ready', onReady)
-  else {
+  if (argv.list) {
+    torrent.once('ready', onReady)
+  } else {
     server = torrent.createServer()
     server.listen(argv.port, function () {
       if (torrent.ready) onReady()
