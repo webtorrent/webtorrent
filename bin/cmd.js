@@ -453,12 +453,12 @@ function drawTorrent (torrent) {
     var pieces = torrent.storage.pieces
     for (var i = 0; i < pieces.length; i++) {
       var piece = pieces[i]
-      if (piece.verified || piece.blocksWritten === 0) {
+      if (piece.verified || (piece.blocksWritten === 0 && !piece.blocks[0])) {
         continue
       }
       var bar = ''
       for (var j = 0; j < piece.blocks.length; j++) {
-        bar += piece.blocks[j] ? '{green:█}' : '{red:█}'
+        bar += piece.blocks[j] ? (piece.blocks[j] === 1 ? '{blue:█}' : '{green:█}') : '{red:█}'
       }
       clivas.line('{4+cyan:' + i + '} ' + bar)
       linesremaining -= 1
