@@ -330,8 +330,8 @@ An array of all torrents in the client.
 
 #### `client.get(torrentId)`
 
-Returns the torrent with the given `torrentId`. Convenience method. Easier than
-searching through the `client.torrents` array.
+Returns the torrent with the given `torrentId`. Convenience method. Easier than searching
+through the `client.torrents` array. Returns `null` if no matching torrent found.
 
 #### `client.ratio`
 

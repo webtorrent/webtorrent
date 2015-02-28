@@ -117,10 +117,11 @@ Object.defineProperty(WebTorrent.prototype, 'ratio', {
 
 /**
  * Returns the torrent with the given `torrentId`. Convenience method. Easier than
- * searching through the `client.torrents` array.
+ * searching through the `client.torrents` array. Returns `null` if no matching torrent
+ * found.
  *
  * @param  {string|Buffer|Object} torrentId
- * @return {Torrent}
+ * @return {Torrent|null}
  */
 WebTorrent.prototype.get = function (torrentId) {
   var self = this
