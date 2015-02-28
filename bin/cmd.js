@@ -142,7 +142,14 @@ function runHelp () {
 }
 
 function runInfo (torrentId) {
-  var parsedTorrent = parseTorrent(torrentId)
+  var parsedTorrent
+  try {
+    parsedTorrent = parseTorrent(torrentId)
+  } catch (err) {
+    // If torrent fails to parse, it could be a filesystem path, so don't consider it
+    // an error yet.
+  }
+
   if (!parsedTorrent || !parsedTorrent.infoHash) {
     try {
       parsedTorrent = parseTorrent(fs.readFileSync(torrentId))
@@ -150,7 +157,6 @@ function runInfo (torrentId) {
       errorAndExit(err)
     }
   }
-  if (!parsedTorrent) errorAndExit('Invalid torrent identifier')
 
   delete parsedTorrent.info
   delete parsedTorrent.infoBuffer

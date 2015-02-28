@@ -125,7 +125,7 @@ Object.defineProperty(WebTorrent.prototype, 'ratio', {
 WebTorrent.prototype.get = function (torrentId) {
   var self = this
   var parsed = parseTorrent(torrentId)
-  if (!parsed || !parsed.infoHash) return null
+  if (!parsed.infoHash) throw new Error('Invalid torrent identifier')
   for (var i = 0, len = self.torrents.length; i < len; i++) {
     var torrent = self.torrents[i]
     if (torrent.infoHash === parsed.infoHash) return torrent
