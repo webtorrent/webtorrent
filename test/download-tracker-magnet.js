@@ -38,7 +38,8 @@ function magnetDownloadTest (t, serverType) {
         trackerStartCount += 1
       })
 
-      tracker.listen(function (port) {
+      tracker.listen(function () {
+        var port = tracker[serverType].address().port
         var announceUrl = serverType === 'http'
           ? 'http://127.0.0.1:' + port + '/announce'
           : 'udp://127.0.0.1:' + port

@@ -15,7 +15,8 @@ test('blocklist blocks peers discovered via tracker', function (t) {
     tracker: function (cb) {
       var tracker = new TrackerServer({ udp: false })
 
-      tracker.listen(function (port) {
+      tracker.listen(function () {
+        var port = tracker.http.address().port
         var announceUrl = 'http://127.0.0.1:' + port + '/announce'
 
         // Overwrite announce with our local tracker
