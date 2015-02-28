@@ -79,7 +79,8 @@
     "standard": "^2.0.0",
     "tape": "^3.0.3",
     "uglify-js": "^2.4.15",
-    "zuul": "^2.0.0"
+    "zuul": "^2.0.0",
+    "zelda": "^2.0.0"
   },
   "homepage": "http://webtorrent.io",
   "keywords": [
