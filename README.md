@@ -654,6 +654,12 @@ npm install
 ./bin/cmd.js --help
 ```
 
+#### JavaScript Standard Style
+
+WebTorrent uses [JavaScript Standard Style](https://github.com/feross/standard).
+
+[![js-standard-style](https://raw.githubusercontent.com/feross/standard/master/badge.png)](https://github.com/feross/standard)
+
 #### Enable debug logs
 
 In **node**, enable debug logs by setting the `DEBUG` environment variable to the name of the
