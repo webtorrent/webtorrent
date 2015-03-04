@@ -23,7 +23,8 @@ test('blocklist blocks peers discovered via DHT', function (t) {
 
   auto({
     dhtPort: function (cb) {
-      dhtServer.listen(function (port) {
+      dhtServer.listen(function () {
+        var port = dhtServer.address().port
         cb(null, port)
       })
     },

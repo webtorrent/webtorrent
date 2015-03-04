@@ -25,7 +25,8 @@ test('Download using DHT (via .torrent file)', function (t) {
 
   auto({
     dhtPort: function (cb) {
-      dhtServer.listen(function (port) {
+      dhtServer.listen(function () {
+        var port = dhtServer.address().port
         cb(null, port)
       })
     },

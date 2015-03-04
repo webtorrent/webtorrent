@@ -32,7 +32,7 @@
   "dependencies": {
     "addr-to-ip-port": "^1.0.1",
     "bitfield": "^1.0.2",
-    "bittorrent-dht": "^2.6.2",
+    "bittorrent-dht": "^3.0.0",
     "bittorrent-swarm": "^1.0.0",
     "block-stream": "0.0.7",
     "browserify-versionify": "^1.0.2",
