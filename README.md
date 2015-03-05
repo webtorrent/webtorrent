@@ -320,9 +320,9 @@ ready). See the torrent section for more info on what methods a `torrent` has.
 Remove a torrent from the client. Destroy all connections to peers and delete all saved
 file data. If `callback` is specified, it will be called when file data is removed.
 
-#### `client.destroy()`
+#### `client.destroy([function callback (err) {}])`
 
-Destroy the client, including all torrents and connections to peers.
+Destroy the client, including all torrents and connections to peers. If `callback` is specified, it will be called when the client has gracefully closed.
 
 #### `client.torrents[...]`
 
