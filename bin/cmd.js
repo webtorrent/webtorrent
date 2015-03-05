@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
-var createTorrent = require('create-torrent')
 var clivas = require('clivas')
 var cp = require('child_process')
+var createTorrent = require('create-torrent')
 var fs = require('fs')
+var inquirer = require('inquirer')
 var minimist = require('minimist')
 var moment = require('moment')
 var networkAddress = require('network-address')
@@ -11,6 +12,7 @@ var parseTorrent = require('parse-torrent')
 var path = require('path')
 var prettyBytes = require('pretty-bytes')
 var WebTorrent = require('../')
+var zeroFill = require('zero-fill')
 
 process.title = 'WebTorrent'
 
@@ -28,7 +30,7 @@ var argv = minimist(process.argv.slice(2), {
     p: 'port',
     b: 'blocklist',
     t: 'subtitles',
-    l: 'list',
+    s: 'select',
     i: 'index',
     o: 'out',
     q: 'quiet',
@@ -43,7 +45,7 @@ var argv = minimist(process.argv.slice(2), {
     'vlc',
     'xbmc',
     'stdout',
-    'list',
+    'select',
     'quiet',
     'help',
     'version'
@@ -126,7 +128,7 @@ function runHelp () {
 
   Options (all):
       -o, --out [path]        set download destination [default: /tmp/webtorrent]
-      -l, --list              list files in torrent (with indexes)
+      -s, --select            select individual file in torrent (by index)
       -i, --index [index]     stream a particular file from torrent (by index)
       -p, --port [number]     change the http port [default: 8000]
       -b, --blocklist [path]  load blocklist file/http url
@@ -202,9 +204,12 @@ function runDownload (torrentId) {
 
     // destroying can take a while, so print a message to the user
     clivas.line('')
-    clivas.line('{green:webtorrent is exiting...}')
+    clivas.line('{green:webtorrent is gracefully exiting...}')
 
-    client.destroy(process.exit)
+    client.destroy(function (err) {
+      if (err) return errorAndExit(err)
+      process.exit(0)
+    })
   }
 
   var torrent = client.add(torrentId, (argv.out ? { tmp: argv.out } : {}))
@@ -216,69 +221,99 @@ function runDownload (torrentId) {
       clivas.line('{green:fetching torrent metadata from} {bold:%s} {green:peers}', numPeers)
     }
 
-    if (!argv.quiet && !argv.list) {
+    if (!argv.quiet) {
       torrent.swarm.on('wire', updateMetadata)
       torrent.on('metadata', function () {
+        clivas.clear()
         torrent.swarm.removeListener('wire', updateMetadata)
       })
       updateMetadata()
     }
   })
 
-  if (argv.list) {
-    torrent.once('ready', onReady)
-  } else {
-    server = torrent.createServer()
-    server.listen(argv.port, function () {
-      if (torrent.ready) onReady()
-      else torrent.once('ready', onReady)
-    }).once('connection', function () {
-      serving = true
-    })
-  }
+  torrent.on('verifying', function (data) {
+    if (argv.quiet) return
+    clivas.clear()
+    clivas.line(
+      '{green:verifying existing torrent} {bold:%s%} ({bold:%s%} {green:verified})',
+      Math.floor(data.percentDone),
+      Math.floor(data.percentVerified)
+    )
+  })
+
+  torrent.on('done', function () {
+    if (!argv.quiet) {
+      // TODO: expose this data from bittorrent-swarm
+      var numActiveWires = torrent.swarm.wires.reduce(function (num, wire) {
+        return num + (wire.downloaded > 0)
+      }, 0)
+      clivas.line(
+        'torrent downloaded {green:successfully} from {bold:%s/%s} {green:peers} ' +
+        'in {bold:%ss}!',
+        numActiveWires,
+        torrent.swarm.wires.length,
+        getRuntime()
+      )
+    }
+    done()
+  })
+
+  // Start http server
+  server = torrent.createServer()
+  server.listen(argv.port, function () {
+    if (torrent.ready) onReady()
+    else torrent.once('ready', onReady)
+  }).once('connection', function () {
+    serving = true
+  })
 
   function onReady () {
-    function done () {
-      if (!serving) process.exit(0)
-    }
+    // if no index specified, use largest file
+    var index = (typeof argv.index === 'number')
+      ? argv.index
+      : torrent.files.indexOf(torrent.files.reduce(function (a, b) {
+        return a.length > b.length ? a : b
+      }))
 
-    if (argv.list) {
-      torrent.files.forEach(function (file, i) {
-        clivas.line(
-          '{3+bold:%s} : {magenta:%s} {blue:(%s)}',
-          i, file.name, prettyBytes(file.length)
-        )
-      })
-      return done()
-    }
+    if (argv.select) {
+      var interactive = process.stdin.isTTY && !!process.stdin.setRawMode
+      if (interactive) {
+        if (torrent.files.length === 0) errorAndExit('No files in the torrent')
 
-    torrent.on('verifying', function (data) {
-      if (argv.quiet) return
-      clivas.clear()
-      clivas.line(
-        '{green:verifying existing torrent} {bold:%s%} ({bold:%s%} {green:verified})',
-        Math.floor(data.percentDone),
-        Math.floor(data.percentVerified)
-      )
-    })
+        var cli = inquirer.prompt([{
+          type: 'list',
+          name: 'index',
+          message: 'Choose a file to download:',
+          default: index,
+          choices: torrent.files.map(function (file, i) {
+            var len = prettyBytes(file.length)
+            return {
+              name: zeroFill(2, i, ' ') + ': ' + file.name + ' (' + len + ')',
+              value: i
+            }
+          })
+        }], function (answers) {
+          onSelection(answers.index)
+        })
 
-    torrent.on('done', function () {
-      if (!argv.quiet) {
-        // TODO: expose this data from bittorrent-swarm
-        var numActiveWires = torrent.swarm.wires.reduce(function (num, wire) {
-          return num + (wire.downloaded > 0)
-        }, 0)
-        clivas.line(
-          'torrent downloaded {green:successfully} from {bold:%s/%s} {green:peers} ' +
-          'in {bold:%ss}!',
-          numActiveWires,
-          torrent.swarm.wires.length,
-          getRuntime()
-        )
+        cli.rl.on('SIGINT', function () {
+          return process.exit(0)
+        })
+      } else {
+        torrent.files.forEach(function (file, i) {
+          clivas.line(
+            '{3+bold:%s}: {magenta:%s} {blue:(%s)}',
+            i, file.name, prettyBytes(file.length)
+          )
+        })
+        return process.exit(0)
       }
-      done()
-    })
+    } else {
+      onSelection(index)
+    }
+  }
 
+  function onSelection (index) {
     var VLC_ARGS = process.env.DEBUG
       ? '-q --play-and-exit'
       : '--play-and-exit --extraintf=http:logger --verbose=2 --file-logging --logfile=vlc-log.txt'
@@ -304,12 +339,6 @@ function runDownload (torrentId) {
       : argv.omx ? 'OMXPlayer'
       : null
 
-    // if no index specified, use largest file
-    var index = (typeof argv.index === 'number')
-      ? argv.index
-      : torrent.files.indexOf(torrent.files.reduce(function (a, b) {
-        return a.length > b.length ? a : b
-      }))
     href = (argv.airplay || argv.chromecast || argv.xbmc)
       ? 'http://' + networkAddress() + ':' + argv.port + '/' + index
       : 'http://localhost:' + argv.port + '/' + index
@@ -391,6 +420,10 @@ function runDownload (torrentId) {
     }
 
     drawTorrent(torrent)
+  }
+
+  function done () {
+    if (!serving) process.exit(0)
   }
 }
 
