@@ -49,7 +49,7 @@ test('client.add (magnet uri, torrent file, info hash, and parsed torrent)', fun
 })
 
 test('client.seed (Buffer, Blob)', function (t) {
-  t.plan(typeof Blob !== 'undefined' ? 4 : 2)
+  t.plan(global.Blob !== undefined ? 4 : 2)
 
   var opts = {
     name: 'Leaves of Grass by Walt Whitman.epub',
@@ -72,9 +72,9 @@ test('client.seed (Buffer, Blob)', function (t) {
   })
 
   // Blob
-  if (typeof Blob !== 'undefined') {
+  if (global.Blob !== undefined) {
     var client2 = new WebTorrent({ dht: false, tracker: false })
-    client2.seed(new Blob([ leavesBook ]), opts, function (torrent2) {
+    client2.seed(new global.Blob([ leavesBook ]), opts, function (torrent2) {
       t.equal(torrent2.infoHash, leavesTorrent.infoHash)
       t.equal(torrent2.magnetURI, leavesMagnetURI)
       client2.destroy()
