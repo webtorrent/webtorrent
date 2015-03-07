@@ -217,9 +217,11 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
         var tasks = [function (cb) {
           torrent.storage.load(streams, cb)
         }]
-        if (self.dht) tasks.push(function (cb) {
-          torrent.on('dhtAnnounce', cb)
-        })
+        if (self.dht) {
+          tasks.push(function (cb) {
+            torrent.on('dhtAnnounce', cb)
+          })
+        }
         parallel(tasks, function (err) {
           if (err) return self.emit('error', err)
           if (onseed) onseed(torrent)
@@ -259,9 +261,11 @@ WebTorrent.prototype.destroy = function (cb) {
     }
   })
 
-  if (self.dht) tasks.push(function (cb) {
-    self.dht.destroy(cb)
-  })
+  if (self.dht) {
+    tasks.push(function (cb) {
+      self.dht.destroy(cb)
+    })
+  }
 
   parallel(tasks, cb)
 }

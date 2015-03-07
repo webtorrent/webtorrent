@@ -463,12 +463,9 @@ function drawTorrent (torrent) {
 
     clivas.clear()
 
-    if (playerName)
-      clivas.line('{green:Streaming to} {bold:' + playerName + '}')
-    if (server)
-      clivas.line('{green:server running at} {bold:' + href + '}')
-    if (argv.out)
-      clivas.line('{green:downloading to} {bold:' + argv.out + '}')
+    if (playerName) clivas.line('{green:Streaming to} {bold:' + playerName + '}')
+    if (server) clivas.line('{green:server running at} {bold:' + href + '}')
+    if (argv.out) clivas.line('{green:downloading to} {bold:' + argv.out + '}')
 
     clivas.line('')
     clivas.line('{green:downloading:} {bold:' + torrent.name + '}')
