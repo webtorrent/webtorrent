@@ -456,7 +456,7 @@ You can pass `opts` to stream only a slice of a file.
 
 Both `start` and `end` are inclusive.
 
-#### `file.getBuffer(function callback (err, url) {})`
+#### `file.getBuffer(function callback (err, buffer) {})`
 
 Get the file contents as a `Buffer`.
 
