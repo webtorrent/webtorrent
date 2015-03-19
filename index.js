@@ -144,7 +144,7 @@ WebTorrent.prototype.add =
 WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
   var self = this
   if (self.destroyed) throw new Error('client is destroyed')
-  debug('add %s', torrentId)
+  debug('add')
   if (typeof opts === 'function') {
     ontorrent = opts
     opts = {}
@@ -194,7 +194,7 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
 WebTorrent.prototype.seed = function (input, opts, onseed) {
   var self = this
   if (self.destroyed) throw new Error('client is destroyed')
-  debug('seed %s', input)
+  debug('seed')
   if (typeof opts === 'function') {
     onseed = opts
     opts = {}
