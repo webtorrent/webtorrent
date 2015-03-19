@@ -12,7 +12,6 @@
   },
   "browser": {
     "./lib/fs-storage": false,
-    "./package.json": false,
     "./server": false,
     "addr-to-ip-port": false,
     "bittorrent-dht/client": false,
@@ -20,11 +19,6 @@
     "load-ip-set": false,
     "simple-get": false,
     "ut_pex": false
-  },
-  "browserify": {
-    "transform": [
-      "browserify-versionify"
-    ]
   },
   "bugs": {
     "url": "https://github.com/feross/webtorrent/issues"
@@ -35,7 +29,6 @@
     "bittorrent-dht": "^3.0.0",
     "bittorrent-swarm": "^1.0.0",
     "block-stream": "0.0.7",
-    "browserify-versionify": "^1.0.2",
     "clivas": "^0.1.4",
     "create-torrent": "^3.4.0",
     "debug": "^2.1.0",

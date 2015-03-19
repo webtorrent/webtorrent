@@ -28,7 +28,7 @@ inherits(WebTorrent, EventEmitter)
  *   '0.16.1' -> '0016'
  *   '1.2.5' -> '0102'
  */
-var VERSION = (require('./package.json').version || '__VERSION__')
+var VERSION = require('./package.json').version
   .match(/([0-9]+)/g).slice(0, 2).map(zeroFill(2)).join('')
 
 /**
