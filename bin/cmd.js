@@ -437,7 +437,7 @@ function runSeed (input) {
   client.seed(input)
 
   client.on('torrent', function (torrent) {
-    console.log(torrent.magnetURI)
+    if (argv.quiet) console.log(torrent.magnetURI)
     drawTorrent(torrent)
   })
 }
@@ -468,8 +468,14 @@ function drawTorrent (torrent) {
     if (server) clivas.line('{green:server running at} {bold:' + href + '}')
     if (argv.out) clivas.line('{green:downloading to} {bold:' + argv.out + '}')
 
+    var seeding = torrent.storage.done
+
     clivas.line('')
-    clivas.line('{green:downloading:} {bold:' + torrent.name + '}')
+    clivas.line(
+      '{green:' + (seeding ? 'seeding' : 'downloading') + ':} ' +
+      '{bold:' + torrent.name + '}'
+    )
+    if (seeding) clivas.line('{green:magnet uri:} ' + torrent.magnetURI)
     clivas.line(
       '{green:speed: }{bold:' + prettyBytes(speed) + '/s}  ' +
       '{green:downloaded:} {bold:' + prettyBytes(torrent.swarm.downloaded) + '}' +
