@@ -109,8 +109,9 @@ function runHelp () {
       download               Download a torrent
       create                 Create a .torrent file
       info                   Show info for a .torrent file or magnet uri
+      seed                   Seed a file or folder
 
-  Specify torrents as one of the following:
+  Specify torrent ids as one of the following:
       * magnet uri
       * http url to .torrent file
       * filesystem path to .torrent file
