@@ -1,7 +1,7 @@
 {
   "name": "webtorrent",
   "description": "Streaming torrent client",
-  "version": "0.29.4",
+  "version": "0.30.0",
   "author": {
     "name": "Feross Aboukhadijeh",
     "email": "feross@feross.org",
