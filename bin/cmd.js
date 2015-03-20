@@ -106,8 +106,8 @@ function runHelp () {
       webtorrent download "magnet:?xt=urn:btih:..." --vlc
 
   Available commands:
-      download               Download a torrent
       create                 Create a .torrent file
+      download               Download a torrent
       info                   Show info for a .torrent file or magnet uri
       seed                   Seed a file or folder
 
