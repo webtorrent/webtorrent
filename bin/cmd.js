@@ -213,7 +213,7 @@ function runDownload (torrentId) {
     })
   }
 
-  var torrent = client.add(torrentId, (argv.out ? { tmp: argv.out } : {}))
+  var torrent = client.add(torrentId, { path: argv.out })
 
   torrent.on('infoHash', function () {
     function updateMetadata () {
