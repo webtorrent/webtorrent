@@ -9,47 +9,62 @@ var leavesBook = fs.readFileSync(__dirname + '/content/Leaves of Grass by Walt W
 
 var leavesMagnetURI = 'magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36&dn=Leaves+of+Grass+by+Walt+Whitman.epub&tr=http%3A%2F%2Ftracker.thepiratebay.org%2Fannounce&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ffr33domtracker.h33t.com%3A3310%2Fannounce&tr=http%3A%2F%2Ftracker.bittorrent.am%2Fannounce'
 
-test('client.add (magnet uri, torrent file, info hash, and parsed torrent)', function (t) {
+test('client.add/remove (magnet uri, torrent file, info hash, and parsed torrent)', function (t) {
   // magnet uri (utf8 string)
   var client1 = new WebTorrent({ dht: false, tracker: false })
   var torrent1 = client1.add('magnet:?xt=urn:btih:' + leavesTorrent.infoHash)
+  t.equal(client1.torrents.length, 1)
   t.equal(torrent1.infoHash, leavesTorrent.infoHash)
   t.equal(torrent1.magnetURI, 'magnet:?xt=urn:btih:' + leavesTorrent.infoHash)
+  client1.remove('magnet:?xt=urn:btih:' + leavesTorrent.infoHash)
+  t.equal(client1.torrents.length, 0)
   client1.destroy()
 
   // torrent file (buffer)
   var client2 = new WebTorrent({ dht: false, tracker: false })
   var torrent2 = client2.add(leaves)
+  t.equal(client2.torrents.length, 1)
   t.equal(torrent2.infoHash, leavesTorrent.infoHash)
   t.equal(torrent2.magnetURI, leavesMagnetURI)
+  client2.remove(leaves)
+  t.equal(client2.torrents.length, 0)
   client2.destroy()
 
   // info hash (hex string)
   var client3 = new WebTorrent({ dht: false, tracker: false })
   var torrent3 = client3.add(leavesTorrent.infoHash)
+  t.equal(client3.torrents.length, 1)
   t.equal(torrent3.infoHash, leavesTorrent.infoHash)
   t.equal(torrent3.magnetURI, 'magnet:?xt=urn:btih:' + leavesTorrent.infoHash)
+  client3.remove(leavesTorrent.infoHash)
+  t.equal(client3.torrents.length, 0)
   client3.destroy()
 
   // info hash (buffer)
   var client4 = new WebTorrent({ dht: false, tracker: false })
   var torrent4 = client4.add(new Buffer(leavesTorrent.infoHash, 'hex'))
+  t.equal(client4.torrents.length, 1)
   t.equal(torrent4.infoHash, leavesTorrent.infoHash)
   t.equal(torrent4.magnetURI, 'magnet:?xt=urn:btih:' + leavesTorrent.infoHash)
+  client4.remove(new Buffer(leavesTorrent.infoHash, 'hex'))
+  t.equal(client4.torrents.length, 0)
   client4.destroy()
 
   // parsed torrent (from parse-torrent)
   var client5 = new WebTorrent({ dht: false, tracker: false })
   var torrent5 = client5.add(leavesTorrent)
+  t.equal(client5.torrents.length, 1)
   t.equal(torrent5.infoHash, leavesTorrent.infoHash)
   t.equal(torrent5.magnetURI, leavesMagnetURI)
+  client5.remove(leavesTorrent)
+  t.equal(client5.torrents.length, 0)
   client5.destroy()
 
   t.end()
 })
 
 test('client.seed (Buffer, Blob)', function (t) {
-  t.plan(global.Blob !== undefined ? 4 : 2)
+  t.plan(global.Blob !== undefined ? 8 : 4)
 
   var opts = {
     name: 'Leaves of Grass by Walt Whitman.epub',
@@ -66,8 +81,11 @@ test('client.seed (Buffer, Blob)', function (t) {
   // torrent file (Buffer)
   var client1 = new WebTorrent({ dht: false, tracker: false })
   client1.seed(leavesBook, opts, function (torrent1) {
+    t.equal(client1.torrents.length, 1)
     t.equal(torrent1.infoHash, leavesTorrent.infoHash)
     t.equal(torrent1.magnetURI, leavesMagnetURI)
+    client1.remove(torrent1)
+    t.equal(client1.torrents.length, 0)
     client1.destroy()
   })
 
@@ -75,8 +93,11 @@ test('client.seed (Buffer, Blob)', function (t) {
   if (global.Blob !== undefined) {
     var client2 = new WebTorrent({ dht: false, tracker: false })
     client2.seed(new global.Blob([ leavesBook ]), opts, function (torrent2) {
+      t.equal(client2.torrents.length, 1)
       t.equal(torrent2.infoHash, leavesTorrent.infoHash)
       t.equal(torrent2.magnetURI, leavesMagnetURI)
+      client2.remove(torrent2)
+      t.equal(client2.torrents.length, 0)
       client2.destroy()
     })
   } else {
