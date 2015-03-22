@@ -29,7 +29,10 @@
   "dependencies": {
     "addr-to-ip-port": "^1.0.1",
     "bitfield": "^1.0.2",
+  "//": {
     "bittorrent-dht": "^7.0.0",
+    "//": "nothing"
+  },
     "bittorrent-protocol": "^2.0.0",
     "chunk-store-stream": "^2.0.0",
     "cpus": "^1.0.0",
@@ -61,7 +64,10 @@
     "speedometer": "^1.0.0",
     "stream-to-blob-url": "^2.0.0",
     "stream-with-known-length-to-buffer": "^1.0.0",
+  "//": {
     "torrent-discovery": "^7.0.0",
+    "//": "nothing"
+  },
     "torrent-piece": "^1.0.0",
     "uniq": "^1.0.1",
     "unordered-array-remove": "^1.0.2",
