@@ -1,6 +1,8 @@
 var WebTorrent = require('webtorrent')
 
 var client = new WebTorrent()
+
+// Go to https://instant.io, seed a file and use the magnet uri generated
 var magnetUri = 'magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36'
 
 client.add(magnetUri, function (torrent) {
