@@ -15,7 +15,6 @@
     "./server": false,
     "addr-to-ip-port": false,
     "bittorrent-dht/client": false,
-    "bittorrent-swarm": "webtorrent-swarm",
     "load-ip-set": false,
     "simple-get": false,
     "ut_pex": false
@@ -27,7 +26,7 @@
     "addr-to-ip-port": "^1.0.1",
     "bitfield": "^1.0.2",
     "bittorrent-dht": "^3.0.0",
-    "bittorrent-swarm": "^1.0.0",
+    "bittorrent-swarm": "^2.0.0",
     "block-stream": "0.0.7",
     "clivas": "^0.2.0",
     "create-torrent": "^3.4.0",
@@ -60,7 +59,6 @@
     "torrent-discovery": "^2.0.1",
     "ut_metadata": "^2.1.0",
     "ut_pex": "^1.0.1",
-    "webtorrent-swarm": "0.x",
     "windows-no-runnable": "0.0.6",
     "xtend": "^4.0.0",
     "zero-fill": "^2.2.0"
