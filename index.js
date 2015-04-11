@@ -242,6 +242,11 @@ WebTorrent.prototype.remove = function (torrentId, cb) {
   torrent.destroy(cb)
 }
 
+WebTorrent.prototype.address = function () {
+  var self = this
+  return { address: '0.0.0.0', family: 'IPv4', port: self.torrentPort }
+}
+
 /**
  * Destroy the client, including all torrents and connections to peers.
  * @param  {function} cb
