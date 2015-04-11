@@ -16,7 +16,7 @@ leavesParsed.announce = []
 leavesParsed.announceList = []
 
 function assertBlocked (t, torrent, addr) {
-  torrent.once('blocked-peer', function (_addr) {
+  torrent.once('blockedPeer', function (_addr) {
     t.equal(addr, _addr)
   })
   t.notOk(torrent.addPeer(addr))

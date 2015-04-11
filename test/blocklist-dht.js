@@ -49,7 +49,7 @@ test('blocklist blocks peers discovered via DHT', function (t) {
         t.fail('client1 should not find any peers')
       })
 
-      torrent1.on('blocked-peer', function () {
+      torrent1.on('blockedPeer', function () {
         t.fail('client1 should not block any peers')
       })
     }],
@@ -64,7 +64,7 @@ test('blocklist blocks peers discovered via DHT', function (t) {
 
       var torrent2 = client2.add(leavesParsed)
 
-      torrent2.on('blocked-peer', function () {
+      torrent2.on('blockedPeer', function () {
         t.pass('client2 blocked connection to client1')
       })
 
