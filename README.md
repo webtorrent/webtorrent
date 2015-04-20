@@ -96,6 +96,7 @@ npm install webtorrent -g
 ### WebTorrent in production
 
 - **[Instant](http://instant.io)** – Secure, anonymous, streaming file transfer ([source code](https://github.com/feross/instant.io))
+- **[Fastcast](http://fastcast.nz)** – Stream peer-to-peer audio and video content ([source code](https://github.com/jakefb/fastcast))
 - Your app here! (send a PR or open an issue with your app's URL)
 
 ### Usage
