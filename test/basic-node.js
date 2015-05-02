@@ -11,7 +11,7 @@ var leavesBookPath = __dirname + '/content/Leaves of Grass by Walt Whitman.epub'
 var numbersPath = __dirname + '/content/numbers'
 var leavesMagnetURI = 'magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36&dn=Leaves+of+Grass+by+Walt+Whitman.epub&tr=http%3A%2F%2Ftracker.thepiratebay.org%2Fannounce&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ffr33domtracker.h33t.com%3A3310%2Fannounce&tr=http%3A%2F%2Ftracker.bittorrent.am%2Fannounce'
 
-test('client.add (http url to a torrent file (string))', function (t) {
+test('client.add: http url to a torrent file, string', function (t) {
   t.plan(3)
 
   var server = http.createServer(function (req, res) {
@@ -32,7 +32,7 @@ test('client.add (http url to a torrent file (string))', function (t) {
   })
 })
 
-test('client.add (filesystem path to a torrent file (string))', function (t) {
+test('client.add: filesystem path to a torrent file, string', function (t) {
   t.plan(2)
 
   var client = new WebTorrent({ dht: false, tracker: false })
@@ -43,7 +43,7 @@ test('client.add (filesystem path to a torrent file (string))', function (t) {
   })
 })
 
-test('client.seed (filesystem path to file (string))', function (t) {
+test('client.seed: filesystem path to file, string', function (t) {
   t.plan(2)
 
   var opts = {
@@ -66,7 +66,7 @@ test('client.seed (filesystem path to file (string))', function (t) {
   })
 })
 
-test('client.seed (filesystem path to folder (string))', function (t) {
+test('client.seed: filesystem path to folder, string', function (t) {
   t.plan(2)
 
   var opts = {
