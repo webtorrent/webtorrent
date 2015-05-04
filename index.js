@@ -45,7 +45,9 @@ function WebTorrent (opts) {
   self.destroyed = false
   self.torrentPort = opts.torrentPort || 0
   self.tracker = opts.tracker !== undefined ? opts.tracker : true
-  self.rtcConfig = opts.rtcConfig
+
+  self._rtcConfig = opts.rtcConfig
+  self._wrtc = opts.wrtc
 
   self.torrents = []
 
@@ -72,7 +74,6 @@ function WebTorrent (opts) {
       : opts.nodeId
   self.nodeIdHex = self.nodeId.toString('hex')
 
-  // TODO: implement webtorrent-dht
   if (opts.dht !== false && typeof DHT === 'function' /* browser exclude */) {
     // use a single DHT instance for all torrents, so the routing table can be reused
     self.dht = new DHT(extend({ nodeId: self.nodeId }, opts.dht))
