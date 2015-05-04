@@ -101,13 +101,9 @@
     "build": "browserify -s WebTorrent -e ./ | uglifyjs -m > webtorrent.min.js",
     "build-debug": "browserify -s WebTorrent -e ./ > webtorrent.debug.js",
     "size": "npm run build && cat webtorrent.min.js | gzip | wc -c",
-    "start": "node ./bin/cmd.js",
     "test": "standard && node ./bin/test.js",
     "test-browser": "zuul -- test/basic.js",
     "test-browser-local": "zuul --local -- test/basic.js",
     "test-node": "tape test/*.js"
-  },
-  "testling": {
-    "files": "test/basic.js"
   }
 }
