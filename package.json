@@ -66,7 +66,7 @@
   "devDependencies": {
     "bittorrent-tracker": "^3.1.2",
     "brfs": "^1.2.0",
-    "browserify": "^9.0.3",
+    "browserify": "^10.0.0",
     "run-auto": "^1.0.0",
     "standard": "^3.1.1",
     "tape": "^4.0.0",
