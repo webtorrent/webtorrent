@@ -256,8 +256,9 @@ If `opts` is specified, then the default options (shown below) will be overridde
   nodeId: String|Buffer, // DHT protocol node ID (default=randomly generated)
   peerId: String|Buffer, // Wire protocol peer ID (default=randomly generated)
   rtcConfig: Object,     // RTCPeerConnection configuration object (default=STUN only)
-  storage: Function      // custom storage engine, or `false` to use in-memory engine
-  tracker: Boolean       // Whether or not to enable trackers (default=true)
+  storage: Function,     // custom storage engine, or `false` to use in-memory engine
+  tracker: Boolean,      // Whether or not to enable trackers (default=true)
+  wrtc: {}               // custom webrtc implementation (in node, specify the [wrtc](https://www.npmjs.com/package/wrtc) package)
 }
 ```
 
