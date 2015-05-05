@@ -530,7 +530,7 @@ function drawTorrent (torrent) {
         '{3:%s} {25+magenta:%s} {10:%s} {10+cyan:%s/s} {10+red:%s/s} {15+grey:%s}' +
         '{15+cyan:%s}',
         progress,
-        wire.remoteAddress,
+        wire.remoteAddress + ':' + wire.remotePort,
         prettyBytes(wire.downloaded),
         prettyBytes(wire.downloadSpeed()),
         prettyBytes(wire.uploadSpeed()),
