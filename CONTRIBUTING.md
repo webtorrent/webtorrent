@@ -1,4 +1,15 @@
-# WebTorrent is an OPEN Open Source Project
+# WebTorrent Contributing Guidelines
+
+- Always use WebTorrent for legal downloads.
+- Always search for a related issue before starting a new issue.
+- Always choose a concise, helpful issue name.
+- Always stay on-topic. If you've got a new bug report or feature request, put it in its own issue.
+- Always be polite to other people.
+- Never post private information, such as torrent or tracker names, IP addresses, etc.
+
+Issues that break the rules may be deleted and locked without warning.
+
+## WebTorrent is an OPEN Open Source Project
 
 Individuals making significant and valuable contributions are given commit-access to the project to contribute as they see fit. This project is more like an open wiki than a standard guarded open source project.
 
