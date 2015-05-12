@@ -21,7 +21,6 @@ test('blocklist blocks peers discovered via tracker', function (t) {
 
         // Overwrite announce with our local tracker
         leavesParsed.announce = [ announceUrl ]
-        leavesParsed.announceList = [[ announceUrl ]]
 
         cb(null, tracker)
       })

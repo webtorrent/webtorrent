@@ -11,7 +11,6 @@ var leavesParsed = parseTorrent(leavesTorrent)
 
 // remove trackers from .torrent file
 leavesParsed.announce = []
-leavesParsed.announceList = []
 
 test('blocklist blocks peers discovered via DHT', function (t) {
   t.plan(7)

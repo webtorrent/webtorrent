@@ -13,7 +13,6 @@ var leavesParsed = parseTorrent(leavesTorrent)
 
 // remove trackers from .torrent file
 leavesParsed.announce = []
-leavesParsed.announceList = []
 
 function assertBlocked (t, torrent, addr) {
   torrent.once('blockedPeer', function (_addr) {

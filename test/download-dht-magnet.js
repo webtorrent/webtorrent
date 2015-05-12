@@ -12,7 +12,6 @@ var leavesParsed = parseTorrent(leavesTorrent)
 
 // remove trackers from .torrent file
 leavesParsed.announce = []
-leavesParsed.announceList = []
 
 test('Download using DHT (via magnet uri)', function (t) {
   t.plan(8)

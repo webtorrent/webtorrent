@@ -45,7 +45,6 @@ function torrentDownloadTest (t, serverType) {
 
         // Overwrite announce with our local tracker
         leavesParsed.announce = [ announceUrl ]
-        leavesParsed.announceList = [[ announceUrl ]]
 
         cb(null, tracker)
       })

@@ -45,7 +45,6 @@ function magnetDownloadTest (t, serverType) {
           : 'udp://127.0.0.1:' + port
 
         leavesParsed.announce = [ announceUrl ]
-        leavesParsed.announceList = [[ announceUrl ]]
         magnetUri = 'magnet:?xt=urn:btih:' + leavesParsed.infoHash + '&tr=' + encodeURIComponent(announceUrl)
         cb(null, tracker)
       })
