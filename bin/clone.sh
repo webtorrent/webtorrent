@@ -21,8 +21,6 @@ git clone git@github.com:feross/string2compact.git
 git clone git@github.com:feross/torrent-discovery.git
 git clone git@github.com:feross/ut_metadata.git
 git clone git@github.com:feross/ut_pex.git
-git clone git@github.com:feross/webtorrent-swarm.git
-git clone git@github.com:feross/webtorrent-tracker.git
 git clone git@github.com:fisch0920/bittorrent-peerid.git
 git clone git@github.com:fisch0920/ip-set.git
 popd

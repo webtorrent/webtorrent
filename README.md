@@ -523,8 +523,6 @@ These are the main modules that make up WebTorrent:
 | [torrent-discovery][torrent-discovery] | [![][torrent-discovery-ti]][torrent-discovery-tu] | [![][torrent-discovery-ni]][torrent-discovery-nu] | find peers via dht and tracker
 | [ut_metadata][ut_metadata] | [![][ut_metadata-ti]][ut_metadata-tu] | [![][ut_metadata-ni]][ut_metadata-nu] | metadata for magnet uris **(ext)**
 | [ut_pex][ut_pex] | [![][ut_pex-ti]][ut_pex-tu] | [![][ut_pex-ni]][ut_pex-nu] | peer discovery **(ext)**
-| [webtorrent-swarm][webtorrent-swarm] | [![][webtorrent-swarm-ti]][webtorrent-swarm-tu] | [![][webtorrent-swarm-ni]][webtorrent-swarm-nu] | webtorrent connection management
-| [webtorrent-tracker][webtorrent-tracker] | [![][webtorrent-tracker-ti]][webtorrent-tracker-tu] | [![][webtorrent-tracker-ni]][webtorrent-tracker-nu] | webtorrent tracker server/client
 
 [webtorrent]: https://github.com/feross/webtorrent
 [webtorrent-ti]: https://img.shields.io/travis/feross/webtorrent.svg?style=flat
@@ -617,19 +615,6 @@ These are the main modules that make up WebTorrent:
 [ut_pex-tu]: https://travis-ci.org/fisch0920/ut_pex
 [ut_pex-ni]: https://img.shields.io/npm/v/ut_pex.svg?style=flat
 [ut_pex-nu]: https://npmjs.org/package/ut_pex
-
-[webtorrent-swarm]: https://github.com/feross/webtorrent-swarm
-[webtorrent-swarm-ti]: https://img.shields.io/travis/feross/webtorrent-swarm.svg?style=flat
-[webtorrent-swarm-tu]: https://travis-ci.org/feross/webtorrent-swarm
-[webtorrent-swarm-ni]: https://img.shields.io/npm/v/webtorrent-swarm.svg?style=flat
-[webtorrent-swarm-nu]: https://npmjs.org/package/webtorrent-swarm
-
-[webtorrent-tracker]: https://github.com/feross/webtorrent-tracker
-[webtorrent-tracker-ti]: https://img.shields.io/travis/feross/webtorrent-tracker.svg?style=flat
-[webtorrent-tracker-tu]: https://travis-ci.org/feross/webtorrent-tracker
-[webtorrent-tracker-ni]: https://img.shields.io/npm/v/webtorrent-tracker.svg?style=flat
-[webtorrent-tracker-nu]: https://npmjs.org/package/webtorrent-tracker
-
 
 ### Contribute
 
