@@ -43,7 +43,7 @@
     "multistream": "^1.4.2",
     "network-address": "^1.0.0",
     "once": "^1.3.1",
-    "parse-torrent": "^4.0.0",
+    "parse-torrent": "^5.0.0",
     "pretty-bytes": "^1.0.1",
     "pump": "^1.0.0",
     "random-access-file": "^0.3.1",
