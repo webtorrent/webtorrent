@@ -27,13 +27,16 @@ on your page to start fetching files over WebRTC using the BitTorrent protocol, 
 ](#webtorrent-in-production) and [code examples](#usage) below.
 
 To make BitTorrent work over WebRTC (which is the only p2p transport that works on the
-web) we made some protocol changes. Therefore, a browser-based WebTorrent client can only
-connect to other clients that support WebTorrent (and WebRTC).
+web) we made some protocol changes. Therefore, a browser-based WebTorrent client or **"web
+peer"** can only connect to other clients that support WebTorrent/WebRTC.
 
-The WebTorrent node.js module will soon gain the ability to connect to web peers using
-WebRTC, making it the first "hybrid" client. We hope established torrent clients
-(uTorrent, Transmission, Vuze, etc.) will also add support for WebTorrent (and WebRTC) so
-they can connect to both normal *and* web peers.
+To seed files to web peers, use a client that supports WebTorrent, e.g.
+[webtorrent-hybrid](https://github.com/feross/webtorrent-hybrid) or
+[instant.io](https://instant.io/). We're also working on
+[WebTorrent.app](https://github.com/feross/WebTorrent.app), a desktop client with a
+familiar UI that can connect to web peers. We hope established torrent clients
+(Transmission, Vuze, uTorrent, etc.) will add support for WebTorrent so they too can
+connect to both normal *and* web peers.
 
 ![Network](img/network.png)
 
