@@ -40,7 +40,7 @@ connect to both normal *and* web peers.
 
 ![Network](img/network.png)
 
-> Warning: This is pre-alpha software. **Watch/star to follow along with progress.**
+> Warning: This is alpha software. **Watch/star to follow along with progress.**
 
 ### Features
 
