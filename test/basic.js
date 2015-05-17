@@ -74,6 +74,19 @@ test('client.add/remove: parsed torrent, from `parse-torrent`', function (t) {
   t.end()
 })
 
+test('client.remove: remove by Torrent object', function (t) {
+  var client = new WebTorrent({ dht: false, tracker: false })
+  var torrent = client.add(leavesTorrent.infoHash)
+  t.equal(client.torrents.length, 1)
+  t.equal(torrent.infoHash, leavesTorrent.infoHash)
+
+  client.remove(torrent)
+  t.equal(client.torrents.length, 0)
+  client.destroy()
+
+  t.end()
+})
+
 test('client.seed (Buffer, Blob)', function (t) {
   t.plan(global.Blob !== undefined ? 8 : 4)
 
