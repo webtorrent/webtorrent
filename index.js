@@ -168,6 +168,7 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
 
   torrent.on('error', function (err) {
     self.emit('error', err, torrent)
+    self.remove(torrent)
   })
 
   torrent.on('listening', function (port) {
@@ -231,7 +232,7 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
 
 /**
  * Remove a torrent from the client.
- * @param  {string|Buffer}   torrentId
+ * @param  {string|Buffer|Torrent}   torrentId
  * @param  {function} cb
  */
 WebTorrent.prototype.remove = function (torrentId, cb) {
