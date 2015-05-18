@@ -283,8 +283,8 @@ If `opts` is specified, then the default options (shown below) will be overridde
 
 ```js
 {
-  tmp: String,           // Custom folder where files will be downloaded (default=`/tmp/`)
-  verify: Boolean        // Verify previously stored data before starting (default=false)
+  path: String,    // Folder where files will be downloaded (default=`/tmp/webtorrent/`)
+  verify: Boolean  // Verify previously stored data before starting (default=false)
 }
 ```
 
