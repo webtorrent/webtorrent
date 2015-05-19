@@ -89,12 +89,10 @@ npm install webtorrent -g
 ### Ways to help
 
 - **Join us in [Gitter][webtorrent-gitter-url]** or on freenode at `#webtorrent` to help
-  with development or to hang out with some cool mad science hackers :)
+  with development or to hang out with some mad science hackers :)
 - **[Create a new issue](https://github.com/feross/webtorrent/issues/new)** to report bugs
 - **[Fix an issue](https://github.com/feross/webtorrent/issues?state=open)**. Note:
   WebTorrent is an [OPEN Open Source Project](CONTRIBUTING.md)!
-- **Donate bitcoin** if you believe in the vision and wish to support the project.
-  Use **[Coinbase](https://www.coinbase.com/feross)**, or send to *1B6aystcqu8fd6ejzpmMFMPRqH9b86iiwh*. ([proof](https://keybase.io/feross))
 
 ### WebTorrent in production
 
