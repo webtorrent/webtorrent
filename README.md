@@ -5,8 +5,6 @@
 [![NPM Version][webtorrent-ni]][webtorrent-nu]
 [![NPM Downloads][webtorrent-downloads-image]][webtorrent-downloads-url]
 
-[![Sauce Test Status][webtorrent-sauce-image]][webtorrent-sauce-url]
-
 ### Streaming torrent client for node & the browser
 
 **WebTorrent** is a streaming torrent client for **node.js** and the **browser**. YEP,
@@ -68,9 +66,14 @@ connect to both normal *and* web peers.
 - Stream video torrents into a `<video>` tag (`webm (vp8, vp9)` or `mp4 (h.264)`)
 - Supports Chrome, Firefox, and Opera.
 
+[![Sauce Test Status][webtorrent-sauce-image]][webtorrent-sauce-url]
+
 #### Node-only features
 
 - Stream to **AirPlay**, **Chromecast**, **VLC player**, and many other devices/players
+- Note: To connect to "web peers" (browsers) in addition to normal BitTorrent peers, use
+  [webtorrent-hybrid](https://github.com/feross/webtorrent-hybrid) which includes WebRTC
+  support for node.
 
 ### Install
 
