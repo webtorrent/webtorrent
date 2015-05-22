@@ -284,6 +284,7 @@ If `opts` is specified, then the default options (shown below) will be overridde
 
 ```js
 {
+  announce: [],    // List of additional trackers to use (added to list in .torrent or magnet uri)
   path: String,    // Folder where files will be downloaded (default=`/tmp/webtorrent/`)
   verify: Boolean  // Verify previously stored data before starting (default=false)
 }
