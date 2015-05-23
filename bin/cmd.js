@@ -424,7 +424,7 @@ function runDownload (torrentId) {
   }
 
   function done () {
-    if (!serving) process.exit(0)
+    if (!playerName && !serving) process.exit(0)
   }
 }
 
