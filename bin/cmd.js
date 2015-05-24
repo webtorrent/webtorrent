@@ -429,7 +429,7 @@ function runDownload (torrentId) {
 }
 
 function runSeed (input) {
-  if (path.extname(input) === '.torrent' || /^magnet:/.test(input)) {
+  if (path.extname(input).toLowerCase() === '.torrent' || /^magnet:/.test(input)) {
     // `webtorrent seed` is meant for creating a new torrent based on a file or folder
     // of content, not a torrent id (.torrent or a magnet uri). If this command is used
     // incorrectly, let's just do the right thing.
