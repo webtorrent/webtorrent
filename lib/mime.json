@@ -1,7 +1,10 @@
 {
+  ".aac": "audio/aac",
   ".m4a": "audio/mp4",
   ".mp3": "audio/mpeg",
   ".mp4": "video/mp4",
+  ".oga": "audio/ogg",
+  ".ogg": "audio/ogg",
   ".pdf": "application/pdf",
   ".wav": "audio/wav",
   ".webm": "video/webm"
