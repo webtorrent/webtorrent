@@ -74,7 +74,7 @@ if (command === 'help' || argv.help) {
   runInfo(/* torrentId */ argv._[1])
 } else if (command === 'create') {
   runCreate(/* input */ argv._[1])
-} else if (command === 'download') {
+} else if (command === 'download' || command === 'add') {
   runDownload(/* torrentId */ argv._[1])
 } else if (command === 'seed') {
   runSeed(/* input */ argv._[1])
@@ -103,13 +103,13 @@ function runHelp () {
       webtorrent [command] <torrent-id> <options>
 
   Example:
-      webtorrent download "magnet:?xt=urn:btih:..." --vlc
+      webtorrent download "magnet:..." --vlc
 
   Available commands:
-      create                 Create a .torrent file
-      download               Download a torrent
-      info                   Show info for a .torrent file or magnet uri
-      seed                   Seed a file or folder
+      download <torrentId>   Download a torrent
+      seed <file/folder>     Seed a file or folder
+      create <file>          Create a .torrent file
+      info <torrentId>       Show info for a .torrent file or magnet uri
 
   Specify torrent ids as one of the following:
       * magnet uri
