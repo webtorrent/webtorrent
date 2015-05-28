@@ -1,4 +1,5 @@
 var fs = require('fs')
+var extend = require('xtend')
 var parseTorrent = require('parse-torrent')
 var test = require('tape')
 var WebTorrent = require('../')
@@ -67,6 +68,21 @@ test('client.add/remove: parsed torrent, from `parse-torrent`', function (t) {
   t.equal(client.torrents.length, 1)
   t.equal(torrent.infoHash, leavesTorrent.infoHash)
   t.equal(torrent.magnetURI, leavesMagnetURI)
+  client.remove(leavesTorrent)
+  t.equal(client.torrents.length, 0)
+  client.destroy()
+
+  t.end()
+})
+
+test('client.add/remove: parsed torrent, with string type announce property', function (t) {
+  var client = new WebTorrent({ dht: false, tracker: false })
+  var modifiedParsedTorrent = extend(leavesTorrent, {
+    announce: leavesTorrent.announce[0]
+  })
+  var torrent = client.add(modifiedParsedTorrent)
+  t.equal(client.torrents.length, 1)
+  t.equal(torrent.infoHash, leavesTorrent.infoHash)
   client.remove(leavesTorrent)
   t.equal(client.torrents.length, 0)
   client.destroy()
