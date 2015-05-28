@@ -1,5 +1,4 @@
 var auto = require('run-auto')
-var DHT = require('bittorrent-dht/server')
 var fs = require('fs')
 var parseTorrent = require('parse-torrent')
 var test = require('tape')
@@ -22,8 +21,8 @@ leavesParsed.announce = []
 test('Download using webseed (via .torrent file)', function (t) {
   t.plan(5)
 
-  var serve = serveStatic(path.join(__dirname, './content'));
-  var httpServer = http.createServer(function(req, res){
+  var serve = serveStatic(path.join(__dirname, './content'))
+  var httpServer = http.createServer(function (req, res) {
     var done = finalhandler(req, res)
     serve(req, res, done)
   })
@@ -41,7 +40,7 @@ test('Download using webseed (via .torrent file)', function (t) {
     },
     client1: ['httpPort', function (cb, r) {
 
-      leavesParsed.urlList.push('http://localhost:' + r.httpPort + '/' + leavesFilename);
+      leavesParsed.urlList.push('http://localhost:' + r.httpPort + '/' + leavesFilename)
 
       var client1 = new WebTorrent({
         tracker: false,
@@ -62,7 +61,7 @@ test('Download using webseed (via .torrent file)', function (t) {
           t.pass('client1 downloaded torrent from webseed')
           cb(null, client1)
         })
-      });
+      })
 
       client1.add(leavesParsed)
 
