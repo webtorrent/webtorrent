@@ -14,65 +14,70 @@ test('client.add/remove: magnet uri, utf-8 string', function (t) {
   var client = new WebTorrent({ dht: false, tracker: false })
   var torrent = client.add('magnet:?xt=urn:btih:' + leavesTorrent.infoHash)
   t.equal(client.torrents.length, 1)
-  t.equal(torrent.infoHash, leavesTorrent.infoHash)
-  t.ok(torrent.magnetURI.indexOf('magnet:?xt=urn:btih:' + leavesTorrent.infoHash) === 0)
-  client.remove('magnet:?xt=urn:btih:' + leavesTorrent.infoHash)
-  t.equal(client.torrents.length, 0)
-  client.destroy()
-
-  t.end()
+  torrent.on('infoHash', function () {
+    t.equal(torrent.infoHash, leavesTorrent.infoHash)
+    t.ok(torrent.magnetURI.indexOf('magnet:?xt=urn:btih:' + leavesTorrent.infoHash) === 0)
+    client.remove('magnet:?xt=urn:btih:' + leavesTorrent.infoHash)
+    t.equal(client.torrents.length, 0)
+    client.destroy()
+    t.end()
+  })
 })
 
 test('client.add/remove: torrent file, buffer', function (t) {
   var client = new WebTorrent({ dht: false, tracker: false })
   var torrent = client.add(leaves)
   t.equal(client.torrents.length, 1)
-  t.equal(torrent.infoHash, leavesTorrent.infoHash)
-  t.equal(torrent.magnetURI, leavesMagnetURI)
-  client.remove(leaves)
-  t.equal(client.torrents.length, 0)
-  client.destroy()
-
-  t.end()
+  torrent.on('infoHash', function () {
+    t.equal(torrent.infoHash, leavesTorrent.infoHash)
+    t.equal(torrent.magnetURI, leavesMagnetURI)
+    client.remove(leaves)
+    t.equal(client.torrents.length, 0)
+    client.destroy()
+    t.end()
+  })
 })
 
 test('client.add/remove: info hash, hex string', function (t) {
   var client = new WebTorrent({ dht: false, tracker: false })
   var torrent = client.add(leavesTorrent.infoHash)
   t.equal(client.torrents.length, 1)
-  t.equal(torrent.infoHash, leavesTorrent.infoHash)
-  t.ok(torrent.magnetURI.indexOf('magnet:?xt=urn:btih:' + leavesTorrent.infoHash) === 0)
-  client.remove(leavesTorrent.infoHash)
-  t.equal(client.torrents.length, 0)
-  client.destroy()
-
-  t.end()
+  torrent.on('infoHash', function () {
+    t.equal(torrent.infoHash, leavesTorrent.infoHash)
+    t.ok(torrent.magnetURI.indexOf('magnet:?xt=urn:btih:' + leavesTorrent.infoHash) === 0)
+    client.remove(leavesTorrent.infoHash)
+    t.equal(client.torrents.length, 0)
+    client.destroy()
+    t.end()
+  })
 })
 
 test('client.add/remove: info hash, buffer', function (t) {
   var client = new WebTorrent({ dht: false, tracker: false })
   var torrent = client.add(new Buffer(leavesTorrent.infoHash, 'hex'))
   t.equal(client.torrents.length, 1)
-  t.equal(torrent.infoHash, leavesTorrent.infoHash)
-  t.ok(torrent.magnetURI.indexOf('magnet:?xt=urn:btih:' + leavesTorrent.infoHash) === 0)
-  client.remove(new Buffer(leavesTorrent.infoHash, 'hex'))
-  t.equal(client.torrents.length, 0)
-  client.destroy()
-
-  t.end()
+  torrent.on('infoHash', function () {
+    t.equal(torrent.infoHash, leavesTorrent.infoHash)
+    t.ok(torrent.magnetURI.indexOf('magnet:?xt=urn:btih:' + leavesTorrent.infoHash) === 0)
+    client.remove(new Buffer(leavesTorrent.infoHash, 'hex'))
+    t.equal(client.torrents.length, 0)
+    client.destroy()
+    t.end()
+  })
 })
 
 test('client.add/remove: parsed torrent, from `parse-torrent`', function (t) {
   var client = new WebTorrent({ dht: false, tracker: false })
   var torrent = client.add(leavesTorrent)
   t.equal(client.torrents.length, 1)
-  t.equal(torrent.infoHash, leavesTorrent.infoHash)
-  t.equal(torrent.magnetURI, leavesMagnetURI)
-  client.remove(leavesTorrent)
-  t.equal(client.torrents.length, 0)
-  client.destroy()
-
-  t.end()
+  torrent.on('infoHash', function () {
+    t.equal(torrent.infoHash, leavesTorrent.infoHash)
+    t.equal(torrent.magnetURI, leavesMagnetURI)
+    client.remove(leavesTorrent)
+    t.equal(client.torrents.length, 0)
+    client.destroy()
+    t.end()
+  })
 })
 
 test('client.add/remove: parsed torrent, with string type announce property', function (t) {
@@ -82,29 +87,30 @@ test('client.add/remove: parsed torrent, with string type announce property', fu
   })
   var torrent = client.add(modifiedParsedTorrent)
   t.equal(client.torrents.length, 1)
-  t.equal(torrent.infoHash, leavesTorrent.infoHash)
-  client.remove(leavesTorrent)
-  t.equal(client.torrents.length, 0)
-  client.destroy()
-
-  t.end()
+  torrent.on('infoHash', function () {
+    t.equal(torrent.infoHash, leavesTorrent.infoHash)
+    client.remove(leavesTorrent)
+    t.equal(client.torrents.length, 0)
+    client.destroy()
+    t.end()
+  })
 })
 
 test('client.remove: remove by Torrent object', function (t) {
   var client = new WebTorrent({ dht: false, tracker: false })
   var torrent = client.add(leavesTorrent.infoHash)
   t.equal(client.torrents.length, 1)
-  t.equal(torrent.infoHash, leavesTorrent.infoHash)
-
-  client.remove(torrent)
-  t.equal(client.torrents.length, 0)
-  client.destroy()
-
-  t.end()
+  torrent.on('infoHash', function () {
+    t.equal(torrent.infoHash, leavesTorrent.infoHash)
+    client.remove(torrent)
+    t.equal(client.torrents.length, 0)
+    client.destroy()
+    t.end()
+  })
 })
 
-test('client.seed (Buffer, Blob)', function (t) {
-  t.plan(global.Blob !== undefined ? 8 : 4)
+test('client.seed: torrent file (Buffer)', function (t) {
+  t.plan(4)
 
   var opts = {
     name: 'Leaves of Grass by Walt Whitman.epub',
@@ -118,30 +124,44 @@ test('client.seed (Buffer, Blob)', function (t) {
     ]
   }
 
-  // torrent file (Buffer)
-  var client1 = new WebTorrent({ dht: false, tracker: false })
-  client1.seed(leavesBook, opts, function (torrent1) {
-    t.equal(client1.torrents.length, 1)
+  var client = new WebTorrent({ dht: false, tracker: false })
+  client.seed(leavesBook, opts, function (torrent1) {
+    t.equal(client.torrents.length, 1)
     t.equal(torrent1.infoHash, leavesTorrent.infoHash)
     t.equal(torrent1.magnetURI, leavesMagnetURI)
-    client1.remove(torrent1)
-    t.equal(client1.torrents.length, 0)
-    client1.destroy()
+    client.remove(torrent1)
+    t.equal(client.torrents.length, 0)
+    client.destroy()
   })
+})
 
-  // Blob
+test('client.seed: torrent file (Blob)', function (t) {
+  var opts = {
+    name: 'Leaves of Grass by Walt Whitman.epub',
+    announce: [
+      'http://tracker.thepiratebay.org/announce',
+      'udp://tracker.openbittorrent.com:80',
+      'udp://tracker.ccc.de:80',
+      'udp://tracker.publicbt.com:80',
+      'udp://fr33domtracker.h33t.com:3310/announce',
+      'http://tracker.bittorrent.am/announce'
+    ]
+  }
+
   if (global.Blob !== undefined) {
-    var client2 = new WebTorrent({ dht: false, tracker: false })
-    client2.seed(new global.Blob([ leavesBook ]), opts, function (torrent2) {
-      t.equal(client2.torrents.length, 1)
+    t.plan(4)
+    var client = new WebTorrent({ dht: false, tracker: false })
+    client.seed(new global.Blob([ leavesBook ]), opts, function (torrent2) {
+      t.equal(client.torrents.length, 1)
       t.equal(torrent2.infoHash, leavesTorrent.infoHash)
       t.equal(torrent2.magnetURI, leavesMagnetURI)
-      client2.remove(torrent2)
-      t.equal(client2.torrents.length, 0)
-      client2.destroy()
+      client.remove(torrent2)
+      t.equal(client.torrents.length, 0)
+      client.destroy()
     })
   } else {
-    console.log('Skipping Blob test because missing `Blob` constructor')
+    t.pass('Skipping Blob test because missing `Blob` constructor')
+    t.end()
   }
 })
 
@@ -164,10 +184,10 @@ test('after client.destroy(), no "torrent" or "ready" events emitted', function 
   t.plan(1)
 
   var client = new WebTorrent({ dht: false, tracker: false })
-  client.add(leaves, function () {
+  client.add(leaves, { name: 'leaves' }, function () {
     t.fail('unexpected "torrent" event (from add)')
   })
-  client.seed(leavesBook, function () {
+  client.seed(leavesBook, { name: 'leavesBook' }, function () {
     t.fail('unexpected "torrent" event (from seed)')
   })
   client.on('ready', function () {

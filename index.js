@@ -121,11 +121,12 @@ Object.defineProperty(WebTorrent.prototype, 'ratio', {
  * searching through the `client.torrents` array. Returns `null` if no matching torrent
  * found.
  *
- * @param  {string|Buffer|Object} torrentId
+ * @param  {string|Buffer|Object|Torrent} torrentId
  * @return {Torrent|null}
  */
 WebTorrent.prototype.get = function (torrentId) {
   var self = this
+  if (torrentId instanceof Torrent) return torrentId
   var parsed = parseTorrent(torrentId)
   if (!parsed.infoHash) throw new Error('Invalid torrent identifier')
   for (var i = 0, len = self.torrents.length; i < len; i++) {
@@ -260,7 +261,7 @@ WebTorrent.prototype.destroy = function (cb) {
 
   var tasks = self.torrents.map(function (torrent) {
     return function (cb) {
-      self.remove(torrent.infoHash, cb)
+      self.remove(torrent, cb)
     }
   })
 
