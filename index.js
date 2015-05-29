@@ -202,9 +202,26 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
   if (!opts) opts = {}
   opts.noVerify = true
 
+  var streams
+  var torrent = self.add(undefined, opts, function (torrent) {
+    var tasks = [function (cb) {
+      torrent.storage.load(streams, cb)
+    }]
+    if (self.dht) {
+      tasks.push(function (cb) {
+        torrent.on('dhtAnnounce', cb)
+      })
+    }
+    parallel(tasks, function (err) {
+      if (err) return self.emit('error', err)
+      if (onseed) onseed(torrent)
+      self.emit('seed', torrent)
+    })
+  })
+
   createTorrent.parseInput(input, opts, function (err, files) {
     if (err) return self.emit('error', err)
-    var streams = files.map(function (file) { return file.getStream })
+    streams = files.map(function (file) { return file.getStream })
 
     createTorrent(input, opts, function (err, torrentBuf) {
       if (err) return self.emit('error', err)
@@ -212,23 +229,11 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
       // if client was destroyed asyncronously, bail early (or `add` will throw)
       if (self.destroyed) return
 
-      self.add(torrentBuf, opts, function (torrent) {
-        var tasks = [function (cb) {
-          torrent.storage.load(streams, cb)
-        }]
-        if (self.dht) {
-          tasks.push(function (cb) {
-            torrent.on('dhtAnnounce', cb)
-          })
-        }
-        parallel(tasks, function (err) {
-          if (err) return self.emit('error', err)
-          if (onseed) onseed(torrent)
-          self.emit('seed', torrent)
-        })
-      })
+      torrent._onTorrentId(torrentBuf)
     })
   })
+
+  return torrent
 }
 
 /**
