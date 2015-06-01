@@ -483,7 +483,10 @@ function drawTorrent (torrent) {
       '{green:' + (seeding ? 'seeding' : 'downloading') + ':} ' +
       '{bold:' + torrent.name + '}'
     )
-    if (seeding) clivas.line('{green:magnet uri:} ' + torrent.magnetURI)
+    if (seeding) {
+      clivas.line('{green:magnet uri:} ' + torrent.magnetURI)
+      clivas.line('{green:info hash:} ' + torrent.infoHash)
+    }
     clivas.line(
       '{green:speed: }{bold:' + prettyBytes(speed) + '/s}  ' +
       '{green:downloaded:} {bold:' + prettyBytes(torrent.swarm.downloaded) + '}' +
