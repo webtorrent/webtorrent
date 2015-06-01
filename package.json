@@ -12,7 +12,7 @@
   },
   "browser": {
     "./lib/fs-storage": false,
-    "./server": false,
+    "./lib/server": false,
     "bittorrent-dht/client": false,
     "load-ip-set": false,
     "ut_pex": false
