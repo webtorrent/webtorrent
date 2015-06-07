@@ -168,8 +168,17 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
   if (ontorrent) self.on('torrent', clientOnTorrent)
 
   torrent.on('error', function (err) {
-    self.emit('error', err, torrent)
-    self.remove(torrent)
+    var alreadyExistsMessage = 'There is already a swarm with info hash'
+    if (ontorrent && err.message && err.message.substr(0, alreadyExistsMessage.length) === alreadyExistsMessage) {
+      self.torrents.splice(self.torrents.indexOf(torrent), 1)
+      torrent = self.torrents.filter(function (_torrent) {
+        return torrent.infoHash === _torrent.infoHash
+      })[0]
+      process.nextTick(clientOnTorrent.bind(null, torrent))
+    } else {
+      self.emit('error', err, torrent)
+      self.remove(torrent)
+    }
   })
 
   torrent.on('listening', function (port) {
