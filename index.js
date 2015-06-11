@@ -19,14 +19,15 @@ var Torrent = require('./lib/torrent')
 
 inherits(WebTorrent, EventEmitter)
 
+var VERSION = require('./package.json').version
+
 /**
  * BitTorrent client version string (used in peer ID).
  * Generated from package.json major and minor version. For example:
  *   '0.16.1' -> '0016'
  *   '1.2.5' -> '0102'
  */
-var VERSION = require('./package.json').version
-  .match(/([0-9]+)/g).slice(0, 2).map(zeroFill(2)).join('')
+var VERSION_STR = VERSION.match(/([0-9]+)/g).slice(0, 2).map(zeroFill(2)).join('')
 
 /**
  * WebTorrent Client
@@ -58,7 +59,7 @@ function WebTorrent (opts) {
       : Storage
 
   self.peerId = opts.peerId === undefined
-    ? new Buffer('-WW' + VERSION + '-' + hat(48), 'utf8')
+    ? new Buffer('-WW' + VERSION_STR + '-' + hat(48), 'utf8')
     : typeof opts.peerId === 'string'
       ? new Buffer(opts.peerId, 'hex')
       : opts.peerId
@@ -198,7 +199,7 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
   }
   if (!opts) opts = {}
   opts.noVerify = true
-  opts.createdBy = 'WebTorrent/' + require('./package.json').version
+  opts.createdBy = 'WebTorrent/' + VERSION
 
   var streams
   var torrent = self.add(undefined, opts, function (torrent) {
