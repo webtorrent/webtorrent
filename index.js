@@ -155,35 +155,38 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
     opts = {}
   }
   if (!opts) opts = {}
-
+  if (!opts.storage) opts.storage = self.storage
   opts.client = self
-  opts.storage = opts.storage || self.storage
 
-  var torrent = new Torrent(torrentId, opts)
-  self.torrents.push(torrent)
+  var torrent = self.get(torrentId)
 
-  function clientOnTorrent (_torrent) {
-    if (torrent.infoHash === _torrent.infoHash) {
-      ontorrent(torrent)
-      self.removeListener('torrent', clientOnTorrent)
-    }
+  function _ontorrent () {
+    debug('on torrent')
+    if (typeof ontorrent === 'function') ontorrent(torrent)
   }
-  if (ontorrent) self.on('torrent', clientOnTorrent)
 
-  torrent.on('error', function (err) {
-    self.emit('error', err, torrent)
-    self.remove(torrent)
-  })
+  if (torrent) {
+    if (torrent.ready) process.nextTick(_ontorrent)
+    else torrent.on('ready', _ontorrent)
 
-  torrent.on('listening', function (port) {
-    self.emit('listening', port, torrent)
-  })
+  } else {
+    torrent = new Torrent(torrentId, opts)
+    self.torrents.push(torrent)
 
-  torrent.on('ready', function () {
-    // Emit 'torrent' when a torrent is ready to be used
-    debug('torrent')
-    self.emit('torrent', torrent)
-  })
+    torrent.on('error', function (err) {
+      self.emit('error', err, torrent)
+      self.remove(torrent)
+    })
+
+    torrent.on('listening', function (port) {
+      self.emit('listening', port, torrent)
+    })
+
+    torrent.on('ready', function () {
+      _ontorrent()
+      self.emit('torrent', torrent)
+    })
+  }
 
   return torrent
 }
@@ -218,7 +221,7 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
     }
     parallel(tasks, function (err) {
       if (err) return self.emit('error', err)
-      if (onseed) onseed(torrent)
+      _onseed()
       self.emit('seed', torrent)
     })
   })
@@ -229,13 +232,23 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
 
     createTorrent(input, opts, function (err, torrentBuf) {
       if (err) return self.emit('error', err)
-
-      // if client was destroyed asyncronously, bail early (or `add` will throw)
       if (self.destroyed) return
 
-      torrent._onTorrentId(torrentBuf)
+      var existingTorrent = self.get(torrentBuf)
+      if (existingTorrent) {
+        torrent.destroy()
+        _onseed()
+        return
+      } else {
+        torrent._onTorrentId(torrentBuf)
+      }
     })
   })
+
+  function _onseed () {
+    debug('on seed')
+    if (typeof onseed === 'function') onseed(torrent)
+  }
 
   return torrent
 }
