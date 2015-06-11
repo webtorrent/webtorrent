@@ -1,6 +1,3 @@
-// TODO: dhtPort and torrentPort should be consistent between restarts
-// TODO: peerId and nodeId should be consistent between restarts
-
 module.exports = WebTorrent
 
 var createTorrent = require('create-torrent')
