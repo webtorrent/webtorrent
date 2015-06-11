@@ -125,11 +125,11 @@ test('client.seed: torrent file (Buffer)', function (t) {
   }
 
   var client = new WebTorrent({ dht: false, tracker: false })
-  client.seed(leavesBook, opts, function (torrent1) {
+  client.seed(leavesBook, opts, function (torrent) {
     t.equal(client.torrents.length, 1)
-    t.equal(torrent1.infoHash, leavesTorrent.infoHash)
-    t.equal(torrent1.magnetURI, leavesMagnetURI)
-    client.remove(torrent1)
+    t.equal(torrent.infoHash, leavesTorrent.infoHash)
+    t.equal(torrent.magnetURI, leavesMagnetURI)
+    client.remove(torrent)
     t.equal(client.torrents.length, 0)
     client.destroy()
   })
@@ -151,11 +151,11 @@ test('client.seed: torrent file (Blob)', function (t) {
   if (global.Blob !== undefined) {
     t.plan(4)
     var client = new WebTorrent({ dht: false, tracker: false })
-    client.seed(new global.Blob([ leavesBook ]), opts, function (torrent2) {
+    client.seed(new global.Blob([ leavesBook ]), opts, function (torrent) {
       t.equal(client.torrents.length, 1)
-      t.equal(torrent2.infoHash, leavesTorrent.infoHash)
-      t.equal(torrent2.magnetURI, leavesMagnetURI)
-      client.remove(torrent2)
+      t.equal(torrent.infoHash, leavesTorrent.infoHash)
+      t.equal(torrent.magnetURI, leavesMagnetURI)
+      client.remove(torrent)
       t.equal(client.torrents.length, 0)
       client.destroy()
     })
