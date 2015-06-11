@@ -201,6 +201,7 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
   }
   if (!opts) opts = {}
   opts.noVerify = true
+  opts.createdBy = 'WebTorrent/' + require('./package.json').version
 
   var streams
   var torrent = self.add(undefined, opts, function (torrent) {
