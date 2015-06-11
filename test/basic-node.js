@@ -8,8 +8,9 @@ var leavesPath = __dirname + '/torrents/leaves.torrent'
 var leaves = fs.readFileSync(leavesPath)
 var leavesTorrent = parseTorrent(leaves)
 var leavesBookPath = __dirname + '/content/Leaves of Grass by Walt Whitman.epub'
-var numbersPath = __dirname + '/content/numbers'
 var leavesMagnetURI = 'magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36&dn=Leaves+of+Grass+by+Walt+Whitman.epub&tr=http%3A%2F%2Ftracker.bittorrent.am%2Fannounce&tr=http%3A%2F%2Ftracker.thepiratebay.org%2Fannounce&tr=udp%3A%2F%2Ffr33domtracker.h33t.com%3A3310%2Fannounce&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80'
+var numbersPath = __dirname + '/content/numbers'
+var folderPath = __dirname + '/content/folder'
 
 test('client.add: http url to a torrent file, string', function (t) {
   t.plan(3)
@@ -66,7 +67,29 @@ test('client.seed: filesystem path to file, string', function (t) {
   })
 })
 
-test('client.seed: filesystem path to folder, string', function (t) {
+test('client.seed: filesystem path to folder with one file, string', function (t) {
+  t.plan(2)
+
+  var opts = {
+    pieceLength: 32768, // force piece length to 32KB so info-hash will
+                        // match what transmission generated, since we use
+                        // a different algo for picking piece length
+
+    private: false,     // also force `private: false` to match transmission
+    announce: [
+      'udp://tracker.webtorrent.io:80'
+    ]
+  }
+
+  var client = new WebTorrent({ dht: false, tracker: false })
+  client.seed(folderPath, opts, function (torrent) {
+    t.equal(torrent.infoHash, '3a686c32404af0a66913dd5f8d2b40673f8d4490')
+    t.equal(torrent.magnetURI, 'magnet:?xt=urn:btih:3a686c32404af0a66913dd5f8d2b40673f8d4490&dn=folder&tr=udp%3A%2F%2Ftracker.webtorrent.io%3A80')
+    client.destroy()
+  })
+})
+
+test('client.seed: filesystem path to folder with multiple files, string', function (t) {
   t.plan(2)
 
   var opts = {
