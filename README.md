@@ -72,7 +72,7 @@ connect to both normal *and* web peers.
 
 - Stream to **AirPlay**, **Chromecast**, **VLC player**, and many other devices/players
 
-**WARNING**: To connect to "web peers" (browsers) in addition to normal BitTorrent peers, use
+**NOTE**: To connect to "web peers" (browsers) in addition to normal BitTorrent peers, use
   [webtorrent-hybrid](https://github.com/feross/webtorrent-hybrid) which includes WebRTC
   support for node.
 
