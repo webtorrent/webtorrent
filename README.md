@@ -104,6 +104,7 @@ npm install webtorrent -g
 - **[Fastcast](http://fastcast.nz)** – Stream peer-to-peer audio and video content ([source code](https://github.com/jakefb/fastcast))
 - **[Webtorrentapp](https://github.com/alexeisavca/webtorrentapp)** – A tool/platform for launching web apps from torrents
 - **[People-driven web](https://github.com/peopledrivenweb/pwjs)** – Create a decenterzlied content managmenet system
+- **[PeerCloud](https://github.com/jhiesey/peercloud)** - Serverless websites via WebTorrent
 - Your app here! (send a PR or open an issue with your app's URL)
 
 ### Usage
