@@ -469,7 +469,7 @@ function drawTorrent (torrent) {
     })
 
     var unchoked = torrent.swarm.wires.filter(active)
-    var linesremaining = clivas.height
+    var linesRemaining = clivas.height
     var peerslisted = 0
     var speed = torrent.swarm.downloadSpeed()
     var estimatedSecondsRemaining =
@@ -478,9 +478,18 @@ function drawTorrent (torrent) {
 
     clivas.clear()
 
-    if (playerName) clivas.line('{green:Streaming to} {bold:' + playerName + '}')
-    if (server) clivas.line('{green:server running at} {bold:' + href + '}')
-    if (argv.out) clivas.line('{green:downloading to} {bold:' + argv.out + '}')
+    if (playerName) {
+      clivas.line('{green:Streaming to} {bold:' + playerName + '}')
+      linesRemaining -= 1
+    }
+    if (server) {
+      clivas.line('{green:server running at} {bold:' + href + '}')
+      linesRemaining -= 1
+    }
+    if (argv.out) {
+      clivas.line('{green:downloading to} {bold:' + argv.out + '}')
+      linesRemaining -= 1
+    }
 
     var seeding = torrent.storage.done
 
@@ -492,6 +501,7 @@ function drawTorrent (torrent) {
     if (seeding) {
       clivas.line('{green:magnet uri:} ' + torrent.magnetURI)
       clivas.line('{green:info hash:} ' + torrent.infoHash)
+      linesRemaining -= 1
     }
     clivas.line(
       '{green:speed: }{bold:' + prettyBytes(speed) + '/s}  ' +
@@ -508,7 +518,7 @@ function drawTorrent (torrent) {
       '{green:blocked:} {bold:' + torrent.numBlockedPeers + '}'
     )
     clivas.line('{80:}')
-    linesremaining -= 8
+    linesRemaining -= 5
 
     var pieces = torrent.storage.pieces
     for (var i = 0; i < pieces.length; i++) {
@@ -521,10 +531,10 @@ function drawTorrent (torrent) {
         bar += piece.blocks[j] ? (piece.blocks[j] === 1 ? '{blue:█}' : '{green:█}') : '{red:█}'
       }
       clivas.line('{4+cyan:' + i + '} ' + bar)
-      linesremaining -= 1
+      linesRemaining -= 1
     }
     clivas.line('{80:}')
-    linesremaining -= 1
+    linesRemaining -= 1
 
     torrent.swarm.wires.every(function (wire) {
       var progress = '?'
@@ -557,9 +567,9 @@ function drawTorrent (torrent) {
         reqStats.join(' ')
       )
       peerslisted++
-      return linesremaining - peerslisted > 4
+      return linesRemaining - peerslisted > 4
     })
-    linesremaining -= peerslisted
+    linesRemaining -= peerslisted
 
     if (torrent.swarm.wires.length > peerslisted) {
       clivas.line('{80:}')
