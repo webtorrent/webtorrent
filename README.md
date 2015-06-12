@@ -100,10 +100,10 @@ npm install webtorrent -g
 
 ### WebTorrent in production
 
-- **[Instant](http://instant.io)** – Secure, anonymous, streaming file transfer ([source code](https://github.com/feross/instant.io))
+- **[Instant.io](http://instant.io)** – Streaming file transfer over WebTorrent ([source code](https://github.com/feross/instant.io))
 - **[Fastcast](http://fastcast.nz)** – Stream peer-to-peer audio and video content ([source code](https://github.com/jakefb/fastcast))
 - **[Webtorrentapp](https://github.com/alexeisavca/webtorrentapp)** – A tool/platform for launching web apps from torrents
-- **[People-driven web](https://github.com/peopledrivenweb/pwjs)** – Create a decenterzlied content managmenet system
+- **[People-driven web](http://www.peopledrivenweb.com/)** – Decentralized content management system ([source code](https://github.com/peopledrivenweb/pwjs))
 - **[PeerCloud](https://github.com/jhiesey/peercloud)** - Serverless websites via WebTorrent
 - Your app here! (send a PR or open an issue with your app's URL)
 
