@@ -54,7 +54,8 @@ var argv = minimist(process.argv.slice(2), {
     'select',
     'quiet',
     'help',
-    'version'
+    'version',
+    'verbose'
   ],
   default: {
     port: 8000
@@ -142,6 +143,7 @@ function runHelp () {
       -t, --subtitles [file]  load subtitles file
       -q, --quiet             don't show UI on stdout
       -v, --version           print the current version
+      --verbose               show piece progress bars
 
   Please report bugs!  https://github.com/feross/webtorrent/issues
 
@@ -519,21 +521,25 @@ function drawTorrent (torrent) {
     clivas.line('{80:}')
     linesRemaining -= 5
 
-    var pieces = torrent.storage.pieces
-    for (var i = 0; i < pieces.length; i++) {
-      var piece = pieces[i]
-      if (piece.verified || (piece.blocksWritten === 0 && !piece.blocks[0])) {
-        continue
+    if (argv.verbose) {
+
+      var pieces = torrent.storage.pieces
+      for (var i = 0; i < pieces.length; i++) {
+        var piece = pieces[i]
+        if (piece.verified || (piece.blocksWritten === 0 && !piece.blocks[0])) {
+          continue
+        }
+        var bar = ''
+        for (var j = 0; j < piece.blocks.length; j++) {
+          bar += piece.blocks[j] ? (piece.blocks[j] === 1 ? '{blue:█}' : '{green:█}') : '{red:█}'
+        }
+        clivas.line('{4+cyan:' + i + '} ' + bar)
+        linesRemaining -= 1
       }
-      var bar = ''
-      for (var j = 0; j < piece.blocks.length; j++) {
-        bar += piece.blocks[j] ? (piece.blocks[j] === 1 ? '{blue:█}' : '{green:█}') : '{red:█}'
-      }
-      clivas.line('{4+cyan:' + i + '} ' + bar)
+      clivas.line('{80:}')
       linesRemaining -= 1
+
     }
-    clivas.line('{80:}')
-    linesRemaining -= 1
 
     torrent.swarm.wires.every(function (wire) {
       var progress = '?'
