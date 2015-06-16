@@ -522,7 +522,6 @@ function drawTorrent (torrent) {
     linesRemaining -= 5
 
     if (argv.verbose) {
-
       var pieces = torrent.storage.pieces
       for (var i = 0; i < pieces.length; i++) {
         var piece = pieces[i]
@@ -538,7 +537,6 @@ function drawTorrent (torrent) {
       }
       clivas.line('{80:}')
       linesRemaining -= 1
-
     }
 
     torrent.swarm.wires.every(function (wire) {
