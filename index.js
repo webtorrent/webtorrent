@@ -43,6 +43,7 @@ function WebTorrent (opts) {
   self.destroyed = false
   self.torrentPort = opts.torrentPort || 0
   self.tracker = opts.tracker !== undefined ? opts.tracker : true
+  self.onWire = opts.onWire
 
   self._rtcConfig = opts.rtcConfig
   self._wrtc = opts.wrtc || global.WRTC // to support `webtorrent-hybrid` package
@@ -156,6 +157,7 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
   }
   if (!opts) opts = {}
   if (!opts.storage) opts.storage = self.storage
+  if (!opts.onWire) opts.onWire = self.onWire
   opts.client = self
 
   var torrent = self.get(torrentId)

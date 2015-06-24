@@ -266,7 +266,8 @@ If `opts` is specified, then the default options (shown below) will be overridde
   rtcConfig: Object,     // RTCPeerConnection configuration object (default=STUN only)
   storage: Function,     // custom storage engine, or `false` to use in-memory engine
   tracker: Boolean,      // Whether or not to enable trackers (default=true)
-  wrtc: {}               // custom webrtc implementation (in node, specify the [wrtc](https://www.npmjs.com/package/wrtc) package)
+  wrtc: {},              // custom webrtc implementation (in node, specify the [wrtc](https://www.npmjs.com/package/wrtc) package)
+  onWire: Function       // function to be called on each new wire. Use this to specify [custom bittorrent extensions](https://www.npmjs.com/package/bittorrent-protocol#extension-api)
 }
 ```
 
