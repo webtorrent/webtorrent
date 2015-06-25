@@ -6,7 +6,7 @@ var WebTorrent = require('../')
 var leaves = fs.readFileSync(__dirname + '/torrents/leaves.torrent')
 var leavesTorrent = parseTorrent(leaves)
 
-test('boop beep', {timeout: 500}, function (t) {
+test('onWire option', {timeout: 500}, function (t) {
   t.plan(6)
   var extendedHandshakes = 0
 
