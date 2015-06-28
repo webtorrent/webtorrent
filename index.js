@@ -209,7 +209,10 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
   if (!opts) opts = {}
   opts.noVerify = true
   opts.createdBy = 'WebTorrent/' + VERSION
-  opts.path = typeof input === 'string' ? path.dirname(input) : opts.path
+
+  // When seeding from filesystem path, don't perform extra copy to /tmp
+  // Issue: https://github.com/feross/webtorrent/issues/357
+  if (typeof input === 'string' && !opts.path) opts.path = path.dirname(input)
 
   var streams
   var torrent = self.add(undefined, opts, function (torrent) {
