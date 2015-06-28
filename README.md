@@ -426,6 +426,27 @@ client.add(magnetUri, function (torrent) {
 })
 ```
 
+#### `torrent.on('wire', function (wire) {})`
+
+Emitted whenever a new peer is connected for this torrent. `wire` is an instance of
+[`bittorrent-protocol`](https://github.com/feross/bittorrent-protocol), which is a
+node.js-style duplex stream to the remote peer. This event can be used to specify
+[custom BitTorrent protocol extensions](https://github.com/feross/bittorrent-protocol#extension-api).
+
+Here is a usage example:
+
+```js
+var MyExtension = require('./my-extension')
+
+torrent1.on('wire', function (wire) {
+  wire.use(MyExtension)
+})
+```
+
+See the `bittorrent-protocol`
+[extension api docs](https://github.com/feross/bittorrent-protocol#extension-api) for more
+information on how to define a protocol extension.
+
 ### file api
 
 #### `file.name`
