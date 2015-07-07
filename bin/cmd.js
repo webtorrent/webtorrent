@@ -11,6 +11,7 @@ var networkAddress = require('network-address')
 var parseTorrent = require('parse-torrent')
 var path = require('path')
 var prettyBytes = require('pretty-bytes')
+var Storage = require('../lib/storage')
 var WebTorrent = require('../')
 var zeroFill = require('zero-fill')
 
@@ -523,20 +524,33 @@ function drawTorrent (torrent) {
 
     if (argv.verbose) {
       var pieces = torrent.storage.pieces
+      var storageMem = 0
       for (var i = 0; i < pieces.length; i++) {
         var piece = pieces[i]
-        if (piece.verified || (piece.blocksWritten === 0 && !piece.blocks[0])) {
-          continue
-        }
+        if (piece.buffer) storageMem += piece.buffer.length
+        if (piece.verified || (piece.blocksWritten === 0 && !piece.blocks[0])) continue
         var bar = ''
         for (var j = 0; j < piece.blocks.length; j++) {
-          bar += piece.blocks[j] ? (piece.blocks[j] === 1 ? '{blue:█}' : '{green:█}') : '{red:█}'
+          switch (piece.blocks[j]) {
+            case Storage.BLOCK_BLANK:
+              bar += '{red:█}'
+              break
+            case Storage.BLOCK_RESERVED:
+              bar += '{blue:█}'
+              break
+            case Storage.BLOCK_WRITTEN:
+              bar += '{green:█}'
+              break
+          }
         }
         clivas.line('{4+cyan:' + i + '} ' + bar)
         linesRemaining -= 1
       }
+      clivas.line(
+        '{red:storage mem:} {bold:' + prettyBytes(storageMem) + ' KB}  '
+      )
       clivas.line('{80:}')
-      linesRemaining -= 1
+      linesRemaining -= 2
     }
 
     torrent.swarm.wires.every(function (wire) {
