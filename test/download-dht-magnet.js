@@ -14,7 +14,7 @@ var leavesParsed = parseTorrent(leavesTorrent)
 leavesParsed.announce = []
 
 test('Download using DHT (via magnet uri)', function (t) {
-  t.plan(8)
+  t.plan(10)
 
   var dhtServer = new DHT({ bootstrap: false })
   dhtServer.on('error', function (err) {
@@ -37,14 +37,14 @@ test('Download using DHT (via magnet uri)', function (t) {
       })
       client1.on('error', function (err) { t.fail(err) })
 
-      client1.add(leavesParsed)
 
-      var announced, wroteStorage
-      function maybeDone (err) {
-        if ((announced && wroteStorage) || err) cb(err, client1)
+      var announced = false
+      var wroteStorage = false
+      function maybeDone () {
+        if (announced && wroteStorage) cb(null, client1)
       }
 
-      client1.on('torrent', function (torrent) {
+      client1.add(leavesParsed, function (torrent) {
         // torrent metadata has been fetched -- sanity check it
         t.equal(torrent.name, 'Leaves of Grass by Walt Whitman.epub')
 
@@ -53,12 +53,13 @@ test('Download using DHT (via magnet uri)', function (t) {
 
         torrent.on('dhtAnnounce', function () {
           announced = true
-          maybeDone(null)
+          maybeDone()
         })
 
         torrent.storage.load(fs.createReadStream(leavesPath), function (err) {
+          t.error(err)
           wroteStorage = true
-          maybeDone(err)
+          maybeDone()
         })
       })
     }],
@@ -70,19 +71,26 @@ test('Download using DHT (via magnet uri)', function (t) {
       })
       client2.on('error', function (err) { t.fail(err) })
 
-      client2.add(magnetUri)
+      var gotBuffer = false
+      var gotDone = false
+      function maybeDone () {
+        if (gotBuffer && gotDone) cb(null, client2)
+      }
 
-      client2.on('torrent', function (torrent) {
-        torrent.files.forEach(function (file) {
-          file.getBuffer(function (err, buf) {
-            if (err) throw err
-            t.deepEqual(buf, leavesFile, 'downloaded correct content')
-          })
+      client2.add(magnetUri, function (torrent) {
+        torrent.files[0].getBuffer(function (err, buf) {
+          t.error(err)
+          t.deepEqual(buf, leavesFile, 'downloaded correct content')
+
+          gotBuffer = true
+          maybeDone()
         })
 
         torrent.once('done', function () {
           t.pass('client2 downloaded torrent from client1')
-          cb(null, client2)
+
+          gotDone = true
+          maybeDone()
         })
       })
     }]
