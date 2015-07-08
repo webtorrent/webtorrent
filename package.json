@@ -57,6 +57,7 @@
     "uniq": "^1.0.1",
     "ut_metadata": "^2.1.0",
     "ut_pex": "^1.0.1",
+    "videostream": "^1.1.4",
     "windows-no-runnable": "0.0.6",
     "xtend": "^4.0.0",
     "zero-fill": "^2.2.0"

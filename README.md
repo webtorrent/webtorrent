@@ -174,13 +174,9 @@ client.add(magnetUri, function (torrent) {
   // Let's say the first file is a webm (vp8) or mp4 (h264) video...
   var file = torrent.files[0]
 
-  // Create a video element
-  var video = document.createElement('video')
-  video.controls = true
-  document.body.appendChild(video)
-
-  // Stream the video into the video tag
-  file.createReadStream().pipe(video)
+  // Stream the video!
+  // Specify a container element (CSS selector or reference to DOM node)
+  file.appendTo('body')
 })
 ```
 
@@ -500,6 +496,33 @@ called once the file is ready. `callback` must be specified, and will be called 
 file.getBuffer(function (err, buffer) {
   if (err) throw err
   console.log(buffer) // <Buffer 00 98 00 01 01 00 00 00 50 ae 07 04 01 00 00 00 0a 00 00 00 00 00 00 00 78 ae 07 04 01 00 00 00 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ...>
+})
+```
+
+#### `file.appendTo(rootElem, function callback (err, elem) {})`
+
+Show the file in a the browser by appending it to the DOM. This is a powerful function
+that handles many file types like video (.mp4, .webm, .m4v, etc.), audio (.m4a, .mp3,
+.wav, etc.), images (.jpg, .gif, .png, etc.), and other file formats (.pdf, .md, .txt,
+etc.).
+
+The file will be fetched from the network with highest priority and streamed into the
+page (if it's video or audio). In some cases, video or audio files will not be streamable
+because they're not in a format that the browser can stream so the file will be fully downloaded before being played. For other non-streamable file types like images and PDFs,
+the file will be downloaded then displayed.
+
+`rootElem` is a container element (CSS selector or reference to DOM node) that the content
+will be shown in. A new DOM node will be created for the content and appended to
+`rootElem`.
+
+`callback` will be called once the file is visible to the user. `callback` must be
+specified, and will be called with a an `Error` (or `null`) and the new DOM node that is
+displaying the content.
+
+```js
+file.appendTo('#containerElement', function (err, elem) {
+  if (err) throw err // file failed to download or display in the DOM
+  console.log('New DOM node with the content', elem)
 })
 ```
 
