@@ -37,7 +37,6 @@ test('Download using DHT (via magnet uri)', function (t) {
       })
       client1.on('error', function (err) { t.fail(err) })
 
-
       var announced = false
       var wroteStorage = false
       function maybeDone () {
