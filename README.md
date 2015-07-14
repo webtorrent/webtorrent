@@ -176,7 +176,9 @@ client.add(magnetUri, function (torrent) {
 
   // Stream the video!
   // Specify a container element (CSS selector or reference to DOM node)
-  file.appendTo('body')
+  file.appendTo('body', function(err, elem) {
+    if (err) throw err
+  })
 })
 ```
 
