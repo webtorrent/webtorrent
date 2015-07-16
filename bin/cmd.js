@@ -19,15 +19,16 @@ process.title = 'WebTorrent'
 
 process.on('exit', function (code) {
   if (code !== 0) {
-    clivas.line('{red:ERROR ' + code + ':} If you think this is a bug in WebTorrent, report it!')
-    console.log('=====>                                                 <=====')
-    console.log('=====>   https://github.com/feross/webtorrent/issues   <=====')
-    console.log('=====>                                                 <=====')
+    clivas.line('{red:ERROR:} If you think this is a bug in WebTorrent, report it!\n')
+    console.log('=====>                                               <=====')
+    console.log('=====>  https://github.com/feross/webtorrent/issues  <=====')
+    console.log('=====>                                               <=====')
     clivas.line(
-      '{red:SYSTEM INFO:} ' +
-      'node ' + process.version + ' ' +
-      process.platform + ' ' + process.arch + ' ' +
-      'WebTorrent ' + require('../package.json').version + '\n'
+      '\n{green:DEBUG INFO:} ' +
+      'node ' + process.version + ', ' +
+      process.platform + ' ' + process.arch + ', ' +
+      'webtorrent ' + require('../package.json').version + ', ' +
+      'exit ' + code + '\n'
     )
   }
 })
