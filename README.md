@@ -434,7 +434,8 @@ Here is a usage example:
 ```js
 var MyExtension = require('./my-extension')
 
-torrent1.on('wire', function (wire) {
+torrent1.on('wire', function (wire, addr) {
+  console.log('connected to peer with address ' + addr)
   wire.use(MyExtension)
 })
 ```
