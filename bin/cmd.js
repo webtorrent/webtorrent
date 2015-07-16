@@ -524,10 +524,10 @@ function drawTorrent (torrent) {
 
     if (argv.verbose) {
       var pieces = torrent.storage.pieces
-      var storageMem = 0
+      var memoryUsage = 0
       for (var i = 0; i < pieces.length; i++) {
         var piece = pieces[i]
-        if (piece.buffer) storageMem += piece.buffer.length
+        if (piece.buffer) memoryUsage += piece.buffer.length
         if (piece.verified || (piece.blocksWritten === 0 && !piece.blocks[0])) continue
         var bar = ''
         for (var j = 0; j < piece.blocks.length; j++) {
@@ -547,7 +547,7 @@ function drawTorrent (torrent) {
         linesRemaining -= 1
       }
       clivas.line(
-        '{red:storage mem:} {bold:' + prettyBytes(storageMem) + ' KB}  '
+        '{red:memory usage:} {bold:' + prettyBytes(memoryUsage) + '}'
       )
       clivas.line('{80:}')
       linesRemaining -= 2
@@ -566,13 +566,17 @@ function drawTorrent (torrent) {
         progress = bits === piececount ? 'S' : Math.floor(100 * bits / piececount) + '%'
       }
       var tags = []
+
       if (wire.peerChoking) tags.push('choked')
-      var reqStats = wire.requests.map(function (req) {
-        return req.piece
-      })
+      if (wire.requests.length > 0) tags.push(wire.requests.length + ' reqs')
+
+      var reqStats = argv.verbose
+        ? wire.requests.map(function (req) { return req.piece })
+        : []
+
       clivas.line(
-        '{3:%s} {25+magenta:%s} {10:%s} {10+cyan:%s/s} {10+red:%s/s} {15+grey:%s}' +
-        '{15+cyan:%s}',
+        '{3:%s} {25+magenta:%s} {10:%s} {12+cyan:%s/s} {12+red:%s/s} {15+grey:%s}' +
+        '{10+grey:%s}',
         progress,
         wire.remoteAddress
           ? (wire.remoteAddress + ':' + wire.remotePort)
