@@ -232,12 +232,12 @@ function runDownload (torrentId) {
     }
 
     if (!argv.quiet) {
-      torrent.swarm.on('wire', updateMetadata)
+      updateMetadata()
+      torrent.on('wire', updateMetadata)
       torrent.on('metadata', function () {
         clivas.clear()
-        torrent.swarm.removeListener('wire', updateMetadata)
+        torrent.removeListener('wire', updateMetadata)
       })
-      updateMetadata()
     }
   })
 
