@@ -333,9 +333,7 @@ function runDownload (torrentId) {
     }
     var MPLAYER_EXEC = 'mplayer -ontop -really-quiet -noidx -loop 0'
     var MPV_EXEC = 'mpv --ontop --really-quiet --loop=no'
-    var OMX_EXEC = 'omxplayer -r -o ' + (typeof argv.omx === 'string')
-      ? argv.omx
-      : 'hdmi'
+    var OMX_EXEC = 'omxplayer -r -o ' + (typeof argv.omx === 'string' ? argv.omx : 'hdmi')
 
     if (argv.subtitles) {
       VLC_ARGS += ' --sub-file=' + argv.subtitles
