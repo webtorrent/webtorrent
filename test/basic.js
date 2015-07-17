@@ -109,6 +109,19 @@ test('client.remove: remove by Torrent object', function (t) {
   })
 })
 
+test('torrent.destroy: destroy and remove torrent', function (t) {
+  var client = new WebTorrent({ dht: false, tracker: false })
+  var torrent = client.add(leavesTorrent.infoHash)
+  t.equal(client.torrents.length, 1)
+  torrent.on('infoHash', function () {
+    t.equal(torrent.infoHash, leavesTorrent.infoHash)
+    torrent.destroy()
+    t.equal(client.torrents.length, 0)
+    client.destroy()
+    t.end()
+  })
+})
+
 test('client.seed: torrent file (Buffer)', function (t) {
   t.plan(4)
 
