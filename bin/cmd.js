@@ -222,10 +222,7 @@ function runCreate (input) {
   })
 }
 
-var client
-var href
-var playerName
-var serving
+var client, href, playerName, server, serving
 
 function runDownload (torrentId) {
   client = new WebTorrent({
@@ -280,13 +277,15 @@ function runDownload (torrentId) {
   })
 
   // Start http server
-  var server = torrent.createServer()
+  server = torrent.createServer()
   server.listen(argv.port, function () {
     if (torrent.ready) onReady()
     else torrent.once('ready', onReady)
-  }).once('connection', function () {
+  })
+  server.once('connection', function () {
     serving = true
   })
+
   function onReady () {
     // if no index specified, use largest file
     var index = (typeof argv.index === 'number')
@@ -471,8 +470,10 @@ function drawTorrent (torrent) {
       linesRemaining -= 1
     }
 
-    clivas.line('{green:server running at} {bold:' + href + '}')
-    linesRemaining -= 1
+    if (server) {
+      clivas.line('{green:server running at} {bold:' + href + '}')
+      linesRemaining -= 1
+    }
 
     if (argv.out) {
       clivas.line('{green:downloading to} {bold:' + argv.out + '}')
@@ -481,7 +482,7 @@ function drawTorrent (torrent) {
 
     var seeding = torrent.storage.done
 
-    clivas.line('')
+    if (!seeding) clivas.line('')
     clivas.line(
       '{green:' + (seeding ? 'seeding' : 'downloading') + ':} ' +
       '{bold:' + torrent.name + '}'
