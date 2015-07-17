@@ -124,20 +124,12 @@ var magnetUri = '...'
 
 client.add(magnetUri, function (torrent) {
   // Got torrent metadata!
-  console.log('Torrent info hash:', torrent.infoHash)
+  console.log('Client is downloading:', torrent.infoHash)
 
   torrent.files.forEach(function (file) {
-    // Get a url for each file
-    file.getBlobURL(function (err, url) {
-      if (err) throw err
-
-      // Add a link to the page
-      var a = document.createElement('a')
-      a.download = file.name
-      a.href = url
-      a.textContent = 'Download ' + file.name
-      document.body.appendChild(a)
-    })
+    // Display the file by appending it to the DOM. Supports video, audio, images, and
+    // more. Specify a container element (CSS selector or reference to DOM node).
+    file.appendTo('body')
   })
 })
 ```
@@ -145,7 +137,7 @@ client.add(magnetUri, function (torrent) {
 ##### Seeding a file is simple, too:
 
 ```js
-var dragDrop = require('drag-drop/buffer')
+var dragDrop = require('drag-drop')
 var WebTorrent = require('webtorrent')
 
 var client = new WebTorrent()
@@ -153,8 +145,7 @@ var client = new WebTorrent()
 // When user drops files on the browser, create a new torrent and start seeding it!
 dragDrop('body', function (files) {
   client.seed(files, function onTorrent (torrent) {
-    // Client is seeding the file!
-    console.log('Torrent info hash:', torrent.infoHash)
+    console.log('Client is seeding:', torrent.infoHash)
   })
 })
 ```
@@ -176,8 +167,7 @@ client.add(magnetUri, function (torrent) {
 
   // Stream the video!
   // Specify a container element (CSS selector or reference to DOM node)
-  file.appendTo('body', function (err, elem) {
-    if (err) throw err
+  file.appendTo('body')
   })
 })
 ```
