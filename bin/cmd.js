@@ -609,8 +609,9 @@ function gracefulExit () {
     client.destroy(function (err) {
       if (err) return errorAndExit(err)
 
-      // Quit after 5 seconds. This shouldn't be necessary, node never quits even though there's nothing in the event loop when `wrtc` (webtorrent-hybrid) is used :(
-      setTimeout(function () { process.exit(0) }, 5000).unref()
+      // Quit after 1 second. This shouldn't be necessary, node never quits even though
+      // there's nothing in the event loop when `wrtc` (webtorrent-hybrid) is used :(
+      setTimeout(function () { process.exit(0) }, 1000).unref()
     })
   }
 }
