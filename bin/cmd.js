@@ -33,6 +33,9 @@ process.on('exit', function (code) {
   }
 })
 
+process.on('SIGINT', gracefulExit)
+process.on('SIGTERM', gracefulExit)
+
 var argv = minimist(process.argv.slice(2), {
   alias: {
     p: 'port',
@@ -72,6 +75,32 @@ var started = Date.now()
 function getRuntime () {
   return Math.floor((Date.now() - started) / 1000)
 }
+
+var VLC_ARGS = '--play-and-exit --video-on-top'
+if (process.env.DEBUG) {
+  VLC_ARGS += ' -q'
+} else {
+  VLC_ARGS += ' --extraintf=http:logger --verbose=2 --file-logging --logfile=vlc-log.txt'
+}
+var MPLAYER_EXEC = 'mplayer -ontop -really-quiet -noidx -loop 0'
+var MPV_EXEC = 'mpv --ontop --really-quiet --loop=no'
+var OMX_EXEC = 'omxplayer -r -o ' + (typeof argv.omx === 'string' ? argv.omx : 'hdmi')
+
+if (argv.subtitles) {
+  VLC_ARGS += ' --sub-file=' + argv.subtitles
+  MPLAYER_EXEC += ' -sub ' + argv.subtitles
+  MPV_EXEC += ' --sub-file=' + argv.subtitles
+  OMX_EXEC += ' --subtitles ' + argv.subtitles
+}
+
+playerName = argv.airplay ? 'Airplay'
+  : argv.chromecast ? 'Chromecast'
+  : argv.xbmc ? 'XBMC'
+  : argv.vlc ? 'VLC'
+  : argv.mplayer ? 'MPlayer'
+  : argv.mpv ? 'mpv'
+  : argv.omx ? 'OMXPlayer'
+  : null
 
 var command = argv._[0]
 
@@ -193,35 +222,16 @@ function runCreate (input) {
   })
 }
 
+var client
 var href
 var playerName
-var server
 var serving
 
 function runDownload (torrentId) {
-  var client = new WebTorrent({
+  client = new WebTorrent({
     blocklist: argv.blocklist
   })
   .on('error', errorAndExit)
-
-  if (!argv.out) { // If no output file has been specified
-    process.on('SIGINT', remove)
-    process.on('SIGTERM', remove)
-  }
-
-  function remove () {
-    process.removeListener('SIGINT', remove)
-    process.removeListener('SIGTERM', remove)
-
-    // destroying can take a while, so print a message to the user
-    clivas.line('')
-    clivas.line('{green:webtorrent is gracefully exiting...}')
-
-    client.destroy(function (err) {
-      if (err) return errorAndExit(err)
-      process.exit(0)
-    })
-  }
 
   var torrent = client.add(torrentId, { path: argv.out })
 
@@ -266,18 +276,17 @@ function runDownload (torrentId) {
         getRuntime()
       )
     }
-    done()
+    torrentDone()
   })
 
   // Start http server
-  server = torrent.createServer()
+  var server = torrent.createServer()
   server.listen(argv.port, function () {
     if (torrent.ready) onReady()
     else torrent.once('ready', onReady)
   }).once('connection', function () {
     serving = true
   })
-
   function onReady () {
     // if no index specified, use largest file
     var index = (typeof argv.index === 'number')
@@ -325,32 +334,6 @@ function runDownload (torrentId) {
   }
 
   function onSelection (index) {
-    var VLC_ARGS = '--play-and-exit --video-on-top'
-    if (process.env.DEBUG) {
-      VLC_ARGS += ' -q'
-    } else {
-      VLC_ARGS += ' --extraintf=http:logger --verbose=2 --file-logging --logfile=vlc-log.txt'
-    }
-    var MPLAYER_EXEC = 'mplayer -ontop -really-quiet -noidx -loop 0'
-    var MPV_EXEC = 'mpv --ontop --really-quiet --loop=no'
-    var OMX_EXEC = 'omxplayer -r -o ' + (typeof argv.omx === 'string' ? argv.omx : 'hdmi')
-
-    if (argv.subtitles) {
-      VLC_ARGS += ' --sub-file=' + argv.subtitles
-      MPLAYER_EXEC += ' -sub ' + argv.subtitles
-      MPV_EXEC += ' --sub-file=' + argv.subtitles
-      OMX_EXEC += ' --subtitles ' + argv.subtitles
-    }
-
-    playerName = argv.airplay ? 'Airplay'
-      : argv.chromecast ? 'Chromecast'
-      : argv.xbmc ? 'XBMC'
-      : argv.vlc ? 'VLC'
-      : argv.mplayer ? 'MPlayer'
-      : argv.mpv ? 'mpv'
-      : argv.omx ? 'OMXPlayer'
-      : null
-
     href = (argv.airplay || argv.chromecast || argv.xbmc)
       ? 'http://' + networkAddress() + ':' + argv.port + '/' + index
       : 'http://localhost:' + argv.port + '/' + index
@@ -378,7 +361,7 @@ function runDownload (torrentId) {
         VLC_ARGS.unshift(href)
         cp.execFile(vlcPath, VLC_ARGS, function (err) {
           if (err) return errorAndExit(err)
-          done()
+          torrentDone()
         })
       }
     } else if (argv.vlc) {
@@ -398,7 +381,7 @@ function runDownload (torrentId) {
     if (cmd) {
       cp.exec(cmd, function (err) {
         if (err) return errorAndExit(err)
-        done()
+        torrentDone()
       })
     }
 
@@ -433,10 +416,6 @@ function runDownload (torrentId) {
 
     drawTorrent(torrent)
   }
-
-  function done () {
-    if (!playerName && !serving) process.exit(0)
-  }
 }
 
 function runSeed (input) {
@@ -448,7 +427,7 @@ function runSeed (input) {
     return
   }
 
-  var client = new WebTorrent({
+  client = new WebTorrent({
     blocklist: argv.blocklist
   })
   .on('error', errorAndExit)
@@ -461,10 +440,12 @@ function runSeed (input) {
   })
 }
 
+var drawInterval
 function drawTorrent (torrent) {
   if (!argv.quiet) {
     process.stdout.write(new Buffer('G1tIG1sySg==', 'base64')) // clear for drawing
-    setInterval(draw, 500)
+    drawInterval = setInterval(draw, 500)
+    drawInterval.unref()
   }
 
   function draw () {
@@ -473,7 +454,9 @@ function drawTorrent (torrent) {
       hotswaps += 1
     })
 
-    var unchoked = torrent.swarm.wires.filter(active)
+    var unchoked = torrent.swarm.wires.filter(function (wire) {
+      return !wire.peerChoking
+    })
     var linesRemaining = clivas.height
     var peerslisted = 0
     var speed = torrent.swarm.downloadSpeed()
@@ -487,10 +470,10 @@ function drawTorrent (torrent) {
       clivas.line('{green:Streaming to} {bold:' + playerName + '}')
       linesRemaining -= 1
     }
-    if (server) {
-      clivas.line('{green:server running at} {bold:' + href + '}')
-      linesRemaining -= 1
-    }
+
+    clivas.line('{green:server running at} {bold:' + href + '}')
+    linesRemaining -= 1
+
     if (argv.out) {
       clivas.line('{green:downloading to} {bold:' + argv.out + '}')
       linesRemaining -= 1
@@ -602,13 +585,32 @@ function drawTorrent (torrent) {
     clivas.line('{80:}')
     clivas.flush(true)
   }
+}
 
-  function active (wire) {
-    return !wire.peerChoking
-  }
+function torrentDone () {
+  if (!playerName && !serving && argv.out) gracefulExit()
 }
 
 function errorAndExit (err) {
   clivas.line('{red:ERROR:} ' + (err.message || err))
   process.exit(1)
+}
+
+function gracefulExit () {
+  process.removeListener('SIGINT', gracefulExit)
+  process.removeListener('SIGTERM', gracefulExit)
+
+  clearInterval(drawInterval)
+
+  if (client) {
+    // destroying can take a while, so print a message to the user
+    clivas.line('\n{green:webtorrent is gracefully exiting...}')
+
+    client.destroy(function (err) {
+      if (err) return errorAndExit(err)
+
+      // Quit after 5 seconds. This shouldn't be necessary, node never quits even though there's nothing in the event loop when `wrtc` (webtorrent-hybrid) is used :(
+      setTimeout(function () { process.exit(0) }, 5000).unref()
+    })
+  }
 }
