@@ -76,7 +76,7 @@ function getRuntime () {
   return Math.floor((Date.now() - started) / 1000)
 }
 
-var VLC_ARGS = '--play-and-exit --video-on-top'
+var VLC_ARGS = '--play-and-exit --video-on-top --quiet'
 if (process.env.DEBUG) {
   VLC_ARGS += ' -q'
 } else {
