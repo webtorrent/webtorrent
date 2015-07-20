@@ -61,6 +61,7 @@
     "speedometer": "^1.0.0",
     "stream-to-blob-url": "^2.0.0",
     "stream-with-known-length-to-buffer": "^1.0.0",
+    "subscribe-ev": "^1.0.0",
     "torrent-discovery": "^7.0.0",
     "torrent-piece": "^1.0.0",
     "uniq": "^1.0.1",
