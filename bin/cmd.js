@@ -137,47 +137,44 @@ function runHelp () {
 
   console.log(function () {
   /*
-  Usage:
-      webtorrent [command] <torrent-id> <options>
+Usage:
+    webtorrent [command] <torrent-id> <options>
 
-  Example:
-      webtorrent download "magnet:..." --vlc
+Example:
+    webtorrent download "magnet:..." --vlc
 
-  Available commands:
-      download <torrentId>   Download a torrent
-      seed <file/folder>     Seed a file or folder
-      create <file>          Create a .torrent file
-      info <torrentId>       Show info for a .torrent file or magnet uri
+Commands:
+    download <torrent-id>   Download a torrent
+    seed <file/folder>      Seed a file or folder
+    create <file>           Create a .torrent file
+    info <torrent-id>       Show info for a .torrent file or magnet uri
 
-  Specify torrent ids as one of the following:
-      * magnet uri
-      * http url to .torrent file
-      * filesystem path to .torrent file
-      * info hash (hex string)
+Specify <torrent-id> as one of:
+    * magnet uri
+    * http url to .torrent file
+    * filesystem path to .torrent file
+    * info hash (hex string)
 
-  Options (streaming):
-      --airplay               Apple TV
-      --chromecast            Chromecast
-      --mplayer               MPlayer
-      --mpv                   MPV
-      --omx [jack]            omx [default: hdmi]
-      --vlc                   VLC
-      --xbmc                  XBMC
-      --stdout                standard out (implies --quiet)
+Options (streaming):
+    --airplay               Apple TV
+    --chromecast            Chromecast
+    --mplayer               MPlayer
+    --mpv                   MPV
+    --omx [jack]            omx [default: hdmi]
+    --vlc                   VLC
+    --xbmc                  XBMC
+    --stdout                standard out (implies --quiet)
 
-  Options (all):
-      -o, --out [path]        set download destination [default: /tmp/webtorrent]
-      -s, --select            select individual file in torrent (by index)
-      -i, --index [index]     stream a particular file from torrent (by index)
-      -p, --port [number]     change the http port [default: 8000]
-      -b, --blocklist [path]  load blocklist file/http url
-      -t, --subtitles [file]  load subtitles file
-      -q, --quiet             don't show UI on stdout
-      -v, --version           print the current version
-      --verbose               show piece progress bars
-
-  Please report bugs!  https://github.com/feross/webtorrent/issues
-
+Options (all):
+    -o, --out [path]        set download destination [default: /tmp/webtorrent]
+    -s, --select            select individual file in torrent (by index)
+    -i, --index [index]     stream a particular file from torrent (by index)
+    -p, --port [number]     change the http port [default: 8000]
+    -b, --blocklist [path]  load blocklist file/http url
+    -t, --subtitles [file]  load subtitles file
+    -q, --quiet             don't show UI on stdout
+    -v, --version           print the current version
+    --verbose               show detailed torrent protocol info
   */
   }.toString().split(/\n/).slice(2, -2).join('\n'))
   process.exit(0)
