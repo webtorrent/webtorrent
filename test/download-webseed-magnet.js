@@ -6,7 +6,6 @@ var parseTorrent = require('parse-torrent')
 var path = require('path')
 var serveStatic = require('serve-static')
 var test = require('tape')
-var TrackerServer = require('bittorrent-tracker/server')
 var WebTorrent = require('../')
 
 var leavesPath = __dirname + '/content/Leaves of Grass by Walt Whitman.epub'
