@@ -19,7 +19,7 @@ var leavesParsed = parseTorrent(leavesTorrent)
 leavesParsed.announce = []
 
 test('Download using webseed (via .torrent file)', function (t) {
-  t.plan(5)
+  t.plan(6)
 
   var serve = serveStatic(path.join(__dirname, 'content'))
   var httpServer = http.createServer(function (req, res) {
@@ -27,19 +27,16 @@ test('Download using webseed (via .torrent file)', function (t) {
     serve(req, res, done)
   })
 
-  httpServer.on('error', function (err) {
-    t.fail(err)
-  })
+  httpServer.on('error', function (err) { t.fail(err) })
 
   auto({
     httpPort: function (cb) {
-      httpServer.listen(function () {
-        var port = httpServer.address().port
-        cb(null, port)
-      })
+      httpServer.listen(cb)
     },
-    client: ['httpPort', function (cb, r) {
-      leavesParsed.urlList.push('http://localhost:' + r.httpPort + '/' + leavesFilename)
+    client: ['httpPort', function (cb) {
+      leavesParsed.urlList.push(
+        'http://localhost:' + httpServer.address().port + '/' + leavesFilename
+      )
 
       var client = new WebTorrent({ tracker: false, dht: false })
 
@@ -49,7 +46,7 @@ test('Download using webseed (via .torrent file)', function (t) {
       client.on('torrent', function (torrent) {
         torrent.files.forEach(function (file) {
           file.getBuffer(function (err, buf) {
-            if (err) throw err
+            t.error(err)
             t.deepEqual(buf, leavesFile, 'downloaded correct content')
           })
         })
@@ -63,7 +60,6 @@ test('Download using webseed (via .torrent file)', function (t) {
       client.add(leavesParsed)
     }]
   }, function (err, r) {
-
     t.error(err)
     r.client.destroy(function () {
       t.pass('client destroyed')
