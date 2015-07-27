@@ -29,9 +29,8 @@ function torrentDownloadTest (t, serverType) {
         serverType === 'udp' ? { http: false } : { udp: false }
       )
 
-      tracker.on('error', function (err) {
-        t.fail(err)
-      })
+      tracker.on('error', function (err) { t.fail(err) })
+      tracker.on('warning', function (err) { t.fail(err) })
 
       tracker.on('start', function () {
         trackerStartCount += 1
@@ -53,6 +52,7 @@ function torrentDownloadTest (t, serverType) {
     client1: ['tracker', function (cb) {
       var client1 = new WebTorrent({ dht: false })
       client1.on('error', function (err) { t.fail(err) })
+      client1.on('warning', function (err) { t.fail(err) })
 
       client1.add(leavesParsed)
 
@@ -75,6 +75,7 @@ function torrentDownloadTest (t, serverType) {
     client2: ['client1', function (cb) {
       var client2 = new WebTorrent({ dht: false })
       client2.on('error', function (err) { t.fail(err) })
+      client2.on('warning', function (err) { t.fail(err) })
 
       client2.add(leavesParsed)
 

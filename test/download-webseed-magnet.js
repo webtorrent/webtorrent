@@ -27,9 +27,7 @@ test('Download using webseed (via magnet uri)', function (t) {
   })
   var magnetUri
 
-  httpServer.on('error', function (err) {
-    t.fail(err)
-  })
+  httpServer.on('error', function (err) { t.fail(err) })
 
   auto({
     httpPort: function (cb) {

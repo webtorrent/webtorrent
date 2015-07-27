@@ -37,6 +37,7 @@ test('blocklist (single IP)', function (t) {
     blocklist: [ '1.2.3.4' ]
   })
   .on('error', function (err) { t.fail(err) })
+  .on('warning', function (err) { t.fail(err) })
   .on('ready', function () {
     client.add(leavesParsed, function (torrent) {
       assertBlocked(t, torrent, '1.2.3.4:1234')
@@ -58,6 +59,7 @@ test('blocklist (array of IPs)', function (t) {
     blocklist: [ '1.2.3.4', '5.6.7.8' ]
   })
   .on('error', function (err) { t.fail(err) })
+  .on('warning', function (err) { t.fail(err) })
   .on('ready', function () {
     client.add(leavesParsed, function (torrent) {
       assertBlocked(t, torrent, '1.2.3.4:1234')
@@ -122,6 +124,7 @@ test('blocklist (array of IP ranges)', function (t) {
     ]
   })
   .on('error', function (err) { t.fail(err) })
+  .on('warning', function (err) { t.fail(err) })
   .on('ready', function () {
     client.add(leavesParsed, function (torrent) {
       assertList(t, torrent)
@@ -148,6 +151,7 @@ test('blocklist (http url)', function (t) {
       blocklist: url
     })
     .on('error', function (err) { t.fail(err) })
+    .on('warning', function (err) { t.fail(err) })
     .on('ready', function () {
       client.add(leavesParsed, function (torrent) {
         assertList(t, torrent)
@@ -179,6 +183,7 @@ test('blocklist (http url with gzip encoding)', function (t) {
       blocklist: url
     })
     .on('error', function (err) { t.fail(err) })
+    .on('warning', function (err) { t.fail(err) })
     .on('ready', function () {
       client.add(leavesParsed, function (torrent) {
         assertList(t, torrent)
@@ -210,6 +215,7 @@ test('blocklist (http url with deflate encoding)', function (t) {
       blocklist: url
     })
     .on('error', function (err) { t.fail(err) })
+    .on('warning', function (err) { t.fail(err) })
     .on('ready', function () {
       client.add(leavesParsed, function (torrent) {
         assertList(t, torrent)
@@ -228,6 +234,7 @@ test('blocklist (fs path)', function (t) {
     blocklist: blocklistPath
   })
   .on('error', function (err) { t.fail(err) })
+  .on('warning', function (err) { t.fail(err) })
   .on('ready', function () {
     client.add(leavesParsed, function (torrent) {
       assertList(t, torrent)
@@ -244,6 +251,7 @@ test('blocklist (fs path with gzip)', function (t) {
     blocklist: blocklistGzipPath
   })
   .on('error', function (err) { t.fail(err) })
+  .on('warning', function (err) { t.fail(err) })
   .on('ready', function () {
     client.add(leavesParsed, function (torrent) {
       assertList(t, torrent)

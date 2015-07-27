@@ -12,6 +12,9 @@ test('client.seed followed by duplicate client.add', function (t) {
   }
 
   var client = new WebTorrent({ dht: false, tracker: false })
+  client.on('error', function (err) { t.fail(err) })
+  client.on('warning', function (err) { t.fail(err) })
+
   client.seed(leavesBook, opts, function (torrent1) {
     client.add(torrent1.infoHash, function (torrent2) {
       t.equal(torrent1.infoHash, torrent2.infoHash)
@@ -31,6 +34,8 @@ test('client.seed followed by duplicate client.add, twice', function (t) {
   }
 
   var client = new WebTorrent({ dht: false, tracker: false })
+  client.on('error', function (err) { t.fail(err) })
+  client.on('warning', function (err) { t.fail(err) })
 
   client.seed(leavesBook, opts, function (torrent1) {
     client.add(torrent1.infoHash, function (torrent2) {

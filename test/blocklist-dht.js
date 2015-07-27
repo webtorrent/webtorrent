@@ -17,9 +17,8 @@ test('blocklist blocks peers discovered via DHT', function (t) {
 
   var dhtServer = new DHT({ bootstrap: false })
 
-  dhtServer.on('error', function (err) {
-    t.fail(err)
-  })
+  dhtServer.on('error', function (err) { t.fail(err) })
+  dhtServer.on('warning', function (err) { t.fail(err) })
 
   auto({
     dhtPort: function (cb) {
@@ -35,6 +34,7 @@ test('blocklist blocks peers discovered via DHT', function (t) {
         dht: { bootstrap: '127.0.0.1:' + r.dhtPort }
       })
       client1.on('error', function (err) { t.fail(err) })
+      client1.on('warning', function (err) { t.fail(err) })
 
       var torrent1 = client1.add(leavesParsed)
 
@@ -61,6 +61,7 @@ test('blocklist blocks peers discovered via DHT', function (t) {
         blocklist: [ '127.0.0.1', networkAddress.ipv4() ]
       })
       client2.on('error', function (err) { t.fail(err) })
+      client2.on('warning', function (err) { t.fail(err) })
 
       var torrent2 = client2.add(leavesParsed)
 

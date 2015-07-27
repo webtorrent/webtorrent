@@ -33,6 +33,7 @@ test('blocklist blocks peers discovered via tracker', function (t) {
     client1: ['tracker', function (cb) {
       var client1 = new WebTorrent({ dht: false })
       client1.on('error', function (err) { t.fail(err) })
+      client1.on('warning', function (err) { t.fail(err) })
 
       var torrent1 = client1.add(leavesParsed)
 
@@ -52,6 +53,7 @@ test('blocklist blocks peers discovered via tracker', function (t) {
         blocklist: [ '127.0.0.1' ]
       })
       client2.on('error', function (err) { t.fail(err) })
+      client2.on('warning', function (err) { t.fail(err) })
 
       var torrent2 = client2.add(leavesParsed)
 

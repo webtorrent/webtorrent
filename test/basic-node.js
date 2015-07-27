@@ -24,6 +24,10 @@ test('client.add: http url to a torrent file, string', function (t) {
     var port = server.address().port
     var url = 'http://127.0.0.1:' + port
     var client = new WebTorrent({ dht: false, tracker: false })
+
+    client.on('error', function (err) { t.fail(err) })
+    client.on('warning', function (err) { t.fail(err) })
+
     client.add(url, function (torrent) {
       t.equal(torrent.infoHash, leavesTorrent.infoHash)
       t.equal(torrent.magnetURI, leavesMagnetURI)
@@ -37,6 +41,10 @@ test('client.add: filesystem path to a torrent file, string', function (t) {
   t.plan(2)
 
   var client = new WebTorrent({ dht: false, tracker: false })
+
+  client.on('error', function (err) { t.fail(err) })
+  client.on('warning', function (err) { t.fail(err) })
+
   client.add(leavesPath, function (torrent) {
     t.equal(torrent.infoHash, leavesTorrent.infoHash)
     t.equal(torrent.magnetURI, leavesMagnetURI)
@@ -60,6 +68,10 @@ test('client.seed: filesystem path to file, string', function (t) {
   }
 
   var client = new WebTorrent({ dht: false, tracker: false })
+
+  client.on('error', function (err) { t.fail(err) })
+  client.on('warning', function (err) { t.fail(err) })
+
   client.seed(leavesBookPath, opts, function (torrent) {
     t.equal(torrent.infoHash, leavesTorrent.infoHash)
     t.equal(torrent.magnetURI, leavesMagnetURI)
@@ -82,6 +94,10 @@ test('client.seed: filesystem path to folder with one file, string', function (t
   }
 
   var client = new WebTorrent({ dht: false, tracker: false })
+
+  client.on('error', function (err) { t.fail(err) })
+  client.on('warning', function (err) { t.fail(err) })
+
   client.seed(folderPath, opts, function (torrent) {
     t.equal(torrent.infoHash, '3a686c32404af0a66913dd5f8d2b40673f8d4490')
     t.equal(torrent.magnetURI, 'magnet:?xt=urn:btih:3a686c32404af0a66913dd5f8d2b40673f8d4490&dn=folder&tr=udp%3A%2F%2Ftracker.webtorrent.io%3A80')
@@ -101,6 +117,10 @@ test('client.seed: filesystem path to folder with multiple files, string', funct
   }
 
   var client = new WebTorrent({ dht: false, tracker: false })
+
+  client.on('error', function (err) { t.fail(err) })
+  client.on('warning', function (err) { t.fail(err) })
+
   client.seed(numbersPath, opts, function (torrent) {
     t.equal(torrent.infoHash, '80562f38656b385ea78959010e51a2cc9db41ea0')
     t.equal(torrent.magnetURI, 'magnet:?xt=urn:btih:80562f38656b385ea78959010e51a2cc9db41ea0&dn=numbers&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.webtorrent.io%3A80&tr=wss%3A%2F%2Ftracker.webtorrent.io')

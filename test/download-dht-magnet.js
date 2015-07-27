@@ -17,9 +17,8 @@ test('Download using DHT (via magnet uri)', function (t) {
   t.plan(10)
 
   var dhtServer = new DHT({ bootstrap: false })
-  dhtServer.on('error', function (err) {
-    t.fail(err)
-  })
+  dhtServer.on('error', function (err) { t.fail(err) })
+  dhtServer.on('warning', function (err) { t.fail(err) })
 
   var magnetUri = 'magnet:?xt=urn:btih:' + leavesParsed.infoHash
 
@@ -36,6 +35,7 @@ test('Download using DHT (via magnet uri)', function (t) {
         dht: { bootstrap: '127.0.0.1:' + r.dhtPort }
       })
       client1.on('error', function (err) { t.fail(err) })
+      client1.on('warning', function (err) { t.fail(err) })
 
       var announced = false
       var wroteStorage = false
@@ -69,6 +69,7 @@ test('Download using DHT (via magnet uri)', function (t) {
         dht: { bootstrap: '127.0.0.1:' + r.dhtPort }
       })
       client2.on('error', function (err) { t.fail(err) })
+      client2.on('warning', function (err) { t.fail(err) })
 
       var gotBuffer = false
       var gotDone = false

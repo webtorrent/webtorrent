@@ -7,7 +7,11 @@ var leavesPath = __dirname + '/content/Leaves of Grass by Walt Whitman.epub'
 var leavesTorrent = fs.readFileSync(__dirname + '/torrents/leaves.torrent')
 
 test('start http server programmatically', function (t) {
-  var client = new WebTorrent()
+  var client = new WebTorrent({ tracker: false, dht: false })
+
+  client.on('error', function (err) { t.fail(err) })
+  client.on('warning', function (err) { t.fail(err) })
+
   var torrent = client.add(leavesTorrent, { dht: false, tracker: false }, function (torrent) {
     // create HTTP server for this torrent
     var server = torrent.createServer()

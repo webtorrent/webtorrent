@@ -83,9 +83,7 @@ test('Command line: webtorrent create /path/to/file', function (t) {
   var leavesPath = __dirname + '/content/Leaves of Grass by Walt Whitman.epub'
 
   var child = cp.spawn(CMD, [ 'create', leavesPath ])
-  child.on('error', function (err) {
-    throw err
-  })
+  child.on('error', function (err) { t.fail(err) })
 
   var chunks = []
   child.stdout.on('data', function (chunk) {

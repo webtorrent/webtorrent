@@ -18,9 +18,8 @@ test('Download using DHT (via .torrent file)', function (t) {
 
   var dhtServer = new DHT({ bootstrap: false })
 
-  dhtServer.on('error', function (err) {
-    t.fail(err)
-  })
+  dhtServer.on('error', function (err) { t.fail(err) })
+  dhtServer.on('warning', function (err) { t.fail(err) })
 
   auto({
     dhtPort: function (cb) {
@@ -35,6 +34,7 @@ test('Download using DHT (via .torrent file)', function (t) {
         dht: { bootstrap: '127.0.0.1:' + r.dhtPort }
       })
       client1.on('error', function (err) { t.fail(err) })
+      client1.on('warning', function (err) { t.fail(err) })
 
       client1.add(leavesParsed)
 
@@ -68,6 +68,7 @@ test('Download using DHT (via .torrent file)', function (t) {
         dht: { bootstrap: '127.0.0.1:' + r.dhtPort }
       })
       client2.on('error', function (err) { t.fail(err) })
+      client2.on('warning', function (err) { t.fail(err) })
 
       client2.add(leavesParsed)
 

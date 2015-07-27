@@ -10,7 +10,14 @@ test('ut_metadata transfer', function (t) {
   t.plan(6)
 
   var client1 = new WebTorrent({ dht: false, tracker: false })
+
+  client1.on('error', function (err) { t.fail(err) })
+  client1.on('warning', function (err) { t.fail(err) })
+
   var client2 = new WebTorrent({ dht: false, tracker: false })
+
+  client2.on('error', function (err) { t.fail(err) })
+  client2.on('warning', function (err) { t.fail(err) })
 
   client1.on('torrent', function (torrent) {
     t.pass('client1 emits torrent event') // even though it started with metadata
@@ -19,9 +26,6 @@ test('ut_metadata transfer', function (t) {
 
   // client1 starts with metadata from torrent file
   client1.add(leaves)
-
-  client1.on('error', function (err) { t.fail(err) })
-  client2.on('error', function (err) { t.fail(err) })
 
   client1.on('torrent', function (torrent1) {
     t.deepEqual(torrent1.parsedTorrent.info, leavesTorrent.info)
