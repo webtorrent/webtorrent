@@ -358,7 +358,7 @@ function runDownload (torrentId) {
         cp.execFile(vlcPath, VLC_ARGS, function (err) {
           if (err) return errorAndExit(err)
           torrentDone()
-        })
+        }).unref()
       }
     } else if (argv.vlc) {
       var root = '/Applications/VLC.app/Contents/MacOS/VLC'
@@ -378,7 +378,7 @@ function runDownload (torrentId) {
       cp.exec(cmd, function (err) {
         if (err) return errorAndExit(err)
         torrentDone()
-      })
+      }).unref()
     }
 
     if (argv.airplay) {
