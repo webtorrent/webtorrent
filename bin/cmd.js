@@ -95,19 +95,18 @@ if (argv.subtitles) {
   OMX_EXEC += ' --subtitles ' + argv.subtitles
 }
 
-function checkPermission(filename){
+function checkPermission (filename) {
   try {
     var stats = fs.lstatSync(filename)
     if (!stats.isFile()) {
-      errorAndExit("Your script "+ filename +" is not exist")
+      errorAndExit('Your script ' + filename + ' is not exist')
     }
     // check if the script has executable permission
-    if(!(1 & parseInt ((stats.mode & parseInt ("777", 8)).toString (8)[0]))){
-      errorAndExit(filename+" don't have executable permission")
+    if (!(1&parseInt((stats.mode & parseInt('777', 8)).toString(8)[0]))) {
+      errorAndExit(filename + ' don\'t have executable permission')
     }
     return fs.realpathSync(filename)
-  }
-  catch (err) {
+  } catch (err) {
     errorAndExit(err)
   }
 }
@@ -612,21 +611,21 @@ function drawTorrent (torrent) {
     clivas.flush(true)
   }
 }
-function getTorrentInfo(){
+function getTorrentInfo () {
   var params = []
-  if (client){
+  if (client) {
     var torrent = client.torrents[0]
-    if (torrent){
-      var torrentFilename=path.join(torrent.storage.path,torrent.infoHash)+'.torrent'
+    if (torrent) {
+      var torrentFilename = path.join(torrent.storage.path, torrent.infoHash) + '.torrent'
 
       try {
         fs.writeFileSync(torrentFilename, torrent.torrentFile)
-      } catch(err){
-        torrentFilename = ""
+      } catch(err) {
+        torrentFilename = ''
       }
 
       params.push(torrentFilename)
-      params.push(path.join(torrent.storage.path,torrent.name))
+      params.push(path.join(torrent.storage.path, torrent.name))
       params.push(torrent.magnetURI)
     }
   }
