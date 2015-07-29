@@ -264,7 +264,7 @@ Start downloading a new torrent. Aliased as `client.download`.
 
 `torrentId` can be one of:
 
-- magnet uri (utf8 string)
+- magnet uri (string)
 - torrent file (buffer)
 - info hash (hex string or buffer)
 - parsed torrent (from [parse-torrent](https://github.com/feross/parse-torrent))
