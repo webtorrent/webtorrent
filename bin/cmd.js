@@ -102,7 +102,7 @@ function checkPermission (filename) {
       errorAndExit('Your script ' + filename + ' is not exist')
     }
     // check if the script has executable permission
-    if (!(1&parseInt((stats.mode & parseInt('777', 8)).toString(8)[0]))) {
+    if (!(1 & (parseInt((stats.mode & parseInt('777', 8)).toString(8)[0])))) {
       errorAndExit(filename + ' don\'t have executable permission')
     }
     return fs.realpathSync(filename)
