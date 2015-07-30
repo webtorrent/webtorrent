@@ -45,6 +45,8 @@ var argv = minimist(process.argv.slice(2), {
     i: 'index',
     o: 'out',
     q: 'quiet',
+    d: 'done',
+    e: 'exit',
     h: 'help',
     v: 'version'
   },
@@ -91,6 +93,29 @@ if (argv.subtitles) {
   MPLAYER_EXEC += ' -sub ' + argv.subtitles
   MPV_EXEC += ' --sub-file=' + argv.subtitles
   OMX_EXEC += ' --subtitles ' + argv.subtitles
+}
+
+function checkPermission (filename) {
+  try {
+    var stats = fs.lstatSync(filename)
+    if (!stats.isFile()) {
+      errorAndExit('Your script ' + filename + ' is not exist')
+    }
+    // check if the script has executable permission
+    if (!(1 & parseInt((stats.mode & parseInt('777', 8)).toString(8)[0], 10))) {
+      errorAndExit(filename + ' don\'t have executable permission')
+    }
+    return fs.realpathSync(filename)
+  } catch (err) {
+    errorAndExit(err)
+  }
+}
+
+if (argv.done) {
+  var doneScript = checkPermission(argv.done)
+}
+if (argv.exit) {
+  var exitScript = checkPermission(argv.exit)
 }
 
 playerName = argv.airplay ? 'Airplay'
@@ -172,6 +197,8 @@ Options (all):
     -p, --port [number]     change the http port [default: 8000]
     -b, --blocklist [path]  load blocklist file/http url
     -t, --subtitles [file]  load subtitles file
+    -d, --done [script]     run script after download done
+    -e, --exit [script]     run script during exiting
     -q, --quiet             don't show UI on stdout
     -v, --version           print the current version
     --verbose               show detailed torrent protocol info
@@ -584,8 +611,28 @@ function drawTorrent (torrent) {
     clivas.flush(true)
   }
 }
+function getTorrentInfo () {
+  var params = []
+  if (client) {
+    var torrent = client.torrents[0]
+    if (torrent) {
+      var torrentFilename = path.join(torrent.storage.path, torrent.infoHash) + '.torrent'
 
+      try {
+        fs.writeFileSync(torrentFilename, torrent.torrentFile)
+      } catch(err) {
+        torrentFilename = ''
+      }
+
+      params.push(torrentFilename)
+      params.push(path.join(torrent.storage.path, torrent.name))
+      params.push(torrent.magnetURI)
+    }
+  }
+  return params
+}
 function torrentDone () {
+  if (doneScript) cp.execFile(doneScript, getTorrentInfo()).unref()
   if (!playerName && !serving && argv.out) gracefulExit()
 }
 
@@ -604,6 +651,7 @@ function gracefulExit () {
     // destroying can take a while, so print a message to the user
     clivas.line('\n{green:webtorrent is gracefully exiting...}')
 
+    if (exitScript) cp.execFile(exitScript, getTorrentInfo()).unref()
     client.destroy(function (err) {
       if (err) return errorAndExit(err)
 
