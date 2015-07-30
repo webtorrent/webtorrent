@@ -31,6 +31,7 @@
     "debug": "^2.1.0",
     "dezalgo": "^1.0.1",
     "end-of-stream": "^1.0.0",
+    "executable": "^1.1.0",
     "hat": "0.0.3",
     "inherits": "^2.0.1",
     "inquirer": "^0.8.0",
