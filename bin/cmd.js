@@ -3,6 +3,7 @@
 var clivas = require('clivas')
 var cp = require('child_process')
 var createTorrent = require('create-torrent')
+var executable = require('executable')
 var fs = require('fs')
 var inquirer = require('inquirer')
 var minimist = require('minimist')
@@ -17,18 +18,17 @@ var zeroFill = require('zero-fill')
 
 process.title = 'WebTorrent'
 
+var expectedError = false
 process.on('exit', function (code) {
-  if (code !== 0) {
-    clivas.line('{red:ERROR:} If you think this is a bug in WebTorrent, report it!\n')
-    console.log('=====>                                               <=====')
-    console.log('=====>  https://github.com/feross/webtorrent/issues  <=====')
-    console.log('=====>                                               <=====')
+  if (code !== 0 && !expectedError) {
+    clivas.line('\n{red:UNEXPECTED ERROR:} If this is a bug in WebTorrent, report it!')
+    clivas.line('{green:OPEN AN ISSUE:} https://github.com/feross/webtorrent/issues\n')
     clivas.line(
-      '\n{green:DEBUG INFO:} ' +
+      'DEBUG INFO: ' +
+      'webtorrent ' + require('../package.json').version + ', ' +
       'node ' + process.version + ', ' +
       process.platform + ' ' + process.arch + ', ' +
-      'webtorrent ' + require('../package.json').version + ', ' +
-      'exit ' + code + '\n'
+      'exit ' + code
     )
   }
 })
@@ -45,8 +45,6 @@ var argv = minimist(process.argv.slice(2), {
     i: 'index',
     o: 'out',
     q: 'quiet',
-    d: 'done',
-    e: 'exit',
     h: 'help',
     v: 'version'
   },
@@ -63,6 +61,13 @@ var argv = minimist(process.argv.slice(2), {
     'help',
     'version',
     'verbose'
+  ],
+  string: [ // options that are always strings
+    'out',
+    'blocklist',
+    'subtitles',
+    'on-done',
+    'on-exit'
   ],
   default: {
     port: 8000
@@ -97,25 +102,22 @@ if (argv.subtitles) {
 
 function checkPermission (filename) {
   try {
-    var stats = fs.lstatSync(filename)
-    if (!stats.isFile()) {
-      errorAndExit('Your script ' + filename + ' is not exist')
+    if (!executable.sync(filename)) {
+      errorAndExit('Script "' + filename + '" is not executable')
     }
-    // check if the script has executable permission
-    if (!(1 & parseInt((stats.mode & parseInt('777', 8)).toString(8)[0], 10))) {
-      errorAndExit(filename + ' don\'t have executable permission')
-    }
-    return fs.realpathSync(filename)
   } catch (err) {
-    errorAndExit(err)
+    errorAndExit('Script "' + filename + '" does not exist')
   }
 }
 
-if (argv.done) {
-  var doneScript = checkPermission(argv.done)
+if (argv['on-done']) {
+  checkPermission(argv['on-done'])
+  argv['on-done'] = fs.realpathSync(argv['on-done'])
 }
-if (argv.exit) {
-  var exitScript = checkPermission(argv.exit)
+
+if (argv['on-exit']) {
+  checkPermission(argv['on-exit'])
+  argv['on-exit'] = fs.realpathSync(argv['on-exit'])
 }
 
 playerName = argv.airplay ? 'Airplay'
@@ -190,18 +192,21 @@ Options (streaming):
     --xbmc                  XBMC
     --stdout                standard out (implies --quiet)
 
-Options (all):
+Options (simple):
     -o, --out [path]        set download destination [default: /tmp/webtorrent]
     -s, --select            select individual file in torrent (by index)
-    -i, --index [index]     stream a particular file from torrent (by index)
-    -p, --port [number]     change the http port [default: 8000]
-    -b, --blocklist [path]  load blocklist file/http url
-    -t, --subtitles [file]  load subtitles file
-    -d, --done [script]     run script after download done
-    -e, --exit [script]     run script during exiting
-    -q, --quiet             don't show UI on stdout
+    -i, --index [number]    stream a particular file from torrent (by index)
     -v, --version           print the current version
-    --verbose               show detailed torrent protocol info
+
+Options (advanced):
+    -p, --port [number]     change the http server port [default: 8000]
+    -t, --subtitles [path]  load subtitles file
+    -b, --blocklist [path]  load blocklist file/http url
+    -q, --quiet             don't show UI on stdout
+    --on-done [script]      run script after torrent download is done
+    --on-exit [script]      run script before program exit
+    --verbose               show torrent protocol details
+
   */
   }.toString().split(/\n/).slice(2, -2).join('\n'))
   process.exit(0)
@@ -220,7 +225,7 @@ function runInfo (torrentId) {
     try {
       parsedTorrent = parseTorrent(fs.readFileSync(torrentId))
     } catch (err) {
-      errorAndExit(err)
+      return errorAndExit(err)
     }
   }
 
@@ -252,7 +257,7 @@ function runDownload (torrentId) {
   client = new WebTorrent({
     blocklist: argv.blocklist
   })
-  .on('error', errorAndExit)
+  .on('error', fatalError)
 
   var torrent = client.add(torrentId, { path: argv.out })
 
@@ -321,7 +326,7 @@ function runDownload (torrentId) {
     if (argv.select) {
       var interactive = process.stdin.isTTY && !!process.stdin.setRawMode
       if (interactive) {
-        if (torrent.files.length === 0) errorAndExit('No files in the torrent')
+        if (torrent.files.length === 0) return errorAndExit('No files in the torrent')
 
         var cli = inquirer.prompt([{
           type: 'list',
@@ -383,7 +388,7 @@ function runDownload (torrentId) {
         VLC_ARGS = VLC_ARGS.split(' ')
         VLC_ARGS.unshift(href)
         cp.execFile(vlcPath, VLC_ARGS, function (err) {
-          if (err) return errorAndExit(err)
+          if (err) return fatalError(err)
           torrentDone()
         }).unref()
       }
@@ -403,7 +408,7 @@ function runDownload (torrentId) {
 
     if (cmd) {
       cp.exec(cmd, function (err) {
-        if (err) return errorAndExit(err)
+        if (err) return fatalError(err)
         torrentDone()
       }).unref()
     }
@@ -453,7 +458,7 @@ function runSeed (input) {
   client = new WebTorrent({
     blocklist: argv.blocklist
   })
-  .on('error', errorAndExit)
+  .on('error', fatalError)
 
   client.seed(input)
 
@@ -611,50 +616,34 @@ function drawTorrent (torrent) {
     clivas.flush(true)
   }
 }
-function getTorrentInfo () {
-  var params = []
-  if (client) {
-    var torrent = client.torrents[0]
-    if (torrent) {
-      var torrentFilename = path.join(torrent.storage.path, torrent.infoHash) + '.torrent'
 
-      try {
-        fs.writeFileSync(torrentFilename, torrent.torrentFile)
-      } catch(err) {
-        torrentFilename = ''
-      }
-
-      params.push(torrentFilename)
-      params.push(path.join(torrent.storage.path, torrent.name))
-      params.push(torrent.magnetURI)
-    }
-  }
-  return params
-}
 function torrentDone () {
-  if (doneScript) cp.execFile(doneScript, getTorrentInfo()).unref()
+  if (argv['on-done']) cp.exec(argv['on-done']).unref()
   if (!playerName && !serving && argv.out) gracefulExit()
 }
 
+function fatalError (err) {
+  clivas.line('{red:Error:} ' + (err.message || err))
+  process.exit(1)
+}
+
 function errorAndExit (err) {
-  clivas.line('{red:ERROR:} ' + (err.message || err))
+  clivas.line('{red:Error:} ' + (err.message || err))
+  expectedError = true
   process.exit(1)
 }
 
 function gracefulExit () {
   process.removeListener('SIGINT', gracefulExit)
   process.removeListener('SIGTERM', gracefulExit)
-
   clearInterval(drawInterval)
 
+  clivas.line('\n{green:webtorrent is gracefully exiting...}')
+
   if (client) {
-    // destroying can take a while, so print a message to the user
-    clivas.line('\n{green:webtorrent is gracefully exiting...}')
-
-    if (exitScript) cp.execFile(exitScript, getTorrentInfo()).unref()
+    if (argv['on-exit']) cp.exec(argv['on-exit']).unref()
     client.destroy(function (err) {
-      if (err) return errorAndExit(err)
-
+      if (err) return fatalError(err)
       // Quit after 1 second. This shouldn't be necessary, node never quits even though
       // there's nothing in the event loop when `wrtc` (webtorrent-hybrid) is used :(
       setTimeout(function () { process.exit(0) }, 1000).unref()
