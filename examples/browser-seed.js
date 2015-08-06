@@ -1,4 +1,4 @@
-var dragDrop = require('drag-drop/buffer')
+var dragDrop = require('drag-drop')
 var WebTorrent = require('webtorrent')
 
 var client = new WebTorrent()
