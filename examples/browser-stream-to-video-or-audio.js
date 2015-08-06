@@ -5,13 +5,11 @@ var magnetUri = '...'
 
 client.add(magnetUri, function (torrent) {
   // Got torrent metadata!
-  console.log('Torrent info hash:', torrent.infoHash)
+  console.log('Client is downloading:', torrent.infoHash)
 
-  // Let's say the first file is a webm (vp8) or mp4 (h264) video...
-  var file = torrent.files[0]
-
-  // Stream the video!
-  // Specify a container element (CSS selector or reference to DOM node)
-  file.appendTo('body')
+  torrent.files.forEach(function (file) {
+    // Display the file by appending it to the DOM. Supports video, audio, images, and
+    // more. Specify a container element (CSS selector or reference to DOM node).
+    file.appendTo('body')
   })
 })
