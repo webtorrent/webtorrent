@@ -8,10 +8,6 @@ var serveStatic = require('serve-static')
 var test = require('tape')
 var WebTorrent = require('../')
 
-var leavesPath = __dirname + '/content/Leaves of Grass by Walt Whitman.epub'
-var leavesFilename = 'Leaves of Grass by Walt Whitman.epub'
-var leavesFile = fs.readFileSync(leavesPath)
-
 var multipleFileTorrent = fs.readFileSync(__dirname + '/torrents/multiple.torrent')
 var multipleFileTorrentParsed = parseTorrent(multipleFileTorrent)
 
