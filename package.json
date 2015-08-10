@@ -47,6 +47,7 @@
     "pretty-bytes": "^2.0.1",
     "pump": "^1.0.0",
     "random-access-file": "^0.3.1",
+    "random-iterate": "^1.0.1",
     "range-parser": "^1.0.2",
     "re-emitter": "^1.0.0",
     "rimraf": "^2.2.5",
