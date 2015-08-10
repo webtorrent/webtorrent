@@ -487,10 +487,8 @@ function drawTorrent (torrent) {
     })
     var linesRemaining = clivas.height
     var peerslisted = 0
-    var speed = torrent.swarm.downloadSpeed()
-    var estimatedSecondsRemaining =
-      Math.max(0, torrent.length - torrent.swarm.downloaded) / (speed > 0 ? speed : -1)
-    var estimate = moment.duration(estimatedSecondsRemaining, 'seconds').humanize()
+    var speed = torrent.downloadSpeed()
+    var estimate = moment.duration(torrent.timeRemaining / 1000, 'seconds').humanize()
 
     clivas.clear()
 
