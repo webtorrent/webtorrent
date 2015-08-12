@@ -193,7 +193,7 @@ Options (streaming):
     --stdout                standard out (implies --quiet)
 
 Options (simple):
-    -o, --out [path]        set download destination [default: /tmp/webtorrent]
+    -o, --out [path]        set download destination [default: current directory]
     -s, --select            select individual file in torrent (by index)
     -i, --index [number]    stream a particular file from torrent (by index)
     -v, --version           print the current version
@@ -254,6 +254,11 @@ function runCreate (input) {
 var client, href, playerName, server, serving
 
 function runDownload (torrentId) {
+
+  if (!argv.out && !argv.stdout && !playerName) {
+    argv.out = process.cwd()
+  }
+
   client = new WebTorrent({
     blocklist: argv.blocklist
   })
