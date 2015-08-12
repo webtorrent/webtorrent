@@ -255,7 +255,7 @@ var client, href, playerName, server, serving
 
 function runDownload (torrentId) {
 
-  if (!argv.out && !playerName) {
+  if (!argv.out && !argv.stdout && !playerName) {
     argv.out = process.cwd()
   }
 
