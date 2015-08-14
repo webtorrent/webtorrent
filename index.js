@@ -169,7 +169,6 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
   if (torrent) {
     if (torrent.ready) process.nextTick(_ontorrent)
     else torrent.on('ready', _ontorrent)
-
   } else {
     torrent = new Torrent(torrentId, opts)
     self.torrents.push(torrent)
