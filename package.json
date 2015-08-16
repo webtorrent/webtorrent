@@ -108,6 +108,6 @@
     "test": "standard && node ./bin/test.js",
     "test-browser": "zuul -- test/basic.js",
     "test-browser-local": "zuul --local -- test/basic.js",
-    "test-node": "tape test/*.js"
+    "test-node": "standard && tape test/*.js"
   }
 }
