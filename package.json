@@ -72,7 +72,7 @@
     "run-auto": "^1.0.0",
     "serve-static": "^1.9.3",
     "simple-get": "^1.0.0",
-    "standard": "^4.0.1",
+    "standard": "^5.1.0",
     "tape": "^4.0.0",
     "uglify-js": "^2.4.15",
     "zelda": "^2.0.0",
