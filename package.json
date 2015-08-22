@@ -29,7 +29,6 @@
     "clivas": "^0.2.0",
     "create-torrent": "^3.4.0",
     "debug": "^2.1.0",
-    "dezalgo": "^1.0.1",
     "end-of-stream": "^1.0.0",
     "executable": "^1.1.0",
     "fs-chunk-store": "^1.3.4",
