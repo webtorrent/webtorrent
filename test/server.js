@@ -7,15 +7,19 @@ var leavesPath = __dirname + '/content/Leaves of Grass by Walt Whitman.epub'
 var leavesTorrent = fs.readFileSync(__dirname + '/torrents/leaves.torrent')
 
 test('start http server programmatically', function (t) {
+  t.plan(4)
+
   var client = new WebTorrent({ tracker: false, dht: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
   var torrent = client.add(leavesTorrent, { dht: false, tracker: false }, function (torrent) {
-    // create HTTP server for this torrent
+    t.pass('got "torrent" event')
+
     var server = torrent.createServer()
     server.listen(0, function () {
+      t.pass('server is listening')
       var port = server.address().port
       get.concat('http://localhost:' + port + '/0', function (err, data) {
         if (err) throw err
@@ -24,11 +28,13 @@ test('start http server programmatically', function (t) {
 
         server.close()
         client.destroy()
-        t.end()
       })
     })
   })
   torrent.on('ready', function () {
-    torrent.load(fs.createReadStream(leavesPath))
+    torrent.load(fs.createReadStream(leavesPath), function (err) {
+      if (err) throw err
+      t.pass('loaded seed content into torrent')
+    })
   })
 })
