@@ -77,13 +77,22 @@ test('Download using DHT (via .torrent file)', function (t) {
           file.getBuffer(function (err, buf) {
             if (err) throw err
             t.deepEqual(buf, leavesFile, 'downloaded correct content')
+            gotBuffer = true
+            maybeDone()
           })
         })
 
         torrent.once('done', function () {
           t.pass('client2 downloaded torrent from client1')
-          cb(null, client2)
+          torrentDone = true
+          maybeDone()
         })
+
+        var torrentDone = false
+        var gotBuffer = false
+        function maybeDone () {
+          if (torrentDone && gotBuffer) cb(null, client2)
+        }
       })
     }]
   }, function (err, r) {
