@@ -14,8 +14,6 @@ var speedometer = require('speedometer')
 var zeroFill = require('zero-fill')
 var path = require('path')
 
-var FSStorage = require('./lib/fs-storage') // browser exclude
-var Storage = require('./lib/storage')
 var Torrent = require('./lib/torrent')
 
 inherits(WebTorrent, EventEmitter)
@@ -53,12 +51,6 @@ function WebTorrent (opts) {
   self.downloadSpeed = speedometer()
   self.uploadSpeed = speedometer()
 
-  self.storage = typeof opts.storage === 'function'
-    ? opts.storage
-    : (opts.storage !== false && typeof FSStorage === 'function' /* browser exclude */)
-      ? FSStorage
-      : Storage
-
   self.peerId = opts.peerId === undefined
     ? new Buffer('-WW' + VERSION_STR + '-' + hat(48), 'utf8')
     : typeof opts.peerId === 'string'
@@ -85,7 +77,7 @@ function WebTorrent (opts) {
     loadIPSet(opts.blocklist, {
       headers: { 'user-agent': 'WebTorrent (http://webtorrent.io)' }
     }, function (err, ipSet) {
-      if (err) return self.error('failed to load blocklist: ' + err.message)
+      if (err) return self.error('Failed to load blocklist: ' + err.message)
       self.blocked = ipSet
       ready()
     })
@@ -126,13 +118,13 @@ Object.defineProperty(WebTorrent.prototype, 'ratio', {
 WebTorrent.prototype.get = function (torrentId) {
   var self = this
   if (torrentId instanceof Torrent) return torrentId
+
   var parsed
-  try {
-    parsed = parseTorrent(torrentId)
-  } catch (err) {
-    return null
-  }
+  try { parsed = parseTorrent(torrentId) } catch (err) {}
+
+  if (!parsed) return null
   if (!parsed.infoHash) throw new Error('Invalid torrent identifier')
+
   for (var i = 0, len = self.torrents.length; i < len; i++) {
     var torrent = self.torrents[i]
     if (torrent.infoHash === parsed.infoHash) return torrent
@@ -150,19 +142,16 @@ WebTorrent.prototype.add =
 WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
   var self = this
   if (self.destroyed) throw new Error('client is destroyed')
+  if (typeof opts === 'function') return self.add(torrentId, null, opts)
   debug('add')
-  if (typeof opts === 'function') {
-    ontorrent = opts
-    opts = {}
-  }
   if (!opts) opts = {}
-  if (!opts.storage) opts.storage = self.storage
+
   opts.client = self
 
   var torrent = self.get(torrentId)
 
   function _ontorrent () {
-    debug('on torrent')
+    debug('on torrent %s', torrent.infoHash)
     if (typeof ontorrent === 'function') ontorrent(torrent)
   }
 
@@ -194,29 +183,24 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
 /**
  * Start seeding a new file/folder.
  * @param  {string|File|FileList|Buffer|Array.<string|File|Buffer>} input
- * @param  {Object} opts
- * @param  {function} onseed
+ * @param  {Object=} opts
+ * @param  {function=} onseed
  */
 WebTorrent.prototype.seed = function (input, opts, onseed) {
   var self = this
   if (self.destroyed) throw new Error('client is destroyed')
+  if (typeof opts === 'function') return self.seed(input, null, opts)
   debug('seed')
-  if (typeof opts === 'function') {
-    onseed = opts
-    opts = {}
-  }
   if (!opts) opts = {}
-  opts.noVerify = true
-  opts.createdBy = 'WebTorrent/' + VERSION
 
-  // When seeding from filesystem path, don't perform extra copy to /tmp
-  // Issue: https://github.com/feross/webtorrent/issues/357
-  if (typeof input === 'string' && !opts.path) opts.path = path.dirname(input)
+  // When seeding from filesystem path, storage should use existing location
+  if (typeof input === 'string') opts.path = path.dirname(input)
+  if (!opts.createdBy) opts.createdBy = 'WebTorrent/' + VERSION
 
   var streams
   var torrent = self.add(undefined, opts, function (torrent) {
     var tasks = [function (cb) {
-      torrent.storage.load(streams, cb)
+      torrent.load(streams, cb)
     }]
     if (self.dht) {
       tasks.push(function (cb) {
@@ -264,9 +248,11 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
  */
 WebTorrent.prototype.remove = function (torrentId, cb) {
   var self = this
+  debug('remove')
+
   var torrent = self.get(torrentId)
   if (!torrent) throw new Error('No torrent with id ' + torrentId)
-  debug('remove')
+
   self.torrents.splice(self.torrents.indexOf(torrent), 1)
   torrent.destroy(cb)
 }
@@ -282,20 +268,15 @@ WebTorrent.prototype.address = function () {
  */
 WebTorrent.prototype.destroy = function (cb) {
   var self = this
+  if (self.destroyed) throw new Error('client already destroyed')
   self.destroyed = true
   debug('destroy')
 
   var tasks = self.torrents.map(function (torrent) {
-    return function (cb) {
-      self.remove(torrent, cb)
-    }
+    return function (cb) { self.remove(torrent, cb) }
   })
 
-  if (self.dht) {
-    tasks.push(function (cb) {
-      self.dht.destroy(cb)
-    })
-  }
+  if (self.dht) tasks.push(function (cb) { self.dht.destroy(cb) })
 
   parallel(tasks, cb)
 }

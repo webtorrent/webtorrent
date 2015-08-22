@@ -66,7 +66,7 @@ function magnetDownloadTest (t, serverType) {
 
         t.deepEqual(torrent.files.map(function (file) { return file.name }), names)
 
-        torrent.storage.load(fs.createReadStream(leavesPath), function (err) {
+        torrent.load(fs.createReadStream(leavesPath), function (err) {
           cb(err, client1)
         })
       })

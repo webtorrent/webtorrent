@@ -55,7 +55,7 @@ test('Download using DHT (via magnet uri)', function (t) {
           maybeDone()
         })
 
-        torrent.storage.load(fs.createReadStream(leavesPath), function (err) {
+        torrent.load(fs.createReadStream(leavesPath), function (err) {
           t.error(err)
           wroteStorage = true
           maybeDone()

@@ -55,7 +55,7 @@ test('Download using DHT (via .torrent file)', function (t) {
           maybeDone(null)
         })
 
-        torrent.storage.load(fs.createReadStream(leavesPath), function (err) {
+        torrent.load(fs.createReadStream(leavesPath), function (err) {
           wroteStorage = true
           maybeDone(err)
         })
