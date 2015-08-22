@@ -29,6 +29,6 @@ test('start http server programmatically', function (t) {
     })
   })
   torrent.on('ready', function () {
-    torrent.storage.load(fs.createReadStream(leavesPath))
+    torrent.load(fs.createReadStream(leavesPath))
   })
 })

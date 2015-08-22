@@ -230,9 +230,8 @@ If `opts` is specified, then the default options (shown below) will be overridde
   nodeId: String|Buffer, // DHT protocol node ID (default=randomly generated)
   peerId: String|Buffer, // Wire protocol peer ID (default=randomly generated)
   rtcConfig: Object,     // RTCPeerConnection configuration object (default=STUN only)
-  storage: Function,     // custom storage engine, or `false` to use in-memory engine
   tracker: Boolean,      // Whether or not to enable trackers (default=true)
-  wrtc: {}               // custom webrtc implementation (in node, specify the [wrtc](https://www.npmjs.com/package/wrtc) package)
+  wrtc: {}               // Custom webrtc implementation (in node, specify the [wrtc](https://www.npmjs.com/package/wrtc) package)
 }
 ```
 
@@ -253,9 +252,10 @@ If `opts` is specified, then the default options (shown below) will be overridde
 
 ```js
 {
-  announce: [],    // List of additional trackers to use (added to list in .torrent or magnet uri)
-  path: String,    // Folder where files will be downloaded (default=`/tmp/webtorrent/`)
-  verify: Boolean  // Verify previously stored data before starting (default=false)
+  announce: [],      // List of additional trackers to use (added to list in .torrent or magnet uri)
+  path: String,      // Folder where files will be downloaded (default=`/tmp/webtorrent/`)
+  storage: Function, // Custom storage engine (must follow `abstract-chunk-store` API)
+  verify: Boolean    // Verify previously stored data before starting (default=false)
 }
 ```
 
