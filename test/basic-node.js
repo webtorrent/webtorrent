@@ -16,7 +16,7 @@ test('client.add: http url to a torrent file, string', function (t) {
   t.plan(3)
 
   var server = http.createServer(function (req, res) {
-    t.equal(req.headers['user-agent'], 'WebTorrent (http://webtorrent.io)')
+    t.ok(req.headers['user-agent'].indexOf('WebTorrent') !== -1)
     res.end(leaves)
   })
 
