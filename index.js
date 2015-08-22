@@ -193,7 +193,7 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
   debug('seed')
   if (!opts) opts = {}
 
-  // When seeding from filesystem path, storage should use existing location
+  // When seeding from filesystem, initialize store from that path (avoids a copy)
   if (typeof input === 'string') opts.path = path.dirname(input)
   if (!opts.createdBy) opts.createdBy = 'WebTorrent/' + VERSION
 
