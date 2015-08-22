@@ -566,9 +566,9 @@ function drawTorrent (torrent) {
 
     torrent.swarm.wires.every(function (wire) {
       var progress = '?'
-      if (torrent.parsedTorrent) {
+      if (torrent.length) {
         var bits = 0
-        var piececount = Math.ceil(torrent.parsedTorrent.length / torrent.parsedTorrent.pieceLength)
+        var piececount = Math.ceil(torrent.length / torrent.pieceLength)
         for (var i = 0; i < piececount; i++) {
           if (wire.peerPieces.get(i)) {
             bits++
