@@ -38,9 +38,10 @@ test('Download using DHT (via .torrent file)', function (t) {
 
       client1.add(leavesParsed)
 
-      var announced, wroteStorage
+      var announced = false
+      var loaded = false
       function maybeDone (err) {
-        if ((announced && wroteStorage) || err) cb(err, client1)
+        if ((announced && loaded) || err) cb(err, client1)
       }
 
       client1.on('torrent', function (torrent) {
@@ -56,7 +57,7 @@ test('Download using DHT (via .torrent file)', function (t) {
         })
 
         torrent.load(fs.createReadStream(leavesPath), function (err) {
-          wroteStorage = true
+          loaded = true
           maybeDone(err)
         })
       })

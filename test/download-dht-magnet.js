@@ -38,9 +38,9 @@ test('Download using DHT (via magnet uri)', function (t) {
       client1.on('warning', function (err) { t.fail(err) })
 
       var announced = false
-      var wroteStorage = false
+      var loaded = false
       function maybeDone () {
-        if (announced && wroteStorage) cb(null, client1)
+        if (announced && loaded) cb(null, client1)
       }
 
       client1.add(leavesParsed, function (torrent) {
@@ -57,7 +57,7 @@ test('Download using DHT (via magnet uri)', function (t) {
 
         torrent.load(fs.createReadStream(leavesPath), function (err) {
           t.error(err)
-          wroteStorage = true
+          loaded = true
           maybeDone()
         })
       })

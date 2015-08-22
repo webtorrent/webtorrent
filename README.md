@@ -254,7 +254,7 @@ If `opts` is specified, then the default options (shown below) will be overridde
 {
   announce: [],      // List of additional trackers to use (added to list in .torrent or magnet uri)
   path: String,      // Folder where files will be downloaded (default=`/tmp/webtorrent/`)
-  storage: Function, // Custom storage engine (must follow `abstract-chunk-store` API)
+  store: Function,   // Custom chunk store (must follow `abstract-chunk-store` API)
   verify: Boolean    // Verify previously stored data before starting (default=false)
 }
 ```
@@ -289,7 +289,7 @@ If `onseed` is specified, it will be called when the client has begun seeding th
 
 #### `client.on('torrent', function (torrent) {})`
 
-Emitted when a torrent is ready to be used (i.e. metadata is available and storage is
+Emitted when a torrent is ready to be used (i.e. metadata is available and store is
 ready). See the torrent section for more info on what methods a `torrent` has.
 
 #### `client.remove(torrentId, [function callback (err) {}])`
