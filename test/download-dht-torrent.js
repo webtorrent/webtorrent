@@ -36,7 +36,7 @@ test('Download using DHT (via .torrent file)', function (t) {
       client1.on('error', function (err) { t.fail(err) })
       client1.on('warning', function (err) { t.fail(err) })
 
-      client1.add(leavesParsed)
+      var torrent = client1.add(leavesParsed)
 
       var announced = false
       var loaded = false
@@ -44,22 +44,22 @@ test('Download using DHT (via .torrent file)', function (t) {
         if ((announced && loaded) || err) cb(err, client1)
       }
 
-      client1.on('torrent', function (torrent) {
+      torrent.on('ready', function () {
         // torrent metadata has been fetched -- sanity check it
         t.equal(torrent.name, 'Leaves of Grass by Walt Whitman.epub')
 
         var names = [ 'Leaves of Grass by Walt Whitman.epub' ]
         t.deepEqual(torrent.files.map(function (file) { return file.name }), names)
 
-        torrent.on('dhtAnnounce', function () {
-          announced = true
-          maybeDone(null)
-        })
-
         torrent.load(fs.createReadStream(leavesPath), function (err) {
           loaded = true
           maybeDone(err)
         })
+      })
+
+      torrent.on('dhtAnnounce', function () {
+        announced = true
+        maybeDone(null)
       })
     }],
 

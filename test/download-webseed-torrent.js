@@ -48,13 +48,22 @@ test('Download using webseed (via .torrent file)', function (t) {
           file.getBuffer(function (err, buf) {
             t.error(err)
             t.deepEqual(buf, leavesFile, 'downloaded correct content')
+            gotBuffer = true
+            maybeDone()
           })
         })
 
         torrent.once('done', function () {
           t.pass('client downloaded torrent from webseed')
-          cb(null, client)
+          torrentDone = true
+          maybeDone()
         })
+
+        var gotBuffer = false
+        var torrentDone = false
+        function maybeDone () {
+          if (gotBuffer && torrentDone) cb(null, client)
+        }
       })
 
       client.add(leavesParsed)

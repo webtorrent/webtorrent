@@ -81,13 +81,22 @@ test('Download using webseed (via magnet uri)', function (t) {
           file.getBuffer(function (err, buf) {
             t.error(err)
             t.deepEqual(buf, leavesFile, 'downloaded correct content')
+            gotBuffer = true
+            maybeDone()
           })
         })
 
         torrent.once('done', function () {
           t.pass('client2 downloaded torrent from client1')
-          cb(null, client2)
+          torrentDone = true
+          maybeDone()
         })
+
+        var gotBuffer = false
+        var torrentDone = false
+        function maybeDone () {
+          if (gotBuffer && torrentDone) cb(null, client2)
+        }
       })
 
       client2.add(magnetUri)

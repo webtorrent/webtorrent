@@ -26,7 +26,7 @@ function torrentDownloadTest (t, serverType) {
   auto({
     tracker: function (cb) {
       var tracker = new TrackerServer(
-        serverType === 'udp' ? { http: false } : { udp: false }
+        serverType === 'udp' ? { http: false, ws: false } : { udp: false, ws: false }
       )
 
       tracker.on('error', function (err) { t.fail(err) })
@@ -84,14 +84,24 @@ function torrentDownloadTest (t, serverType) {
           file.getBuffer(function (err, buf) {
             if (err) throw err
             t.deepEqual(buf, leavesFile, 'downloaded correct content')
+            gotBuffer = true
+            maybeDone()
           })
         })
 
         torrent.once('done', function () {
           t.pass('client2 downloaded torrent from client1')
-          cb(null, client2)
+          torrentDone = true
+          maybeDone()
         })
+
+        var gotBuffer = false
+        var torrentDone = false
+        function maybeDone () {
+          if (gotBuffer && torrentDone) cb(null, client2)
+        }
       })
+
     }]
 
   }, function (err, r) {

@@ -13,7 +13,7 @@ test('blocklist blocks peers discovered via tracker', function (t) {
 
   auto({
     tracker: function (cb) {
-      var tracker = new TrackerServer({ udp: false })
+      var tracker = new TrackerServer({ udp: false, ws: false })
 
       tracker.listen(function () {
         var port = tracker.http.address().port
