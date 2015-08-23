@@ -538,32 +538,6 @@ function drawTorrent (torrent) {
     clivas.line('{80:}')
     linesRemaining -= 5
 
-    if (argv.verbose) {
-      var pieces = torrent.pieces
-      for (var i = 0; i < pieces.length; i++) {
-        var piece = pieces[i]
-        if (piece.verified || (piece.blocksWritten === 0 && !piece.blocks[0])) continue
-        var bar = ''
-        for (var j = 0; j < piece.blocks.length; j++) {
-          // switch (piece.blocks[j]) {
-          //   case Storage.BLOCK_BLANK:
-          //     bar += '{red:█}'
-          //     break
-          //   case Storage.BLOCK_RESERVED:
-          //     bar += '{blue:█}'
-          //     break
-          //   case Storage.BLOCK_WRITTEN:
-          //     bar += '{green:█}'
-          //     break
-          // }
-        }
-        clivas.line('{4+cyan:' + i + '} ' + bar)
-        linesRemaining -= 1
-      }
-      clivas.line('{80:}')
-      linesRemaining -= 1
-    }
-
     torrent.swarm.wires.every(function (wire) {
       var progress = '?'
       if (torrent.length) {
