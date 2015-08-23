@@ -43,17 +43,19 @@ test('Download using DHT (via magnet uri)', function (t) {
         if (announced && loaded) cb(null, client1)
       }
 
-      client1.add(leavesParsed, function (torrent) {
+      var torrent = client1.add(leavesParsed)
+
+      torrent.on('dhtAnnounce', function () {
+        announced = true
+        maybeDone()
+      })
+
+      torrent.on('ready', function () {
         // torrent metadata has been fetched -- sanity check it
         t.equal(torrent.name, 'Leaves of Grass by Walt Whitman.epub')
 
         var names = [ 'Leaves of Grass by Walt Whitman.epub' ]
         t.deepEqual(torrent.files.map(function (file) { return file.name }), names)
-
-        torrent.on('dhtAnnounce', function () {
-          announced = true
-          maybeDone()
-        })
 
         torrent.load(fs.createReadStream(leavesPath), function (err) {
           t.error(err)

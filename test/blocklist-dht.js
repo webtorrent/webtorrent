@@ -13,7 +13,7 @@ var leavesParsed = parseTorrent(leavesTorrent)
 leavesParsed.announce = []
 
 test('blocklist blocks peers discovered via DHT', function (t) {
-  t.plan(7)
+  t.plan(8)
 
   var dhtServer = new DHT({ bootstrap: false })
 
@@ -38,13 +38,6 @@ test('blocklist blocks peers discovered via DHT', function (t) {
 
       var torrent1 = client1.add(leavesParsed)
 
-      client1.on('torrent', function () {
-        torrent1.on('dhtAnnounce', function () {
-          t.pass('client1 announced to dht')
-          cb(null, client1)
-        })
-      })
-
       torrent1.on('peer', function () {
         t.fail('client1 should not find any peers')
       })
@@ -52,6 +45,25 @@ test('blocklist blocks peers discovered via DHT', function (t) {
       torrent1.on('blockedPeer', function () {
         t.fail('client1 should not block any peers')
       })
+
+      torrent1.on('ready', function () {
+        t.pass('torrent1 ready')
+        torrentReady = true
+        maybeDone()
+      })
+
+      torrent1.on('dhtAnnounce', function () {
+        t.pass('client1 announced to dht')
+        announced = true
+        maybeDone()
+      })
+
+      var torrentReady = false
+      var announced = false
+      function maybeDone () {
+        if (torrentReady && announced) cb(null, client1)
+      }
+
     }],
 
     client2: ['client1', function (cb, r) {
