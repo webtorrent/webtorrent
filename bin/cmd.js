@@ -523,9 +523,9 @@ function drawTorrent (torrent) {
     }
     clivas.line(
       '{green:speed: }{bold:' + prettyBytes(speed) + '/s}  ' +
-      '{green:downloaded:} {bold:' + prettyBytes(torrent.swarm.downloaded) + '}' +
+      '{green:downloaded:} {bold:' + prettyBytes(torrent.downloaded) + '}' +
       '/{bold:' + prettyBytes(torrent.length) + '}  ' +
-      '{green:uploaded:} {bold:' + prettyBytes(torrent.swarm.uploaded) + '}  ' +
+      '{green:uploaded:} {bold:' + prettyBytes(torrent.uploaded) + '}  ' +
       '{green:peers:} {bold:' + unchoked.length + '/' + torrent.swarm.wires.length + '}  ' +
       '{green:hotswaps:} {bold:' + hotswaps + '}'
     )
