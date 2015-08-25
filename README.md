@@ -333,9 +333,17 @@ the file has.
 
 The attached [bittorrent-swarm](https://github.com/feross/bittorrent-swarm) instance.
 
+#### `torrent.received`
+
+Get total bytes received from peers (including invalid data)
+
+#### `torrent.downloaded`
+
+Get total bytes received from peers (excluding invalid data)
+
 #### `torrent.path`
 
-GEt the torrent download location
+Get the torrent download location
 
 #### `torrent.destroy()`
 
