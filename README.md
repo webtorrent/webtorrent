@@ -333,6 +333,10 @@ the file has.
 
 The attached [bittorrent-swarm](https://github.com/feross/bittorrent-swarm) instance.
 
+#### `torrent.path`
+
+GEt the torrent download location
+
 #### `torrent.destroy()`
 
 Alias for `client.remove(torrent)`.
