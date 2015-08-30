@@ -95,7 +95,7 @@
   "main": "index.js",
   "optionalDependencies": {
     "airplay-js": "^0.2.3",
-    "chromecast-js": "^0.1.4",
+    "chromecasts": "^1.5.3",
     "nodebmc": "0.0.5"
   },
   "repository": {
