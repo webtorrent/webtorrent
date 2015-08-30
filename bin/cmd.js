@@ -427,14 +427,10 @@ function runDownload (torrentId) {
     }
 
     if (argv.chromecast) {
-      var chromecast = require('chromecast-js')
-      new chromecast.Browser()
-        .on('deviceOn', function (device) {
-          device.connect()
-          device.on('connected', function () {
-            device.play(href)
-          })
-        })
+      var chromecasts = require('chromecasts')()
+      chromecasts.on('update', function (player) {
+        player.play(href)
+      })
     }
 
     if (argv.xbmc) {
