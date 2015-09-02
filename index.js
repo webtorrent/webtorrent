@@ -145,6 +145,7 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
   if (typeof opts === 'function') return self.add(torrentId, null, opts)
   debug('add')
   if (!opts) opts = {}
+  else opts = extend({}, opts)
 
   opts.client = self
 
@@ -192,6 +193,7 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
   if (typeof opts === 'function') return self.seed(input, null, opts)
   debug('seed')
   if (!opts) opts = {}
+  else opts = extend({}, opts)
 
   // When seeding from filesystem, initialize store from that path (avoids a copy)
   if (typeof input === 'string') opts.path = path.dirname(input)
