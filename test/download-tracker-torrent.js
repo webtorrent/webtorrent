@@ -101,7 +101,6 @@ function torrentDownloadTest (t, serverType) {
           if (gotBuffer && torrentDone) cb(null, client2)
         }
       })
-
     }]
 
   }, function (err, r) {

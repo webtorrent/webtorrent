@@ -63,7 +63,6 @@ test('blocklist blocks peers discovered via DHT', function (t) {
       function maybeDone () {
         if (torrentReady && announced) cb(null, client1)
       }
-
     }],
 
     client2: ['client1', function (cb, r) {

@@ -51,7 +51,6 @@ test('private torrent should not use DHT', function (t) {
           cb(null, client)
         }
       })
-
     }]
 
   }, function (err, r) {
@@ -102,7 +101,6 @@ test('public torrent should use DHT', function (t) {
           t.fail('dht server is null')
         }
       })
-
     }]
 
   }, function (err, r) {
