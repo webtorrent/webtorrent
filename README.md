@@ -540,6 +540,10 @@ file.appendTo('#containerElement', function (err, elem) {
 })
 ```
 
+#### `file.renderTo(elem, function callback (err, elem) {})`
+
+Like `file.appendTo` but renders directly into given element (or CSS selector).
+
 #### `file.getBlobURL(function callback (err, url) {})`
 
 Get a url which can be used in the browser to refer to the file.
