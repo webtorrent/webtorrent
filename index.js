@@ -199,9 +199,11 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
 
   var streams
   var torrent = self.add(undefined, opts, function (torrent) {
-    var tasks = [function (cb) {
-      torrent.load(streams, cb)
-    }]
+    var tasks = [
+      function (cb) {
+        torrent.load(streams, cb)
+      }
+    ]
     if (self.dht) {
       tasks.push(function (cb) {
         torrent.on('dhtAnnounce', cb)
