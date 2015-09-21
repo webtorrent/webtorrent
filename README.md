@@ -345,6 +345,10 @@ Get total bytes received from peers (excluding invalid data)
 
 Get the torrent download location
 
+#### `torrent.timeRemaining`
+
+Time Remaining for download (in milliseconds)
+
 #### `torrent.destroy()`
 
 Alias for `client.remove(torrent)`.
