@@ -230,7 +230,7 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
         _onseed()
         return
       } else {
-        torrent._onTorrentId(torrentBuf)
+        torrent._createParsedTorrent(torrentBuf)
       }
     })
   })
