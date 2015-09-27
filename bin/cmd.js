@@ -310,10 +310,23 @@ function runDownload (torrentId) {
 
   // Start http server
   server = torrent.createServer()
-  server.listen(argv.port, function () {
+
+  function initServer () {
     if (torrent.ready) onReady()
     else torrent.once('ready', onReady)
-  })
+  }
+
+  server.listen(argv.port, initServer)
+
+    .on('error', function (err) {
+      // In case the port is unusable
+      if (err.code === 'EADDRINUSE') {
+        // Let the OS choose one for us
+        server.listen(0, initServer)
+      }
+      else throw err
+    })
+
   server.once('connection', function () {
     serving = true
   })
@@ -366,8 +379,8 @@ function runDownload (torrentId) {
 
   function onSelection (index) {
     href = (argv.airplay || argv.chromecast || argv.xbmc)
-      ? 'http://' + networkAddress() + ':' + argv.port + '/' + index
-      : 'http://localhost:' + argv.port + '/' + index
+      ? 'http://' + networkAddress() + ':' + server.address().port + '/' + index
+      : 'http://localhost:' + server.address().port + '/' + index
 
     if (playerName) torrent.files[index].select()
     if (argv.stdout) torrent.files[index].createReadStream().pipe(process.stdout)
