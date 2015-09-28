@@ -320,7 +320,7 @@ function runDownload (torrentId) {
 
     .on('error', function (err) {
       // In case the port is unusable
-      if (err.code === 'EADDRINUSE') {
+      if (err.code === 'EADDRINUSE' || err.code === 'EACCES') {
         // Let the OS choose one for us
         server.listen(0, initServer)
       }
