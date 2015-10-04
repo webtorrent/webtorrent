@@ -1,10 +1,11 @@
+var path = require('path')
 var fs = require('fs')
 var get = require('simple-get')
 var test = require('tape')
 var WebTorrent = require('../')
 
-var leavesPath = __dirname + '/content/Leaves of Grass by Walt Whitman.epub'
-var leavesTorrent = fs.readFileSync(__dirname + '/torrents/leaves.torrent')
+var leavesPath = path.resolve(__dirname, 'content', 'Leaves of Grass by Walt Whitman.epub')
+var leavesTorrent = fs.readFileSync(path.resolve(__dirname, 'torrents', 'leaves.torrent'))
 
 test('start http server programmatically', function (t) {
   t.plan(4)
