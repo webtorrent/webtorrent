@@ -4,7 +4,8 @@ var fs = require('fs')
 var parseTorrent = require('parse-torrent')
 var test = require('tape')
 
-var CMD = path.resolve(__dirname, '..', 'bin', 'cmd.js')
+var CMD_PATH = path.resolve(__dirname, '..', 'bin', 'cmd.js')
+var CMD = 'node ' + CMD_PATH
 
 test('Command line: webtorrent help', function (t) {
   t.plan(6)
@@ -83,7 +84,7 @@ test('Command line: webtorrent create /path/to/file', function (t) {
 
   var leavesPath = path.resolve(__dirname, 'content', 'Leaves of Grass by Walt Whitman.epub')
 
-  var child = cp.spawn(CMD, [ 'create', leavesPath ])
+  var child = cp.spawn('node', [ CMD_PATH, 'create', leavesPath ])
   child.on('error', function (err) { t.fail(err) })
 
   var chunks = []
