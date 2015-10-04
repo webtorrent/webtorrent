@@ -1,3 +1,4 @@
+var path = require('path')
 var fs = require('fs')
 var http = require('http')
 var parseTorrent = require('parse-torrent')
@@ -5,10 +6,10 @@ var test = require('tape')
 var WebTorrent = require('../')
 var zlib = require('zlib')
 
-var blocklistPath = __dirname + '/content/blocklist.txt'
-var blocklistGzipPath = __dirname + '/content/blocklist.txt.gz'
+var blocklistPath = path.resolve(__dirname, 'content', 'blocklist.txt')
+var blocklistGzipPath = path.resolve(__dirname, 'content', 'blocklist.txt.gz')
 
-var leavesTorrent = fs.readFileSync(__dirname + '/torrents/leaves.torrent')
+var leavesTorrent = fs.readFileSync(path.resolve(__dirname, 'torrents', 'leaves.torrent'))
 var leavesParsed = parseTorrent(leavesTorrent)
 
 // remove trackers from .torrent file
