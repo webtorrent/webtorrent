@@ -1,4 +1,5 @@
 var cp = require('child_process')
+var spawn = require('cross-spawn-async')
 var path = require('path')
 var fs = require('fs')
 var parseTorrent = require('parse-torrent')
@@ -84,7 +85,7 @@ test('Command line: webtorrent create /path/to/file', function (t) {
 
   var leavesPath = path.resolve(__dirname, 'content', 'Leaves of Grass by Walt Whitman.epub')
 
-  var child = cp.spawn('node', [ CMD_PATH, 'create', leavesPath ])
+  var child = spawn('node', [ CMD_PATH, 'create', leavesPath ])
   child.on('error', function (err) { t.fail(err) })
 
   var chunks = []
