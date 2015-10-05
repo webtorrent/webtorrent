@@ -1,14 +1,15 @@
 var auto = require('run-auto')
 var DHT = require('bittorrent-dht/server')
+var path = require('path')
 var fs = require('fs')
 var parseTorrent = require('parse-torrent')
 var test = require('tape')
 var WebTorrent = require('../')
 
-var bunnyTorrent = fs.readFileSync(__dirname + '/torrents/big-buck-bunny-private.torrent')
+var bunnyTorrent = fs.readFileSync(path.resolve(__dirname, 'torrents', 'big-buck-bunny-private.torrent'))
 var bunnyParsed = parseTorrent(bunnyTorrent)
 
-var leavesTorrent = fs.readFileSync(__dirname + '/torrents/leaves.torrent')
+var leavesTorrent = fs.readFileSync(path.resolve(__dirname, 'torrents', 'leaves.torrent'))
 var leavesParsed = parseTorrent(leavesTorrent)
 
 // remove trackers from .torrent file

@@ -1,8 +1,9 @@
+var path = require('path')
 var fs = require('fs')
 var test = require('tape')
 var WebTorrent = require('../')
 
-var leavesBook = fs.readFileSync(__dirname + '/content/Leaves of Grass by Walt Whitman.epub')
+var leavesBook = fs.readFileSync(path.resolve(__dirname, 'content', 'Leaves of Grass by Walt Whitman.epub'))
 
 test('client.seed followed by duplicate client.add', function (t) {
   t.plan(3)

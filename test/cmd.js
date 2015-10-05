@@ -1,9 +1,10 @@
 var cp = require('child_process')
+var path = require('path')
 var fs = require('fs')
 var parseTorrent = require('parse-torrent')
 var test = require('tape')
 
-var CMD = __dirname + '/../bin/cmd.js'
+var CMD = path.resolve(__dirname, '..', 'bin', 'cmd.js')
 
 test('Command line: webtorrent help', function (t) {
   t.plan(6)
@@ -26,7 +27,7 @@ test('Command line: webtorrent help', function (t) {
 
 test('Command line: webtorrent version', function (t) {
   t.plan(6)
-  var expectedVersion = require(__dirname + '/../package.json').version + '\n'
+  var expectedVersion = require(path.resolve(__dirname, '..', 'package.json')).version + '\n'
 
   cp.exec(CMD + ' version', function (err, data) {
     t.error(err)
@@ -47,7 +48,7 @@ test('Command line: webtorrent version', function (t) {
 test('Command line: webtorrent info /path/to/file.torrent', function (t) {
   t.plan(3)
 
-  var leavesPath = __dirname + '/torrents/leaves.torrent'
+  var leavesPath = path.resolve(__dirname, 'torrents', 'leaves.torrent')
   var leaves = fs.readFileSync(leavesPath)
 
   cp.exec(CMD + ' info ' + leavesPath, function (err, data) {
@@ -80,7 +81,7 @@ test('Command line: webtorrent info magnet_uri', function (t) {
 test('Command line: webtorrent create /path/to/file', function (t) {
   t.plan(1)
 
-  var leavesPath = __dirname + '/content/Leaves of Grass by Walt Whitman.epub'
+  var leavesPath = path.resolve(__dirname, 'content', 'Leaves of Grass by Walt Whitman.epub')
 
   var child = cp.spawn(CMD, [ 'create', leavesPath ])
   child.on('error', function (err) { t.fail(err) })
