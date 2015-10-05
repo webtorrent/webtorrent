@@ -1,10 +1,11 @@
 /*
+var path = require('path')
 var fs = require('fs')
 var test = require('tape')
 var WebTorrent = require('../')
 
 var torrents = [ 'leaves', 'pride' ].map(function (name) {
-  return fs.readFileSync(__dirname + '/torrents/' + name + '.torrent')
+  return fs.readFileSync(path.resolve(__dirname, 'torrents', name + '.torrent'))
 })
 
 // TODO: replace this with a test that can run offline

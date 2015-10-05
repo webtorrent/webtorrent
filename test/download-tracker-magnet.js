@@ -1,13 +1,14 @@
 var auto = require('run-auto')
+var path = require('path')
 var fs = require('fs')
 var parseTorrent = require('parse-torrent')
 var test = require('tape')
 var TrackerServer = require('bittorrent-tracker/server')
 var WebTorrent = require('../')
 
-var leavesPath = __dirname + '/content/Leaves of Grass by Walt Whitman.epub'
+var leavesPath = path.resolve(__dirname, 'content', 'Leaves of Grass by Walt Whitman.epub')
 var leavesFile = fs.readFileSync(leavesPath)
-var leavesTorrent = fs.readFileSync(__dirname + '/torrents/leaves.torrent')
+var leavesTorrent = fs.readFileSync(path.resolve(__dirname, 'torrents', 'leaves.torrent'))
 var leavesParsed = parseTorrent(leavesTorrent)
 
 test('Download using UDP tracker (via magnet uri)', function (t) {
