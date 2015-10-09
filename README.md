@@ -403,6 +403,35 @@ client.add(magnetUri, function (torrent) {
 })
 ```
 
+#### `torrent.on('done', function () {})`
+
+Emitted when all the torrent's files have been downloaded
+
+Here is a usage example:
+
+```js
+torrent.on('done', function(){
+  console.log('torrent finished downloading');
+  torrent.files.forEach(function(file){
+     // do something with file
+  })
+})
+```
+
+#### `torrent.on('download', function (chunkSize) {})`
+
+Emitted every time a new chunk of data arrives, it's useful for reporting the current torrent status, for instance:
+
+```js
+torrent.on('download', function(chunkSize){
+  console.log('chunk size: ' + chunkSize);
+  console.log('total downloaded: ' + torrent.downloaded);
+  console.log('download speed: ' + torrent.downloadSpeed());
+  console.log('progress: ' + torrent.progress);
+  console.log('======');
+})
+```
+
 #### `torrent.on('wire', function (wire) {})`
 
 Emitted whenever a new peer is connected for this torrent. `wire` is an instance of
