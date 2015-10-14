@@ -313,6 +313,7 @@ function runDownload (torrentId) {
   grop(function (availablePort) {
     // if port is specified the use that
     var port = argv.port || availablePort
+
     server.listen(port, function () {
       if (torrent.ready) onReady()
       else torrent.once('ready', onReady)
