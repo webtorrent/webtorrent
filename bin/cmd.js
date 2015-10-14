@@ -14,6 +14,7 @@ var path = require('path')
 var prettyBytes = require('pretty-bytes')
 var WebTorrent = require('../')
 var zeroFill = require('zero-fill')
+var grop = require('grop')
 
 process.title = 'WebTorrent'
 
@@ -67,10 +68,7 @@ var argv = minimist(process.argv.slice(2), {
     'subtitles',
     'on-done',
     'on-exit'
-  ],
-  default: {
-    port: 8000
-  }
+  ]
 })
 
 if (process.env.DEBUG || argv.stdout) {
@@ -310,10 +308,19 @@ function runDownload (torrentId) {
 
   // Start http server
   server = torrent.createServer()
-  server.listen(argv.port, function () {
-    if (torrent.ready) onReady()
-    else torrent.once('ready', onReady)
+  var port;
+
+  // Find available port
+  grop(function (availablePort) {
+    // if port is specified the use that
+    port = argv.port || availablePort;
+    server.listen(port, function () {
+      if (torrent.ready) onReady()
+      else torrent.once('ready', onReady)
+    })
   })
+
+
   server.once('connection', function () {
     serving = true
   })
@@ -366,8 +373,8 @@ function runDownload (torrentId) {
 
   function onSelection (index) {
     href = (argv.airplay || argv.chromecast || argv.xbmc)
-      ? 'http://' + networkAddress() + ':' + argv.port + '/' + index
-      : 'http://localhost:' + argv.port + '/' + index
+      ? 'http://' + networkAddress() + ':' + port + '/' + index
+      : 'http://localhost:' + port + '/' + index
 
     if (playerName) torrent.files[index].select()
     if (argv.stdout) torrent.files[index].createReadStream().pipe(process.stdout)
