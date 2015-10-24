@@ -11,7 +11,7 @@
     "webtorrent": "./bin/cmd.js"
   },
   "browser": {
-    "./lib/server": false,
+    "./lib/server.js": false,
     "bittorrent-dht/client": false,
     "fs-chunk-store": "memory-chunk-store",
     "load-ip-set": false,
