@@ -33,6 +33,7 @@
     "end-of-stream": "^1.0.0",
     "executable": "^1.1.0",
     "fs-chunk-store": "^1.3.4",
+    "grop": "^0.1.0",
     "hat": "0.0.3",
     "immediate-chunk-store": "^1.0.7",
     "inherits": "^2.0.1",
