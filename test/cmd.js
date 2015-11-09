@@ -99,6 +99,15 @@ test('Command line: webtorrent create /path/to/file', function (t) {
   })
 })
 
+test('Command line: webtorrent download --port 80', function (t) {
+  t.plan(2)
+
+  cp.exec(CMD + ' --port 80 --out test/content download test/torrents/leaves.torrent', function (err, data) {
+    t.error(err)
+    t.ok(data.indexOf('successfully') !== -1)
+  })
+})
+
 // TODO: test 'webtorrent download /path/to/torrent'
 // TODO: test 'webtorrent download magnet_uri'
 // TODO: test 'webtorrent seed /path/to/file'
