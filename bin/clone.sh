@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ "$#" -ne 1 ] || ! [ -d "$1" ]; then
   echo "Usage: $0 DIRECTORY_TO_CLONE_INTO" >&2
