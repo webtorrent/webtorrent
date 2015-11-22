@@ -54,7 +54,7 @@
     "re-emitter": "^1.0.0",
     "run-parallel": "^1.0.0",
     "simple-sha1": "^2.0.0",
-    "speedometer": "^0.1.2",
+    "speedometer": "^1.0.0",
     "thunky": "^0.1.0",
     "torrent-discovery": "^3.0.0",
     "torrent-piece": "^1.0.0",
