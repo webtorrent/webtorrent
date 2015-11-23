@@ -100,8 +100,8 @@ npm install webtorrent -g
 
 ### WebTorrent in production
 
-- **[Instant.io](http://instant.io)** – Streaming file transfer over WebTorrent ([source code](https://github.com/feross/instant.io))
-- **[Fastcast](http://fastcast.nz)** – Stream peer-to-peer audio and video content ([source code](https://github.com/jakefb/fastcast))
+- **[Instant.io](https://instant.io/)** – Streaming file transfer over WebTorrent ([source code](https://github.com/feross/instant.io))
+- **[Fastcast](http://fastcast.nz)** – Stream peer-to-peer audio and video content ([source code](https://github.com/fastcast/fastcast))
 - **[Webtorrentapp](https://github.com/alexeisavca/webtorrentapp)** – A tool/platform for launching web apps from torrents
 - **[People-driven web](http://www.peopledrivenweb.com/)** – Decentralized content management system ([source code](https://github.com/peopledrivenweb/pwjs))
 - **[PeerCloud](https://github.com/jhiesey/peercloud)** - Serverless websites via WebTorrent
@@ -564,7 +564,7 @@ Most of the active development is happening inside of small npm modules which ar
 
 > "When applications are done well, they are just the really application-specific, brackish residue that can't be so easily abstracted away. All the nice, reusable components sublimate away onto github and npm where everybody can collaborate to advance the commons." — substack from ["how I write modules"](http://substack.net/how_I_write_modules)
 
-![node.js is shiny](http://feross.net/x/node2.gif)
+![node.js is shiny](https://feross.net/x/node2.gif)
 
 #### Modules
 
