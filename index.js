@@ -108,9 +108,16 @@ Object.defineProperty(WebTorrent.prototype, 'ratio', {
   }
 })
 
+
+/**
+ * Searchs by query and downloads the first torrent that most closely matches with `query`.
+ *
+ * @param  {string} query
+ * @return {Torrent|null}
+ */
 WebTorrent.prototype.getBySearch = function (query) {
   var self = this
-  if(!query) return 
+  if(!query) return null
 
   search(query).then(function(search_results) {
     search_results = search_results.slice(0, 9).filter(function(r){ if(r.torrent || r.magnet) return })
