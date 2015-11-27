@@ -264,6 +264,12 @@ function runDownload (torrentId) {
 
   var torrent = client.add(torrentId, { path: argv.out })
 
+  torrent.on('paused', function (data) {
+    if (argv.quiet) return
+    clivas.clear()
+    clivas.line('{green:torrent paused}')
+  })
+
   torrent.on('infoHash', function () {
     function updateMetadata () {
       var numPeers = torrent.swarm.numPeers
@@ -456,6 +462,12 @@ function runDownload (torrentId) {
 
     drawTorrent(torrent)
   }
+}
+
+function pauseDownload (torrent) {
+}
+
+function resumeDownload (torrent) {
 }
 
 function runSeed (input) {

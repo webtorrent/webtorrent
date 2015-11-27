@@ -142,7 +142,7 @@ WebTorrent.prototype.add =
 WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
   var self = this
   if (self.destroyed) throw new Error('client is destroyed')
-  if (typeof opts === 'function') return self.add(torrentId, null, opts)
+  if (typeof opts === 'function') return self.add(torrentId, opts, null)
   debug('add')
   if (!opts) opts = {}
   else opts = extend({}, opts)
@@ -172,6 +172,18 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
       self.emit('listening', port, torrent)
     })
 
+    torrent.on('paused', function (port) {
+      self.emit('paused', port, torrent)
+    })
+
+    torrent.on('resume', function (port) {
+      self.emit('resume', torrent)
+    })
+
+    torrent.on('infoHash', function () {
+      self.emit('infoHash', torrent)
+    })
+
     torrent.on('ready', function () {
       _ontorrent()
       self.emit('torrent', torrent)
@@ -180,6 +192,25 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
 
   return torrent
 }
+
+WebTorrent.prototype.pause = function(currentTorrent){
+  var self = this
+  if (self.destroyed) throw new Error('client is destroyed')
+
+  if (currentTorrent === null) throw new Error('torrent does not exist')
+
+  currentTorrent.pause();
+}
+
+WebTorrent.prototype.resume = function(currentTorrent){
+  var self = this
+  if (self.destroyed) throw new Error('client is destroyed')
+  	
+  if (currentTorrent === null) throw new Error('torrent does not exist')
+
+  currentTorrent.resume();
+}
+
 
 /**
  * Start seeding a new file/folder.
