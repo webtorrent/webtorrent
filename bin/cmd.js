@@ -264,12 +264,6 @@ function runDownload (torrentId) {
 
   var torrent = client.add(torrentId, { path: argv.out })
 
-  torrent.on('paused', function (data) {
-    if (argv.quiet) return
-    clivas.clear()
-    clivas.line('{green:torrent paused}')
-  })
-
   torrent.on('infoHash', function () {
     function updateMetadata () {
       var numPeers = torrent.swarm.numPeers
@@ -279,6 +273,7 @@ function runDownload (torrentId) {
 
     if (!argv.quiet) {
       updateMetadata()
+
       torrent.on('wire', updateMetadata)
       torrent.on('metadata', function () {
         clivas.clear()
@@ -461,14 +456,10 @@ function runDownload (torrentId) {
         })
     }
 
+    process.stdin.setRawMode(true)
+    process.stdin.resume()
     drawTorrent(torrent)
   }
-}
-
-function pauseDownload (torrent) {
-}
-
-function resumeDownload (torrent) {
 }
 
 function runSeed (input) {
@@ -507,10 +498,11 @@ function drawTorrent (torrent) {
   process.stdin.on('data', function(chunk) {
     blockDraw = true
 
-    if (chunk === 'q' || chunk === 's') {
+    if (!cliInput && (chunk === 'q' || chunk === 's')) {
       cliInput = true
       process.stdin.setRawMode(false)
-      process.stdin.pause();
+      process.stdin.pause()
+      torrent.pause()
       var cli = inquirer.prompt([{
         type: 'input',
         name: 'shouldQuit',
@@ -526,14 +518,15 @@ function drawTorrent (torrent) {
           if(input === 'y') return true
           else if(input === 'n') return false
         },
-        message: 'Do you wish to stop seeding?',
+        message: 'Do you wish to quit? (Y/n)',
       }], function (answers) {
         if(answers.shouldQuit){
-          clearInterval(drawInterval)
-          drawInterval.unref()
+          torrent.resume()
           gracefulExit()
         }else{
           process.stdin.setRawMode(true)
+          process.stdin.resume()
+          torrent.resume()
           blockDraw = false
           cliInput = false
         }
@@ -542,7 +535,46 @@ function drawTorrent (torrent) {
       cli.rl.on('SIGINT', function () {
         return gracefulExit()
       })
-    }else if(!cliInput){
+    } else if (!cliInput && (chunk === 'p')) {
+      cliInput = true
+      process.stdin.setRawMode(false)
+      process.stdin.pause();
+      torrent.pause()
+      clivas.line('{green: torrent paused}')
+      var cli = inquirer.prompt([{
+        type: 'input',
+        name: 'inputChoice',
+        validate: function(input) {
+            if (input === 'r' || input === 'q') {
+              // Pass the return value in the done callback
+              return true
+            }else{
+              return "Incorrect input. Please enter 'r' or 'q'"
+            }
+        },
+        filter: function( input ) {
+          if(input === 'r') return 'resume'
+          else if(input === 'q') return 'quit'
+        },
+        message: 'Do you want to (r)esume or (q)uit seeding?',
+      }], function (answers) {
+        if(answers.inputChoice === 'quit'){
+          torrent.resume()
+          gracefulExit()
+        }else{
+          process.stdin.setRawMode(true)
+          process.stdin.resume();
+          torrent.resume()
+          blockDraw = false
+          cliInput = false
+        }
+      })
+
+      cli.rl.on('SIGINT', function () {
+        return gracefulExit()
+      })
+    }
+    else if(!cliInput){
       setTimeout(function(){
         blockDraw = false
         draw()
