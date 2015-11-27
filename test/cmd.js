@@ -4,8 +4,6 @@ var path = require('path')
 var fs = require('fs')
 var parseTorrent = require('parse-torrent')
 var test = require('tape')
-var http = require('http')
-var serveStatic = require('serve-static')
 
 var CMD_PATH = path.resolve(__dirname, '..', 'bin', 'cmd.js')
 var CMD = 'node ' + CMD_PATH
@@ -109,13 +107,3 @@ test('Command line: webtorrent download /path/to/file --port 80', function (t) {
     t.ok(data.indexOf('successfully') !== -1)
   })
 })
-
-// test('Command line: webtorrent download magnet_uri --port 80', function (t) {
-//   t.plan(2)
-//   var leavesMagnetURI = 'magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36&dn=Leaves+of+Grass+by+Walt+Whitman.epub&tr=http%3A%2F%2Ftracker.bittorrent.am%2Fannounce&tr=http%3A%2F%2Ftracker.thepiratebay.org%2Fannounce&tr=udp%3A%2F%2Ffr33domtracker.h33t.com%3A3310%2Fannounce&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80'
-
-//   cp.exec(CMD + ' --port 80 --out content download "'+leavesMagnetURI+'"', function (err, data) {
-//     t.error(err)
-//     t.ok(data.indexOf('seeding') !== -1)
-//   })
-// })

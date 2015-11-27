@@ -144,7 +144,7 @@ if (command === 'help' || argv.help) {
   runDownload(/* torrentId */ argv._[1])
 } else if (command === 'seed') {
   runSeed(/* input */ argv._[1])
-} else if (command === 'search'){
+} else if (command === 'search') {
   runSearch(/* query */ argv._[1])
 } else if (command) {
   // assume command is "download" when not specified
@@ -345,7 +345,6 @@ function runDownload (torrentId) {
         return a.length > b.length ? a : b
       }))
 
-
     if (argv.select) {
       var interactive = process.stdin.isTTY && !!process.stdin.setRawMode
       if (interactive) {
@@ -468,39 +467,45 @@ function runDownload (torrentId) {
 }
 
 function runSearch (input_query) {
-  if(!input_query) {
-    var showUsage = function showUsage() {
+  if (!input_query) {
+    (function showUsage () {
       var pathToBin = path.join(
         path.relative(
           process.cwd(),
           path.dirname(process.argv[1])
         ),
         path.basename(process.argv[1])
-      );
+      )
 
       clivas.line('{green:Usage: }')
-      clivas.line('{green: '+process.argv[0] + ' ' + pathToBin + ' "query"'+'}')
-    };
-  }else{
+      clivas.line('{green: ' + process.argv[0] + ' ' + pathToBin + ' "query"' + '}')
+    })()
+  } else {
     process.stdout.write(new Buffer('G1tIG1sySg==', 'base64')) // clear for drawing
-    clivas.line('Searching for {green:\''+input_query+'\'}...')
-    search(input_query).then(function(search_results) {
+    clivas.line('Searching for {green:\'' + input_query + '\'}...')
+    search(input_query).then(function (search_results) {
       clivas.clear()
-      clivas.line('\n{bold: Search Results for {green: \''+input_query+'\' } }\n')
-      choices('Select your torrent (by number)', search_results.slice(0, 9).filter(function(r){ if(r.torrent || r.magnet){ return true } else { return false } }).map(function(r) { return r.name + ' [' + r.size + ' / ' + r.files + ' files] ' + r.seeds + '/' + r.leech }), function(index) {
-        if (index === null) {
-          return
-        }
-        //console.log(search_results[index])
-        if(/^magnet:/.test(search_results[index].magnet)) {
-          clivas.clear()
-          runDownload(search_results[index].magnet)
-        }else {
-          return
-        }
-
-      });
-    });
+      clivas.line('\n{bold: Search Results for {green: \'' + input_query + '\' } }\n')
+      choices('Select your torrent (by number)', search_results.slice(0, 9)
+        .filter(function (r) {
+          if (r.torrent || r.magnet) { return true }
+          return false
+        })
+        .map(function (r) {
+          return r.name + ' [' + r.size + ' / ' + r.files + ' files] ' + r.seeds + '/' + r.leech
+        }),
+        function (index) {
+          if (index === null) {
+            return
+          }
+          if (/^magnet:/.test(search_results[index].magnet)) {
+            clivas.clear()
+            runDownload(search_results[index].magnet)
+          } else {
+            return
+          }
+        })
+    })
   }
 }
 
@@ -528,16 +533,13 @@ function runSeed (input) {
   })
 }
 
-var drawInterval
+var drawInterval, cli
 var commandMode = false
-var lastInput = ''
 var blockDraw = false
 var cliInput = false
 
-
 function drawTorrent (torrent) {
-
-  process.stdin.on('data', function(chunk) {
+  process.stdin.on('data', function (chunk) {
     blockDraw = true
 
     if (!cliInput && (chunk === 'q' || chunk === 's')) {
@@ -545,27 +547,27 @@ function drawTorrent (torrent) {
       process.stdin.setRawMode(false)
       process.stdin.pause()
       torrent.pause()
-      var cli = inquirer.prompt([{
+      cli = inquirer.prompt([{
         type: 'input',
         name: 'shouldQuit',
-        validate: function(input) {
-            if (input === 'Y' || input === 'y' || input === 'N' || input === 'n') {
-              // Pass the return value in the done callback
-              return true
-            }else{
-              return "Incorrect input. Please enter 'Y' or 'n'"
-            }
+        validate: function (input) {
+          if (input === 'Y' || input === 'y' || input === 'N' || input === 'n') {
+            // Pass the return value in the done callback
+            return true
+          } else {
+            return "Incorrect input. Please enter 'Y' or 'n'"
+          }
         },
-        filter: function( input ) {
-          if(input === 'Y' || input === 'y') return true
-          else if(input === 'N' || input === 'n') return false
+        filter: function (input) {
+          if (input === 'Y' || input === 'y') return true
+          else if (input === 'N' || input === 'n') return false
         },
-        message: 'Do you wish to quit? (Y/n)',
+        message: 'Do you wish to quit? (Y/n)'
       }], function (answers) {
-        if(answers.shouldQuit){
+        if (answers.shouldQuit) {
           torrent.resume()
           gracefulExit()
-        }else{
+        } else {
           process.stdin.setRawMode(true)
           process.stdin.resume()
           torrent.resume()
@@ -580,32 +582,33 @@ function drawTorrent (torrent) {
     } else if (!cliInput && (chunk === 'p')) {
       cliInput = true
       process.stdin.setRawMode(false)
-      process.stdin.pause();
+      process.stdin.pause()
       torrent.pause()
       clivas.line('{green: torrent paused}')
-      var cli = inquirer.prompt([{
+
+      cli = inquirer.prompt([{
         type: 'input',
         name: 'inputChoice',
-        validate: function(input) {
-            if (input === 'r' || input === 'q') {
-              // Pass the return value in the done callback
-              return true
-            }else{
-              return "Incorrect input. Please enter 'r' or 'q'"
-            }
+        validate: function (input) {
+          if (input === 'r' || input === 'q') {
+            // Pass the return value in the done callback
+            return true
+          } else {
+            return "Incorrect input. Please enter 'r' or 'q'"
+          }
         },
-        filter: function( input ) {
-          if(input === 'r') return 'resume'
-          else if(input === 'q') return 'quit'
+        filter: function (input) {
+          if (input === 'r') return 'resume'
+          else if (input === 'q') return 'quit'
         },
-        message: 'Do you want to (r)esume or (q)uit seeding?',
+        message: 'Do you want to (r)esume or (q)uit seeding?'
       }], function (answers) {
-        if(answers.inputChoice === 'quit'){
+        if (answers.inputChoice === 'quit') {
           torrent.resume()
           gracefulExit()
-        }else{
+        } else {
           process.stdin.setRawMode(true)
-          process.stdin.resume();
+          process.stdin.resume()
           torrent.resume()
           blockDraw = false
           cliInput = false
@@ -615,26 +618,23 @@ function drawTorrent (torrent) {
       cli.rl.on('SIGINT', function () {
         return gracefulExit()
       })
-    }
-    else if(!cliInput){
-      setTimeout(function(){
+    } else if (!cliInput) {
+      setTimeout(function () {
         blockDraw = false
         draw()
-      },100)
+      }, 100)
     }
-  });
+  })
 
   if (!argv.quiet) {
-    
     process.stdout.write(new Buffer('G1tIG1sySg==', 'base64')) // clear for drawing
-    process.stdin.setEncoding('utf8');
+    process.stdin.setEncoding('utf8')
     drawInterval = setInterval(draw, 500)
     drawInterval.unref()
-
   }
 
   function draw () {
-    if(!blockDraw){
+    if (!blockDraw) {
       var hotswaps = 0
       torrent.on('hotswap', function () {
         hotswaps += 1
@@ -739,7 +739,7 @@ function drawTorrent (torrent) {
 
       clivas.line('{80:}')
 
-      if(commandMode){
+      if (commandMode) {
         clivas.line('{green:command :}')
       }
       clivas.flush(true)
