@@ -1,6 +1,6 @@
 module.exports = WebTorrent
 
-var search = require('kat-search.ph')
+var search = require('search-kat.ph')
 var createTorrent = require('create-torrent')
 var debug = require('debug')('webtorrent')
 var DHT = require('bittorrent-dht/client') // browser exclude
@@ -122,7 +122,7 @@ WebTorrent.prototype.getBySearch = function (query) {
   search(query).then(function(search_results) {
     search_results = search_results.slice(0, 9).filter(function(r){ if(r.torrent || r.magnet) return })
     return self.get(search_results[0].magnet)
-  }
+  })
 }
 
 /**

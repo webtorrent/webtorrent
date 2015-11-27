@@ -174,6 +174,7 @@ Example:
     webtorrent download "magnet:..." --vlc
 
 Commands:
+    search <search-query>   Search for a torrent on kat.cr
     download <torrent-id>   Download a torrent
     seed <file/folder>      Seed a file or folder
     create <file>           Create a .torrent file
@@ -481,14 +482,18 @@ function runSearch (input_query) {
       clivas.line('{green: '+process.argv[0] + ' ' + pathToBin + ' "query"'+'}')
     };
   }else{
+    process.stdout.write(new Buffer('G1tIG1sySg==', 'base64')) // clear for drawing
+    clivas.line('Searching for {green:\''+input_query+'\'}...')
     search(input_query).then(function(search_results) {
-      choices('Select your torrent (by index)', search_results.slice(0, 9).filter(function(r){ if(r.torrent || r.magnet) return }).map(function(r) { return r.name + ' [' + r.size + ' / ' + r.files + ' files] ' + r.seeds + '/' + r.leech; }), function(index) {
+      clivas.clear()
+      clivas.line('\n{bold: Search Results for {green: \''+input_query+'\' } }\n')
+      choices('Select your torrent (by number)', search_results.slice(0, 9).filter(function(r){ if(r.torrent || r.magnet){ return true } else { return false } }).map(function(r) { return r.name + ' [' + r.size + ' / ' + r.files + ' files] ' + r.seeds + '/' + r.leech }), function(index) {
         if (index === null) {
           return
         }
-
-        console.log(search_results[index])
+        //console.log(search_results[index])
         if(/^magnet:/.test(search_results[index].magnet)) {
+          clivas.clear()
           runDownload(search_results[index].magnet)
         }else {
           return
@@ -544,16 +549,16 @@ function drawTorrent (torrent) {
         type: 'input',
         name: 'shouldQuit',
         validate: function(input) {
-            if (input === 'y' || input === 'n') {
+            if (input === 'Y' || input === 'y' || input === 'N' || input === 'n') {
               // Pass the return value in the done callback
               return true
             }else{
-              return "Incorrect input. Please enter 'y' or 'n'"
+              return "Incorrect input. Please enter 'Y' or 'n'"
             }
         },
         filter: function( input ) {
-          if(input === 'y') return true
-          else if(input === 'n') return false
+          if(input === 'Y' || input === 'y') return true
+          else if(input === 'N' || input === 'n') return false
         },
         message: 'Do you wish to quit? (Y/n)',
       }], function (answers) {
