@@ -1,5 +1,6 @@
 module.exports = WebTorrent
 
+var search = require('kat-search.ph')
 var createTorrent = require('create-torrent')
 var debug = require('debug')('webtorrent')
 var DHT = require('bittorrent-dht/client') // browser exclude
@@ -106,6 +107,16 @@ Object.defineProperty(WebTorrent.prototype, 'ratio', {
     return uploaded / downloaded
   }
 })
+
+WebTorrent.prototype.getBySearch = function (query) {
+  var self = this
+  if(!query) return 
+
+  search(query).then(function(search_results) {
+    search_results = search_results.slice(0, 9).filter(function(r){ if(r.torrent || r.magnet) return })
+    return self.get(search_results[0].magnet)
+  }
+}
 
 /**
  * Returns the torrent with the given `torrentId`. Convenience method. Easier than

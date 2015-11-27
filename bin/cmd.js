@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+var search = require('search-kat.ph')
+var choices = require('choices')
 var clivas = require('clivas')
 var cp = require('child_process')
 var createTorrent = require('create-torrent')
@@ -142,6 +144,8 @@ if (command === 'help' || argv.help) {
   runDownload(/* torrentId */ argv._[1])
 } else if (command === 'seed') {
   runSeed(/* input */ argv._[1])
+} else if (command === 'search'){
+  runSearch(/* query */ argv._[1])
 } else if (command) {
   // assume command is "download" when not specified
   runDownload(/* torrentId */ command)
@@ -459,6 +463,39 @@ function runDownload (torrentId) {
     process.stdin.setRawMode(true)
     process.stdin.resume()
     drawTorrent(torrent)
+  }
+}
+
+function runSearch (input_query) {
+  if(!input_query) {
+    var showUsage = function showUsage() {
+      var pathToBin = path.join(
+        path.relative(
+          process.cwd(),
+          path.dirname(process.argv[1])
+        ),
+        path.basename(process.argv[1])
+      );
+
+      clivas.line('{green:Usage: }')
+      clivas.line('{green: '+process.argv[0] + ' ' + pathToBin + ' "query"'+'}')
+    };
+  }else{
+    search(input_query).then(function(search_results) {
+      choices('Select your torrent (by index)', search_results.slice(0, 9).filter(function(r){ if(r.torrent || r.magnet) return }).map(function(r) { return r.name + ' [' + r.size + ' / ' + r.files + ' files] ' + r.seeds + '/' + r.leech; }), function(index) {
+        if (index === null) {
+          return
+        }
+
+        console.log(search_results[index])
+        if(/^magnet:/.test(search_results[index].magnet)) {
+          runDownload(search_results[index].magnet)
+        }else {
+          return
+        }
+
+      });
+    });
   }
 }
 
