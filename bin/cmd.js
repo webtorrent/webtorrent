@@ -489,6 +489,8 @@ function runSeed (input) {
 
   client.on('torrent', function (torrent) {
     if (argv.quiet) console.log(torrent.magnetURI)
+    process.stdin.setRawMode(true)
+    process.stdin.resume()
     drawTorrent(torrent)
   })
 }
@@ -551,9 +553,7 @@ function drawTorrent (torrent) {
   if (!argv.quiet) {
     
     process.stdout.write(new Buffer('G1tIG1sySg==', 'base64')) // clear for drawing
-    process.stdin.setRawMode(true)
-    process.stdin.resume()
-    process.stdin.setEncoding( 'utf8' );
+    process.stdin.setEncoding('utf8');
     drawInterval = setInterval(draw, 500)
     drawInterval.unref()
 
