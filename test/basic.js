@@ -224,18 +224,18 @@ test('after client.destroy(), throw on client.add() or client.seed()', function 
 
   var client = new WebTorrent({ dht: false, tracker: false })
 
-  client.on('error', function (err) { t.fail(err) })
+  client.on('error', function (err) {
+    if ('Error: download client is destroyed') t.pass('error emitted on client.add()')
+    else if ('Error: seed client is destroyed') t.pass('error emitted on client.seed()')
+    else t.fail(err)
+  })
   client.on('warning', function (err) { t.fail(err) })
 
   client.destroy(function () {
     t.pass('client destroyed')
   })
-  t.throws(function () {
-    client.add('magnet:?xt=urn:btih:' + leavesTorrent.infoHash)
-  })
-  t.throws(function () {
-    client.seed(new Buffer('sup'))
-  })
+  client.add('magnet:?xt=urn:btih:' + leavesTorrent.infoHash)
+  client.seed(new Buffer('sup'))
 })
 
 test('after client.destroy(), no "torrent" or "ready" events emitted', function (t) {
