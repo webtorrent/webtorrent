@@ -695,6 +695,12 @@ WebTorrent is only possible due to the excellent work of the following contribut
 <tr><th align="left">Iván Todorovich</th><td><a href="https://github.com/ivantodorovich">GitHub/ivantodorovich</a></td><td><a href="http://twitter.com/ivantodorovich">Twitter/@ivantodorovich</a></td></tr>
 <tr><th align="left">Mathias Buus</th><td><a href="https://github.com/mafintosh">GitHub/mafintosh</a></td><td><a href="http://twitter.com/mafintosh">Twitter/@mafintosh</a></td></tr>
 <tr><th align="left">Bob Ren</th><td><a href="https://github.com/bobrenjc93">GitHub/bobrenjc93</a></td><td><a href="http://twitter.com/bobrenjc93">Twitter/@bobrenjc93</a></td></tr>
+<tr><th align="left">James Halliday</th><td><a href="https://github.com/substack">GitHub/substack</a></td><td><a href="http://twitter.com/substack">Twitter/@substack</a></td></tr>
+<tr><th align="left">Gilles De Mey</th><td><a href="https://github.com/gillesdemey">GitHub/gillesdemey</a></td><td><a href="http://twitter.com/gdemey">Twitter/@gdemey</a></td></tr>
+<tr><th align="left">Valérian Galliat</th><td><a href="https://github.com/valeriangalliat">GitHub/valeriangalliat</a></td><td><a href="http://twitter.com/valeriangalliat">Twitter/@valeriangalliat</a></td></tr>
+<tr><th align="left">Joseph Frazier</th><td><a href="https://github.com/josephfrazier">GitHub/josephfrazier</a></td><td></td></tr>
+<tr><th align="left">Lucas Pelegrino</th><td><a href="https://github.com/lucaswxp">GitHub/lucaswxp</a></td><td><a href="http://twitter.com/lucaswxp">Twitter/@lucaswxp</a></td></tr>
+<tr><th align="left">Diego Rodríguez B.</th><td><a href="https://github.com/DiegoRBaquero">GitHub/DiegoRBaquero</a></td><td><a href="http://twitter.com/DiegoRBaquero">Twitter/@DiegoRBaquero</a></td></tr>
 </tbody></table>
 
 #### Clone the code
