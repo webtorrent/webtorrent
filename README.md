@@ -105,6 +105,7 @@ npm install webtorrent -g
 - **[Webtorrentapp](https://github.com/alexeisavca/webtorrentapp)** – A tool/platform for launching web apps from torrents
 - **[People-driven web](http://www.peopledrivenweb.com/)** – Decentralized content management system ([source code](https://github.com/peopledrivenweb/pwjs))
 - **[PeerCloud](https://github.com/jhiesey/peercloud)** - Serverless websites via WebTorrent
+- **[βTorrent](https://btorrent.xyz)** - Fully-featured WebTorrent browser client ([source code](https://github.com/DiegoRBaquero/bTorrent))
 - Your app here! (send a PR or open an issue with your app's URL)
 
 ### Usage
