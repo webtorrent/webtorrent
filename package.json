@@ -36,7 +36,7 @@
     "hat": "0.0.3",
     "immediate-chunk-store": "^1.0.7",
     "inherits": "^2.0.1",
-    "inquirer": "^0.9.0",
+    "inquirer": "^0.11.0",
     "load-ip-set": "^1.0.3",
     "mediasource": "^1.0.0",
     "memory-chunk-store": "^1.2.0",
