@@ -102,7 +102,8 @@ test('Command line: webtorrent create /path/to/file', function (t) {
 test('Command line: webtorrent download /path/to/file --port 80', function (t) {
   t.plan(2)
 
-  cp.exec(CMD + ' --port 80 --out content download torrents/leaves.torrent', function (err, data) {
+  var leavesPath = path.resolve(__dirname, 'torrents', 'leaves.torrent')
+  cp.exec(CMD + ' --port 80 --out content download '+leavesPath, {maxBuffer: 1024 * 500}, function (err, data) {
     t.error(err)
     t.ok(data.indexOf('successfully') !== -1)
   })
