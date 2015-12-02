@@ -460,7 +460,7 @@ function runDownload (torrentId) {
         })
     }
 
-    //process.stdin.setRawMode(true)
+    process.stdin.setRawMode(true)
     process.stdin.resume()
     drawTorrent(torrent)
   }

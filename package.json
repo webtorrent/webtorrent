@@ -54,7 +54,7 @@
     "range-parser": "^1.0.2",
     "re-emitter": "^1.0.0",
     "run-parallel": "^1.0.0",
-    "search-kat.ph": "github:whitef0x0/search-kat.ph",
+    "search-kat.ph": "~1.0.3",
     "simple-sha1": "^2.0.0",
     "speedometer": "^0.1.2",
     "thunky": "^0.1.0",
