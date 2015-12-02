@@ -124,7 +124,7 @@ test('client.seed: filesystem path to folder with multiple files, string', funct
 
   client.seed(numbersPath, opts, function (torrent) {
     t.equal(torrent.infoHash, '80562f38656b385ea78959010e51a2cc9db41ea0')
-    t.equal(torrent.magnetURI, 'magnet:?xt=urn:btih:80562f38656b385ea78959010e51a2cc9db41ea0&dn=numbers&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.webtorrent.io%3A80&tr=wss%3A%2F%2Ftracker.webtorrent.io')
+    t.equal(torrent.magnetURI, 'magnet:?xt=urn:btih:80562f38656b385ea78959010e51a2cc9db41ea0&dn=numbers&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.webtorrent.io')
     client.destroy()
   })
 })

@@ -23,7 +23,7 @@
   "dependencies": {
     "addr-to-ip-port": "^1.0.1",
     "bitfield": "^1.0.2",
-    "bittorrent-dht": "^3.0.0",
+    "bittorrent-dht": "^4.0.4",
     "bittorrent-swarm": "^5.0.0",
     "chunk-store-stream": "^2.0.0",
     "clivas": "^0.2.0",
@@ -31,7 +31,7 @@
     "cross-spawn-async": "^2.0.0",
     "debug": "^2.1.0",
     "end-of-stream": "^1.0.0",
-    "executable": "^1.1.0",
+    "executable": "^2.1.0",
     "fs-chunk-store": "^1.3.4",
     "hat": "0.0.3",
     "immediate-chunk-store": "^1.0.7",
