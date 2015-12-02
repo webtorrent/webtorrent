@@ -273,7 +273,7 @@ Start seeding a new torrent.
 
 `input` can be any of the following:
 
-- path to the file or folder on filesystem (string)
+- path to the file or folder on filesystem (string) (Node.js only)
 - W3C [File](https://developer.mozilla.org/en-US/docs/Web/API/File) object (from an `<input>` or drag and drop)
 - W3C [FileList](https://developer.mozilla.org/en-US/docs/Web/API/FileList) object (basically an array of `File` objects)
 - Node [Buffer](http://nodejs.org/api/buffer.html) object (works in [the browser](https://www.npmjs.org/package/buffer))
