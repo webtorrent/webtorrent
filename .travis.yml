@@ -2,11 +2,10 @@ language: node_js
 node_js:
   - '4.2'
   - '0.12'
-sudo: false
+  - v4
+  - v5
+
 env:
   global:
   - secure: AJsEWFnWC5W8hcF3hJzm3PT7heazJpKg85xiSvIWVzLHZU/s0h4+WfJ6t0F9v3L4awaowm62vy8CRaxRkB4lJyJg+JK2K0QN7lNFGj2f8Jx2cFlVJ1IyY959GY4iUg66JrNj1yzS02+yQfweDngyifqzb7IlxnowiveDjUO2gyo=
   - secure: hvihwLUqlPchrGFXKWFF7iKRugISU7r/gLBo6O63nPeg0OwnYqYcC2BnBWoSiOdu9oR5bM4a5u0os04XL+bP3dqt324g0uBTqvyyxD6NhBsphVFkUmdUH3HMe7IQY6JTns96KT/6UkQapKhIuW4CUDeidR+5NFKvyRdKIjSawS4=
-cache:
-  directories:
-  - node_modules
