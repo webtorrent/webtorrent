@@ -459,8 +459,9 @@ function runDownload (torrentId) {
           device.play(href, function () {})
         })
     }
-
-    process.stdin.setRawMode(true)
+    if (process.stdin.isTTY) {
+      process.stdin.setRawMode(true)
+    }
     process.stdin.resume()
     drawTorrent(torrent)
   }
@@ -527,7 +528,9 @@ function runSeed (input) {
 
   client.on('torrent', function (torrent) {
     if (argv.quiet) console.log(torrent.magnetURI)
-    process.stdin.setRawMode(true)
+    if (process.stdin.isTTY) {
+      process.stdin.setRawMode(true)
+    }
     process.stdin.resume()
     drawTorrent(torrent)
   })
@@ -568,7 +571,9 @@ function drawTorrent (torrent) {
           torrent.resume()
           gracefulExit()
         } else {
-          process.stdin.setRawMode(true)
+          if (process.stdin.isTTY) {
+            process.stdin.setRawMode(true)
+          }
           process.stdin.resume()
           torrent.resume()
           blockDraw = false
@@ -581,7 +586,9 @@ function drawTorrent (torrent) {
       })
     } else if (!cliInput && (chunk === 'p')) {
       cliInput = true
-      process.stdin.setRawMode(false)
+      if (process.stdin.isTTY) {
+        process.stdin.setRawMode(false)
+      }
       process.stdin.pause()
       torrent.pause()
       clivas.line('{green: torrent paused}')
@@ -607,7 +614,9 @@ function drawTorrent (torrent) {
           torrent.resume()
           gracefulExit()
         } else {
-          process.stdin.setRawMode(true)
+          if (process.stdin.isTTY) {
+            process.stdin.setRawMode(true)
+          }
           process.stdin.resume()
           torrent.resume()
           blockDraw = false
