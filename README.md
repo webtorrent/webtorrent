@@ -24,7 +24,7 @@ on your page to start fetching files over WebRTC using the BitTorrent protocol, 
 `require('webtorrent')` with [browserify](http://browserify.org/). See [demo apps
 ](#webtorrent-in-production) and [code examples](#usage) below.
 
-To make BitTorrent work over WebRTC (which is the only p2p transport that works on the
+To make BitTorrent work over WebRTC (which is the only P2P transport that works on the
 web) we made some protocol changes. Therefore, a browser-based WebTorrent client or **"web
 peer"** can only connect to other clients that support WebTorrent/WebRTC.
 
