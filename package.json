@@ -23,7 +23,7 @@
   "dependencies": {
     "addr-to-ip-port": "^1.0.1",
     "bitfield": "^1.0.2",
-    "bittorrent-dht": "^4.0.4",
+    "bittorrent-dht": "^5.0.0",
     "bittorrent-swarm": "^5.0.0",
     "chunk-store-stream": "^2.0.0",
     "clivas": "^0.2.0",
