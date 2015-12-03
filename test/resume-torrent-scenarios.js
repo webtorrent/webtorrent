@@ -147,7 +147,7 @@ function scenario1_1Test (t, serverType) {
 
       var currentTorrent = client2.add(leavesParsed)
 
-      client2.once('torrent', function (torrent) {
+      client2.once('infoHash', function () {
         // Pause the torrent
         client2.pause(currentTorrent)
         t.ok(currentTorrent.paused, 'Torrent should be paused')
@@ -161,7 +161,7 @@ function scenario1_1Test (t, serverType) {
     }]
   }, function (err, r) {
     t.error(err)
-    t.equal(trackerStartCount, 2, 'trackerStartCount should be 2')
+    t.equal(trackerStartCount, 1, 'trackerStartCount should be 1')
 
     r.tracker.close(function () {
       t.pass('tracker closed')
@@ -419,7 +419,7 @@ function scenario1_4Test (t, serverType) {
 
       var currentTorrent = client2.add(leavesParsed)
 
-      client2.once('torrent', function (torrent) {
+      client2.once('infoHash', function () {
         client2.pause(currentTorrent)
         t.ok(currentTorrent.paused, 'Torrent should be paused')
 
@@ -437,7 +437,7 @@ function scenario1_4Test (t, serverType) {
     }]
   }, function (err, r) {
     t.error(err)
-    t.equal(trackerStartCount, 2, 'trackerStartCount should be 2')
+    t.equal(trackerStartCount, 1, 'trackerStartCount should be 1')
 
     r.tracker.close(function () {
       t.pass('tracker closed')

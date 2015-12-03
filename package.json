@@ -73,9 +73,11 @@
     "brfs": "^1.2.0",
     "browserify": "^11.0.0",
     "finalhandler": "^0.4.0",
+    "istanbul-coveralls": "^1.0.3",
     "run-auto": "^1.0.0",
     "serve-static": "^1.9.3",
     "simple-get": "^1.0.0",
+    "sinon": "^1.17.2",
     "standard": "^5.1.0",
     "tape": "^4.0.0",
     "uglify-js": "^2.4.15",
@@ -109,10 +111,12 @@
     "build": "browserify -s WebTorrent -e ./ | uglifyjs -m > webtorrent.min.js",
     "build-debug": "browserify -s WebTorrent -e ./ > webtorrent.debug.js",
     "size": "npm run build && cat webtorrent.min.js | gzip | wc -c",
-    "test": "standard && node ./bin/test.js",
+    "test-local": "standard && node ./bin/test.js",
+    "test": "standard && node ./bin/test.js && istanbul cover -- test/*.js && istanbul-coveralls",
     "test-browser": "zuul -- test/basic.js",
     "test-browser-local": "zuul --local -- test/basic.js",
     "test-node": "tape test/*.js",
-    "test-node-resume": "tape test/resume-torrent-scenarios.js"
+    "test-node-resume": "tape test/resume-torrent-scenarios.js",
+    "covearge": "istanbul cover test.js && istanbul-coveralls"
   }
 }

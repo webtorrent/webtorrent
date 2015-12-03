@@ -1,0 +1,50 @@
+verbose: false
+instrumentation:
+    root: .
+    extensions:
+        - .js
+    default-excludes: true
+    excludes: []
+    embed-source: false
+    variable: __coverage__
+    compact: false
+    preserve-comments: false
+    complete-copy: false
+    save-baseline: false
+    baseline-file: ./coverage/coverage-baseline.json
+    include-all-sources: false
+    include-pid: false
+reporting:
+    print: summary
+    reports:
+        - lcov
+    dir: ./coverage
+    watermarks:
+        statements: [50, 80]
+        lines: [50, 80]
+        functions: [50, 80]
+        branches: [50, 80]
+    report-config:
+        json: {file: coverage-final.json}
+        json-summary: {file: coverage-summary.json}
+        lcovonly: {file: lcov.info}
+        text: {file: coverage-final.txt}
+        text-lcov: {file: lcov.info}
+        text-summary: {file: coverage-summary.txt}
+hooks:
+    hook-run-in-context: false
+    post-require-hook: null
+    handle-sigint: false
+check:
+    global:
+        statements: 80
+        lines: 80
+        branches: 0
+        functions: 0
+        excludes: []
+    each:
+        statements: 80
+        lines: 80
+        branches: 0
+        functions: 0
+        excludes: []
