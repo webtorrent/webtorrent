@@ -59,7 +59,7 @@
     "torrent-discovery": "^4.0.0",
     "torrent-piece": "^1.0.0",
     "uniq": "^1.0.1",
-    "ut_metadata": "^2.1.0",
+    "ut_metadata": "^3.0.1",
     "ut_pex": "^1.0.1",
     "videostream": "^1.1.4",
     "windows-no-runnable": "0.0.6",
