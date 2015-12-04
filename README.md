@@ -24,7 +24,7 @@ on your page to start fetching files over WebRTC using the BitTorrent protocol, 
 `require('webtorrent')` with [browserify](http://browserify.org/). See [demo apps
 ](#webtorrent-in-production) and [code examples](#usage) below.
 
-To make BitTorrent work over WebRTC (which is the only p2p transport that works on the
+To make BitTorrent work over WebRTC (which is the only P2P transport that works on the
 web) we made some protocol changes. Therefore, a browser-based WebTorrent client or **"web
 peer"** can only connect to other clients that support WebTorrent/WebRTC.
 
@@ -105,6 +105,7 @@ npm install webtorrent -g
 - **[Webtorrentapp](https://github.com/alexeisavca/webtorrentapp)** – A tool/platform for launching web apps from torrents
 - **[People-driven web](http://www.peopledrivenweb.com/)** – Decentralized content management system ([source code](https://github.com/peopledrivenweb/pwjs))
 - **[PeerCloud](https://github.com/jhiesey/peercloud)** - Serverless websites via WebTorrent
+- **[βTorrent](https://btorrent.xyz)** - Fully-featured WebTorrent browser client ([source code](https://github.com/DiegoRBaquero/bTorrent))
 - Your app here! (send a PR or open an issue with your app's URL)
 
 ### Usage
@@ -272,7 +273,7 @@ Start seeding a new torrent.
 
 `input` can be any of the following:
 
-- path to the file or folder on filesystem (string)
+- path to the file or folder on filesystem (string) (Node.js only)
 - W3C [File](https://developer.mozilla.org/en-US/docs/Web/API/File) object (from an `<input>` or drag and drop)
 - W3C [FileList](https://developer.mozilla.org/en-US/docs/Web/API/FileList) object (basically an array of `File` objects)
 - Node [Buffer](http://nodejs.org/api/buffer.html) object (works in [the browser](https://www.npmjs.org/package/buffer))
@@ -694,6 +695,12 @@ WebTorrent is only possible due to the excellent work of the following contribut
 <tr><th align="left">Iván Todorovich</th><td><a href="https://github.com/ivantodorovich">GitHub/ivantodorovich</a></td><td><a href="http://twitter.com/ivantodorovich">Twitter/@ivantodorovich</a></td></tr>
 <tr><th align="left">Mathias Buus</th><td><a href="https://github.com/mafintosh">GitHub/mafintosh</a></td><td><a href="http://twitter.com/mafintosh">Twitter/@mafintosh</a></td></tr>
 <tr><th align="left">Bob Ren</th><td><a href="https://github.com/bobrenjc93">GitHub/bobrenjc93</a></td><td><a href="http://twitter.com/bobrenjc93">Twitter/@bobrenjc93</a></td></tr>
+<tr><th align="left">James Halliday</th><td><a href="https://github.com/substack">GitHub/substack</a></td><td><a href="http://twitter.com/substack">Twitter/@substack</a></td></tr>
+<tr><th align="left">Gilles De Mey</th><td><a href="https://github.com/gillesdemey">GitHub/gillesdemey</a></td><td><a href="http://twitter.com/gdemey">Twitter/@gdemey</a></td></tr>
+<tr><th align="left">Valérian Galliat</th><td><a href="https://github.com/valeriangalliat">GitHub/valeriangalliat</a></td><td><a href="http://twitter.com/valeriangalliat">Twitter/@valeriangalliat</a></td></tr>
+<tr><th align="left">Joseph Frazier</th><td><a href="https://github.com/josephfrazier">GitHub/josephfrazier</a></td><td></td></tr>
+<tr><th align="left">Lucas Pelegrino</th><td><a href="https://github.com/lucaswxp">GitHub/lucaswxp</a></td><td><a href="http://twitter.com/lucaswxp">Twitter/@lucaswxp</a></td></tr>
+<tr><th align="left">Diego Rodríguez B.</th><td><a href="https://github.com/DiegoRBaquero">GitHub/DiegoRBaquero</a></td><td><a href="http://twitter.com/DiegoRBaquero">Twitter/@DiegoRBaquero</a></td></tr>
 </tbody></table>
 
 #### Clone the code

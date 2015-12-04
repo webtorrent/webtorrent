@@ -21,17 +21,18 @@ process.title = 'WebTorrent'
 
 var expectedError = false
 process.on('exit', function (code) {
-  if (code !== 0 && !expectedError) {
-    clivas.line('\n{red:UNEXPECTED ERROR:} If this is a bug in WebTorrent, report it!')
-    clivas.line('{green:OPEN AN ISSUE:} https://github.com/feross/webtorrent/issues\n')
-    clivas.line(
-      'DEBUG INFO: ' +
-      'webtorrent ' + require('../package.json').version + ', ' +
-      'node ' + process.version + ', ' +
-      process.platform + ' ' + process.arch + ', ' +
-      'exit ' + code
-    )
-  }
+  if (code === 0 || expectedError) return // normal exit
+  if (code === 130) return // intentional exit with Control-C
+
+  clivas.line('\n{red:UNEXPECTED ERROR:} If this is a bug in WebTorrent, report it!')
+  clivas.line('{green:OPEN AN ISSUE:} https://github.com/feross/webtorrent/issues\n')
+  clivas.line(
+    'DEBUG INFO: ' +
+    'webtorrent ' + require('../package.json').version + ', ' +
+    'node ' + process.version + ', ' +
+    process.platform + ' ' + process.arch + ', ' +
+    'exit ' + code
+  )
 })
 
 process.on('SIGINT', gracefulExit)
