@@ -2,7 +2,6 @@ var path = require('path')
 var fs = require('fs')
 var parseTorrent = require('parse-torrent')
 var test = require('tape')
-var Torrent = require('../lib/torrent')
 var WebTorrent = require('../')
 var sinon = require('sinon')
 
@@ -15,14 +14,12 @@ test('Torrent.progress shoud be 100% when torrent is done', function (t) {
   t.plan(2)
 
   var torrent_client = new WebTorrent({ tracker: false, dht: false })
-  var currTorrent = torrent_client.add(leavesTorrent, function(_torrent){
-
+  var currTorrent = torrent_client.add(leavesTorrent, function (_torrent) {
     t.equal(currTorrent.progress, 1)
     t.equal(currTorrent.downloaded, currTorrent.length)
     torrent_client.destroy()
     t.end()
   })
-
 })
 
 test('Torrent.progress shoud be 0% when torrent has not started', function (t) {
@@ -68,16 +65,15 @@ test('Torrent._onMetadata should do nothing if torrent has metadata and is not b
   })
 
   currTorrent.on('ready', function () {
-    var onStoreSpy = sinon.spy(currTorrent, "_onStore")
+    var onStoreSpy = sinon.spy(currTorrent, '_onStore')
     t.ok(currTorrent.metadata)
     t.notOk(currTorrent.resumed)
 
     currTorrent._onMetadata(currTorrent)
-    t.notOk(onStoreSpy.called, '_onStore should not have been called')  
+    t.notOk(onStoreSpy.called, '_onStore should not have been called')
     torrent_client.destroy()
     t.end()
   })
-
 })
 
 test('Torrent._onMetadata should reinitialize torrent if torrent was paused and resumed', function (t) {
@@ -90,9 +86,9 @@ test('Torrent._onMetadata should reinitialize torrent if torrent was paused and 
   })
 
   currTorrent.once('ready', function (_torrent) {
-    var checkDoneSpy = sinon.spy(currTorrent, "_checkDone")
-    var onStoreSpy = sinon.spy(currTorrent, "_onStore")
-    var onErrorSpy = sinon.spy(currTorrent, "_onError")
+    var checkDoneSpy = sinon.spy(currTorrent, '_checkDone')
+    var onStoreSpy = sinon.spy(currTorrent, '_onStore')
+    var onErrorSpy = sinon.spy(currTorrent, '_onError')
 
     currTorrent.pause()
     currTorrent.resume()
@@ -144,8 +140,8 @@ test('Torrent._onMetadata should reinitialize torrent if metadata is deleted', f
   })
 
   currTorrent.once('ready', function () {
-    var onStoreSpy = sinon.spy(currTorrent, "_onStore")
-    var onErrorSpy = sinon.spy(currTorrent, "_onError")
+    var onStoreSpy = sinon.spy(currTorrent, '_onStore')
+    var onErrorSpy = sinon.spy(currTorrent, '_onError')
 
     currTorrent.metadata = null
 
@@ -161,4 +157,3 @@ test('Torrent._onMetadata should reinitialize torrent if metadata is deleted', f
     })
   })
 })
-

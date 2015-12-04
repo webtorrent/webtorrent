@@ -4,36 +4,6 @@ As a user, I want to be able to pause my torrent while seeding or downloading an
 #Webtorrent User Story 2 -- Search:
 As a user, I want to be able to find and download a torrent by searching torrents online.
 
-#Webtorrent User Story 3 -- SMS Notification on Finish:
-As a user, I want to be able to get an SMS message sent to a phone number I provide when my torrent is finished downloading.
-
-
-PM = A x Size^b x EM
-
-PM = 1.2*(0.10)^0.95*5 = .63months
-
-###Size 
-
-`Size = 0.05 KLoC`
-___Justification___: Our lines of code have been justified by the relative size of other modules of similar complexity that have already been written for this project.
-
-###Scale Factor
-
-`b= 0.95`
-___Justification___: Our scale factor b is 0.95 which is a nearly global scale factor because we believe that much of the work will be almost linear as our project scales up in size. We will need to create an module to add to the project.
-
-###Calibration Factor (A)
-
-`A=1.7`
-
-___Justification___: We think our calibration factor is this as it is an average of our self reflected skill and familiarity with the codebase, Javascript and with PDF conversion.
-
-###Effort Multiplier (EM)
-
-`EM=7`
-
-___Justification___: We think our team will put a lot of effort due to the interest in the project and interest in Javascript.
-
 ####Scenario S1.1: After I have created a new Torrent, and it has started downloading,
 When I call the pause() function
 Then my torrent will pause 
