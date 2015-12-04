@@ -1,5 +1,4 @@
 node_modules
-webtorrent.debug.js
 coverage
 content
 examples/npm-debug.log

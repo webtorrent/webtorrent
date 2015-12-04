@@ -6,7 +6,7 @@ var AppendTo = require('../../lib/append-to')
 var bigBuckFile = fs.readFileSync(__dirname + '/big-buck-bunny.mp4')
 
 test('AppendTo should append and stream if file is video', function (t) {
-  t.plan(2)
+  t.plan(4)
 
   //Start Seeding file
   var client = new WebTorrent()
@@ -18,14 +18,14 @@ test('AppendTo should append and stream if file is video', function (t) {
         console.log(file.name)
         AppendTo(file, window.document.getElementsByTagName('body')[0], function (err, currElem) {
           if(err) t.fail(err)
-
+          currElem.style.visibility = 'hidden'
           console.log(currElem)
 
           t.pass('appended video to html element')
-          t.equal(window.document.getElementsByName('video')[0], currElem)
-          t.equal(window.document.getElementsByName('video').length, 1)
+          t.equal(window.document.getElementsByTagName('video')[0], currElem)
+          t.equal(window.document.getElementsByTagName('video').length, 1)
 
-          t.equal(currElem.nodeName, "VIDEO")
+          t.equal(currElem.nodeName, 'VIDEO')
         })
       })
     })
