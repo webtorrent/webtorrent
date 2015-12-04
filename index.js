@@ -161,7 +161,6 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
   var torrent = self.get(torrentId)
 
   function _ontorrent () {
-    debug('on torrent %s', torrent.infoHash)
     if (typeof ontorrent === 'function') ontorrent(torrent)
   }
 
