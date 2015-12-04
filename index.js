@@ -18,15 +18,27 @@ var Torrent = require('./lib/torrent')
 
 inherits(WebTorrent, EventEmitter)
 
+/**
+ * WebTorrent version.
+ */
 var VERSION = require('./package.json').version
 
 /**
- * BitTorrent client version string (used in peer ID).
- * Generated from package.json major and minor version. For example:
+ * Version number in Azureus-style. Generated from major and minor semver version.
+ * For example:
  *   '0.16.1' -> '0016'
  *   '1.2.5' -> '0102'
  */
 var VERSION_STR = VERSION.match(/([0-9]+)/g).slice(0, 2).map(zeroFill(2)).join('')
+
+/**
+ * Version prefix string (used in peer ID). WebTorrent uses the Azureus-style
+ * encoding: '-', two characters for client id ('WW'), four ascii digits for version
+ * number, '-', followed by random numbers.
+ * For example:
+ *   '-WW0102-'...
+ */
+var VERSION_PREFIX = '-WW' + VERSION_STR + '-'
 
 /**
  * WebTorrent Client
@@ -35,8 +47,9 @@ var VERSION_STR = VERSION.match(/([0-9]+)/g).slice(0, 2).map(zeroFill(2)).join('
 function WebTorrent (opts) {
   var self = this
   if (!(self instanceof WebTorrent)) return new WebTorrent(opts)
-  if (!opts) opts = {}
   EventEmitter.call(self)
+
+  if (!opts) opts = {}
   if (!debug.enabled) self.setMaxListeners(0)
 
   self.destroyed = false
@@ -51,19 +64,15 @@ function WebTorrent (opts) {
   self.downloadSpeed = speedometer()
   self.uploadSpeed = speedometer()
 
-  self.peerId = opts.peerId === undefined
-    ? new Buffer('-WW' + VERSION_STR + '-' + hat(48), 'utf8')
-    : typeof opts.peerId === 'string'
-      ? new Buffer(opts.peerId, 'hex')
-      : opts.peerId
-  self.peerIdHex = self.peerId.toString('hex')
+  self.peerId = typeof opts.peerId === 'string'
+    ? opts.peerId
+    : (opts.peerId || new Buffer(VERSION_PREFIX + hat(48))).toString('hex')
+  self.peerIdBuffer = new Buffer(self.peerId, 'hex')
 
-  self.nodeId = opts.nodeId === undefined
-    ? new Buffer(hat(160), 'hex')
-    : typeof opts.nodeId === 'string'
-      ? new Buffer(opts.nodeId, 'hex')
-      : opts.nodeId
-  self.nodeIdHex = self.nodeId.toString('hex')
+  self.nodeId = typeof opts.nodeId === 'string'
+    ? opts.nodeId
+    : (opts.nodeId && opts.nodeId.toString('hex')) || hat(160)
+  self.nodeIdBuffer = new Buffer(self.nodeId, 'hex')
 
   if (opts.dht !== false && typeof DHT === 'function' /* browser exclude */) {
     // use a single DHT instance for all torrents, so the routing table can be reused
@@ -71,7 +80,7 @@ function WebTorrent (opts) {
     self.dht.listen(opts.dhtPort)
   }
 
-  debug('new webtorrent (peerId %s, nodeId %s)', self.peerIdHex, self.nodeIdHex)
+  debug('new webtorrent (peerId %s, nodeId %s)', self.peerId, self.nodeId)
 
   if (typeof loadIPSet === 'function') {
     loadIPSet(opts.blocklist, {
