@@ -15,6 +15,8 @@
     "bittorrent-dht/client": false,
     "fs-chunk-store": "memory-chunk-store",
     "load-ip-set": false,
+    "os": false,
+    "path-exists": false,
     "ut_pex": false
   },
   "bugs": {
