@@ -118,33 +118,6 @@ Object.defineProperty(WebTorrent.prototype, 'ratio', {
 })
 
 /**
- * Searchs by query and downloads the first torrent that most closely matches with `query`.
- *
- * @param  {string} query
- * @return {Torrent|null}
- */
-WebTorrent.prototype.addBySearch = function (query) {
-  var self = this
-  if (!query || typeof query !== 'string') return self.emit('error', new Error('query is invalid'))
-  if (self.destroyed) return self.emit('error', new Error('client is destroyed'))
-
-  searchForTorrents(query).then(function (search_results) {
-    if (!search_results) return self.emit('error', new Error('could not find any matching torrents'))
-
-    var queryTorrent = search_results.filter(
-      function (r) {
-        if (r.torrent || r.magnet) return true
-        return false
-      }
-    )[0]
-    if (!queryTorrent || !queryTorrent.magnet) return self.emit('error', new Error('could not find any valid torrents'))
-
-    self.emit('search')
-    return self.download(queryTorrent.magnet)
-  })
-}
-
-/**
  * Returns the torrent with the given `torrentId`. Convenience method. Easier than
  * searching through the `client.torrents` array. Returns `null` if no matching torrent
  * found.
