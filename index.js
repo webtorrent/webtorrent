@@ -137,7 +137,7 @@ WebTorrent.prototype.addBySearch = function (query) {
         return false
       }
     )[0]
-    if (!queryTorrent) return self.emit('error', new Error('could not find any valid torrents'))
+    if (!queryTorrent || !queryTorrent.magnet) return self.emit('error', new Error('could not find any valid torrents'))
 
     self.emit('search')
     return self.download(queryTorrent.magnet)

@@ -20,17 +20,19 @@ function scenario2_1Test (t) {
   auto({
     remote_client: [ function (cb) {
       var remote_client = new WebTorrent({ dht: false })
-      remote_client.on('error', function (err) { t.fail(err) })
+      remote_client.on('error', function (err) { 
+      	t.fail(err)
+      	cb(err, null)
+      })
       remote_client.on('warning', function (err) { t.fail(err) })
-
-      remote_client.addBySearch('debian')
       remote_client.on('search', function () {
         t.pass('valid torrent search completed')
       })
-      remote_client.once('torrent', function (torrent) {
+      remote_client.on('torrent', function (torrent) {
         t.pass('torrent sucessfully initialized')
         cb(null, remote_client)
       })
+      remote_client.addBySearch('debian')
     }]
   }, function (err, r) {
     t.error(err)
