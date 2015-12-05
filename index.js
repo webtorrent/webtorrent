@@ -1,5 +1,6 @@
 module.exports = WebTorrent
 
+var searchForTorrents = require('search-kat.ph')
 var createTorrent = require('create-torrent')
 var debug = require('debug')('webtorrent')
 var DHT = require('bittorrent-dht/client') // browser exclude
@@ -117,6 +118,33 @@ Object.defineProperty(WebTorrent.prototype, 'ratio', {
 })
 
 /**
+ * Searchs by query and downloads the first torrent that most closely matches with `query`.
+ *
+ * @param  {string} query
+ * @return {Torrent|null}
+ */
+WebTorrent.prototype.addBySearch = function (query) {
+  var self = this
+  if (!query || typeof query !== 'string') return self.emit('error', new Error('query is invalid'))
+  if (self.destroyed) return self.emit('error', new Error('client is destroyed'))
+
+  searchForTorrents(query).then(function (search_results) {
+    if (!search_results) return self.emit('error', new Error('could not find any matching torrents'))
+
+    var queryTorrent = search_results.filter(
+      function (r) {
+        if (r.torrent || r.magnet) return true
+        return false
+      }
+    )[0]
+    if (!queryTorrent) return self.emit('error', new Error('could not find any valid torrents'))
+
+    self.emit('search')
+    return self.download(queryTorrent.magnet)
+  })
+}
+
+/**
  * Returns the torrent with the given `torrentId`. Convenience method. Easier than
  * searching through the `client.torrents` array. Returns `null` if no matching torrent
  * found.
@@ -132,7 +160,7 @@ WebTorrent.prototype.get = function (torrentId) {
   try { parsed = parseTorrent(torrentId) } catch (err) {}
 
   if (!parsed) return null
-  if (!parsed.infoHash) throw new Error('Invalid torrent identifier')
+  if (!parsed.infoHash) return self.emit('error', new Error('Invalid torrent identifier'))
 
   for (var i = 0, len = self.torrents.length; i < len; i++) {
     var torrent = self.torrents[i]
@@ -150,7 +178,7 @@ WebTorrent.prototype.get = function (torrentId) {
 WebTorrent.prototype.add =
 WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
   var self = this
-  if (self.destroyed) throw new Error('client is destroyed')
+  if (self.destroyed) return self.emit('error', new Error('download client is destroyed'))
   if (typeof opts === 'function') return self.add(torrentId, null, opts)
   debug('add')
   if (!opts) opts = {}
@@ -180,6 +208,18 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
       self.emit('listening', port, torrent)
     })
 
+    torrent.on('paused', function (port) {
+      self.emit('paused', port, torrent)
+    })
+
+    torrent.on('resume', function (port) {
+      self.emit('resume', torrent)
+    })
+
+    torrent.on('infoHash', function () {
+      self.emit('infoHash', torrent)
+    })
+
     torrent.on('ready', function () {
       _ontorrent()
       self.emit('torrent', torrent)
@@ -187,6 +227,27 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
   }
 
   return torrent
+}
+
+WebTorrent.prototype.pause = function (currentTorrent, cb) {
+  var self = this
+
+  if (!(currentTorrent instanceof Torrent)) return self.emit('error', new Error('input for pause() must be a valid torrent'))
+  if (self.destroyed) return self.emit('error', new Error('client is destroyed'))
+
+  if (currentTorrent === null) return self.emit('error', new Error('torrent does not exist'))
+
+  currentTorrent.pause(cb)
+}
+
+WebTorrent.prototype.resume = function (currentTorrent) {
+  var self = this
+
+  if (!(currentTorrent instanceof Torrent)) return self.emit('error', new Error('input for resume() must be a valid torrent'))
+  if (self.destroyed) return self.emit('error', new Error('client is destroyed'))
+  if (currentTorrent === null) return self.emit('error', new Error('torrent does not exist'))
+
+  currentTorrent.resume()
 }
 
 /**
@@ -197,7 +258,7 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
  */
 WebTorrent.prototype.seed = function (input, opts, onseed) {
   var self = this
-  if (self.destroyed) throw new Error('client is destroyed')
+  if (self.destroyed) return self.emit('error', new Error('seed client is destroyed'))
   if (typeof opts === 'function') return self.seed(input, null, opts)
   debug('seed')
   if (!opts) opts = {}
@@ -263,7 +324,7 @@ WebTorrent.prototype.remove = function (torrentId, cb) {
   debug('remove')
 
   var torrent = self.get(torrentId)
-  if (!torrent) throw new Error('No torrent with id ' + torrentId)
+  if (!torrent) return self.emit('error', new Error('No torrent with id ' + torrentId))
 
   self.torrents.splice(self.torrents.indexOf(torrent), 1)
   torrent.destroy(cb)
@@ -280,7 +341,7 @@ WebTorrent.prototype.address = function () {
  */
 WebTorrent.prototype.destroy = function (cb) {
   var self = this
-  if (self.destroyed) throw new Error('client already destroyed')
+  if (self.destroyed) return self.emit('error', new Error('client already destroyed'))
   self.destroyed = true
   debug('destroy')
 

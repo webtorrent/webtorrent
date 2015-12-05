@@ -267,25 +267,45 @@ If you want access to the torrent object immediately in order to listen to event
 metadata is fetched from the network, then use the return value of `client.add`. If you
 just want the file data, then use `ontorrent` or the 'torrent' event.
 
-#### `client.seed(input, [opts], [function onseed (torrent) {}])`
+#### `client.addBySearch(torrentId, [opts], [function ontorrent (torrent) {}])`
 
-Start seeding a new torrent.
+Get torrent from most relevant result from a http://kat.cr query. Then start downloading a new torrent.
 
-`input` can be any of the following:
+`query` must be a string
 
-- path to the file or folder on filesystem (string) (Node.js only)
-- W3C [File](https://developer.mozilla.org/en-US/docs/Web/API/File) object (from an `<input>` or drag and drop)
-- W3C [FileList](https://developer.mozilla.org/en-US/docs/Web/API/FileList) object (basically an array of `File` objects)
-- Node [Buffer](http://nodejs.org/api/buffer.html) object (works in [the browser](https://www.npmjs.org/package/buffer))
+If `opts` is specified, then the default options (shown below) will be overridden.
 
-Or, an **array of `string`, `File`, or `Buffer` objects**.
+```js
+{
+  announce: [],   // Torrent trackers to use (added to list in .torrent or magnet uri)
+  path: String,   // Folder to download files to (default=`/tmp/webtorrent/`)
+  store: Function // Custom chunk store (must follow [abstract-chunk-store](https://www.npmjs.com/package/abstract-chunk-store) API)
+}
+```
 
-If `opts` is specified, it should contain the following types of options:
+If `ontorrent` is specified, then it will be called when **this** torrent is ready to be
+used (i.e. metadata is available). Note: this is distinct from the 'torrent' event which
+will fire for **all** torrents.
 
-- options for [create-torrent](https://github.com/feross/create-torrent#createtorrentinput-opts-function-callback-err-torrent-) (to allow configuration of the .torrent file that is created)
-- options for `client.add` (see above)
+If you want access to the torrent object immediately in order to listen to events as the
+metadata is fetched from the network, then use the return value of `client.addBySearch`. If you
+just want the file data, then use `ontorrent` or the 'torrent' event.
 
-If `onseed` is specified, it will be called when the client has begun seeding the file.
+#### `client.pause(input, [function onpause (torrent) {}])`
+
+Pause a torrent's current uploading and downloading
+
+`input` must be a:
+- Torrent object (from /lib/torrent.js) that is part of the client
+
+If `onpause` is specified, it will be called after the client is paused
+
+#### `client.resume(input)`
+
+Resume a torrent's uploading and downloading
+
+`input` must be a:
+- Torrent object (from /lib/torrent.js) that is part of the client
 
 #### `client.on('torrent', function (torrent) {})`
 
@@ -316,6 +336,24 @@ Seed ratio for all torrents in the client.
 
 
 ### torrent api
+
+#### `torrent.disableSeeding(input)`
+
+Disable seeding and disconnect all current leeching peers
+
+#### `torrent.disableSeeding(input)`
+
+Enable seeding and start broadcasting seed status to leeching peers
+
+#### `torrent.pause([function onpause (torrent) {}])`
+
+Pause a torrent's current uploading and downloading
+
+If `onpause` is specified, it will be called after the client is paused
+
+#### `torrent.resume()`
+
+Resume a torrent's uploading and downloading
 
 #### `torrent.infoHash`
 

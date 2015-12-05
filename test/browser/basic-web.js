@@ -2,11 +2,10 @@ var fs = require('fs')
 var extend = require('xtend')
 var parseTorrent = require('parse-torrent')
 var test = require('tape')
-var WebTorrent = require('../')
-
-var leaves = fs.readFileSync(__dirname + '/torrents/leaves.torrent')
+var WebTorrent = require('../../')
+var leaves = fs.readFileSync(__dirname.split('browser')[0] + 'torrents/leaves.torrent')
 var leavesTorrent = parseTorrent(leaves)
-var leavesBook = fs.readFileSync(__dirname + '/content/Leaves of Grass by Walt Whitman.epub')
+var leavesBook = fs.readFileSync(__dirname.split('browser')[0] + 'content/Leaves of Grass by Walt Whitman.epub')
 
 var leavesMagnetURI = 'magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36&dn=Leaves+of+Grass+by+Walt+Whitman.epub&tr=http%3A%2F%2Ftracker.bittorrent.am%2Fannounce&tr=http%3A%2F%2Ftracker.thepiratebay.org%2Fannounce&tr=udp%3A%2F%2Ffr33domtracker.h33t.com%3A3310%2Fannounce&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80'
 
@@ -82,7 +81,7 @@ test('client.add/remove: info hash, buffer', function (t) {
   })
 })
 
-test('client.add/remove: parsed torrent, from `parse-torrent`', function (t) {
+test('client.add/remove: parsed torrent, from \'parse-torrent\'', function (t) {
   var client = new WebTorrent({ dht: false, tracker: false })
 
   client.on('error', function (err) { t.fail(err) })
@@ -213,7 +212,7 @@ test('client.seed: torrent file (Blob)', function (t) {
       client.destroy()
     })
   } else {
-    t.pass('Skipping Blob test because missing `Blob` constructor')
+    t.pass('Skipping Blob test because missing \'Blob\' constructor')
     t.end()
   }
 })
