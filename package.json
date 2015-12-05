@@ -121,6 +121,6 @@
     "test-browser": "tape test/*.js && zuul -- test/browser/*.js",
     "test-browser-local": "tape test/*.js && zuul --local 4000 -- test/browser/*.js",
     "test-node": "tape test/*.js",
-    "test": "bin/test.js coverage --standard"
+    "test": "node bin/test.js coverage --standard"
   }
 }
