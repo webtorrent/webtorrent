@@ -114,7 +114,7 @@
   },
   "scripts": {
     "build": "browserify -s WebTorrent -e ./ | uglifyjs -m > webtorrent.min.js",
-    "build-debug": "browserify -s WebTorrent -e ./ > webtorrent.debug.js",
+    "build-local": "browserify -s WebTorrent -e ./ > webtorrent.debug.js",
     "size": "npm run build && cat webtorrent.min.js | gzip | wc -c",
     "coverage-node": "istanbul cover -- tape test/*.js && istanbul-coveralls",
     "coverage-local": "istanbul cover -- tape test/*.js && http-server coverage/client/report-html/ -p 3000 -q && echo 'Istanbul coverage report served at 127.0.0.1:3000'",
