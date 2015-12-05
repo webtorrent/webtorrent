@@ -1,12 +1,13 @@
 var auto = require('run-auto')
 var DHT = require('bittorrent-dht/server')
+var path = require('path')
 var fs = require('fs')
 var networkAddress = require('network-address')
 var parseTorrent = require('parse-torrent')
 var test = require('tape')
 var WebTorrent = require('../')
 
-var leavesTorrent = fs.readFileSync(__dirname + '/torrents/leaves.torrent')
+var leavesTorrent = fs.readFileSync(path.resolve(__dirname, 'torrents', 'leaves.torrent'))
 var leavesParsed = parseTorrent(leavesTorrent)
 
 // remove trackers from .torrent file

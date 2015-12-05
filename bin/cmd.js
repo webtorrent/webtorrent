@@ -19,17 +19,18 @@ process.title = 'WebTorrent'
 
 var expectedError = false
 process.on('exit', function (code) {
-  if (code !== 0 && !expectedError) {
-    clivas.line('\n{red:UNEXPECTED ERROR:} If this is a bug in WebTorrent, report it!')
-    clivas.line('{green:OPEN AN ISSUE:} https://github.com/feross/webtorrent/issues\n')
-    clivas.line(
-      'DEBUG INFO: ' +
-      'webtorrent ' + require('../package.json').version + ', ' +
-      'node ' + process.version + ', ' +
-      process.platform + ' ' + process.arch + ', ' +
-      'exit ' + code
-    )
-  }
+  if (code === 0 || expectedError) return // normal exit
+  if (code === 130) return // intentional exit with Control-C
+
+  clivas.line('\n{red:UNEXPECTED ERROR:} If this is a bug in WebTorrent, report it!')
+  clivas.line('{green:OPEN AN ISSUE:} https://github.com/feross/webtorrent/issues\n')
+  clivas.line(
+    'DEBUG INFO: ' +
+    'webtorrent ' + require('../package.json').version + ', ' +
+    'node ' + process.version + ', ' +
+    process.platform + ' ' + process.arch + ', ' +
+    'exit ' + code
+  )
 })
 
 process.on('SIGINT', gracefulExit)
@@ -310,10 +311,23 @@ function runDownload (torrentId) {
 
   // Start http server
   server = torrent.createServer()
-  server.listen(argv.port, function () {
+
+  function initServer () {
     if (torrent.ready) onReady()
     else torrent.once('ready', onReady)
-  })
+  }
+
+  server.listen(argv.port, initServer)
+
+    .on('error', function (err) {
+      // In case the port is unusable
+      if (err.code === 'EADDRINUSE' || err.code === 'EACCES') {
+        // Let the OS choose one for us
+        server.listen(0, initServer)
+      }
+      else throw err
+    })
+
   server.once('connection', function () {
     serving = true
   })
@@ -366,8 +380,8 @@ function runDownload (torrentId) {
 
   function onSelection (index) {
     href = (argv.airplay || argv.chromecast || argv.xbmc)
-      ? 'http://' + networkAddress() + ':' + argv.port + '/' + index
-      : 'http://localhost:' + argv.port + '/' + index
+      ? 'http://' + networkAddress() + ':' + server.address().port + '/' + index
+      : 'http://localhost:' + server.address().port + '/' + index
 
     if (playerName) torrent.files[index].select()
     if (argv.stdout) torrent.files[index].createReadStream().pipe(process.stdout)

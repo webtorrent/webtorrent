@@ -1,11 +1,12 @@
 var auto = require('run-auto')
+var path = require('path')
 var fs = require('fs')
 var parseTorrent = require('parse-torrent')
 var test = require('tape')
 var TrackerServer = require('bittorrent-tracker/server')
 var WebTorrent = require('../')
 
-var leavesTorrent = fs.readFileSync(__dirname + '/torrents/leaves.torrent')
+var leavesTorrent = fs.readFileSync(path.resolve(__dirname, 'torrents', 'leaves.torrent'))
 var leavesParsed = parseTorrent(leavesTorrent)
 
 test('blocklist blocks peers discovered via tracker', function (t) {

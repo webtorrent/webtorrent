@@ -1,13 +1,14 @@
 var auto = require('run-auto')
 var DHT = require('bittorrent-dht/server')
+var path = require('path')
 var fs = require('fs')
 var parseTorrent = require('parse-torrent')
 var test = require('tape')
 var WebTorrent = require('../')
 
-var leavesPath = __dirname + '/content/Leaves of Grass by Walt Whitman.epub'
+var leavesPath = path.resolve(__dirname, 'content', 'Leaves of Grass by Walt Whitman.epub')
 var leavesFile = fs.readFileSync(leavesPath)
-var leavesTorrent = fs.readFileSync(__dirname + '/torrents/leaves.torrent')
+var leavesTorrent = fs.readFileSync(path.resolve(__dirname, 'torrents', 'leaves.torrent'))
 var leavesParsed = parseTorrent(leavesTorrent)
 
 // remove trackers from .torrent file
