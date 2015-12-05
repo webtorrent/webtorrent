@@ -12,6 +12,7 @@
     "type": "git",
     "url": "https://github.com/feross/webtorrent"
   },
+  "main": "webtorrent.min.js",
   "license": "MIT",
   "_release": "0.62.3",
   "_resolution": {
