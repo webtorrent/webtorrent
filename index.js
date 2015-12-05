@@ -232,7 +232,7 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
 WebTorrent.prototype.pause = function (currentTorrent, cb) {
   var self = this
 
-  if (currentTorrent instanceof Torrent) self.emit('error', new Error('input must be a valid torrent')
+  if (!(currentTorrent instanceof Torrent)) return self.emit('error', new Error('input for pause() must be a valid torrent'))
   if (self.destroyed) return self.emit('error', new Error('client is destroyed'))
 
   if (currentTorrent === null) return self.emit('error', new Error('torrent does not exist'))
@@ -240,12 +240,14 @@ WebTorrent.prototype.pause = function (currentTorrent, cb) {
   currentTorrent.pause(cb)
 }
 
-WebTorrent.prototype.resume = function (currentTorrent, cb) {
+WebTorrent.prototype.resume = function (currentTorrent) {
   var self = this
+
+  if (!(currentTorrent instanceof Torrent)) return self.emit('error', new Error('input for resume() must be a valid torrent'))
   if (self.destroyed) return self.emit('error', new Error('client is destroyed'))
   if (currentTorrent === null) return self.emit('error', new Error('torrent does not exist'))
 
-  currentTorrent.resume(cb)
+  currentTorrent.resume()
 }
 
 /**
