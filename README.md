@@ -703,15 +703,6 @@ WebTorrent is only possible due to the excellent work of the following contribut
 <tr><th align="left">Diego Rodríguez B.</th><td><a href="https://github.com/DiegoRBaquero">GitHub/DiegoRBaquero</a></td><td><a href="http://twitter.com/DiegoRBaquero">Twitter/@DiegoRBaquero</a></td></tr>
 </tbody></table>
 
-#### Clone the code
-
-```bash
-git clone https://github.com/feross/webtorrent.git
-cd webtorrent
-npm install
-./bin/cmd.js --help
-```
-
 #### JavaScript Standard Style
 
 WebTorrent uses [JavaScript Standard Style](https://github.com/feross/standard).
@@ -743,16 +734,6 @@ Disable by running this:
 
 ```js
 localStorage.removeItem('debug')
-```
-
-#### Clone all dependencies
-
-WebTorrent is a modular BitTorrent client, so functionality is split up into many
-npm modules. You can `git clone` all the relevant dependencies with one command. This
-makes it easier to send PRs:
-
-```bash
-./bin/clone.sh
 ```
 
 ### Talks about WebTorrent
