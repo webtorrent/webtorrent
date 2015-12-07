@@ -8,7 +8,8 @@
     "url": "http://feross.org/"
   },
   "bin": {
-    "webtorrent": "./bin/cmd.js"
+    "webtorrent": "./bin/cmd.js",
+    "webtorrent-test": "./bin/test.js"
   },
   "browser": {
     "./lib/server.js": false,
@@ -73,9 +74,14 @@
     "brfs": "^1.2.0",
     "browserify": "^12.0.1",
     "finalhandler": "^0.4.0",
+    "http-server": "^0.8.5",
+    "istanbul-coveralls": "^1.0.3",
+    "istanbul": "^0.4.1",
+    "jsdom": "^7.1.1",
     "run-auto": "^1.0.0",
     "serve-static": "^1.9.3",
     "simple-get": "^1.0.0",
+    "sinon": "^1.17.2",
     "standard": "^5.1.0",
     "tape": "^4.0.0",
     "uglify-js": "^2.4.15",
@@ -107,11 +113,13 @@
   },
   "scripts": {
     "build": "browserify -s WebTorrent -e ./ | uglifyjs -m > webtorrent.min.js",
-    "build-debug": "browserify -s WebTorrent -e ./ > webtorrent.debug.js",
+    "build-localf": "browserify -s WebTorrent -e ./ > webtorrent.debug.js",
     "size": "npm run build && cat webtorrent.min.js | gzip | wc -c",
-    "test": "standard && node ./bin/test.js",
-    "test-browser": "zuul -- test/basic.js",
-    "test-browser-local": "zuul --local -- test/basic.js",
-    "test-node": "tape test/*.js"
+    "coverage-node": "istanbul cover -- tape test/*.js && istanbul-coveralls",
+    "coverage-local": "istanbul cover -- tape test/*.js && http-server coverage/client/report-html/ -p 3000 -q && echo 'Istanbul coverage report served at 127.0.0.1:3000'",
+    "test-browser": "tape test/*.js && zuul -- test/browser/*.js",
+    "test-browser-local": "tape test/*.js && zuul --local 4000 -- test/browser/*.js",
+    "test-node": "tape test/*.js",
+    "test": "node bin/test.js coverage --standard"
   }
 }

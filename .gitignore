@@ -1,2 +1,6 @@
 node_modules
+coverage
+content
+examples/npm-debug.log
+npm-debug.log
 webtorrent.debug.js
