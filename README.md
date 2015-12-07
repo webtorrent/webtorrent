@@ -757,10 +757,11 @@ makes it easier to send PRs:
 
 ### Talks about WebTorrent
 
-- Nov 2014 (NodeConf Asia) - [WebTorrent](https://www.youtube.com/watch?v=kxHRATfvnlw)
-- Sep 2014 (NodeConf EU) – WebTorrent &amp; WebRTC: Mad Science (first working demo of WebTorrent)
+- May 2015 (Data Terra Nemo) - [WebTorrent: Mother of all demos](https://www.youtube.com/watch?v=RRtNEcAaUO8)
+- Nov 2014 (JSConf Asia) - [How WebTorrent Works](https://www.youtube.com/watch?v=kxHRATfvnlw)
+- Sep 2014 (NodeConf EU) – [WebTorrent Mad Science](https://www.youtube.com/watch?v=BVBXkzVjvPc) (first working WebTorrent demo)
 - May 2014 (JS.LA) – [How I Built a BitTorrent Client in the Browser](https://vimeo.com/97324247) (progress update; node client working)
-- Oct 2013 (RealtimeConf) – [WebRTC Black Magic (RealtimeConf)](https://vimeo.com/77265280) (where I first shared the idea of WebTorrent)
+- Oct 2013 (RealtimeConf) – [WebRTC Black Magic](https://vimeo.com/77265280) (first mention of idea for WebTorrent)
 
 ### Known issues
 
