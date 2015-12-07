@@ -726,16 +726,6 @@ localStorage.removeItem('debug')
 - May 2014 (JS.LA) – [How I Built a BitTorrent Client in the Browser](https://vimeo.com/97324247) (progress update; node client working)
 - Oct 2013 (RealtimeConf) – [WebRTC Black Magic](https://vimeo.com/77265280) (first mention of idea for WebTorrent)
 
-### Known issues
-
-#### Downloads don't start on Chromebook
-
-Chromebooks are set to refuse all incoming connections by default. To change this, run:
-
-```bash
-sudo iptables -P INPUT ACCEPT
-```
-
 ### License
 
 MIT. Copyright (c) [Feross Aboukhadijeh](http://feross.org).
