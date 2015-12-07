@@ -7,6 +7,8 @@
 
 ### Streaming torrent client for node & the browser
 
+[![Sauce Test Status][webtorrent-sauce-image]][webtorrent-sauce-url]
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](http://standardjs.com)
 
 **WebTorrent** is a streaming torrent client for **node.js** and the **browser**. YEP,
@@ -67,8 +69,6 @@ connect to both normal *and* web peers.
   running on one domain can connect to clients on any other domain.
 - Stream video torrents into a `<video>` tag (`webm (vp8, vp9)` or `mp4 (h.264)`)
 - Supports Chrome, Firefox, and Opera.
-
-[![Sauce Test Status][webtorrent-sauce-image]][webtorrent-sauce-url]
 
 #### Node-only features
 
