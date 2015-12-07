@@ -582,8 +582,6 @@ These are the main modules that make up WebTorrent:
 | [bittorrent-swarm][bittorrent-swarm] | [![][bittorrent-swarm-ti]][bittorrent-swarm-tu] | [![][bittorrent-swarm-ni]][bittorrent-swarm-nu] | bittorrent connection manager
 | [bittorrent-tracker][bittorrent-tracker] | [![][bittorrent-tracker-ti]][bittorrent-tracker-tu] | [![][bittorrent-tracker-ni]][bittorrent-tracker-nu] | bittorrent tracker server/client
 | [create-torrent][create-torrent] | [![][create-torrent-ti]][create-torrent-tu] | [![][create-torrent-ni]][create-torrent-nu] | create .torrent files
-| [ip-set][ip-set] | [![][ip-set-ti]][ip-set-tu] | [![][ip-set-ni]][ip-set-nu] | efficient mutable ip set
-| [load-ip-set][load-ip-set] | [![][load-ip-set-ti]][load-ip-set-tu] | [![][load-ip-set-ni]][load-ip-set-nu] | load ip sets from local/network
 | [magnet-uri][magnet-uri] | [![][magnet-uri-ti]][magnet-uri-tu] | [![][magnet-uri-ni]][magnet-uri-nu] | parse magnet uris
 | [parse-torrent][parse-torrent] | [![][parse-torrent-ti]][parse-torrent-tu] | [![][parse-torrent-ni]][parse-torrent-nu] | parse torrent identifiers
 | [torrent-discovery][torrent-discovery] | [![][torrent-discovery-ti]][torrent-discovery-tu] | [![][torrent-discovery-ni]][torrent-discovery-nu] | find peers via dht and tracker
@@ -639,18 +637,6 @@ These are the main modules that make up WebTorrent:
 [create-torrent-tu]: https://travis-ci.org/feross/create-torrent
 [create-torrent-ni]: https://img.shields.io/npm/v/create-torrent.svg?style=flat
 [create-torrent-nu]: https://npmjs.org/package/create-torrent
-
-[ip-set]: https://github.com/fisch0920/ip-set
-[ip-set-ti]: https://img.shields.io/travis/fisch0920/ip-set.svg?style=flat
-[ip-set-tu]: https://travis-ci.org/fisch0920/ip-set
-[ip-set-ni]: https://img.shields.io/npm/v/ip-set.svg?style=flat
-[ip-set-nu]: https://npmjs.org/package/ip-set
-
-[load-ip-set]: https://github.com/feross/load-ip-set
-[load-ip-set-ti]: https://img.shields.io/travis/feross/load-ip-set.svg?style=flat
-[load-ip-set-tu]: https://travis-ci.org/feross/load-ip-set
-[load-ip-set-ni]: https://img.shields.io/npm/v/load-ip-set.svg?style=flat
-[load-ip-set-nu]: https://npmjs.org/package/load-ip-set
 
 [magnet-uri]: https://github.com/feross/magnet-uri
 [magnet-uri-ti]: https://img.shields.io/travis/feross/magnet-uri.svg?style=flat
