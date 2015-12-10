@@ -1,11 +1,8 @@
+var common = require('./common')
 var fs = require('fs')
 var get = require('simple-get')
-var path = require('path')
 var test = require('tape')
 var WebTorrent = require('../')
-
-var leavesPath = path.resolve(__dirname, 'content', 'Leaves of Grass by Walt Whitman.epub')
-var leavesTorrent = fs.readFileSync(path.resolve(__dirname, 'torrents', 'leaves.torrent'))
 
 test('torrent.createServer(): programmatic http server', function (t) {
   t.plan(9)
@@ -14,7 +11,7 @@ test('torrent.createServer(): programmatic http server', function (t) {
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  client.add(leavesTorrent, function (torrent) {
+  client.add(common.leaves.torrent, function (torrent) {
     t.pass('got "torrent" event')
     var server = torrent.createServer()
 
@@ -23,7 +20,7 @@ test('torrent.createServer(): programmatic http server', function (t) {
       t.pass('server is listening on ' + port)
 
       // Seeding after server is created should work
-      torrent.load(fs.createReadStream(leavesPath), function (err) {
+      torrent.load(fs.createReadStream(common.leaves.contentPath), function (err) {
         t.error(err, 'loaded seed content into torrent')
       })
 
@@ -38,7 +35,7 @@ test('torrent.createServer(): programmatic http server', function (t) {
         // Verify file content for first (and only) file
         get.concat(host + '/0', function (err, data) {
           t.error(err)
-          t.deepEqual(data, fs.readFileSync(leavesPath))
+          t.deepEqual(data, common.leaves.content)
 
           server.close(function () { t.pass('server closed') })
           client.destroy(function () { t.pass('client destroyed') })
