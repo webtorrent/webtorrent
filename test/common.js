@@ -17,18 +17,34 @@ module.exports = {
     parsedTorrent: parseTorrent(
       fs.readFileSync(path.join(torrents, 'leaves.torrent'))
     ),
-    magnetURI: parseTorrent.toMagnetURI(
-      parseTorrent(fs.readFileSync(path.join(torrents, 'leaves.torrent')))
-    )
+    magnetURI: parseTorrent.toMagnetURI(parseTorrent(
+      fs.readFileSync(path.join(torrents, 'leaves.torrent'))
+    ))
   },
 
   // Folder which contains single file
   folder: {
-    contentPath: path.join(content, 'folder')
+    contentPath: path.join(content, 'folder'),
+    torrentPath: path.join(torrents, 'folder.torrent'),
+    torrent: fs.readFileSync(path.join(torrents, 'folder.torrent')),
+    parsedTorrent: parseTorrent(
+      fs.readFileSync(path.join(torrents, 'folder.torrent'))
+    ),
+    magnetURI: parseTorrent.toMagnetURI(parseTorrent(
+      fs.readFileSync(path.join(torrents, 'folder.torrent'))
+    ))
   },
 
   // Folder which contains multiple files
   numbers: {
-    contentPath: path.join(content, 'numbers')
+    contentPath: path.join(content, 'numbers'),
+    torrentPath: path.join(torrents, 'numbers.torrent'),
+    torrent: fs.readFileSync(path.join(torrents, 'numbers.torrent')),
+    parsedTorrent: parseTorrent(
+      fs.readFileSync(path.join(torrents, 'numbers.torrent'))
+    ),
+    magnetURI: parseTorrent.toMagnetURI(parseTorrent(
+      fs.readFileSync(path.join(torrents, 'numbers.torrent'))
+    ))
   }
 }

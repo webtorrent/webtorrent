@@ -10,9 +10,9 @@ var inherits = require('inherits')
 var loadIPSet = require('load-ip-set') // browser exclude
 var parallel = require('run-parallel')
 var parseTorrent = require('parse-torrent')
+var path = require('path')
 var speedometer = require('speedometer')
 var zeroFill = require('zero-fill')
-var path = require('path')
 
 var Torrent = require('./lib/torrent')
 

@@ -1,5 +1,5 @@
-var path = require('path')
 var fs = require('fs')
+var path = require('path')
 var test = require('tape')
 var WebTorrent = require('../')
 

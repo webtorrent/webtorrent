@@ -1,8 +1,8 @@
 var auto = require('run-auto')
 var DHT = require('bittorrent-dht/server')
-var path = require('path')
 var fs = require('fs')
 var parseTorrent = require('parse-torrent')
+var path = require('path')
 var test = require('tape')
 var WebTorrent = require('../')
 
