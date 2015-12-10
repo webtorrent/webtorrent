@@ -205,7 +205,7 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
 
   // When seeding from filesystem, initialize store from that path (avoids a copy)
   if (typeof input === 'string') opts.path = path.dirname(input)
-  if (!opts.createdBy) opts.createdBy = 'WebTorrent/' + VERSION
+  if (!opts.createdBy) opts.createdBy = 'WebTorrent/' + VERSION_STR
 
   var streams
   var torrent = self.add(undefined, opts, function (torrent) {
