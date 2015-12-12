@@ -13,6 +13,7 @@ var parseTorrent = require('parse-torrent')
 var speedometer = require('speedometer')
 var zeroFill = require('zero-fill')
 var path = require('path')
+var ThrottleGroup = require('stream-throttle').ThrottleGroup
 
 var Torrent = require('./lib/torrent')
 
@@ -63,6 +64,11 @@ function WebTorrent (opts) {
 
   self.downloadSpeed = speedometer()
   self.uploadSpeed = speedometer()
+
+  self.throttleGroups = {
+    down: new ThrottleGroup({rate: Number.MAX_VALUE, chunksize: 512}),
+    up: new ThrottleGroup({rate: Number.MAX_VALUE, chunksize: 512})
+  }
 
   self.peerId = typeof opts.peerId === 'string'
     ? opts.peerId
@@ -292,3 +298,36 @@ WebTorrent.prototype.destroy = function (cb) {
 
   parallel(tasks, cb)
 }
+
+/**
+ * Set global download throttle in Bps
+ * @param  {Number} rate
+ */
+WebTorrent.prototype.throttleDownload = function (rate) {
+  var self = this
+  if (!Number(rate)) return
+  self.downloadThrottleRate = rate
+  self.throttleGroups.down = new ThrottleGroup({rate: rate})
+  self.torrents.forEach(function (torrent) {
+    if (torrent.swarm && torrent.swarm.updateDownloadThrottle) {
+      torrent.swarm.updateDownloadThrottle()
+    }
+  })
+}
+
+ /**
+  * Set global upload throttle in Bps
+  * @param  {Number} rate
+  */
+WebTorrent.prototype.throttleUpload = function (rate) {
+  var self = this
+  if (!Number(rate)) return
+  self.uploadThrottleRate = rate
+  self.throttleGroups.up = new ThrottleGroup({rate: rate})
+  self.torrents.forEach(function (torrent) {
+    if (torrent.swarm && torrent.swarm.updateUploadThrottle) {
+      torrent.swarm.updateUploadThrottle()
+    }
+  })
+}
+
