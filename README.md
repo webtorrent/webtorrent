@@ -316,6 +316,14 @@ through the `client.torrents` array. Returns `null` if no matching torrent found
 
 Seed ratio for all torrents in the client.
 
+#### `client.throttleDownload(Bps)`
+
+Throttle global download limit for all torrents in bytes per second.
+
+#### `client.throttleUpload(Bps)`
+
+Throttle global upload limit for all torrents in bytes per second.
+
 
 ### torrent api
 
