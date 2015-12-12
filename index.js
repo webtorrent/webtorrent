@@ -304,8 +304,8 @@ WebTorrent.prototype.destroy = function (cb) {
  * @param  {Number} rate
  */
 WebTorrent.prototype.throttleDownload = function (rate) {
-  if (!Number(rate)) return
   var self = this
+  if (!Number(rate)) return
   self.downloadThrottleRate = rate
   self.throttleGroups.down = new ThrottleGroup({rate: rate})
   self.torrents.forEach(function (torrent) {
