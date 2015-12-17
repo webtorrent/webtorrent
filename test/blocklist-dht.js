@@ -1,17 +1,9 @@
 var auto = require('run-auto')
+var common = require('./common')
 var DHT = require('bittorrent-dht/server')
-var fs = require('fs')
 var networkAddress = require('network-address')
-var parseTorrent = require('parse-torrent')
-var path = require('path')
 var test = require('tape')
 var WebTorrent = require('../')
-
-var leavesTorrent = fs.readFileSync(path.resolve(__dirname, 'torrents', 'leaves.torrent'))
-var leavesParsed = parseTorrent(leavesTorrent)
-
-// remove trackers from .torrent file
-leavesParsed.announce = []
 
 test('blocklist blocks peers discovered via DHT', function (t) {
   t.plan(8)
@@ -37,7 +29,7 @@ test('blocklist blocks peers discovered via DHT', function (t) {
       client1.on('error', function (err) { t.fail(err) })
       client1.on('warning', function (err) { t.fail(err) })
 
-      var torrent1 = client1.add(leavesParsed)
+      var torrent1 = client1.add(common.leaves.parsedTorrent)
 
       torrent1.on('peer', function () {
         t.fail('client1 should not find any peers')
@@ -75,7 +67,7 @@ test('blocklist blocks peers discovered via DHT', function (t) {
       client2.on('error', function (err) { t.fail(err) })
       client2.on('warning', function (err) { t.fail(err) })
 
-      var torrent2 = client2.add(leavesParsed)
+      var torrent2 = client2.add(common.leaves.parsedTorrent)
 
       torrent2.on('blockedPeer', function () {
         t.pass('client2 blocked connection to client1')
@@ -94,14 +86,14 @@ test('blocklist blocks peers discovered via DHT', function (t) {
   }, function (err, r) {
     if (err) throw err
 
-    dhtServer.destroy(function () {
-      t.pass('dht server destroyed')
+    dhtServer.destroy(function (err) {
+      t.error(err, 'dht server destroyed')
     })
-    r.client1.destroy(function () {
-      t.pass('client1 destroyed')
+    r.client1.destroy(function (err) {
+      t.error(err, 'client1 destroyed')
     })
-    r.client2.destroy(function () {
-      t.pass('client2 destroyed')
+    r.client2.destroy(function (err) {
+      t.error(err, 'client2 destroyed')
     })
   })
 })
