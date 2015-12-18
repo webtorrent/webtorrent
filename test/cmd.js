@@ -1,8 +1,8 @@
 var cp = require('child_process')
-var spawn = require('cross-spawn-async')
-var path = require('path')
 var fs = require('fs')
 var parseTorrent = require('parse-torrent')
+var path = require('path')
+var spawn = require('cross-spawn-async')
 var test = require('tape')
 
 var CMD_PATH = path.resolve(__dirname, '..', 'bin', 'cmd.js')

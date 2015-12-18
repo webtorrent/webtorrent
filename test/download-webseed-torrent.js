@@ -1,13 +1,12 @@
 var auto = require('run-auto')
+var finalhandler = require('finalhandler')
 var fs = require('fs')
+var http = require('http')
 var parseTorrent = require('parse-torrent')
+var path = require('path')
+var serveStatic = require('serve-static')
 var test = require('tape')
 var WebTorrent = require('../')
-
-var http = require('http')
-var serveStatic = require('serve-static')
-var finalhandler = require('finalhandler')
-var path = require('path')
 
 var leavesPath = path.resolve(__dirname, 'content', 'Leaves of Grass by Walt Whitman.epub')
 var leavesFilename = 'Leaves of Grass by Walt Whitman.epub'
