@@ -1,84 +1,91 @@
-var auto = require('run-auto')
-var fs = require('fs')
-var parseTorrent = require('parse-torrent')
-var path = require('path')
+var common = require('./common')
+var extend = require('xtend')
+var series = require('run-series')
 var test = require('tape')
 var TrackerServer = require('bittorrent-tracker/server')
 var WebTorrent = require('../')
 
-var leavesTorrent = fs.readFileSync(path.resolve(__dirname, 'torrents', 'leaves.torrent'))
-var leavesParsed = parseTorrent(leavesTorrent)
-
 test('blocklist blocks peers discovered via tracker', function (t) {
   t.plan(8)
 
-  auto({
-    tracker: function (cb) {
-      var tracker = new TrackerServer({ udp: false, ws: false })
+  var parsedTorrent = extend(common.leaves.parsedTorrent)
+  var tracker, client1, client2
+
+  series([
+    function (cb) {
+      tracker = new TrackerServer({ udp: false, ws: false })
 
       tracker.listen(function () {
         var port = tracker.http.address().port
         var announceUrl = 'http://127.0.0.1:' + port + '/announce'
 
         // Overwrite announce with our local tracker
-        leavesParsed.announce = [ announceUrl ]
+        parsedTorrent.announce = announceUrl
 
-        cb(null, tracker)
+        cb(null)
       })
 
-      tracker.on('start', function () {
-        t.pass('client connected to tracker') // 2x, once for each client
+      tracker.once('start', function () {
+        t.pass('client1 connected to tracker')
+
+        tracker.once('start', function () {
+          t.pass('client2 connected to tracker')
+        })
       })
     },
 
-    client1: ['tracker', function (cb) {
-      var client1 = new WebTorrent({ dht: false })
+    function (cb) {
+      client1 = new WebTorrent({ dht: false })
       client1.on('error', function (err) { t.fail(err) })
       client1.on('warning', function (err) { t.fail(err) })
 
-      var torrent1 = client1.add(leavesParsed)
+      var torrent1 = client1.add(parsedTorrent)
 
       torrent1.on('peer', function () {
         t.pass('client1 found itself')
-        cb(null, client1)
+        cb(null)
       })
 
       torrent1.on('blockedPeer', function () {
         t.fail('client1 should not block any peers')
       })
-    }],
+    },
 
-    client2: ['client1', function (cb) {
-      var client2 = new WebTorrent({
+    function (cb) {
+      client2 = new WebTorrent({
         dht: false,
         blocklist: [ '127.0.0.1' ]
       })
       client2.on('error', function (err) { t.fail(err) })
       client2.on('warning', function (err) { t.fail(err) })
 
-      var torrent2 = client2.add(leavesParsed)
+      var torrent2 = client2.add(parsedTorrent)
 
-      torrent2.on('blockedPeer', function () {
-        t.pass('client2 blocked connection') // 2x, once for each client
-        cb(null, client2)
+      torrent2.once('blockedPeer', function () {
+        t.pass('client2 blocked first peer')
+
+        torrent2.once('blockedPeer', function () {
+          t.pass('client2 blocked second peer')
+          cb(null)
+        })
       })
 
       torrent2.on('peer', function () {
         t.fail('client2 should not find any peers')
       })
-    }]
+    }
 
-  }, function (err, r) {
+  ], function (err, r) {
     if (err) throw err
 
-    r.tracker.close(function () {
-      t.pass('tracker closed')
+    tracker.close(function (err) {
+      t.error(err, 'tracker closed')
     })
-    r.client1.destroy(function () {
-      t.pass('client1 destroyed')
+    client1.destroy(function (err) {
+      t.error(err, 'client1 destroyed')
     })
-    r.client2.destroy(function () {
-      t.pass('client2 destroyed')
+    client2.destroy(function (err) {
+      t.error(err, 'client2 destroyed')
     })
   })
 })
