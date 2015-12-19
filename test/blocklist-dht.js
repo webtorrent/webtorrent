@@ -1,30 +1,27 @@
-var auto = require('run-auto')
 var common = require('./common')
 var DHT = require('bittorrent-dht/server')
 var networkAddress = require('network-address')
+var series = require('run-series')
 var test = require('tape')
 var WebTorrent = require('../')
 
 test('blocklist blocks peers discovered via DHT', function (t) {
   t.plan(8)
 
-  var dhtServer = new DHT({ bootstrap: false })
+  var dhtServer, client1, client2
 
-  dhtServer.on('error', function (err) { t.fail(err) })
-  dhtServer.on('warning', function (err) { t.fail(err) })
-
-  auto({
-    dhtPort: function (cb) {
-      dhtServer.listen(function () {
-        var port = dhtServer.address().port
-        cb(null, port)
-      })
+  series([
+    function (cb) {
+      dhtServer = new DHT({ bootstrap: false })
+      dhtServer.on('error', function (err) { t.fail(err) })
+      dhtServer.on('warning', function (err) { t.fail(err) })
+      dhtServer.listen(cb)
     },
 
-    client1: ['dhtPort', function (cb, r) {
-      var client1 = new WebTorrent({
+    function (cb) {
+      client1 = new WebTorrent({
         tracker: false,
-        dht: { bootstrap: '127.0.0.1:' + r.dhtPort }
+        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
       })
       client1.on('error', function (err) { t.fail(err) })
       client1.on('warning', function (err) { t.fail(err) })
@@ -54,14 +51,14 @@ test('blocklist blocks peers discovered via DHT', function (t) {
       var torrentReady = false
       var announced = false
       function maybeDone () {
-        if (torrentReady && announced) cb(null, client1)
+        if (torrentReady && announced) cb(null)
       }
-    }],
+    },
 
-    client2: ['client1', function (cb, r) {
-      var client2 = new WebTorrent({
+    function (cb) {
+      client2 = new WebTorrent({
         tracker: false,
-        dht: { bootstrap: '127.0.0.1:' + r.dhtPort },
+        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port },
         blocklist: [ '127.0.0.1', networkAddress.ipv4() ]
       })
       client2.on('error', function (err) { t.fail(err) })
@@ -75,24 +72,24 @@ test('blocklist blocks peers discovered via DHT', function (t) {
 
       torrent2.on('dhtAnnounce', function () {
         t.pass('client2 announced to dht')
-        cb(null, client2)
+        cb(null)
       })
 
       torrent2.on('peer', function (addr) {
         t.fail('client2 should not find any peers')
       })
-    }]
+    }
 
-  }, function (err, r) {
+  ], function (err, r) {
     if (err) throw err
 
     dhtServer.destroy(function (err) {
       t.error(err, 'dht server destroyed')
     })
-    r.client1.destroy(function (err) {
+    client1.destroy(function (err) {
       t.error(err, 'client1 destroyed')
     })
-    r.client2.destroy(function (err) {
+    client2.destroy(function (err) {
       t.error(err, 'client2 destroyed')
     })
   })
