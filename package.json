@@ -84,15 +84,15 @@
   },
   "homepage": "http://webtorrent.io",
   "keywords": [
-    "torrent",
     "bittorrent",
     "bittorrent client",
-    "streaming",
     "download",
+    "mad science",
+    "streaming",
+    "torrent",
     "webrtc",
     "webrtc data",
-    "webtorrent",
-    "mad science"
+    "webtorrent"
   ],
   "license": "MIT",
   "main": "index.js",
