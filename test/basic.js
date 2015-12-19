@@ -116,7 +116,7 @@ test('client.add: parsed torrent, from `parse-torrent`', function (t) {
 })
 
 test('client.add: parsed torrent, with string type announce property', function (t) {
-  t.plan(6)
+  t.plan(7)
 
   var client = new WebTorrent({ dht: false, tracker: false })
 
@@ -131,7 +131,44 @@ test('client.add: parsed torrent, with string type announce property', function 
 
   torrent.on('infoHash', function () {
     t.equal(torrent.infoHash, common.leaves.parsedTorrent.infoHash)
-    t.equal(torrent.magnetURI, common.leaves.magnetURI + '&tr=' + encodeURIComponent('http://tracker.local:80'))
+
+    var expectedMagnetURI = common.leaves.magnetURI +
+      '&tr=' + encodeURIComponent('http://tracker.local:80')
+    t.equal(torrent.magnetURI, expectedMagnetURI)
+
+    // `torrent.announce` must always be an array
+    t.deepEqual(torrent.announce, [ 'http://tracker.local:80' ])
+
+    client.remove(common.leaves.parsedTorrent, function (err) { t.error(err, 'torrent destroyed') })
+    t.equal(client.torrents.length, 0)
+
+    client.destroy(function (err) { t.error(err, 'client destroyed') })
+  })
+})
+
+test('client.add: parsed torrent, with array type announce property', function (t) {
+  t.plan(7)
+
+  var client = new WebTorrent({ dht: false, tracker: false })
+
+  client.on('error', function (err) { t.fail(err) })
+  client.on('warning', function (err) { t.fail(err) })
+
+  var parsedTorrent = extend(common.leaves.parsedTorrent)
+  parsedTorrent.announce = [ 'http://tracker.local:80', 'http://tracker.local:81' ]
+
+  var torrent = client.add(parsedTorrent)
+  t.equal(client.torrents.length, 1)
+
+  torrent.on('infoHash', function () {
+    t.equal(torrent.infoHash, common.leaves.parsedTorrent.infoHash)
+
+    var expectedMagnetURI = common.leaves.magnetURI +
+      '&tr=' + encodeURIComponent('http://tracker.local:80') +
+      '&tr=' + encodeURIComponent('http://tracker.local:81')
+    t.equal(torrent.magnetURI, expectedMagnetURI)
+
+    t.deepEqual(torrent.announce, [ 'http://tracker.local:80', 'http://tracker.local:81' ])
 
     client.remove(common.leaves.parsedTorrent, function (err) { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
