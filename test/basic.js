@@ -274,7 +274,7 @@ test('client.seed: torrent file (Blob)', function (t) {
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  client.seed(new global.Blob([ common.leaves.content ]), {
+  client.seed(new Blob([ common.leaves.content ]), {
     name: 'Leaves of Grass by Walt Whitman.epub'
   }, function (torrent) {
     t.equal(client.torrents.length, 1)
