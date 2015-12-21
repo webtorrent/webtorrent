@@ -6,7 +6,7 @@ var TrackerServer = require('bittorrent-tracker/server')
 var WebTorrent = require('../')
 
 test('blocklist blocks peers discovered via tracker', function (t) {
-  t.plan(8)
+  t.plan(9)
 
   var parsedTorrent = extend(common.leaves.parsedTorrent)
   var tracker, client1, client2
@@ -75,11 +75,10 @@ test('blocklist blocks peers discovered via tracker', function (t) {
       })
     }
 
-  ], function (err, r) {
-    if (err) throw err
-
-    tracker.close(function (err) {
-      t.error(err, 'tracker closed')
+  ], function (err) {
+    t.error(err)
+    tracker.close(function () {
+      t.pass('tracker closed')
     })
     client1.destroy(function (err) {
       t.error(err, 'client1 destroyed')

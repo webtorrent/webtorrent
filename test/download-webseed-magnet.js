@@ -1,49 +1,41 @@
-var auto = require('run-auto')
+var common = require('./common')
 var finalhandler = require('finalhandler')
-var fs = require('fs')
 var http = require('http')
-var parseTorrent = require('parse-torrent')
 var path = require('path')
+var series = require('run-series')
 var serveStatic = require('serve-static')
 var test = require('tape')
 var WebTorrent = require('../')
 
-var leavesPath = path.resolve(__dirname, 'content', 'Leaves of Grass by Walt Whitman.epub')
-var leavesFilename = 'Leaves of Grass by Walt Whitman.epub'
-var leavesFile = fs.readFileSync(leavesPath)
-var leavesTorrent = fs.readFileSync(path.resolve(__dirname, 'torrents', 'leaves.torrent'))
-var leavesParsed = parseTorrent(leavesTorrent)
-
-// remove trackers from .torrent file
-leavesParsed.announce = []
-
 test('Download using webseed (via magnet uri)', function (t) {
   t.plan(9)
+
+  var parsedTorrent = common.leaves.parsedTorrent
 
   var serve = serveStatic(path.join(__dirname, 'content'))
   var httpServer = http.createServer(function (req, res) {
     var done = finalhandler(req, res)
     serve(req, res, done)
   })
-  var magnetUri
+  var client1, client2
 
   httpServer.on('error', function (err) { t.fail(err) })
 
-  auto({
-    httpPort: function (cb) {
+  series([
+    function (cb) {
       httpServer.listen(cb)
     },
-    client1: ['httpPort', function (cb) {
-      var client1 = new WebTorrent({ tracker: false, dht: false })
+
+    function (cb) {
+      client1 = new WebTorrent({ tracker: false, dht: false })
+
       client1.on('error', function (err) { t.fail(err) })
       client1.on('warning', function (err) { t.fail(err) })
-
-      client1.add(leavesParsed)
 
       var gotTorrent = false
       var gotListening = false
       function maybeDone () {
-        if (gotTorrent && gotListening) cb(null, client1)
+        if (gotTorrent && gotListening) cb(null)
       }
 
       client1.on('torrent', function (torrent) {
@@ -65,22 +57,25 @@ test('Download using webseed (via magnet uri)', function (t) {
         gotListening = true
         maybeDone()
       })
-    }],
-    client2: ['client1', 'httpPort', function (cb, r) {
-      var webSeedUrl = 'http://localhost:' + httpServer.address().port + '/' + leavesFilename
-      magnetUri = 'magnet:?xt=urn:btih:' + leavesParsed.infoHash +
-        '&ws=' + encodeURIComponent(webSeedUrl)
 
-      var client2 = new WebTorrent({ tracker: false, dht: false })
+      client1.add(parsedTorrent)
+    },
+
+    function (cb) {
+      client2 = new WebTorrent({ tracker: false, dht: false })
 
       client2.on('error', function (err) { t.fail(err) })
       client2.on('warning', function (err) { t.fail(err) })
+
+      var webSeedUrl = 'http://localhost:' + httpServer.address().port + '/' + common.leaves.parsedTorrent.name
+      var magnetUri = 'magnet:?xt=urn:btih:' + parsedTorrent.infoHash +
+        '&ws=' + encodeURIComponent(webSeedUrl)
 
       client2.on('torrent', function (torrent) {
         torrent.files.forEach(function (file) {
           file.getBuffer(function (err, buf) {
             t.error(err)
-            t.deepEqual(buf, leavesFile, 'downloaded correct content')
+            t.deepEqual(buf, common.leaves.content, 'downloaded correct content')
             gotBuffer = true
             maybeDone()
           })
@@ -95,23 +90,23 @@ test('Download using webseed (via magnet uri)', function (t) {
         var gotBuffer = false
         var torrentDone = false
         function maybeDone () {
-          if (gotBuffer && torrentDone) cb(null, client2)
+          if (gotBuffer && torrentDone) cb(null)
         }
       })
 
-      client2.add(magnetUri)
-
       client2.on('listening', function (port, torrent) {
-        torrent.addPeer('127.0.0.1:' + r.client1.torrentPort)
+        torrent.addPeer('127.0.0.1:' + client1.address().port)
       })
-    }]
-  }, function (err, r) {
+
+      client2.add(magnetUri)
+    }
+  ], function (err) {
     t.error(err)
-    r.client1.destroy(function () {
-      t.pass('client destroyed')
+    client1.destroy(function (err) {
+      t.error(err, 'client destroyed')
     })
-    r.client2.destroy(function () {
-      t.pass('client destroyed')
+    client2.destroy(function (err) {
+      t.error(err, 'client destroyed')
     })
     httpServer.close(function () {
       t.pass('http server closed')

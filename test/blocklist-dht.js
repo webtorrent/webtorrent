@@ -6,7 +6,7 @@ var test = require('tape')
 var WebTorrent = require('../')
 
 test('blocklist blocks peers discovered via DHT', function (t) {
-  t.plan(8)
+  t.plan(9)
 
   var dhtServer, client1, client2
 
@@ -80,9 +80,8 @@ test('blocklist blocks peers discovered via DHT', function (t) {
       })
     }
 
-  ], function (err, r) {
-    if (err) throw err
-
+  ], function (err) {
+    t.error(err)
     dhtServer.destroy(function (err) {
       t.error(err, 'dht server destroyed')
     })

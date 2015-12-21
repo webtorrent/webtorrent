@@ -25,11 +25,11 @@ test('extension support', function (t) {
     )
 
     if (extendedHandshakes === 2) {
-      client1.destroy(function () {
-        t.pass('client1 destroyed')
+      client1.destroy(function (err) {
+        t.error(err, 'client1 destroyed')
       })
-      client2.destroy(function () {
-        t.pass('client2 destroyed')
+      client2.destroy(function (err) {
+        t.error(err, 'client2 destroyed')
       })
     }
   }
@@ -55,7 +55,7 @@ test('extension support', function (t) {
       wire.use(Extension)
     })
     client2.on('listening', function () {
-      torrent2.addPeer('127.0.0.1:' + client1.torrentPort)
+      torrent2.addPeer('127.0.0.1:' + client1.address().port)
     })
   })
 })

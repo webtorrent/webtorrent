@@ -1,18 +1,9 @@
-var auto = require('run-auto')
+var common = require('./common')
 var DHT = require('bittorrent-dht/server')
 var fs = require('fs')
-var parseTorrent = require('parse-torrent')
-var path = require('path')
+var series = require('run-series')
 var test = require('tape')
 var WebTorrent = require('../')
-
-var leavesPath = path.resolve(__dirname, 'content', 'Leaves of Grass by Walt Whitman.epub')
-var leavesFile = fs.readFileSync(leavesPath)
-var leavesTorrent = fs.readFileSync(path.resolve(__dirname, 'torrents', 'leaves.torrent'))
-var leavesParsed = parseTorrent(leavesTorrent)
-
-// remove trackers from .torrent file
-leavesParsed.announce = []
 
 test('Download using DHT (via .torrent file)', function (t) {
   t.plan(8)
@@ -22,28 +13,23 @@ test('Download using DHT (via .torrent file)', function (t) {
   dhtServer.on('error', function (err) { t.fail(err) })
   dhtServer.on('warning', function (err) { t.fail(err) })
 
-  auto({
-    dhtPort: function (cb) {
-      dhtServer.listen(function () {
-        var port = dhtServer.address().port
-        cb(null, port)
-      })
+  var client1, client2
+
+  series([
+    function (cb) {
+      dhtServer.listen(cb)
     },
-    client1: ['dhtPort', function (cb, r) {
-      var client1 = new WebTorrent({
+
+    function (cb) {
+      client1 = new WebTorrent({
         tracker: false,
-        dht: { bootstrap: '127.0.0.1:' + r.dhtPort }
+        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
       })
+
       client1.on('error', function (err) { t.fail(err) })
       client1.on('warning', function (err) { t.fail(err) })
 
-      var torrent = client1.add(leavesParsed)
-
-      var announced = false
-      var loaded = false
-      function maybeDone (err) {
-        if ((announced && loaded) || err) cb(err, client1)
-      }
+      var torrent = client1.add(common.leaves.parsedTorrent)
 
       torrent.on('ready', function () {
         // torrent metadata has been fetched -- sanity check it
@@ -52,7 +38,7 @@ test('Download using DHT (via .torrent file)', function (t) {
         var names = [ 'Leaves of Grass by Walt Whitman.epub' ]
         t.deepEqual(torrent.files.map(function (file) { return file.name }), names)
 
-        torrent.load(fs.createReadStream(leavesPath), function (err) {
+        torrent.load(fs.createReadStream(common.leaves.contentPath), function (err) {
           loaded = true
           maybeDone(err)
         })
@@ -62,23 +48,28 @@ test('Download using DHT (via .torrent file)', function (t) {
         announced = true
         maybeDone(null)
       })
-    }],
 
-    client2: ['client1', function (cb, r) {
-      var client2 = new WebTorrent({
+      var announced = false
+      var loaded = false
+      function maybeDone (err) {
+        if ((announced && loaded) || err) cb(err, client1)
+      }
+    },
+
+    function (cb) {
+      client2 = new WebTorrent({
         tracker: false,
-        dht: { bootstrap: '127.0.0.1:' + r.dhtPort }
+        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
       })
+
       client2.on('error', function (err) { t.fail(err) })
       client2.on('warning', function (err) { t.fail(err) })
-
-      client2.add(leavesParsed)
 
       client2.on('torrent', function (torrent) {
         torrent.files.forEach(function (file) {
           file.getBuffer(function (err, buf) {
             if (err) throw err
-            t.deepEqual(buf, leavesFile, 'downloaded correct content')
+            t.deepEqual(buf, common.leaves.content, 'downloaded correct content')
             gotBuffer = true
             maybeDone()
           })
@@ -96,17 +87,20 @@ test('Download using DHT (via .torrent file)', function (t) {
           if (torrentDone && gotBuffer) cb(null, client2)
         }
       })
-    }]
-  }, function (err, r) {
+
+      client2.add(common.leaves.parsedTorrent)
+    }
+  ], function (err) {
     t.error(err)
-    r.client1.destroy(function () {
-      t.pass('client1 destroyed')
+
+    client1.destroy(function (err) {
+      t.error(err, 'client1 destroyed')
     })
-    r.client2.destroy(function () {
-      t.pass('client2 destroyed')
+    client2.destroy(function (err) {
+      t.error(err, 'client2 destroyed')
     })
-    dhtServer.destroy(function () {
-      t.pass('dht server destroyed')
+    dhtServer.destroy(function (err) {
+      t.error(err, 'dht server destroyed')
     })
   })
 })
