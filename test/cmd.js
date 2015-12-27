@@ -70,7 +70,7 @@ test('Command line: webtorrent info /path/to/file.torrent', function (t) {
 test('Command line: webtorrent info magnet_uri', function (t) {
   t.plan(2)
 
-  var leavesMagnetURI = 'magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36&dn=Leaves+of+Grass+by+Walt+Whitman.epub&tr=http%3A%2F%2Ftracker.bittorrent.am%2Fannounce&tr=http%3A%2F%2Ftracker.thepiratebay.org%2Fannounce&tr=udp%3A%2F%2Ffr33domtracker.h33t.com%3A3310%2Fannounce&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80'
+  var leavesMagnetURI = 'magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36&dn=Leaves+of+Grass+by+Walt+Whitman.epub&tr=http%3A%2F%2Ftracker.example.com%2Fannounce&tr=http%3A%2F%2Ftracker.example2.com%2Fannounce&tr=udp%3A%2F%2Ftracker.example3.com%3A3310%2Fannounce&tr=udp%3A%2F%2Ftracker.example4.com%3A80&tr=udp%3A%2F%2Ftracker.example5.com%3A80&tr=udp%3A%2F%2Ftracker.example6.com%3A80'
 
   cp.exec(CMD + ' info "' + leavesMagnetURI + '"', function (err, data) {
     t.error(err)

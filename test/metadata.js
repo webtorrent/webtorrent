@@ -11,11 +11,10 @@ test('ut_metadata transfer', function (t) {
   t.plan(6)
 
   var client1 = new WebTorrent({ dht: false, tracker: false })
+  var client2 = new WebTorrent({ dht: false, tracker: false })
 
   client1.on('error', function (err) { t.fail(err) })
   client1.on('warning', function (err) { t.fail(err) })
-
-  var client2 = new WebTorrent({ dht: false, tracker: false })
 
   client2.on('error', function (err) { t.fail(err) })
   client2.on('warning', function (err) { t.fail(err) })
@@ -36,16 +35,16 @@ test('ut_metadata transfer', function (t) {
 
     client2.on('listening', function (port, torrent2) {
       // manually add the peer
-      torrent2.addPeer('127.0.0.1:' + client1.torrentPort)
+      torrent2.addPeer('127.0.0.1:' + client1.address().port)
 
       client2.on('torrent', function () {
         t.deepEqual(torrent1.info, torrent2.info)
 
-        client1.destroy(function () {
-          t.pass('client1 destroyed')
+        client1.destroy(function (err) {
+          t.error(err, 'client1 destroyed')
         })
-        client2.destroy(function () {
-          t.pass('client2 destroyed')
+        client2.destroy(function (err) {
+          t.error(err, 'client2 destroyed')
         })
       })
     })

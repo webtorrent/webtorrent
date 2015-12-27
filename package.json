@@ -73,7 +73,7 @@
     "brfs": "^1.2.0",
     "browserify": "^12.0.1",
     "finalhandler": "^0.4.0",
-    "run-auto": "^1.0.0",
+    "run-series": "^1.0.2",
     "serve-static": "^1.9.3",
     "simple-get": "^1.0.0",
     "standard": "^5.1.0",
@@ -83,15 +83,15 @@
   },
   "homepage": "http://webtorrent.io",
   "keywords": [
-    "torrent",
     "bittorrent",
     "bittorrent client",
-    "streaming",
     "download",
+    "mad science",
+    "streaming",
+    "torrent",
     "webrtc",
     "webrtc data",
-    "webtorrent",
-    "mad science"
+    "webtorrent"
   ],
   "license": "MIT",
   "main": "index.js",

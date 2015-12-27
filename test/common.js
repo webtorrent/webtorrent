@@ -1,3 +1,5 @@
+// Torrent and content test files. Content is Public Domain or Creative Commons.
+
 var fs = require('fs')
 var path = require('path')
 var parseTorrent = require('parse-torrent')
@@ -9,12 +11,8 @@ module.exports = {
     torrentPath: path.join(__dirname, 'torrents', 'leaves.torrent'),
     content: fs.readFileSync(path.join(__dirname, 'content', 'Leaves of Grass by Walt Whitman.epub')),
     torrent: fs.readFileSync(path.join(__dirname, 'torrents', 'leaves.torrent')),
-    parsedTorrent: parseTorrent(
-      fs.readFileSync(path.join(__dirname, 'torrents', 'leaves.torrent'))
-    ),
-    magnetURI: parseTorrent.toMagnetURI(parseTorrent(
-      fs.readFileSync(path.join(__dirname, 'torrents', 'leaves.torrent'))
-    ))
+    parsedTorrent: parseTorrent(fs.readFileSync(path.join(__dirname, 'torrents', 'leaves.torrent'))),
+    magnetURI: parseTorrent.toMagnetURI(parseTorrent(fs.readFileSync(path.join(__dirname, 'torrents', 'leaves.torrent'))))
   },
 
   // Folder which contains single file
@@ -22,12 +20,8 @@ module.exports = {
     contentPath: path.join(__dirname, 'content', 'folder'),
     torrentPath: path.join(__dirname, 'torrents', 'folder.torrent'),
     torrent: fs.readFileSync(path.join(__dirname, 'torrents', 'folder.torrent')),
-    parsedTorrent: parseTorrent(
-      fs.readFileSync(path.join(__dirname, 'torrents', 'folder.torrent'))
-    ),
-    magnetURI: parseTorrent.toMagnetURI(parseTorrent(
-      fs.readFileSync(path.join(__dirname, 'torrents', 'folder.torrent'))
-    ))
+    parsedTorrent: parseTorrent(fs.readFileSync(path.join(__dirname, 'torrents', 'folder.torrent'))),
+    magnetURI: parseTorrent.toMagnetURI(parseTorrent(fs.readFileSync(path.join(__dirname, 'torrents', 'folder.torrent'))))
   },
 
   // Folder which contains multiple files
@@ -35,11 +29,14 @@ module.exports = {
     contentPath: path.join(__dirname, 'content', 'numbers'),
     torrentPath: path.join(__dirname, 'torrents', 'numbers.torrent'),
     torrent: fs.readFileSync(path.join(__dirname, 'torrents', 'numbers.torrent')),
-    parsedTorrent: parseTorrent(
-      fs.readFileSync(path.join(__dirname, 'torrents', 'numbers.torrent'))
-    ),
-    magnetURI: parseTorrent.toMagnetURI(parseTorrent(
-      fs.readFileSync(path.join(__dirname, 'torrents', 'numbers.torrent'))
-    ))
+    parsedTorrent: parseTorrent(fs.readFileSync(path.join(__dirname, 'torrents', 'numbers.torrent'))),
+    magnetURI: parseTorrent.toMagnetURI(parseTorrent(fs.readFileSync(path.join(__dirname, 'torrents', 'numbers.torrent'))))
+  },
+
+  // Torrent file with "private" flag
+  bunny: {
+    torrentPath: path.join(__dirname, 'torrents', 'big-buck-bunny-private.torrent'),
+    torrent: fs.readFileSync(path.join(__dirname, 'torrents', 'big-buck-bunny-private.torrent')),
+    parsedTorrent: parseTorrent(fs.readFileSync(path.join(__dirname, 'torrents', 'big-buck-bunny-private.torrent')))
   }
 }

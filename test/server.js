@@ -29,17 +29,21 @@ test('torrent.createServer: programmatic http server', function (t) {
 
       // Index page should list files in the torrent
       get.concat(host + '/', function (err, data) {
-        t.error(err)
+        t.error(err, 'got http response for /')
         data = data.toString()
         t.ok(data.indexOf('Leaves of Grass by Walt Whitman.epub') !== -1)
 
         // Verify file content for first (and only) file
         get.concat(host + '/0', function (err, data) {
-          t.error(err)
+          t.error(err, 'got http response for /0')
           t.deepEqual(data, common.leaves.content)
 
-          server.close(function () { t.pass('server closed') })
-          client.destroy(function () { t.pass('client destroyed') })
+          server.close(function () {
+            t.pass('server closed')
+          })
+          client.destroy(function (err) {
+            t.error(err, 'client destroyed')
+          })
         })
       })
     })

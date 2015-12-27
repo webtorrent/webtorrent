@@ -617,13 +617,15 @@ function gracefulExit () {
 
   clivas.line('\n{green:webtorrent is gracefully exiting...}')
 
-  if (client) {
-    if (argv['on-exit']) cp.exec(argv['on-exit']).unref()
-    client.destroy(function (err) {
-      if (err) return fatalError(err)
-      // Quit after 1 second. This shouldn't be necessary, node never quits even though
-      // there's nothing in the event loop when `wrtc` (webtorrent-hybrid) is used :(
-      setTimeout(function () { process.exit(0) }, 1000).unref()
-    })
-  }
+  if (!client) return
+
+  if (argv['on-exit']) cp.exec(argv['on-exit']).unref()
+
+  client.destroy(function (err) {
+    if (err) return fatalError(err)
+
+    // Quit after 1 second. This is only necessary for `webtorrent-hybrid` since
+    // the `wrtc` package makes node never quit :(
+    setTimeout(function () { process.exit(0) }, 1000).unref()
+  })
 }
