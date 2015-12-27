@@ -44,6 +44,7 @@ var argv = minimist(process.argv.slice(2), {
     s: 'select',
     i: 'index',
     o: 'out',
+    a: 'announce',
     q: 'quiet',
     h: 'help',
     v: 'version'
@@ -64,6 +65,7 @@ var argv = minimist(process.argv.slice(2), {
   ],
   string: [ // options that are always strings
     'out',
+    'announce',
     'blocklist',
     'subtitles',
     'on-done',
@@ -202,6 +204,7 @@ Options (advanced):
     -p, --port [number]     change the http server port [default: 8000]
     -t, --subtitles [path]  load subtitles file
     -b, --blocklist [path]  load blocklist file/http url
+    -a, --announce [url]    tracker URL to announce to
     -q, --quiet             don't show UI on stdout
     --on-done [script]      run script after torrent download is done
     --on-exit [script]      run script before program exit
@@ -473,7 +476,7 @@ function runSeed (input) {
   })
   .on('error', fatalError)
 
-  client.seed(input)
+  client.seed(input, { announce: argv.announce })
 
   client.on('torrent', function (torrent) {
     if (argv.quiet) console.log(torrent.magnetURI)
