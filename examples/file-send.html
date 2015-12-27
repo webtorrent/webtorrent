@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+  <head>
+    <title>WebTorrent – Simple File Sending Example</title>
+    <style>
+    body {
+      font-family: sans-serif;
+    }
+    </style>
+  </head>
+  <body>
+    <h1>Streaming File Transfer over <a href="http://webtorrent.io">WebTorrent</a></h1>
+
+    <p>Download files using the WebTorrent protocol (BitTorrent over WebRTC).</p>
+
+    <h2>Log</h2>
+    <div class="log"></div>
+
+    <h2>Start downloading</h2>
+
+    <form>
+      <label for="torrentId">Download from a magnet link or info hash</label>
+      <input name="torrentId", placeholder="magnet:">
+      <button type="submit">Download</button>
+    </form>
+
+    <br>
+    <p><small>Code is available on <a href="https://github.com/feross/instant.io">GitHub</a> under MIT License. Run <code>localStorage.debug = '*'</code> in the console and refresh to enable verbose logs.</small></p>
+
+    <!-- Include the latest version of WebTorrent -->
+    <script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
+
+    <script>
+      var client = new WebTorrent()
+
+      // Print warnings and errors to the console
+      client.on('warning', function (err) {
+        console.log('WARNING: ' + err.message)
+      })
+      client.on('error', function (err) {
+        console.error('ERROR: ' + err.message)
+      })
+
+      document.querySelector('form').addEventListener('submit', onSubmit)
+
+      function onSubmit (e) {
+        e.preventDefault() // Prevent page refresh
+
+        var torrentId = document.querySelector('form input[name=torrentId]').value
+        client.add(torrentId, onTorrent)
+      }
+
+      function onTorrent (torrent) {
+        alert('torrent')
+        log(
+          'Torrent info hash: ' + torrent.infoHash + ' ' +
+          '<a href="' + torrent.magnetURI + '" target="_blank">[Magnet URI]</a> ' +
+          '<a href="' + torrent.torrentFileURL + '" target="_blank" download="' + torrentFileName + '">[Download .torrent]</a>'
+        )
+
+        torrent.files.forEach(function (file) {
+          file.appendTo('.log')
+        })
+      }
+
+      function log (str) {
+        var p = document.createElement('p')
+        p.innerHTML = str
+        document.querySelector('.log').appendChild(p)
+      }
+
+    </script>
+  </body>
+</html>
