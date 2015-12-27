@@ -99,10 +99,10 @@ test('Command line: webtorrent create /path/to/file', function (t) {
   })
 })
 
-test('Command line: webtorrent download --port 80', function (t) {
+test('Command line: webtorrent download <torrent file> (with local content)', function (t) {
   t.plan(2)
 
-  cp.exec(CMD + ' --port 80 --out test/content download test/torrents/leaves.torrent', function (err, data) {
+  cp.exec(CMD + ' download test/torrents/leaves.torrent --out test/content', function (err, data) {
     t.error(err)
     t.ok(data.indexOf('successfully') !== -1)
   })
