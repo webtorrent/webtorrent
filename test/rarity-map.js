@@ -5,7 +5,7 @@ var RarityMap = require('../lib/rarity-map')
 var Swarm = require('bittorrent-swarm')
 var test = require('tape')
 
-var infoHash = 'd2474e86c95b19b8bcfdb92bc12c9d44667cfa36'
+var infoHash = '6a9759bffd5c0af65319979fb7832189f4f3c35d'
 var peerId1 = '-WW0001-' + hat(48)
 
 test('Rarity map usage', function (t) {
