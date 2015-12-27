@@ -244,7 +244,7 @@ function runInfo (torrentId) {
 }
 
 function runCreate (input) {
-  createTorrent(input, function (err, torrent) {
+  createTorrent(input, argv, function (err, torrent) {
     if (err) return errorAndExit(err)
     if (argv.out) {
       fs.writeFileSync(argv.out, torrent)
@@ -261,12 +261,10 @@ function runDownload (torrentId) {
     argv.out = process.cwd()
   }
 
-  client = new WebTorrent({
-    blocklist: argv.blocklist
-  })
-  .on('error', fatalError)
+  client = new WebTorrent({ blocklist: argv.blocklist })
+  client.on('error', fatalError)
 
-  var torrent = client.add(torrentId, { path: argv.out })
+  var torrent = client.add(torrentId, { path: argv.out, announce: argv.announce })
 
   torrent.on('infoHash', function () {
     function updateMetadata () {
@@ -471,14 +469,10 @@ function runSeed (input) {
     return
   }
 
-  client = new WebTorrent({
-    blocklist: argv.blocklist
-  })
-  .on('error', fatalError)
+  client = new WebTorrent({ blocklist: argv.blocklist })
+  client.on('error', fatalError)
 
-  client.seed(input, { announce: argv.announce })
-
-  client.on('torrent', function (torrent) {
+  client.seed(input, { announce: argv.announce }, function (torrent) {
     if (argv.quiet) console.log(torrent.magnetURI)
     drawTorrent(torrent)
   })
