@@ -347,19 +347,19 @@ Get total bytes received from peers (excluding invalid data)
 
 Get the time remaining in millis if downloading
 
-### `torrent.progress`
+#### `torrent.progress`
 
 Get the total progress from 0 to 1.
 
-### `torrent.ratio`
+#### `torrent.ratio`
 
 Get the torrent ratio (seeded/downloaded)
 
-### `torrent.downloadSpeed()`
+#### `torrent.downloadSpeed()`
 
 Returns the download speed
 
-### `torrent.uploadSpeed()`
+#### `torrent.uploadSpeed()`
 
 Returns the current upload speed.
 
