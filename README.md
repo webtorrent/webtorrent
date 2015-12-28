@@ -20,7 +20,7 @@ other torrent clients.
 
 In the browser, WebTorrent uses **WebRTC** (data channels) for peer-to-peer transport.
 It can be used **without** browser plugins, extensions, or installations. It's Just
-JavaScript&trade;.
+JavaScript&trade;. Note: WebTorrent does **not** support UDP/TCP peers in browser.
 
 Simply include the
 [`webtorrent.min.js`](https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js) script
@@ -316,7 +316,6 @@ through the `client.torrents` array. Returns `null` if no matching torrent found
 
 Seed ratio for all torrents in the client.
 
-
 ### torrent api
 
 #### `torrent.infoHash`
@@ -343,6 +342,27 @@ Get total bytes received from peers (including invalid data)
 #### `torrent.downloaded`
 
 Get total bytes received from peers (excluding invalid data)
+
+#### `torrent.timeRemaining`
+
+Get the time remaining in millis if downloading
+
+### `torrent.progress`
+
+Get the total progress from 0 to 1.
+
+### `torrent.ratio`
+
+Get the torrent ratio (seeded/downloaded)
+
+### `torrent.downloadSpeed()`
+
+Returns the download speed
+
+### `torrent.uploadSpeed()`
+
+Returns the current upload speed.
+
 
 #### `torrent.path`
 
