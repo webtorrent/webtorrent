@@ -337,15 +337,15 @@ The attached [bittorrent-swarm](https://github.com/feross/bittorrent-swarm) inst
 
 #### `torrent.received`
 
-Get total bytes received from peers (including invalid data)
+Get total bytes received from peers (including invalid data).
 
 #### `torrent.downloaded`
 
-Get total bytes received from peers (excluding invalid data)
+Get total bytes received from peers (excluding invalid data).
 
 #### `torrent.timeRemaining`
 
-Get the time remaining in millis if downloading
+Get the time remaining in millis if downloading.
 
 #### `torrent.progress`
 
@@ -353,20 +353,19 @@ Get the total progress from 0 to 1.
 
 #### `torrent.ratio`
 
-Get the torrent ratio (seeded/downloaded)
+Get the torrent ratio (seeded/downloaded).
 
 #### `torrent.downloadSpeed()`
 
-Returns the download speed
+Returns the download speed.
 
 #### `torrent.uploadSpeed()`
 
 Returns the current upload speed.
 
-
 #### `torrent.path`
 
-Get the torrent download location
+Get the torrent download location.
 
 #### `torrent.destroy()`
 
