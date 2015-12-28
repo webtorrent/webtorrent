@@ -2,24 +2,12 @@ var WebTorrent = require('webtorrent')
 
 var client = new WebTorrent()
 
-// Go to https://instant.io, seed a file and use the magnet uri generated
-var magnetUri = 'magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36'
+var torrentId = 'magnet:?xt=urn:btih:6a9759bffd5c0af65319979fb7832189f4f3c35d'
 
-client.add(magnetUri, function (torrent) {
-  // Got torrent metadata!
-  console.log('Torrent info hash:', torrent.infoHash)
+client.add(torrentId, function (torrent) {
+  // Torrents can contain many files. Let's use the first.
+  var file = torrent.files[0]
 
-  torrent.files.forEach(function (file) {
-    // Get a url for each file
-    file.getBlobURL(function (err, url) {
-      if (err) throw err
-
-      // Add a link to the page
-      var a = document.createElement('a')
-      a.download = file.name
-      a.href = url
-      a.textContent = 'Download ' + file.name
-      document.body.appendChild(a)
-    })
-  })
+  // Display the file by adding it to the DOM. Supports video, audio, image, etc. files
+  file.appendTo('body')
 })

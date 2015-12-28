@@ -44,6 +44,7 @@ var argv = minimist(process.argv.slice(2), {
     s: 'select',
     i: 'index',
     o: 'out',
+    a: 'announce',
     q: 'quiet',
     h: 'help',
     v: 'version'
@@ -64,6 +65,7 @@ var argv = minimist(process.argv.slice(2), {
   ],
   string: [ // options that are always strings
     'out',
+    'announce',
     'blocklist',
     'subtitles',
     'on-done',
@@ -202,6 +204,7 @@ Options (advanced):
     -p, --port [number]     change the http server port [default: 8000]
     -t, --subtitles [path]  load subtitles file
     -b, --blocklist [path]  load blocklist file/http url
+    -a, --announce [url]    tracker URL to announce to
     -q, --quiet             don't show UI on stdout
     --on-done [script]      run script after torrent download is done
     --on-exit [script]      run script before program exit
@@ -241,7 +244,7 @@ function runInfo (torrentId) {
 }
 
 function runCreate (input) {
-  createTorrent(input, function (err, torrent) {
+  createTorrent(input, argv, function (err, torrent) {
     if (err) return errorAndExit(err)
     if (argv.out) {
       fs.writeFileSync(argv.out, torrent)
@@ -258,12 +261,10 @@ function runDownload (torrentId) {
     argv.out = process.cwd()
   }
 
-  client = new WebTorrent({
-    blocklist: argv.blocklist
-  })
-  .on('error', fatalError)
+  client = new WebTorrent({ blocklist: argv.blocklist })
+  client.on('error', fatalError)
 
-  var torrent = client.add(torrentId, { path: argv.out })
+  var torrent = client.add(torrentId, { path: argv.out, announce: argv.announce })
 
   torrent.on('infoHash', function () {
     function updateMetadata () {
@@ -468,14 +469,10 @@ function runSeed (input) {
     return
   }
 
-  client = new WebTorrent({
-    blocklist: argv.blocklist
-  })
-  .on('error', fatalError)
+  client = new WebTorrent({ blocklist: argv.blocklist })
+  client.on('error', fatalError)
 
-  client.seed(input)
-
-  client.on('torrent', function (torrent) {
+  client.seed(input, { announce: argv.announce }, function (torrent) {
     if (argv.quiet) console.log(torrent.magnetURI)
     drawTorrent(torrent)
   })
@@ -620,13 +617,15 @@ function gracefulExit () {
 
   clivas.line('\n{green:webtorrent is gracefully exiting...}')
 
-  if (client) {
-    if (argv['on-exit']) cp.exec(argv['on-exit']).unref()
-    client.destroy(function (err) {
-      if (err) return fatalError(err)
-      // Quit after 1 second. This shouldn't be necessary, node never quits even though
-      // there's nothing in the event loop when `wrtc` (webtorrent-hybrid) is used :(
-      setTimeout(function () { process.exit(0) }, 1000).unref()
-    })
-  }
+  if (!client) return
+
+  if (argv['on-exit']) cp.exec(argv['on-exit']).unref()
+
+  client.destroy(function (err) {
+    if (err) return fatalError(err)
+
+    // Quit after 1 second. This is only necessary for `webtorrent-hybrid` since
+    // the `wrtc` package makes node never quit :(
+    setTimeout(function () { process.exit(0) }, 1000).unref()
+  })
 }

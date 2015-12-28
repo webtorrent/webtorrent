@@ -1,15 +1,10 @@
-var auto = require('run-auto')
+var common = require('./common')
+var extend = require('xtend')
 var fs = require('fs')
-var parseTorrent = require('parse-torrent')
-var path = require('path')
+var series = require('run-series')
 var test = require('tape')
 var TrackerServer = require('bittorrent-tracker/server')
 var WebTorrent = require('../')
-
-var leavesPath = path.resolve(__dirname, 'content', 'Leaves of Grass by Walt Whitman.epub')
-var leavesFile = fs.readFileSync(leavesPath)
-var leavesTorrent = fs.readFileSync(path.resolve(__dirname, 'torrents', 'leaves.torrent'))
-var leavesParsed = parseTorrent(leavesTorrent)
 
 test('Download using UDP tracker (via magnet uri)', function (t) {
   magnetDownloadTest(t, 'udp')
@@ -22,40 +17,39 @@ test('Download using HTTP tracker (via magnet uri)', function (t) {
 function magnetDownloadTest (t, serverType) {
   t.plan(9)
 
+  var tracker = new TrackerServer(
+    serverType === 'udp' ? { http: false, ws: false } : { udp: false, ws: false }
+  )
+
+  tracker.on('error', function (err) { t.fail(err) })
+  tracker.on('warning', function (err) { t.fail(err) })
+
   var trackerStartCount = 0
-  var magnetUri
+  tracker.on('start', function () {
+    trackerStartCount += 1
+  })
 
-  auto({
-    tracker: function (cb) {
-      var tracker = new TrackerServer(
-        serverType === 'udp' ? { http: false, ws: false } : { udp: false, ws: false }
-      )
+  var parsedTorrent = extend(common.leaves.parsedTorrent)
+  var magnetUri, client1, client2
 
-      tracker.on('error', function (err) { t.fail(err) })
-      tracker.on('warning', function (err) { t.fail(err) })
-
-      tracker.on('start', function () {
-        trackerStartCount += 1
-      })
-
-      tracker.listen(function () {
-        var port = tracker[serverType].address().port
-        var announceUrl = serverType === 'http'
-          ? 'http://127.0.0.1:' + port + '/announce'
-          : 'udp://127.0.0.1:' + port
-
-        leavesParsed.announce = [ announceUrl ]
-        magnetUri = 'magnet:?xt=urn:btih:' + leavesParsed.infoHash + '&tr=' + encodeURIComponent(announceUrl)
-        cb(null, tracker)
-      })
+  series([
+    function (cb) {
+      tracker.listen(cb)
     },
 
-    client1: ['tracker', function (cb) {
-      var client1 = new WebTorrent({ dht: false })
+    function (cb) {
+      var port = tracker[serverType].address().port
+      var announceUrl = serverType === 'http'
+        ? 'http://127.0.0.1:' + port + '/announce'
+        : 'udp://127.0.0.1:' + port
+
+      parsedTorrent.announce = [ announceUrl ]
+      magnetUri = 'magnet:?xt=urn:btih:' + parsedTorrent.infoHash + '&tr=' + encodeURIComponent(announceUrl)
+
+      client1 = new WebTorrent({ dht: false })
+
       client1.on('error', function (err) { t.fail(err) })
       client1.on('warning', function (err) { t.fail(err) })
-
-      client1.add(leavesParsed)
 
       client1.on('torrent', function (torrent) {
         // torrent metadata has been fetched -- sanity check it
@@ -67,24 +61,25 @@ function magnetDownloadTest (t, serverType) {
 
         t.deepEqual(torrent.files.map(function (file) { return file.name }), names)
 
-        torrent.load(fs.createReadStream(leavesPath), function (err) {
-          cb(err, client1)
+        torrent.load(fs.createReadStream(common.leaves.contentPath), function (err) {
+          cb(err)
         })
       })
-    }],
 
-    client2: ['client1', function (cb) {
-      var client2 = new WebTorrent({ dht: false })
+      client1.add(parsedTorrent)
+    },
+
+    function (cb) {
+      client2 = new WebTorrent({ dht: false })
+
       client2.on('error', function (err) { t.fail(err) })
       client2.on('warning', function (err) { t.fail(err) })
-
-      client2.add(magnetUri)
 
       client2.on('torrent', function (torrent) {
         torrent.files.forEach(function (file) {
           file.getBuffer(function (err, buf) {
             if (err) throw err
-            t.deepEqual(buf, leavesFile, 'downloaded correct content')
+            t.deepEqual(buf, common.leaves.content, 'downloaded correct content')
             gotBuffer = true
             maybeDone()
           })
@@ -99,23 +94,26 @@ function magnetDownloadTest (t, serverType) {
         var gotBuffer = false
         var torrentDone = false
         function maybeDone () {
-          if (gotBuffer && torrentDone) cb(null, client2)
+          if (gotBuffer && torrentDone) cb(null)
         }
       })
-    }]
 
-  }, function (err, r) {
+      client2.add(magnetUri)
+    }
+
+  ], function (err) {
     t.error(err)
+
     t.equal(trackerStartCount, 2)
 
-    r.tracker.close(function () {
+    tracker.close(function () {
       t.pass('tracker closed')
     })
-    r.client1.destroy(function () {
-      t.pass('client1 destroyed')
+    client1.destroy(function (err) {
+      t.error(err, 'client1 destroyed')
     })
-    r.client2.destroy(function () {
-      t.pass('client2 destroyed')
+    client2.destroy(function (err) {
+      t.error(err, 'client2 destroyed')
     })
   })
 }

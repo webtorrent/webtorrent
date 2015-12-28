@@ -1,43 +1,37 @@
-var auto = require('run-auto')
+var common = require('./common')
+var extend = require('xtend')
 var finalhandler = require('finalhandler')
-var fs = require('fs')
 var http = require('http')
-var parseTorrent = require('parse-torrent')
 var path = require('path')
+var series = require('run-series')
 var serveStatic = require('serve-static')
 var test = require('tape')
 var WebTorrent = require('../')
 
-var leavesPath = path.resolve(__dirname, 'content', 'Leaves of Grass by Walt Whitman.epub')
-var leavesFilename = 'Leaves of Grass by Walt Whitman.epub'
-var leavesFile = fs.readFileSync(leavesPath)
-var leavesTorrent = fs.readFileSync(path.resolve(__dirname, 'torrents', 'leaves.torrent'))
-var leavesParsed = parseTorrent(leavesTorrent)
-
-// remove trackers from .torrent file
-leavesParsed.announce = []
-
 test('Download using webseed (via .torrent file)', function (t) {
   t.plan(6)
 
-  var serve = serveStatic(path.join(__dirname, 'content'))
+  var parsedTorrent = extend(common.leaves.parsedTorrent)
+
   var httpServer = http.createServer(function (req, res) {
     var done = finalhandler(req, res)
-    serve(req, res, done)
+    serveStatic(path.join(__dirname, 'content'))(req, res, done)
   })
+  var client
 
   httpServer.on('error', function (err) { t.fail(err) })
 
-  auto({
-    httpPort: function (cb) {
+  series([
+    function (cb) {
       httpServer.listen(cb)
     },
-    client: ['httpPort', function (cb) {
-      leavesParsed.urlList.push(
-        'http://localhost:' + httpServer.address().port + '/' + leavesFilename
-      )
 
-      var client = new WebTorrent({ tracker: false, dht: false })
+    function (cb) {
+      parsedTorrent.urlList = [
+        'http://localhost:' + httpServer.address().port + '/' + common.leaves.parsedTorrent.name
+      ]
+
+      client = new WebTorrent({ tracker: false, dht: false })
 
       client.on('error', function (err) { t.fail(err) })
       client.on('warning', function (err) { t.fail(err) })
@@ -46,7 +40,7 @@ test('Download using webseed (via .torrent file)', function (t) {
         torrent.files.forEach(function (file) {
           file.getBuffer(function (err, buf) {
             t.error(err)
-            t.deepEqual(buf, leavesFile, 'downloaded correct content')
+            t.deepEqual(buf, common.leaves.content, 'downloaded correct content')
             gotBuffer = true
             maybeDone()
           })
@@ -61,16 +55,16 @@ test('Download using webseed (via .torrent file)', function (t) {
         var gotBuffer = false
         var torrentDone = false
         function maybeDone () {
-          if (gotBuffer && torrentDone) cb(null, client)
+          if (gotBuffer && torrentDone) cb(null)
         }
       })
 
-      client.add(leavesParsed)
-    }]
-  }, function (err, r) {
+      client.add(parsedTorrent)
+    }
+  ], function (err) {
     t.error(err)
-    r.client.destroy(function () {
-      t.pass('client destroyed')
+    client.destroy(function (err) {
+      t.error(err, 'client destroyed')
     })
     httpServer.close(function () {
       t.pass('http server closed')
