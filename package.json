@@ -115,5 +115,6 @@
     "test-browser": "zuul -- test/basic.js test/basic-browser.js",
     "test-browser-local": "zuul --local -- test/basic.js test/basic-browser.js",
     "test-node": "tape test/*.js"
-  }
+  },
+  "tonicExampleFilename": "./examples/browser-download.js"
 }
