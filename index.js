@@ -64,6 +64,8 @@ function WebTorrent (opts) {
   self.downloadSpeed = speedometer()
   self.uploadSpeed = speedometer()
 
+  self.maxPeers = (Number(opts.maxPeers) && opts.maxPeers !== 0) ? opts.maxPeers : undefined
+
   self.peerId = typeof opts.peerId === 'string'
     ? opts.peerId
     : (opts.peerId || new Buffer(VERSION_PREFIX + hat(48))).toString('hex')
