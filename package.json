@@ -112,8 +112,8 @@
     "build-debug": "browserify -s WebTorrent -e ./ > webtorrent.debug.js",
     "size": "npm run build && cat webtorrent.min.js | gzip | wc -c",
     "test": "standard && node ./bin/test.js",
-    "test-browser": "zuul -- test/basic.js",
-    "test-browser-local": "zuul --local -- test/basic.js",
+    "test-browser": "zuul -- test/basic.js test/basic-browser.js",
+    "test-browser-local": "zuul --local -- test/basic.js test/basic-browser.js",
     "test-node": "tape test/*.js"
   }
 }
