@@ -42,7 +42,7 @@ var VERSION_PREFIX = '-WW' + VERSION_STR + '-'
 
 /**
  * WebTorrent Client
- * @param {Object} opts
+ * @param {Object=} opts
  */
 function WebTorrent (opts) {
   var self = this
@@ -64,7 +64,7 @@ function WebTorrent (opts) {
   self.downloadSpeed = speedometer()
   self.uploadSpeed = speedometer()
 
-  self.maxPeers = (Number(opts.maxPeers) && opts.maxPeers !== 0) ? opts.maxPeers : undefined
+  self.maxConns = opts.maxConns
 
   self.peerId = typeof opts.peerId === 'string'
     ? opts.peerId
