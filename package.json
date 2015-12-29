@@ -81,7 +81,7 @@
     "uglify-js": "^2.4.15",
     "zuul": "^3.0.0"
   },
-  "homepage": "http://webtorrent.io",
+  "homepage": "https://webtorrent.io",
   "keywords": [
     "bittorrent",
     "bittorrent client",
