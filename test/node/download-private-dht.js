@@ -1,8 +1,8 @@
-var common = require('./common')
+var common = require('../common')
 var DHT = require('bittorrent-dht/server')
 var series = require('run-series')
 var test = require('tape')
-var WebTorrent = require('../')
+var WebTorrent = require('../../')
 
 test('private torrent should not use DHT', function (t) {
   t.plan(4)

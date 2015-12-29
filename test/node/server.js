@@ -1,8 +1,8 @@
-var common = require('./common')
+var common = require('../common')
 var fs = require('fs')
 var get = require('simple-get')
 var test = require('tape')
-var WebTorrent = require('../')
+var WebTorrent = require('../../')
 
 test('torrent.createServer: programmatic http server', function (t) {
   t.plan(9)

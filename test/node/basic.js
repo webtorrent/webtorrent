@@ -1,7 +1,7 @@
-var common = require('./common')
+var common = require('../common')
 var http = require('http')
 var test = require('tape')
-var WebTorrent = require('../')
+var WebTorrent = require('../../')
 
 test('client.add: http url to a torrent file, string', function (t) {
   t.plan(8)

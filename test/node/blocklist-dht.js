@@ -1,9 +1,9 @@
-var common = require('./common')
+var common = require('../common')
 var DHT = require('bittorrent-dht/server')
 var networkAddress = require('network-address')
 var series = require('run-series')
 var test = require('tape')
-var WebTorrent = require('../')
+var WebTorrent = require('../../')
 
 test('blocklist blocks peers discovered via DHT', function (t) {
   t.plan(9)

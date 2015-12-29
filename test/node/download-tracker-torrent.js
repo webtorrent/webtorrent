@@ -1,10 +1,10 @@
-var common = require('./common')
+var common = require('../common')
 var extend = require('xtend')
 var fs = require('fs')
 var series = require('run-series')
 var test = require('tape')
 var TrackerServer = require('bittorrent-tracker/server')
-var WebTorrent = require('../')
+var WebTorrent = require('../../')
 
 test('Download using UDP tracker (via .torrent file)', function (t) {
   torrentDownloadTest(t, 'udp')

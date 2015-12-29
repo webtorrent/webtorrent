@@ -1,9 +1,9 @@
-var common = require('./common')
+var common = require('../common')
 var extend = require('xtend')
 var series = require('run-series')
 var test = require('tape')
 var TrackerServer = require('bittorrent-tracker/server')
-var WebTorrent = require('../')
+var WebTorrent = require('../../')
 
 test('blocklist blocks peers discovered via tracker', function (t) {
   t.plan(9)

@@ -1,11 +1,6 @@
-var fs = require('fs')
-var parseTorrent = require('parse-torrent')
-var path = require('path')
+var common = require('../common')
 var test = require('tape')
-var WebTorrent = require('../')
-
-var leaves = fs.readFileSync(path.resolve(__dirname, 'torrents', 'leaves.torrent'))
-var leavesTorrent = parseTorrent(leaves)
+var WebTorrent = require('../../')
 
 test('ut_metadata transfer', function (t) {
   t.plan(6)
@@ -25,13 +20,13 @@ test('ut_metadata transfer', function (t) {
   })
 
   // client1 starts with metadata from torrent file
-  client1.add(leaves)
+  client1.add(common.leaves.torrent)
 
   client1.on('torrent', function (torrent1) {
-    t.deepEqual(torrent1.info, leavesTorrent.info)
+    t.deepEqual(torrent1.info, common.leaves.parsedTorrent.info)
 
     // client2 starts with infohash
-    client2.add(leavesTorrent.infoHash)
+    client2.add(common.leaves.parsedTorrent.infoHash)
 
     client2.on('listening', function (port, torrent2) {
       // manually add the peer

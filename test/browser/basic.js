@@ -1,8 +1,8 @@
 var fs = require('fs')
 var test = require('tape')
-var WebTorrent = require('../')
+var WebTorrent = require('../../')
 
-var img = fs.readFileSync(__dirname + '/../img/logo.png')
+var img = fs.readFileSync(__dirname + '/../../img/logo.png')
 img.name = 'logo.png'
 
 function verifyImage (t, err, elem) {
