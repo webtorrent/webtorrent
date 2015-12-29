@@ -425,6 +425,15 @@ client.add(magnetUri, function (torrent) {
 })
 ```
 
+#### `torrent.pause()`
+
+Temporarily stop connecting to new peers. Note that this does not pause new incoming
+connections, nor does it pause the streams of existing connections or their wires.
+
+#### `torrent.resume()`
+
+Resume connecting to new peers.
+
 #### `torrent.on('done', function () {})`
 
 Emitted when all the torrent's files have been downloaded
