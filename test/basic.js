@@ -326,3 +326,20 @@ test('after client.destroy(), no "torrent" or "ready" events emitted', function 
 
   client.destroy(function (err) { t.error(err, 'client destroyed') })
 })
+
+test('client.add: invalid torrent id: empty string', function (t) {
+  t.plan(3)
+
+  var client = new WebTorrent({ dht: false, tracker: false })
+
+  client.on('error', function (err) {
+    t.ok(err instanceof Error)
+    t.ok(err.message.indexOf('Invalid torrent identifier') >= 0)
+
+    client.destroy(function (err) { t.error(err, 'client destroyed') })
+  })
+  client.on('warning', function (err) { t.fail(err) })
+
+  client.add('')
+})
+
