@@ -526,6 +526,7 @@ function drawTorrent (torrent) {
     )
     if (seeding) {
       clivas.line('{green:info hash:} ' + torrent.infoHash)
+      clivas.line('{green:magnetURI:} ' + torrent.magnetURI)
       linesRemaining -= 1
     }
     clivas.line(
