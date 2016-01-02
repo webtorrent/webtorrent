@@ -1,4 +1,4 @@
-var common = require('./common')
+var common = require('../common')
 var extend = require('xtend')
 var finalhandler = require('finalhandler')
 var http = require('http')
@@ -6,7 +6,7 @@ var path = require('path')
 var series = require('run-series')
 var serveStatic = require('serve-static')
 var test = require('tape')
-var WebTorrent = require('../')
+var WebTorrent = require('../../')
 
 test('Download using webseed (via .torrent file)', function (t) {
   t.plan(6)

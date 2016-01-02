@@ -11,12 +11,13 @@ var loadIPSet = require('load-ip-set') // browser exclude
 var parallel = require('run-parallel')
 var parseTorrent = require('parse-torrent')
 var path = require('path')
+var Peer = require('simple-peer')
 var speedometer = require('speedometer')
 var zeroFill = require('zero-fill')
 
 var Torrent = require('./lib/torrent')
 
-inherits(WebTorrent, EventEmitter)
+module.exports.WEBRTC_SUPPORT = Peer.WEBRTC_SUPPORT
 
 /**
  * WebTorrent version.
@@ -40,9 +41,11 @@ var VERSION_STR = VERSION.match(/([0-9]+)/g).slice(0, 2).map(zeroFill(2)).join('
  */
 var VERSION_PREFIX = '-WW' + VERSION_STR + '-'
 
+inherits(WebTorrent, EventEmitter)
+
 /**
  * WebTorrent Client
- * @param {Object} opts
+ * @param {Object=} opts
  */
 function WebTorrent (opts) {
   var self = this
@@ -63,6 +66,8 @@ function WebTorrent (opts) {
 
   self.downloadSpeed = speedometer()
   self.uploadSpeed = speedometer()
+
+  self.maxConns = opts.maxConns
 
   self.peerId = typeof opts.peerId === 'string'
     ? opts.peerId

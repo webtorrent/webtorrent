@@ -1,6 +1,6 @@
-var common = require('./common')
+var common = require('../common')
 var test = require('tape')
-var WebTorrent = require('../')
+var WebTorrent = require('../../')
 
 test('client.seed followed by duplicate client.add', function (t) {
   t.plan(5)

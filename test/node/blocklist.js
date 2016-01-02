@@ -1,19 +1,13 @@
+var common = require('../common')
 var fs = require('fs')
 var http = require('http')
-var parseTorrent = require('parse-torrent')
 var path = require('path')
 var test = require('tape')
-var WebTorrent = require('../')
+var WebTorrent = require('../../')
 var zlib = require('zlib')
 
-var blocklistPath = path.resolve(__dirname, 'content', 'blocklist.txt')
-var blocklistGzipPath = path.resolve(__dirname, 'content', 'blocklist.txt.gz')
-
-var leavesTorrent = fs.readFileSync(path.resolve(__dirname, 'torrents', 'leaves.torrent'))
-var leavesParsed = parseTorrent(leavesTorrent)
-
-// remove trackers from .torrent file
-leavesParsed.announce = []
+var blocklistPath = path.resolve(__dirname, '..', 'fixtures', 'blocklist.txt')
+var blocklistGzipPath = path.resolve(__dirname, '..', 'fixtures', 'blocklist.txt.gz')
 
 function assertBlocked (t, torrent, addr) {
   torrent.once('blockedPeer', function (_addr) {
@@ -42,7 +36,7 @@ test('blocklist (single IP)', function (t) {
 
   // blocklist isn't fully loaded until `ready` event
   client.on('ready', function () {
-    client.add(leavesParsed, function (torrent) {
+    client.add(common.leaves.parsedTorrent, function (torrent) {
       assertBlocked(t, torrent, '1.2.3.4:1234')
       assertBlocked(t, torrent, '1.2.3.4:6969')
       assertReachable(t, torrent, '1.1.1.1:1234')
@@ -66,7 +60,7 @@ test('blocklist (array of IPs)', function (t) {
   .on('error', function (err) { t.fail(err) })
   .on('warning', function (err) { t.fail(err) })
   .on('ready', function () {
-    client.add(leavesParsed, function (torrent) {
+    client.add(common.leaves.parsedTorrent, function (torrent) {
       assertBlocked(t, torrent, '1.2.3.4:1234')
       assertBlocked(t, torrent, '1.2.3.4:6969')
       assertBlocked(t, torrent, '5.6.7.8:1234')
@@ -133,7 +127,7 @@ test('blocklist (array of IP ranges)', function (t) {
   .on('error', function (err) { t.fail(err) })
   .on('warning', function (err) { t.fail(err) })
   .on('ready', function () {
-    client.add(leavesParsed, function (torrent) {
+    client.add(common.leaves.parsedTorrent, function (torrent) {
       assertList(t, torrent)
       client.destroy(function (err) {
         t.error(err, 'client destroyed')
@@ -162,7 +156,7 @@ test('blocklist (http url)', function (t) {
     .on('error', function (err) { t.fail(err) })
     .on('warning', function (err) { t.fail(err) })
     .on('ready', function () {
-      client.add(leavesParsed, function (torrent) {
+      client.add(common.leaves.parsedTorrent, function (torrent) {
         assertList(t, torrent)
         client.destroy(function (err) {
           t.error(err, 'client destroyed')
@@ -198,7 +192,7 @@ test('blocklist (http url with gzip encoding)', function (t) {
     .on('error', function (err) { t.fail(err) })
     .on('warning', function (err) { t.fail(err) })
     .on('ready', function () {
-      client.add(leavesParsed, function (torrent) {
+      client.add(common.leaves.parsedTorrent, function (torrent) {
         assertList(t, torrent)
         client.destroy(function (err) {
           t.error(err, 'client destroyed')
@@ -234,7 +228,7 @@ test('blocklist (http url with deflate encoding)', function (t) {
     .on('error', function (err) { t.fail(err) })
     .on('warning', function (err) { t.fail(err) })
     .on('ready', function () {
-      client.add(leavesParsed, function (torrent) {
+      client.add(common.leaves.parsedTorrent, function (torrent) {
         assertList(t, torrent)
         client.destroy(function (err) {
           t.error(err, 'client destroyed')
@@ -257,7 +251,7 @@ test('blocklist (fs path)', function (t) {
   .on('error', function (err) { t.fail(err) })
   .on('warning', function (err) { t.fail(err) })
   .on('ready', function () {
-    client.add(leavesParsed, function (torrent) {
+    client.add(common.leaves.parsedTorrent, function (torrent) {
       assertList(t, torrent)
       client.destroy(function (err) {
         t.error(err, 'client destroyed')
@@ -276,7 +270,7 @@ test('blocklist (fs path with gzip)', function (t) {
   .on('error', function (err) { t.fail(err) })
   .on('warning', function (err) { t.fail(err) })
   .on('ready', function () {
-    client.add(leavesParsed, function (torrent) {
+    client.add(common.leaves.parsedTorrent, function (torrent) {
       assertList(t, torrent)
       client.destroy(function (err) {
         t.error(err, 'client destroyed')

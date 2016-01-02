@@ -1,7 +1,7 @@
 {
   "name": "webtorrent",
   "description": "Streaming torrent client",
-  "version": "0.65.1",
+  "version": "0.68.0",
   "author": {
     "name": "Feross Aboukhadijeh",
     "email": "feross@feross.org",
@@ -49,14 +49,18 @@
     "network-address": "^1.0.0",
     "parse-torrent": "^5.1.0",
     "path-exists": "^2.1.0",
-    "pretty-bytes": "^2.0.1",
+    "pretty-bytes": "^3.0.0",
     "pump": "^1.0.0",
     "random-iterate": "^1.0.1",
     "range-parser": "^1.0.2",
     "re-emitter": "^1.0.0",
+    "render-media": "^2.0.0",
     "run-parallel": "^1.0.0",
+    "simple-peer": "^5.11.6",
     "simple-sha1": "^2.0.0",
     "speedometer": "^1.0.0",
+    "stream-to-blob-url": "^1.0.0",
+    "stream-with-known-length-to-buffer": "^1.0.0",
     "thunky": "^0.1.0",
     "torrent-discovery": "^4.0.0",
     "torrent-piece": "^1.0.0",
@@ -81,7 +85,7 @@
     "uglify-js": "^2.4.15",
     "zuul": "^3.0.0"
   },
-  "homepage": "http://webtorrent.io",
+  "homepage": "https://webtorrent.io",
   "keywords": [
     "bittorrent",
     "bittorrent client",
@@ -109,8 +113,8 @@
     "build-debug": "browserify -s WebTorrent -e ./ > webtorrent.debug.js",
     "size": "npm run build && cat webtorrent.min.js | gzip | wc -c",
     "test": "standard && node ./bin/test.js",
-    "test-browser": "zuul -- test/basic.js",
-    "test-browser-local": "zuul --local -- test/basic.js",
-    "test-node": "tape test/*.js"
+    "test-browser": "zuul -- test/*.js test/browser/*.js",
+    "test-browser-local": "zuul --local -- test/*.js test/browser/*.js",
+    "test-node": "tape test/*.js test/node/*.js"
   }
 }

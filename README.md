@@ -220,6 +220,18 @@ In addition to magnet uris, webtorrent supports [many ways to specify a torrent]
 This API should work exactly the same in node and the browser. Open an issue if this is
 not the case.
 
+#### `WebTorrent.WEBRTC_SUPPORT`
+
+Detect native WebRTC support in the environment.
+
+```js
+if (WebTorrent.WEBRTC_SUPPORT) {
+  // webrtc support!
+} else {
+  // fallback
+}
+```
+
 #### `client = new WebTorrent([opts])`
 
 Create a new `WebTorrent` instance.
@@ -229,7 +241,7 @@ If `opts` is specified, then the default options (shown below) will be overridde
 ``` js
 {
   dht: Boolean|Object,   // Enable DHT (default=true), or options object for DHT
-  maxPeers: Number,      // Max number of peers to connect to per torrent (default=100)
+  maxConns: Number,      // Max number of connections per torrent (default=55)
   nodeId: String|Buffer, // DHT protocol node ID (default=randomly generated)
   peerId: String|Buffer, // Wire protocol peer ID (default=randomly generated)
   rtcConfig: Object,     // RTCPeerConnection configuration object (default=STUN only)
@@ -424,6 +436,15 @@ client.add(magnetUri, function (torrent) {
   client.destroy()
 })
 ```
+
+#### `torrent.pause()`
+
+Temporarily stop connecting to new peers. Note that this does not pause new incoming
+connections, nor does it pause the streams of existing connections or their wires.
+
+#### `torrent.resume()`
+
+Resume connecting to new peers.
 
 #### `torrent.on('done', function () {})`
 

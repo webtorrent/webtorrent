@@ -1,11 +1,6 @@
-var fs = require('fs')
-var parseTorrent = require('parse-torrent')
-var path = require('path')
+var common = require('../common')
 var test = require('tape')
-var WebTorrent = require('../')
-
-var leaves = fs.readFileSync(path.resolve(__dirname, 'torrents', 'leaves.torrent'))
-var leavesTorrent = parseTorrent(leaves)
+var WebTorrent = require('../../')
 
 test('extension support', function (t) {
   t.plan(6)
@@ -44,12 +39,12 @@ test('extension support', function (t) {
   client2.on('error', function (err) { t.fail(err) })
   client2.on('warning', function (err) { t.fail(err) })
 
-  client1.add(leavesTorrent, function (torrent1) {
+  client1.add(common.leaves.parsedTorrent, function (torrent1) {
     torrent1.on('wire', function (wire) {
       t.pass('client1 onWire')
       wire.use(Extension)
     })
-    var torrent2 = client2.add(leavesTorrent.infoHash)
+    var torrent2 = client2.add(common.leaves.parsedTorrent.infoHash)
     torrent2.on('wire', function (wire) {
       t.pass('client2 onWire')
       wire.use(Extension)
