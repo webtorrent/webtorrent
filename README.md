@@ -220,6 +220,18 @@ In addition to magnet uris, webtorrent supports [many ways to specify a torrent]
 This API should work exactly the same in node and the browser. Open an issue if this is
 not the case.
 
+#### `WebTorrent.WEBRTC_SUPPORT`
+
+Detect native WebRTC support in the environment.
+
+```js
+if (WebTorrent.WEBRTC_SUPPORT) {
+  // webrtc support!
+} else {
+  // fallback
+}
+```
+
 #### `client = new WebTorrent([opts])`
 
 Create a new `WebTorrent` instance.

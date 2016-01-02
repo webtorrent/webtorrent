@@ -56,6 +56,7 @@
     "re-emitter": "^1.0.0",
     "render-media": "^2.0.0",
     "run-parallel": "^1.0.0",
+    "simple-peer": "^5.11.6",
     "simple-sha1": "^2.0.0",
     "speedometer": "^1.0.0",
     "stream-to-blob-url": "^1.0.0",

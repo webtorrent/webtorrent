@@ -3,6 +3,21 @@ var http = require('http')
 var test = require('tape')
 var WebTorrent = require('../../')
 
+test('WebTorrent.WEBRTC_SUPPORT', function (t) {
+  t.plan(2)
+
+  var client = new WebTorrent({ dht: false, tracker: false })
+
+  client.on('error', function (err) { t.fail(err) })
+  client.on('warning', function (err) { t.fail(err) })
+
+  t.equal(WebTorrent.WEBRTC_SUPPORT, false)
+
+  client.destroy(function (err) {
+    t.error(err, 'client destroyed')
+  })
+})
+
 test('client.add: http url to a torrent file, string', function (t) {
   t.plan(8)
 
