@@ -633,7 +633,7 @@ These are the main modules that make up WebTorrent:
 | [ut_pex][ut_pex] | [![][ut_pex-ti]][ut_pex-tu] | [![][ut_pex-ni]][ut_pex-nu] | peer discovery **(ext)**
 
 [webtorrent]: https://github.com/feross/webtorrent
-[webtorrent-ti]: https://img.shields.io/travis/feross/webtorrent.svg?style=flat
+[webtorrent-ti]: https://img.shields.io/travis/feross/webtorrent/master.svg?style=flat
 [webtorrent-tu]: https://travis-ci.org/feross/webtorrent
 [webtorrent-ni]: https://img.shields.io/npm/v/webtorrent.svg?style=flat
 [webtorrent-nu]: https://npmjs.org/package/webtorrent
@@ -647,7 +647,7 @@ These are the main modules that make up WebTorrent:
 [webtorrent-gitter-url]: https://gitter.im/feross/webtorrent
 
 [bittorrent-dht]: https://github.com/feross/bittorrent-dht
-[bittorrent-dht-ti]: https://img.shields.io/travis/feross/bittorrent-dht.svg?style=flat
+[bittorrent-dht-ti]: https://img.shields.io/travis/feross/bittorrent-dht/master.svg?style=flat
 [bittorrent-dht-tu]: https://travis-ci.org/feross/bittorrent-dht
 [bittorrent-dht-ni]: https://img.shields.io/npm/v/bittorrent-dht.svg?style=flat
 [bittorrent-dht-nu]: https://npmjs.org/package/bittorrent-dht
@@ -659,49 +659,49 @@ These are the main modules that make up WebTorrent:
 [bittorrent-peerid-nu]: https://npmjs.org/package/bittorrent-peerid
 
 [bittorrent-protocol]: https://github.com/feross/bittorrent-protocol
-[bittorrent-protocol-ti]: https://img.shields.io/travis/feross/bittorrent-protocol.svg?style=flat
+[bittorrent-protocol-ti]: https://img.shields.io/travis/feross/bittorrent-protocol/master.svg?style=flat
 [bittorrent-protocol-tu]: https://travis-ci.org/feross/bittorrent-protocol
 [bittorrent-protocol-ni]: https://img.shields.io/npm/v/bittorrent-protocol.svg?style=flat
 [bittorrent-protocol-nu]: https://npmjs.org/package/bittorrent-protocol
 
 [bittorrent-swarm]: https://github.com/feross/bittorrent-swarm
-[bittorrent-swarm-ti]: https://img.shields.io/travis/feross/bittorrent-swarm.svg?style=flat
+[bittorrent-swarm-ti]: https://img.shields.io/travis/feross/bittorrent-swarm/master.svg?style=flat
 [bittorrent-swarm-tu]: https://travis-ci.org/feross/bittorrent-swarm
 [bittorrent-swarm-ni]: https://img.shields.io/npm/v/bittorrent-swarm.svg?style=flat
 [bittorrent-swarm-nu]: https://npmjs.org/package/bittorrent-swarm
 
 [bittorrent-tracker]: https://github.com/feross/bittorrent-tracker
-[bittorrent-tracker-ti]: https://img.shields.io/travis/feross/bittorrent-tracker.svg?style=flat
+[bittorrent-tracker-ti]: https://img.shields.io/travis/feross/bittorrent-tracker/master.svg?style=flat
 [bittorrent-tracker-tu]: https://travis-ci.org/feross/bittorrent-tracker
 [bittorrent-tracker-ni]: https://img.shields.io/npm/v/bittorrent-tracker.svg?style=flat
 [bittorrent-tracker-nu]: https://npmjs.org/package/bittorrent-tracker
 
 [create-torrent]: https://github.com/feross/create-torrent
-[create-torrent-ti]: https://img.shields.io/travis/feross/create-torrent.svg?style=flat
+[create-torrent-ti]: https://img.shields.io/travis/feross/create-torrent/master.svg?style=flat
 [create-torrent-tu]: https://travis-ci.org/feross/create-torrent
 [create-torrent-ni]: https://img.shields.io/npm/v/create-torrent.svg?style=flat
 [create-torrent-nu]: https://npmjs.org/package/create-torrent
 
 [magnet-uri]: https://github.com/feross/magnet-uri
-[magnet-uri-ti]: https://img.shields.io/travis/feross/magnet-uri.svg?style=flat
+[magnet-uri-ti]: https://img.shields.io/travis/feross/magnet-uri/master.svg?style=flat
 [magnet-uri-tu]: https://travis-ci.org/feross/magnet-uri
 [magnet-uri-ni]: https://img.shields.io/npm/v/magnet-uri.svg?style=flat
 [magnet-uri-nu]: https://npmjs.org/package/magnet-uri
 
 [parse-torrent]: https://github.com/feross/parse-torrent
-[parse-torrent-ti]: https://img.shields.io/travis/feross/parse-torrent.svg?style=flat
+[parse-torrent-ti]: https://img.shields.io/travis/feross/parse-torrent/master.svg?style=flat
 [parse-torrent-tu]: https://travis-ci.org/feross/parse-torrent
 [parse-torrent-ni]: https://img.shields.io/npm/v/parse-torrent.svg?style=flat
 [parse-torrent-nu]: https://npmjs.org/package/parse-torrent
 
 [torrent-discovery]: https://github.com/feross/torrent-discovery
-[torrent-discovery-ti]: https://img.shields.io/travis/feross/torrent-discovery.svg?style=flat
+[torrent-discovery-ti]: https://img.shields.io/travis/feross/torrent-discovery/master.svg?style=flat
 [torrent-discovery-tu]: https://travis-ci.org/feross/torrent-discovery
 [torrent-discovery-ni]: https://img.shields.io/npm/v/torrent-discovery.svg?style=flat
 [torrent-discovery-nu]: https://npmjs.org/package/torrent-discovery
 
 [ut_metadata]: https://github.com/feross/ut_metadata
-[ut_metadata-ti]: https://img.shields.io/travis/feross/ut_metadata.svg?style=flat
+[ut_metadata-ti]: https://img.shields.io/travis/feross/ut_metadata/master.svg?style=flat
 [ut_metadata-tu]: https://travis-ci.org/feross/ut_metadata
 [ut_metadata-ni]: https://img.shields.io/npm/v/ut_metadata.svg?style=flat
 [ut_metadata-nu]: https://npmjs.org/package/ut_metadata
