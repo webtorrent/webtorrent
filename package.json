@@ -33,7 +33,7 @@
     "cross-spawn-async": "^2.0.0",
     "debug": "^2.1.0",
     "end-of-stream": "^1.0.0",
-    "executable": "^2.1.0",
+    "executable": "^3.0.0",
     "fs-chunk-store": "^1.3.4",
     "hat": "0.0.3",
     "immediate-chunk-store": "^1.0.7",
