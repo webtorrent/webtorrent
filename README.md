@@ -108,6 +108,7 @@ npm install webtorrent -g
 - **[People-driven web](http://www.peopledrivenweb.com/)** – Decentralized content management system ([source code](https://github.com/peopledrivenweb/pwjs))
 - **[PeerCloud](https://github.com/jhiesey/peercloud)** - Serverless websites via WebTorrent
 - **[βTorrent](https://btorrent.xyz)** - Fully-featured WebTorrent browser client ([source code](https://github.com/DiegoRBaquero/bTorrent))
+- **[Niagara](http://andreapaiola.name/niagara/)** - Video player webtorrent with subtitles (zipped .srt(s))
 - Your app here! (send a PR or open an issue with your app's URL)
 
 ### Usage
