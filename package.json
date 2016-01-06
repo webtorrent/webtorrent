@@ -62,7 +62,7 @@
     "stream-to-blob-url": "^1.0.0",
     "stream-with-known-length-to-buffer": "^1.0.0",
     "thunky": "^0.1.0",
-    "torrent-discovery": "^4.0.0",
+    "torrent-discovery": "^5.1.0",
     "torrent-piece": "^1.0.0",
     "uniq": "^1.0.1",
     "ut_metadata": "^3.0.1",
