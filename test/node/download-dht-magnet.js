@@ -1,12 +1,13 @@
 var common = require('../common')
 var DHT = require('bittorrent-dht/server')
 var fs = require('fs')
+var networkAddress = require('network-address')
 var series = require('run-series')
 var test = require('tape')
 var WebTorrent = require('../../')
 
 test('Download using DHT (via magnet uri)', function (t) {
-  t.plan(10)
+  t.plan(11)
 
   var dhtServer = new DHT({ bootstrap: false })
 
@@ -24,7 +25,7 @@ test('Download using DHT (via magnet uri)', function (t) {
     function (cb) {
       client1 = new WebTorrent({
         tracker: false,
-        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
+        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port, host: networkAddress.ipv4() }
       })
 
       client1.on('error', function (err) { t.fail(err) })
@@ -33,6 +34,7 @@ test('Download using DHT (via magnet uri)', function (t) {
       var torrent = client1.add(common.leaves.parsedTorrent)
 
       torrent.on('dhtAnnounce', function () {
+        t.pass('finished dht announce')
         announced = true
         maybeDone()
       })
@@ -61,7 +63,7 @@ test('Download using DHT (via magnet uri)', function (t) {
     function (cb) {
       client2 = new WebTorrent({
         tracker: false,
-        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
+        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port, host: networkAddress.ipv4() }
       })
 
       client2.on('error', function (err) { t.fail(err) })
