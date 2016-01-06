@@ -27,7 +27,7 @@ test('Download using webseed (via magnet uri)', function (t) {
     },
 
     function (cb) {
-      client1 = new WebTorrent({ tracker: false, dht: false })
+      client1 = new WebTorrent({ dht: false, tracker: false })
 
       client1.on('error', function (err) { t.fail(err) })
       client1.on('warning', function (err) { t.fail(err) })
@@ -62,7 +62,7 @@ test('Download using webseed (via magnet uri)', function (t) {
     },
 
     function (cb) {
-      client2 = new WebTorrent({ tracker: false, dht: false })
+      client2 = new WebTorrent({ dht: false, tracker: false })
 
       client2.on('error', function (err) { t.fail(err) })
       client2.on('warning', function (err) { t.fail(err) })

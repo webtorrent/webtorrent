@@ -31,7 +31,7 @@ test('Download using webseed (via .torrent file)', function (t) {
         'http://localhost:' + httpServer.address().port + '/' + common.leaves.parsedTorrent.name
       ]
 
-      client = new WebTorrent({ tracker: false, dht: false })
+      client = new WebTorrent({ dht: false, tracker: false })
 
       client.on('error', function (err) { t.fail(err) })
       client.on('warning', function (err) { t.fail(err) })
