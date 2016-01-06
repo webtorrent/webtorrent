@@ -1,6 +1,5 @@
 var common = require('../common')
 var DHT = require('bittorrent-dht/server')
-var networkAddress = require('network-address')
 var series = require('run-series')
 var test = require('tape')
 var WebTorrent = require('../../')
@@ -21,7 +20,7 @@ test('blocklist blocks peers discovered via DHT', function (t) {
     function (cb) {
       client1 = new WebTorrent({
         tracker: false,
-        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port, host: networkAddress.ipv4() }
+        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
       })
       client1.on('error', function (err) { t.fail(err) })
       client1.on('warning', function (err) { t.fail(err) })
@@ -58,8 +57,8 @@ test('blocklist blocks peers discovered via DHT', function (t) {
     function (cb) {
       client2 = new WebTorrent({
         tracker: false,
-        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port, host: networkAddress.ipv4() },
-        blocklist: [ '127.0.0.1', networkAddress.ipv4() ]
+        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port },
+        blocklist: [ '127.0.0.1' ]
       })
       client2.on('error', function (err) { t.fail(err) })
       client2.on('warning', function (err) { t.fail(err) })
