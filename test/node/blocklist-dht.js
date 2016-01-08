@@ -67,16 +67,24 @@ test('blocklist blocks peers discovered via DHT', function (t) {
 
       torrent2.on('blockedPeer', function (addr) {
         t.pass('client2 blocked connection to client1: ' + addr)
+        blockedPeer = true
+        maybeDone()
       })
 
       torrent2.on('dhtAnnounce', function () {
         t.pass('client2 announced to dht')
-        cb(null)
+        announced = true
+        maybeDone()
       })
 
       torrent2.on('peer', function (addr) {
         t.fail('client2 should not find any peers')
       })
+
+      var blockedPeer, announced
+      function maybeDone () {
+        if (blockedPeer && announced) cb(null)
+      }
     }
 
   ], function (err) {
