@@ -35,8 +35,8 @@ module.exports = {
 
   // Torrent file with "private" flag
   bunny: {
-    torrentPath: path.join(__dirname, 'fixtures', 'big-buck-bunny-private.torrent'),
-    torrent: fs.readFileSync(path.join(__dirname, 'fixtures', 'big-buck-bunny-private.torrent')),
-    parsedTorrent: parseTorrent(fs.readFileSync(path.join(__dirname, 'fixtures', 'big-buck-bunny-private.torrent')))
+    torrentPath: path.join(__dirname, 'fixtures', 'bunny-private.torrent'),
+    torrent: fs.readFileSync(path.join(__dirname, 'fixtures', 'bunny-private.torrent')),
+    parsedTorrent: parseTorrent(fs.readFileSync(path.join(__dirname, 'fixtures', 'bunny-private.torrent')))
   }
 }
