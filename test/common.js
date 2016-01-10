@@ -5,7 +5,7 @@ var path = require('path')
 var parseTorrent = require('parse-torrent')
 
 module.exports = {
-  // Leaves of Grass by Walt Whitman.epub
+  // Leaves of Grass, by Walt Whitman
   leaves: {
     contentPath: path.join(__dirname, 'fixtures', 'Leaves of Grass by Walt Whitman.epub'),
     torrentPath: path.join(__dirname, 'fixtures', 'leaves.torrent'),
@@ -13,6 +13,16 @@ module.exports = {
     torrent: fs.readFileSync(path.join(__dirname, 'fixtures', 'leaves.torrent')),
     parsedTorrent: parseTorrent(fs.readFileSync(path.join(__dirname, 'fixtures', 'leaves.torrent'))),
     magnetURI: parseTorrent.toMagnetURI(parseTorrent(fs.readFileSync(path.join(__dirname, 'fixtures', 'leaves.torrent'))))
+  },
+
+  // Alice's Adventures in Wonderland, by Lewis Carroll
+  alice: {
+    contentPath: path.join(__dirname, 'fixtures', 'alice.txt'),
+    torrentPath: path.join(__dirname, 'fixtures', 'alice.torrent'),
+    content: fs.readFileSync(path.join(__dirname, 'fixtures', 'alice.txt')),
+    torrent: fs.readFileSync(path.join(__dirname, 'fixtures', 'alice.torrent')),
+    parsedTorrent: parseTorrent(fs.readFileSync(path.join(__dirname, 'fixtures', 'alice.torrent'))),
+    magnetURI: parseTorrent.toMagnetURI(parseTorrent(fs.readFileSync(path.join(__dirname, 'fixtures', 'alice.torrent'))))
   },
 
   // Folder which contains single file
