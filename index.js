@@ -64,8 +64,8 @@ function WebTorrent (opts) {
 
   self.torrents = []
 
-  self.downloadSpeed = speedometer()
-  self.uploadSpeed = speedometer()
+  self._downloadSpeed = speedometer()
+  self._uploadSpeed = speedometer()
 
   self.maxConns = opts.maxConns
 
@@ -104,21 +104,27 @@ function WebTorrent (opts) {
   }
 }
 
-/**
- * Seed ratio for all torrents in the client.
- * @type {number}
- */
+// Seed ratio for all torrents (uploaded / downloaded)
 Object.defineProperty(WebTorrent.prototype, 'ratio', {
   get: function () {
-    var self = this
-    var uploaded = self.torrents.reduce(function (total, torrent) {
+    var uploaded = this.torrents.reduce(function (total, torrent) {
       return total + torrent.uploaded
     }, 0)
-    var downloaded = self.torrents.reduce(function (total, torrent) {
+    var downloaded = this.torrents.reduce(function (total, torrent) {
       return total + torrent.downloaded
     }, 0) || 1
     return uploaded / downloaded
   }
+})
+
+// Download speed in bytes/sec
+Object.defineProperty(WebTorrent.prototype, 'downloadSpeed', {
+  get: function () { return this._downloadSpeed() }
+})
+
+// Upload speed in bytes/sec
+Object.defineProperty(WebTorrent.prototype, 'uploadSpeed', {
+  get: function () { return this._uploadSpeed() }
 })
 
 /**

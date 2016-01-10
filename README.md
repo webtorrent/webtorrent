@@ -369,11 +369,11 @@ Get the total progress from 0 to 1.
 
 Get the torrent ratio (seeded/downloaded).
 
-#### `torrent.downloadSpeed()`
+#### `torrent.downloadSpeed`
 
 Returns the download speed.
 
-#### `torrent.uploadSpeed()`
+#### `torrent.uploadSpeed`
 
 Returns the current upload speed.
 
@@ -471,7 +471,7 @@ Emitted every time a new chunk of data arrives, it's useful for reporting the cu
 torrent.on('download', function(chunkSize){
   console.log('chunk size: ' + chunkSize);
   console.log('total downloaded: ' + torrent.downloaded);
-  console.log('download speed: ' + torrent.downloadSpeed());
+  console.log('download speed: ' + torrent.downloadSpeed);
   console.log('progress: ' + torrent.progress);
   console.log('======');
 })

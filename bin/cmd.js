@@ -446,7 +446,6 @@ function runDownload (torrentId) {
           device.play(href, 0, function () {})
         })
         .start()
-      // TODO: handle case where user closes airplay. do same thing as when VLC is closed
     }
 
     if (argv.chromecast) {
@@ -505,7 +504,7 @@ function drawTorrent (torrent) {
     })
     var linesRemaining = clivas.height
     var peerslisted = 0
-    var speed = torrent.downloadSpeed()
+    var speed = torrent.downloadSpeed
     var estimate = moment.duration(torrent.timeRemaining / 1000, 'seconds').humanize()
 
     clivas.clear()
