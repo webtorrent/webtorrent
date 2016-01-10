@@ -133,7 +133,9 @@ playerName = argv.airplay ? 'Airplay'
 
 var command = argv._[0]
 
-if (command === 'help' || argv.help) {
+if (['info', 'create', 'download', 'add', 'seed'].indexOf(command) !== -1 && argv._.length !== 2) {
+  runHelp()
+} else if (command === 'help' || argv.help) {
   runHelp()
 } else if (command === 'version' || argv.version) {
   runVersion()
