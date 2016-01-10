@@ -1,4 +1,4 @@
-# ![WebTorrent](img/wordmark.png)
+# ![WebTorrent](https://webtorrent.io/img/wordmark.png)
 
 [![Gitter][webtorrent-gitter-image]][webtorrent-gitter-url]
 [![Build Status][webtorrent-ti]][webtorrent-tu]
@@ -40,7 +40,7 @@ familiar UI that can connect to web peers. We hope established torrent clients
 (Transmission, Vuze, uTorrent, etc.) will add support for WebTorrent so they too can
 connect to both normal *and* web peers.
 
-![Network](img/network.png)
+![Network](https://webtorrent.io/img/network.png)
 
 > Warning: This is alpha software. **Watch/star to follow along with progress.**
 
@@ -776,4 +776,4 @@ localStorage.removeItem('debug')
 
 MIT. Copyright (c) [Feross Aboukhadijeh](http://feross.org).
 
-![Magic](img/logo.png)
+![Magic](https://webtorrent.io/img/logo.png)
