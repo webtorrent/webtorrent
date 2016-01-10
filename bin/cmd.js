@@ -236,6 +236,7 @@ function runInfo (torrentId) {
 
   delete parsedTorrent.info
   delete parsedTorrent.infoBuffer
+  delete parsedTorrent.infoHashBuffer
 
   var output = JSON.stringify(parsedTorrent, undefined, 2)
   if (argv.out) {
