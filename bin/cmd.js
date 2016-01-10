@@ -299,7 +299,6 @@ function runDownload (torrentId) {
 
   torrent.on('done', function () {
     if (!argv.quiet) {
-      // TODO: expose this data from bittorrent-swarm
       var numActiveWires = torrent.swarm.wires.reduce(function (num, wire) {
         return num + (wire.downloaded > 0)
       }, 0)
@@ -307,7 +306,7 @@ function runDownload (torrentId) {
         'torrent downloaded {green:successfully} from {bold:%s/%s} {green:peers} ' +
         'in {bold:%ss}!',
         numActiveWires,
-        torrent.swarm.wires.length,
+        torrent.numPeers,
         getRuntime()
       )
     }
@@ -535,7 +534,7 @@ function drawTorrent (torrent) {
     line(
       '{green:Running time:} {bold:' + getRuntime() + 's}  ' +
       '{green:Time remaining:} {bold:' + estimate + '}  ' +
-      '{green:Peers:} {bold:' + unchoked.length + '/' + torrent.swarm.wires.length + '}'
+      '{green:Peers:} {bold:' + unchoked.length + '/' + torrent.numPeers + '}'
     )
     if (argv.verbose) {
       line(
@@ -583,9 +582,9 @@ function drawTorrent (torrent) {
       return linesRemaining > 4
     })
 
-    if (torrent.swarm.wires.length > peerslisted) {
+    if (torrent.numPeers > peerslisted) {
       line('{60:}')
-      line('... and %s more', torrent.swarm.wires.length - peerslisted)
+      line('... and %s more', torrent.numPeers - peerslisted)
     }
 
     line('{60:}')
