@@ -103,6 +103,3 @@ test('Command line: webtorrent download <torrent file> (with local content)', fu
     t.ok(data.indexOf('successfully') !== -1)
   })
 })
-
-// TODO: test 'webtorrent download magnet_uri'
-// TODO: test 'webtorrent seed /path/to/file'
