@@ -323,7 +323,6 @@ function runDownload (torrentId) {
   }
 
   server.listen(argv.port, initServer)
-
     .on('error', function (err) {
       // In case the port is unusable
       if (err.code === 'EADDRINUSE' || err.code === 'EACCES') {
@@ -512,51 +511,40 @@ function drawTorrent (torrent) {
 
     clivas.clear()
 
-    clivas.line(
+    line(
       '{green:' + (seeding ? 'Seeding' : 'Downloading') + ': }' +
       '{bold:' + torrent.name + '}'
     )
     var seeding = torrent.done
-    if (seeding) {
-      clivas.line('{green:Info hash: }' + torrent.infoHash)
-      linesRemaining -= 1
-    }
+    if (seeding) line('{green:Info hash: }' + torrent.infoHash)
     if (playerName) {
-      clivas.line(
+      line(
         '{green:Streaming to: }{bold:' + playerName + '}  ' +
         '{green:Server running at: }{bold:' + href + '}'
       )
-      linesRemaining -= 1
+    } else if (server) {
+      line('{green:Server running at: }{bold:' + href + '}')
     }
-    if (!playerName && server) {
-      clivas.line('{green:Server running at: }{bold:' + href + '}')
-      linesRemaining -= 1
-    }
-    if (argv.out) {
-      clivas.line('{green:Downloading to: }{bold:' + argv.out + '}')
-      linesRemaining -= 1
-    }
-    clivas.line(
+    if (argv.out) line('{green:Downloading to: }{bold:' + argv.out + '}')
+    line(
       '{green:Speed: }{bold:' + prettyBytes(speed) + '/s}  ' +
       '{green:Downloaded:} {bold:' + prettyBytes(torrent.downloaded) + '}' +
       '/{bold:' + prettyBytes(torrent.length) + '}  ' +
       '{green:Uploaded:} {bold:' + prettyBytes(torrent.uploaded) + '}'
     )
-    clivas.line(
+    line(
       '{green:Running time:} {bold:' + getRuntime() + 's}  ' +
       '{green:Time remaining:} {bold:' + estimate + '}  ' +
       '{green:Peers:} {bold:' + unchoked.length + '/' + torrent.swarm.wires.length + '}'
     )
     if (argv.verbose) {
-      clivas.line(
+      line(
         '{green:Queued peers:} {bold:' + torrent.swarm.numQueued + '}  ' +
         '{green:Blocked peers:} {bold:' + torrent.numBlockedPeers + '}  ' +
         '{green:Hotswaps:} {bold:' + hotswaps + '}'
       )
-      linesRemaining -= 1
     }
-    clivas.line('{80:}')
-    linesRemaining -= 5
+    line('')
 
     torrent.swarm.wires.every(function (wire) {
       var progress = '?'
@@ -571,40 +559,41 @@ function drawTorrent (torrent) {
         progress = bits === piececount ? 'S' : Math.floor(100 * bits / piececount) + '%'
       }
 
-      var tags = []
-      var reqStats = []
-
-      if (argv.verbose) {
-        if (wire.requests.length > 0) tags.push(wire.requests.length + ' reqs')
-        if (wire.peerChoking) tags.push('choked')
-        reqStats = wire.requests.map(function (req) { return req.piece })
-      }
-
-      clivas.line(
-        '{3:%s} {25+magenta:%s} {10:%s} {12+cyan:%s/s} {12+red:%s/s} {15+grey:%s}' +
-        '{10+grey:%s}',
+      var str = '{3:%s} {25+magenta:%s} {10:%s} {12+cyan:%s/s} {12+red:%s/s}'
+      var args = [
         progress,
         wire.remoteAddress
           ? (wire.remoteAddress + ':' + wire.remotePort)
           : 'Unknown',
         prettyBytes(wire.downloaded),
         prettyBytes(wire.downloadSpeed()),
-        prettyBytes(wire.uploadSpeed()),
-        tags.join(', '),
-        reqStats.join(' ')
-      )
-      peerslisted++
-      return linesRemaining - peerslisted > 4
+        prettyBytes(wire.uploadSpeed())
+      ]
+      if (argv.verbose) {
+        str += ' {15+grey:%s} {10+grey:%s}'
+        var tags = []
+        if (wire.requests.length > 0) tags.push(wire.requests.length + ' reqs')
+        if (wire.peerChoking) tags.push('choked')
+        var reqStats = wire.requests.map(function (req) { return req.piece })
+        args.push(tags.join(', '), reqStats.join(' '))
+      }
+      line.apply(undefined, [].concat(str, args))
+
+      peerslisted += 1
+      return linesRemaining > 4
     })
-    linesRemaining -= peerslisted
 
     if (torrent.swarm.wires.length > peerslisted) {
-      clivas.line('{80:}')
-      clivas.line('... and %s more', torrent.swarm.wires.length - peerslisted)
+      line('{60:}')
+      line('... and %s more', torrent.swarm.wires.length - peerslisted)
     }
 
-    clivas.line('{80:}')
+    line('{60:}')
     clivas.flush(true)
+  }
+
+  function line () {
+    clivas.line.apply(clivas, arguments)
   }
 }
 
@@ -629,7 +618,7 @@ function gracefulExit () {
   process.removeListener('SIGTERM', gracefulExit)
   clearInterval(drawInterval)
 
-  clivas.line('\n{green:webtorrent is gracefully exiting...}')
+  clivas.line('\n{green:webtorrent is exiting...}')
 
   if (!client) return
 
