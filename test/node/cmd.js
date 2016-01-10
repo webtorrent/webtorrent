@@ -57,6 +57,7 @@ test('Command line: webtorrent info /path/to/file.torrent', function (t) {
     var parsedTorrent = extend(common.leaves.parsedTorrent)
     delete parsedTorrent.info
     delete parsedTorrent.infoBuffer
+    delete parsedTorrent.infoHashBuffer
     t.deepEqual(data, JSON.parse(JSON.stringify(parsedTorrent, undefined, 2)))
   })
 
@@ -74,6 +75,7 @@ test('Command line: webtorrent info magnet_uri', function (t) {
     t.error(err)
     data = JSON.parse(data)
     var parsedTorrent = parseTorrent(leavesMagnetURI)
+    delete parsedTorrent.infoHashBuffer
     t.deepEqual(data, JSON.parse(JSON.stringify(parsedTorrent, undefined, 2)))
   })
 })
