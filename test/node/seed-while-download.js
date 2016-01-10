@@ -6,7 +6,7 @@ var series = require('run-series')
 var test = require('tape')
 var WebTorrent = require('../../')
 
-test('Download using DHT (via magnet uri)', function (t) {
+test('Seed and download a file at the same time', function (t) {
   t.plan(14)
 
   var dhtServer = new DHT({ bootstrap: false })
