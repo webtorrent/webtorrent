@@ -37,11 +37,11 @@ test('Download using DHT (via .torrent file)', function (t) {
 
         var names = [ 'Leaves of Grass by Walt Whitman.epub' ]
         t.deepEqual(torrent.files.map(function (file) { return file.name }), names)
+      })
 
-        torrent.load(fs.createReadStream(common.leaves.contentPath), function (err) {
-          loaded = true
-          maybeDone(err)
-        })
+      torrent.load(fs.createReadStream(common.leaves.contentPath), function (err) {
+        loaded = true
+        maybeDone(err)
       })
 
       torrent.on('dhtAnnounce', function () {

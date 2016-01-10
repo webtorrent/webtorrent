@@ -45,12 +45,12 @@ test('Download using DHT (via magnet uri)', function (t) {
 
         var names = [ 'Leaves of Grass by Walt Whitman.epub' ]
         t.deepEqual(torrent.files.map(function (file) { return file.name }), names)
+      })
 
-        torrent.load(fs.createReadStream(common.leaves.contentPath), function (err) {
-          t.error(err)
-          loaded = true
-          maybeDone()
-        })
+      torrent.load(fs.createReadStream(common.leaves.contentPath), function (err) {
+        t.error(err)
+        loaded = true
+        maybeDone()
       })
 
       var announced = false
