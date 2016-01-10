@@ -270,9 +270,11 @@ function runDownload (torrentId) {
 
   torrent.on('infoHash', function () {
     function updateMetadata () {
-      var numPeers = torrent.swarm.numPeers
       clivas.clear()
-      clivas.line('{green:fetching torrent metadata from} {bold:%s} {green:peers}', numPeers)
+      clivas.line(
+        '{green:fetching torrent metadata from} {bold:%s} {green:peers}',
+        torrent.numPeers
+      )
     }
 
     if (!argv.quiet) {
