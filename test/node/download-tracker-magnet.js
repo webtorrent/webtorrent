@@ -30,7 +30,7 @@ function magnetDownloadTest (t, serverType) {
   })
 
   var parsedTorrent = extend(common.leaves.parsedTorrent)
-  var magnetUri, client1, client2
+  var magnetURI, client1, client2
 
   series([
     function (cb) {
@@ -44,7 +44,7 @@ function magnetDownloadTest (t, serverType) {
         : 'udp://127.0.0.1:' + port
 
       parsedTorrent.announce = [ announceUrl ]
-      magnetUri = 'magnet:?xt=urn:btih:' + parsedTorrent.infoHash + '&tr=' + encodeURIComponent(announceUrl)
+      magnetURI = 'magnet:?xt=urn:btih:' + parsedTorrent.infoHash + '&tr=' + encodeURIComponent(announceUrl)
 
       client1 = new WebTorrent({ dht: false })
 
@@ -98,7 +98,7 @@ function magnetDownloadTest (t, serverType) {
         }
       })
 
-      client2.add(magnetUri)
+      client2.add(magnetURI)
     }
 
   ], function (err) {

@@ -84,7 +84,7 @@ test('Download using DHT (via .torrent file)', function (t) {
         var torrentDone = false
         var gotBuffer = false
         function maybeDone () {
-          if (torrentDone && gotBuffer) cb(null, client2)
+          if (torrentDone && gotBuffer) cb(null)
         }
       })
 

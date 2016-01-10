@@ -80,7 +80,7 @@ test('public torrent should use DHT', function (t) {
 
       torrent.on('dhtAnnounce', function () {
         t.pass('client announced to dht')
-        cb(null, client)
+        cb(null)
       })
 
       client.on('torrent', function () {

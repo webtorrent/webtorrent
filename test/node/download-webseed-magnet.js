@@ -10,8 +10,6 @@ var WebTorrent = require('../../')
 test('Download using webseed (via magnet uri)', function (t) {
   t.plan(9)
 
-  var parsedTorrent = common.leaves.parsedTorrent
-
   var serve = serveStatic(path.join(__dirname, 'content'))
   var httpServer = http.createServer(function (req, res) {
     var done = finalhandler(req, res)
@@ -58,7 +56,7 @@ test('Download using webseed (via magnet uri)', function (t) {
         maybeDone()
       })
 
-      client1.add(parsedTorrent)
+      client1.add(common.leaves.parsedTorrent)
     },
 
     function (cb) {
@@ -68,8 +66,7 @@ test('Download using webseed (via magnet uri)', function (t) {
       client2.on('warning', function (err) { t.fail(err) })
 
       var webSeedUrl = 'http://localhost:' + httpServer.address().port + '/' + common.leaves.parsedTorrent.name
-      var magnetUri = 'magnet:?xt=urn:btih:' + parsedTorrent.infoHash +
-        '&ws=' + encodeURIComponent(webSeedUrl)
+      var magnetURI = common.leaves.magnetURI + '&ws=' + encodeURIComponent(webSeedUrl)
 
       client2.on('torrent', function (torrent) {
         torrent.files.forEach(function (file) {
@@ -98,7 +95,7 @@ test('Download using webseed (via magnet uri)', function (t) {
         torrent.addPeer('127.0.0.1:' + client1.address().port)
       })
 
-      client2.add(magnetUri)
+      client2.add(magnetURI)
     }
   ], function (err) {
     t.error(err)

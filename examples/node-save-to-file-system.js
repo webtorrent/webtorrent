@@ -2,9 +2,9 @@ var WebTorrent = require('webtorrent')
 var fs = require('fs')
 
 var client = new WebTorrent()
-var magnetUri = 'magnet:?xt=urn:btih:6a9759bffd5c0af65319979fb7832189f4f3c35d'
+var magnetURI = 'magnet:?xt=urn:btih:6a9759bffd5c0af65319979fb7832189f4f3c35d'
 
-client.download(magnetUri, function (torrent) {
+client.download(magnetURI, function (torrent) {
   // Got torrent metadata!
   console.log('Torrent magnet link:', torrent.magnetURI)
 

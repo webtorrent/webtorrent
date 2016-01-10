@@ -14,7 +14,6 @@ test('Download using DHT (via magnet uri)', function (t) {
   dhtServer.on('error', function (err) { t.fail(err) })
   dhtServer.on('warning', function (err) { t.fail(err) })
 
-  var magnetUri = 'magnet:?xt=urn:btih:' + common.leaves.parsedTorrent.infoHash
   var client1, client2
 
   series([
@@ -56,7 +55,7 @@ test('Download using DHT (via magnet uri)', function (t) {
       var announced = false
       var loaded = false
       function maybeDone () {
-        if (announced && loaded) cb(null, client1)
+        if (announced && loaded) cb(null)
       }
     },
 
@@ -86,12 +85,12 @@ test('Download using DHT (via magnet uri)', function (t) {
         })
       })
 
-      client2.add(magnetUri)
+      client2.add(common.leaves.magnetURI)
 
       var gotBuffer = false
       var gotDone = false
       function maybeDone () {
-        if (gotBuffer && gotDone) cb(null, client2)
+        if (gotBuffer && gotDone) cb(null)
       }
     }
   ], function (err) {
