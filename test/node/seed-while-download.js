@@ -1,7 +1,6 @@
 var common = require('../common')
 var DHT = require('bittorrent-dht/server')
 var fs = require('fs')
-var networkAddress = require('network-address')
 var series = require('run-series')
 var test = require('tape')
 var WebTorrent = require('../../')
@@ -24,7 +23,7 @@ test('Seed and download a file at the same time', function (t) {
     function (cb) {
       client1 = new WebTorrent({
         tracker: false,
-        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port, host: networkAddress.ipv4() }
+        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
       })
 
       client1.on('error', function (err) { t.fail(err) })
@@ -54,7 +53,7 @@ test('Seed and download a file at the same time', function (t) {
     function (cb) {
       client2 = new WebTorrent({
         tracker: false,
-        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port, host: networkAddress.ipv4() },
+        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port },
         torrentPort: client1.torrentPort + 1
       })
 
