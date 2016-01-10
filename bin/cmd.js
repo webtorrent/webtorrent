@@ -389,26 +389,32 @@ function runDownload (torrentId) {
 
     var cmd
     if (argv.vlc && process.platform === 'win32') {
-      var registry = require('windows-no-runnable').registry
+      var Registry = require('winreg')
+
       var key
       if (process.arch === 'x64') {
-        try {
-          key = registry('HKLM/Software/Wow6432Node/VideoLAN/VLC')
-        } catch (e) {}
+        key = new Registry({
+          hive: Registry.HKLM,
+          key: '\\Software\\Wow6432Node\\VideoLAN\\VLC'
+        })
       } else {
-        try {
-          key = registry('HKLM/Software/VideoLAN/VLC')
-        } catch (err) {}
+        key = new Registry({
+          hive: Registry.HKLM,
+          key: '\\Software\\VideoLAN\\VLC'
+        })
       }
 
       if (key) {
-        var vlcPath = key.InstallDir.value + path.sep + 'vlc'
-        VLC_ARGS = VLC_ARGS.split(' ')
-        VLC_ARGS.unshift(href)
-        cp.execFile(vlcPath, VLC_ARGS, function (err) {
+        key.get('InstallDir', function (err, item) {
           if (err) return fatalError(err)
-          torrentDone()
-        }).unref()
+          var vlcPath = item.value + path.sep + 'vlc'
+          VLC_ARGS = VLC_ARGS.split(' ')
+          VLC_ARGS.unshift(href)
+          cp.execFile(vlcPath, VLC_ARGS, function (err) {
+            if (err) return fatalError(err)
+            torrentDone()
+          }).unref()
+        })
       }
     } else if (argv.vlc) {
       var root = '/Applications/VLC.app/Contents/MacOS/VLC'
