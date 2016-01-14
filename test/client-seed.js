@@ -1,3 +1,5 @@
+/* global Blob */
+
 var common = require('./common')
 var test = require('tape')
 var WebTorrent = require('../')
