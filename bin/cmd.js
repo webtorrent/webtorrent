@@ -303,6 +303,7 @@ function runDownload (torrentId) {
       var numActiveWires = torrent.swarm.wires.reduce(function (num, wire) {
         return num + (wire.downloaded > 0)
       }, 0)
+      clivas.line('')
       clivas.line(
         'torrent downloaded {green:successfully} from {bold:%s/%s} {green:peers} ' +
         'in {bold:%ss}!',
