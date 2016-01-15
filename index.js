@@ -163,11 +163,8 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
   var self = this
   if (self.destroyed) throw new Error('client is destroyed')
   if (typeof opts === 'function') return self.add(torrentId, null, opts)
+  opts = opts ? extend(opts) : {}
   debug('add')
-  if (!opts) opts = {}
-  else opts = extend(opts)
-
-  opts.client = self
 
   var torrent = self.get(torrentId)
 
@@ -179,6 +176,7 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
     if (torrent.ready) process.nextTick(_ontorrent)
     else torrent.on('ready', _ontorrent)
   } else {
+    opts.client = self
     torrent = new Torrent(torrentId, opts)
     self.torrents.push(torrent)
 
@@ -210,9 +208,8 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
   var self = this
   if (self.destroyed) throw new Error('client is destroyed')
   if (typeof opts === 'function') return self.seed(input, null, opts)
+  opts = opts ? extend(opts) : {}
   debug('seed')
-  if (!opts) opts = {}
-  else opts = extend(opts)
 
   // When seeding from filesystem, initialize store from that path (avoids a copy)
   if (typeof input === 'string') opts.path = path.dirname(input)
