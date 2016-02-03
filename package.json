@@ -59,7 +59,7 @@
     "simple-peer": "^5.11.6",
     "simple-sha1": "^2.0.0",
     "speedometer": "^1.0.0",
-    "stream-to-blob-url": "^1.0.0",
+    "stream-to-blob-url": "^2.0.0",
     "stream-with-known-length-to-buffer": "^1.0.0",
     "torrent-discovery": "^5.1.0",
     "torrent-piece": "^1.0.0",
