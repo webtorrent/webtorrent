@@ -110,6 +110,7 @@ npm install webtorrent -g
 - **[βTorrent](https://btorrent.xyz)** - Fully-featured WebTorrent browser client ([source code](https://github.com/DiegoRBaquero/bTorrent))
 - **[Niagara](http://andreapaiola.name/niagara/)** - Video player webtorrent with subtitles (zipped .srt(s))
 - **[Seedshot](https://github.com/twobucks/seedshot)** - Ephemeral P2P screenshot sharing
+- **[PeerWeb](https://github.com/retrohacker/peerweb.js)** - Fetch and render a static website from a torrent
 - Your app here! (send a PR or open an issue with your app's URL)
 
 ### Usage
