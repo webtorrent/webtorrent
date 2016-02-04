@@ -329,8 +329,9 @@ function runDownload (torrentId) {
       if (err.code === 'EADDRINUSE' || err.code === 'EACCES') {
         // Let the OS choose one for us
         server.listen(0, initServer)
+      } else {
+        throw err
       }
-      else throw err
     })
 
   server.once('connection', function () {
