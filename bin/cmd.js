@@ -454,7 +454,9 @@ function runDownload (torrentId) {
     if (argv.chromecast) {
       var chromecasts = require('chromecasts')()
       chromecasts.on('update', function (player) {
-        player.play(href)
+          player.play(href, {
+              title: torrent.name
+          })
       })
     }
 
