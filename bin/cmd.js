@@ -492,7 +492,7 @@ var drawInterval
 function drawTorrent (torrent) {
   if (!argv.quiet) {
     process.stdout.write(new Buffer('G1tIG1sySg==', 'base64')) // clear for drawing
-    drawInterval = setInterval(draw, 500)
+    drawInterval = setInterval(draw, 2000)
     drawInterval.unref()
   }
 
@@ -538,58 +538,59 @@ function drawTorrent (torrent) {
       '{green:Time remaining:} {bold:' + estimate + '}  ' +
       '{green:Peers:} {bold:' + unchoked.length + '/' + torrent.numPeers + '}'
     )
-    if (argv.verbose) {
-      line(
-        '{green:Queued peers:} {bold:' + torrent.swarm.numQueued + '}  ' +
-        '{green:Blocked peers:} {bold:' + torrent.numBlockedPeers + '}  ' +
-        '{green:Hotswaps:} {bold:' + hotswaps + '}'
-      )
-    }
+    line(
+    '{green:Queued peers:} {bold:' + torrent.swarm.numQueued + '}  ' +
+    '{green:Blocked peers:} {bold:' + torrent.numBlockedPeers + '}  ' +
+    '{green:Hotswaps:} {bold:' + hotswaps + '}'
+    )
+    
     line('')
-
-    torrent.swarm.wires.every(function (wire) {
-      var progress = '?'
-      if (torrent.length) {
-        var bits = 0
-        var piececount = Math.ceil(torrent.length / torrent.pieceLength)
-        for (var i = 0; i < piececount; i++) {
-          if (wire.peerPieces.get(i)) {
-            bits++
+    
+    if (argv.verbose) {
+        torrent.swarm.wires.every(function (wire) {
+          var progress = '?'
+          if (torrent.length) {
+            var bits = 0
+            var piececount = Math.ceil(torrent.length / torrent.pieceLength)
+            for (var i = 0; i < piececount; i++) {
+              if (wire.peerPieces.get(i)) {
+                bits++
+              }
+            }
+            progress = bits === piececount ? 'S' : Math.floor(100 * bits / piececount) + '%'
           }
+    
+          var str = '{3:%s} {25+magenta:%s} {10:%s} {12+cyan:%s/s} {12+red:%s/s}'
+          var args = [
+            progress,
+            wire.remoteAddress
+              ? (wire.remoteAddress + ':' + wire.remotePort)
+              : 'Unknown',
+            prettyBytes(wire.downloaded),
+            prettyBytes(wire.downloadSpeed()),
+            prettyBytes(wire.uploadSpeed())
+          ]
+          
+          str += ' {15+grey:%s} {10+grey:%s}'
+          var tags = []
+          if (wire.requests.length > 0) tags.push(wire.requests.length + ' reqs')
+          if (wire.peerChoking) tags.push('choked')
+          var reqStats = wire.requests.map(function (req) { return req.piece })
+          args.push(tags.join(', '), reqStats.join(' '))
+          
+          line.apply(undefined, [].concat(str, args))
+    
+          peerslisted += 1
+          return linesRemaining > 4
+        })
+    
+        if (torrent.numPeers > peerslisted) {
+          line('{60:}')
+          line('... and %s more', torrent.numPeers - peerslisted)
         }
-        progress = bits === piececount ? 'S' : Math.floor(100 * bits / piececount) + '%'
-      }
-
-      var str = '{3:%s} {25+magenta:%s} {10:%s} {12+cyan:%s/s} {12+red:%s/s}'
-      var args = [
-        progress,
-        wire.remoteAddress
-          ? (wire.remoteAddress + ':' + wire.remotePort)
-          : 'Unknown',
-        prettyBytes(wire.downloaded),
-        prettyBytes(wire.downloadSpeed()),
-        prettyBytes(wire.uploadSpeed())
-      ]
-      if (argv.verbose) {
-        str += ' {15+grey:%s} {10+grey:%s}'
-        var tags = []
-        if (wire.requests.length > 0) tags.push(wire.requests.length + ' reqs')
-        if (wire.peerChoking) tags.push('choked')
-        var reqStats = wire.requests.map(function (req) { return req.piece })
-        args.push(tags.join(', '), reqStats.join(' '))
-      }
-      line.apply(undefined, [].concat(str, args))
-
-      peerslisted += 1
-      return linesRemaining > 4
-    })
-
-    if (torrent.numPeers > peerslisted) {
-      line('{60:}')
-      line('... and %s more', torrent.numPeers - peerslisted)
+        
+        line('{60:}')
     }
-
-    line('{60:}')
     clivas.flush(true)
   }
 
