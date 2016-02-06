@@ -600,7 +600,6 @@ function drawTorrent (torrent) {
 
 function torrentDone () {
   if (argv['on-done']) cp.exec(argv['on-done']).unref()
-  if (!playerName && !serving && argv.out) gracefulExit()
 }
 
 function fatalError (err) {
