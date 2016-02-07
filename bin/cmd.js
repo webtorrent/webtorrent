@@ -260,7 +260,7 @@ function runCreate (input) {
   })
 }
 
-var client, href, playerName, server, serving
+var client, href, playerName, server
 
 function runDownload (torrentId) {
   if (!argv.out && !argv.stdout && !playerName) {
@@ -338,10 +338,6 @@ function runDownload (torrentId) {
         throw err
       }
     })
-
-  server.once('connection', function () {
-    serving = true
-  })
 
   function onReady () {
     // if no index specified, use largest file
