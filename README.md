@@ -111,6 +111,7 @@ npm install webtorrent -g
 - **[Niagara](http://andreapaiola.name/niagara/)** - Video player webtorrent with subtitles (zipped .srt(s))
 - **[Seedshot](https://github.com/twobucks/seedshot)** - Ephemeral P2P screenshot sharing
 - **[PeerWeb](https://github.com/retrohacker/peerweb.js)** - Fetch and render a static website from a torrent
+- **[Vique](http://andreapaiola.name/vique/)** - Video player queue to share videos
 - Your app here! (send a PR or open an issue with your app's URL)
 
 ### Usage
