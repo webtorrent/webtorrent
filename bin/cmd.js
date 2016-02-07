@@ -543,11 +543,11 @@ function drawTorrent (torrent) {
     '{green:Blocked peers:} {bold:' + torrent.numBlockedPeers + '}  ' +
     '{green:Hotswaps:} {bold:' + hotswaps + '}'
     )
-    
+
     line('')
-    
+
     if (argv.verbose) {
-        torrent.swarm.wires.every(function (wire) {
+      torrent.swarm.wires.every(function (wire) {
           var progress = '?'
           if (torrent.length) {
             var bits = 0
@@ -559,7 +559,7 @@ function drawTorrent (torrent) {
             }
             progress = bits === piececount ? 'S' : Math.floor(100 * bits / piececount) + '%'
           }
-    
+
           var str = '{3:%s} {25+magenta:%s} {10:%s} {12+cyan:%s/s} {12+red:%s/s}'
           var args = [
             progress,
@@ -570,26 +570,26 @@ function drawTorrent (torrent) {
             prettyBytes(wire.downloadSpeed()),
             prettyBytes(wire.uploadSpeed())
           ]
-          
+
           str += ' {15+grey:%s} {10+grey:%s}'
           var tags = []
           if (wire.requests.length > 0) tags.push(wire.requests.length + ' reqs')
           if (wire.peerChoking) tags.push('choked')
           var reqStats = wire.requests.map(function (req) { return req.piece })
           args.push(tags.join(', '), reqStats.join(' '))
-          
+
           line.apply(undefined, [].concat(str, args))
-    
+
           peerslisted += 1
           return linesRemaining > 4
         })
-    
-        if (torrent.numPeers > peerslisted) {
+
+      if (torrent.numPeers > peerslisted) {
           line('{60:}')
           line('... and %s more', torrent.numPeers - peerslisted)
-        }
-        
-        line('{60:}')
+      }
+
+      line('{60:}')
     }
     clivas.flush(true)
   }
