@@ -40,6 +40,7 @@ var argv = minimist(process.argv.slice(2), {
   alias: {
     p: 'port',
     b: 'blocklist',
+    c: 'client-port',
     t: 'subtitles',
     s: 'select',
     i: 'index',
@@ -47,7 +48,8 @@ var argv = minimist(process.argv.slice(2), {
     a: 'announce',
     q: 'quiet',
     h: 'help',
-    v: 'version'
+    v: 'version',
+    e: 'exit'
   },
   boolean: [ // options that are always boolean
     'airplay',
@@ -61,7 +63,8 @@ var argv = minimist(process.argv.slice(2), {
     'quiet',
     'help',
     'version',
-    'verbose'
+    'verbose',
+    'exit'
   ],
   string: [ // options that are always strings
     'out',
@@ -72,7 +75,8 @@ var argv = minimist(process.argv.slice(2), {
     'on-exit'
   ],
   default: {
-    port: 8000
+    port: 8000,
+    'client-port': 6881
   }
 })
 
@@ -203,14 +207,16 @@ Options (simple):
     -v, --version           print the current version
 
 Options (advanced):
-    -p, --port [number]     change the http server port [default: 8000]
-    -t, --subtitles [path]  load subtitles file
-    -b, --blocklist [path]  load blocklist file/http url
-    -a, --announce [url]    tracker URL to announce to
-    -q, --quiet             don't show UI on stdout
-    --on-done [script]      run script after torrent download is done
-    --on-exit [script]      run script before program exit
-    --verbose               show torrent protocol details
+    -p, --port [number]         change the http server port [default: 8000]
+    -c, --client-port [number]  change the torrent client port [default: 6881]
+    -t, --subtitles [path]      load subtitles file
+    -b, --blocklist [path]      load blocklist file/http url
+    -a, --announce [url]        tracker URL to announce to
+    -q, --quiet                 don't show UI on stdout
+    -e, --exit                  exit webtorrent on completion
+    --on-done [script]          run script after torrent download is done
+    --on-exit [script]          run script before program exit
+    --verbose                   show torrent protocol details
 
   */
   }.toString().split(/\n/).slice(2, -2).join('\n'))
@@ -264,7 +270,9 @@ function runDownload (torrentId) {
     argv.out = process.cwd()
   }
 
-  client = new WebTorrent({ blocklist: argv.blocklist })
+  client = new WebTorrent({ blocklist: argv.blocklist,
+                            torrentPort: argv['client-port'] })
+
   client.on('error', fatalError)
 
   var torrent = client.add(torrentId, { path: argv.out, announce: argv.announce })
@@ -481,7 +489,9 @@ function runSeed (input) {
     return
   }
 
-  client = new WebTorrent({ blocklist: argv.blocklist })
+  client = new WebTorrent({ blocklist: argv.blocklist,
+                            torrentPort: argv['client-port'] })
+
   client.on('error', fatalError)
 
   client.seed(input, { announce: argv.announce }, function (torrent) {
@@ -494,7 +504,7 @@ var drawInterval
 function drawTorrent (torrent) {
   if (!argv.quiet) {
     process.stdout.write(new Buffer('G1tIG1sySg==', 'base64')) // clear for drawing
-    drawInterval = setInterval(draw, 500)
+    drawInterval = setInterval(draw, 2000)
     drawInterval.unref()
   }
 
@@ -540,58 +550,59 @@ function drawTorrent (torrent) {
       '{green:Time remaining:} {bold:' + estimate + '}  ' +
       '{green:Peers:} {bold:' + unchoked.length + '/' + torrent.numPeers + '}'
     )
-    if (argv.verbose) {
-      line(
-        '{green:Queued peers:} {bold:' + torrent.swarm.numQueued + '}  ' +
-        '{green:Blocked peers:} {bold:' + torrent.numBlockedPeers + '}  ' +
-        '{green:Hotswaps:} {bold:' + hotswaps + '}'
-      )
-    }
+    line(
+    '{green:Queued peers:} {bold:' + torrent.swarm.numQueued + '}  ' +
+    '{green:Blocked peers:} {bold:' + torrent.numBlockedPeers + '}  ' +
+    '{green:Hotswaps:} {bold:' + hotswaps + '}'
+    )
+
     line('')
 
-    torrent.swarm.wires.every(function (wire) {
-      var progress = '?'
-      if (torrent.length) {
-        var bits = 0
-        var piececount = Math.ceil(torrent.length / torrent.pieceLength)
-        for (var i = 0; i < piececount; i++) {
-          if (wire.peerPieces.get(i)) {
-            bits++
+    if (argv.verbose) {
+      torrent.swarm.wires.every(function (wire) {
+        var progress = '?'
+        if (torrent.length) {
+          var bits = 0
+          var piececount = Math.ceil(torrent.length / torrent.pieceLength)
+          for (var i = 0; i < piececount; i++) {
+            if (wire.peerPieces.get(i)) {
+              bits++
+            }
           }
+          progress = bits === piececount ? 'S' : Math.floor(100 * bits / piececount) + '%'
         }
-        progress = bits === piececount ? 'S' : Math.floor(100 * bits / piececount) + '%'
-      }
 
-      var str = '{3:%s} {25+magenta:%s} {10:%s} {12+cyan:%s/s} {12+red:%s/s}'
-      var args = [
-        progress,
-        wire.remoteAddress
-          ? (wire.remoteAddress + ':' + wire.remotePort)
-          : 'Unknown',
-        prettyBytes(wire.downloaded),
-        prettyBytes(wire.downloadSpeed()),
-        prettyBytes(wire.uploadSpeed())
-      ]
-      if (argv.verbose) {
+        var str = '{3:%s} {25+magenta:%s} {10:%s} {12+cyan:%s/s} {12+red:%s/s}'
+        var args = [
+          progress,
+          wire.remoteAddress
+            ? (wire.remoteAddress + ':' + wire.remotePort)
+            : 'Unknown',
+          prettyBytes(wire.downloaded),
+          prettyBytes(wire.downloadSpeed()),
+          prettyBytes(wire.uploadSpeed())
+        ]
+
         str += ' {15+grey:%s} {10+grey:%s}'
         var tags = []
         if (wire.requests.length > 0) tags.push(wire.requests.length + ' reqs')
         if (wire.peerChoking) tags.push('choked')
         var reqStats = wire.requests.map(function (req) { return req.piece })
         args.push(tags.join(', '), reqStats.join(' '))
+
+        line.apply(undefined, [].concat(str, args))
+
+        peerslisted += 1
+        return linesRemaining > 4
+      })
+
+      if (torrent.numPeers > peerslisted) {
+        line('{60:}')
+        line('... and %s more', torrent.numPeers - peerslisted)
       }
-      line.apply(undefined, [].concat(str, args))
 
-      peerslisted += 1
-      return linesRemaining > 4
-    })
-
-    if (torrent.numPeers > peerslisted) {
       line('{60:}')
-      line('... and %s more', torrent.numPeers - peerslisted)
     }
-
-    line('{60:}')
     clivas.flush(true)
   }
 
@@ -602,7 +613,7 @@ function drawTorrent (torrent) {
 
 function torrentDone () {
   if (argv['on-done']) cp.exec(argv['on-done']).unref()
-  if (!playerName && !serving && argv.out) gracefulExit()
+  if (argv['exit'] && !playerName && !serving && argv.out) gracefulExit()
 }
 
 function fatalError (err) {
