@@ -74,7 +74,7 @@ var argv = minimist(process.argv.slice(2), {
   ],
   default: {
     port: 8000,
-    client-port: 6881
+    'client-port': 6881
   }
 })
 
@@ -268,7 +268,7 @@ function runDownload (torrentId) {
   }
 
   client = new WebTorrent({ blocklist: argv.blocklist,
-                            torrentPort: argv.client-port })
+                            torrentPort: argv.['client-port'] })
 
   client.on('error', fatalError)
 
@@ -485,7 +485,7 @@ function runSeed (input) {
   }
 
   client = new WebTorrent({ blocklist: argv.blocklist,
-                            torrentPort: argv.client-port })
+                            torrentPort: argv.['client-port'] })
 
   client.on('error', fatalError)
 
