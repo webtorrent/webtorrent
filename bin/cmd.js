@@ -263,7 +263,7 @@ function runCreate (input) {
   })
 }
 
-var client, href, playerName, server
+var client, href, playerName, server, serving
 
 function runDownload (torrentId) {
   if (!argv.out && !argv.stdout && !playerName) {
@@ -306,7 +306,22 @@ function runDownload (torrentId) {
     )
   })
 
-  torrent.on('done', torrentDone)
+  torrent.on('done', function () {
+    if (!argv.quiet) {
+      var numActiveWires = torrent.swarm.wires.reduce(function (num, wire) {
+        return num + (wire.downloaded > 0)
+      }, 0)
+      clivas.line('')
+      clivas.line(
+        'torrent downloaded {green:successfully} from {bold:%s/%s} {green:peers} ' +
+        'in {bold:%ss}!',
+        numActiveWires,
+        torrent.numPeers,
+        getRuntime()
+      )
+    }
+    torrentDone()
+  })
 
   // Start http server
   server = torrent.createServer()
@@ -326,6 +341,10 @@ function runDownload (torrentId) {
         throw err
       }
     })
+
+  server.once('connection', function () {
+    serving = true
+  })
 
   function onReady () {
     // if no index specified, use largest file
@@ -592,7 +611,7 @@ function drawTorrent (torrent) {
 
 function torrentDone () {
   if (argv['on-done']) cp.exec(argv['on-done']).unref()
-  if (argv['exit']) gracefulExit()
+  if (argv['exit'] && !playerName && !serving && argv.out) gracefulExit()
 }
 
 function fatalError (err) {
