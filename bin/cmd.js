@@ -40,6 +40,7 @@ var argv = minimist(process.argv.slice(2), {
   alias: {
     p: 'port',
     b: 'blocklist',
+    c: 'client-port',
     t: 'subtitles',
     s: 'select',
     i: 'index',
@@ -72,7 +73,8 @@ var argv = minimist(process.argv.slice(2), {
     'on-exit'
   ],
   default: {
-    port: 8000
+    port: 8000,
+    client-port: 6881
   }
 })
 
@@ -203,14 +205,15 @@ Options (simple):
     -v, --version           print the current version
 
 Options (advanced):
-    -p, --port [number]     change the http server port [default: 8000]
-    -t, --subtitles [path]  load subtitles file
-    -b, --blocklist [path]  load blocklist file/http url
-    -a, --announce [url]    tracker URL to announce to
-    -q, --quiet             don't show UI on stdout
-    --on-done [script]      run script after torrent download is done
-    --on-exit [script]      run script before program exit
-    --verbose               show torrent protocol details
+    -p, --port [number]         change the http server port [default: 8000]
+    -c, --client-port [number]  change the torrent client port [default: 6881]
+    -t, --subtitles [path]      load subtitles file
+    -b, --blocklist [path]      load blocklist file/http url
+    -a, --announce [url]        tracker URL to announce to
+    -q, --quiet                 don't show UI on stdout
+    --on-done [script]          run script after torrent download is done
+    --on-exit [script]          run script before program exit
+    --verbose                   show torrent protocol details
 
   */
   }.toString().split(/\n/).slice(2, -2).join('\n'))
@@ -264,7 +267,9 @@ function runDownload (torrentId) {
     argv.out = process.cwd()
   }
 
-  client = new WebTorrent({ blocklist: argv.blocklist })
+  client = new WebTorrent({ blocklist: argv.blocklist,
+                            torrentPort: argv.client-port })
+
   client.on('error', fatalError)
 
   var torrent = client.add(torrentId, { path: argv.out, announce: argv.announce })
@@ -479,7 +484,9 @@ function runSeed (input) {
     return
   }
 
-  client = new WebTorrent({ blocklist: argv.blocklist })
+  client = new WebTorrent({ blocklist: argv.blocklist,
+                            torrentPort: argv.client-port })
+
   client.on('error', fatalError)
 
   client.seed(input, { announce: argv.announce }, function (torrent) {
