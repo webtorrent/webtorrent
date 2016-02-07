@@ -268,7 +268,7 @@ function runDownload (torrentId) {
   }
 
   client = new WebTorrent({ blocklist: argv.blocklist,
-                            torrentPort: argv.['client-port'] })
+                            torrentPort: argv['client-port'] })
 
   client.on('error', fatalError)
 
@@ -485,7 +485,7 @@ function runSeed (input) {
   }
 
   client = new WebTorrent({ blocklist: argv.blocklist,
-                            torrentPort: argv.['client-port'] })
+                            torrentPort: argv['client-port'] })
 
   client.on('error', fatalError)
 
