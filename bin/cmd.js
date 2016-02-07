@@ -592,8 +592,8 @@ function drawTorrent (torrent) {
       })
 
       if (torrent.numPeers > peerslisted) {
-          line('{60:}')
-          line('... and %s more', torrent.numPeers - peerslisted)
+        line('{60:}')
+        line('... and %s more', torrent.numPeers - peerslisted)
       }
 
       line('{60:}')
