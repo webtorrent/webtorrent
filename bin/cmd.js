@@ -48,7 +48,8 @@ var argv = minimist(process.argv.slice(2), {
     a: 'announce',
     q: 'quiet',
     h: 'help',
-    v: 'version'
+    v: 'version',
+    e: 'exit'
   },
   boolean: [ // options that are always boolean
     'airplay',
@@ -62,7 +63,8 @@ var argv = minimist(process.argv.slice(2), {
     'quiet',
     'help',
     'version',
-    'verbose'
+    'verbose',
+    'exit'
   ],
   string: [ // options that are always strings
     'out',
@@ -211,6 +213,7 @@ Options (advanced):
     -b, --blocklist [path]      load blocklist file/http url
     -a, --announce [url]        tracker URL to announce to
     -q, --quiet                 don't show UI on stdout
+    -e, --exit                  exit webtorrent on completion
     --on-done [script]          run script after torrent download is done
     --on-exit [script]          run script before program exit
     --verbose                   show torrent protocol details
@@ -303,22 +306,7 @@ function runDownload (torrentId) {
     )
   })
 
-  torrent.on('done', function () {
-    if (!argv.quiet) {
-      var numActiveWires = torrent.swarm.wires.reduce(function (num, wire) {
-        return num + (wire.downloaded > 0)
-      }, 0)
-      clivas.line('')
-      clivas.line(
-        'torrent downloaded {green:successfully} from {bold:%s/%s} {green:peers} ' +
-        'in {bold:%ss}!',
-        numActiveWires,
-        torrent.numPeers,
-        getRuntime()
-      )
-    }
-    torrentDone()
-  })
+  torrent.on('done', torrentDone)
 
   // Start http server
   server = torrent.createServer()
@@ -604,6 +592,7 @@ function drawTorrent (torrent) {
 
 function torrentDone () {
   if (argv['on-done']) cp.exec(argv['on-done']).unref()
+  if (argv['exit']) gracefulExit()
 }
 
 function fatalError (err) {

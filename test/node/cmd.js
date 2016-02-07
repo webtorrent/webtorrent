@@ -100,7 +100,7 @@ test('Command line: webtorrent create /path/to/file', function (t) {
 test('Command line: webtorrent download <torrent file> (with local content)', function (t) {
   t.plan(2)
 
-  cp.exec(CMD + ' download ' + common.leaves.torrentPath + ' --out test/fixtures', function (err, data) {
+  cp.exec(CMD + ' download ' + common.leaves.torrentPath + ' --out test/fixtures' + ' --exit', function (err, data) {
     t.error(err)
     t.ok(data.indexOf('successfully') !== -1)
   })
