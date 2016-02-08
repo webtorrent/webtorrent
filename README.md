@@ -1,6 +1,6 @@
 ![WebTorrent](https://webtorrent.io/img/wordmark.png)
 
-## Streaming torrent client for node & the browser
+# Streaming torrent client for the web
 
 [![Gitter][webtorrent-gitter-image]][webtorrent-gitter-url]
 [![NPM Version][webtorrent-ni]][webtorrent-nu]
