@@ -643,8 +643,6 @@ These are the main modules that make up WebTorrent:
 [webtorrent-nu]: https://npmjs.org/package/webtorrent
 [webtorrent-downloads-image]: https://img.shields.io/npm/dm/webtorrent.svg
 [webtorrent-downloads-url]: https://npmjs.org/package/webtorrent
-[webtorrent-gratipay-image]: https://img.shields.io/gratipay/feross.svg
-[webtorrent-gratipay-url]: https://gratipay.com/feross/
 [webtorrent-sauce-image]: https://saucelabs.com/browser-matrix/webtorrent.svg
 [webtorrent-sauce-url]: https://saucelabs.com/u/webtorrent
 [webtorrent-gitter-image]: https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg
