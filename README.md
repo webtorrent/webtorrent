@@ -1,15 +1,16 @@
 # ![WebTorrent](https://webtorrent.io/img/wordmark.png)
 
-[![Gitter][webtorrent-gitter-image]][webtorrent-gitter-url]
-[![Build Status][webtorrent-ti]][webtorrent-tu]
-[![NPM Version][webtorrent-ni]][webtorrent-nu]
-[![NPM Downloads][webtorrent-downloads-image]][webtorrent-downloads-url]
-
 ### Streaming torrent client for node & the browser
 
-[![Sauce Test Status][webtorrent-sauce-image]][webtorrent-sauce-url]
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+[![Gitter][webtorrent-gitter-image]][webtorrent-gitter-url]
+[![NPM Version][webtorrent-ni]][webtorrent-nu]
+[![NPM Downloads][webtorrent-downloads-image]][webtorrent-downloads-url]
+[![Travis Build][webtorrent-ti]][webtorrent-tu] (Linux)
+[![AppVeyor Build][webtorrent-appveyor-image]][webtorrent-appveyor-url] (Windows)
+
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](http://standardjs.com)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+[![Sauce Test Status][webtorrent-sauce-image]][webtorrent-sauce-url]
 
 **WebTorrent** is a streaming torrent client for **node.js** and the **browser**. YEP,
 THAT'S RIGHT. THE BROWSER. It's written completely in JavaScript – the language of the web
@@ -637,16 +638,18 @@ These are the main modules that make up WebTorrent:
 | [ut_pex][ut_pex] | [![][ut_pex-ti]][ut_pex-tu] | [![][ut_pex-ni]][ut_pex-nu] | peer discovery **(ext)**
 
 [webtorrent]: https://github.com/feross/webtorrent
-[webtorrent-ti]: https://img.shields.io/travis/feross/webtorrent/master.svg
-[webtorrent-tu]: https://travis-ci.org/feross/webtorrent
+[webtorrent-gitter-image]: https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg
+[webtorrent-gitter-url]: https://gitter.im/feross/webtorrent
 [webtorrent-ni]: https://img.shields.io/npm/v/webtorrent.svg
 [webtorrent-nu]: https://npmjs.org/package/webtorrent
 [webtorrent-downloads-image]: https://img.shields.io/npm/dm/webtorrent.svg
 [webtorrent-downloads-url]: https://npmjs.org/package/webtorrent
+[webtorrent-ti]: https://img.shields.io/travis/feross/webtorrent/master.svg
+[webtorrent-tu]: https://travis-ci.org/feross/webtorrent
+[webtorrent-appveyor-image]: https://img.shields.io/appveyor/ci/feross/webtorrent/master.svg
+[webtorrent-appveyor-url]: https://ci.appveyor.com/project/feross/webtorrent
 [webtorrent-sauce-image]: https://saucelabs.com/browser-matrix/webtorrent.svg
 [webtorrent-sauce-url]: https://saucelabs.com/u/webtorrent
-[webtorrent-gitter-image]: https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg
-[webtorrent-gitter-url]: https://gitter.im/feross/webtorrent
 
 [bittorrent-dht]: https://github.com/feross/bittorrent-dht
 [bittorrent-dht-ti]: https://img.shields.io/travis/feross/bittorrent-dht/master.svg
