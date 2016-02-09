@@ -306,6 +306,11 @@ If `opts` is specified, it should contain the following types of options:
 
 If `onseed` is specified, it will be called when the client has begun seeding the file.
 
+> Note: The torrent specification requires that every torrent have a name. If one is not explicitly provided through `opts`, WebTorrent will determine the torrent name with the following logic:
+> * If all of the files share a common prefix, that prefix will become the torrent name. For example, if all of the files start with `/imgs/` the torrent name will be `imgs`
+> * Otherwise, the name of the first file passed in to `client.seed`, for example if the first file is `/foo/bar/baz.txt`, the torrent name will be `baz.txt`
+> The `torrent` object will contain a list of files, whose names are prefixed with the torrent name. When creating a nameless torrent in Node, this will be intuitive. When doing the same in the browser, this may lead to confusing results.
+
 #### `client.on('torrent', function (torrent) {})`
 
 Emitted when a torrent is ready to be used (i.e. metadata is available and store is
