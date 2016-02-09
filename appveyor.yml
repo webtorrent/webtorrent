@@ -11,10 +11,6 @@ environment:
   - nodejs_version: "4"
   - nodejs_version: "0.12"
 
-# http://www.appveyor.com/docs/build-cache
-cache:
-  - node_modules
-
 # Install scripts. (runs after repo cloning)
 install:
   # Get the latest stable version of Node.js or io.js
