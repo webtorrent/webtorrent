@@ -2,12 +2,11 @@
 
 var spawn = require('cross-spawn-async')
 
-var runBrowserTests = process.env.TRAVIS && (!process.env.TRAVIS_PULL_REQUEST ||
-  process.env.TRAVIS_PULL_REQUEST === 'false')
+var runSauceLabs = process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_KEY
 
 npmRun('test-node', function (code) {
   if (code === 0) {
-    var scriptName = runBrowserTests ? 'test-browser' : 'test-browser-headless'
+    var scriptName = runSauceLabs ? 'test-browser' : 'test-browser-headless'
     npmRun(scriptName, function (code) {
       process.exit(code)
     })
