@@ -1,5 +1,3 @@
-/* global Blob */
-
 var test = require('tape')
 var Readable = require('readable-stream').Readable
 var WebTorrent = require('../')
@@ -13,7 +11,7 @@ test('client.seed: stream', function (t) {
   var tracker = new Tracker()
   var seeder, client
   tracker.listen(function () {
-    announce.push('http://localhost:'+tracker.http.address().port)
+    announce.push('http://localhost:' + tracker.http.address().port)
     seeder = new WebTorrent({ dht: false })
     client = new WebTorrent({ dht: false })
 
@@ -25,7 +23,7 @@ test('client.seed: stream', function (t) {
     seed()
   })
   tracker.on('start', function () {
-    console.log('START', argument)
+    console.log('START', arguments)
   })
 
   t.once('end', function () {
@@ -34,7 +32,7 @@ test('client.seed: stream', function (t) {
     tracker.close()
   })
 
-  var stream = new Readable
+  var stream = new Readable()
   stream._read = function () {}
   stream.push('HELLO WORLD\n')
   stream.push(null)

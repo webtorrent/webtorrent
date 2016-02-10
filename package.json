@@ -75,6 +75,7 @@
     "bittorrent-tracker": "^7.0.0",
     "brfs": "^1.2.0",
     "browserify": "^13.0.0",
+    "concat-stream": "^1.5.1",
     "cross-spawn-async": "^2.0.0",
     "finalhandler": "^0.4.0",
     "run-series": "^1.0.2",
