@@ -83,6 +83,8 @@ function WebTorrent (opts) {
     // use a single DHT instance for all torrents, so the routing table can be reused
     self.dht = new DHT(extend({ nodeId: self.nodeId }, opts.dht))
     self.dht.listen(opts.dhtPort)
+  } else {
+    self.dht = false
   }
 
   debug('new webtorrent (peerId %s, nodeId %s)', self.peerId, self.nodeId)
