@@ -15,6 +15,7 @@ var Peer = require('simple-peer')
 var speedometer = require('speedometer')
 var zeroFill = require('zero-fill')
 
+var concatStream = require('./lib/concat-stream')
 var Torrent = require('./lib/torrent')
 
 module.exports.WEBRTC_SUPPORT = Peer.WEBRTC_SUPPORT
@@ -237,22 +238,31 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
     })
   })
 
-  createTorrent.parseInput(input, opts, function (err, files) {
+  if (!Array.isArray(input)) input = [ input ]
+  parallel(input.map(function (item) {
+    return function (cb) {
+      if (isReadable(item)) concatStream(item, cb)
+      else cb(null, item)
+    }
+  }), function (err, input) {
     if (err) return self.emit('error', err)
-    streams = files.map(function (file) { return file.getStream })
-
-    createTorrent(input, opts, function (err, torrentBuf) {
+    createTorrent.parseInput(input, opts, function (err, files) {
       if (err) return self.emit('error', err)
-      if (self.destroyed) return
+      streams = files.map(function (file) { return file.getStream })
 
-      var existingTorrent = self.get(torrentBuf)
-      if (existingTorrent) {
-        torrent.destroy()
-        _onseed()
-        return
-      } else {
-        torrent._onTorrentId(torrentBuf)
-      }
+      createTorrent(input, opts, function (err, torrentBuf) {
+        if (err) return self.emit('error', err)
+        if (self.destroyed) return
+
+        var existingTorrent = self.get(torrentBuf)
+        if (existingTorrent) {
+          torrent.destroy()
+          _onseed()
+          return
+        } else {
+          torrent._onTorrentId(torrentBuf)
+        }
+      })
     })
   })
 
@@ -302,4 +312,13 @@ WebTorrent.prototype.destroy = function (cb) {
   if (self.dht) tasks.push(function (cb) { self.dht.destroy(cb) })
 
   parallel(tasks, cb)
+}
+
+/**
+ * Check if `obj` is a node Readable stream
+ * @param  {*} obj
+ * @return {boolean}
+ */
+function isReadable (obj) {
+  return typeof obj === 'object' && obj != null && typeof obj.pipe === 'function'
 }
