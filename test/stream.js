@@ -11,7 +11,10 @@ test('client.seed: stream', function (t) {
   var tracker = new Tracker()
   var seeder, client
   tracker.listen(function () {
-    announce.push('http://localhost:' + tracker.http.address().port)
+    var port = tracker.http.address().port
+    t.pass('tracker listening on ' + port)
+    announce.push('http://localhost:' + port + '/announce')
+
     seeder = new WebTorrent({ dht: false })
     client = new WebTorrent({ dht: false })
 
@@ -46,7 +49,6 @@ test('client.seed: stream', function (t) {
     var copts = { announce: announce }
     seeder.seed([stream], sopts, function (torrent) {
       console.log(torrent.magnetURI)
-      // this works: client.add(torrent, copts, function (dl) {
       client.add(torrent.magnetURI, copts, function (dl) {
         t.equal(dl.files.length, 1)
         t.equal(dl.files[0].name, 'hello.txt')
