@@ -1,63 +1,71 @@
 var test = require('tape')
 var Readable = require('readable-stream').Readable
-var concat = require('concat-stream')
 var Tracker = require('bittorrent-tracker/server')
 var WebTorrent = require('../../')
+var series = require('run-series')
 
 test('client.seed: stream', function (t) {
-  t.plan(4)
+  t.plan(9)
 
-  var announce = []
-  var tracker = new Tracker()
-  var seeder, client
-  tracker.listen(function () {
-    var port = tracker.http.address().port
-    t.pass('tracker listening on ' + port)
-    announce.push('http://localhost:' + port + '/announce')
+  var tracker = new Tracker({ udp: false, ws: false })
 
-    seeder = new WebTorrent({ dht: false })
-    client = new WebTorrent({ dht: false })
+  tracker.on('error', function (err) { t.fail(err) })
+  tracker.on('warning', function (err) { t.fail(err) })
 
-    seeder.on('error', function (err) { t.fail(err) })
-    seeder.on('warning', function (err) { t.fail(err) })
-    client.on('error', function (err) { t.fail(err) })
-    client.on('warning', function (err) { t.fail(err) })
+  var seeder, client, announceUrl, magnetURI
 
-    seed()
-  })
-  tracker.on('start', function () {
-    console.log('START', arguments)
-  })
+  series([
+    function (cb) {
+      tracker.listen(cb)
+    },
 
-  t.once('end', function () {
-    seeder.destroy(function (err) { if (err) t.error(err, 'seeder destroyed') })
-    client.destroy(function (err) { if (err) t.error(err, 'client destroyed') })
-    tracker.close()
-  })
+    function (cb) {
+      var port = tracker.http.address().port
+      announceUrl = 'http://localhost:' + port + '/announce'
 
-  var stream = new Readable()
-  stream._read = function () {}
-  stream.push('HELLO WORLD\n')
-  stream.push(null)
+      seeder = new WebTorrent({ dht: false })
 
-  function seed () {
-    var sopts = {
-      name: 'hello.txt',
-      pieceLength: 5,
-      announce: announce
-    }
-    var copts = { announce: announce }
-    seeder.seed([stream], sopts, function (torrent) {
-      console.log(torrent.magnetURI)
-      client.add(torrent.magnetURI, copts, function (dl) {
+      seeder.on('error', function (err) { t.fail(err) })
+      seeder.on('warning', function (err) { t.fail(err) })
+
+      var stream = new Readable()
+      stream._read = function () {}
+      stream.push('HELLO WORLD\n')
+      stream.push(null)
+
+      var seederOpts = {
+        name: 'hello.txt',
+        pieceLength: 5,
+        announce: [ announceUrl ]
+      }
+      seeder.seed([stream], seederOpts, function (torrent) {
+        magnetURI = torrent.magnetURI
+        cb(null)
+      })
+    },
+
+    function (cb) {
+      client = new WebTorrent({ dht: false })
+
+      client.on('error', function (err) { t.fail(err) })
+      client.on('warning', function (err) { t.fail(err) })
+
+      client.add(magnetURI, function (dl) {
         t.equal(dl.files.length, 1)
         t.equal(dl.files[0].name, 'hello.txt')
         t.equal(dl.files[0].length, 12)
-        dl.files[0].createReadStream()
-          .pipe(concat({ encoding: 'string' }, function (body) {
-            t.equal(body, 'HELLO WORLD\n', 'content')
-          }))
+        dl.files[0].getBuffer(function (err, buf) {
+          t.error(err)
+          t.equal(buf.toString('utf8'), 'HELLO WORLD\n', 'content')
+
+          cb(null)
+        })
       })
-    })
-  }
+    }
+  ], function (err) {
+    t.error(err)
+    seeder.destroy(function (err) { t.error(err, 'seeder destroyed') })
+    client.destroy(function (err) { t.error(err, 'client destroyed') })
+    tracker.close(function () { t.pass('tracker closed') })
+  })
 })
