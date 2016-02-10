@@ -1,8 +1,8 @@
 var test = require('tape')
 var Readable = require('readable-stream').Readable
-var WebTorrent = require('../')
 var concat = require('concat-stream')
 var Tracker = require('bittorrent-tracker/server')
+var WebTorrent = require('../../')
 
 test('client.seed: stream', function (t) {
   t.plan(4)
