@@ -638,9 +638,10 @@ These are the main modules that make up WebTorrent:
 | [create-torrent][create-torrent] | [![][create-torrent-ti]][create-torrent-tu] | [![][create-torrent-ni]][create-torrent-nu] | create .torrent files
 | [magnet-uri][magnet-uri] | [![][magnet-uri-ti]][magnet-uri-tu] | [![][magnet-uri-ni]][magnet-uri-nu] | parse magnet uris
 | [parse-torrent][parse-torrent] | [![][parse-torrent-ti]][parse-torrent-tu] | [![][parse-torrent-ni]][parse-torrent-nu] | parse torrent identifiers
+| [render-media][render-media] | [![][render-media-ti]][render-media-tu] | [![][render-media-ni]][render-media-nu] | intelligently render media files
 | [torrent-discovery][torrent-discovery] | [![][torrent-discovery-ti]][torrent-discovery-tu] | [![][torrent-discovery-ni]][torrent-discovery-nu] | find peers via dht and tracker
-| [ut_metadata][ut_metadata] | [![][ut_metadata-ti]][ut_metadata-tu] | [![][ut_metadata-ni]][ut_metadata-nu] | metadata for magnet uris **(ext)**
-| [ut_pex][ut_pex] | [![][ut_pex-ti]][ut_pex-tu] | [![][ut_pex-ni]][ut_pex-nu] | peer discovery **(ext)**
+| [ut_metadata][ut_metadata] | [![][ut_metadata-ti]][ut_metadata-tu] | [![][ut_metadata-ni]][ut_metadata-nu] | metadata for magnet uris (protocol extension)
+| [ut_pex][ut_pex] | [![][ut_pex-ti]][ut_pex-tu] | [![][ut_pex-ni]][ut_pex-nu] | peer discovery (protocol extension)
 
 [webtorrent]: https://github.com/feross/webtorrent
 [webtorrent-gitter-image]: https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg
@@ -703,6 +704,12 @@ These are the main modules that make up WebTorrent:
 [parse-torrent-tu]: https://travis-ci.org/feross/parse-torrent
 [parse-torrent-ni]: https://img.shields.io/npm/v/parse-torrent.svg
 [parse-torrent-nu]: https://npmjs.org/package/parse-torrent
+
+[render-media]: https://github.com/feross/render-media
+[render-media-ti]: https://img.shields.io/travis/feross/render-media/master.svg
+[render-media-tu]: https://travis-ci.org/feross/render-media
+[render-media-ni]: https://img.shields.io/npm/v/render-media.svg
+[render-media-nu]: https://npmjs.org/package/render-media
 
 [torrent-discovery]: https://github.com/feross/torrent-discovery
 [torrent-discovery-ti]: https://img.shields.io/travis/feross/torrent-discovery/master.svg
