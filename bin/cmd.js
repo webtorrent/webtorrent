@@ -5,7 +5,6 @@ var cp = require('child_process')
 var createTorrent = require('create-torrent')
 var executable = require('executable')
 var fs = require('fs')
-var inquirer = require('inquirer')
 var minimist = require('minimist')
 var moment = require('moment')
 var networkAddress = require('network-address')
@@ -13,7 +12,6 @@ var parseTorrent = require('parse-torrent')
 var path = require('path')
 var prettyBytes = require('pretty-bytes')
 var WebTorrent = require('../')
-var zeroFill = require('zero-fill')
 
 process.title = 'WebTorrent'
 
@@ -42,7 +40,6 @@ var argv = minimist(process.argv.slice(2), {
     b: 'blocklist',
     t: 'subtitles',
     s: 'select',
-    i: 'index',
     o: 'out',
     a: 'announce',
     q: 'quiet',
@@ -57,7 +54,6 @@ var argv = minimist(process.argv.slice(2), {
     'vlc',
     'xbmc',
     'stdout',
-    'select',
     'quiet',
     'help',
     'version',
@@ -196,13 +192,12 @@ Options (streaming):
 
 Options (simple):
     -o, --out [path]        set download destination [default: current directory]
-    -s, --select            select individual file in torrent (by index)
-    -i, --index [number]    stream a particular file from torrent (by index)
+    -s, --select [index]    select specific file in torrent (omit index for file list)
+    -t, --subtitles [path]  load subtitles file
     -v, --version           print the current version
 
 Options (advanced):
     -p, --port [number]     change the http server port [default: 8000]
-    -t, --subtitles [path]  load subtitles file
     -b, --blocklist [path]  load blocklist file/http url
     -a, --announce [url]    tracker URL to announce to
     -q, --quiet             don't show UI on stdout
@@ -335,49 +330,26 @@ function runDownload (torrentId) {
   })
 
   function onReady () {
+    if (typeof argv.select === 'boolean') {
+      clivas.line('Select a file to download:')
+      torrent.files.forEach(function (file, i) {
+        clivas.line(
+          '{2+bold+magenta:%s} %s {blue:(%s)}',
+          i, file.name, prettyBytes(file.length)
+        )
+      })
+      clivas.line('\nTo select a specific file, re-run `webtorrent` with "--select [index]"')
+      clivas.line('Example: webtorrent download "magnet:..." --select 0')
+      process.exit(0)
+    }
+
     // if no index specified, use largest file
-    var index = (typeof argv.index === 'number')
-      ? argv.index
+    var index = (typeof argv.select === 'number')
+      ? argv.select
       : torrent.files.indexOf(torrent.files.reduce(function (a, b) {
         return a.length > b.length ? a : b
       }))
-
-    if (argv.select) {
-      var interactive = process.stdin.isTTY && !!process.stdin.setRawMode
-      if (interactive) {
-        if (torrent.files.length === 0) return errorAndExit('No files in the torrent')
-
-        var cli = inquirer.prompt([{
-          type: 'list',
-          name: 'index',
-          message: 'Choose a file to download:',
-          default: index,
-          choices: torrent.files.map(function (file, i) {
-            var len = prettyBytes(file.length)
-            return {
-              name: zeroFill(2, i, ' ') + ': ' + file.name + ' (' + len + ')',
-              value: i
-            }
-          })
-        }], function (answers) {
-          onSelection(answers.index)
-        })
-
-        cli.rl.on('SIGINT', function () {
-          return process.exit(0)
-        })
-      } else {
-        torrent.files.forEach(function (file, i) {
-          clivas.line(
-            '{3+bold:%s}: {magenta:%s} {blue:(%s)}',
-            i, file.name, prettyBytes(file.length)
-          )
-        })
-        return process.exit(0)
-      }
-    } else {
-      onSelection(index)
-    }
+    onSelection(index)
   }
 
   function onSelection (index) {
