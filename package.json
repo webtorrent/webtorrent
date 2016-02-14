@@ -19,6 +19,11 @@
     "path-exists": false,
     "ut_pex": false
   },
+  "browserify": {
+    "transform": [
+      "package-json-versionify"
+    ]
+  },
   "bugs": {
     "url": "https://github.com/feross/webtorrent/issues"
   },
@@ -45,6 +50,7 @@
     "moment": "^2.8.3",
     "multistream": "^2.0.2",
     "network-address": "^1.0.0",
+    "package-json-versionify": "^1.0.1",
     "parse-torrent": "^5.1.0",
     "path-exists": "^2.1.0",
     "pretty-bytes": "^3.0.0",
