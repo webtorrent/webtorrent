@@ -87,8 +87,6 @@ function getRuntime () {
 
 var VLC_ARGS = '--play-and-exit --video-on-top --quiet'
 if (process.env.DEBUG) {
-  VLC_ARGS += ' -q'
-} else {
   VLC_ARGS += ' --extraintf=http:logger --verbose=2 --file-logging --logfile=vlc-log.txt'
 }
 var MPLAYER_EXEC = 'mplayer -ontop -really-quiet -noidx -loop 0'
