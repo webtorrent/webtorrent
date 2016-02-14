@@ -323,13 +323,11 @@ function runDownload (torrentId) {
 
   server.listen(argv.port, initServer)
     .on('error', function (err) {
-      // In case the port is unusable
       if (err.code === 'EADDRINUSE' || err.code === 'EACCES') {
-        // Let the OS choose one for us
-        server.listen(0, initServer)
-      } else {
-        throw err
+        // If port is taken, pick one a free one automatically
+        return server.listen(0, initServer)
       }
+      fatalError(err)
     })
 
   server.once('connection', function () {
