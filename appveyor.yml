@@ -20,11 +20,9 @@ install:
 
 # Post-install test scripts.
 test_script:
-  # Output useful info for debugging.
   - node --version
   - npm --version
-  # run tests
-  - npm run test-node # (not `npm test` because saucelabs credentials are missing)
+  - npm run test-node # (not `npm test`, because saucelabs tests run via Travis)
 
 # Don't actually build.
 # https://www.appveyor.com/docs/lang/nodejs-iojs#quick-start
