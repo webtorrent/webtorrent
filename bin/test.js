@@ -11,20 +11,18 @@ var zuulrcPath = findNearestFile('.zuulrc') || path.join(userHome, '.zuulrc')
 var hasSauceLabEnvVars = process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_KEY
 var runSauceLabs = hasSauceLabEnvVars || pathExists.sync(zuulrcPath)
 
-npmRun('test-node', function (code) {
-  npmRun('test-browser-headless', function (code) {
+npmRun('test-node', function () {
+  npmRun('test-browser-headless', function () {
     if (runSauceLabs) {
-      npmRun('test-browser', process.exit)
-    } else {
-      process.exit(code)
+      npmRun('test-browser')
     }
   })
 })
 
-function npmRun (scriptName, onClose) {
+function npmRun (scriptName, onSuccess) {
   spawn('npm', ['run', scriptName], { stdio: 'inherit' }).on('close', function (code) {
-    if (code === 0) {
-      onClose(code)
+    if (code === 0 && onSuccess) {
+      onSuccess(code)
     } else {
       process.exit(code)
     }
