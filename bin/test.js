@@ -13,9 +13,14 @@ var runSauceLabs = hasSauceLabEnvVars || pathExists.sync(zuulrcPath)
 
 npmRun('test-node', function (code) {
   if (code === 0) {
-    var scriptName = runSauceLabs ? 'test-browser' : 'test-browser-headless'
-    npmRun(scriptName, function (code) {
-      process.exit(code)
+    npmRun('test-browser-headless', function (code) {
+      if (code === 0 && runSauceLabs) {
+        npmRun('test-browser', function (code) {
+          process.exit(code)
+        })
+      } else {
+        process.exit(code)
+      }
     })
   } else {
     process.exit(code)
