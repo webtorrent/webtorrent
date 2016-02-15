@@ -12,21 +12,21 @@ var hasSauceLabEnvVars = process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_
 var runSauceLabs = hasSauceLabEnvVars || pathExists.sync(zuulrcPath)
 
 npmRun('test-node', function (code) {
-  if (code === 0) {
-    npmRun('test-browser-headless', function (code) {
-      if (code === 0 && runSauceLabs) {
-        npmRun('test-browser', function (code) {
-          process.exit(code)
-        })
-      } else {
-        process.exit(code)
-      }
-    })
-  } else {
-    process.exit(code)
-  }
+  npmRun('test-browser-headless', function (code) {
+    if (runSauceLabs) {
+      npmRun('test-browser', process.exit)
+    } else {
+      process.exit(code)
+    }
+  })
 })
 
 function npmRun (scriptName, onClose) {
-  spawn('npm', ['run', scriptName], { stdio: 'inherit' }).on('close', onClose)
+  spawn('npm', ['run', scriptName], { stdio: 'inherit' }).on('close', function (code) {
+    if (code === 0) {
+      onClose(code)
+    } else {
+      process.exit(code)
+    }
+  })
 }
