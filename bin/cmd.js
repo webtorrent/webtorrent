@@ -425,6 +425,10 @@ function runDownload (torrentId) {
         player.play(href, {
           title: torrent.name
         })
+        player.on('error', function (err) {
+          err.message = 'Chromecast: ' + err.message
+          errorAndExit(err)
+        })
       })
     }
 
