@@ -3,10 +3,10 @@
 # Streaming torrent client for the web
 
 [![Gitter][webtorrent-gitter-image]][webtorrent-gitter-url]
-[![NPM Version][webtorrent-ni]][webtorrent-nu]
-[![NPM Downloads][webtorrent-downloads-image]][webtorrent-downloads-url]
 [![Travis Build][webtorrent-ti]][webtorrent-tu]
 [![AppVeyor Build][webtorrent-appveyor-image]][webtorrent-appveyor-url]
+[![NPM Version][webtorrent-ni]][webtorrent-nu]
+[![NPM Downloads][webtorrent-downloads-image]][webtorrent-downloads-url]
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](http://standardjs.com)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -646,14 +646,14 @@ These are the main modules that make up WebTorrent:
 [webtorrent]: https://github.com/feross/webtorrent
 [webtorrent-gitter-image]: https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg
 [webtorrent-gitter-url]: https://gitter.im/feross/webtorrent
-[webtorrent-ni]: https://img.shields.io/npm/v/webtorrent.svg
-[webtorrent-nu]: https://npmjs.org/package/webtorrent
-[webtorrent-downloads-image]: https://img.shields.io/npm/dm/webtorrent.svg
-[webtorrent-downloads-url]: https://npmjs.org/package/webtorrent
 [webtorrent-ti]: https://img.shields.io/travis/feross/webtorrent/master.svg
 [webtorrent-tu]: https://travis-ci.org/feross/webtorrent
 [webtorrent-appveyor-image]: https://ci.appveyor.com/api/projects/status/cgu85xlgl72uoswq/branch/master?svg=true
 [webtorrent-appveyor-url]: https://ci.appveyor.com/project/feross/webtorrent
+[webtorrent-ni]: https://img.shields.io/npm/v/webtorrent.svg
+[webtorrent-nu]: https://npmjs.org/package/webtorrent
+[webtorrent-downloads-image]: https://img.shields.io/npm/dm/webtorrent.svg
+[webtorrent-downloads-url]: https://npmjs.org/package/webtorrent
 [webtorrent-sauce-image]: https://saucelabs.com/browser-matrix/webtorrent.svg
 [webtorrent-sauce-url]: https://saucelabs.com/u/webtorrent
 
