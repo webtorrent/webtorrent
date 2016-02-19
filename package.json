@@ -31,7 +31,7 @@
     "addr-to-ip-port": "^1.0.1",
     "bitfield": "^1.0.2",
     "bittorrent-dht": "^6.0.1",
-    "bittorrent-swarm": "^7.0.0",
+    "bittorrent-swarm": "^7.1.0",
     "chunk-store-stream": "^2.0.0",
     "clivas": "^0.2.0",
     "cpus": "^1.0.0",
