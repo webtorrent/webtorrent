@@ -86,7 +86,7 @@
     "run-series": "^1.0.2",
     "serve-static": "^1.9.3",
     "simple-get": "^2.0.0",
-    "standard": "^6.0.1",
+    "standard": "^6.0.6",
     "tape": "^4.0.0",
     "uglify-js": "^2.4.15",
     "zuul": "^3.0.0"
