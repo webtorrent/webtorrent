@@ -558,17 +558,17 @@ function drawTorrent (torrent) {
       return linesRemaining > 4
     })
 
+    line('{60:}')
     if (torrent.numPeers > peerslisted) {
-      line('{60:}')
       line('... and %s more', torrent.numPeers - peerslisted)
     }
 
-    line('{60:}')
     clivas.flush(true)
-  }
 
-  function line () {
-    clivas.line.apply(clivas, arguments)
+    function line () {
+      clivas.line.apply(clivas, arguments)
+      linesRemaining -= 1
+    }
   }
 }
 
