@@ -383,10 +383,10 @@ function runDownload (torrentId) {
           var vlcPath = item.value + path.sep + 'vlc'
           VLC_ARGS = VLC_ARGS.split(' ')
           VLC_ARGS.unshift(href)
-          cp.execFile(vlcPath, VLC_ARGS, function (err) {
+          unref(cp.execFile(vlcPath, VLC_ARGS, function (err) {
             if (err) return fatalError(err)
             torrentDone()
-          }).unref()
+          }))
         })
       }
     } else if (argv.vlc) {
@@ -404,10 +404,10 @@ function runDownload (torrentId) {
     }
 
     if (cmd) {
-      cp.exec(cmd, function (err) {
+      unref(cp.exec(cmd, function (err) {
         if (err) return fatalError(err)
         torrentDone()
-      }).unref()
+      }))
     }
 
     if (argv.airplay) {
@@ -467,7 +467,7 @@ function drawTorrent (torrent) {
   if (!argv.quiet) {
     process.stdout.write(new Buffer('G1tIG1sySg==', 'base64')) // clear for drawing
     drawInterval = setInterval(draw, 500)
-    drawInterval.unref()
+    unref(drawInterval)
   }
 
   function draw () {
@@ -573,7 +573,7 @@ function drawTorrent (torrent) {
 }
 
 function torrentDone () {
-  if (argv['on-done']) cp.exec(argv['on-done']).unref()
+  if (argv['on-done']) unref(cp.exec(argv['on-done']))
   if (!playerName && !serving && argv.out) gracefulExit()
 }
 
@@ -597,13 +597,17 @@ function gracefulExit () {
 
   if (!client) return
 
-  if (argv['on-exit']) cp.exec(argv['on-exit']).unref()
+  if (argv['on-exit']) unref(cp.exec(argv['on-exit']))
 
   client.destroy(function (err) {
     if (err) return fatalError(err)
 
     // Quit after 1 second. This is only necessary for `webtorrent-hybrid` since
     // the `wrtc` package makes node never quit :(
-    setTimeout(function () { process.exit(0) }, 1000).unref()
+    unref(setTimeout(function () { process.exit(0) }, 1000))
   })
+}
+
+function unref (iv) {
+  if (iv && typeof iv.unref === 'function') iv.unref()
 }
