@@ -54,3 +54,27 @@ test('client.seed followed by two duplicate client.add calls', function (t) {
     })
   })
 })
+
+test('successive sync client.add, client.remove, client.add, client.remove', function (t) {
+  t.plan(3)
+
+  var client = new WebTorrent({ dht: false, tracker: false })
+  client.on('error', function (err) { t.fail(err) })
+  client.on('warning', function (err) { t.fail(err) })
+
+  client.seed(common.leaves.content, {
+    name: 'Leaves of Grass by Walt Whitman.epub'
+  }, function (torrent1) {
+    t.equal(client.torrents.length, 1)
+
+    client.add(torrent1.infoHash)
+    client.remove(torrent1.infoHash)
+    client.add(torrent1.infoHash)
+    client.remove(torrent1.infoHash, function () {
+      client.destroy(function (err) {
+        t.error(err, 'destroyed client')
+        t.equal(client.torrents.length, 0)
+      })
+    })
+  })
+})
