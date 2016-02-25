@@ -15,6 +15,7 @@ var Peer = require('simple-peer')
 var speedometer = require('speedometer')
 var zeroFill = require('zero-fill')
 
+var concatStream = require('./lib/concat-stream')
 var Torrent = require('./lib/torrent')
 
 module.exports.WEBRTC_SUPPORT = Peer.WEBRTC_SUPPORT
@@ -82,7 +83,13 @@ function WebTorrent (opts) {
   if (opts.dht !== false && typeof DHT === 'function' /* browser exclude */) {
     // use a single DHT instance for all torrents, so the routing table can be reused
     self.dht = new DHT(extend({ nodeId: self.nodeId }, opts.dht))
+    self.dht.once('error', function (err) {
+      self.emit('error', err)
+      self.destroy()
+    })
     self.dht.listen(opts.dhtPort)
+  } else {
+    self.dht = false
   }
 
   debug('new webtorrent (peerId %s, nodeId %s)', self.peerId, self.nodeId)
@@ -163,36 +170,35 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
   var self = this
   if (self.destroyed) throw new Error('client is destroyed')
   if (typeof opts === 'function') return self.add(torrentId, null, opts)
-  opts = opts ? extend(opts) : {}
+
   debug('add')
+  opts = opts ? extend(opts) : {}
 
   var torrent = self.get(torrentId)
 
-  function _ontorrent () {
-    if (typeof ontorrent === 'function') ontorrent(torrent)
-  }
-
   if (torrent) {
-    if (torrent.ready) process.nextTick(_ontorrent)
-    else torrent.on('ready', _ontorrent)
+    if (torrent.ready) process.nextTick(onReady)
+    else torrent.once('ready', onReady)
   } else {
-    opts.client = self
-    torrent = new Torrent(torrentId, opts)
+    torrent = new Torrent(torrentId, self, opts)
     self.torrents.push(torrent)
 
-    torrent.on('error', function (err) {
+    torrent.once('error', function (err) {
       self.emit('error', err, torrent)
       self.remove(torrent)
     })
 
-    torrent.on('listening', function (port) {
+    torrent.once('listening', function (port) {
       self.emit('listening', port, torrent)
     })
 
-    torrent.on('ready', function () {
-      _ontorrent()
-      self.emit('torrent', torrent)
-    })
+    torrent.once('ready', onReady)
+  }
+
+  function onReady () {
+    debug('on torrent')
+    if (typeof ontorrent === 'function') ontorrent(torrent)
+    self.emit('torrent', torrent)
   }
 
   return torrent
@@ -202,22 +208,54 @@ WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
  * Start seeding a new file/folder.
  * @param  {string|File|FileList|Buffer|Array.<string|File|Buffer>} input
  * @param  {Object=} opts
- * @param  {function=} onseed
+ * @param  {function=} onseed called when torrent is seeding
  */
 WebTorrent.prototype.seed = function (input, opts, onseed) {
   var self = this
   if (self.destroyed) throw new Error('client is destroyed')
   if (typeof opts === 'function') return self.seed(input, null, opts)
-  opts = opts ? extend(opts) : {}
-  debug('seed')
 
-  // When seeding from filesystem, initialize store from that path (avoids a copy)
+  debug('seed')
+  opts = opts ? extend(opts) : {}
+
+  // When seeding from fs path, initialize store from that path to avoid a copy
   if (typeof input === 'string') opts.path = path.dirname(input)
   if (!opts.createdBy) opts.createdBy = 'WebTorrent/' + VERSION_STR
   if (!self.tracker) opts.announce = []
 
+  var torrent = self.add(null, opts, onTorrent)
   var streams
-  var torrent = self.add(undefined, opts, function (torrent) {
+
+  if (!Array.isArray(input)) input = [ input ]
+  parallel(input.map(function (item) {
+    return function (cb) {
+      if (isReadable(item)) concatStream(item, cb)
+      else cb(null, item)
+    }
+  }), function (err, input) {
+    if (err) return self.emit('error', err, torrent)
+    if (self.destroyed) return
+    createTorrent.parseInput(input, opts, function (err, files) {
+      if (err) return self.emit('error', err, torrent)
+      if (self.destroyed) return
+      streams = files.map(function (file) { return file.getStream })
+
+      createTorrent(input, opts, function (err, torrentBuf) {
+        if (err) return self.emit('error', err, torrent)
+        if (self.destroyed) return
+
+        var existingTorrent = self.get(torrentBuf)
+        if (existingTorrent) {
+          torrent.destroy()
+          _onseed(existingTorrent)
+        } else {
+          torrent._onTorrentId(torrentBuf)
+        }
+      })
+    })
+  })
+
+  function onTorrent (torrent) {
     var tasks = [
       function (cb) {
         torrent.load(streams, cb)
@@ -225,38 +263,20 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
     ]
     if (self.dht) {
       tasks.push(function (cb) {
-        torrent.on('dhtAnnounce', cb)
+        torrent.once('dhtAnnounce', cb)
       })
     }
     parallel(tasks, function (err) {
-      if (err) return self.emit('error', err)
-      _onseed()
-      self.emit('seed', torrent)
-    })
-  })
-
-  createTorrent.parseInput(input, opts, function (err, files) {
-    if (err) return self.emit('error', err)
-    streams = files.map(function (file) { return file.getStream })
-
-    createTorrent(input, opts, function (err, torrentBuf) {
-      if (err) return self.emit('error', err)
       if (self.destroyed) return
-
-      var existingTorrent = self.get(torrentBuf)
-      if (existingTorrent) {
-        torrent.destroy()
-        _onseed()
-        return
-      } else {
-        torrent._onTorrentId(torrentBuf)
-      }
+      if (err) return self.emit('error', err, torrent)
+      _onseed(torrent)
     })
-  })
+  }
 
-  function _onseed () {
+  function _onseed (torrent) {
     debug('on seed')
     if (typeof onseed === 'function') onseed(torrent)
+    self.emit('seed', torrent)
   }
 
   return torrent
@@ -300,4 +320,13 @@ WebTorrent.prototype.destroy = function (cb) {
   if (self.dht) tasks.push(function (cb) { self.dht.destroy(cb) })
 
   parallel(tasks, cb)
+}
+
+/**
+ * Check if `obj` is a node Readable stream
+ * @param  {*} obj
+ * @return {boolean}
+ */
+function isReadable (obj) {
+  return typeof obj === 'object' && obj != null && typeof obj.pipe === 'function'
 }

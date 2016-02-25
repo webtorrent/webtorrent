@@ -1,15 +1,16 @@
-# ![WebTorrent](https://webtorrent.io/img/wordmark.png)
+![WebTorrent](https://webtorrent.io/img/wordmark.png)
+
+# Streaming torrent client for the web
 
 [![Gitter][webtorrent-gitter-image]][webtorrent-gitter-url]
-[![Build Status][webtorrent-ti]][webtorrent-tu]
+[![Travis Build][webtorrent-ti]][webtorrent-tu]
+[![AppVeyor Build][webtorrent-appveyor-image]][webtorrent-appveyor-url]
 [![NPM Version][webtorrent-ni]][webtorrent-nu]
 [![NPM Downloads][webtorrent-downloads-image]][webtorrent-downloads-url]
 
-### Streaming torrent client for node & the browser
-
-[![Sauce Test Status][webtorrent-sauce-image]][webtorrent-sauce-url]
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](http://standardjs.com)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+[![Sauce Test Status][webtorrent-sauce-image]][webtorrent-sauce-url]
 
 **WebTorrent** is a streaming torrent client for **node.js** and the **browser**. YEP,
 THAT'S RIGHT. THE BROWSER. It's written completely in JavaScript – the language of the web
@@ -111,6 +112,7 @@ npm install webtorrent -g
 - **[Niagara](http://andreapaiola.name/niagara/)** - Video player webtorrent with subtitles (zipped .srt(s))
 - **[Seedshot](https://github.com/twobucks/seedshot)** - Ephemeral P2P screenshot sharing
 - **[PeerWeb](https://github.com/retrohacker/peerweb.js)** - Fetch and render a static website from a torrent
+- **[Vique](http://andreapaiola.name/vique/)** - Video player queue to share videos
 - Your app here! (send a PR or open an issue with your app's URL)
 
 ### Usage
@@ -303,6 +305,11 @@ If `opts` is specified, it should contain the following types of options:
 - options for `client.add` (see above)
 
 If `onseed` is specified, it will be called when the client has begun seeding the file.
+
+> Note: The torrent specification requires that every torrent have a name. If one is not explicitly provided through `opts`, WebTorrent will determine the torrent name with the following logic:
+> * If all of the files share a common prefix, that prefix will become the torrent name. For example, if all of the files start with `/imgs/` the torrent name will be `imgs`
+> * Otherwise, the name of the first file passed in to `client.seed`, for example if the first file is `/foo/bar/baz.txt`, the torrent name will be `baz.txt`
+> The `torrent` object will contain a list of files, whose names are prefixed with the torrent name. When creating a nameless torrent in Node, this will be intuitive. When doing the same in the browser, this may lead to confusing results.
 
 #### `client.on('torrent', function (torrent) {})`
 
@@ -631,23 +638,24 @@ These are the main modules that make up WebTorrent:
 | [create-torrent][create-torrent] | [![][create-torrent-ti]][create-torrent-tu] | [![][create-torrent-ni]][create-torrent-nu] | create .torrent files
 | [magnet-uri][magnet-uri] | [![][magnet-uri-ti]][magnet-uri-tu] | [![][magnet-uri-ni]][magnet-uri-nu] | parse magnet uris
 | [parse-torrent][parse-torrent] | [![][parse-torrent-ti]][parse-torrent-tu] | [![][parse-torrent-ni]][parse-torrent-nu] | parse torrent identifiers
+| [render-media][render-media] | [![][render-media-ti]][render-media-tu] | [![][render-media-ni]][render-media-nu] | intelligently render media files
 | [torrent-discovery][torrent-discovery] | [![][torrent-discovery-ti]][torrent-discovery-tu] | [![][torrent-discovery-ni]][torrent-discovery-nu] | find peers via dht and tracker
-| [ut_metadata][ut_metadata] | [![][ut_metadata-ti]][ut_metadata-tu] | [![][ut_metadata-ni]][ut_metadata-nu] | metadata for magnet uris **(ext)**
-| [ut_pex][ut_pex] | [![][ut_pex-ti]][ut_pex-tu] | [![][ut_pex-ni]][ut_pex-nu] | peer discovery **(ext)**
+| [ut_metadata][ut_metadata] | [![][ut_metadata-ti]][ut_metadata-tu] | [![][ut_metadata-ni]][ut_metadata-nu] | metadata for magnet uris (protocol extension)
+| [ut_pex][ut_pex] | [![][ut_pex-ti]][ut_pex-tu] | [![][ut_pex-ni]][ut_pex-nu] | peer discovery (protocol extension)
 
 [webtorrent]: https://github.com/feross/webtorrent
+[webtorrent-gitter-image]: https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg
+[webtorrent-gitter-url]: https://gitter.im/feross/webtorrent
 [webtorrent-ti]: https://img.shields.io/travis/feross/webtorrent/master.svg
 [webtorrent-tu]: https://travis-ci.org/feross/webtorrent
+[webtorrent-appveyor-image]: https://ci.appveyor.com/api/projects/status/cgu85xlgl72uoswq/branch/master?svg=true
+[webtorrent-appveyor-url]: https://ci.appveyor.com/project/feross/webtorrent
 [webtorrent-ni]: https://img.shields.io/npm/v/webtorrent.svg
 [webtorrent-nu]: https://npmjs.org/package/webtorrent
 [webtorrent-downloads-image]: https://img.shields.io/npm/dm/webtorrent.svg
 [webtorrent-downloads-url]: https://npmjs.org/package/webtorrent
-[webtorrent-gratipay-image]: https://img.shields.io/gratipay/feross.svg
-[webtorrent-gratipay-url]: https://gratipay.com/feross/
 [webtorrent-sauce-image]: https://saucelabs.com/browser-matrix/webtorrent.svg
 [webtorrent-sauce-url]: https://saucelabs.com/u/webtorrent
-[webtorrent-gitter-image]: https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg
-[webtorrent-gitter-url]: https://gitter.im/feross/webtorrent
 
 [bittorrent-dht]: https://github.com/feross/bittorrent-dht
 [bittorrent-dht-ti]: https://img.shields.io/travis/feross/bittorrent-dht/master.svg
@@ -696,6 +704,12 @@ These are the main modules that make up WebTorrent:
 [parse-torrent-tu]: https://travis-ci.org/feross/parse-torrent
 [parse-torrent-ni]: https://img.shields.io/npm/v/parse-torrent.svg
 [parse-torrent-nu]: https://npmjs.org/package/parse-torrent
+
+[render-media]: https://github.com/feross/render-media
+[render-media-ti]: https://img.shields.io/travis/feross/render-media/master.svg
+[render-media-tu]: https://travis-ci.org/feross/render-media
+[render-media-ni]: https://img.shields.io/npm/v/render-media.svg
+[render-media-nu]: https://npmjs.org/package/render-media
 
 [torrent-discovery]: https://github.com/feross/torrent-discovery
 [torrent-discovery-ti]: https://img.shields.io/travis/feross/torrent-discovery/master.svg

@@ -28,13 +28,13 @@ test('torrent.createServer: programmatic http server', function (t) {
       var host = 'http://localhost:' + port
 
       // Index page should list files in the torrent
-      get.concat(host + '/', function (err, data) {
+      get.concat(host + '/', function (err, res, data) {
         t.error(err, 'got http response for /')
         data = data.toString()
         t.ok(data.indexOf('Leaves of Grass by Walt Whitman.epub') !== -1)
 
         // Verify file content for first (and only) file
-        get.concat(host + '/0', function (err, data) {
+        get.concat(host + '/0', function (err, res, data) {
           t.error(err, 'got http response for /0')
           t.deepEqual(data, common.leaves.content)
 

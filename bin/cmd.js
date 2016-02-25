@@ -5,7 +5,6 @@ var cp = require('child_process')
 var createTorrent = require('create-torrent')
 var executable = require('executable')
 var fs = require('fs')
-var inquirer = require('inquirer')
 var minimist = require('minimist')
 var moment = require('moment')
 var networkAddress = require('network-address')
@@ -13,7 +12,6 @@ var parseTorrent = require('parse-torrent')
 var path = require('path')
 var prettyBytes = require('pretty-bytes')
 var WebTorrent = require('../')
-var zeroFill = require('zero-fill')
 
 process.title = 'WebTorrent'
 
@@ -42,7 +40,6 @@ var argv = minimist(process.argv.slice(2), {
     b: 'blocklist',
     t: 'subtitles',
     s: 'select',
-    i: 'index',
     o: 'out',
     a: 'announce',
     q: 'quiet',
@@ -57,7 +54,6 @@ var argv = minimist(process.argv.slice(2), {
     'vlc',
     'xbmc',
     'stdout',
-    'select',
     'quiet',
     'help',
     'version',
@@ -87,8 +83,6 @@ function getRuntime () {
 
 var VLC_ARGS = '--play-and-exit --video-on-top --quiet'
 if (process.env.DEBUG) {
-  VLC_ARGS += ' -q'
-} else {
   VLC_ARGS += ' --extraintf=http:logger --verbose=2 --file-logging --logfile=vlc-log.txt'
 }
 var MPLAYER_EXEC = 'mplayer -ontop -really-quiet -noidx -loop 0'
@@ -198,13 +192,12 @@ Options (streaming):
 
 Options (simple):
     -o, --out [path]        set download destination [default: current directory]
-    -s, --select            select individual file in torrent (by index)
-    -i, --index [number]    stream a particular file from torrent (by index)
+    -s, --select [index]    select specific file in torrent (omit index for file list)
+    -t, --subtitles [path]  load subtitles file
     -v, --version           print the current version
 
 Options (advanced):
     -p, --port [number]     change the http server port [default: 8000]
-    -t, --subtitles [path]  load subtitles file
     -b, --blocklist [path]  load blocklist file/http url
     -a, --announce [url]    tracker URL to announce to
     -q, --quiet             don't show UI on stdout
@@ -325,13 +318,11 @@ function runDownload (torrentId) {
 
   server.listen(argv.port, initServer)
     .on('error', function (err) {
-      // In case the port is unusable
       if (err.code === 'EADDRINUSE' || err.code === 'EACCES') {
-        // Let the OS choose one for us
-        server.listen(0, initServer)
-      } else {
-        throw err
+        // If port is taken, pick one a free one automatically
+        return server.listen(0, initServer)
       }
+      fatalError(err)
     })
 
   server.once('connection', function () {
@@ -339,49 +330,26 @@ function runDownload (torrentId) {
   })
 
   function onReady () {
+    if (typeof argv.select === 'boolean') {
+      clivas.line('Select a file to download:')
+      torrent.files.forEach(function (file, i) {
+        clivas.line(
+          '{2+bold+magenta:%s} %s {blue:(%s)}',
+          i, file.name, prettyBytes(file.length)
+        )
+      })
+      clivas.line('\nTo select a specific file, re-run `webtorrent` with "--select [index]"')
+      clivas.line('Example: webtorrent download "magnet:..." --select 0')
+      process.exit(0)
+    }
+
     // if no index specified, use largest file
-    var index = (typeof argv.index === 'number')
-      ? argv.index
+    var index = (typeof argv.select === 'number')
+      ? argv.select
       : torrent.files.indexOf(torrent.files.reduce(function (a, b) {
         return a.length > b.length ? a : b
       }))
-
-    if (argv.select) {
-      var interactive = process.stdin.isTTY && !!process.stdin.setRawMode
-      if (interactive) {
-        if (torrent.files.length === 0) return errorAndExit('No files in the torrent')
-
-        var cli = inquirer.prompt([{
-          type: 'list',
-          name: 'index',
-          message: 'Choose a file to download:',
-          default: index,
-          choices: torrent.files.map(function (file, i) {
-            var len = prettyBytes(file.length)
-            return {
-              name: zeroFill(2, i, ' ') + ': ' + file.name + ' (' + len + ')',
-              value: i
-            }
-          })
-        }], function (answers) {
-          onSelection(answers.index)
-        })
-
-        cli.rl.on('SIGINT', function () {
-          return process.exit(0)
-        })
-      } else {
-        torrent.files.forEach(function (file, i) {
-          clivas.line(
-            '{3+bold:%s}: {magenta:%s} {blue:(%s)}',
-            i, file.name, prettyBytes(file.length)
-          )
-        })
-        return process.exit(0)
-      }
-    } else {
-      onSelection(index)
-    }
+    onSelection(index)
   }
 
   function onSelection (index) {
@@ -415,10 +383,10 @@ function runDownload (torrentId) {
           var vlcPath = item.value + path.sep + 'vlc'
           VLC_ARGS = VLC_ARGS.split(' ')
           VLC_ARGS.unshift(href)
-          cp.execFile(vlcPath, VLC_ARGS, function (err) {
+          unref(cp.execFile(vlcPath, VLC_ARGS, function (err) {
             if (err) return fatalError(err)
             torrentDone()
-          }).unref()
+          }))
         })
       }
     } else if (argv.vlc) {
@@ -436,10 +404,10 @@ function runDownload (torrentId) {
     }
 
     if (cmd) {
-      cp.exec(cmd, function (err) {
+      unref(cp.exec(cmd, function (err) {
         if (err) return fatalError(err)
         torrentDone()
-      }).unref()
+      }))
     }
 
     if (argv.airplay) {
@@ -454,7 +422,13 @@ function runDownload (torrentId) {
     if (argv.chromecast) {
       var chromecasts = require('chromecasts')()
       chromecasts.on('update', function (player) {
-        player.play(href)
+        player.play(href, {
+          title: torrent.name
+        })
+        player.on('error', function (err) {
+          err.message = 'Chromecast: ' + err.message
+          errorAndExit(err)
+        })
       })
     }
 
@@ -493,7 +467,7 @@ function drawTorrent (torrent) {
   if (!argv.quiet) {
     process.stdout.write(new Buffer('G1tIG1sySg==', 'base64')) // clear for drawing
     drawInterval = setInterval(draw, 500)
-    drawInterval.unref()
+    unref(drawInterval)
   }
 
   function draw () {
@@ -584,22 +558,22 @@ function drawTorrent (torrent) {
       return linesRemaining > 4
     })
 
+    line('{60:}')
     if (torrent.numPeers > peerslisted) {
-      line('{60:}')
       line('... and %s more', torrent.numPeers - peerslisted)
     }
 
-    line('{60:}')
     clivas.flush(true)
-  }
 
-  function line () {
-    clivas.line.apply(clivas, arguments)
+    function line () {
+      clivas.line.apply(clivas, arguments)
+      linesRemaining -= 1
+    }
   }
 }
 
 function torrentDone () {
-  if (argv['on-done']) cp.exec(argv['on-done']).unref()
+  if (argv['on-done']) unref(cp.exec(argv['on-done']))
   if (!playerName && !serving && argv.out) gracefulExit()
 }
 
@@ -623,13 +597,17 @@ function gracefulExit () {
 
   if (!client) return
 
-  if (argv['on-exit']) cp.exec(argv['on-exit']).unref()
+  if (argv['on-exit']) unref(cp.exec(argv['on-exit']))
 
   client.destroy(function (err) {
     if (err) return fatalError(err)
 
     // Quit after 1 second. This is only necessary for `webtorrent-hybrid` since
     // the `wrtc` package makes node never quit :(
-    setTimeout(function () { process.exit(0) }, 1000).unref()
+    unref(setTimeout(function () { process.exit(0) }, 1000))
   })
+}
+
+function unref (iv) {
+  if (iv && typeof iv.unref === 'function') iv.unref()
 }

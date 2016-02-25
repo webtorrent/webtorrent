@@ -41,7 +41,7 @@ test('blocklist blocks peers discovered via tracker', function (t) {
 
       var torrent1 = client1.add(parsedTorrent)
 
-      torrent1.on('peer', function () {
+      torrent1.on('invalidPeer', function () {
         t.pass('client1 found itself')
         cb(null)
       })
