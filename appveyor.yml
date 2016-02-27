@@ -9,7 +9,6 @@ environment:
   matrix:
   - nodejs_version: "" # https://www.appveyor.com/docs/installed-software#node-js
   - nodejs_version: "4"
-  - nodejs_version: "0.12"
 
 # Install scripts. (runs after repo cloning)
 install:
