@@ -1,6 +1,6 @@
-var common = require('../common')
 var extend = require('xtend')
 var finalhandler = require('finalhandler')
+var fixtures = require('webtorrent-fixtures')
 var http = require('http')
 var path = require('path')
 var series = require('run-series')
@@ -11,7 +11,7 @@ var WebTorrent = require('../../')
 test('Download using webseed (via .torrent file)', function (t) {
   t.plan(6)
 
-  var parsedTorrent = extend(common.leaves.parsedTorrent)
+  var parsedTorrent = extend(fixtures.leaves.parsedTorrent)
 
   var httpServer = http.createServer(function (req, res) {
     var done = finalhandler(req, res)
@@ -28,7 +28,7 @@ test('Download using webseed (via .torrent file)', function (t) {
 
     function (cb) {
       parsedTorrent.urlList = [
-        'http://localhost:' + httpServer.address().port + '/' + common.leaves.parsedTorrent.name
+        'http://localhost:' + httpServer.address().port + '/' + fixtures.leaves.parsedTorrent.name
       ]
 
       client = new WebTorrent({ dht: false, tracker: false })
@@ -40,7 +40,7 @@ test('Download using webseed (via .torrent file)', function (t) {
         torrent.files.forEach(function (file) {
           file.getBuffer(function (err, buf) {
             t.error(err)
-            t.deepEqual(buf, common.leaves.content, 'downloaded correct content')
+            t.deepEqual(buf, fixtures.leaves.content, 'downloaded correct content')
             gotBuffer = true
             maybeDone()
           })

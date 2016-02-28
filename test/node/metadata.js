@@ -1,4 +1,4 @@
-var common = require('../common')
+var fixtures = require('webtorrent-fixtures')
 var test = require('tape')
 var WebTorrent = require('../../')
 
@@ -20,13 +20,13 @@ test('ut_metadata transfer', function (t) {
   })
 
   // client1 starts with metadata from torrent file
-  client1.add(common.leaves.torrent)
+  client1.add(fixtures.leaves.torrent)
 
   client1.on('torrent', function (torrent1) {
-    t.deepEqual(torrent1.info, common.leaves.parsedTorrent.info)
+    t.deepEqual(torrent1.info, fixtures.leaves.parsedTorrent.info)
 
     // client2 starts with infohash
-    client2.add(common.leaves.parsedTorrent.infoHash)
+    client2.add(fixtures.leaves.parsedTorrent.infoHash)
 
     client2.on('listening', function (port, torrent2) {
       // manually add the peer

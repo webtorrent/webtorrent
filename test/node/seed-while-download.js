@@ -1,5 +1,5 @@
-var common = require('../common')
 var DHT = require('bittorrent-dht/server')
+var fixtures = require('webtorrent-fixtures')
 var fs = require('fs')
 var series = require('run-series')
 var test = require('tape')
@@ -29,7 +29,7 @@ test('Seed and download a file at the same time', function (t) {
       client1.on('error', function (err) { t.fail(err) })
       client1.on('warning', function (err) { t.fail(err) })
 
-      var torrent = client1.add(common.leaves.torrent)
+      var torrent = client1.add(fixtures.leaves.torrent)
 
       torrent.on('dhtAnnounce', function () {
         t.pass('client1 finished dht announce')
@@ -37,7 +37,7 @@ test('Seed and download a file at the same time', function (t) {
         maybeDone()
       })
 
-      torrent.load(fs.createReadStream(common.leaves.contentPath), function (err) {
+      torrent.load(fs.createReadStream(fixtures.leaves.contentPath), function (err) {
         t.error(err, 'client1 started seeding')
         loaded = true
         maybeDone()
@@ -60,7 +60,7 @@ test('Seed and download a file at the same time', function (t) {
       client2.on('error', function (err) { t.fail(err) })
       client2.on('warning', function (err) { t.fail(err) })
 
-      var torrent = client2.add(common.alice.torrent)
+      var torrent = client2.add(fixtures.alice.torrent)
 
       torrent.on('dhtAnnounce', function () {
         t.pass('client2 finished dht announce')
@@ -68,7 +68,7 @@ test('Seed and download a file at the same time', function (t) {
         maybeDone()
       })
 
-      torrent.load(fs.createReadStream(common.alice.contentPath), function (err) {
+      torrent.load(fs.createReadStream(fixtures.alice.contentPath), function (err) {
         t.error(err, 'client2 started seeding')
         loaded = true
         maybeDone()
@@ -82,12 +82,12 @@ test('Seed and download a file at the same time', function (t) {
     },
 
     function (cb) {
-      client1.add(common.alice.magnetURI)
+      client1.add(fixtures.alice.magnetURI)
 
       client1.on('torrent', function (torrent) {
         torrent.files[0].getBuffer(function (err, buf) {
           t.error(err)
-          t.deepEqual(buf, common.alice.content, 'client1 downloaded correct content')
+          t.deepEqual(buf, fixtures.alice.content, 'client1 downloaded correct content')
           gotBuffer1 = true
           maybeDone()
         })
@@ -99,12 +99,12 @@ test('Seed and download a file at the same time', function (t) {
         })
       })
 
-      client2.add(common.leaves.magnetURI)
+      client2.add(fixtures.leaves.magnetURI)
 
       client2.on('torrent', function (torrent) {
         torrent.files[0].getBuffer(function (err, buf) {
           t.error(err)
-          t.deepEqual(buf, common.leaves.content, 'client2 downloaded correct content')
+          t.deepEqual(buf, fixtures.leaves.content, 'client2 downloaded correct content')
           gotBuffer2 = true
           maybeDone()
         })

@@ -1,6 +1,6 @@
-var common = require('../common')
 var cp = require('child_process')
 var extend = require('xtend')
+var fixtures = require('webtorrent-fixtures')
 var parseTorrent = require('parse-torrent')
 var path = require('path')
 var spawn = require('cross-spawn-async')
@@ -51,10 +51,10 @@ test('Command line: webtorrent version', function (t) {
 test('Command line: webtorrent info /path/to/file.torrent', function (t) {
   t.plan(3)
 
-  cp.exec(CMD + ' info ' + common.leaves.torrentPath, function (err, data) {
+  cp.exec(CMD + ' info ' + fixtures.leaves.torrentPath, function (err, data) {
     t.error(err)
     data = JSON.parse(data)
-    var parsedTorrent = extend(common.leaves.parsedTorrent)
+    var parsedTorrent = extend(fixtures.leaves.parsedTorrent)
     delete parsedTorrent.info
     delete parsedTorrent.infoBuffer
     delete parsedTorrent.infoHashBuffer
@@ -83,7 +83,7 @@ test('Command line: webtorrent info magnet_uri', function (t) {
 test('Command line: webtorrent create /path/to/file', function (t) {
   t.plan(1)
 
-  var child = spawn('node', [ CMD_PATH, 'create', common.leaves.contentPath ])
+  var child = spawn('node', [ CMD_PATH, 'create', fixtures.leaves.contentPath ])
   child.on('error', function (err) { t.fail(err) })
 
   var chunks = []
@@ -100,7 +100,9 @@ test('Command line: webtorrent create /path/to/file', function (t) {
 test('Command line: webtorrent download <torrent file> (with local content)', function (t) {
   t.plan(2)
 
-  cp.exec(CMD + ' download ' + common.leaves.torrentPath + ' --out test/fixtures', function (err, data) {
+  var fixturesPath = path.join(path.dirname(require.resolve('webtorrent-fixtures')), 'fixtures')
+
+  cp.exec(CMD + ' download ' + fixtures.leaves.torrentPath + ' --out ' + fixturesPath, function (err, data) {
     t.error(err)
     t.ok(data.indexOf('successfully') !== -1)
   })

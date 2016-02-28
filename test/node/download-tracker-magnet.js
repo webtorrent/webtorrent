@@ -1,5 +1,5 @@
-var common = require('../common')
 var extend = require('xtend')
+var fixtures = require('webtorrent-fixtures')
 var fs = require('fs')
 var series = require('run-series')
 var test = require('tape')
@@ -29,7 +29,7 @@ function magnetDownloadTest (t, serverType) {
     trackerStartCount += 1
   })
 
-  var parsedTorrent = extend(common.leaves.parsedTorrent)
+  var parsedTorrent = extend(fixtures.leaves.parsedTorrent)
   var magnetURI, client1, client2
 
   series([
@@ -61,7 +61,7 @@ function magnetDownloadTest (t, serverType) {
 
         t.deepEqual(torrent.files.map(function (file) { return file.name }), names)
 
-        torrent.load(fs.createReadStream(common.leaves.contentPath), function (err) {
+        torrent.load(fs.createReadStream(fixtures.leaves.contentPath), function (err) {
           cb(err)
         })
       })
@@ -79,7 +79,7 @@ function magnetDownloadTest (t, serverType) {
         torrent.files.forEach(function (file) {
           file.getBuffer(function (err, buf) {
             if (err) throw err
-            t.deepEqual(buf, common.leaves.content, 'downloaded correct content')
+            t.deepEqual(buf, fixtures.leaves.content, 'downloaded correct content')
             gotBuffer = true
             maybeDone()
           })

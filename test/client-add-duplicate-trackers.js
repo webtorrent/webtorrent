@@ -1,5 +1,5 @@
-var common = require('./common')
 var extend = require('xtend')
+var fixtures = require('webtorrent-fixtures')
 var test = require('tape')
 var WebTorrent = require('../')
 
@@ -11,13 +11,13 @@ test('client.add: duplicate trackers', function (t) {
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  var torrent = client.add(common.leaves.torrent, {
+  var torrent = client.add(fixtures.leaves.torrent, {
     announce: [ 'wss://example.com', 'wss://example.com', 'wss://example.com' ]
   })
 
   torrent.on('ready', function () {
-    t.equal(torrent.magnetURI, common.leaves.magnetURI + '&tr=' + encodeURIComponent('wss://example.com'))
-    client.remove(common.leaves.magnetURI, function (err) { t.error(err, 'torrent destroyed') })
+    t.equal(torrent.magnetURI, fixtures.leaves.magnetURI + '&tr=' + encodeURIComponent('wss://example.com'))
+    client.remove(fixtures.leaves.magnetURI, function (err) { t.error(err, 'torrent destroyed') })
     client.destroy(function (err) { t.error(err, 'client destroyed') })
   })
 })
@@ -35,15 +35,15 @@ test('client.add: duplicate trackers, with multiple torrents', function (t) {
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  var torrent1 = client.add(common.leaves.torrent, opts)
+  var torrent1 = client.add(fixtures.leaves.torrent, opts)
 
   torrent1.on('ready', function () {
-    t.equal(torrent1.magnetURI, common.leaves.magnetURI + '&tr=' + encodeURIComponent('wss://example.com'))
+    t.equal(torrent1.magnetURI, fixtures.leaves.magnetURI + '&tr=' + encodeURIComponent('wss://example.com'))
 
-    var torrent2 = client.add(common.alice.torrent, opts)
+    var torrent2 = client.add(fixtures.alice.torrent, opts)
 
     torrent2.on('ready', function () {
-      t.equal(torrent2.magnetURI, common.alice.magnetURI + '&tr=' + encodeURIComponent('wss://example.com'))
+      t.equal(torrent2.magnetURI, fixtures.alice.magnetURI + '&tr=' + encodeURIComponent('wss://example.com'))
 
       torrent1.destroy(function (err) { t.error(err, 'torrent1 destroyed') })
       torrent2.destroy(function (err) { t.error(err, 'torrent2 destroyed') })
@@ -61,10 +61,10 @@ test('client.add: duplicate trackers (including in .torrent file), multiple torr
   }
 
   // Include the duplicate trackers in the .torrent files
-  var parsedTorrentLeaves = extend(common.leaves.parsedTorrent)
+  var parsedTorrentLeaves = extend(fixtures.leaves.parsedTorrent)
   parsedTorrentLeaves.announce = [ 'wss://example.com', 'wss://example.com', 'wss://example.com' ]
 
-  var parsedTorrentAlice = extend(common.alice.parsedTorrent)
+  var parsedTorrentAlice = extend(fixtures.alice.parsedTorrent)
   parsedTorrentAlice.announce = [ 'wss://example.com', 'wss://example.com', 'wss://example.com' ]
 
   var client = new WebTorrent({ dht: false, tracker: false })
@@ -75,12 +75,12 @@ test('client.add: duplicate trackers (including in .torrent file), multiple torr
   var torrent1 = client.add(parsedTorrentLeaves, opts)
 
   torrent1.on('ready', function () {
-    t.equal(torrent1.magnetURI, common.leaves.magnetURI + '&tr=' + encodeURIComponent('wss://example.com'))
+    t.equal(torrent1.magnetURI, fixtures.leaves.magnetURI + '&tr=' + encodeURIComponent('wss://example.com'))
 
     var torrent2 = client.add(parsedTorrentAlice, opts)
 
     torrent2.on('ready', function () {
-      t.equal(torrent2.magnetURI, common.alice.magnetURI + '&tr=' + encodeURIComponent('wss://example.com'))
+      t.equal(torrent2.magnetURI, fixtures.alice.magnetURI + '&tr=' + encodeURIComponent('wss://example.com'))
 
       torrent1.destroy(function (err) { t.error(err, 'torrent1 destroyed') })
       torrent2.destroy(function (err) { t.error(err, 'torrent2 destroyed') })

@@ -1,5 +1,5 @@
-var common = require('../common')
 var DHT = require('bittorrent-dht/server')
+var fixtures = require('webtorrent-fixtures')
 var fs = require('fs')
 var networkAddress = require('network-address')
 var series = require('run-series')
@@ -30,7 +30,7 @@ test('Download using DHT (via magnet uri)', function (t) {
       client1.on('error', function (err) { t.fail(err) })
       client1.on('warning', function (err) { t.fail(err) })
 
-      var torrent = client1.add(common.leaves.parsedTorrent)
+      var torrent = client1.add(fixtures.leaves.parsedTorrent)
 
       torrent.on('dhtAnnounce', function () {
         t.pass('finished dht announce')
@@ -46,7 +46,7 @@ test('Download using DHT (via magnet uri)', function (t) {
         t.deepEqual(torrent.files.map(function (file) { return file.name }), names)
       })
 
-      torrent.load(fs.createReadStream(common.leaves.contentPath), function (err) {
+      torrent.load(fs.createReadStream(fixtures.leaves.contentPath), function (err) {
         t.error(err)
         loaded = true
         maybeDone()
@@ -71,7 +71,7 @@ test('Download using DHT (via magnet uri)', function (t) {
       client2.on('torrent', function (torrent) {
         torrent.files[0].getBuffer(function (err, buf) {
           t.error(err)
-          t.deepEqual(buf, common.leaves.content, 'downloaded correct content')
+          t.deepEqual(buf, fixtures.leaves.content, 'downloaded correct content')
 
           gotBuffer = true
           maybeDone()
@@ -85,7 +85,7 @@ test('Download using DHT (via magnet uri)', function (t) {
         })
       })
 
-      client2.add(common.leaves.magnetURI)
+      client2.add(fixtures.leaves.magnetURI)
 
       var gotBuffer = false
       var gotDone = false

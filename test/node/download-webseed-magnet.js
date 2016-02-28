@@ -1,5 +1,5 @@
-var common = require('../common')
 var finalhandler = require('finalhandler')
+var fixtures = require('webtorrent-fixtures')
 var http = require('http')
 var path = require('path')
 var series = require('run-series')
@@ -56,7 +56,7 @@ test('Download using webseed (via magnet uri)', function (t) {
         maybeDone()
       })
 
-      client1.add(common.leaves.parsedTorrent)
+      client1.add(fixtures.leaves.parsedTorrent)
     },
 
     function (cb) {
@@ -65,14 +65,14 @@ test('Download using webseed (via magnet uri)', function (t) {
       client2.on('error', function (err) { t.fail(err) })
       client2.on('warning', function (err) { t.fail(err) })
 
-      var webSeedUrl = 'http://localhost:' + httpServer.address().port + '/' + common.leaves.parsedTorrent.name
-      var magnetURI = common.leaves.magnetURI + '&ws=' + encodeURIComponent(webSeedUrl)
+      var webSeedUrl = 'http://localhost:' + httpServer.address().port + '/' + fixtures.leaves.parsedTorrent.name
+      var magnetURI = fixtures.leaves.magnetURI + '&ws=' + encodeURIComponent(webSeedUrl)
 
       client2.on('torrent', function (torrent) {
         torrent.files.forEach(function (file) {
           file.getBuffer(function (err, buf) {
             t.error(err)
-            t.deepEqual(buf, common.leaves.content, 'downloaded correct content')
+            t.deepEqual(buf, fixtures.leaves.content, 'downloaded correct content')
             gotBuffer = true
             maybeDone()
           })

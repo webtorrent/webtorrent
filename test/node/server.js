@@ -1,4 +1,4 @@
-var common = require('../common')
+var fixtures = require('webtorrent-fixtures')
 var fs = require('fs')
 var get = require('simple-get')
 var test = require('tape')
@@ -12,7 +12,7 @@ test('torrent.createServer: programmatic http server', function (t) {
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  client.add(common.leaves.torrent, function (torrent) {
+  client.add(fixtures.leaves.torrent, function (torrent) {
     t.pass('got "torrent" event')
     var server = torrent.createServer()
 
@@ -21,7 +21,7 @@ test('torrent.createServer: programmatic http server', function (t) {
       t.pass('server is listening on ' + port)
 
       // Seeding after server is created should work
-      torrent.load(fs.createReadStream(common.leaves.contentPath), function (err) {
+      torrent.load(fs.createReadStream(fixtures.leaves.contentPath), function (err) {
         t.error(err, 'loaded seed content into torrent')
       })
 
@@ -36,7 +36,7 @@ test('torrent.createServer: programmatic http server', function (t) {
         // Verify file content for first (and only) file
         get.concat(host + '/0', function (err, res, data) {
           t.error(err, 'got http response for /0')
-          t.deepEqual(data, common.leaves.content)
+          t.deepEqual(data, fixtures.leaves.content)
 
           server.close(function () {
             t.pass('server closed')

@@ -89,6 +89,7 @@
     "standard": "^6.0.1",
     "tape": "^4.0.0",
     "uglify-js": "^2.4.15",
+    "webtorrent-fixtures": "^1.0.0",
     "zuul": "^3.0.0"
   },
   "homepage": "https://webtorrent.io",

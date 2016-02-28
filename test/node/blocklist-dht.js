@@ -1,5 +1,5 @@
-var common = require('../common')
 var DHT = require('bittorrent-dht/server')
+var fixtures = require('webtorrent-fixtures')
 var series = require('run-series')
 var test = require('tape')
 var WebTorrent = require('../../')
@@ -25,7 +25,7 @@ test('blocklist blocks peers discovered via DHT', function (t) {
       client1.on('error', function (err) { t.fail(err) })
       client1.on('warning', function (err) { t.fail(err) })
 
-      var torrent1 = client1.add(common.leaves.parsedTorrent)
+      var torrent1 = client1.add(fixtures.leaves.parsedTorrent)
 
       torrent1.on('peer', function () {
         t.fail('client1 should not find any peers')
@@ -63,7 +63,7 @@ test('blocklist blocks peers discovered via DHT', function (t) {
       client2.on('error', function (err) { t.fail(err) })
       client2.on('warning', function (err) { t.fail(err) })
 
-      var torrent2 = client2.add(common.leaves.parsedTorrent)
+      var torrent2 = client2.add(fixtures.leaves.parsedTorrent)
 
       torrent2.on('blockedPeer', function (addr) {
         t.pass('client2 blocked connection to client1: ' + addr)
