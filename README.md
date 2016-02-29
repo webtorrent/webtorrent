@@ -36,7 +36,7 @@ peer"** can only connect to other clients that support WebTorrent/WebRTC.
 To seed files to web peers, use a client that supports WebTorrent, e.g.
 [webtorrent-hybrid](https://github.com/feross/webtorrent-hybrid) or
 [instant.io](https://instant.io/). We're also working on
-[WebTorrent.app](https://github.com/feross/WebTorrent.app), a desktop client with a
+[WebTorrent.app](https://github.com/feross/webtorrent-app), a desktop client with a
 familiar UI that can connect to web peers. We hope established torrent clients
 (Transmission, Vuze, uTorrent, etc.) will add support for WebTorrent so they too can
 connect to both normal *and* web peers.
@@ -109,10 +109,10 @@ npm install webtorrent -g
 - **[People-driven web](http://www.peopledrivenweb.com/)** – Decentralized content management system ([source code](https://github.com/peopledrivenweb/pwjs))
 - **[PeerCloud](https://github.com/jhiesey/peercloud)** - Serverless websites via WebTorrent
 - **[βTorrent](https://btorrent.xyz)** - Fully-featured WebTorrent browser client ([source code](https://github.com/DiegoRBaquero/bTorrent))
-- **[Niagara](http://andreapaiola.name/niagara/)** - Video player webtorrent with subtitles (zipped .srt(s))
+- **[Niagara](https://andreapaiola.name/niagara/)** - Video player webtorrent with subtitles (zipped .srt(s))
 - **[Seedshot](https://github.com/twobucks/seedshot)** - Ephemeral P2P screenshot sharing
 - **[PeerWeb](https://github.com/retrohacker/peerweb.js)** - Fetch and render a static website from a torrent
-- **[Vique](http://andreapaiola.name/vique/)** - Video player queue to share videos
+- **[Vique](https://andreapaiola.name/vique/)** - Video player queue to share videos
 - Your app here! (send a PR or open an issue with your app's URL)
 
 ### Usage
@@ -163,7 +163,7 @@ There are more examples in the [examples](https://github.com/feross/webtorrent/t
 ##### Browserify
 
 WebTorrent works great with [browserify](http://browserify.org/), an npm module that let's
-you use [node](http://nodejs.org/)-style require() to organize your browser code and load modules installed by [npm](https://npmjs.org/) (as seen in the previous examples).
+you use [node](http://nodejs.org/)-style require() to organize your browser code and load modules installed by [npm](https://www.npmjs.com/) (as seen in the previous examples).
 
 WebTorrent is also available as a standalone script
 ([`webtorrent.min.js`](webtorrent.min.js)) which exposes `WebTorrent` on the `window`
@@ -295,7 +295,7 @@ Start seeding a new torrent.
 - path to the file or folder on filesystem (string) (Node.js only)
 - W3C [File](https://developer.mozilla.org/en-US/docs/Web/API/File) object (from an `<input>` or drag and drop)
 - W3C [FileList](https://developer.mozilla.org/en-US/docs/Web/API/FileList) object (basically an array of `File` objects)
-- Node [Buffer](http://nodejs.org/api/buffer.html) object (works in [the browser](https://www.npmjs.org/package/buffer))
+- Node [Buffer](https://nodejs.org/api/buffer.html) object (works in [the browser](https://www.npmjs.com/package/buffer))
 
 Or, an **array of `string`, `File`, or `Buffer` objects**.
 
@@ -533,7 +533,7 @@ for it.
 
 #### `stream = file.createReadStream([opts])`
 
-Create a [readable stream](http://nodejs.org/api/stream.html#stream_class_stream_readable)
+Create a [readable stream](https://nodejs.org/api/stream.html#stream_class_stream_readable)
 to the file. Pieces needed by the stream will be prioritized highly and fetched from the
 swarm first.
 
@@ -651,7 +651,7 @@ These are the main modules that make up WebTorrent:
 [webtorrent-appveyor-image]: https://ci.appveyor.com/api/projects/status/cgu85xlgl72uoswq/branch/master?svg=true
 [webtorrent-appveyor-url]: https://ci.appveyor.com/project/feross/webtorrent
 [webtorrent-ni]: https://img.shields.io/npm/v/webtorrent.svg
-[webtorrent-nu]: https://npmjs.org/package/webtorrent
+[webtorrent-nu]: https://www.npmjs.com/package/webtorrent
 [webtorrent-downloads-image]: https://img.shields.io/npm/dm/webtorrent.svg
 [webtorrent-downloads-url]: https://npmjs.org/package/webtorrent
 [webtorrent-sauce-image]: https://saucelabs.com/browser-matrix/webtorrent.svg
@@ -661,73 +661,73 @@ These are the main modules that make up WebTorrent:
 [bittorrent-dht-ti]: https://img.shields.io/travis/feross/bittorrent-dht/master.svg
 [bittorrent-dht-tu]: https://travis-ci.org/feross/bittorrent-dht
 [bittorrent-dht-ni]: https://img.shields.io/npm/v/bittorrent-dht.svg
-[bittorrent-dht-nu]: https://npmjs.org/package/bittorrent-dht
+[bittorrent-dht-nu]: https://www.npmjs.com/package/bittorrent-dht
 
 [bittorrent-peerid]: https://github.com/fisch0920/bittorrent-peerid
 [bittorrent-peerid-ti]: https://img.shields.io/travis/fisch0920/bittorrent-peerid.svg
 [bittorrent-peerid-tu]: https://travis-ci.org/fisch0920/bittorrent-peerid
 [bittorrent-peerid-ni]: https://img.shields.io/npm/v/bittorrent-peerid.svg
-[bittorrent-peerid-nu]: https://npmjs.org/package/bittorrent-peerid
+[bittorrent-peerid-nu]: https://www.npmjs.com/package/bittorrent-peerid
 
 [bittorrent-protocol]: https://github.com/feross/bittorrent-protocol
 [bittorrent-protocol-ti]: https://img.shields.io/travis/feross/bittorrent-protocol/master.svg
 [bittorrent-protocol-tu]: https://travis-ci.org/feross/bittorrent-protocol
 [bittorrent-protocol-ni]: https://img.shields.io/npm/v/bittorrent-protocol.svg
-[bittorrent-protocol-nu]: https://npmjs.org/package/bittorrent-protocol
+[bittorrent-protocol-nu]: https://www.npmjs.com/package/bittorrent-protocol
 
 [bittorrent-swarm]: https://github.com/feross/bittorrent-swarm
 [bittorrent-swarm-ti]: https://img.shields.io/travis/feross/bittorrent-swarm/master.svg
 [bittorrent-swarm-tu]: https://travis-ci.org/feross/bittorrent-swarm
 [bittorrent-swarm-ni]: https://img.shields.io/npm/v/bittorrent-swarm.svg
-[bittorrent-swarm-nu]: https://npmjs.org/package/bittorrent-swarm
+[bittorrent-swarm-nu]: https://www.npmjs.com/package/bittorrent-swarm
 
 [bittorrent-tracker]: https://github.com/feross/bittorrent-tracker
 [bittorrent-tracker-ti]: https://img.shields.io/travis/feross/bittorrent-tracker/master.svg
 [bittorrent-tracker-tu]: https://travis-ci.org/feross/bittorrent-tracker
 [bittorrent-tracker-ni]: https://img.shields.io/npm/v/bittorrent-tracker.svg
-[bittorrent-tracker-nu]: https://npmjs.org/package/bittorrent-tracker
+[bittorrent-tracker-nu]: https://www.npmjs.com/package/bittorrent-tracker
 
 [create-torrent]: https://github.com/feross/create-torrent
 [create-torrent-ti]: https://img.shields.io/travis/feross/create-torrent/master.svg
 [create-torrent-tu]: https://travis-ci.org/feross/create-torrent
 [create-torrent-ni]: https://img.shields.io/npm/v/create-torrent.svg
-[create-torrent-nu]: https://npmjs.org/package/create-torrent
+[create-torrent-nu]: https://www.npmjs.com/package/create-torrent
 
 [magnet-uri]: https://github.com/feross/magnet-uri
 [magnet-uri-ti]: https://img.shields.io/travis/feross/magnet-uri/master.svg
 [magnet-uri-tu]: https://travis-ci.org/feross/magnet-uri
 [magnet-uri-ni]: https://img.shields.io/npm/v/magnet-uri.svg
-[magnet-uri-nu]: https://npmjs.org/package/magnet-uri
+[magnet-uri-nu]: https://www.npmjs.com/package/magnet-uri
 
 [parse-torrent]: https://github.com/feross/parse-torrent
 [parse-torrent-ti]: https://img.shields.io/travis/feross/parse-torrent/master.svg
 [parse-torrent-tu]: https://travis-ci.org/feross/parse-torrent
 [parse-torrent-ni]: https://img.shields.io/npm/v/parse-torrent.svg
-[parse-torrent-nu]: https://npmjs.org/package/parse-torrent
+[parse-torrent-nu]: https://www.npmjs.com/package/parse-torrent
 
 [render-media]: https://github.com/feross/render-media
 [render-media-ti]: https://img.shields.io/travis/feross/render-media/master.svg
 [render-media-tu]: https://travis-ci.org/feross/render-media
 [render-media-ni]: https://img.shields.io/npm/v/render-media.svg
-[render-media-nu]: https://npmjs.org/package/render-media
+[render-media-nu]: https://www.npmjs.com/package/render-media
 
 [torrent-discovery]: https://github.com/feross/torrent-discovery
 [torrent-discovery-ti]: https://img.shields.io/travis/feross/torrent-discovery/master.svg
 [torrent-discovery-tu]: https://travis-ci.org/feross/torrent-discovery
 [torrent-discovery-ni]: https://img.shields.io/npm/v/torrent-discovery.svg
-[torrent-discovery-nu]: https://npmjs.org/package/torrent-discovery
+[torrent-discovery-nu]: https://www.npmjs.com/package/torrent-discovery
 
 [ut_metadata]: https://github.com/feross/ut_metadata
 [ut_metadata-ti]: https://img.shields.io/travis/feross/ut_metadata/master.svg
 [ut_metadata-tu]: https://travis-ci.org/feross/ut_metadata
 [ut_metadata-ni]: https://img.shields.io/npm/v/ut_metadata.svg
-[ut_metadata-nu]: https://npmjs.org/package/ut_metadata
+[ut_metadata-nu]: https://www.npmjs.com/package/ut_metadata
 
 [ut_pex]: https://github.com/fisch0920/ut_pex
 [ut_pex-ti]: https://img.shields.io/travis/fisch0920/ut_pex.svg
 [ut_pex-tu]: https://travis-ci.org/fisch0920/ut_pex
 [ut_pex-ni]: https://img.shields.io/npm/v/ut_pex.svg
-[ut_pex-nu]: https://npmjs.org/package/ut_pex
+[ut_pex-nu]: https://www.npmjs.com/package/ut_pex
 
 ### Contribute
 
@@ -736,20 +736,20 @@ WebTorrent is an **[OPEN Open Source Project](https://github.com/feross/webtorre
 WebTorrent is only possible due to the excellent work of the following contributors:
 
 <table><tbody>
-<tr><th align="left">Feross Aboukhadijeh</th><td><a href="https://github.com/feross">GitHub/feross</a></td><td><a href="http://twitter.com/feross">Twitter/@feross</a></td></tr>
-<tr><th align="left">Daniel Posch</th><td><a href="https://github.com/dcposch">GitHub/dcposch</a></td><td><a href="http://twitter.com/dcposch">Twitter/@dcposch</a></td></tr>
-<tr><th align="left">John Hiesey</th><td><a href="https://github.com/jhiesey">GitHub/jhiesey</a></td><td><a href="http://twitter.com/jhiesey">Twitter/@jhiesey</a></td></tr>
-<tr><th align="left">Travis Fischer</th><td><a href="https://github.com/fisch0920">GitHub/fisch0920</a></td><td><a href="http://twitter.com/fisch0920">Twitter/@fisch0920</a></td></tr>
-<tr><th align="left">Astro</th><td><a href="https://github.com/astro">GitHub/astro</a></td><td><a href="http://twitter.com/astro1138">Twitter/@astro1138</a></td></tr>
-<tr><th align="left">Iván Todorovich</th><td><a href="https://github.com/ivantodorovich">GitHub/ivantodorovich</a></td><td><a href="http://twitter.com/ivantodorovich">Twitter/@ivantodorovich</a></td></tr>
-<tr><th align="left">Mathias Buus</th><td><a href="https://github.com/mafintosh">GitHub/mafintosh</a></td><td><a href="http://twitter.com/mafintosh">Twitter/@mafintosh</a></td></tr>
-<tr><th align="left">Bob Ren</th><td><a href="https://github.com/bobrenjc93">GitHub/bobrenjc93</a></td><td><a href="http://twitter.com/bobrenjc93">Twitter/@bobrenjc93</a></td></tr>
-<tr><th align="left">James Halliday</th><td><a href="https://github.com/substack">GitHub/substack</a></td><td><a href="http://twitter.com/substack">Twitter/@substack</a></td></tr>
-<tr><th align="left">Gilles De Mey</th><td><a href="https://github.com/gillesdemey">GitHub/gillesdemey</a></td><td><a href="http://twitter.com/gdemey">Twitter/@gdemey</a></td></tr>
-<tr><th align="left">Valérian Galliat</th><td><a href="https://github.com/valeriangalliat">GitHub/valeriangalliat</a></td><td><a href="http://twitter.com/valeriangalliat">Twitter/@valeriangalliat</a></td></tr>
+<tr><th align="left">Feross Aboukhadijeh</th><td><a href="https://github.com/feross">GitHub/feross</a></td><td><a href="https://twitter.com/feross">Twitter/@feross</a></td></tr>
+<tr><th align="left">Daniel Posch</th><td><a href="https://github.com/dcposch">GitHub/dcposch</a></td><td><a href="https://twitter.com/dcposch">Twitter/@dcposch</a></td></tr>
+<tr><th align="left">John Hiesey</th><td><a href="https://github.com/jhiesey">GitHub/jhiesey</a></td><td><a href="https://twitter.com/jhiesey">Twitter/@jhiesey</a></td></tr>
+<tr><th align="left">Travis Fischer</th><td><a href="https://github.com/fisch0920">GitHub/fisch0920</a></td><td><a href="https://twitter.com/fisch0920">Twitter/@fisch0920</a></td></tr>
+<tr><th align="left">Astro</th><td><a href="https://github.com/astro">GitHub/astro</a></td><td><a href="https://twitter.com/astro1138">Twitter/@astro1138</a></td></tr>
+<tr><th align="left">Iván Todorovich</th><td><a href="https://github.com/ivantodorovich">GitHub/ivantodorovich</a></td><td><a href="https://twitter.com/ivantodorovich">Twitter/@ivantodorovich</a></td></tr>
+<tr><th align="left">Mathias Buus</th><td><a href="https://github.com/mafintosh">GitHub/mafintosh</a></td><td><a href="https://twitter.com/mafintosh">Twitter/@mafintosh</a></td></tr>
+<tr><th align="left">Bob Ren</th><td><a href="https://github.com/bobrenjc93">GitHub/bobrenjc93</a></td><td><a href="https://twitter.com/bobrenjc93">Twitter/@bobrenjc93</a></td></tr>
+<tr><th align="left">James Halliday</th><td><a href="https://github.com/substack">GitHub/substack</a></td><td><a href="https://twitter.com/substack">Twitter/@substack</a></td></tr>
+<tr><th align="left">Gilles De Mey</th><td><a href="https://github.com/gillesdemey">GitHub/gillesdemey</a></td><td><a href="https://twitter.com/gdemey">Twitter/@gdemey</a></td></tr>
+<tr><th align="left">Valérian Galliat</th><td><a href="https://github.com/valeriangalliat">GitHub/valeriangalliat</a></td><td><a href="https://twitter.com/valeriangalliat">Twitter/@valeriangalliat</a></td></tr>
 <tr><th align="left">Joseph Frazier</th><td><a href="https://github.com/josephfrazier">GitHub/josephfrazier</a></td><td></td></tr>
-<tr><th align="left">Lucas Pelegrino</th><td><a href="https://github.com/lucaswxp">GitHub/lucaswxp</a></td><td><a href="http://twitter.com/lucaswxp">Twitter/@lucaswxp</a></td></tr>
-<tr><th align="left">Diego Rodríguez B.</th><td><a href="https://github.com/DiegoRBaquero">GitHub/DiegoRBaquero</a></td><td><a href="http://twitter.com/DiegoRBaquero">Twitter/@DiegoRBaquero</a></td></tr>
+<tr><th align="left">Lucas Pelegrino</th><td><a href="https://github.com/lucaswxp">GitHub/lucaswxp</a></td><td><a href="https://twitter.com/lucaswxp">Twitter/@lucaswxp</a></td></tr>
+<tr><th align="left">Diego Rodríguez B.</th><td><a href="https://github.com/DiegoRBaquero">GitHub/DiegoRBaquero</a></td><td><a href="https://twitter.com/DiegoRBaquero">Twitter/@DiegoRBaquero</a></td></tr>
 </tbody></table>
 
 #### Enable debug logs
