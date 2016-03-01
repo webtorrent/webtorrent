@@ -272,9 +272,10 @@ If `opts` is specified, then the default options (shown below) will be overridde
 
 ```js
 {
-  announce: [],   // Torrent trackers to use (added to list in .torrent or magnet uri)
-  path: String,   // Folder to download files to (default=`/tmp/webtorrent/`)
-  store: Function // Custom chunk store (must follow [abstract-chunk-store](https://www.npmjs.com/package/abstract-chunk-store) API)
+  announce: [],              // Torrent trackers to use (added to list in .torrent or magnet uri)
+  getAnnounceOpts: function, // Custom callback to allow sending extra parameters to the tracker
+  path: String,              // Folder to download files to (default=`/tmp/webtorrent/`)
+  store: Function            // Custom chunk store (must follow [abstract-chunk-store](https://www.npmjs.com/package/abstract-chunk-store) API)
 }
 ```
 
