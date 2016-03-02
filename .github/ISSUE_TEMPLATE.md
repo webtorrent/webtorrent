@@ -1,12 +1,6 @@
-<!--
-This template is for bug reports. If you are NOT reporting a bug, you can delete this starter template.
--->
-
-**What version of WebTorrent are you using?**
-
-**For WebTorrent in the browser, which browser are you using?**
-
-**For WebTorrent in Node.js, which version of Node.js are you using?**
+* WebTorrent version:
+* Node.js version:
+* Browser name/version (if using WebTorrent in the browser):
 
 **What did you do? Please include the actual source code causing the issue.**
 
