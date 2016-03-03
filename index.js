@@ -111,7 +111,29 @@ function WebTorrent (opts) {
   }
 }
 
-// Seed ratio for all torrents (uploaded / downloaded)
+Object.defineProperty(WebTorrent.prototype, 'downloadSpeed', {
+  get: function () { return this._downloadSpeed() }
+})
+
+Object.defineProperty(WebTorrent.prototype, 'uploadSpeed', {
+  get: function () { return this._uploadSpeed() }
+})
+
+Object.defineProperty(WebTorrent.prototype, 'progress', {
+  get: function () {
+    var torrents = this.torrents.filter(function (torrent) {
+      return torrent.progress !== 1
+    })
+    var downloaded = torrents.reduce(function (total, torrent) {
+      return total + torrent.downloaded
+    }, 0)
+    var length = torrents.reduce(function (total, torrent) {
+      return total + (torrent.length || 0)
+    }, 0) || 1
+    return downloaded / length
+  }
+})
+
 Object.defineProperty(WebTorrent.prototype, 'ratio', {
   get: function () {
     var uploaded = this.torrents.reduce(function (total, torrent) {
@@ -122,29 +144,6 @@ Object.defineProperty(WebTorrent.prototype, 'ratio', {
     }, 0) || 1
     return uploaded / downloaded
   }
-})
-
-// Percentage complete, represented as a number between 0 and 1
-Object.defineProperty(WebTorrent.prototype, 'progress', {
-  get: function () {
-    var downloaded = this.torrents.reduce(function (total, torrent) {
-      return total + torrent.downloaded
-    }, 0)
-    var length = this.torrents.reduce(function (total, torrent) {
-      return total + (torrent.length || 0)
-    }, 0) || 1
-    return downloaded / length
-  }
-})
-
-// Download speed in bytes/sec
-Object.defineProperty(WebTorrent.prototype, 'downloadSpeed', {
-  get: function () { return this._downloadSpeed() }
-})
-
-// Upload speed in bytes/sec
-Object.defineProperty(WebTorrent.prototype, 'uploadSpeed', {
-  get: function () { return this._uploadSpeed() }
 })
 
 /**
