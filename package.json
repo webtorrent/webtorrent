@@ -33,12 +33,10 @@
     "bittorrent-dht": "^7.0.0",
     "bittorrent-swarm": "^7.1.0",
     "chunk-store-stream": "^2.0.0",
-    "clivas": "^0.2.0",
     "cpus": "^1.0.0",
     "create-torrent": "^3.4.0",
     "debug": "^2.1.0",
     "end-of-stream": "^1.0.0",
-    "executable": "^3.0.0",
     "fs-chunk-store": "^1.3.4",
     "hat": "0.0.3",
     "immediate-chunk-store": "^1.0.7",
@@ -46,8 +44,6 @@
     "load-ip-set": "^1.0.3",
     "memory-chunk-store": "^1.2.0",
     "mime": "^1.2.11",
-    "minimist": "^1.1.0",
-    "moment": "^2.8.3",
     "multistream": "^2.0.2",
     "network-address": "^1.1.0",
     "package-json-versionify": "^1.0.1",
@@ -72,7 +68,6 @@
     "uniq": "^1.0.1",
     "ut_metadata": "^3.0.2",
     "ut_pex": "^1.0.1",
-    "winreg": "1.0.1",
     "xtend": "^4.0.0",
     "zero-fill": "^2.2.0"
   },
@@ -106,11 +101,6 @@
   ],
   "license": "MIT",
   "main": "index.js",
-  "optionalDependencies": {
-    "airplay-js": "^0.2.3",
-    "chromecasts": "^1.5.3",
-    "nodebmc": "0.0.6"
-  },
   "repository": {
     "type": "git",
     "url": "git://github.com/feross/webtorrent.git"
