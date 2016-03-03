@@ -335,9 +335,21 @@ An array of all torrents in the client.
 Returns the torrent with the given `torrentId`. Convenience method. Easier than searching
 through the `client.torrents` array. Returns `null` if no matching torrent found.
 
+#### `client.downloadSpeed`
+
+Total download speed for all torrents, in bytes/sec.
+
+#### `client.uploadSpeed`
+
+Total upload speed for all torrents, in bytes/sec.
+
+### `client.progress`
+
+Total download progress for all **active** torrents, from 0 to 1.
+
 #### `client.ratio`
 
-Seed ratio for all torrents in the client.
+Aggregate "seed ratio" for all torrents (uploaded / downloaded), from 0 to 1.
 
 ### torrent api
 
@@ -370,21 +382,21 @@ Get total bytes received from peers (excluding invalid data).
 
 Get the time remaining in millis if downloading.
 
-#### `torrent.progress`
-
-Get the total progress from 0 to 1.
-
-#### `torrent.ratio`
-
-Get the torrent ratio (seeded/downloaded).
-
 #### `torrent.downloadSpeed`
 
-Returns the download speed.
+Torrent download speed, in bytes/sec.
 
 #### `torrent.uploadSpeed`
 
-Returns the current upload speed.
+Torrent upload speed, in bytes/sec.
+
+#### `torrent.progress`
+
+Torrent download progress, from 0 to 1.
+
+#### `torrent.ratio`
+
+Torrent "seed ratio" (uploaded / downloaded), from 0 to 1.
 
 #### `torrent.path`
 
