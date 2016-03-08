@@ -99,7 +99,7 @@ npm install webtorrent -g
   with development or to hang out with some mad science hackers :)
 - **[Create a new issue](https://github.com/feross/webtorrent/issues/new)** to report bugs
 - **[Fix an issue](https://github.com/feross/webtorrent/issues?state=open)**. Note:
-  WebTorrent is an [OPEN Open Source Project](CONTRIBUTING.md)!
+  WebTorrent is an [OPEN Open Source Project](.github/CONTRIBUTING.md)!
 
 ### WebTorrent in production
 
@@ -744,7 +744,7 @@ These are the main modules that make up WebTorrent:
 
 ### Contribute
 
-WebTorrent is an **[OPEN Open Source Project](https://github.com/feross/webtorrent/blob/master/CONTRIBUTING.md)**. Individuals making significant and valuable contributions are given commit-access to the project to contribute as they see fit.
+WebTorrent is an **[OPEN Open Source Project](https://github.com/feross/webtorrent/blob/master/.github/CONTRIBUTING.md)**. Individuals making significant and valuable contributions are given commit-access to the project to contribute as they see fit.
 
 WebTorrent is only possible due to the excellent work of the following contributors:
 
