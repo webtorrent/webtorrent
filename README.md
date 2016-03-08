@@ -412,6 +412,10 @@ Adds a peer to the underlying [bittorrent-swarm](https://github.com/feross/bitto
 
 Returns `true` if peer was added, `false` if peer was blocked by the loaded blocklist.
 
+#### `torrent.addWebSeed(url)`
+
+Adds a web seed to the [bittorrent-swarm](https://github.com/feross/bittorrent-swarm) instance.
+
 #### `torrent.select(start, end, [priority], [notify])`
 
 Selects a range of pieces to prioritize starting with `start` and ending with `end` (both inclusive)
