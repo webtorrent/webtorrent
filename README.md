@@ -742,29 +742,6 @@ These are the main modules that make up WebTorrent:
 [ut_pex-ni]: https://img.shields.io/npm/v/ut_pex.svg
 [ut_pex-nu]: https://www.npmjs.com/package/ut_pex
 
-### Contribute
-
-WebTorrent is an **[OPEN Open Source Project](https://github.com/feross/webtorrent/blob/master/CONTRIBUTING.md)**. Individuals making significant and valuable contributions are given commit-access to the project to contribute as they see fit.
-
-WebTorrent is only possible due to the excellent work of the following contributors:
-
-<table><tbody>
-<tr><th align="left">Feross Aboukhadijeh</th><td><a href="https://github.com/feross">GitHub/feross</a></td><td><a href="https://twitter.com/feross">Twitter/@feross</a></td></tr>
-<tr><th align="left">Daniel Posch</th><td><a href="https://github.com/dcposch">GitHub/dcposch</a></td><td><a href="https://twitter.com/dcposch">Twitter/@dcposch</a></td></tr>
-<tr><th align="left">John Hiesey</th><td><a href="https://github.com/jhiesey">GitHub/jhiesey</a></td><td><a href="https://twitter.com/jhiesey">Twitter/@jhiesey</a></td></tr>
-<tr><th align="left">Travis Fischer</th><td><a href="https://github.com/fisch0920">GitHub/fisch0920</a></td><td><a href="https://twitter.com/fisch0920">Twitter/@fisch0920</a></td></tr>
-<tr><th align="left">Astro</th><td><a href="https://github.com/astro">GitHub/astro</a></td><td><a href="https://twitter.com/astro1138">Twitter/@astro1138</a></td></tr>
-<tr><th align="left">Iván Todorovich</th><td><a href="https://github.com/ivantodorovich">GitHub/ivantodorovich</a></td><td><a href="https://twitter.com/ivantodorovich">Twitter/@ivantodorovich</a></td></tr>
-<tr><th align="left">Mathias Buus</th><td><a href="https://github.com/mafintosh">GitHub/mafintosh</a></td><td><a href="https://twitter.com/mafintosh">Twitter/@mafintosh</a></td></tr>
-<tr><th align="left">Bob Ren</th><td><a href="https://github.com/bobrenjc93">GitHub/bobrenjc93</a></td><td><a href="https://twitter.com/bobrenjc93">Twitter/@bobrenjc93</a></td></tr>
-<tr><th align="left">James Halliday</th><td><a href="https://github.com/substack">GitHub/substack</a></td><td><a href="https://twitter.com/substack">Twitter/@substack</a></td></tr>
-<tr><th align="left">Gilles De Mey</th><td><a href="https://github.com/gillesdemey">GitHub/gillesdemey</a></td><td><a href="https://twitter.com/gdemey">Twitter/@gdemey</a></td></tr>
-<tr><th align="left">Valérian Galliat</th><td><a href="https://github.com/valeriangalliat">GitHub/valeriangalliat</a></td><td><a href="https://twitter.com/valeriangalliat">Twitter/@valeriangalliat</a></td></tr>
-<tr><th align="left">Joseph Frazier</th><td><a href="https://github.com/josephfrazier">GitHub/josephfrazier</a></td><td></td></tr>
-<tr><th align="left">Lucas Pelegrino</th><td><a href="https://github.com/lucaswxp">GitHub/lucaswxp</a></td><td><a href="https://twitter.com/lucaswxp">Twitter/@lucaswxp</a></td></tr>
-<tr><th align="left">Diego Rodríguez B.</th><td><a href="https://github.com/DiegoRBaquero">GitHub/DiegoRBaquero</a></td><td><a href="https://twitter.com/DiegoRBaquero">Twitter/@DiegoRBaquero</a></td></tr>
-</tbody></table>
-
 #### Enable debug logs
 
 In **node**, enable debug logs by setting the `DEBUG` environment variable to the name of the
