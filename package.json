@@ -35,7 +35,7 @@
     "chunk-store-stream": "^2.0.0",
     "clivas": "^0.2.0",
     "cpus": "^1.0.0",
-    "create-torrent": "^3.4.0",
+    "create-torrent": "^3.23.0",
     "debug": "^2.1.0",
     "end-of-stream": "^1.0.0",
     "executable": "^3.0.0",
