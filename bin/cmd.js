@@ -10,7 +10,7 @@ var moment = require('moment')
 var networkAddress = require('network-address')
 var parseTorrent = require('parse-torrent')
 var path = require('path')
-var prettyBytes = require('pretty-bytes')
+var prettierBytes = require('prettier-bytes')
 var WebTorrent = require('../')
 
 process.title = 'WebTorrent'
@@ -335,7 +335,7 @@ function runDownload (torrentId) {
       torrent.files.forEach(function (file, i) {
         clivas.line(
           '{2+bold+magenta:%s} %s {blue:(%s)}',
-          i, file.name, prettyBytes(file.length)
+          i, file.name, prettierBytes(file.length)
         )
       })
       clivas.line('\nTo select a specific file, re-run `webtorrent` with "--select [index]"')
@@ -502,10 +502,10 @@ function drawTorrent (torrent) {
     }
     if (argv.out) line('{green:Downloading to: }{bold:' + argv.out + '}')
     line(
-      '{green:Speed: }{bold:' + prettyBytes(speed) + '/s}  ' +
-      '{green:Downloaded:} {bold:' + prettyBytes(torrent.downloaded) + '}' +
-      '/{bold:' + prettyBytes(torrent.length) + '}  ' +
-      '{green:Uploaded:} {bold:' + prettyBytes(torrent.uploaded) + '}'
+      '{green:Speed: }{bold:' + prettierBytes(speed) + '/s}  ' +
+      '{green:Downloaded:} {bold:' + prettierBytes(torrent.downloaded) + '}' +
+      '/{bold:' + prettierBytes(torrent.length) + '}  ' +
+      '{green:Uploaded:} {bold:' + prettierBytes(torrent.uploaded) + '}'
     )
     line(
       '{green:Running time:} {bold:' + getRuntime() + 's}  ' +
@@ -540,9 +540,9 @@ function drawTorrent (torrent) {
         wire.remoteAddress
           ? (wire.remoteAddress + ':' + wire.remotePort)
           : 'Unknown',
-        prettyBytes(wire.downloaded),
-        prettyBytes(wire.downloadSpeed()),
-        prettyBytes(wire.uploadSpeed())
+        prettierBytes(wire.downloaded),
+        prettierBytes(wire.downloadSpeed()),
+        prettierBytes(wire.uploadSpeed())
       ]
       if (argv.verbose) {
         str += ' {15+grey:%s} {10+grey:%s}'
