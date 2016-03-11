@@ -64,7 +64,6 @@
     "uniq": "^1.0.1",
     "ut_metadata": "^3.0.2",
     "ut_pex": "^1.0.1",
-    "winreg": "1.0.1",
     "xtend": "^4.0.0",
     "zero-fill": "^2.2.0"
   },
@@ -99,11 +98,6 @@
   ],
   "license": "MIT",
   "main": "index.js",
-  "optionalDependencies": {
-    "airplay-js": "^0.2.3",
-    "chromecasts": "^1.5.3",
-    "nodebmc": "0.0.6"
-  },
   "repository": {
     "type": "git",
     "url": "git://github.com/feross/webtorrent.git"
