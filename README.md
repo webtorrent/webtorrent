@@ -87,10 +87,11 @@ To install WebTorrent for use in node or the browser with `require('webtorrent')
 npm install webtorrent
 ```
 
-To install a `webtorrent` command line program, run:
+To install a `webtorrent`
+[command line program](https://github.com/feross/webtorrent-cli), run:
 
 ```bash
-npm install webtorrent -g
+npm install webtorrent-cli -g
 ```
 
 ### Ways to help
@@ -186,10 +187,11 @@ WebTorrent also works in node.js, using the *same npm module!* It's mad science!
 
 #### As a command line app
 
-WebTorrent is available as a command line app. Here's how to use it:
+WebTorrent is available as [a command line app](https://github.com/feross/webtorrent-cli).
+Here's how to use it:
 
 ```bash
-$ npm install webtorrent -g
+$ npm install webtorrent-cli -g
 $ webtorrent --help
 ```
 
@@ -754,12 +756,6 @@ module you want to debug (e.g. `bittorrent-protocol`, or `*` to print **all logs
 
 ```bash
 DEBUG=* webtorrent
-```
-
-Of course, this also works for the development version:
-
-```bash
-DEBUG=* ./bin/cmd.js
 ```
 
 In the **browser**, enable debug logs by running this in the developer console:

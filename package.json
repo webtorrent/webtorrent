@@ -7,9 +7,6 @@
     "email": "feross@feross.org",
     "url": "http://feross.org/"
   },
-  "bin": {
-    "webtorrent": "./bin/cmd.js"
-  },
   "browser": {
     "./lib/server.js": false,
     "bittorrent-dht/client": false,
@@ -33,12 +30,10 @@
     "bittorrent-dht": "^7.0.0",
     "bittorrent-swarm": "^7.1.0",
     "chunk-store-stream": "^2.0.0",
-    "clivas": "^0.2.0",
     "cpus": "^1.0.0",
     "create-torrent": "^3.4.0",
     "debug": "^2.1.0",
     "end-of-stream": "^1.0.0",
-    "executable": "^3.0.0",
     "fs-chunk-store": "^1.3.4",
     "hat": "0.0.3",
     "immediate-chunk-store": "^1.0.7",
@@ -46,10 +41,7 @@
     "load-ip-set": "^1.0.3",
     "memory-chunk-store": "^1.2.0",
     "mime": "^1.2.11",
-    "minimist": "^1.1.0",
-    "moment": "^2.8.3",
     "multistream": "^2.0.2",
-    "network-address": "^1.1.0",
     "package-json-versionify": "^1.0.1",
     "parse-torrent": "^5.1.0",
     "path-exists": "^2.1.0",
@@ -80,6 +72,7 @@
     "bittorrent-tracker": "^7.0.0",
     "brfs": "^1.2.0",
     "browserify": "^13.0.0",
+    "network-address": "^1.1.0",
     "cross-spawn-async": "^2.0.0",
     "electron-prebuilt": "^0.36.7",
     "finalhandler": "^0.4.0",
