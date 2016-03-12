@@ -1,16 +1,37 @@
-![WebTorrent](https://webtorrent.io/img/wordmark.png)
+<h1 align="center">
+  <br>
+  <img src="https://webtorrent.io/img/WebTorrent.png" alt="WebTorrent" width="200">
+  <br>
+  WebTorrent
+  <br>
+  <br>
+</h1>
 
-# Streaming torrent client for the web
+<h4 align="center">The streaming torrent client. For node.js and the web.</h4>
 
-[![Gitter][webtorrent-gitter-image]][webtorrent-gitter-url]
-[![Travis Build][webtorrent-ti]][webtorrent-tu]
-[![AppVeyor Build][webtorrent-appveyor-image]][webtorrent-appveyor-url]
-[![NPM Version][webtorrent-ni]][webtorrent-nu]
-[![NPM Downloads][webtorrent-downloads-image]][webtorrent-downloads-url]
-
-[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](http://standardjs.com)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-[![Sauce Test Status][webtorrent-sauce-image]][webtorrent-sauce-url]
+<p align="center">
+  <a href="https://gitter.im/feross/webtorrent">
+    <img src="https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg"
+         alt="Gitter">
+  </a>
+  <a href="https://travis-ci.org/feross/webtorrent">
+    <img src="https://img.shields.io/travis/feross/webtorrent/master.svg"
+         alt="Travis Build">
+  </a>
+  <a href="https://ci.appveyor.com/project/feross/webtorrent">
+    <img src="https://ci.appveyor.com/api/projects/status/cgu85xlgl72uoswq/branch/master?svg=true"
+         alt="AppVeyor Build">
+  </a>
+  <a href="https://www.npmjs.com/package/webtorrent">
+    <img src="https://img.shields.io/npm/v/webtorrent.svg"
+         alt="NPM Version">
+  </a>
+  <a href="https://www.npmjs.com/package/webtorrent">
+    <img src="https://img.shields.io/npm/dm/webtorrent.svg"
+         alt="NPM Downloads">
+  </a>
+</p>
+<br>
 
 **WebTorrent** is a streaming torrent client for **node.js** and the **browser**. YEP,
 THAT'S RIGHT. THE BROWSER. It's written completely in JavaScript – the language of the web
@@ -43,8 +64,6 @@ connect to both normal *and* web peers.
 
 ![Network](https://webtorrent.io/img/network.png)
 
-> Warning: This is alpha software. **Watch/star to follow along with progress.**
-
 ### Features
 
 - **Torrent client for node.js & the browser** (same npm module!)
@@ -70,6 +89,13 @@ connect to both normal *and* web peers.
   running on one domain can connect to clients on any other domain.
 - Stream video torrents into a `<video>` tag (`webm (vp8, vp9)` or `mp4 (h.264)`)
 - Supports Chrome, Firefox, and Opera.
+
+<p align="center">
+  <a href="https://saucelabs.com/u/webtorrent">
+    <img src="https://saucelabs.com/browser-matrix/webtorrent.svg"
+         alt="Sauce Labs Build">
+  </a>
+</p>
 
 #### Node-only features
 
@@ -664,18 +690,11 @@ These are the main modules that make up WebTorrent:
 | [ut_pex][ut_pex] | [![][ut_pex-ti]][ut_pex-tu] | [![][ut_pex-ni]][ut_pex-nu] | peer discovery (protocol extension)
 
 [webtorrent]: https://github.com/feross/webtorrent
-[webtorrent-gitter-image]: https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg
 [webtorrent-gitter-url]: https://gitter.im/feross/webtorrent
 [webtorrent-ti]: https://img.shields.io/travis/feross/webtorrent/master.svg
 [webtorrent-tu]: https://travis-ci.org/feross/webtorrent
-[webtorrent-appveyor-image]: https://ci.appveyor.com/api/projects/status/cgu85xlgl72uoswq/branch/master?svg=true
-[webtorrent-appveyor-url]: https://ci.appveyor.com/project/feross/webtorrent
 [webtorrent-ni]: https://img.shields.io/npm/v/webtorrent.svg
 [webtorrent-nu]: https://www.npmjs.com/package/webtorrent
-[webtorrent-downloads-image]: https://img.shields.io/npm/dm/webtorrent.svg
-[webtorrent-downloads-url]: https://npmjs.org/package/webtorrent
-[webtorrent-sauce-image]: https://saucelabs.com/browser-matrix/webtorrent.svg
-[webtorrent-sauce-url]: https://saucelabs.com/u/webtorrent
 
 [bittorrent-dht]: https://github.com/feross/bittorrent-dht
 [bittorrent-dht-ti]: https://img.shields.io/travis/feross/bittorrent-dht/master.svg
@@ -777,6 +796,8 @@ localStorage.removeItem('debug')
 - Sep 2014 (NodeConf EU) – [WebTorrent Mad Science](https://www.youtube.com/watch?v=BVBXkzVjvPc) (first working WebTorrent demo)
 - May 2014 (JS.LA) – [How I Built a BitTorrent Client in the Browser](https://vimeo.com/97324247) (progress update; node client working)
 - Oct 2013 (RealtimeConf) – [WebRTC Black Magic](https://vimeo.com/77265280) (first mention of idea for WebTorrent)
+
+[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
 ### License
 
