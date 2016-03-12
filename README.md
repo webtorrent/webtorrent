@@ -23,12 +23,12 @@
          alt="AppVeyor Build">
   </a>
   <a href="https://www.npmjs.com/package/webtorrent">
-    <img src="https://img.shields.io/npm/v/webtorrent.svg"
-         alt="NPM Version">
-  </a>
-  <a href="https://www.npmjs.com/package/webtorrent">
     <img src="https://img.shields.io/npm/dm/webtorrent.svg"
          alt="NPM Downloads">
+  </a>
+  <a href="https://www.npmjs.com/package/webtorrent">
+    <img src="https://img.shields.io/npm/v/webtorrent.svg"
+         alt="NPM Version">
   </a>
 </p>
 <br>
