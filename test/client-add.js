@@ -16,7 +16,7 @@ test('client.add: magnet uri, utf-8 string', function (t) {
 
   torrent.on('infoHash', function () {
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
-    t.equal(torrent.magnetURI.split("&tr")[0], fixtures.leaves.magnetURI)
+    t.equal(torrent.magnetURI.split('&tr')[0], fixtures.leaves.magnetURI)
 
     client.remove(fixtures.leaves.magnetURI, function (err) { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
@@ -38,7 +38,7 @@ test('client.add: torrent file, buffer', function (t) {
 
   torrent.on('infoHash', function () {
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
-    t.equal(torrent.magnetURI.split("&tr")[0], fixtures.leaves.magnetURI)
+    t.equal(torrent.magnetURI.split('&tr')[0], fixtures.leaves.magnetURI)
 
     client.remove(fixtures.leaves.torrent, function (err) { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
@@ -104,7 +104,7 @@ test('client.add: parsed torrent, from `parse-torrent`', function (t) {
 
   torrent.on('infoHash', function () {
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
-    t.equal(torrent.magnetURI.split("&tr")[0], fixtures.leaves.magnetURI)
+    t.equal(torrent.magnetURI.split('&tr')[0], fixtures.leaves.magnetURI)
 
     client.remove(fixtures.leaves.parsedTorrent, function (err) { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
