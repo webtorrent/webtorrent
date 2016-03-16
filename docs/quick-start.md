@@ -1,3 +1,6 @@
+WebTorrent works in the **browser** and **node.js**, and provides the same API in
+both environments.
+
 ## Install
 
 ```bash

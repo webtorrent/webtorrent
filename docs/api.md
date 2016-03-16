@@ -1,9 +1,6 @@
 ## WebTorrent API
 
-WebTorrent works in the **browser** and **node.js**, and provides the same API in
-both environments.
-
-### Static property: `WebTorrent.WEBRTC_SUPPORT`
+### `WebTorrent.WEBRTC_SUPPORT`
 
 Is WebRTC natively supported in the environment?
 
