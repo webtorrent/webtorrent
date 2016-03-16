@@ -100,7 +100,7 @@ Once peers are connected, the wire protocol used to communicate is exactly the s
 as in normal BitTorrent. This should make it easy for existing popular torrent
 clients like Transmission, Vuze, and uTorrent to add support for WebTorrent.
 
-![WebTorrent network diagram](/img/network.png)
+![WebTorrent network diagram](https://webtorrent.io/img/network.png)
 
 [bittorrent-protocol]: https://wiki.theory.org/BitTorrentSpecification
 [webrtc-signaling]: http://www.html5rocks.com/en/tutorials/webrtc/infrastructure/#what-is-signaling
