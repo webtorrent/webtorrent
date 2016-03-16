@@ -21,7 +21,7 @@ Create a new `WebTorrent` instance.
 
 If `opts` is specified, then the default options (shown below) will be overridden.
 
-```json
+```js
 {
   dht: Boolean|Object,   // Enable DHT (default=true), or options object for DHT
   maxConns: Number,      // Max number of connections per torrent (default=55)
@@ -48,7 +48,7 @@ Start downloading a new torrent. Aliased as `client.download`.
 
 If `opts` is specified, then the default options (shown below) will be overridden.
 
-```json
+```js
 {
   announce: [],              // Torrent trackers to use (added to list in .torrent or magnet uri)
   getAnnounceOpts: function, // Custom callback to allow sending extra parameters to the tracker
@@ -337,7 +337,7 @@ swarm first.
 
 You can pass `opts` to stream only a slice of a file.
 
-```json
+```js
 {
   start: startByte,
   end: endByte
