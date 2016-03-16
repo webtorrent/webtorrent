@@ -1,27 +1,27 @@
-### API
+## WebTorrent API
 
-This API should work exactly the same in node and the browser. Open an issue if this is
-not the case.
+WebTorrent works in the **browser** and **node.js**, and provides the same API in
+both environments.
 
-#### `WebTorrent.WEBRTC_SUPPORT`
+### Static property: `WebTorrent.WEBRTC_SUPPORT`
 
-Detect native WebRTC support in the environment.
+Is WebRTC natively supported in the environment?
 
 ```js
 if (WebTorrent.WEBRTC_SUPPORT) {
-  // webrtc support!
+  // WebRTC is supported
 } else {
-  // fallback
+  // Use a fallback
 }
 ```
 
-#### `client = new WebTorrent([opts])`
+### `client = new WebTorrent([opts])`
 
 Create a new `WebTorrent` instance.
 
 If `opts` is specified, then the default options (shown below) will be overridden.
 
-``` js
+```json
 {
   dht: Boolean|Object,   // Enable DHT (default=true), or options object for DHT
   maxConns: Number,      // Max number of connections per torrent (default=55)
@@ -33,7 +33,7 @@ If `opts` is specified, then the default options (shown below) will be overridde
 }
 ```
 
-#### `client.add(torrentId, [opts], [function ontorrent (torrent) {}])`
+### `client.add(torrentId, [opts], [function ontorrent (torrent) {}])`
 
 Start downloading a new torrent. Aliased as `client.download`.
 
@@ -48,13 +48,13 @@ Start downloading a new torrent. Aliased as `client.download`.
 
 If `opts` is specified, then the default options (shown below) will be overridden.
 
-```js
+```json
 {
   announce: [],              // Torrent trackers to use (added to list in .torrent or magnet uri)
   getAnnounceOpts: function, // Custom callback to allow sending extra parameters to the tracker
+  maxWebConns: Number,       // Max number of simultaneous connections per web seed
   path: String,              // Folder to download files to (default=`/tmp/webtorrent/`)
-  store: Function,            // Custom chunk store (must follow [abstract-chunk-store](https://www.npmjs.com/package/abstract-chunk-store) API)
-  maxWebConns: Number        // Max number of simultaneous connections per web seed
+  store: Function            // Custom chunk store (must follow [abstract-chunk-store](https://www.npmjs.com/package/abstract-chunk-store) API)
 }
 ```
 
@@ -66,7 +66,7 @@ If you want access to the torrent object immediately in order to listen to event
 metadata is fetched from the network, then use the return value of `client.add`. If you
 just want the file data, then use `ontorrent` or the 'torrent' event.
 
-#### `client.seed(input, [opts], [function onseed (torrent) {}])`
+### `client.seed(input, [opts], [function onseed (torrent) {}])`
 
 Start seeding a new torrent.
 
@@ -76,7 +76,7 @@ Start seeding a new torrent.
 - W3C [File](https://developer.mozilla.org/en-US/docs/Web/API/File) object (from an `<input>` or drag and drop)
 - W3C [FileList](https://developer.mozilla.org/en-US/docs/Web/API/FileList) object (basically an array of `File` objects)
 - Node [Buffer](https://nodejs.org/api/buffer.html) object (works in [the browser](https://www.npmjs.com/package/buffer)) (must set a `name` property on it)
-- Node [stream.Readable](http://nodejs.org/api/stream.html) object (must set `name` and `opt.pieceLength` properties on it)
+- Node [Readable stream](https://nodejs.org/api/stream.html#stream_class_stream_readable) object (must set `name` and `opt.pieceLength` properties on it)
 
 Or, an **array of `string`, `File`, `Buffer`, or `stream.Readable` objects**.
 
@@ -92,34 +92,34 @@ If `onseed` is specified, it will be called when the client has begun seeding th
 > * Otherwise, the name of the first file passed in to `client.seed`, for example if the first file is `/foo/bar/baz.txt`, the torrent name will be `baz.txt`
 > The `torrent` object will contain a list of files, whose names are prefixed with the torrent name. When creating a nameless torrent in Node, this will be intuitive. When doing the same in the browser, this may lead to confusing results.
 
-#### `client.on('torrent', function (torrent) {})`
+### `client.on('torrent', function (torrent) {})`
 
 Emitted when a torrent is ready to be used (i.e. metadata is available and store is
 ready). See the torrent section for more info on what methods a `torrent` has.
 
-#### `client.remove(torrentId, [function callback (err) {}])`
+### `client.remove(torrentId, [function callback (err) {}])`
 
 Remove a torrent from the client. Destroy all connections to peers and delete all saved
 file data. If `callback` is specified, it will be called when file data is removed.
 
-#### `client.destroy([function callback (err) {}])`
+### `client.destroy([function callback (err) {}])`
 
 Destroy the client, including all torrents and connections to peers. If `callback` is specified, it will be called when the client has gracefully closed.
 
-#### `client.torrents[...]`
+### `client.torrents[...]`
 
 An array of all torrents in the client.
 
-#### `client.get(torrentId)`
+### `client.get(torrentId)`
 
 Returns the torrent with the given `torrentId`. Convenience method. Easier than searching
 through the `client.torrents` array. Returns `null` if no matching torrent found.
 
-#### `client.downloadSpeed`
+### `client.downloadSpeed`
 
 Total download speed for all torrents, in bytes/sec.
 
-#### `client.uploadSpeed`
+### `client.uploadSpeed`
 
 Total upload speed for all torrents, in bytes/sec.
 
@@ -127,91 +127,92 @@ Total upload speed for all torrents, in bytes/sec.
 
 Total download progress for all **active** torrents, from 0 to 1.
 
-#### `client.ratio`
+### `client.ratio`
 
 Aggregate "seed ratio" for all torrents (uploaded / downloaded), from 0 to 1.
 
-### torrent api
 
-#### `torrent.infoHash`
+## Torrent API
+
+### `torrent.infoHash`
 
 Get the info hash of the torrent.
 
-#### `torrent.magnetURI`
+### `torrent.magnetURI`
 
 Get the magnet URI of the torrent.
 
-#### `torrent.files[...]`
+### `torrent.files[...]`
 
 An array of all files in the torrent. See the file section for more info on what methods
 the file has.
 
-#### `torrent.swarm`
+### `torrent.swarm`
 
 The attached [bittorrent-swarm](https://github.com/feross/bittorrent-swarm) instance.
 
-#### `torrent.received`
+### `torrent.received`
 
 Get total bytes received from peers (including invalid data).
 
-#### `torrent.downloaded`
+### `torrent.downloaded`
 
 Get total bytes received from peers (excluding invalid data).
 
-#### `torrent.timeRemaining`
+### `torrent.timeRemaining`
 
 Get the time remaining in millis if downloading.
 
-#### `torrent.downloadSpeed`
+### `torrent.downloadSpeed`
 
 Torrent download speed, in bytes/sec.
 
-#### `torrent.uploadSpeed`
+### `torrent.uploadSpeed`
 
 Torrent upload speed, in bytes/sec.
 
-#### `torrent.progress`
+### `torrent.progress`
 
 Torrent download progress, from 0 to 1.
 
-#### `torrent.ratio`
+### `torrent.ratio`
 
 Torrent "seed ratio" (uploaded / downloaded), from 0 to 1.
 
-#### `torrent.path`
+### `torrent.path`
 
 Get the torrent download location.
 
-#### `torrent.destroy()`
+### `torrent.destroy()`
 
 Alias for `client.remove(torrent)`.
 
-#### `torrent.addPeer(addr)`
+### `torrent.addPeer(addr)`
 
 Adds a peer to the underlying [bittorrent-swarm](https://github.com/feross/bittorrent-swarm) instance.
 
 Returns `true` if peer was added, `false` if peer was blocked by the loaded blocklist.
 
-#### `torrent.addWebSeed(url)`
+### `torrent.addWebSeed(url)`
 
 Adds a web seed to the [bittorrent-swarm](https://github.com/feross/bittorrent-swarm) instance.
 
-#### `torrent.select(start, end, [priority], [notify])`
+### `torrent.select(start, end, [priority], [notify])`
 
 Selects a range of pieces to prioritize starting with `start` and ending with `end` (both inclusive)
 at the given `priority`. `notify` is an optional callback to be called when the selection is updated
 with new data.
 
-#### `torrent.deselect(start, end, priority)`
+### `torrent.deselect(start, end, priority)`
 
 Deprioritizes a range of previously selected pieces.
 
-#### `torrent.critical(start, end)`
+### `torrent.critical(start, end)`
 
 Marks a range of pieces as critical priority to be downloaded ASAP. From `start` to `end`
 (both inclusive).
 
-#### `torrent.createServer([opts])`
+### `torrent.createServer([opts])`
 
 Create an http server to serve the contents of this torrent, dynamically fetching the
 needed torrent pieces to satisfy http requests. Range requests are supported.
@@ -226,7 +227,7 @@ Here is a usage example:
 
 ```js
 var client = new WebTorrent()
-var magnetURI = '...'
+var magnetURI = 'magnet: ...'
 
 client.add(magnetURI, function (torrent) {
   // create HTTP server for this torrent
@@ -244,16 +245,16 @@ client.add(magnetURI, function (torrent) {
 })
 ```
 
-#### `torrent.pause()`
+### `torrent.pause()`
 
 Temporarily stop connecting to new peers. Note that this does not pause new incoming
 connections, nor does it pause the streams of existing connections or their wires.
 
-#### `torrent.resume()`
+### `torrent.resume()`
 
 Resume connecting to new peers.
 
-#### `torrent.on('done', function () {})`
+### `torrent.on('done', function () {})`
 
 Emitted when all the torrent's files have been downloaded
 
@@ -268,7 +269,7 @@ torrent.on('done', function(){
 })
 ```
 
-#### `torrent.on('download', function (chunkSize) {})`
+### `torrent.on('download', function (chunkSize) {})`
 
 Emitted every time a new chunk of data arrives, it's useful for reporting the current torrent status, for instance:
 
@@ -282,7 +283,7 @@ torrent.on('download', function(chunkSize){
 })
 ```
 
-#### `torrent.on('wire', function (wire) {})`
+### `torrent.on('wire', function (wire) {})`
 
 Emitted whenever a new peer is connected for this torrent. `wire` is an instance of
 [`bittorrent-protocol`](https://github.com/feross/bittorrent-protocol), which is a
@@ -306,29 +307,29 @@ information on how to define a protocol extension.
 
 ### file api
 
-#### `file.name`
+### `file.name`
 
 File name, as specified by the torrent. *Example: 'some-filename.txt'*
 
-#### `file.path`
+### `file.path`
 
 File path, as specified by the torrent. *Example: 'some-folder/some-filename.txt'*
 
-#### `file.length`
+### `file.length`
 
 File length (in bytes), as specified by the torrent. *Example: 12345*
 
-#### `file.select()`
+### `file.select()`
 
 Selects the file to be downloaded, but at a lower priority than files with streams.
 Useful if you know you need the file at a later stage.
 
-#### `file.deselect()`
+### `file.deselect()`
 
 Deselects the file, which means it won't be downloaded unless someone creates a stream
 for it.
 
-#### `stream = file.createReadStream([opts])`
+### `stream = file.createReadStream([opts])`
 
 Create a [readable stream](https://nodejs.org/api/stream.html#stream_class_stream_readable)
 to the file. Pieces needed by the stream will be prioritized highly and fetched from the
@@ -336,7 +337,7 @@ swarm first.
 
 You can pass `opts` to stream only a slice of a file.
 
-``` js
+```json
 {
   start: startByte,
   end: endByte
@@ -345,7 +346,7 @@ You can pass `opts` to stream only a slice of a file.
 
 Both `start` and `end` are inclusive.
 
-#### `file.getBuffer(function callback (err, buffer) {})`
+### `file.getBuffer(function callback (err, buffer) {})`
 
 Get the file contents as a `Buffer`.
 
@@ -360,7 +361,7 @@ file.getBuffer(function (err, buffer) {
 })
 ```
 
-#### `file.appendTo(rootElem, function callback (err, elem) {})`
+### `file.appendTo(rootElem, [function callback (err, elem) {}])`
 
 Show the file in a the browser by appending it to the DOM. This is a powerful function
 that handles many file types like video (.mp4, .webm, .m4v, etc.), audio (.m4a, .mp3,
@@ -376,9 +377,8 @@ the file will be downloaded then displayed.
 will be shown in. A new DOM node will be created for the content and appended to
 `rootElem`.
 
-`callback` will be called once the file is visible to the user. `callback` must be
-specified, and will be called with a an `Error` (or `null`) and the new DOM node that is
-displaying the content.
+`callback` will be called once the file is visible to the user. `callback` is called
+with an `Error` (or `null`) and the new DOM node that is displaying the content.
 
 ```js
 file.appendTo('#containerElement', function (err, elem) {
@@ -387,11 +387,11 @@ file.appendTo('#containerElement', function (err, elem) {
 })
 ```
 
-#### `file.renderTo(elem, function callback (err, elem) {})`
+#### `file.renderTo(elem, [function callback (err, elem) {}])`
 
 Like `file.appendTo` but renders directly into given element (or CSS selector).
 
-#### `file.getBlobURL(function callback (err, url) {})`
+### `file.getBlobURL(function callback (err, url) {})`
 
 Get a url which can be used in the browser to refer to the file.
 
