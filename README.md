@@ -188,6 +188,30 @@ There are more examples in the [examples](https://github.com/feross/webtorrent/t
 WebTorrent works great with [browserify](http://browserify.org/), an npm module that let's
 you use [node](http://nodejs.org/)-style require() to organize your browser code and load modules installed by [npm](https://www.npmjs.com/) (as seen in the previous examples).
 
+##### Webpack
+
+WebTorrent works also great with [webpack](http://webpack.github.io/), a module bundler similar to browserify that supports various files types. Although webpack uses the specified [browser-field](https://github.com/feross/webtorrent/blob/master/package.json#L10) to reference alternative packages for the browser, following configurations have to be done to bundle the code:
+```js
+{
+  target: 'web',
+  node: {
+    fs: 'empty'
+  },
+  module: {
+    loaders: [
+      // requires you to install the 'json-loader' module first: npm install --save-dev json-loader
+      {
+        test: /\.json$/,
+        loader: 'json'
+      }
+    ]
+  }
+}
+```
+Otherwise you could also directly use the pre-built version via `require('webtorrent/webtorrent.min')`.
+
+#### Global
+
 WebTorrent is also available as a standalone script
 ([`webtorrent.min.js`](webtorrent.min.js)) which exposes `WebTorrent` on the `window`
 object, so it can be used with just a script tag:
