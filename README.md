@@ -134,7 +134,7 @@ npm install webtorrent-cli -g
 
 ### WebTorrent API Documentation
 
-**Read the [full API Documentation](docs/api.md).**
+**[Read the full API Documentation](docs/api.md).**
 
 ### Usage
 
