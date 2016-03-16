@@ -305,7 +305,7 @@ See the `bittorrent-protocol`
 [extension api docs](https://github.com/feross/bittorrent-protocol#extension-api) for more
 information on how to define a protocol extension.
 
-### file api
+## File API
 
 ### `file.name`
 
@@ -387,7 +387,7 @@ file.appendTo('#containerElement', function (err, elem) {
 })
 ```
 
-#### `file.renderTo(elem, [function callback (err, elem) {}])`
+### `file.renderTo(elem, [function callback (err, elem) {}])`
 
 Like `file.appendTo` but renders directly into given element (or CSS selector).
 
