@@ -206,7 +206,7 @@ to browserify. However, webpack requires the following extra configuration:
 ```
 Otherwise you could also directly use the pre-built version via `require('webtorrent/webtorrent.min')`.
 
-#### Global
+##### Script tag
 
 WebTorrent is also available as a standalone script
 ([`webtorrent.min.js`](webtorrent.min.js)) which exposes `WebTorrent` on the `window`
@@ -223,7 +223,7 @@ MaxCDN) for easy inclusion on your site:
 <script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
 ```
 
-#### In node.js
+#### In Node.js
 
 WebTorrent also works in node.js, using the *same npm package!* It's mad science!
 
@@ -233,8 +233,8 @@ support for node.
 
 #### As a command line app
 
-WebTorrent is available as [a command line app](https://github.com/feross/webtorrent-cli).
-Here's how to use it:
+WebTorrent is also available as a
+[command line app](https://github.com/feross/webtorrent-cli). Here's how to use it:
 
 ```bash
 $ npm install webtorrent-cli -g
