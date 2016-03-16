@@ -279,7 +279,7 @@ If `opts` is specified, then the default options (shown below) will be overridde
   peerId: String|Buffer, // Wire protocol peer ID (default=randomly generated)
   rtcConfig: Object,     // RTCPeerConnection configuration object (default=STUN only)
   tracker: Boolean,      // Whether or not to enable trackers (default=true)
-  wrtc: Object           // Custom webrtc implementation (in node, specify the [wrtc](https://www.npmjs.com/package/wrtc) package)
+  wrtc: Object           // Custom webrtc implementation (in node, specify the [wrtc](https://www.npmjs.com/package/wrtc) or [electron-webrtc](https://github.com/mappum/electron-webrtc) package)
 }
 ```
 
