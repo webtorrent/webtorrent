@@ -328,7 +328,7 @@ Start seeding a new torrent.
 - Node [Buffer](https://nodejs.org/api/buffer.html) object (works in [the browser](https://www.npmjs.com/package/buffer)) (must set a `name` property on it)
 - Node [stream.Readable](http://nodejs.org/api/stream.html) object (must set `name` and `opt.pieceLength` properties on it)
 
-Or, an **array of `string`, `File`, or `Buffer` objects**.
+Or, an **array of `string`, `File`, `Buffer`, or `stream.Readable` objects**.
 
 If `opts` is specified, it should contain the following types of options:
 
