@@ -66,7 +66,7 @@ connect to both normal *and* web peers.
 
 ### Features
 
-- **Torrent client for node.js & the browser** (same npm module!)
+- **Torrent client for node.js & the browser** (same npm package!)
 - **Insanely fast**
 - Download **multiple torrents** simultaneously, efficiently
 - **Pure Javascript** (no native dependencies)
@@ -100,10 +100,6 @@ connect to both normal *and* web peers.
 #### Node-only features
 
 - Stream to **AirPlay**, **Chromecast**, **VLC player**, and many other devices/players
-
-**NOTE**: To connect to "web peers" (browsers) in addition to normal BitTorrent peers, use
-  [webtorrent-hybrid](https://github.com/feross/webtorrent-hybrid) which includes WebRTC
-  support for node.
 
 ### Install
 
@@ -183,8 +179,34 @@ There are more examples in [docs/get-started.md](docs/get-started.md).
 
 ##### Browserify
 
-WebTorrent works great with [browserify](http://browserify.org/), an npm module that let's
+WebTorrent works great with [browserify](http://browserify.org/), an npm package that let's
 you use [node](http://nodejs.org/)-style require() to organize your browser code and load modules installed by [npm](https://www.npmjs.com/) (as seen in the previous examples).
+
+##### Webpack
+
+WebTorrent also works with [webpack](http://webpack.github.io/), a module bundler similar
+to browserify. However, webpack requires the following extra configuration:
+
+```js
+{
+  target: 'web',
+  node: {
+    fs: 'empty'
+  },
+  module: {
+    loaders: [
+      // make sure to install the 'json-loader' package: npm install json-loader
+      {
+        test: /\.json$/,
+        loader: 'json'
+      }
+    ]
+  }
+}
+```
+Otherwise you could also directly use the pre-built version via `require('webtorrent/webtorrent.min')`.
+
+#### Global
 
 WebTorrent is also available as a standalone script
 ([`webtorrent.min.js`](webtorrent.min.js)) which exposes `WebTorrent` on the `window`
@@ -203,7 +225,11 @@ MaxCDN) for easy inclusion on your site:
 
 #### In node.js
 
-WebTorrent also works in node.js, using the *same npm module!* It's mad science!
+WebTorrent also works in node.js, using the *same npm package!* It's mad science!
+
+**NOTE**: To connect to "web peers" (browsers) in addition to normal BitTorrent peers, use
+[webtorrent-hybrid](https://github.com/feross/webtorrent-hybrid) which includes WebRTC
+support for node.
 
 #### As a command line app
 
@@ -244,7 +270,7 @@ In addition to magnet uris, webtorrent supports [many ways to specify a torrent]
 
 ### Modules
 
-Most of the active development is happening inside of small npm modules which are used by WebTorrent.
+Most of the active development is happening inside of small npm packages which are used by WebTorrent.
 
 #### The Node Way&trade;
 
