@@ -57,30 +57,48 @@ There are also exciting **business use cases**, from CDNs to app delivery.
 
 WebTorrent is still pretty new, but it's already being used in cool ways:
 
+- **[WebTorrent.app][webtorrent-app]** - WebTorrent, the streaming torrent client. For OS X, Windows, and Linux.
 - **[Instant.io][instant.io]** – Streaming file transfer over WebTorrent ([source code][instant.io-source])
 - **[GitTorrent][gittorrent]** - Decentralized GitHub using BitTorrent and Bitcoin ([source code][gittorrent-source])
+- **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source])
 - **[File.pizza][filepizza]** - Free peer-to-peer file transfers in your browser ([source code][filepizza-source])
-- **[PeerCloud][peercloud]** - Serverless websites via WebTorrent
 - **[Webtorrentapp][webtorrentapp]** – Platform for launching web apps from torrents
-- **[Fastcast][fastcast]** – Gallery site with some videos ([source code](https://github.com/jakefb/fastcast))
-- **[Colored Coins][coloredcoins]** - Open protocol for creating digital assets on the Bitcoin blockchain ([source code](https://github.com/Colored-Coins/Metadata-Handler))
+- **[Fastcast][fastcast]** – Gallery site with some videos ([source code][fastcast-source])
+- **[Colored Coins][coloredcoins]** - Open protocol for creating digital assets on the Blockchain ([source code][coloredcoins-source])
 - **[Tokenly Pockets][pockets]** - Digital token issuance with WebTorrent-based metadata ([source code][pockets-source])
 - **[βTorrent][btorrent]** - Fully-featured browser WebTorrent client ([source code][btorrent-source])
-- *Your app here – [Send a PR][pr] with your URL!*
+- **[Seedshot][seedshot]** - Peer to peer screenshot sharing from your browser ([source code][seedshot-source])
+- **[PeerWeb][peerweb]** - Fetch and render a static website from a torrent
+- **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s))
+- **[Vique][vique]** - Video player queue to share videos
+- **[YouShark][youshark]** - Web music player for WebTorrent ([source code][youshark-source])
 
+- *Your app here – [Send a pull request][pr] with your URL!*
+
+[webtorrent-app]: https://github.com/feross/webtorrent-app
 [instant.io-source]: https://github.com/feross/instant.io
 [gittorrent]: http://blog.printf.net/articles/2015/05/29/announcing-gittorrent-a-decentralized-github/
 [gittorrent-source]: https://github.com/cjb/GitTorrent
 [filepizza]: http://file.pizza/
 [filepizza-source]: https://github.com/kern/filepizza
-[peercloud]: https://github.com/jhiesey/peercloud
+[peercloud]: https://peercloud.io/
+[peercloud-source]: https://github.com/jhiesey/peercloud
 [webtorrentapp]: https://github.com/alexeisavca/webtorrentapp
 [fastcast]: http://fastcast.nz
+[fastcast-source]: https://github.com/fastcast/fastcast
 [coloredcoins]: http://coloredcoins.org
+[coloredcoins-source]: https://github.com/Colored-Coins/Metadata-Handler
 [pockets]: https://tokenly.com/
 [pockets-source]: https://github.com/loon3/Tokenly-Pockets
 [btorrent]: https://btorrent.xyz
 [btorrent-source]: https://github.com/DiegoRBaquero/bTorrent
+[seedshot]: http://seedshot.io/
+[seedshot-source]: https://github.com/twobucks/seedshot
+[peerweb]: https://github.com/retrohacker/peerweb.js
+[niagara]: https://andreapaiola.name/niagara/
+[vique]: https://andreapaiola.name/vique/
+[youshark]: http://youshark.neocities.org/
+[youshark-source]: https://github.com/enorrmann/youshark
 
 ## How does WebTorrent work?
 

@@ -128,19 +128,9 @@ npm install webtorrent-cli -g
 - **[Fix an issue](https://github.com/feross/webtorrent/issues?state=open)**. Note:
   WebTorrent is an [OPEN Open Source Project](CONTRIBUTING.md)!
 
-### WebTorrent in production
+### Who is using WebTorrent today?
 
-- **[Instant.io](https://instant.io/)** – Streaming file transfer over WebTorrent ([source code](https://github.com/feross/instant.io))
-- **[Fastcast](http://fastcast.nz)** – Stream peer-to-peer audio and video content ([source code](https://github.com/fastcast/fastcast))
-- **[Webtorrentapp](https://github.com/alexeisavca/webtorrentapp)** – A tool/platform for launching web apps from torrents
-- **[People-driven web](http://www.peopledrivenweb.com/)** – Decentralized content management system ([source code](https://github.com/peopledrivenweb/pwjs))
-- **[PeerCloud](https://github.com/jhiesey/peercloud)** - Serverless websites via WebTorrent
-- **[βTorrent](https://btorrent.xyz)** - Fully-featured WebTorrent browser client ([source code](https://github.com/DiegoRBaquero/bTorrent))
-- **[Niagara](https://andreapaiola.name/niagara/)** - Video player webtorrent with subtitles (zipped .srt(s))
-- **[Seedshot](https://github.com/twobucks/seedshot)** - Ephemeral P2P screenshot sharing
-- **[PeerWeb](https://github.com/retrohacker/peerweb.js)** - Fetch and render a static website from a torrent
-- **[Vique](https://andreapaiola.name/vique/)** - Video player queue to share videos
-- Your app here! (send a PR or open an issue with your app's URL)
+See [full list of WebTorrent users](docs/faq.md#who-is-using-webtorrent-today).
 
 ### Usage
 
@@ -395,5 +385,3 @@ localStorage.removeItem('debug')
 ### License
 
 MIT. Copyright (c) [Feross Aboukhadijeh](http://feross.org).
-
-![Magic](https://webtorrent.io/img/logo.png)
