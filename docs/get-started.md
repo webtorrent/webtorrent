@@ -31,7 +31,7 @@ Then use `WebTorrent` like this:
 var WebTorrent = require('webtorrent')
 ```
 
-## Quick Example
+## Quick Examples
 
 ### Downloading a torrent (in the browser)
 
@@ -47,7 +47,8 @@ client.add(torrentId, function (torrent) {
   // Torrents can contain many files. Let's use the first.
   var file = torrent.files[0]
 
-  // Display the file by adding it to the DOM. Supports video, audio, image, etc. files
+  // Display the file by adding it to the DOM.
+  // Supports video, audio, image files, and more!
   file.appendTo('body')
 })
 ```
@@ -105,7 +106,7 @@ client.add(magnetURI, function (torrent) {
 })
 ```
 
-### More Documentation...
+## More Documentation
 
 Check out the [API Documentation](/docs) and [FAQ](/faq) which are very detailed.
 
