@@ -101,10 +101,6 @@ connect to both normal *and* web peers.
 
 - Stream to **AirPlay**, **Chromecast**, **VLC player**, and many other devices/players
 
-**NOTE**: To connect to "web peers" (browsers) in addition to normal BitTorrent peers, use
-  [webtorrent-hybrid](https://github.com/feross/webtorrent-hybrid) which includes WebRTC
-  support for node.
-
 ### Install
 
 To install WebTorrent for use in node or the browser with `require('webtorrent')`, run:
@@ -210,6 +206,10 @@ MaxCDN) for easy inclusion on your site:
 #### In node.js
 
 WebTorrent also works in node.js, using the *same npm module!* It's mad science!
+
+**NOTE**: To connect to "web peers" (browsers) in addition to normal BitTorrent peers, use
+  [webtorrent-hybrid](https://github.com/feross/webtorrent-hybrid) which includes WebRTC
+  support for node.
 
 #### As a command line app
 
