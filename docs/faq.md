@@ -72,8 +72,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s))
 - **[Vique][vique]** - Video player queue to share videos
 - **[YouShark][youshark]** - Web music player for WebTorrent ([source code][youshark-source])
-
-- *Your app here – [Send a pull request][pr] with your URL!*
+- ***Your app here – [Send a pull request][pr] with your URL!***
 
 [webtorrent-app]: https://github.com/feross/webtorrent-app
 [instant.io-source]: https://github.com/feross/instant.io

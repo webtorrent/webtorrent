@@ -125,12 +125,16 @@ npm install webtorrent-cli -g
 - **Join us in [Gitter][webtorrent-gitter-url]** or on freenode at `#webtorrent` to help
   with development or to hang out with some mad science hackers :)
 - **[Create a new issue](https://github.com/feross/webtorrent/issues/new)** to report bugs
-- **[Fix an issue](https://github.com/feross/webtorrent/issues?state=open)**. Note:
-  WebTorrent is an [OPEN Open Source Project](CONTRIBUTING.md)!
+- **[Fix an issue](https://github.com/feross/webtorrent/issues?state=open)**. WebTorrent
+  is an [OPEN Open Source Project](CONTRIBUTING.md)!
 
 ### Who is using WebTorrent today?
 
-See [full list of WebTorrent users](docs/faq.md#who-is-using-webtorrent-today).
+[Lots of folks!](docs/faq.md#who-is-using-webtorrent-today)
+
+### WebTorrent API Documentation
+
+Read the [full API Documentation](docs/api.md).
 
 ### Usage
 
@@ -175,7 +179,7 @@ dragDrop('body', function (files) {
 })
 ```
 
-There are more examples in the [examples](https://github.com/feross/webtorrent/tree/master/examples) folder.
+There are more examples in [docs/get-started.md](docs/get-started.md).
 
 ##### Browserify
 
@@ -237,10 +241,6 @@ There are many supported streaming options:
 ```
 
 In addition to magnet uris, webtorrent supports [many ways to specify a torrent](#clientaddtorrentid-opts-function-ontorrent-torrent-).
-
-### API
-
-See [docs/api.md](docs/api.md).
 
 ### Modules
 
