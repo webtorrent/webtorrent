@@ -325,7 +325,8 @@ Start seeding a new torrent.
 - path to the file or folder on filesystem (string) (Node.js only)
 - W3C [File](https://developer.mozilla.org/en-US/docs/Web/API/File) object (from an `<input>` or drag and drop)
 - W3C [FileList](https://developer.mozilla.org/en-US/docs/Web/API/FileList) object (basically an array of `File` objects)
-- Node [Buffer](https://nodejs.org/api/buffer.html) object (works in [the browser](https://www.npmjs.com/package/buffer))
+- Node [Buffer](https://nodejs.org/api/buffer.html) object (works in [the browser](https://www.npmjs.com/package/buffer)) (must set a `name` property on it)
+- Node [stream.Readable](http://nodejs.org/api/stream.html) object (must set `name` and `opt.pieceLength` properties on it)
 
 Or, an **array of `string`, `File`, or `Buffer` objects**.
 
