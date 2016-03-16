@@ -33,11 +33,14 @@ var WebTorrent = require('webtorrent')
 
 ## Quick Example
 
-### Downloading a torrent
+### Downloading a torrent (in the browser)
 
 ```js
+var WebTorrent = require('webtorrent')
+
 var client = new WebTorrent()
 
+// Sintel, a free, Creative Commons movie
 var torrentId = 'magnet:?xt=urn:btih:6a9759bffd5c0af65319979fb7832189f4f3c35d'
 
 client.add(torrentId, function (torrent) {
@@ -49,7 +52,7 @@ client.add(torrentId, function (torrent) {
 })
 ```
 
-This supports video, audio, images, PDFs, Markdown, [and more][append-to], right
+This supports video, audio, images, PDFs, Markdown, [and more][render-media], right
 out of the box. There are additional ways to access file content directly, including
 as a node-style stream, Buffer, or Blob URL.
 
@@ -57,7 +60,7 @@ Video and audio content can be streamed, i.e. playback will start before the ful
 file is downloaded. Seeking works too – WebTorrent dynamically fetches
 the needed torrent pieces from the network on-demand.
 
-### Creating a new torrent and seeding it
+### Creating a new torrent and seed it (in the browser)
 
 ```js
 var dragDrop = require('drag-drop')
@@ -68,7 +71,7 @@ var client = new WebTorrent()
 // When user drops files on the browser, create a new torrent and start seeding it!
 dragDrop('body', function (files) {
   client.seed(files, function (torrent) {
-    console.log('Client is seeding ' + torrent.infoHash)
+    console.log('Client is seeding ' + torrent.magnetURI)
   })
 })
 ```
@@ -76,15 +79,35 @@ dragDrop('body', function (files) {
 This example uses the [`drag-drop`][drag-drop] package, to make the HTML5 Drag and
 Drop API easier to work with.
 
-### More examples
+### Download and save a torrent (in Node.js)
 
-There are more examples in the [examples](https://github.com/feross/webtorrent/tree/master/examples) folder.
+```js
+var WebTorrent = require('webtorrent')
+var fs = require('fs')
 
+var client = new WebTorrent()
+var magnetURI = 'magnet:?xt=urn:btih:6a9759bffd5c0af65319979fb7832189f4f3c35d'
 
-## Full tutorial coming soon!
+client.add(magnetURI, function (torrent) {
+  torrent.files.forEach(function (file) {
+    console.log('Started saving ' + file.name)
 
-For now, check out the [API Documentation](/docs) and [FAQ](/faq) which are very
-detailed.
+    file.getBuffer(function (err, buffer) {
+      if (err) {
+        console.error('Error downloading ' + file.name)
+        return
+      }
+      fs.writeFile(file.name, buffer, function (err) {
+        console.error('Error saving ' + file.name)
+      })
+    })
+  })
+})
+```
 
-[append-to]: https://github.com/feross/webtorrent/blob/master/lib/append-to.js#L6-L14
+### More Documentation...
+
+Check out the [API Documentation](/docs) and [FAQ](/faq) which are very detailed.
+
+[render-media]: https://github.com/feross/render-media/blob/master/index.js#L12-L20
 [drag-drop]: https://npmjs.com/package/drag-drop
