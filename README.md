@@ -130,11 +130,11 @@ npm install webtorrent-cli -g
 
 ### Who is using WebTorrent today?
 
-[Lots of folks!](docs/faq.md#who-is-using-webtorrent-today)
+**[Lots of folks!](docs/faq.md#who-is-using-webtorrent-today)**
 
 ### WebTorrent API Documentation
 
-Read the [full API Documentation](docs/api.md).
+**Read the [full API Documentation](docs/api.md).**
 
 ### Usage
 
