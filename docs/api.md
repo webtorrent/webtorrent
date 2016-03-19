@@ -72,8 +72,8 @@ Start seeding a new torrent.
 - path to the file or folder on filesystem (string) (Node.js only)
 - W3C [File](https://developer.mozilla.org/en-US/docs/Web/API/File) object (from an `<input>` or drag and drop)
 - W3C [FileList](https://developer.mozilla.org/en-US/docs/Web/API/FileList) object (basically an array of `File` objects)
-- Node [Buffer](https://nodejs.org/api/buffer.html) object (works in [the browser](https://www.npmjs.com/package/buffer)) (must set a `name` property on it)
-- Node [Readable stream](https://nodejs.org/api/stream.html#stream_class_stream_readable) object (must set `name` and `opt.pieceLength` properties on it)
+- Node [Buffer](https://nodejs.org/api/buffer.html) object (works in [the browser](https://www.npmjs.com/package/buffer))
+- Node [Readable stream](https://nodejs.org/api/stream.html#stream_class_stream_readable) object
 
 Or, an **array of `string`, `File`, `Buffer`, or `stream.Readable` objects**.
 
@@ -84,17 +84,25 @@ If `opts` is specified, it should contain the following types of options:
 
 If `onseed` is specified, it will be called when the client has begun seeding the file.
 
-**Note:** The torrent specification requires that every torrent have a name. If one is not
-explicitly provided through `opts`, WebTorrent will determine the torrent name with the
-following logic:
+**Note:** Every torrent is required to have a name. If one is not explicitly provided
+through `opts.name`, one will be determined automatically using the following logic:
 
-- If all of the files share a common prefix, that prefix will become the torrent name.
-  For example, if all of the files start with `/imgs/` the torrent name will be `imgs`
-- Otherwise, the name of the first file passed in to `client.seed`, for example if the
-  first file is `/foo/bar/baz.txt`, the torrent name will be `baz.txt`
-- The `torrent` object will contain a list of files, whose names are prefixed with the
-  torrent name. When creating a nameless torrent in Node, this will be intuitive. When
-  doing the same in the browser, this may lead to confusing results.
+- If all files share a common path prefix, that will be used. For example, if all file
+  paths start with `/imgs/` the torrent name will be `imgs`.
+- Otherwise, the first file that has a name will determine the torrent name. For example,
+  if the first file is `/foo/bar/baz.txt`, the torrent name will be `baz.txt`.
+- If no files have names (say that all files are Buffer or Stream objects), then a name
+  like "Unnamed Torrent <id>" will be generated.
+
+**Note:** Every file is required to have a name. For filesystem paths or W3C File objects,
+the name is included in the object. For Buffer or Readable stream types, a `name` property
+can be set on the object, like this:
+
+```js
+var buf = new Buffer('Some file content')
+buf.name = 'Some file name'
+client.seed(buf, cb)
+```
 
 ## `client.on('torrent', function (torrent) {})`
 
