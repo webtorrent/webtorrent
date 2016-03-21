@@ -199,15 +199,21 @@ Get the torrent download location.
 
 Alias for `client.remove(torrent)`.
 
-## `torrent.addPeer(addr)`
+## `torrent.addPeer(peer)`
 
 Adds a peer to the underlying [bittorrent-swarm](https://github.com/feross/bittorrent-swarm) instance.
 
 Returns `true` if peer was added, `false` if peer was blocked by the loaded blocklist.
 
+The `peer` argument must be an address string in the format `12.34.56.78:4444` (for
+normal TCP/uTP peers), or a [`simple-peer`](https://github.com/feross/simple-peer)
+instance (for WebRTC peers).
+
 ## `torrent.addWebSeed(url)`
 
 Adds a web seed to the [bittorrent-swarm](https://github.com/feross/bittorrent-swarm) instance.
+
+The `url` argument is the web seed URL.
 
 ## `torrent.select(start, end, [priority], [notify])`
 
