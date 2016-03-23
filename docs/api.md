@@ -201,7 +201,10 @@ Alias for `client.remove(torrent)`.
 
 ## `torrent.addPeer(peer)`
 
-Adds a peer to the underlying [bittorrent-swarm](https://github.com/feross/bittorrent-swarm) instance.
+Adds a peer to the underlying
+[bittorrent-swarm](https://github.com/feross/bittorrent-swarm) instance. Normally, you
+don't need to call `torrent.addPeer()`. WebTorrent will automatically find peers using the
+tracker servers or DHT. This is just for manually adding a peer to the client.
 
 Returns `true` if peer was added, `false` if peer was blocked by the loaded blocklist.
 
