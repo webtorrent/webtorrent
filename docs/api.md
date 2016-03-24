@@ -148,16 +148,20 @@ Aggregate "seed ratio" for all torrents (uploaded / downloaded), from 0 to 1.
 
 ## `torrent.infoHash`
 
-Get the info hash of the torrent.
+Info hash of the torrent (string).
 
 ## `torrent.magnetURI`
 
-Get the magnet URI of the torrent.
+Magnet URI of the torrent (string).
+
+## `torrent.torrentFile`
+
+`.torrent` file of the torrent (Buffer).
 
 ## `torrent.files[...]`
 
-An array of all files in the torrent. See the file section for more info on what methods
-the file has.
+Array of all files in the torrent. See documentation for `File` below to learn what
+methods/properties files have.
 
 ## `torrent.swarm`
 
@@ -165,15 +169,19 @@ The attached [bittorrent-swarm](https://github.com/feross/bittorrent-swarm) inst
 
 ## `torrent.received`
 
-Get total bytes received from peers (including invalid data).
+Total bytes received from peers (*including* invalid data).
 
 ## `torrent.downloaded`
 
-Get total bytes received from peers (excluding invalid data).
+Total *verified* bytes received from peers.
+
+## `torrent.uploaded`
+
+Total bytes uploaded to peers.
 
 ## `torrent.timeRemaining`
 
-Get the time remaining in millis if downloading.
+Time remaining for download to complete (in milliseconds).
 
 ## `torrent.downloadSpeed`
 
@@ -191,9 +199,13 @@ Torrent download progress, from 0 to 1.
 
 Torrent "seed ratio" (uploaded / downloaded), from 0 to 1.
 
+## `torrent.numPeers`
+
+Number of peers in the torrent swarm.
+
 ## `torrent.path`
 
-Get the torrent download location.
+Torrent download location.
 
 ## `torrent.destroy()`
 
