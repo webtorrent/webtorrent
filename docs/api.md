@@ -298,9 +298,9 @@ Here is a usage example:
 
 ```js
 var client = new WebTorrent()
-var magnetURI = 'magnet: ...'
+var torrentId = 'magnet: ...'
 
-client.add(magnetURI, function (torrent) {
+client.add(torrentId, function (torrent) {
   // create HTTP server for this torrent
   var server = torrent.createServer()
   server.listen(port) // start the server listening to a port
