@@ -269,7 +269,14 @@ There are many supported streaming options:
 --stdout                standard out [implies --quiet]
 ```
 
-In addition to magnet uris, webtorrent supports [many ways to specify a torrent](#clientaddtorrentid-opts-function-ontorrent-torrent-).
+In addition to magnet uris, webtorrent supports many ways to specify a torrent:
+
+- magnet uri (string)
+- torrent file (buffer)
+- info hash (hex string or buffer)
+- parsed torrent (from [parse-torrent](https://github.com/feross/parse-torrent))
+- http/https url to a torrent file (string)
+- filesystem path to a torrent file (string)
 
 ### Modules
 
