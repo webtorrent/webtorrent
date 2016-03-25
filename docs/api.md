@@ -63,6 +63,13 @@ If you want access to the torrent object immediately in order to listen to event
 metadata is fetched from the network, then use the return value of `client.add`. If you
 just want the file data, then use `ontorrent` or the 'torrent' event.
 
+If you provide `opts.store`, it will be called as
+`opts.store(chunkLength, storeOpts)` with:
+
+* `storeOpts.length` - size of all the files in the torrent
+* `storeOpts.files` - an array of torrent file objects
+* `storeOpts.torrent` - the torrent instance being stored
+
 ## `client.seed(input, [opts], [function onseed (torrent) {}])`
 
 Start seeding a new torrent.
