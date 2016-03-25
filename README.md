@@ -142,8 +142,6 @@ standards (no plugins, just HTML5 and WebRTC)! It's easy to get started!
 ##### Downloading a file is simple:
 
 ```js
-var WebTorrent = require('webtorrent')
-
 var client = new WebTorrent()
 var torrentId = 'magnet:?xt=urn:btih:6a9759bffd5c0af65319979fb7832189f4f3c35d&dn=sintel.mp4&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel-1024-surround.mp4'
 
@@ -161,10 +159,15 @@ client.add(torrentId, function (torrent) {
 
 ##### Seeding a file is simple, too:
 
-```js
-var dragDrop = require('drag-drop')
-var WebTorrent = require('webtorrent')
+This example uses the [`drag-drop`][drag-drop] package, to make the HTML5 Drag and
+Drop API easier to work with.
 
+To start using `drag-drop`, simply include the
+`dragdrop.min.js` script on your page. This exports a `dragDrop` function on `window`.
+If you use [browserify](http://browserify.org), you can
+`npm install drag-drop` and then use like this `var dragDrop = require('drag-drop')`.
+
+```js
 var client = new WebTorrent()
 
 // When user drops files on the browser, create a new torrent and start seeding it!
