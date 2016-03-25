@@ -145,9 +145,9 @@ standards (no plugins, just HTML5 and WebRTC)! It's easy to get started!
 var WebTorrent = require('webtorrent')
 
 var client = new WebTorrent()
-var magnetURI = '...'
+var torrentId = '...'
 
-client.add(magnetURI, function (torrent) {
+client.add(torrentId, function (torrent) {
   // Got torrent metadata!
   console.log('Client is downloading:', torrent.infoHash)
 
