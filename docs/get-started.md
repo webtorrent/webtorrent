@@ -36,8 +36,6 @@ var WebTorrent = require('webtorrent')
 ### Downloading a torrent (in the browser)
 
 ```js
-var WebTorrent = require('webtorrent')
-
 var client = new WebTorrent()
 
 // Sintel, a free, Creative Commons movie
@@ -63,10 +61,25 @@ the needed torrent pieces from the network on-demand.
 
 ### Creating a new torrent and seed it (in the browser)
 
+This example uses the [`drag-drop`][drag-drop] package, to make the HTML5 Drag and
+Drop API easier to work with.
+
+It works in the browser with [browserify](http://browserify.org).
+
+```
+npm install drag-drop
+```
+
+Then use `drag-drop` like this:
+
 ```js
 var dragDrop = require('drag-drop')
-var WebTorrent = require('webtorrent')
+```
 
+**Note:** If you do not use browserify, use the included standalone file
+`dragdrop.min.js`. This exports a `DragDrop` function on `window`.
+
+```js
 var client = new WebTorrent()
 
 // When user drops files on the browser, create a new torrent and start seeding it!
@@ -76,9 +89,6 @@ dragDrop('body', function (files) {
   })
 })
 ```
-
-This example uses the [`drag-drop`][drag-drop] package, to make the HTML5 Drag and
-Drop API easier to work with.
 
 ### Download and save a torrent (in Node.js)
 
