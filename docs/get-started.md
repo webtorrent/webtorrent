@@ -88,9 +88,9 @@ var fs = require('fs')
 
 var client = new WebTorrent()
 
-var magnetURI = 'magnet:...'
+var torrentId = 'magnet:...'
 
-client.add(magnetURI, function (torrent) {
+client.add(torrentId, function (torrent) {
   torrent.files.forEach(function (file) {
     console.log('Started saving ' + file.name)
 
