@@ -193,7 +193,7 @@ downloaded.
 
 ## More Documentation
 
-Check out the [API Documentation](/docs) and [FAQ](/faq) which are very detailed.
+Check out the [API Documentation](/docs) and [FAQ](/docs/faq.md) which are very detailed.
 
 [render-media]: https://github.com/feross/render-media/blob/master/index.js#L12-L20
 [drag-drop]: https://npmjs.com/package/drag-drop
