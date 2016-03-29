@@ -288,7 +288,6 @@ These are the main modules that make up WebTorrent:
 | [bittorrent-dht][bittorrent-dht] | [![][bittorrent-dht-ti]][bittorrent-dht-tu] | [![][bittorrent-dht-ni]][bittorrent-dht-nu] | distributed hash table client
 | [bittorrent-peerid][bittorrent-peerid] | [![][bittorrent-peerid-ti]][bittorrent-peerid-tu] | [![][bittorrent-peerid-ni]][bittorrent-peerid-nu] | identify client name/version
 | [bittorrent-protocol][bittorrent-protocol] | [![][bittorrent-protocol-ti]][bittorrent-protocol-tu] | [![][bittorrent-protocol-ni]][bittorrent-protocol-nu] | bittorrent protocol stream
-| [bittorrent-swarm][bittorrent-swarm] | [![][bittorrent-swarm-ti]][bittorrent-swarm-tu] | [![][bittorrent-swarm-ni]][bittorrent-swarm-nu] | bittorrent connection manager
 | [bittorrent-tracker][bittorrent-tracker] | [![][bittorrent-tracker-ti]][bittorrent-tracker-tu] | [![][bittorrent-tracker-ni]][bittorrent-tracker-nu] | bittorrent tracker server/client
 | [create-torrent][create-torrent] | [![][create-torrent-ti]][create-torrent-tu] | [![][create-torrent-ni]][create-torrent-nu] | create .torrent files
 | [magnet-uri][magnet-uri] | [![][magnet-uri-ti]][magnet-uri-tu] | [![][magnet-uri-ni]][magnet-uri-nu] | parse magnet uris
@@ -322,12 +321,6 @@ These are the main modules that make up WebTorrent:
 [bittorrent-protocol-tu]: https://travis-ci.org/feross/bittorrent-protocol
 [bittorrent-protocol-ni]: https://img.shields.io/npm/v/bittorrent-protocol.svg
 [bittorrent-protocol-nu]: https://www.npmjs.com/package/bittorrent-protocol
-
-[bittorrent-swarm]: https://github.com/feross/bittorrent-swarm
-[bittorrent-swarm-ti]: https://img.shields.io/travis/feross/bittorrent-swarm/master.svg
-[bittorrent-swarm-tu]: https://travis-ci.org/feross/bittorrent-swarm
-[bittorrent-swarm-ni]: https://img.shields.io/npm/v/bittorrent-swarm.svg
-[bittorrent-swarm-nu]: https://www.npmjs.com/package/bittorrent-swarm
 
 [bittorrent-tracker]: https://github.com/feross/bittorrent-tracker
 [bittorrent-tracker-ti]: https://img.shields.io/travis/feross/bittorrent-tracker/master.svg
