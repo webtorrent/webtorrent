@@ -64,6 +64,7 @@
     "torrent-discovery": "^7.0.0",
     "torrent-piece": "^1.0.0",
     "uniq": "^1.0.1",
+    "unordered-array-remove": "feross/unordered-array-remove",
     "ut_metadata": "^3.0.2",
     "ut_pex": "^1.0.1",
     "xtend": "^4.0.0",
