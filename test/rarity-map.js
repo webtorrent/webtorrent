@@ -2,7 +2,7 @@ var BitField = require('bitfield')
 var EventEmitter = require('events').EventEmitter
 var hat = require('hat')
 var RarityMap = require('../lib/rarity-map')
-var Swarm = require('bittorrent-swarm')
+var Swarm = require('../lib/swarm')
 var test = require('tape')
 
 var infoHash = 'd2474e86c95b19b8bcfdb92bc12c9d44667cfa36'
