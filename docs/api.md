@@ -201,10 +201,6 @@ Magnet URI of the torrent (string).
 Array of all files in the torrent. See documentation for `File` below to learn what
 methods/properties files have.
 
-## `torrent.swarm`
-
-The attached [bittorrent-swarm](https://github.com/feross/bittorrent-swarm) instance.
-
 ## `torrent.received`
 
 Total bytes received from peers (*including* invalid data).
@@ -251,10 +247,9 @@ Alias for `client.remove(torrent)`.
 
 ## `torrent.addPeer(peer)`
 
-Adds a peer to the underlying
-[bittorrent-swarm](https://github.com/feross/bittorrent-swarm) instance. Normally, you
-don't need to call `torrent.addPeer()`. WebTorrent will automatically find peers using the
-tracker servers or DHT. This is just for manually adding a peer to the client.
+Adds a peer to the torrent swarm. Normally, you don't need to call `torrent.addPeer()`.
+WebTorrent will automatically find peers using the tracker servers or DHT. This is just
+for manually adding a peer to the client.
 
 Returns `true` if peer was added, `false` if peer was blocked by the loaded blocklist.
 
@@ -264,7 +259,11 @@ instance (for WebRTC peers).
 
 ## `torrent.addWebSeed(url)`
 
-Adds a web seed to the [bittorrent-swarm](https://github.com/feross/bittorrent-swarm) instance.
+Adds a web seed to the torrent swarm. For more information on BitTorrent web seeds, see
+[BEP19](http://www.bittorrent.org/beps/bep_0019.html).
+
+In the browser, web seed servers must have proper CORS (Cross-origin resource sharing)
+headers so that data can be fetched across domain.
 
 The `url` argument is the web seed URL.
 
