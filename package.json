@@ -47,7 +47,6 @@
     "package-json-versionify": "^1.0.1",
     "parse-torrent": "^5.1.0",
     "path-exists": "^2.1.0",
-    "prettier-bytes": "^1.0.3",
     "pump": "^1.0.0",
     "random-iterate": "^1.0.1",
     "range-parser": "^1.0.2",
