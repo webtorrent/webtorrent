@@ -11,7 +11,7 @@ test('two swarms listen on same port', function (t) {
   t.plan(2)
 
   var swarm1 = new Swarm(infoHash, peerId)
-  swarm1.listen(function () {
+  swarm1.listen(0, function () {
     var port = swarm1.address().port
     t.ok(typeof port === 'number' && port !== 0)
 
