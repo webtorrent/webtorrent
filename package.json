@@ -78,7 +78,6 @@
     "electron-prebuilt": "^0.37.2",
     "finalhandler": "^0.4.0",
     "network-address": "^1.1.0",
-    "portfinder": "^1.0.0",
     "run-series": "^1.0.2",
     "serve-static": "^1.9.3",
     "standard": "^6.0.1",

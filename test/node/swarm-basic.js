@@ -1,5 +1,4 @@
 var hat = require('hat')
-var portfinder = require('portfinder')
 var Swarm = require('../../lib/swarm')
 var test = require('tape')
 
@@ -8,35 +7,19 @@ var infoHash2 = 'd2474e86c95b19b8bcfdb92bc12c9d44667cfa37'
 var peerId = new Buffer('-WW0001-' + hat(48), 'utf8').toString('hex')
 var peerId2 = new Buffer('-WW0001-' + hat(48), 'utf8').toString('hex')
 
-test('swarm listen (explicit port)', function (t) {
-  t.plan(1)
-
-  var swarm = new Swarm(infoHash, peerId)
-  portfinder.getPort(function (err, port) {
-    if (err) throw err
-    swarm.listen(port)
-    swarm.on('listening', function () {
-      t.equal(port, swarm.address().port)
-      swarm.destroy()
-    })
-  })
-})
-
-test('two swarms listen on same port (explicit)', function (t) {
+test('two swarms listen on same port', function (t) {
   t.plan(2)
 
   var swarm1 = new Swarm(infoHash, peerId)
-  portfinder.getPort(function (err, port) {
-    if (err) throw err
-    swarm1.listen(port, function () {
-      t.equal(swarm1.address().port, port, 'listened on requested port')
+  swarm1.listen(function () {
+    var port = swarm1.address().port
+    t.ok(typeof port === 'number' && port !== 0)
 
-      var swarm2 = new Swarm(infoHash2, peerId)
-      swarm2.listen(port, function () {
-        t.equal(swarm2.address().port, port, 'listened on requested port')
-        swarm1.destroy()
-        swarm2.destroy()
-      })
+    var swarm2 = new Swarm(infoHash2, peerId)
+    swarm2.listen(port, function () {
+      t.equal(swarm2.address().port, port, 'listened on requested port')
+      swarm1.destroy()
+      swarm2.destroy()
     })
   })
 })
