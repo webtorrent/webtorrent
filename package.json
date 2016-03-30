@@ -1,7 +1,7 @@
 {
   "name": "webtorrent",
   "description": "Streaming torrent client",
-  "version": "0.88.1",
+  "version": "0.88.3",
   "author": {
     "name": "Feross Aboukhadijeh",
     "email": "feross@feross.org",
@@ -64,7 +64,7 @@
     "torrent-discovery": "^7.0.0",
     "torrent-piece": "^1.0.0",
     "uniq": "^1.0.1",
-    "unordered-array-remove": "feross/unordered-array-remove",
+    "unordered-array-remove": "^1.0.2",
     "ut_metadata": "^3.0.2",
     "ut_pex": "^1.0.1",
     "xtend": "^4.0.0",
