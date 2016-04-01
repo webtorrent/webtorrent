@@ -87,6 +87,10 @@ function WebTorrent (opts) {
       self.emit('error', err)
       self.destroy()
     })
+
+    // Ignore warning when there are > 10 torrents in the client
+    self.dht.setMaxListeners(0)
+
     self.dht.listen(opts.dhtPort)
   } else {
     self.dht = false
