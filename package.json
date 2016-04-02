@@ -32,7 +32,6 @@
     "bittorrent-dht": "^7.0.0",
     "bittorrent-protocol": "^2.0.0",
     "chunk-store-stream": "^2.0.0",
-    "cpus": "^1.0.0",
     "create-torrent": "^3.4.0",
     "debug": "^2.1.0",
     "end-of-stream": "^1.0.0",
