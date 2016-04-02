@@ -54,7 +54,6 @@ function WebTorrent (opts) {
   EventEmitter.call(self)
 
   if (!opts) opts = {}
-  if (!debug.enabled) self.setMaxListeners(0)
 
   self.destroyed = false
   self.torrentPort = opts.torrentPort || 0
