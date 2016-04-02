@@ -54,7 +54,6 @@ function WebTorrent (opts) {
   EventEmitter.call(self)
 
   if (!opts) opts = {}
-  if (!debug.enabled) self.setMaxListeners(0)
 
   self.destroyed = false
   self.torrentPort = opts.torrentPort || 0
@@ -87,6 +86,10 @@ function WebTorrent (opts) {
       self.emit('error', err)
       self.destroy()
     })
+
+    // Ignore warning when there are > 10 torrents in the client
+    self.dht.setMaxListeners(0)
+
     self.dht.listen(opts.dhtPort)
   } else {
     self.dht = false
