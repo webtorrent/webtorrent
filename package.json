@@ -30,7 +30,7 @@
     "addr-to-ip-port": "^1.0.1",
     "bitfield": "^1.0.2",
     "bittorrent-dht": "^7.0.0",
-    "bittorrent-protocol": "^2.0.0",
+    "bittorrent-protocol": "^2.1.4",
     "chunk-store-stream": "^2.0.0",
     "create-torrent": "^3.4.0",
     "debug": "^2.1.0",
