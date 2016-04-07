@@ -57,7 +57,7 @@ There are also exciting **business use cases**, from CDNs to app delivery.
 
 WebTorrent is still pretty new, but it's already being used in cool ways:
 
-- **[WebTorrent.app][webtorrent-app]** - WebTorrent, the streaming torrent client. For OS X, Windows, and Linux.
+- **[WebTorrent Desktop][webtorrent-desktop]** - Open source streaming torrent client. For OS X, Windows, and Linux. ([source code][webtorrent-desktop-source])
 - **[Instant.io][instant.io]** – Streaming file transfer over WebTorrent ([source code][instant.io-source])
 - **[GitTorrent][gittorrent]** - Decentralized GitHub using BitTorrent and Bitcoin ([source code][gittorrent-source])
 - **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source])
@@ -74,7 +74,8 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[YouShark][youshark]** - Web music player for WebTorrent ([source code][youshark-source])
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
-[webtorrent-app]: https://github.com/feross/webtorrent-app
+[webtorrent-desktop]: https://webtorrent.io/desktop
+[webtorrent-desktop-source]: https://github.com/feross/webtorrent-desktop
 [instant.io-source]: https://github.com/feross/instant.io
 [gittorrent]: http://blog.printf.net/articles/2015/05/29/announcing-gittorrent-a-decentralized-github/
 [gittorrent-source]: https://github.com/cjb/GitTorrent
@@ -115,7 +116,8 @@ can view the source code of the [`bittorrent-tracker`][bittorrent-tracker] packa
 
 Once peers are connected, the wire protocol used to communicate is exactly the same
 as in normal BitTorrent. This should make it easy for existing popular torrent
-clients like Transmission, Vuze, and uTorrent to add support for WebTorrent.
+clients like Transmission, and uTorrent to add support for WebTorrent. **Vuze**
+[already has support][vuze-support] for WebTorrent!
 
 ![WebTorrent network diagram](https://webtorrent.io/img/network.png)
 
@@ -125,6 +127,7 @@ clients like Transmission, Vuze, and uTorrent to add support for WebTorrent.
 [utp]: https://en.wikipedia.org/wiki/Micro_Transport_Protocol
 [webrtc]: https://en.wikipedia.org/wiki/WebRTC
 [bittorrent-tracker]: https://npmjs.com/package/bittorrent-tracker
+[vuze-support]: https://wiki.vuze.com/w/WebTorrent
 
 ## How do I get started?
 
@@ -186,11 +189,15 @@ WebRTC-capable torrent client.
 
 Right now, we know of these WebRTC-capable torrent clients:
 
+- **[WebTorrent Desktop][webtorrent-desktop]** - Open source streaming torrent client. For OS X, Windows, and Linux.
+- **[Vuze][vuze-support]** - Powerful, full-featured torrent client
 - **[Playback][playback]** - Open source JavaScript video player **(super cool!)**
 - **[`webtorrent-hybrid`][webtorrent-hybrid]** - Node.js package (command line and API)
 - **[Instant.io][instant.io]** - Simple WebTorrent client in a website
 - **[βTorrent][btorrent]** - Fully-featured browser WebTorrent client ([source code][btorrent-source])
 - *More coming soon – [Send a PR][pr] to add your client to the list!*
+
+### A bit more about `webtorrent-hybrid`
 
 In node.js, `webtorrent-hybrid` can download torrents from WebRTC peers or TCP peers
 (i.e. normal peers). You can use WebTorrent as a command line program, or
@@ -203,13 +210,9 @@ To install `webtorrent-hybrid` run the following command in your terminal (add t
 npm install webtorrent-hybrid -g
 ```
 
-Note that [`webtorrent-hybrid`][webtorrent-hybrid] uses the [`wrtc`][wrtc] package
-for WebRTC support in node.js. Unfortunately, this dependency is slow to install
-and lacks Windows support. If you just need to use WebTorrent in the browser (where
-WebRTC is available natively) then use [`webtorrent`][webtorrent] instead,
-which is much faster to install.
-
-[wrtc]: https://www.npmjs.com/package/wrtc
+Note: If you just need to use WebTorrent in the browser (where WebRTC is available
+natively) then use [`webtorrent`][webtorrent] instead, which is faster to install because
+it won't need to install a WebRTC implementation.
 
 ## Can WebTorrent clients on different websites connect to each other?
 
@@ -309,7 +312,9 @@ There are many talks online about WebTorrent. Here are a few:
 
 It does work! But you can't just use any random magnet uri or `.torrent` file. The
 torrent must be seeded by a WebRTC-capable client, i.e.
-[webtorrent-hybrid][webtorrent-hybrid], [instant.io][instant.io], or [Playback][playback].
+[WebTorrent Desktop][webtorrent-desktop], [Vuze][vuze-support],
+[webtorrent-hybrid][webtorrent-hybrid], [Playback][playback], [instant.io][instant.io], or
+[βTorrent][btorrent].
 
 In the browser, WebTorrent can only download torrents that are explicitly seeded to
 web peers via a WebRTC-capable client. Desktop torrent clients need to support
