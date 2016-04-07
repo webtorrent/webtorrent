@@ -55,12 +55,12 @@ web) we made some protocol changes. Therefore, a browser-based WebTorrent client
 peer"** can only connect to other clients that support WebTorrent/WebRTC.
 
 To seed files to web peers, use a client that supports WebTorrent, e.g.
-[webtorrent-hybrid](https://github.com/feross/webtorrent-hybrid) or
-[instant.io](https://instant.io/). We're also working on
-[WebTorrent.app](https://github.com/feross/webtorrent-app), a desktop client with a
-familiar UI that can connect to web peers. We hope established torrent clients
-(Transmission, Vuze, uTorrent, etc.) will add support for WebTorrent so they too can
-connect to both normal *and* web peers.
+[WebTorrent Desktop](https://github.com/feross/webtorrent-desktop), a desktop client with a
+familiar UI that can connect to web peers,
+[webtorrent-hybrid](https://github.com/feross/webtorrent-hybrid), a command line program,
+or [Instant.io](https://instant.io/), a website. Established torrent clients like
+**Vuze** have [already added WebTorrent support](https://wiki.vuze.com/w/WebTorrent) so
+they can connect to both normal *and* web peers. We hope other clients will follow.
 
 ![Network](https://webtorrent.io/img/network.png)
 
