@@ -72,6 +72,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s))
 - **[Vique][vique]** - Video player queue to share videos
 - **[YouShark][youshark]** - Web music player for WebTorrent ([source code][youshark-source])
+- **[Peerify][peerify]** - Instant Web-seeded torrents for your files
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 [webtorrent-desktop]: https://webtorrent.io/desktop
@@ -99,6 +100,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 [vique]: https://andreapaiola.name/vique/
 [youshark]: http://youshark.neocities.org/
 [youshark-source]: https://github.com/enorrmann/youshark
+[peerify]: https://peerify.btorrent.xyz
 
 ## How does WebTorrent work?
 
@@ -350,6 +352,6 @@ Open an issue on the WebTorrent [issue tracker][issues], or join us in
 [license]: https://github.com/feross/webtorrent/blob/master/LICENSE
 [peercdn]: http://www.peercdn.com/
 [playback]: https://mafintosh.github.io/playback/
-[pr]: https://github.com/feross/webtorrent-www
+[pr]: https://github.com/feross/webtorrent
 [webtorrent-hybrid]: https://npmjs.com/package/webtorrent-hybrid
 [webtorrent]: https://npmjs.com/package/webtorrent
