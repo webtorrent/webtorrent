@@ -324,6 +324,26 @@ connections, nor does it pause the streams of existing connections or their wire
 
 Resume connecting to new peers.
 
+## `torrent.on('warning', function (err) {})`
+
+Emitted when there was a warning during the parsing of the torrent.
+
+## `torrent.on('error', function (err) {})`
+
+Emitted when the parsing of the torrent encountered an error.
+
+## `torrent.on('infoHash', function () {})`
+
+Emitted when the infoHash of the torrent has been determined.
+
+## `torrent.on('metadata', function () {})`
+
+Emitted when the metadata of the torrent has been determined.
+
+## `torrent.on('ready', function () {})`
+
+Emitted when the torrent is ready.
+
 ## `torrent.on('done', function () {})`
 
 Emitted when all the torrent's files have been downloaded
