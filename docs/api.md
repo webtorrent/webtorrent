@@ -326,27 +326,32 @@ Resume connecting to new peers.
 
 ## `torrent.on('warning', function (err) {})`
 
-Emitted when there was a warning during the parsing of the torrent.
+Emitted when there is a warning. This is purely informational and it is not necessary to
+listen to this event, but it may aid in debugging.
 
 ## `torrent.on('error', function (err) {})`
 
-Emitted when the parsing of the torrent encountered an error.
+Emitted when the torrent encounters a fatal error. The torrent is automatically destroyed
+and removed from the client when this occurs.
 
 ## `torrent.on('infoHash', function () {})`
 
-Emitted when the infoHash of the torrent has been determined.
+Emitted when the info hash of the torrent has been determined.
 
 ## `torrent.on('metadata', function () {})`
 
-Emitted when the metadata of the torrent has been determined.
+Emitted when the metadata of the torrent has been determined. This includes the full
+contents of the .torrent file, including list of files, torrent length, piece hashes,
+piece length, etc.
 
 ## `torrent.on('ready', function () {})`
 
-Emitted when the torrent is ready.
+Emitted when the torrent is ready to be used (i.e. metadata is available and store is
+ready).
 
 ## `torrent.on('done', function () {})`
 
-Emitted when all the torrent's files have been downloaded
+Emitted when all the torrent files have been downloaded.
 
 Here is a usage example:
 
