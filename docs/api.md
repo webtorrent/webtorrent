@@ -334,21 +334,6 @@ listen to this event, but it may aid in debugging.
 Emitted when the torrent encounters a fatal error. The torrent is automatically destroyed
 and removed from the client when this occurs.
 
-## `torrent.on('infoHash', function () {})`
-
-Emitted when the info hash of the torrent has been determined.
-
-## `torrent.on('metadata', function () {})`
-
-Emitted when the metadata of the torrent has been determined. This includes the full
-contents of the .torrent file, including list of files, torrent length, piece hashes,
-piece length, etc.
-
-## `torrent.on('ready', function () {})`
-
-Emitted when the torrent is ready to be used (i.e. metadata is available and store is
-ready).
-
 ## `torrent.on('done', function () {})`
 
 Emitted when all the torrent files have been downloaded.
@@ -378,6 +363,20 @@ torrent.on('download', function(chunkSize){
 })
 ```
 
+## `torrent.on('upload', function (chunkSize) {})`
+
+Emitted every time a new chunk of data is sent, it's useful for reporting the current torrent status, for instance:
+
+```js
+torrent.on('uploaded', function(chunkSize){
+  console.log('chunk size: ' + chunkSize);
+  console.log('total uploaded: ' + torrent.uploaded);
+  console.log('upload speed: ' + torrent.uploadSpeed);
+  console.log('progress: ' + torrent.progress);
+  console.log('======');
+})
+```
+
 ## `torrent.on('wire', function (wire) {})`
 
 Emitted whenever a new peer is connected for this torrent. `wire` is an instance of
@@ -399,6 +398,21 @@ torrent1.on('wire', function (wire, addr) {
 See the `bittorrent-protocol`
 [extension api docs](https://github.com/feross/bittorrent-protocol#extension-api) for more
 information on how to define a protocol extension.
+
+## `torrent.on('infoHash', function () {})`
+
+Emitted when the info hash of the torrent has been determined. Can only be accessed synchronously as client.add calls onTorrent callback after 'infoHash' event has been emitted.
+
+## `torrent.on('metadata', function () {})`
+
+Emitted when the metadata of the torrent has been determined. This includes the full
+contents of the .torrent file, including list of files, torrent length, piece hashes,
+piece length, etc. Can only be accessed synchronously as client.add calls onTorrent callback after 'metadata' event has been emitted.
+
+## `torrent.on('ready', function () {})`
+
+Emitted when the torrent is ready to be used (i.e. metadata is available and store is
+ready). Can only be accessed synchronously as client.add calls onTorrent callback after 'ready' event has been emitted.
 
 # File API
 
