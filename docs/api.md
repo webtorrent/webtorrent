@@ -378,6 +378,20 @@ torrent.on('download', function(chunkSize){
 })
 ```
 
+## `torrent.on('upload', function (chunkSize) {})`
+
+Emitted every time a new chunk of data is sent, it's useful for reporting the current torrent status, for instance:
+
+```js
+torrent.on('upload', function(chunkSize){
+  console.log('chunk size: ' + chunkSize);
+  console.log('total uploaded: ' + torrent.uploaded);
+  console.log('upload speed: ' + torrent.uploadSpeed);
+  console.log('progress: ' + torrent.progress);
+  console.log('======');
+})
+```
+
 ## `torrent.on('wire', function (wire) {})`
 
 Emitted whenever a new peer is connected for this torrent. `wire` is an instance of
