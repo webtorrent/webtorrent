@@ -401,18 +401,18 @@ information on how to define a protocol extension.
 
 ## `torrent.on('infoHash', function () {})`
 
-Emitted when the info hash of the torrent has been determined. Can only be accessed synchronously as client.add calls onTorrent callback after 'infoHash' event has been emitted.
+Emitted when the info hash of the torrent has been determined.
 
 ## `torrent.on('metadata', function () {})`
 
 Emitted when the metadata of the torrent has been determined. This includes the full
 contents of the .torrent file, including list of files, torrent length, piece hashes,
-piece length, etc. Can only be accessed synchronously as client.add calls onTorrent callback after 'metadata' event has been emitted.
+piece length, etc.
 
 ## `torrent.on('ready', function () {})`
 
 Emitted when the torrent is ready to be used (i.e. metadata is available and store is
-ready). Can only be accessed synchronously as client.add calls onTorrent callback after 'ready' event has been emitted.
+ready).
 
 # File API
 
