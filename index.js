@@ -1,5 +1,6 @@
 module.exports = WebTorrent
 
+var concat = require('simple-concat')
 var createTorrent = require('create-torrent')
 var debug = require('debug')('webtorrent')
 var DHT = require('bittorrent-dht/client') // browser exclude
@@ -15,7 +16,6 @@ var Peer = require('simple-peer')
 var speedometer = require('speedometer')
 var zeroFill = require('zero-fill')
 
-var concatStream = require('./lib/concat-stream')
 var TCPPool = require('./lib/tcp-pool') // browser exclude
 var Torrent = require('./lib/torrent')
 
@@ -274,7 +274,7 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
   if (!Array.isArray(input)) input = [ input ]
   parallel(input.map(function (item) {
     return function (cb) {
-      if (isReadable(item)) concatStream(item, cb)
+      if (isReadable(item)) concat(item, cb)
       else cb(null, item)
     }
   }), function (err, input) {
