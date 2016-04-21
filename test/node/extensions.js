@@ -49,7 +49,7 @@ test('extension support', function (t) {
       t.pass('client2 onWire')
       wire.use(Extension)
     })
-    client2.on('listening', function () {
+    torrent2.on('infoHash', function () {
       torrent2.addPeer('127.0.0.1:' + client1.address().port)
     })
   })

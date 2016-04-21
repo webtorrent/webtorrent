@@ -63,7 +63,7 @@ If `opts` is specified, then the default options (shown below) will be overridde
 
 ## `client.add(torrentId, [opts], [function ontorrent (torrent) {}])`
 
-Start downloading a new torrent. Aliased as `client.download`.
+Start downloading a new torrent.
 
 `torrentId` can be one of:
 
@@ -250,6 +250,8 @@ Alias for `client.remove(torrent)`.
 Adds a peer to the torrent swarm. Normally, you don't need to call `torrent.addPeer()`.
 WebTorrent will automatically find peers using the tracker servers or DHT. This is just
 for manually adding a peer to the client.
+
+This method should not be called until the `infoHash` event has been emitted.
 
 Returns `true` if peer was added, `false` if peer was blocked by the loaded blocklist.
 
@@ -452,7 +454,7 @@ called once the file is ready. `callback` must be specified, and will be called 
 ```js
 file.getBuffer(function (err, buffer) {
   if (err) throw err
-  console.log(buffer) // <Buffer 00 98 00 01 01 00 00 00 50 ae 07 04 01 00 00 00 0a 00 00 00 00 00 00 00 78 ae 07 04 01 00 00 00 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ...>
+  console.log(buffer) // <Buffer 00 98 00 01 ...>
 })
 ```
 
@@ -463,9 +465,10 @@ that handles many file types like video (.mp4, .webm, .m4v, etc.), audio (.m4a, 
 .wav, etc.), images (.jpg, .gif, .png, etc.), and other file formats (.pdf, .md, .txt,
 etc.).
 
-The file will be fetched from the network with highest priority and streamed into the
-page (if it's video or audio). In some cases, video or audio files will not be streamable
-because they're not in a format that the browser can stream so the file will be fully downloaded before being played. For other non-streamable file types like images and PDFs,
+The file will be fetched from the network with highest priority and streamed into the page
+(if it's video or audio). In some cases, video or audio files will not be streamable
+because they're not in a format that the browser can stream so the file will be fully
+downloaded before being played. For other non-streamable file types like images and PDFs,
 the file will be downloaded then displayed.
 
 `rootElem` is a container element (CSS selector or reference to DOM node) that the content

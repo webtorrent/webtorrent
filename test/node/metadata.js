@@ -26,9 +26,9 @@ test('ut_metadata transfer', function (t) {
     t.deepEqual(torrent1.info, fixtures.leaves.parsedTorrent.info)
 
     // client2 starts with infohash
-    client2.add(fixtures.leaves.parsedTorrent.infoHash)
+    var torrent2 = client2.add(fixtures.leaves.parsedTorrent.infoHash)
 
-    client2.on('listening', function (port, torrent2) {
+    torrent2.on('infoHash', function () {
       // manually add the peer
       torrent2.addPeer('127.0.0.1:' + client1.address().port)
 

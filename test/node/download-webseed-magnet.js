@@ -51,12 +51,12 @@ test('Download using webseed (via magnet uri)', function (t) {
         maybeDone()
       })
 
-      client1.on('listening', function () {
+      var torrent = client1.add(fixtures.leaves.parsedTorrent)
+
+      torrent.on('infoHash', function () {
         gotListening = true
         maybeDone()
       })
-
-      client1.add(fixtures.leaves.parsedTorrent)
     },
 
     function (cb) {
@@ -91,11 +91,11 @@ test('Download using webseed (via magnet uri)', function (t) {
         }
       })
 
-      client2.on('listening', function (port, torrent) {
+      var torrent = client2.add(magnetURI)
+
+      torrent.on('infoHash', function () {
         torrent.addPeer('127.0.0.1:' + client1.address().port)
       })
-
-      client2.add(magnetURI)
     }
   ], function (err) {
     t.error(err)
