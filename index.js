@@ -1,5 +1,3 @@
-// TODO: cleanup event listeners
-
 module.exports = WebTorrent
 
 var createTorrent = require('create-torrent')
@@ -92,9 +90,11 @@ function WebTorrent (opts) {
   if (opts.dht !== false && typeof DHT === 'function' /* browser exclude */) {
     // use a single DHT instance for all torrents, so the routing table can be reused
     self.dht = new DHT(extend({ nodeId: self.nodeId }, opts.dht))
+
     self.dht.once('error', function (err) {
       self._destroy(err)
     })
+
     self.dht.once('listening', function () {
       var address = self.dht.address()
       if (address) self.dhtPort = address.port
@@ -219,22 +219,31 @@ WebTorrent.prototype.add = function (torrentId, opts, ontorrent) {
   var torrent = new Torrent(torrentId, self, opts)
   self.torrents.push(torrent)
 
-  torrent.once('infoHash', function () {
+  torrent.once('infoHash', onInfoHash)
+  torrent.once('ready', onReady)
+  torrent.once('close', onClose)
+
+  function onInfoHash () {
     if (self.destroyed) return
     for (var i = 0, len = self.torrents.length; i < len; i++) {
       var t = self.torrents[i]
       if (t.infoHash === torrent.infoHash && t !== torrent) {
-        torrent.removeListener('ready', onReady)
         torrent._destroy(new Error('Cannot add duplicate torrent ' + torrent.infoHash))
         return
       }
     }
-  })
-  torrent.once('ready', onReady)
+  }
 
   function onReady () {
+    if (self.destroyed) return
     if (typeof ontorrent === 'function') ontorrent(torrent)
     self.emit('torrent', torrent)
+  }
+
+  function onClose () {
+    torrent.removeListener('infoHash', onInfoHash)
+    torrent.removeListener('ready', onReady)
+    torrent.removeListener('close', onClose)
   }
 
   return torrent
