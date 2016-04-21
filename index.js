@@ -1,5 +1,4 @@
 // TODO: cleanup event listeners
-// TODO: set dhtPort to correct port
 
 module.exports = WebTorrent
 
@@ -70,6 +69,7 @@ function WebTorrent (opts) {
   self.destroyed = false
   self.listening = false
   self.torrentPort = opts.torrentPort || 0
+  self.dhtPort = opts.dhtPort || 0
   self.tracker = opts.tracker !== undefined ? opts.tracker : true
   self.torrents = []
   self.maxConns = Number(opts.maxConns) || 55
@@ -95,11 +95,15 @@ function WebTorrent (opts) {
     self.dht.once('error', function (err) {
       self._destroy(err)
     })
+    self.dht.once('listening', function () {
+      var address = self.dht.address()
+      if (address) self.dhtPort = address.port
+    })
 
     // Ignore warning when there are > 10 torrents in the client
     self.dht.setMaxListeners(0)
 
-    self.dht.listen(opts.dhtPort)
+    self.dht.listen(self.dhtPort)
   } else {
     self.dht = false
   }
@@ -387,7 +391,8 @@ WebTorrent.prototype._onListening = function () {
   if (this._tcpPool) {
     // Sometimes server.address() returns `null` in Docker.
     // WebTorrent issue: https://github.com/feross/bittorrent-swarm/pull/18
-    this.torrentPort = (this._tcpPool.server.address() || { port: 0 }).port
+    var address = this._tcpPool.server.address()
+    if (address) this.torrentPort = address.port
   }
 
   this.emit('listening')

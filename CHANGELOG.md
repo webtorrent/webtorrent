@@ -7,6 +7,9 @@
 - `client.listening` property to signal whether TCP server is listening for incoming
   connections.
 
+- `client.dhtPort` property reflects the actual DHT port when user doesn't specify one
+  (this is parallel to `client.torrentPort` for the TCP torrent listening server)
+
 ### Changed
 
 - Merged `Swarm` class into `Torrent` object. Properties on `torrent.swarm` (like
