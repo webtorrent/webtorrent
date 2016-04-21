@@ -278,21 +278,24 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
       else cb(null, item)
     }
   }), function (err, input) {
-    if (err) return torrent._destroy(err)
     if (self.destroyed) return
+    if (err) return torrent._destroy(err)
+
     createTorrent.parseInput(input, opts, function (err, files) {
-      if (err) return torrent._destroy(err)
       if (self.destroyed) return
-      streams = files.map(function (file) { return file.getStream })
+      if (err) return torrent._destroy(err)
+
+      streams = files.map(function (file) {
+        return file.getStream
+      })
 
       createTorrent(input, opts, function (err, torrentBuf) {
-        if (err) return torrent._destroy(err)
         if (self.destroyed) return
+        if (err) return torrent._destroy(err)
 
         var existingTorrent = self.get(torrentBuf)
         if (existingTorrent) {
-          torrent._destroy(new Error('Cannot add duplicate torrent ' + torrent.infoHash))
-          _onseed(existingTorrent)
+          torrent._destroy(new Error('Cannot add duplicate torrent ' + existingTorrent.infoHash))
         } else {
           torrent._onTorrentId(torrentBuf)
         }
