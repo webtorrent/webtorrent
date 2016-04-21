@@ -208,6 +208,16 @@ WebTorrent.prototype.add = function (torrentId, opts, ontorrent) {
   var torrent = new Torrent(torrentId, self, opts)
   self.torrents.push(torrent)
 
+  torrent.once('infoHash', function () {
+    for (var i = 0, len = self.torrents.length; i < len; i++) {
+      var t = self.torrents[i]
+      if (t.infoHash === torrent.infoHash && t !== torrent) {
+        torrent.removeListener('ready', onReady)
+        torrent._destroy(new Error('Cannot add duplicate torrent ' + torrent.infoHash))
+        return
+      }
+    }
+  })
   torrent.once('ready', onReady)
 
   function onReady () {
