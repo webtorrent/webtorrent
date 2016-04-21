@@ -93,8 +93,7 @@ function WebTorrent (opts) {
     // use a single DHT instance for all torrents, so the routing table can be reused
     self.dht = new DHT(extend({ nodeId: self.nodeId }, opts.dht))
     self.dht.once('error', function (err) {
-      self.emit('error', err)
-      self._destroy()
+      self._destroy(err)
     })
 
     // Ignore warning when there are > 10 torrents in the client
@@ -171,17 +170,25 @@ Object.defineProperty(WebTorrent.prototype, 'ratio', {
  */
 WebTorrent.prototype.get = function (torrentId) {
   var self = this
-  if (torrentId instanceof Torrent) return torrentId
+  var i, torrent
+  var len = self.torrents.length
 
-  var parsed
-  try { parsed = parseTorrent(torrentId) } catch (err) {}
+  if (torrentId instanceof Torrent) {
+    for (i = 0; i < len; i++) {
+      torrent = self.torrents[i]
+      if (torrent === torrentId) return torrent
+    }
+  } else {
+    var parsed
+    try { parsed = parseTorrent(torrentId) } catch (err) {}
 
-  if (!parsed) return null
-  if (!parsed.infoHash) throw new Error('Invalid torrent identifier')
+    if (!parsed) return null
+    if (!parsed.infoHash) throw new Error('Invalid torrent identifier')
 
-  for (var i = 0, len = self.torrents.length; i < len; i++) {
-    var torrent = self.torrents[i]
-    if (torrent.infoHash === parsed.infoHash) return torrent
+    for (i = 0; i < len; i++) {
+      torrent = self.torrents[i]
+      if (torrent.infoHash === parsed.infoHash) return torrent
+    }
   }
   return null
 }
@@ -209,6 +216,7 @@ WebTorrent.prototype.add = function (torrentId, opts, ontorrent) {
   self.torrents.push(torrent)
 
   torrent.once('infoHash', function () {
+    if (self.destroyed) return
     for (var i = 0, len = self.torrents.length; i < len; i++) {
       var t = self.torrents[i]
       if (t.infoHash === torrent.infoHash && t !== torrent) {
@@ -257,20 +265,20 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
       else cb(null, item)
     }
   }), function (err, input) {
-    if (err) return self.emit('error', err, torrent)
+    if (err) return torrent._destroy(err)
     if (self.destroyed) return
     createTorrent.parseInput(input, opts, function (err, files) {
-      if (err) return self.emit('error', err, torrent)
+      if (err) return torrent._destroy(err)
       if (self.destroyed) return
       streams = files.map(function (file) { return file.getStream })
 
       createTorrent(input, opts, function (err, torrentBuf) {
-        if (err) return self.emit('error', err, torrent)
+        if (err) return torrent._destroy(err)
         if (self.destroyed) return
 
         var existingTorrent = self.get(torrentBuf)
         if (existingTorrent) {
-          torrent.destroy()
+          torrent._destroy(new Error('Cannot add duplicate torrent ' + torrent.infoHash))
           _onseed(existingTorrent)
         } else {
           torrent._onTorrentId(torrentBuf)
@@ -292,7 +300,7 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
     }
     parallel(tasks, function (err) {
       if (self.destroyed) return
-      if (err) return self.emit('error', err, torrent)
+      if (err) return torrent._destroy(err)
       _onseed(torrent)
     })
   }
@@ -313,10 +321,14 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
  */
 WebTorrent.prototype.remove = function (torrentId, cb) {
   debug('remove')
-
   var torrent = this.get(torrentId)
   if (!torrent) throw new Error('No torrent with id ' + torrentId)
+  this._remove(torrentId, cb)
+}
 
+WebTorrent.prototype._remove = function (torrentId, cb) {
+  var torrent = this.get(torrentId)
+  if (!torrent) return
   this.torrents.splice(this.torrents.indexOf(torrent), 1)
   torrent.destroy(cb)
 }
@@ -363,6 +375,10 @@ WebTorrent.prototype._destroy = function (err, cb) {
   parallel(tasks, cb)
 
   if (err) self.emit('error', err)
+
+  self.torrents = []
+  self._tcpPool = null
+  self.dht = null
 }
 
 WebTorrent.prototype._onListening = function () {

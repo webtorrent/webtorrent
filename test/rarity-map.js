@@ -18,7 +18,7 @@ test('Rarity map usage', function (t) {
     torrentPort: 6889,
     dht: false,
     tracker: false,
-    remove: function () {}
+    _remove: function () {}
   }
   var opts = {}
   var torrent = new Torrent(torrentId, client, opts)
