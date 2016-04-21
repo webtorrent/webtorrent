@@ -33,9 +33,8 @@
 - Do not return existing torrent object when duplicate torrent is added. Fire an
   `'error'` event instead.
 
-- Memory leak of `Torrent` object caused by `RarityMap`
-
-- Memory leak of `Torrent` object caused by `TCPPool`
+- Memory leaks of `Torrent` object caused by various internal subclasses of WebTorrent,
+  including `RarityMap`, `TCPPool`, `WebConn`, `Server`.
 
 - `client.ratio` and `torrent.ratio` are now calculated as `uploaded / received` instead
   of `uploaded / downloaded`.
