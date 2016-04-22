@@ -1,6 +1,6 @@
 # WebTorrent Version History
 
-## UNRELEASED
+## v0.91.0 - 2016-04-21
 
 ### Added
 
@@ -15,6 +15,8 @@
 - Merged `Swarm` class into `Torrent` object. Properties on `torrent.swarm` (like
   `torrent.swarm.wires`) now exist on `torrent` (e.g. `torrent.wires`).
 
+- Deprecate: Do not use `torrent.swarm` anymore. Use `torrent` instead.
+
 - `torrent.addPeer` can no longer be called before the `infoHash` event has been
   emitted.
 
@@ -25,8 +27,6 @@
   whole WebTorrent client.
 
 - Deprecate: Do not use `client.download()` anymore. Use `client.add()` instead.
-
-- Deprecate: Do not use `torrent.swarm` anymore. Use `torrent` instead.
 
 - Only pass `torrent.infoHash` to the Chunk Store constructor, instead of the `Torrent`
   instance itself, to prevent accidental memory leaks of the `Torrent` object by the
@@ -42,6 +42,9 @@
   forwarded to `client.on('error')`. This prevents crashing the client when the user
   only has a listener on the client, but it makes it impossible for them to determine
   a client error versus a torrent error.
+
+- Removed `torrent.numBlockedPeers` property. Use the `blockedPeer` event to track this
+  yourself.
 
 ### Fixed
 
