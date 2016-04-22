@@ -35,7 +35,7 @@ test('private torrent should not use DHT', function (t) {
       })
 
       client.on('torrent', function () {
-        if (!torrent.discovery.dht && !torrent.swarm.handshakeOpts.dht) {
+        if (!torrent.discovery.dht) {
           t.pass('dht is disabled for this torrent')
           cb(null)
         }

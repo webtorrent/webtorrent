@@ -6,7 +6,7 @@ var test = require('tape')
 var WebTorrent = require('../../')
 
 test('Download using DHT (via .torrent file)', function (t) {
-  t.plan(8)
+  t.plan(9)
 
   var dhtServer = new DHT({ bootstrap: false })
 
@@ -24,6 +24,10 @@ test('Download using DHT (via .torrent file)', function (t) {
       client1 = new WebTorrent({
         tracker: false,
         dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
+      })
+
+      client1.dht.on('listening', function () {
+        t.equal(client1.dhtPort, client1.dht.address().port)
       })
 
       client1.on('error', function (err) { t.fail(err) })

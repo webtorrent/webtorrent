@@ -53,6 +53,7 @@
     "render-media": "^2.0.0",
     "run-parallel": "^1.0.0",
     "run-parallel-limit": "^1.0.2",
+    "simple-concat": "^1.0.0",
     "simple-get": "^2.0.0",
     "simple-peer": "^6.0.0",
     "simple-sha1": "^2.0.0",
