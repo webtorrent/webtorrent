@@ -74,6 +74,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[YouShark][youshark]** - Web music player for WebTorrent ([source code][youshark-source])
 - **[Peerify][peerify]** - Instant Web-seeded torrents for your files
 - **[Instant-Share][instant-share]** - File sharing over WebTorrent
+- **[P2PDrop][p2pdrop]** - Securely share files between peers ([source code][p2pdrop-source])
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 [webtorrent-desktop]: https://webtorrent.io/desktop
@@ -103,6 +104,8 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 [youshark-source]: https://github.com/enorrmann/youshark
 [peerify]: https://peerify.btorrent.xyz
 [instant-share]: http://fs.lunik.xyz/
+[p2pdrop]: http://p2pdrop.com
+[p2pdrop-source]: https://github.com/ajainvivek/P2PDrop
 
 ## How does WebTorrent work?
 
