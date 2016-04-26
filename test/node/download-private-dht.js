@@ -1,5 +1,5 @@
-var common = require('../common')
 var DHT = require('bittorrent-dht/server')
+var fixtures = require('webtorrent-fixtures')
 var series = require('run-series')
 var test = require('tape')
 var WebTorrent = require('../../')
@@ -28,14 +28,14 @@ test('private torrent should not use DHT', function (t) {
       client.on('error', function (err) { t.fail(err) })
       client.on('warning', function (err) { t.fail(err) })
 
-      var torrent = client.add(common.bunny.parsedTorrent)
+      var torrent = client.add(fixtures.bunny.parsedTorrent)
 
       torrent.on('dhtAnnounce', function () {
         t.fail('client announced to dht')
       })
 
       client.on('torrent', function () {
-        if (!torrent.discovery.dht && !torrent.swarm.handshakeOpts.dht) {
+        if (!torrent.discovery.dht) {
           t.pass('dht is disabled for this torrent')
           cb(null)
         }
@@ -76,11 +76,11 @@ test('public torrent should use DHT', function (t) {
       client.on('error', function (err) { t.fail(err) })
       client.on('warning', function (err) { t.fail(err) })
 
-      var torrent = client.add(common.leaves.parsedTorrent)
+      var torrent = client.add(fixtures.leaves.parsedTorrent)
 
       torrent.on('dhtAnnounce', function () {
         t.pass('client announced to dht')
-        cb(null, client)
+        cb(null)
       })
 
       client.on('torrent', function () {

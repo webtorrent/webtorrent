@@ -1,12 +1,12 @@
-var common = require('../common')
 var DHT = require('bittorrent-dht/server')
+var fixtures = require('webtorrent-fixtures')
 var fs = require('fs')
 var series = require('run-series')
 var test = require('tape')
 var WebTorrent = require('../../')
 
 test('Download using DHT (via .torrent file)', function (t) {
-  t.plan(8)
+  t.plan(9)
 
   var dhtServer = new DHT({ bootstrap: false })
 
@@ -26,10 +26,14 @@ test('Download using DHT (via .torrent file)', function (t) {
         dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
       })
 
+      client1.dht.on('listening', function () {
+        t.equal(client1.dhtPort, client1.dht.address().port)
+      })
+
       client1.on('error', function (err) { t.fail(err) })
       client1.on('warning', function (err) { t.fail(err) })
 
-      var torrent = client1.add(common.leaves.parsedTorrent)
+      var torrent = client1.add(fixtures.leaves.parsedTorrent)
 
       torrent.on('ready', function () {
         // torrent metadata has been fetched -- sanity check it
@@ -37,11 +41,11 @@ test('Download using DHT (via .torrent file)', function (t) {
 
         var names = [ 'Leaves of Grass by Walt Whitman.epub' ]
         t.deepEqual(torrent.files.map(function (file) { return file.name }), names)
+      })
 
-        torrent.load(fs.createReadStream(common.leaves.contentPath), function (err) {
-          loaded = true
-          maybeDone(err)
-        })
+      torrent.load(fs.createReadStream(fixtures.leaves.contentPath), function (err) {
+        loaded = true
+        maybeDone(err)
       })
 
       torrent.on('dhtAnnounce', function () {
@@ -69,7 +73,7 @@ test('Download using DHT (via .torrent file)', function (t) {
         torrent.files.forEach(function (file) {
           file.getBuffer(function (err, buf) {
             if (err) throw err
-            t.deepEqual(buf, common.leaves.content, 'downloaded correct content')
+            t.deepEqual(buf, fixtures.leaves.content, 'downloaded correct content')
             gotBuffer = true
             maybeDone()
           })
@@ -84,11 +88,11 @@ test('Download using DHT (via .torrent file)', function (t) {
         var torrentDone = false
         var gotBuffer = false
         function maybeDone () {
-          if (torrentDone && gotBuffer) cb(null, client2)
+          if (torrentDone && gotBuffer) cb(null)
         }
       })
 
-      client2.add(common.leaves.parsedTorrent)
+      client2.add(fixtures.leaves.parsedTorrent)
     }
   ], function (err) {
     t.error(err)

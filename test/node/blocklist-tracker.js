@@ -1,5 +1,5 @@
-var common = require('../common')
 var extend = require('xtend')
+var fixtures = require('webtorrent-fixtures')
 var series = require('run-series')
 var test = require('tape')
 var TrackerServer = require('bittorrent-tracker/server')
@@ -8,7 +8,7 @@ var WebTorrent = require('../../')
 test('blocklist blocks peers discovered via tracker', function (t) {
   t.plan(9)
 
-  var parsedTorrent = extend(common.leaves.parsedTorrent)
+  var parsedTorrent = extend(fixtures.leaves.parsedTorrent)
   var tracker, client1, client2
 
   series([
@@ -41,7 +41,7 @@ test('blocklist blocks peers discovered via tracker', function (t) {
 
       var torrent1 = client1.add(parsedTorrent)
 
-      torrent1.on('peer', function () {
+      torrent1.on('invalidPeer', function () {
         t.pass('client1 found itself')
         cb(null)
       })

@@ -1,19 +1,19 @@
-var common = require('../common')
 var DHT = require('bittorrent-dht/server')
+var fixtures = require('webtorrent-fixtures')
 var fs = require('fs')
+var networkAddress = require('network-address')
 var series = require('run-series')
 var test = require('tape')
 var WebTorrent = require('../../')
 
 test('Download using DHT (via magnet uri)', function (t) {
-  t.plan(10)
+  t.plan(12)
 
   var dhtServer = new DHT({ bootstrap: false })
 
   dhtServer.on('error', function (err) { t.fail(err) })
   dhtServer.on('warning', function (err) { t.fail(err) })
 
-  var magnetUri = 'magnet:?xt=urn:btih:' + common.leaves.parsedTorrent.infoHash
   var client1, client2
 
   series([
@@ -24,15 +24,20 @@ test('Download using DHT (via magnet uri)', function (t) {
     function (cb) {
       client1 = new WebTorrent({
         tracker: false,
-        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
+        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port, host: networkAddress.ipv4() }
+      })
+
+      client1.dht.on('listening', function () {
+        t.equal(client1.dhtPort, client1.dht.address().port)
       })
 
       client1.on('error', function (err) { t.fail(err) })
       client1.on('warning', function (err) { t.fail(err) })
 
-      var torrent = client1.add(common.leaves.parsedTorrent)
+      var torrent = client1.add(fixtures.leaves.parsedTorrent)
 
       torrent.on('dhtAnnounce', function () {
+        t.pass('finished dht announce')
         announced = true
         maybeDone()
       })
@@ -43,25 +48,25 @@ test('Download using DHT (via magnet uri)', function (t) {
 
         var names = [ 'Leaves of Grass by Walt Whitman.epub' ]
         t.deepEqual(torrent.files.map(function (file) { return file.name }), names)
+      })
 
-        torrent.load(fs.createReadStream(common.leaves.contentPath), function (err) {
-          t.error(err)
-          loaded = true
-          maybeDone()
-        })
+      torrent.load(fs.createReadStream(fixtures.leaves.contentPath), function (err) {
+        t.error(err)
+        loaded = true
+        maybeDone()
       })
 
       var announced = false
       var loaded = false
       function maybeDone () {
-        if (announced && loaded) cb(null, client1)
+        if (announced && loaded) cb(null)
       }
     },
 
     function (cb) {
       client2 = new WebTorrent({
         tracker: false,
-        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
+        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port, host: networkAddress.ipv4() }
       })
 
       client2.on('error', function (err) { t.fail(err) })
@@ -70,7 +75,7 @@ test('Download using DHT (via magnet uri)', function (t) {
       client2.on('torrent', function (torrent) {
         torrent.files[0].getBuffer(function (err, buf) {
           t.error(err)
-          t.deepEqual(buf, common.leaves.content, 'downloaded correct content')
+          t.deepEqual(buf, fixtures.leaves.content, 'downloaded correct content')
 
           gotBuffer = true
           maybeDone()
@@ -84,12 +89,12 @@ test('Download using DHT (via magnet uri)', function (t) {
         })
       })
 
-      client2.add(magnetUri)
+      client2.add(fixtures.leaves.magnetURI)
 
       var gotBuffer = false
       var gotDone = false
       function maybeDone () {
-        if (gotBuffer && gotDone) cb(null, client2)
+        if (gotBuffer && gotDone) cb(null)
       }
     }
   ], function (err) {

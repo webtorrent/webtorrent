@@ -1,5 +1,5 @@
-var common = require('../common')
 var extend = require('xtend')
+var fixtures = require('webtorrent-fixtures')
 var fs = require('fs')
 var series = require('run-series')
 var test = require('tape')
@@ -18,7 +18,7 @@ function torrentDownloadTest (t, serverType) {
   t.plan(9)
 
   var trackerStartCount = 0
-  var parsedTorrent = extend(common.leaves.parsedTorrent)
+  var parsedTorrent = extend(fixtures.leaves.parsedTorrent)
 
   var tracker = new TrackerServer(
     serverType === 'udp' ? { http: false, ws: false } : { udp: false, ws: false }
@@ -62,7 +62,7 @@ function torrentDownloadTest (t, serverType) {
 
         t.deepEqual(torrent.files.map(function (file) { return file.name }), names)
 
-        torrent.load(fs.createReadStream(common.leaves.contentPath), cb)
+        torrent.load(fs.createReadStream(fixtures.leaves.contentPath), cb)
       })
 
       client1.add(parsedTorrent)
@@ -79,7 +79,7 @@ function torrentDownloadTest (t, serverType) {
         torrent.files.forEach(function (file) {
           file.getBuffer(function (err, buf) {
             if (err) throw err
-            t.deepEqual(buf, common.leaves.content, 'downloaded correct content')
+            t.deepEqual(buf, fixtures.leaves.content, 'downloaded correct content')
             gotBuffer = true
             maybeDone()
           })
