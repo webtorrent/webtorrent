@@ -13,8 +13,8 @@ environment:
 
 # Install scripts. (runs after repo cloning)
 install:
-  # Get the latest stable version of Node.js or io.js
-  - ps: Install-Product node $env:nodejs_version
+  # https://www.appveyor.com/docs/lang/nodejs-iojs#installing-em-any-em-version-of-node-js-or-io-js
+  - ps: Update-NodeJsInstallation $env:nodejs_version
   # install modules
   - npm install
 
