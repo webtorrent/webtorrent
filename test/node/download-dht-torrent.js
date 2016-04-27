@@ -6,7 +6,7 @@ var test = require('tape')
 var WebTorrent = require('../../')
 
 test('Download using DHT (via .torrent file)', function (t) {
-  t.plan(9)
+  t.plan(10)
 
   var dhtServer = new DHT({ bootstrap: false })
 
