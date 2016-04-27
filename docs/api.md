@@ -413,6 +413,10 @@ See the `bittorrent-protocol`
 [extension api docs](https://github.com/feross/bittorrent-protocol#extension-api) for more
 information on how to define a protocol extension.
 
+## `torrent.on('noPeers', function (announceType) {})`
+
+Emitted whenever a DHT or tracker announce occurs, but no peers have been found.  `announceType` is either `'tracker'` or `'dht'` depending on which announce occurred to trigger this event.  Note that if you're attempting to discover peers from both a tracker and a DHT, you'll see this event separately for each.
+
 # File API
 
 ## `file.name`
