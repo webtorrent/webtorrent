@@ -53,10 +53,17 @@ test('Download using DHT (via .torrent file)', function (t) {
         maybeDone(null)
       })
 
+      torrent.on('noPeers', function (announceType) {
+        t.equal(announceType, 'dht', 'noPeers event seen with correct announceType')
+        noPeersFound = true
+        maybeDone(null)
+      })
+
       var announced = false
       var loaded = false
+      var noPeersFound = false
       function maybeDone (err) {
-        if ((announced && loaded) || err) cb(err, client1)
+        if ((announced && loaded && noPeersFound) || err) cb(err, client1)
       }
     },
 
