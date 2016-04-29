@@ -49,7 +49,7 @@
     "pump": "^1.0.0",
     "random-iterate": "^1.0.1",
     "range-parser": "^1.0.2",
-    "readable-stream": "^2.0.5",
+    "readable-stream": "^2.1.2",
     "render-media": "^2.0.0",
     "run-parallel": "^1.0.0",
     "run-parallel-limit": "^1.0.2",
