@@ -36,8 +36,6 @@ var WebTorrent = require('webtorrent')
 ### Downloading a torrent (in the browser)
 
 ```js
-var WebTorrent = require('webtorrent')
-
 var client = new WebTorrent()
 
 // Sintel, a free, Creative Commons movie
@@ -63,10 +61,25 @@ the needed torrent pieces from the network on-demand.
 
 ### Creating a new torrent and seed it (in the browser)
 
+This example uses the [`drag-drop`][drag-drop] package, to make the HTML5 Drag and
+Drop API easier to work with.
+
+It works in the browser with [browserify](http://browserify.org).
+
+```
+npm install drag-drop
+```
+
+Then use `drag-drop` like this:
+
 ```js
 var dragDrop = require('drag-drop')
-var WebTorrent = require('webtorrent')
+```
 
+**Note:** If you do not use browserify, use the included standalone file
+`dragdrop.min.js`. This exports a `DragDrop` function on `window`.
+
+```js
 var client = new WebTorrent()
 
 // When user drops files on the browser, create a new torrent and start seeding it!
@@ -77,9 +90,6 @@ dragDrop('body', function (files) {
 })
 ```
 
-This example uses the [`drag-drop`][drag-drop] package, to make the HTML5 Drag and
-Drop API easier to work with.
-
 ### Download and save a torrent (in Node.js)
 
 ```js
@@ -88,9 +98,9 @@ var fs = require('fs')
 
 var client = new WebTorrent()
 
-var magnetURI = 'magnet:...'
+var torrentId = 'magnet:?xt=urn:btih:6a9759bffd5c0af65319979fb7832189f4f3c35d&dn=sintel.mp4&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel-1024-surround.mp4'
 
-client.add(magnetURI, function (torrent) {
+client.add(torrentId, function (torrent) {
   torrent.files.forEach(function (file) {
     console.log('Started saving ' + file.name)
 
