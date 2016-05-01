@@ -80,6 +80,10 @@ dragDrop('body', function (files) {
 This example uses the [`drag-drop`][drag-drop] package, to make the HTML5 Drag and
 Drop API easier to work with.
 
+**Note:** If you do not use browserify, use the standalone file
+[`dragdrop.min.js`](https://raw.githubusercontent.com/feross/drag-drop/master/dragdrop.min.js).
+This exports a `DragDrop` function on `window`.
+
 ### Download and save a torrent (in Node.js)
 
 ```js

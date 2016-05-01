@@ -82,7 +82,7 @@ they can connect to both normal *and* web peers. We hope other clients will foll
     for adding new extensions
 - **Comprehensive test suite** (runs completely offline, so it's reliable and fast)
 
-#### Browser-only features
+#### Browser/WebRTC environment features
 
 - **WebRTC data channels** for lightweight peer-to-peer communication with **no plugins**
 - **No silos.** WebTorrent is a P2P network for the **entire web.** WebTorrent clients
@@ -92,14 +92,9 @@ they can connect to both normal *and* web peers. We hope other clients will foll
 
 <p align="center">
   <a href="https://saucelabs.com/u/webtorrent">
-    <img src="https://saucelabs.com/browser-matrix/webtorrent.svg"
-         alt="Sauce Labs Build">
+    <img src="https://saucelabs.com/browser-matrix/webtorrent.svg" alt="Sauce Labs">
   </a>
 </p>
-
-#### Node-only features
-
-- Stream to **AirPlay**, **Chromecast**, **VLC player**, and many other devices/players
 
 ### Install
 
@@ -269,7 +264,7 @@ There are many supported streaming options:
 --stdout                standard out [implies --quiet]
 ```
 
-In addition to magnet uris, webtorrent supports [many ways to specify a torrent](#clientaddtorrentid-opts-function-ontorrent-torrent-).
+In addition to magnet uris, webtorrent supports [many ways](docs/api.md#clientaddtorrentid-opts-function-ontorrent-torrent-) to specify a torrent.
 
 ### Modules
 
