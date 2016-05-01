@@ -72,7 +72,7 @@ Start downloading a new torrent.
 - info hash (hex string or buffer)
 - parsed torrent (from [parse-torrent](https://github.com/feross/parse-torrent))
 - http/https url to a torrent file (string)
-- filesystem path to a torrent file (string)
+- filesystem path to a torrent file (string) *(Node.js only)*
 
 If `opts` is specified, then the default options (shown below) will be overridden.
 
@@ -107,9 +107,10 @@ Start seeding a new torrent.
 
 `input` can be any of the following:
 
-- path to the file or folder on filesystem (string) (Node.js only)
-- W3C [File](https://developer.mozilla.org/en-US/docs/Web/API/File) object (from an `<input>` or drag and drop)
-- W3C [FileList](https://developer.mozilla.org/en-US/docs/Web/API/FileList) object (basically an array of `File` objects)
+- filesystem path to file or folder
+ (string) *(Node.js only)*
+- W3C [File](https://developer.mozilla.org/en-US/docs/Web/API/File) object (from an `<input>` or drag and drop) *(browser only)*
+- W3C [FileList](https://developer.mozilla.org/en-US/docs/Web/API/FileList) object (basically an array of `File` objects) *(browser only)*
 - Node [Buffer](https://nodejs.org/api/buffer.html) object
 - Node [Readable stream](https://nodejs.org/api/stream.html#stream_class_stream_readable) object
 
@@ -195,6 +196,10 @@ Magnet URI of the torrent (string).
 ## `torrent.torrentFile`
 
 `.torrent` file of the torrent (Buffer).
+
+## `torrent.torrentFileBlobURL` *(browser only)*
+
+`.torrent` file of the torrent (Blob URL).
 
 ## `torrent.files[...]`
 
@@ -469,7 +474,7 @@ file.getBuffer(function (err, buffer) {
 })
 ```
 
-## `file.appendTo(rootElem, [function callback (err, elem) {}])`
+## `file.appendTo(rootElem, [function callback (err, elem) {}])` *(browser only)*
 
 Show the file in a the browser by appending it to the DOM. This is a powerful function
 that handles many file types like video (.mp4, .webm, .m4v, etc.), audio (.m4a, .mp3,
@@ -496,11 +501,11 @@ file.appendTo('#containerElement', function (err, elem) {
 })
 ```
 
-## `file.renderTo(elem, [function callback (err, elem) {}])`
+## `file.renderTo(elem, [function callback (err, elem) {}])` *(browser only)*
 
 Like `file.appendTo` but renders directly into given element (or CSS selector).
 
-## `file.getBlobURL(function callback (err, url) {})`
+## `file.getBlobURL(function callback (err, url) {})` *(browser only)*
 
 Get a url which can be used in the browser to refer to the file.
 
