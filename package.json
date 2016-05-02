@@ -79,7 +79,7 @@
     "network-address": "^1.1.0",
     "run-series": "^1.0.2",
     "serve-static": "^1.9.3",
-    "standard": "^6.0.1",
+    "standard": "^7.0.0",
     "tape": "^4.0.0",
     "uglify-js": "^2.4.15",
     "webtorrent-fixtures": "^1.0.0",
