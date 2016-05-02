@@ -342,6 +342,21 @@ connections, nor does it pause the streams of existing connections or their wire
 
 Resume connecting to new peers.
 
+## `torrent.on('infoHash', function () {})`
+
+Emitted when the info hash of the torrent has been determined.
+
+## `torrent.on('metadata', function () {})`
+
+Emitted when the metadata of the torrent has been determined. This includes the full
+contents of the .torrent file, including list of files, torrent length, piece hashes,
+piece length, etc.
+
+## `torrent.on('ready', function () {})`
+
+Emitted when the torrent is ready to be used (i.e. metadata is available and store is
+ready).
+
 ## `torrent.on('warning', function (err) {})`
 
 Emitted when there is a warning. This is purely informational and it is not necessary to
@@ -367,33 +382,23 @@ torrent.on('done', function(){
 })
 ```
 
-## `torrent.on('download', function (chunkSize) {})`
+## `torrent.on('download', function (bytes) {})`
 
-Emitted every time a new chunk of data arrives, it's useful for reporting the current torrent status, for instance:
+Emitted whenever data is downloaded. Useful for reporting the current torrent status, for
+instance:
 
 ```js
-torrent.on('download', function(chunkSize){
-  console.log('chunk size: ' + chunkSize);
+torrent.on('download', function (bytes) {
+  console.log('just downloaded: ' + bytes)
   console.log('total downloaded: ' + torrent.downloaded);
-  console.log('download speed: ' + torrent.downloadSpeed);
-  console.log('progress: ' + torrent.progress);
-  console.log('======');
+  console.log('download speed: ' + torrent.downloadSpeed)
+  console.log('progress: ' + torrent.progress)
 })
 ```
 
-## `torrent.on('upload', function (chunkSize) {})`
+## `torrent.on('upload', function (bytes) {})`
 
-Emitted every time a new chunk of data is sent, it's useful for reporting the current torrent status, for instance:
-
-```js
-torrent.on('uploaded', function(chunkSize){
-  console.log('chunk size: ' + chunkSize);
-  console.log('total uploaded: ' + torrent.uploaded);
-  console.log('upload speed: ' + torrent.uploadSpeed);
-  console.log('progress: ' + torrent.progress);
-  console.log('======');
-})
-```
+Emitted whenever data is uploaded. Useful for reporting the current torrent status.
 
 ## `torrent.on('wire', function (wire) {})`
 
@@ -416,21 +421,6 @@ torrent1.on('wire', function (wire, addr) {
 See the `bittorrent-protocol`
 [extension api docs](https://github.com/feross/bittorrent-protocol#extension-api) for more
 information on how to define a protocol extension.
-
-## `torrent.on('infoHash', function () {})`
-
-Emitted when the info hash of the torrent has been determined.
-
-## `torrent.on('metadata', function () {})`
-
-Emitted when the metadata of the torrent has been determined. This includes the full
-contents of the .torrent file, including list of files, torrent length, piece hashes,
-piece length, etc.
-
-## `torrent.on('ready', function () {})`
-
-Emitted when the torrent is ready to be used (i.e. metadata is available and store is
-ready).
 
 # File API
 
