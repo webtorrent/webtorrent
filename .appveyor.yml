@@ -7,17 +7,12 @@ init:
 # https://www.appveyor.com/docs/lang/nodejs-iojs#testing-under-multiple-versions-of-node-js-or-io-js
 environment:
   matrix:
-  - nodejs_version: "6"
-  - nodejs_version: "5"
-  - nodejs_version: "4"
-
-platform:
-  - x86
+  - nodejs_version: "" # https://www.appveyor.com/docs/installed-software#node-js
 
 # Install scripts. (runs after repo cloning)
 install:
   # https://www.appveyor.com/docs/lang/nodejs-iojs#installing-em-any-em-version-of-node-js-or-io-js
-  - ps: Update-NodeJsInstallation (Get-NodeJsLatestBuild $env:nodejs_version) $env:platform
+  - ps: Install-Product node $env:nodejs_version
   # install modules
   - npm install
 
