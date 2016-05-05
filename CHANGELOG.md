@@ -1,5 +1,28 @@
 # WebTorrent Version History
 
+## v0.92.0 - 2016-05-05
+
+- Add new event: `torrent.on('noPeers', function (announceType) {})`
+
+  Emitted whenever a DHT or tracker announce occurs, but no peers have been found.  `announceType` is either `'tracker'` or `'dht'` depending on which announce occurred to trigger this event.  Note that if you're attempting to discover peers from both a tracker and a DHT, you'll see this event separately for each.
+
+
+## v0.91.4 - 2016-05-05
+
+- Fix exception: "peer._destroy is not a function" when calling `torrent.pause()`
+
+## v0.91.3 - 2016-05-04
+
+- Fix `torrent.swarm` from causing an infinite recursion.
+
+## v0.91.2 - 2016-04-28
+
+- Test node v6
+
+## v0.91.1 - 2016-04-24
+
+- Emit 'done' event *after* sending the `'complete'` message to the tracker.
+
 ## v0.91.0 - 2016-04-21
 
 ### Added
