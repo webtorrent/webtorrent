@@ -15,7 +15,7 @@ test('Download using HTTP tracker (via magnet uri)', function (t) {
 })
 
 function magnetDownloadTest (t, serverType) {
-  t.plan(9)
+  t.plan(10)
 
   var tracker = new TrackerServer(
     serverType === 'udp' ? { http: false, ws: false } : { udp: false, ws: false }
@@ -58,6 +58,10 @@ function magnetDownloadTest (t, serverType) {
         var names = [
           'Leaves of Grass by Walt Whitman.epub'
         ]
+
+        torrent.on('noPeers', function (announceType) {
+          t.equal(announceType, 'tracker', 'noPeers event seen with correct announceType')
+        })
 
         t.deepEqual(torrent.files.map(function (file) { return file.name }), names)
 
