@@ -68,12 +68,14 @@ function WebTorrent (opts) {
   self.listening = false
   self.torrentPort = opts.torrentPort || 0
   self.dhtPort = opts.dhtPort || 0
-  self.tracker = opts.tracker !== undefined ? opts.tracker : true
+  self.tracker = opts.tracker !== undefined ? opts.tracker : {}
   self.torrents = []
   self.maxConns = Number(opts.maxConns) || 55
 
-  self._rtcConfig = opts.rtcConfig
-  self._wrtc = opts.wrtc || global.WRTC // to support `webtorrent-hybrid` package
+  if (typeof self.tracker === 'object') {
+    self.tracker.rtcConfig = opts.rtcConfig
+    self.tracker.wrtc = opts.wrtc || global.WRTC // to support `webtorrent-hybrid` package
+  }
 
   if (typeof TCPPool === 'function') {
     self._tcpPool = new TCPPool(self)
