@@ -51,15 +51,17 @@ If `opts` is specified, then the default options (shown below) will be overridde
 
 ```js
 {
-  dht: Boolean|Object,   // Enable DHT (default=true), or options object for DHT
-  maxConns: Number,      // Max number of connections per torrent (default=55)
-  nodeId: String|Buffer, // DHT protocol node ID (default=randomly generated)
-  peerId: String|Buffer, // Wire protocol peer ID (default=randomly generated)
-  rtcConfig: Object,     // RTCPeerConnection configuration object (default=STUN only)
-  tracker: Boolean,      // Whether or not to enable trackers (default=true)
-  wrtc: Object           // Custom webrtc implementation (in node, specify the [wrtc](https://www.npmjs.com/package/wrtc) or [electron-webrtc](https://github.com/mappum/electron-webrtc) package)
+  dht: Boolean|Object,     // Enable DHT (default=true), or options object for DHT
+  maxConns: Number,        // Max number of connections per torrent (default=55)
+  nodeId: String|Buffer,   // DHT protocol node ID (default=randomly generated)
+  peerId: String|Buffer,   // Wire protocol peer ID (default=randomly generated)
+  tracker: Boolean|Object, // Enable trackers (default=true), or options object for tracker (wrtc and rtcConfig)
 }
 ```
+
++ See the documentation for webrtc implementation (in node, specify the [wrtc](https://www.npmjs.com/package/wrtc) 
++ or [electron-webrtc](https://github.com/mappum/electron-webrtc) package) for information on what options are available 
++ via the `opts` object.
 
 ## `client.add(torrentId, [opts], [function ontorrent (torrent) {}])`
 
