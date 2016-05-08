@@ -68,12 +68,24 @@ function WebTorrent (opts) {
   self.listening = false
   self.torrentPort = opts.torrentPort || 0
   self.dhtPort = opts.dhtPort || 0
-  self.tracker = opts.tracker !== undefined ? opts.tracker : true
+  self.tracker = opts.tracker !== undefined ? opts.tracker : {}
   self.torrents = []
   self.maxConns = Number(opts.maxConns) || 55
 
-  self._rtcConfig = opts.rtcConfig
-  self._wrtc = opts.wrtc || global.WRTC // to support `webtorrent-hybrid` package
+  if (self.tracker) {
+    if (typeof self.tracker !== 'object') self.tracker = {}
+    if (opts.rtcConfig) {
+      // TODO: remove in v1
+      console.warn('WebTorrent: opts.rtcConfig is deprecated. Use opts.tracker.rtcConfig instead')
+      self.tracker.rtcConfig = opts.rtcConfig
+    }
+    if (opts.wrtc) {
+      // TODO: remove in v1
+      console.warn('WebTorrent: opts.wrtc is deprecated. Use opts.tracker.wrtc instead')
+      self.tracker.wrtc = opts.wrtc // to support `webtorrent-hybrid` package
+    }
+    if (!self.tracker.wrtc) self.tracker.wrtc = global.WRTC
+  }
 
   if (typeof TCPPool === 'function') {
     self._tcpPool = new TCPPool(self)
@@ -197,6 +209,7 @@ WebTorrent.prototype.get = function (torrentId) {
   return null
 }
 
+// TODO: remove in v1
 WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
   console.warn('WebTorrent: client.download() is deprecated. Use client.add() instead')
   return this.add(torrentId, opts, ontorrent)
