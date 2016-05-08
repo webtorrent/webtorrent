@@ -54,14 +54,22 @@ function WebTorrent (opts) {
 
   if (!opts) opts = {}
 
-  self.peerId = typeof opts.peerId === 'string'
-    ? opts.peerId
-    : (opts.peerId || new Buffer(VERSION_PREFIX + hat(48))).toString('hex')
+  if (typeof opts.peerId === 'string') {
+    self.peerId = opts.peerId
+  } else if (Buffer.isBuffer(opts.peerId)) {
+    self.peerId = opts.peerId.toString('hex')
+  } else {
+    self.peerId = new Buffer(VERSION_PREFIX + hat(48))
+  }
   self.peerIdBuffer = new Buffer(self.peerId, 'hex')
 
-  self.nodeId = typeof opts.nodeId === 'string'
-    ? opts.nodeId
-    : (opts.nodeId && opts.nodeId.toString('hex')) || hat(160)
+  if (typeof opts.nodeId === 'string') {
+    self.nodeId = opts.nodeId
+  } else if (Buffer.isBuffer(opts.nodeId)) {
+    self.nodeId = opts.nodeId.toString('hex')
+  } else {
+    self.nodeId = hat(160)
+  }
   self.nodeIdBuffer = new Buffer(self.nodeId, 'hex')
 
   self.destroyed = false
