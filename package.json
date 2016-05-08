@@ -45,7 +45,7 @@
     "multistream": "^2.0.2",
     "package-json-versionify": "^1.0.1",
     "parse-torrent": "^5.1.0",
-    "path-exists": "^3.0.0",
+    "path-exists": "^2.1.0",
     "pump": "^1.0.0",
     "random-iterate": "^1.0.1",
     "range-parser": "^1.0.2",
