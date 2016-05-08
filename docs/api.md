@@ -51,15 +51,19 @@ If `opts` is specified, then the default options (shown below) will be overridde
 
 ```js
 {
-  dht: Boolean|Object,   // Enable DHT (default=true), or options object for DHT
-  maxConns: Number,      // Max number of connections per torrent (default=55)
-  nodeId: String|Buffer, // DHT protocol node ID (default=randomly generated)
-  peerId: String|Buffer, // Wire protocol peer ID (default=randomly generated)
-  rtcConfig: Object,     // RTCPeerConnection configuration object (default=STUN only)
-  tracker: Boolean,      // Whether or not to enable trackers (default=true)
-  wrtc: Object           // Custom webrtc implementation (in node, specify the [wrtc](https://www.npmjs.com/package/wrtc) or [electron-webrtc](https://github.com/mappum/electron-webrtc) package)
+  dht: Boolean|Object,     // Enable DHT (default=true), or options object for DHT
+  maxConns: Number,        // Max number of connections per torrent (default=55)
+  nodeId: String|Buffer,   // DHT protocol node ID (default=randomly generated)
+  peerId: String|Buffer,   // Wire protocol peer ID (default=randomly generated)
+  tracker: Boolean|Object  // Enable trackers (default=true), or options object for Tracker
 }
 ```
+
+For possible values of `opts.dht` see the
+[`bittorrent-dht` documentation](https://github.com/feross/bittorrent-dht#dht--new-dhtopts).
+
+For possible values of `opts.tracker` see the
+[`bittorrent-tracker` documentation](https://github.com/feross/bittorrent-tracker#client).
 
 ## `client.add(torrentId, [opts], [function ontorrent (torrent) {}])`
 
