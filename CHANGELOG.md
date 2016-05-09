@@ -1,11 +1,30 @@
 # WebTorrent Version History
 
+## v0.93.1 - 2016-05-08
+
+- Remove `path-exists` dependency.
+
+## v0.93.0 - 2016-05-08
+
+- Move tracker options (`rtcConfig` and `wrtc`) into `opts.tracker`.
+
+  Before:
+
+  ```js
+  var client = new WebTorrent({ rtcConfig: {}, wrtc: {} })
+  ```
+
+  After:
+
+  ```js
+  var client = new WebTorrent({ tracker: { rtcConfig: {}, wrtc: {} } })
+  ```
+
 ## v0.92.0 - 2016-05-05
 
 - Add new event: `torrent.on('noPeers', function (announceType) {})`
 
   Emitted whenever a DHT or tracker announce occurs, but no peers have been found.  `announceType` is either `'tracker'` or `'dht'` depending on which announce occurred to trigger this event.  Note that if you're attempting to discover peers from both a tracker and a DHT, you'll see this event separately for each.
-
 
 ## v0.91.4 - 2016-05-05
 
