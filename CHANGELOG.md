@@ -1,5 +1,9 @@
 # WebTorrent Version History
 
+## UNRELEASED
+
+- When a duplicate torrent is added, don't emit the 'infoHash' event after 'error'. The 'error' event should be the last event.
+
 ## v0.93.1 - 2016-05-08
 
 - Remove `path-exists` dependency.
