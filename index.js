@@ -240,7 +240,7 @@ WebTorrent.prototype.add = function (torrentId, opts, ontorrent) {
   var torrent = new Torrent(torrentId, self, opts)
   self.torrents.push(torrent)
 
-  torrent.once('infoHash', onInfoHash)
+  torrent.once('_infoHash', onInfoHash)
   torrent.once('ready', onReady)
   torrent.once('close', onClose)
 
@@ -262,7 +262,7 @@ WebTorrent.prototype.add = function (torrentId, opts, ontorrent) {
   }
 
   function onClose () {
-    torrent.removeListener('infoHash', onInfoHash)
+    torrent.removeListener('_infoHash', onInfoHash)
     torrent.removeListener('ready', onReady)
     torrent.removeListener('close', onClose)
   }
