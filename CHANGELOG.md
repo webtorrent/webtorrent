@@ -1,6 +1,6 @@
 # WebTorrent Version History
 
-## UNRELEASED
+## v0.93.2 - 2016-05-12
 
 - When a duplicate torrent is added, don't emit the 'infoHash' event after 'error'. The 'error' event should be the last event.
 
