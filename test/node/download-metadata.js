@@ -8,16 +8,14 @@ function createServer (data, cb) {
     if (req.url !== '/') {
       res.statusCode = 404
       res.end()
+    } else {
+      res.end(data)
     }
-    res.end(data)
   })
 
   server.on('listening', function () {
     var address = server.address()
-    if (address.family === 'IPv6') {
-      address.address = '[' + address.address + ']'
-    }
-    var url = 'http://' + address.address + ':' + address.port + '/'
+    var url = 'http://127.0.0.1:' + address.port + '/'
     cb(url, server)
   })
 
