@@ -71,7 +71,7 @@
     "bittorrent-tracker": "^8.0.0",
     "brfs": "^1.2.0",
     "browserify": "^13.0.0",
-    "cross-spawn": "^3.0.0",
+    "cross-spawn": "^4.0.0",
     "electron-prebuilt": "^0.37.2",
     "finalhandler": "^0.4.0",
     "network-address": "^1.1.0",
