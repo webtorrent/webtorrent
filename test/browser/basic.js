@@ -1,7 +1,8 @@
+var Buffer = require('safe-buffer').Buffer
 var test = require('tape')
 var WebTorrent = require('../../')
 
-var img = new Buffer('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'base64')
+var img = Buffer.from('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'base64')
 img.name = 'img.png'
 
 function verifyImage (t, err, elem) {
