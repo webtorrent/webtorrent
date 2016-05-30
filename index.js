@@ -1,5 +1,6 @@
 module.exports = WebTorrent
 
+var Buffer = require('safe-buffer').Buffer
 var concat = require('simple-concat')
 var createTorrent = require('create-torrent')
 var debug = require('debug')('webtorrent')
@@ -59,9 +60,9 @@ function WebTorrent (opts) {
   } else if (Buffer.isBuffer(opts.peerId)) {
     self.peerId = opts.peerId.toString('hex')
   } else {
-    self.peerId = new Buffer(VERSION_PREFIX + hat(48))
+    self.peerId = Buffer.from(VERSION_PREFIX + hat(48))
   }
-  self.peerIdBuffer = new Buffer(self.peerId, 'hex')
+  self.peerIdBuffer = Buffer.from(self.peerId, 'hex')
 
   if (typeof opts.nodeId === 'string') {
     self.nodeId = opts.nodeId
@@ -70,7 +71,7 @@ function WebTorrent (opts) {
   } else {
     self.nodeId = hat(160)
   }
-  self.nodeIdBuffer = new Buffer(self.nodeId, 'hex')
+  self.nodeIdBuffer = Buffer.from(self.nodeId, 'hex')
 
   self.destroyed = false
   self.listening = false

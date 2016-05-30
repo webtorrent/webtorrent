@@ -1,3 +1,4 @@
+var Buffer = require('safe-buffer').Buffer
 var extend = require('xtend')
 var fixtures = require('webtorrent-fixtures')
 var test = require('tape')
@@ -84,7 +85,7 @@ test('client.add: info hash, buffer', function (t) {
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
     t.ok(torrent.magnetURI.indexOf('magnet:?xt=urn:btih:' + fixtures.leaves.parsedTorrent.infoHash) === 0)
 
-    client.remove(new Buffer(fixtures.leaves.parsedTorrent.infoHash, 'hex'), function (err) { t.error(err, 'torrent destroyed') })
+    client.remove(Buffer.from(fixtures.leaves.parsedTorrent.infoHash, 'hex'), function (err) { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(function (err) { t.error(err, 'client destroyed') })
@@ -204,5 +205,5 @@ test('client.add: invalid torrent id: short buffer', function (t) {
   })
   client.on('warning', function (err) { t.fail(err) })
 
-  client.add(new Buffer('abc'))
+  client.add(Buffer.from('abc'))
 })

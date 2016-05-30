@@ -1,10 +1,11 @@
+// var Buffer = require('safe-buffer').Buffer
 // var hat = require('hat')
 // var Swarm = require('../../lib/swarm')
 // var test = require('tape')
 
 // var infoHash = 'd2474e86c95b19b8bcfdb92bc12c9d44667cfa36'
-// var peerId1 = new Buffer('-WW0001-' + hat(48), 'utf8').toString('hex')
-// var peerId2 = new Buffer('-WW0001-' + hat(48), 'utf8').toString('hex')
+// var peerId1 = Buffer.from('-WW0001-' + hat(48), 'utf8').toString('hex')
+// var peerId2 = Buffer.from('-WW0001-' + hat(48), 'utf8').toString('hex')
 
 // test('reconnect when peer disconnects', function (t) {
 //   t.plan(10)
