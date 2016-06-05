@@ -76,6 +76,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Instant-Share][instant-share]** - File sharing over WebTorrent
 - **[P2PDrop][p2pdrop]** - Securely share files between peers ([source code][p2pdrop-source])
 - **[Twister][twister]** - Decentralized microblogging service, using WebTorrent for media attachments ([source code][twister-source])
+- **[PeerTube][peertube]** - Prototype of a decentralized video streaming platform in the web browser ([source-code][peertube-source])
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 [webtorrent-desktop]: https://webtorrent.io/desktop
@@ -109,6 +110,8 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 [p2pdrop-source]: https://github.com/ajainvivek/P2PDrop
 [twister]: http://twister.net.co/?p=589
 [twister-source]: https://github.com/miguelfreitas/twister-html
+[peertube]: http://peertube.cpy.re
+[peertube-source]: https://github.com/Chocobozzz/PeerTube
 
 ## How does WebTorrent work?
 
