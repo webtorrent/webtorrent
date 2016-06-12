@@ -110,3 +110,7 @@
 
 - `client.ratio` and `torrent.ratio` are now calculated as `uploaded / received` instead
   of `uploaded / downloaded`.
+
+## Previous versions
+
+We did not maintain a changelog for versions prior to v0.91.0. The initial release of WebTorrent was on Dec 4, 2013.
