@@ -78,6 +78,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Twister][twister]** - Decentralized microblogging service, using WebTorrent for media attachments ([source code][twister-source])
 - **[PeerTube][peertube]** - Prototype of a decentralized video streaming platform in the web browser ([source-code][peertube-source])
 - **[Cinematrix][cinematrix]** - Stream your favorite free content
+- **[webtorrent-cljs][webtorrent-cljs]** - Clojurescript wrapper for WebTorrent
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 [webtorrent-desktop]: https://webtorrent.io/desktop
@@ -114,6 +115,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 [peertube]: http://peertube.cpy.re
 [peertube-source]: https://github.com/Chocobozzz/PeerTube
 [cinematrix]: http://cinematrix.one/
+[webtorrent-cljs]: https://github.com/cvillecsteele/webtorrent-cljs
 
 ## How does WebTorrent work?
 
