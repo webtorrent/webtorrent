@@ -517,6 +517,14 @@ file.appendTo('#containerElement', function (err, elem) {
 
 Like `file.appendTo` but renders directly into given element (or CSS selector).
 
+## `file.getBlob(function callback (err, blob) {})` *(browser only)*
+
+Get a W3C `Blob` object which contains the file data.
+
+The file will be fetched from the network with highest priority, and `callback` will be
+called once the file is ready. `callback` must be specified, and will be called with a an
+`Error` (or `null`) and the `Blob` object.
+
 ## `file.getBlobURL(function callback (err, url) {})` *(browser only)*
 
 Get a url which can be used in the browser to refer to the file.
@@ -524,6 +532,8 @@ Get a url which can be used in the browser to refer to the file.
 The file will be fetched from the network with highest priority, and `callback` will be
 called once the file is ready. `callback` must be specified, and will be called with a an
 `Error` (or `null`) and the Blob URL (`String`).
+
+This method is useful for creating a file download link, like this:
 
 ```js
 file.getBlobURL(function (err, url) {
