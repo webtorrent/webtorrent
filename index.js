@@ -348,6 +348,7 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
   function _onseed (torrent) {
     debug('on seed')
     if (typeof onseed === 'function') onseed(torrent)
+    torrent.emit('seed')
     self.emit('seed', torrent)
   }
 
