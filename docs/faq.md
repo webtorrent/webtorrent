@@ -243,7 +243,8 @@ websites (i.e. the WebTorrent script must be present on both sites).
 ## Who builds WebTorrent?
 
 WebTorrent is built by [Feross Aboukhadijeh][feross] and hundreds of open source
-contributors.
+contributors. The non-profit WebTorrent project is managed by
+[WebTorrent, LLC][webtorrent-io].
 
 Feross's other projects include [JavaScript Standard Style][standard],
 [PeerCDN][peercdn] (sold to Yahoo), [Study Notes][studynotes], and
@@ -262,6 +263,13 @@ at [Quora][quora], [Facebook][facebook], and [Intel][intel].
 [quora]: https://www.quora.com/
 [facebook]: https://www.facebook.com/
 [intel]: http://intel.com/
+
+## What is WebTorrent, LLC?
+
+"WebTorrent, LLC" is the legal entity that owns WebTorrent. WebTorrent is, and
+always will be, **non-profit, open source, and free software**.
+
+There are no plans to make a profit from WebTorrent.
 
 ## How is WebTorrent different from PeerCDN?
 
@@ -359,7 +367,7 @@ the respective repository.
 Open an issue on the WebTorrent [issue tracker][issues], or join us in
 [Gitter][gitter] or on IRC at `#webtorrent` (freenode).
 
-
+[webtorrent-io]: https://webtorrent.io
 [append-to]: https://github.com/feross/webtorrent/blob/master/lib/append-to.js#L6-L14
 [gitter]: https://gitter.im/feross/webtorrent
 [instant.io]: https://instant.io

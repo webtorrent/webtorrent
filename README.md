@@ -402,4 +402,4 @@ localStorage.removeItem('debug')
 
 ### License
 
-MIT. Copyright (c) [Feross Aboukhadijeh](http://feross.org).
+MIT. Copyright (c) [WebTorrent, LLC](https://webtorrent.io).
