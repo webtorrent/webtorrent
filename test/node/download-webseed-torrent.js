@@ -2,6 +2,7 @@ var extend = require('xtend')
 var finalhandler = require('finalhandler')
 var fixtures = require('webtorrent-fixtures')
 var http = require('http')
+var MemoryChunkStore = require('memory-chunk-store')
 var path = require('path')
 var series = require('run-series')
 var serveStatic = require('serve-static')
@@ -15,7 +16,7 @@ test('Download using webseed (via .torrent file)', function (t) {
 
   var httpServer = http.createServer(function (req, res) {
     var done = finalhandler(req, res)
-    serveStatic(path.join(__dirname, 'content'))(req, res, done)
+    serveStatic(path.dirname(fixtures.leaves.contentPath))(req, res, done)
   })
   var client
 
@@ -59,7 +60,7 @@ test('Download using webseed (via .torrent file)', function (t) {
         }
       })
 
-      client.add(parsedTorrent)
+      client.add(parsedTorrent, {store: MemoryChunkStore})
     }
   ], function (err) {
     t.error(err)

@@ -1,6 +1,7 @@
 var DHT = require('bittorrent-dht/server')
 var fixtures = require('webtorrent-fixtures')
 var fs = require('fs')
+var MemoryChunkStore = require('memory-chunk-store')
 var networkAddress = require('network-address')
 var series = require('run-series')
 var test = require('tape')
@@ -34,7 +35,7 @@ test('Download using DHT (via magnet uri)', function (t) {
       client1.on('error', function (err) { t.fail(err) })
       client1.on('warning', function (err) { t.fail(err) })
 
-      var torrent = client1.add(fixtures.leaves.parsedTorrent)
+      var torrent = client1.add(fixtures.leaves.parsedTorrent, {store: MemoryChunkStore})
 
       torrent.on('dhtAnnounce', function () {
         t.pass('finished dht announce')
@@ -89,7 +90,7 @@ test('Download using DHT (via magnet uri)', function (t) {
         })
       })
 
-      client2.add(fixtures.leaves.magnetURI)
+      client2.add(fixtures.leaves.magnetURI, {store: MemoryChunkStore})
 
       var gotBuffer = false
       var gotDone = false
