@@ -1,5 +1,6 @@
 var fixtures = require('webtorrent-fixtures')
 var http = require('http')
+var MemoryChunkStore = require('memory-chunk-store')
 var test = require('tape')
 var WebTorrent = require('../../')
 
@@ -32,7 +33,7 @@ test('Download metadata for magnet URI with xs parameter', function (t) {
 
   createServer(fixtures.leaves.torrent, function (url, server) {
     var encodedUrl = encodeURIComponent(url)
-    client.add(fixtures.leaves.magnetURI + '&xs=' + encodedUrl, function (torrent) {
+    client.add(fixtures.leaves.magnetURI + '&xs=' + encodedUrl, {store: MemoryChunkStore}, function (torrent) {
       t.equal(torrent.files[0].name, 'Leaves of Grass by Walt Whitman.epub')
       client.destroy(function (err) { t.error(err, 'client destroyed') })
       server.close(function () { t.pass('server closed') })
@@ -56,7 +57,7 @@ test('Download metadata for magnet URI with 2 xs parameters', function (t) {
 
       var uri = fixtures.leaves.magnetURI + '&xs=' + encodedUrl1 + '&xs=' + encodedUrl2
 
-      client.add(uri, function (torrent) {
+      client.add(uri, {store: MemoryChunkStore}, function (torrent) {
         t.equal(torrent.files[0].name, 'Leaves of Grass by Walt Whitman.epub')
         client.destroy(function (err) { t.error(err, 'client destroyed') })
         server1.close(function () { t.pass('server closed') })
@@ -79,7 +80,7 @@ test('Download metadata for magnet URI with 2 xs parameters, with 1 invalid prot
     var encodedUrl2 = encodeURIComponent(url)
     var uri = fixtures.leaves.magnetURI + '&xs=' + encodedUrl1 + '&xs=' + encodedUrl2
 
-    client.add(uri, function (torrent) {
+    client.add(uri, {store: MemoryChunkStore}, function (torrent) {
       t.equal(torrent.files[0].name, 'Leaves of Grass by Walt Whitman.epub')
       client.destroy(function (err) { t.error(err, 'client destroyed') })
       server.close(function () { t.pass('server closed') })
@@ -100,7 +101,7 @@ test('Download metadata for magnet URI with 2 xs parameters, with 1 404 URL', fu
     var encodedUrl2 = encodeURIComponent(url)
     var uri = fixtures.leaves.magnetURI + '&xs=' + encodedUrl1 + '&xs=' + encodedUrl2
 
-    client.add(uri, function (torrent) {
+    client.add(uri, {store: MemoryChunkStore}, function (torrent) {
       t.equal(torrent.files[0].name, 'Leaves of Grass by Walt Whitman.epub')
       client.destroy(function (err) { t.error(err, 'client destroyed') })
       server.close(function () { t.pass('server closed') })
@@ -116,7 +117,7 @@ test('Download metadata magnet URI with unsupported protocol in xs parameter', f
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  client.add(fixtures.leaves.magnetURI + '&xs=' + encodeURIComponent('invalidurl:example'))
+  client.add(fixtures.leaves.magnetURI + '&xs=' + encodeURIComponent('invalidurl:example'), {store: MemoryChunkStore})
 
   setTimeout(function () {
     // no crash by now

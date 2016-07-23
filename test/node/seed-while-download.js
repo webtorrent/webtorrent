@@ -1,6 +1,7 @@
 var DHT = require('bittorrent-dht/server')
 var fixtures = require('webtorrent-fixtures')
 var fs = require('fs')
+var MemoryChunkStore = require('memory-chunk-store')
 var series = require('run-series')
 var test = require('tape')
 var WebTorrent = require('../../')
@@ -29,7 +30,7 @@ test('Seed and download a file at the same time', function (t) {
       client1.on('error', function (err) { t.fail(err) })
       client1.on('warning', function (err) { t.fail(err) })
 
-      var torrent = client1.add(fixtures.leaves.torrent)
+      var torrent = client1.add(fixtures.leaves.torrent, {store: MemoryChunkStore})
 
       torrent.on('dhtAnnounce', function () {
         t.pass('client1 finished dht announce')
@@ -60,7 +61,7 @@ test('Seed and download a file at the same time', function (t) {
       client2.on('error', function (err) { t.fail(err) })
       client2.on('warning', function (err) { t.fail(err) })
 
-      var torrent = client2.add(fixtures.alice.torrent)
+      var torrent = client2.add(fixtures.alice.torrent, {store: MemoryChunkStore})
 
       torrent.on('dhtAnnounce', function () {
         t.pass('client2 finished dht announce')
@@ -82,7 +83,7 @@ test('Seed and download a file at the same time', function (t) {
     },
 
     function (cb) {
-      client1.add(fixtures.alice.magnetURI)
+      client1.add(fixtures.alice.magnetURI, {store: MemoryChunkStore})
 
       client1.on('torrent', function (torrent) {
         torrent.files[0].getBuffer(function (err, buf) {
@@ -99,7 +100,7 @@ test('Seed and download a file at the same time', function (t) {
         })
       })
 
-      client2.add(fixtures.leaves.magnetURI)
+      client2.add(fixtures.leaves.magnetURI, {store: MemoryChunkStore})
 
       client2.on('torrent', function (torrent) {
         torrent.files[0].getBuffer(function (err, buf) {

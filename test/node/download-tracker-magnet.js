@@ -1,6 +1,7 @@
 var extend = require('xtend')
 var fixtures = require('webtorrent-fixtures')
 var fs = require('fs')
+var MemoryChunkStore = require('memory-chunk-store')
 var series = require('run-series')
 var test = require('tape')
 var TrackerServer = require('bittorrent-tracker/server')
@@ -15,7 +16,7 @@ test('Download using HTTP tracker (via magnet uri)', function (t) {
 })
 
 function magnetDownloadTest (t, serverType) {
-  t.plan(10)
+  t.plan(11)
 
   var tracker = new TrackerServer(
     serverType === 'udp' ? { http: false, ws: false } : { udp: false, ws: false }
@@ -70,7 +71,7 @@ function magnetDownloadTest (t, serverType) {
         })
       })
 
-      client1.add(parsedTorrent)
+      client1.add(parsedTorrent, {store: MemoryChunkStore})
     },
 
     function (cb) {
@@ -102,7 +103,7 @@ function magnetDownloadTest (t, serverType) {
         }
       })
 
-      client2.add(magnetURI)
+      client2.add(magnetURI, {store: MemoryChunkStore})
     }
 
   ], function (err) {
