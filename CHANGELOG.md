@@ -1,5 +1,48 @@
 # WebTorrent Version History
 
+## v0.95.2 - 2016-06-22
+
+- HEAD requests  to HTTP server should not send entire body
+- WebTorrent, LLC is now the steward of the project
+
+## v0.95.1 - 2016-06-15
+
+- Emit 'seed' event on the torrent object
+
+## v0.95.0 - 2016-06-15
+
+- API: Add `file.getBlob()` method 
+- Fix rare exception in `lib/tcp-pool.js`
+
+## v0.94.4 - 2016-06-10
+
+- Support torrent with a single 0 byte file
+- Use `<` since it handles `NaN` in a predictable way, i.e. `false`
+
+## v0.94.3 - 2016-05-30
+
+- Use `safe-buffer` for improved buffer safety
+
+## v0.94.2 - 2016-05-28
+
+- Fix rare exception in `lib/file.js`
+
+## v0.94.1 - 2016-05-26
+
+- Make WebTorrent user agent string consistent across whole codebase
+
+## v0.94.0 - 2016-05-19
+
+- Support exact source (xs) paramter of magnet URIs, for retreiving metadata
+
+## v0.93.4 - 2016-05-17
+
+- Fix rare exception caused by race condition in `lib/peer.js`
+
+## v0.93.3 - 2016-05-13
+
+- Don't unset `{tracker: {wrtc: false}}` option to `WebTorrent` constructor.
+
 ## v0.93.2 - 2016-05-12
 
 - When a duplicate torrent is added, don't emit the 'infoHash' event after 'error'. The 'error' event should be the last event.
