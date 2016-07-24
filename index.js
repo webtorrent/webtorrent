@@ -16,6 +16,7 @@ var parseTorrent = require('parse-torrent')
 var path = require('path')
 var Peer = require('simple-peer')
 var randombytes = require('randombytes')
+var Socks = require('socks')
 var speedometer = require('speedometer')
 var zeroFill = require('zero-fill')
 
@@ -104,6 +105,26 @@ function WebTorrent (opts) {
       self.tracker.wrtc = opts.wrtc // to support `webtorrent-hybrid` package
     }
     if (global.WRTC && !self.tracker.wrtc) self.tracker.wrtc = global.WRTC
+  }
+
+  // Proxy
+  self.proxyOpts = opts.proxyOpts
+  if (self.proxyOpts) {
+    self.proxyOpts.proxyTrackerConnections = self.proxyOpts.proxyTrackerConnections !== false
+    self.proxyOpts.proxyPeerConnections = self.proxyOpts.proxyPeerConnections !== false
+
+    if (self.proxyOpts.socksProxy) {
+      if (!self.proxyOpts.socksProxy.proxy) self.proxyOpts.socksProxy.proxy = {}
+      if (!self.proxyOpts.socksProxy.proxy.type) self.proxyOpts.socksProxy.proxy.type = 5
+
+      // Create HTTP agents from socks proxy if needed
+      if (!self.proxyOpts.httpAgent) {
+        self.proxyOpts.httpAgent = new Socks.Agent(self.proxyOpts.socksProxy, false)
+      }
+      if (!self.proxyOpts.httpsAgent) {
+        self.proxyOpts.httpsAgent = new Socks.Agent(self.proxyOpts.socksProxy, true)
+      }
+    }
   }
 
   if (typeof TCPPool === 'function') {

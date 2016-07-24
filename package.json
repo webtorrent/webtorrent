@@ -15,6 +15,7 @@
     "load-ip-set": false,
     "net": false,
     "os": false,
+    "socks": false,
     "ut_pex": false
   },
   "browserify": {
@@ -56,6 +57,7 @@
     "simple-get": "^2.2.1",
     "simple-peer": "^6.0.4",
     "simple-sha1": "^2.0.8",
+    "socks": "^1.1.9",
     "speedometer": "^1.0.0",
     "stream-to-blob": "^1.0.0",
     "stream-to-blob-url": "^2.1.0",
