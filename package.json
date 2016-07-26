@@ -60,7 +60,7 @@
     "stream-to-blob": "^1.0.0",
     "stream-to-blob-url": "^2.1.0",
     "stream-with-known-length-to-buffer": "^1.0.0",
-    "torrent-discovery": "^8.0.0",
+    "torrent-discovery": "^8.1.0",
     "torrent-piece": "^1.1.0",
     "uniq": "^1.0.1",
     "unordered-array-remove": "^1.0.2",
