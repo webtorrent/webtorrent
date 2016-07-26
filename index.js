@@ -31,7 +31,8 @@ var VERSION = require('./package.json').version
  *   '0.16.1' -> '0016'
  *   '1.2.5' -> '0102'
  */
-var VERSION_STR = VERSION.match(/([0-9]+)/g).slice(0, 2).map(zeroFill(2)).join('')
+var m = VERSION.match(/([0-9]+)/g).slice(0, 2)
+var VERSION_STR = zeroFill(2, m[0]) + zeroFill(2, m[1])
 
 /**
  * Version prefix string (used in peer ID). WebTorrent uses the Azureus-style
