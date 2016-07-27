@@ -63,7 +63,7 @@ function WebTorrent (opts) {
   } else if (Buffer.isBuffer(opts.peerId)) {
     self.peerId = opts.peerId.toString('hex')
   } else {
-    self.peerId = Buffer.from(VERSION_PREFIX + hat(48))
+    self.peerId = Buffer.from(VERSION_PREFIX + hat(48)).toString('hex')
   }
   self.peerIdBuffer = Buffer.from(self.peerId, 'hex')
 
