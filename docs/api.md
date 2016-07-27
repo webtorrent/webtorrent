@@ -152,6 +152,13 @@ client.seed(buf, cb)
 Emitted when a torrent is ready to be used (i.e. metadata is available and store is
 ready). See the torrent section for more info on what methods a `torrent` has.
 
+## `client.on('error', function (err) {})`
+
+Emitted when the client encounters a fatal error. The client is automatically
+destroyed and all torrents are removed and cleaned up when this occurs.
+
+Always listen for the 'error' event.
+
 ## `client.remove(torrentId, [function callback (err) {}])`
 
 Remove a torrent from the client. Destroy all connections to peers and delete all saved
@@ -370,6 +377,14 @@ listen to this event, but it may aid in debugging.
 
 Emitted when the torrent encounters a fatal error. The torrent is automatically destroyed
 and removed from the client when this occurs.
+
+**Note:** Torrent errors are emitted at `torrent.on('error')`. If there are no
+'error' event handlers on the torrent instance, then the error will be emitted at
+`client.on('error')`. This prevents throwing an uncaught exception (unhandled
+'error' event), but it makes it impossible to distinguish client errors versus
+torrent errors. Torrent errors are not fatal, and the client is still usable
+afterwards. Therefore, always listen for errors in both places
+(`client.on('error')` and `torrent.on('error')`).
 
 ## `torrent.on('done', function () {})`
 
