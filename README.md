@@ -111,7 +111,7 @@ To install a `webtorrent`
 npm install webtorrent-cli -g
 ```
 
-To install a WebTorrent desktop appliation for OS X, Windows, or Linux, see
+To install a WebTorrent desktop appliation for Mac, Windows, or Linux, see
 [WebTorrent Desktop][webtorrent-desktop].
 
 ### Ways to help
