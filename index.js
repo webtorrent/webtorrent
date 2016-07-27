@@ -1,3 +1,5 @@
+/* global FileList */
+
 module.exports = WebTorrent
 
 var Buffer = require('safe-buffer').Buffer
@@ -300,7 +302,9 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
   var torrent = self.add(null, opts, onTorrent)
   var streams
 
+  if (isFileList(input)) input = Array.prototype.slice.call(input)
   if (!Array.isArray(input)) input = [ input ]
+
   parallel(input.map(function (item) {
     return function (cb) {
       if (isReadable(item)) concat(item, cb)
@@ -447,4 +451,13 @@ WebTorrent.prototype._onListening = function () {
  */
 function isReadable (obj) {
   return typeof obj === 'object' && obj != null && typeof obj.pipe === 'function'
+}
+
+/**
+ * Check if `obj` is a W3C `FileList` object
+ * @param  {*} obj
+ * @return {boolean}
+ */
+function isFileList (obj) {
+  return typeof FileList !== 'undefined' && obj instanceof FileList
 }
