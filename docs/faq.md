@@ -79,6 +79,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[PeerTube][peertube]** - Prototype of a decentralized video streaming platform in the web browser ([source-code][peertube-source])
 - **[Cinematrix][cinematrix]** - Stream your favorite free content
 - **[webtorrent-cljs][webtorrent-cljs]** - Clojurescript wrapper for WebTorrent
+- **[Squidl.ink][squidl]** - Transfer files from A to B without the Cloud. Now noob-friendly, with analytics and a video player
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 [webtorrent-desktop]: https://webtorrent.io/desktop
@@ -116,6 +117,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 [peertube-source]: https://github.com/Chocobozzz/PeerTube
 [cinematrix]: http://cinematrix.one/
 [webtorrent-cljs]: https://github.com/cvillecsteele/webtorrent-cljs
+[squidl]: https://github.com/darkenvy/Squidl.ink
 
 ## How does WebTorrent work?
 
