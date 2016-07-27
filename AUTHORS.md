@@ -77,6 +77,7 @@
 - v0dy <k4r70ng@gmail.com>
 - Colin Steele <cvillecsteele@gmail.com>
 - Mathias Rasmussen <mathiasvr@gmail.com>
+- darkenvy <darkenvy6@gmail.com>
 - Amila Welihinda <amilajack@gmail.com>
 - Yoann Ciabaud <yoann@sonora.io>
 
