@@ -334,6 +334,23 @@ There are many talks online about WebTorrent. Here are a few:
 
 <script async class="speakerdeck-embed" data-id="cb08869f2ac2445c99e8b73a4ac65d2b" data-ratio="1.77777777777778" src="//speakerdeck.com/assets/embed.js"></script>
 
+## Is it possible to do live streaming with WebTorrent?
+
+WebTorrent cannot do live streaming out-of-the-box, because that's beyond the scope
+of a torrent client. However, you can build a live streaming solution on top of
+WebTorrent and torrent technology.
+
+Torrents are immutable. That means that once a torrent files is created, it cannot
+be changed without changing the info hash.
+
+A naive approach would be this: The video producer could take every 10 seconds
+of live video and create a torrent from it. Viewers would follow this "feed" of
+torrent files (or info hashes) and download them sequentially. Thus, viewers would
+be around 10-20 seconds behind the live stream.
+
+This approach can definitely be improved, though! Why not give that a shot yourself
+and share the code?
+
 # Troubleshooting
 
 ## Why does browser downloading not work? I see no peers!
