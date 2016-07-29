@@ -88,25 +88,14 @@ This exports a `DragDrop` function on `window`.
 
 ```js
 var WebTorrent = require('webtorrent')
-var fs = require('fs')
 
 var client = new WebTorrent()
 
 var magnetURI = 'magnet:...'
 
-client.add(magnetURI, function (torrent) {
-  torrent.files.forEach(function (file) {
-    console.log('Started saving ' + file.name)
-
-    file.getBuffer(function (err, buffer) {
-      if (err) {
-        console.error('Error downloading ' + file.name)
-        return
-      }
-      fs.writeFile(file.name, buffer, function (err) {
-        console.error('Error saving ' + file.name)
-      })
-    })
+client.add(magnetURI, { path: '/path/to/folder' }, function (torrent) {
+  torrent.on('done', function () {
+    console.log('torrent download finished')
   })
 })
 ```
