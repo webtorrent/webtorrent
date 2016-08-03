@@ -186,16 +186,22 @@ downloaded.
 
 ### HTML example with status showing UI
 
-This full HTML example mimics the UI of the [webtorrent.io](https://webtorrent.io) homepage. 
-It downloads the [sintel.torrent](https://webtorrent.io/torrents/sintel.torrent) file, streams it in the browser and output 
-some statistics to the user (peers, progress, remaining time, speed...).
+This complete HTML example mimics the UI of the
+[webtorrent.io](https://webtorrent.io) homepage. It downloads the
+[sintel.torrent](https://webtorrent.io/torrents/sintel.torrent) file, streams it in
+the browser and outputs some statistics to the user (peers, progress, remaining
+time, speed...).
 
-You can try it right now on [codepen](http://codepen.io/yciabaud/full/XdOeWM/) to see whats it looks like and play around with it!
+You can try it right now on [CodePen](http://codepen.io/yciabaud/full/XdOeWM/) to
+see what it looks like and play around with it!
 
-Feel free to try out some other torrents but keep in mind that the browser can only download torrents seeded on the webtorrent network.
-Use [instant.io](https://instant.io) to create yours!
+Feel free to replace `torrentId` with other torrent files, or magnet links, but
+keep in mind that the browser can only download torrents that are seeded by
+WebRTC peers (web peers). Use [WebTorrent Desktop](https://webtorrent.io/desktop)
+or [Instant.io](https://instant.io) to seed torrents to the WebTorrent network.
 
 Javascript:
+
 ```js
 var torrentId = 'https://webtorrent.io/torrents/sintel.torrent'
 
@@ -221,7 +227,7 @@ client.add(torrentId, function (torrent) {
   torrent.on('done', onDone)
   setInterval(onProgress, 500)
   onProgress()
-  
+
   // Statistics
   function onProgress () {
     // Peers
@@ -242,7 +248,7 @@ client.add(torrentId, function (torrent) {
       remaining = remaining[0].toUpperCase() + remaining.substring(1) + ' remaining.'
     }
     $remaining.innerHTML = remaining
-    
+
     // Speed rates
     $downloadSpeed.innerHTML = prettyBytes(torrent.downloadSpeed) + '/s'
     $uploadSpeed.innerHTML = prettyBytes(torrent.uploadSpeed) + '/s'
@@ -266,6 +272,7 @@ function prettyBytes(num) {
 ```
 
 HTML:
+
 ```html
 <!DOCTYPE html>
 <html>
@@ -290,7 +297,7 @@ HTML:
           </code>
           <span class="show-leech"> from </span>
           <span class="show-seed"> to </span>
-          <code id="numPeers">0 peers</code>. 
+          <code id="numPeers">0 peers</code>.
         </div>
         <div>
           <code id="downloaded"></code>
@@ -310,6 +317,7 @@ HTML:
 ```
 
 CSS:
+
 ```css
 #output video {
   width: 100%;
