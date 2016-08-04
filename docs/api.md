@@ -501,7 +501,7 @@ file.getBuffer(function (err, buffer) {
 })
 ```
 
-## `file.appendTo(rootElem, [function callback (err, elem) {}])` *(browser only)*
+## `file.appendTo(rootElem, [opts], [function callback (err, elem) {}])` *(browser only)*
 
 Show the file in a the browser by appending it to the DOM. This is a powerful function
 that handles many file types like video (.mp4, .webm, .m4v, etc.), audio (.m4a, .mp3,
@@ -518,8 +518,14 @@ the file will be downloaded then displayed.
 will be shown in. A new DOM node will be created for the content and appended to
 `rootElem`.
 
-`callback` will be called once the file is visible to the user. `callback` is called
-with an `Error` (or `null`) and the new DOM node that is displaying the content.
+If provided, `opts` can contain the following options:
+
+- `autoplay`: Autoplay video/audio files (default: `true`)
+- `controls`: Show video/audio player controls (default: `true`)
+
+If provided, `callback` will be called once the file is visible to the user.
+`callback` is called with an `Error` (or `null`) and the new DOM node that is
+displaying the content.
 
 ```js
 file.appendTo('#containerElement', function (err, elem) {
@@ -528,7 +534,7 @@ file.appendTo('#containerElement', function (err, elem) {
 })
 ```
 
-## `file.renderTo(elem, [function callback (err, elem) {}])` *(browser only)*
+## `file.renderTo(elem, [opts], [function callback (err, elem) {}])` *(browser only)*
 
 Like `file.appendTo` but renders directly into given element (or CSS selector).
 
