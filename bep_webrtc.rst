@@ -17,19 +17,19 @@ internet, Bittorrent could be used to optimize the server and network resources
 needed to distribute files but the need for a client software prevents its
 usage in a browser environment.
 
-This BEP documents how to add support for WebRTC signalling on a tracker in
+This BEP explains how to add support for WebRTC signaling on a tracker in
 order to make the webapps able to connect peers using the WebRTC API [1].
 Once a communication channel is open between the peers using WebRTC, the
 standard Bittorent peer connection protocol is used.
 
-Due to the WebRTC signalling process, the tracker needs to push messages to the
+Due to the WebRTC signaling process, the tracker needs to push messages to the
 clients with a full-duplex communication channel available in a web browser.
-At the moment of this BEP, Websockets [2] are the only compatible standard
-technology.
+At the moment this BEP is written, Websockets [2] are the only compatible
+standard technology.
 
-WebRTC signalling process
+WebRTC signaling process
 =========================
-The diagram below explains the messages involved in the WebRTC signalling
+The diagram below explains the messages involved in the WebRTC signaling
 process.
 
 ::
@@ -67,18 +67,19 @@ by Feross Aboukhadijeh and hundreds of open source contributors.
 overview
 --------
 The websocket tracker uses JSON payloads reflecting the HTTP request parameters
-and an additionnal action property used to switch between announce and other
+and an additional action property used to switch between "announce" and other
 actions (ex. scrape). If the announce URL of the torrent contains the ws or wss
-protocol, the client establishes a websocket connection with the tracker.
+protocol, a websocket connection is established between the client and the
+tracker.
 
 WebRTC offers and answers can be provided as an extension of the announce
 message, the tracker will be responsible to forward them between the peers to
-act as a signalling service.
+act as a signaling service.
 
 After the connection is open, the client can begin announcing itself by using
 the JSON messages below.
 
-signalling related message format
+signaling related message format
 ---------------------------------
 announce request::
 
@@ -143,7 +144,8 @@ answer message::
   }
 
 A client can answer to an offer by sending the data in an announce message with
-an "answer" property?
+an "answer" property. The "to_peer_id" property tells the tracker to which
+peer it has to forward the message.
 
 
 other message format
