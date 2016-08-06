@@ -211,7 +211,7 @@ error response::
 Existing implementations
 ========================
 
-bittorrent-tracker [4] support this protocol, it is used in all WebTorrent [2]
+bittorrent-tracker [4] support this protocol, it is used in all WebTorrent [3]
 clients.
 
 
