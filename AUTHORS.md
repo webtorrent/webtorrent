@@ -2,83 +2,83 @@
 
 #### Ordered by first contribution.
 
-- Feross Aboukhadijeh <feross@feross.org>
-- John Hiesey <jhiesey@cs.stanford.edu>
-- Brad Berger <brad@bradb.net>
-- Matt Buresh <mattburesh@gmail.com>
-- cagedwisdom <cagedwisdom@tricorder.org>
-- Charles Julian Knight <charles@rabidaudio.com>
-- Maurits van Mastrigt <maurits@nerdieworks.nl>
-- Shyam S Kumar <shyam.salim.kumar@outlook.com>
-- fisch0920 <fisch0920@gmail.com>
-- iShift <shift.rus@gmail.com>
-- Bob Ren <bob@codecademy.com>
-- gtuk <gtuk@hush.ai>
-- thammin <thammin@live.co.uk>
-- Valérian Galliat <val@codejam.info>
-- charlescharles <charlescharles@users.noreply.github.com>
-- opfl <openthefrog@gmail.com>
-- Chris <abody.97@gmail.com>
-- Astro <astro@spaceboyz.net>
-- Sindre Sorhus <sindresorhus@gmail.com>
-- Josh Duff <me@JoshDuff.com>
-- Anthony MOI <anthony@totems.co>
-- Joseph Dykstra <josephdykstra@gmail.com>
-- mathiasvr <mathiasvr@gmail.com>
-- grunjol <grunjol@argenteam.net>
-- Liam Curry <liam@curry.name>
-- Francisco Pinzon <hello@pacho.me>
-- Jake Fulton Buckle <jacobafb@gmail.com>
-- alexeisavca <savca.alexei@gmail.com>
-- Olivier Lalonde <olalonde@gmail.com>
-- Johnny Tong <mailbox@johnnytong.com>
-- Mark Vayngrib <mark.vayngrib@lablz.com>
-- Tristan Davies <github@tristan.io>
-- Eric Wooley <ericwooley@gmail.com>
-- Afshin Mehrabani <afshin.meh@gmail.com>
-- Josip Janžić <josip.janzic@gmail.com>
-- Bigard Florian <florian.bigard@gmail.com>
-- OlaviSau <olavisau@gmail.com>
-- Simba Zhang <solderzzc@gmail.com>
-- Gilles De Mey <gilles.de.mey@gmail.com>
-- Linus Unnebäck <linus@folkdatorn.se>
-- André Stein <stivekx@gmail.com>
-- Joseph Frazier <joseph@onsip.com>
-- Yousef Amar <yousefamar@gmail.com>
-- Lucas Pelegrino <lucas.wxp@gmail.com>
-- Yoann Ciabaud <yoann@atacma.agency>
-- Joseph Frazier <1212jtraceur@gmail.com>
-- Ivan Vučica <ivan@vucica.net>
-- ReadmeCritic <frankensteinbot@gmail.com>
-- Anders D. Johnson <adjohnson916@users.noreply.github.com>
-- vinz243 <vinz243@gmail.com>
-- Diego Rodríguez <diegorbaquero@gmail.com>
-- Aram Drevekenin <grimsniffer@gmail.com>
-- andreapaiola <andrea.paiola@gmail.com>
-- Hrvoje Šimić <me@shime.io>
-- Romain Beaumont <romain.rom1@gmail.com>
-- Zander Mackie <zander@skilledup.com>
-- Wim <wim@sitebase.be>
-- William Blankenship <william.jblankenship@gmail.com>
-- James Halliday <mail@substack.net>
-- Bazyli Brzóska <bazyli.brzoska@gmail.com>
-- Liam Gray <liam.r.gray@gmail.com>
-- Mike <kenr.mk@gmail.com>
-- Autarc <autarc@gmail.com>
-- DC <dcposch@dcpos.ch>
-- Manuel Simoni <msimoni@gmail.com>
-- Diego Rodríguez Baquero <diegorbaquero@gmail.com>
-- Tercus <Terces86@gmail.com>
-- Lunik <guillaume.lunik@gmail.com>
-- Ajain Vivek <ajainvivek07@gmail.com>
-- Jonathan Harper <jharper@eecs.berkeley.edu>
-- Miguel Freitas <miguelfreitas@users.noreply.github.com>
-- Sebastian Mayr <github@smayr.name>
-- v0dy <k4r70ng@gmail.com>
-- Colin Steele <cvillecsteele@gmail.com>
-- Mathias Rasmussen <mathiasvr@gmail.com>
-- darkenvy <darkenvy6@gmail.com>
-- Amila Welihinda <amilajack@gmail.com>
-- Yoann Ciabaud <yoann@sonora.io>
+- Feross Aboukhadijeh (feross@feross.org)
+- John Hiesey (jhiesey@cs.stanford.edu)
+- Brad Berger (brad@bradb.net)
+- Matt Buresh (mattburesh@gmail.com)
+- cagedwisdom (cagedwisdom@tricorder.org)
+- Charles Julian Knight (charles@rabidaudio.com)
+- Maurits van Mastrigt (maurits@nerdieworks.nl)
+- Shyam S Kumar (shyam.salim.kumar@outlook.com)
+- fisch0920 (fisch0920@gmail.com)
+- iShift (shift.rus@gmail.com)
+- Bob Ren (bob@codecademy.com)
+- gtuk (gtuk@hush.ai)
+- thammin (thammin@live.co.uk)
+- Valérian Galliat (val@codejam.info)
+- charlescharles (charlescharles@users.noreply.github.com)
+- opfl (openthefrog@gmail.com)
+- Chris (abody.97@gmail.com)
+- Astro (astro@spaceboyz.net)
+- Sindre Sorhus (sindresorhus@gmail.com)
+- Josh Duff (me@JoshDuff.com)
+- Anthony MOI (anthony@totems.co)
+- Joseph Dykstra (josephdykstra@gmail.com)
+- mathiasvr (mathiasvr@gmail.com)
+- grunjol (grunjol@argenteam.net)
+- Liam Curry (liam@curry.name)
+- Francisco Pinzon (hello@pacho.me)
+- Jake Fulton Buckle (jacobafb@gmail.com)
+- alexeisavca (savca.alexei@gmail.com)
+- Olivier Lalonde (olalonde@gmail.com)
+- Johnny Tong (mailbox@johnnytong.com)
+- Mark Vayngrib (mark.vayngrib@lablz.com)
+- Tristan Davies (github@tristan.io)
+- Eric Wooley (ericwooley@gmail.com)
+- Afshin Mehrabani (afshin.meh@gmail.com)
+- Josip Janžić (josip.janzic@gmail.com)
+- Bigard Florian (florian.bigard@gmail.com)
+- OlaviSau (olavisau@gmail.com)
+- Simba Zhang (solderzzc@gmail.com)
+- Gilles De Mey (gilles.de.mey@gmail.com)
+- Linus Unnebäck (linus@folkdatorn.se)
+- André Stein (stivekx@gmail.com)
+- Joseph Frazier (joseph@onsip.com)
+- Yousef Amar (yousefamar@gmail.com)
+- Lucas Pelegrino (lucas.wxp@gmail.com)
+- Yoann Ciabaud (yoann@atacma.agency)
+- Joseph Frazier (1212jtraceur@gmail.com)
+- Ivan Vučica (ivan@vucica.net)
+- ReadmeCritic (frankensteinbot@gmail.com)
+- Anders D. Johnson (adjohnson916@users.noreply.github.com)
+- vinz243 (vinz243@gmail.com)
+- Diego Rodríguez (diegorbaquero@gmail.com)
+- Aram Drevekenin (grimsniffer@gmail.com)
+- andreapaiola (andrea.paiola@gmail.com)
+- Hrvoje Šimić (me@shime.io)
+- Romain Beaumont (romain.rom1@gmail.com)
+- Zander Mackie (zander@skilledup.com)
+- Wim (wim@sitebase.be)
+- William Blankenship (william.jblankenship@gmail.com)
+- James Halliday (mail@substack.net)
+- Bazyli Brzóska (bazyli.brzoska@gmail.com)
+- Liam Gray (liam.r.gray@gmail.com)
+- Mike (kenr.mk@gmail.com)
+- Autarc (autarc@gmail.com)
+- DC (dcposch@dcpos.ch)
+- Manuel Simoni (msimoni@gmail.com)
+- Diego Rodríguez Baquero (diegorbaquero@gmail.com)
+- Tercus (Terces86@gmail.com)
+- Lunik (guillaume.lunik@gmail.com)
+- Ajain Vivek (ajainvivek07@gmail.com)
+- Jonathan Harper (jharper@eecs.berkeley.edu)
+- Miguel Freitas (miguelfreitas@users.noreply.github.com)
+- Sebastian Mayr (github@smayr.name)
+- v0dy (k4r70ng@gmail.com)
+- Colin Steele (cvillecsteele@gmail.com)
+- Mathias Rasmussen (mathiasvr@gmail.com)
+- darkenvy (darkenvy6@gmail.com)
+- Amila Welihinda (amilajack@gmail.com)
+- Yoann Ciabaud (yoann@sonora.io)
 
 #### Generated by bin/update-authors.sh.
