@@ -124,54 +124,82 @@ function WebTorrent (opts) {
       if (!self.proxyOpts.httpsAgent) {
         self.proxyOpts.httpsAgent = new Socks.Agent(self.proxyOpts.socksProxy, true)
       }
-    }
-  }
 
-  if (typeof TCPPool === 'function') {
-    self._tcpPool = new TCPPool(self)
-  } else {
-    process.nextTick(function () {
-      self._onListening()
-    })
-  }
-
-  // stats
-  self._downloadSpeed = speedometer()
-  self._uploadSpeed = speedometer()
-
-  if (opts.dht !== false && typeof DHT === 'function' /* browser exclude */) {
-    // use a single DHT instance for all torrents, so the routing table can be reused
-    self.dht = new DHT(extend({ nodeId: self.nodeId }, opts.dht))
-
-    self.dht.once('error', function (err) {
-      self._destroy(err)
-    })
-
-    self.dht.once('listening', function () {
-      var address = self.dht.address()
-      if (address) self.dhtPort = address.port
-    })
-
-    // Ignore warning when there are > 10 torrents in the client
-    self.dht.setMaxListeners(0)
-
-    self.dht.listen(self.dhtPort)
-  } else {
-    self.dht = false
-  }
-
-  if (typeof loadIPSet === 'function' && opts.blocklist != null) {
-    loadIPSet(opts.blocklist, {
-      headers: {
-        'user-agent': 'WebTorrent/' + VERSION + ' (https://webtorrent.io)'
+      // Convert proxy opts to electron API in webtorrent-hybrid
+      if (self.tracker.wrtc && self.tracker.wrtc.electronDaemon &&
+          self.proxyOpts && self.proxyOpts.socksProxy && self.proxyOpts.proxyPeerConnections) {
+        if (!self.proxyOpts.socksProxy.proxy.authentication && !self.proxyOpts.socksProxy.proxy.userid) {
+          var electronConfig = {
+            proxyRules: 'socks' + self.proxyOpts.socksProxy.proxy.type + '://' + self.proxyOpts.socksProxy.proxy.ipAddress + ':' + self.proxyOpts.socksProxy.proxy.port
+          }
+          self.tracker.wrtc.electronDaemon.eval('window.webContents.session.setProxy(' +
+                JSON.stringify(electronConfig) + ', function(){})', networkSettingsReady)
+        } else {
+          self.emit('error', 'SOCKS Proxy authentication is not available in electron-wrtc')
+        }
+      } else {
+        networkSettingsReady(null)
       }
-    }, function (err, ipSet) {
-      if (err) return self.error('Failed to load blocklist: ' + err.message)
-      self.blocked = ipSet
-      ready()
-    })
+    } else {
+      networkSettingsReady(null)
+    }
   } else {
-    process.nextTick(ready)
+    networkSettingsReady(null)
+  }
+
+  function networkSettingsReady (err) {
+    if (err) {
+      self._destroy(err)
+    }
+
+    if (typeof TCPPool === 'function') {
+      self._tcpPool = new TCPPool(self)
+    } else {
+      process.nextTick(function () {
+        self._onListening()
+      })
+    }
+
+    // stats
+    self._downloadSpeed = speedometer()
+    self._uploadSpeed = speedometer()
+
+    if (opts.dht !== false && typeof DHT === 'function' /* browser exclude */) {
+      // use a single DHT instance for all torrents, so the routing table can be reused
+      self.dht = new DHT(extend({nodeId: self.nodeId}, opts.dht))
+
+      self.dht.once('error', function (err) {
+        self._destroy(err)
+      })
+
+      self.dht.once('listening', function () {
+        var address = self.dht.address()
+        if (address) self.dhtPort = address.port
+      })
+
+      // Ignore warning when there are > 10 torrents in the client
+      self.dht.setMaxListeners(0)
+
+      self.dht.listen(self.dhtPort)
+    } else {
+      self.dht = false
+    }
+
+    debug('new webtorrent (peerId %s, nodeId %s)', self.peerId, self.nodeId)
+
+    if (typeof loadIPSet === 'function' && opts.blocklist != null) {
+      loadIPSet(opts.blocklist, {
+        headers: {
+          'user-agent': 'WebTorrent/' + VERSION + ' (https://webtorrent.io)'
+        }
+      }, function (err, ipSet) {
+        if (err) return self.error('Failed to load blocklist: ' + err.message)
+        self.blocked = ipSet
+        ready()
+      })
+    } else {
+      process.nextTick(ready)
+    }
   }
 
   function ready () {
