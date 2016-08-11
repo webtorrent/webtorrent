@@ -336,17 +336,17 @@ There are many talks online about WebTorrent. Here are a few:
 
 ## Is it possible to do live streaming with WebTorrent?
 
-WebTorrent cannot do live streaming out-of-the-box, because that's beyond the scope
-of a torrent client. However, you can build a live streaming solution on top of
-WebTorrent and torrent technology.
+WebTorrent cannot do live streaming out-of-the-box, however you can build a live
+streaming solution on top of WebTorrent.
 
 Torrents are immutable. That means that once a torrent file is created, it cannot
-be changed without changing the info hash.
+be changed without changing the info hash. So, how could one get around this
+limitation?
 
-A naive approach would be this: The video producer could take every 10 seconds
-of live video and create a torrent from it. Viewers would follow this "feed" of
-torrent files (or info hashes) and download them sequentially. Thus, viewers would
-be around 10-20 seconds behind the live stream.
+A naive approach would be this: The content producer could take every 10 seconds of
+live content and create a torrent for it. Viewers would follow this "feed" of
+torrent files (or info hashes) and download the content sequentially. Streamers
+would be around 10-20 seconds behind the live stream.
 
 This approach can definitely be improved, though! Why not give that a shot yourself
 and share the code?
