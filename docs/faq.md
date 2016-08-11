@@ -340,7 +340,7 @@ WebTorrent cannot do live streaming out-of-the-box, because that's beyond the sc
 of a torrent client. However, you can build a live streaming solution on top of
 WebTorrent and torrent technology.
 
-Torrents are immutable. That means that once a torrent files is created, it cannot
+Torrents are immutable. That means that once a torrent file is created, it cannot
 be changed without changing the info hash.
 
 A naive approach would be this: The video producer could take every 10 seconds
