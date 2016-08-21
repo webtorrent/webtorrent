@@ -1,6 +1,6 @@
 var extend = require('xtend')
 var fixtures = require('webtorrent-fixtures')
-var hat = require('hat')
+var randombytes = require('randombytes')
 var test = require('tape')
 var Torrent = require('../lib/torrent')
 var Wire = require('bittorrent-protocol')
@@ -14,7 +14,7 @@ test('Rarity map usage', function (t) {
   })
   var client = {
     listening: true,
-    peerId: hat(160),
+    peerId: randombytes(20).toString('hex'),
     torrentPort: 6889,
     dht: false,
     tracker: false,

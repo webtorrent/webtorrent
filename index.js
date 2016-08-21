@@ -9,13 +9,13 @@ var debug = require('debug')('webtorrent')
 var DHT = require('bittorrent-dht/client') // browser exclude
 var EventEmitter = require('events').EventEmitter
 var extend = require('xtend')
-var hat = require('hat')
 var inherits = require('inherits')
 var loadIPSet = require('load-ip-set') // browser exclude
 var parallel = require('run-parallel')
 var parseTorrent = require('parse-torrent')
 var path = require('path')
 var Peer = require('simple-peer')
+var randombytes = require('randombytes')
 var speedometer = require('speedometer')
 var zeroFill = require('zero-fill')
 
@@ -65,7 +65,7 @@ function WebTorrent (opts) {
   } else if (Buffer.isBuffer(opts.peerId)) {
     self.peerId = opts.peerId.toString('hex')
   } else {
-    self.peerId = Buffer.from(VERSION_PREFIX + hat(48)).toString('hex')
+    self.peerId = Buffer.from(VERSION_PREFIX + randombytes(6).toString('hex')).toString('hex')
   }
   self.peerIdBuffer = Buffer.from(self.peerId, 'hex')
 
@@ -74,7 +74,7 @@ function WebTorrent (opts) {
   } else if (Buffer.isBuffer(opts.nodeId)) {
     self.nodeId = opts.nodeId.toString('hex')
   } else {
-    self.nodeId = hat(160)
+    self.nodeId = randombytes(20).toString('hex')
   }
   self.nodeIdBuffer = Buffer.from(self.nodeId, 'hex')
 
