@@ -86,6 +86,11 @@ function WebTorrent (opts) {
   self.torrents = []
   self.maxConns = Number(opts.maxConns) || 55
 
+  debug(
+    'new webtorrent (peerId %s, nodeId %s, port %s)',
+    self.peerId, self.nodeId, self.torrentPort
+  )
+
   if (self.tracker) {
     if (typeof self.tracker !== 'object') self.tracker = {}
     if (opts.rtcConfig) {
@@ -133,8 +138,6 @@ function WebTorrent (opts) {
   } else {
     self.dht = false
   }
-
-  debug('new webtorrent (peerId %s, nodeId %s)', self.peerId, self.nodeId)
 
   if (typeof loadIPSet === 'function' && opts.blocklist != null) {
     loadIPSet(opts.blocklist, {
