@@ -522,6 +522,7 @@ If provided, `opts` can contain the following options:
 
 - `autoplay`: Autoplay video/audio files (default: `true`)
 - `controls`: Show video/audio player controls (default: `true`)
+- `maxBlobLength`: Files above this size will skip the "blob" strategy and fail (default: `200 * 1000 * 1000` bytes)
 
 If provided, `callback` will be called once the file is visible to the user.
 `callback` is called with an `Error` (or `null`) and the new DOM node that is
@@ -533,6 +534,33 @@ file.appendTo('#containerElement', function (err, elem) {
   console.log('New DOM node with the content', elem)
 })
 ```
+
+Streaming support depends on support for `MediaSource` API in the browser. All
+modern browsers have `MediaSource` support.
+
+For video and audio, webtorrent tries multiple methods of playing the file:
+
+- [`videostream`][videostream] -- best option, supports streaming **with seeking**,
+  but only works with MP4-based files for now (uses `MediaSource` API)
+- [`mediasource`][mediasource] -- supports more formats, supports streaming
+  **without seeking** (uses `MediaSource` API)
+- Blob URL -- supports the most formats of all (anything the `<video>` tag supports
+  from an http url), **with seeking**, but **does not support streaming** (entire
+  file must be downloaded first)
+
+[videostream]: https://www.npmjs.com/package/videostream
+[mediasource]: https://www.npmjs.com/package/mediasource
+
+The Blob URL strategy will not be attempted if the file is over
+`opts.maxBlobLength` (200 MB by default) since it requires the entire file to be
+downloaded before playback can start which gives the appearance of the `<video>`
+tag being stalled. If you increase the size, be sure to indicate loading progress
+to the user in the UI somehow.
+
+For other media formats, like images, the file is just added to the DOM.
+
+For text-based formats, like html files, pdfs, etc., the file is added to the DOM
+via a sandboxed `<iframe>` tag.
 
 ## `file.renderTo(elem, [opts], [function callback (err, elem) {}])` *(browser only)*
 
