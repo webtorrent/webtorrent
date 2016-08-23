@@ -85,6 +85,9 @@
     "webtorrent-fixtures": "^1.5.0",
     "zuul": "^3.10.1"
   },
+  "engines": {
+    "node": ">=4"
+  },
   "homepage": "https://webtorrent.io",
   "keywords": [
     "bittorrent",
