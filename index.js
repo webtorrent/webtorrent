@@ -113,10 +113,7 @@ function WebTorrent (opts) {
     self.proxyOpts.proxyTrackerConnections = self.proxyOpts.proxyTrackerConnections !== false
     self.proxyOpts.proxyPeerConnections = self.proxyOpts.proxyPeerConnections !== false
 
-    if (self.proxyOpts.proxyTrackerConnections && !self.tracker.proxyOpts) {
-      if (!self.tracker) {
-        self.tracker = {}
-      }
+    if (self.tracker && self.proxyOpts.proxyTrackerConnections && !self.tracker.proxyOpts) {
       self.tracker.proxyOpts = self.proxyOpts
     }
 
