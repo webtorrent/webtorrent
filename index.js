@@ -123,10 +123,14 @@ function WebTorrent (opts) {
 
       // Create HTTP agents from socks proxy if needed
       if (!self.proxyOpts.httpAgent) {
-        self.proxyOpts.httpAgent = new Socks.Agent(self.proxyOpts.socksProxy, false)
+        var httpOpts = extend(self.proxyOpts.socksProxy)
+        httpOpts.proxy = extend(opts.proxy)
+        self.proxyOpts.httpAgent = new Socks.Agent(httpOpts, false)
       }
       if (!self.proxyOpts.httpsAgent) {
-        self.proxyOpts.httpsAgent = new Socks.Agent(self.proxyOpts.socksProxy, true)
+        var httpsOpts = extend(self.proxyOpts.socksProxy)
+        httpsOpts.proxy = extend(opts.proxy)
+        self.proxyOpts.httpsAgent = new Socks.Agent(httpsOpts, true)
       }
 
       // Convert proxy opts to electron API in webtorrent-hybrid
