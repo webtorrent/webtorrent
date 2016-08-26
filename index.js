@@ -116,7 +116,7 @@ function WebTorrent (opts) {
       self.tracker.proxyOpts = self.proxyOpts
     }
 
-    var socksProxy = self.proxyOpts.socksProxy;
+    var socksProxy = self.proxyOpts.socksProxy
     if (socksProxy) {
       if (!socksProxy.proxy) socksProxy.proxy = {}
       if (!socksProxy.proxy.type) socksProxy.proxy.type = 5
