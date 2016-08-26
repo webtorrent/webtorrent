@@ -120,17 +120,24 @@ function WebTorrent (opts) {
       if (!self.proxyOpts.socksProxy.proxy) self.proxyOpts.socksProxy.proxy = {}
       if (!self.proxyOpts.socksProxy.proxy.type) self.proxyOpts.socksProxy.proxy.type = 5
 
+      // Ensure electron-wrtc is used in electron with socks proxy
+      if (self.proxyOpts.socksProxy && self.proxyOpts.proxyPeerConnections &&
+        process && process.versions['electron'] &&
+        self.tracker.wrtc && !self.tracker.wrtc.electronDaemon) {
+        return self.emit('error', 'You need to provide an electron-wrtc instance in opts.wrtc to use socks in electron')
+      }
+
       // Convert proxy opts to electron API in webtorrent-hybrid
       if (self.tracker.wrtc && self.tracker.wrtc.electronDaemon &&
-          self.proxyOpts && self.proxyOpts.socksProxy && self.proxyOpts.proxyPeerConnections) {
-        if (!self.proxyOpts.socksProxy.proxy.authentication && !self.proxyOpts.socksProxy.proxy.userid) {
+          self.proxyOpts.socksProxy && self.proxyOpts.proxyPeerConnections) {
+        if (!self.proxyOpts.socksProxy.proxy.authentication && !self.proxyOpts.socksProxy.proxy.userid && self.proxyOpts.socksProxy.proxy.type === 5) {
           var electronConfig = {
             proxyRules: 'socks' + self.proxyOpts.socksProxy.proxy.type + '://' + self.proxyOpts.socksProxy.proxy.ipAddress + ':' + self.proxyOpts.socksProxy.proxy.port
           }
           self.tracker.wrtc.electronDaemon.eval('window.webContents.session.setProxy(' +
                 JSON.stringify(electronConfig) + ', function(){})', networkSettingsReady)
         } else {
-          self.emit('error', 'SOCKS Proxy authentication is not available in electron-wrtc')
+          self.emit('error', 'SOCKS Proxy must be version 5 with no authentication to work in electron-wrtc')
         }
       } else {
         networkSettingsReady(null)
