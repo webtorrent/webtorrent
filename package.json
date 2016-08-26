@@ -32,6 +32,7 @@
     "bittorrent-dht": "^7.2.2",
     "bittorrent-protocol": "^2.1.5",
     "chunk-store-stream": "^2.0.2",
+    "clone": "^1.0.2",
     "create-torrent": "^3.24.5",
     "debug": "^2.2.0",
     "end-of-stream": "^1.1.0",
