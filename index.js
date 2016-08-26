@@ -125,7 +125,7 @@ function WebTorrent (opts) {
       if (self.tracker && socksProxy && self.proxyOpts.proxyPeerConnections &&
         process && process.versions['electron'] &&
         (!self.tracker.wrtc || (self.tracker.wrtc && !self.tracker.wrtc.electronDaemon))) {
-        self.emit('error', 'You need to provide an electron-wrtc instance in opts.wrtc to use Socks proxy in electron -> WebRTC is disabled')
+        console.warn('You need to provide an electron-wrtc instance in opts.wrtc to use Socks proxy in electron -> WebRTC is disabled')
         self.tracker.wrtc = false
       }
 
@@ -139,7 +139,7 @@ function WebTorrent (opts) {
           self.tracker.wrtc.electronDaemon.eval('window.webContents.session.setProxy(' +
                 JSON.stringify(electronConfig) + ', function(){})', networkSettingsReady)
         } else {
-          self.emit('error', 'SOCKS Proxy must be version 5 with no authentication to work in electron-wrtc -> WebRTC is disabled')
+          console.warn('SOCKS Proxy must be version 5 with no authentication to work in electron-wrtc -> WebRTC is disabled')
           self.tracker.wrtc = false
           networkSettingsReady(null)
         }
