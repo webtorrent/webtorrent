@@ -116,12 +116,13 @@ function WebTorrent (opts) {
       self.tracker.proxyOpts = self.proxyOpts
     }
 
-    if (self.proxyOpts.socksProxy) {
-      if (!self.proxyOpts.socksProxy.proxy) self.proxyOpts.socksProxy.proxy = {}
-      if (!self.proxyOpts.socksProxy.proxy.type) self.proxyOpts.socksProxy.proxy.type = 5
+    var socksProxy = self.proxyOpts.socksProxy;
+    if (socksProxy) {
+      if (!socksProxy.proxy) socksProxy.proxy = {}
+      if (!socksProxy.proxy.type) socksProxy.proxy.type = 5
 
       // Ensure electron-wrtc is used in electron with socks proxy
-      if (self.proxyOpts.socksProxy && self.proxyOpts.proxyPeerConnections &&
+      if (self.tracker && socksProxy && self.proxyOpts.proxyPeerConnections &&
         process && process.versions['electron'] &&
         self.tracker.wrtc && !self.tracker.wrtc.electronDaemon) {
         self.emit('error', 'You need to provide an electron-wrtc instance in opts.wrtc to use Socks proxy in electron -> WebRTC is disabled')
@@ -129,11 +130,11 @@ function WebTorrent (opts) {
       }
 
       // Convert proxy opts to electron API in webtorrent-hybrid
-      if (self.tracker.wrtc && self.tracker.wrtc.electronDaemon &&
-          self.proxyOpts.socksProxy && self.proxyOpts.proxyPeerConnections) {
-        if (!self.proxyOpts.socksProxy.proxy.authentication && !self.proxyOpts.socksProxy.proxy.userid && self.proxyOpts.socksProxy.proxy.type === 5) {
+      if (self.tracker && self.tracker.wrtc && self.tracker.wrtc.electronDaemon &&
+          socksProxy && self.proxyOpts.proxyPeerConnections) {
+        if (!socksProxy.proxy.authentication && !socksProxy.proxy.userid && socksProxy.proxy.type === 5) {
           var electronConfig = {
-            proxyRules: 'socks' + self.proxyOpts.socksProxy.proxy.type + '://' + self.proxyOpts.socksProxy.proxy.ipAddress + ':' + self.proxyOpts.socksProxy.proxy.port
+            proxyRules: 'socks' + socksProxy.proxy.type + '://' + socksProxy.proxy.ipAddress + ':' + socksProxy.proxy.port
           }
           self.tracker.wrtc.electronDaemon.eval('window.webContents.session.setProxy(' +
                 JSON.stringify(electronConfig) + ', function(){})', networkSettingsReady)
