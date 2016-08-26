@@ -16,7 +16,6 @@ var parseTorrent = require('parse-torrent')
 var path = require('path')
 var Peer = require('simple-peer')
 var randombytes = require('randombytes')
-var Socks = require('socks')
 var speedometer = require('speedometer')
 var zeroFill = require('zero-fill')
 
@@ -120,18 +119,6 @@ function WebTorrent (opts) {
     if (self.proxyOpts.socksProxy) {
       if (!self.proxyOpts.socksProxy.proxy) self.proxyOpts.socksProxy.proxy = {}
       if (!self.proxyOpts.socksProxy.proxy.type) self.proxyOpts.socksProxy.proxy.type = 5
-
-      // Create HTTP agents from socks proxy if needed
-      if (!self.proxyOpts.httpAgent) {
-        var httpOpts = extend(self.proxyOpts.socksProxy)
-        httpOpts.proxy = extend(opts.proxy)
-        self.proxyOpts.httpAgent = new Socks.Agent(httpOpts, false)
-      }
-      if (!self.proxyOpts.httpsAgent) {
-        var httpsOpts = extend(self.proxyOpts.socksProxy)
-        httpsOpts.proxy = extend(opts.proxy)
-        self.proxyOpts.httpsAgent = new Socks.Agent(httpsOpts, true)
-      }
 
       // Convert proxy opts to electron API in webtorrent-hybrid
       if (self.tracker.wrtc && self.tracker.wrtc.electronDaemon &&
