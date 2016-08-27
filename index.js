@@ -137,7 +137,7 @@ function WebTorrent (opts) {
             proxyRules: 'socks' + socksProxy.proxy.type + '://' + socksProxy.proxy.ipAddress + ':' + socksProxy.proxy.port
           }
           self.tracker.wrtc.electronDaemon.eval('window.webContents.session.setProxy(' +
-                JSON.stringify(electronConfig) + ', function(){})', networkSettingsReady)
+                JSON.stringify(electronConfig) + ', function(){})', {mainProcess: true}, networkSettingsReady)
         } else {
           console.warn('SOCKS Proxy must be version 5 with no authentication to work in electron-wrtc -> WebRTC is disabled')
           self.tracker.wrtc = false
