@@ -204,7 +204,8 @@ If the tracker encounters an error, it might send an error message.
 error response::
 
   {
-    "error": ""
+    "action":   "error"
+    "message":  ""
   }
 
 
