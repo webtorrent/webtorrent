@@ -122,9 +122,9 @@ function WebTorrent (opts) {
       if (!socksProxy.proxy.type) socksProxy.proxy.type = 5
 
       // Ensure electron-wrtc is used in electron with socks proxy
-      if (self.tracker && socksProxy && self.proxyOpts.proxyPeerConnections &&
+      if (self.tracker && self.proxyOpts.proxyPeerConnections &&
         process && process.versions['electron'] &&
-        (!self.tracker.wrtc || (self.tracker.wrtc && !self.tracker.wrtc.electronDaemon))) {
+        self.tracker.wrtc && !self.tracker.wrtc.electronDaemon) {
         console.warn('You need to provide an electron-wrtc instance in opts.wrtc to use Socks proxy in electron -> WebRTC is disabled')
         self.tracker.wrtc = false
       }
