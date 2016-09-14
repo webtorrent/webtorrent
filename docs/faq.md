@@ -80,6 +80,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Cinematrix][cinematrix]** - Stream your favorite free content
 - **[webtorrent-cljs][webtorrent-cljs]** - Clojurescript wrapper for WebTorrent
 - **[Squidlink][squidlink]** - Transfer files from A to B without the Cloud ([source code][squidlink-source])
+- **[Web2web][web2web]** - Server-less & domain-less websites updatable via torrents and bitcoin blockchain
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 [webtorrent-desktop]: https://webtorrent.io/desktop
@@ -119,6 +120,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 [webtorrent-cljs]: https://github.com/cvillecsteele/webtorrent-cljs
 [squidlink]: http://squidl.ink
 [squidlink-source]: https://github.com/darkenvy/Squidl.ink
+[web2web]: https://github.com/elendirx/web2web
 
 ## How does WebTorrent work?
 
