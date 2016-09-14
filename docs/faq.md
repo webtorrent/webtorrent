@@ -351,6 +351,35 @@ would be around 10-20 seconds behind the live stream.
 This approach can definitely be improved, though! Why not give that a shot yourself
 and share the code?
 
+## Does WebTorrent leak your IP address when using a VPN? I heard that WebRTC leaks your IP address.
+
+No.
+
+WebRTC data channels do not allow a website to discover your public IP address when
+there is a VPN in use. The WebRTC discovery process will just find your VPN's IP
+address and the local network IP address.
+
+Local IP addresses (e.g. 10.x.x.x or 192.168.x.x) can potentially be used to
+"fingerprint" your browser and identify across different sites that you visit,
+like a third-party tracking cookie. However, this is a separate issue than exposing
+your real public IP address, and it's worth noting that the browser already
+provides hundreds of vectors for fingerprinting you
+(e.g. your installed fonts, screen resolution, browser window size, OS version,
+language, etc.).
+
+If you have a VPN enabled, then WebRTC data channels will not connect to peers
+using your true public IP address, nor will it be reveled to the JavaScript running
+on the webpage.
+
+At one point in time, WebRTC did have an issue where it would allow a website
+to discover your true public IP address, but this was fixed a long time ago. This
+unfortunate misinformation keeps bouncing around the internet.
+
+There's now a spec that defines exactly which IP addresses are exposed with WebRTC.
+If you're interested in further reading, you can read the
+[IP handling spec](https://tools.ietf.org/html/draft-ietf-rtcweb-ip-handling-01)
+for yourself.
+
 # Troubleshooting
 
 ## Why does browser downloading not work? I see no peers!
