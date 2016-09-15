@@ -139,6 +139,9 @@ function WebTorrent (opts) {
     self.dht = false
   }
 
+  // Enable or disable BEP19 (Web Seeds). Enabled by default:
+  self.enableWebSeeds = opts.webSeeds !== false
+
   if (typeof loadIPSet === 'function' && opts.blocklist != null) {
     loadIPSet(opts.blocklist, {
       headers: {
