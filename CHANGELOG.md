@@ -1,5 +1,9 @@
 # WebTorrent Version History
 
+## v0.97.0 - 2016-09-17
+
+- Option to disable web seeds (BEP19)
+
 ## v0.95.2 - 2016-06-22
 
 - HEAD requests  to HTTP server should not send entire body
