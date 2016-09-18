@@ -83,6 +83,8 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Web2web][web2web]** - Server-less & domain-less websites updatable via torrents and bitcoin blockchain ([source code][web2web-source])
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
+#### Looking product clones? Check this awesome list: [WebTorrent Product Clones][webtorrent-clones]
+
 [webtorrent-desktop]: https://webtorrent.io/desktop
 [webtorrent-desktop-source]: https://github.com/feross/webtorrent-desktop
 [instant.io-source]: https://github.com/feross/instant.io
@@ -122,6 +124,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 [squidlink-source]: https://github.com/darkenvy/Squidl.ink
 [web2web]: https://elendirx.github.io/web2web
 [web2web-source]: https://github.com/elendirx/web2web
+[webtorrent-clones]: https://github.com/DiegoRBaquero/awesome-webtorrent-clones
 
 ## How does WebTorrent work?
 
