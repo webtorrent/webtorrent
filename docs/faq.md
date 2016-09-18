@@ -81,7 +81,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[webtorrent-cljs][webtorrent-cljs]** - Clojurescript wrapper for WebTorrent
 - **[Squidlink][squidlink]** - Transfer files from A to B without the Cloud ([source code][squidlink-source])
 - **[Web2web][web2web]** - Server-less & domain-less websites updatable via torrents and bitcoin blockchain ([source code][web2web-source])
-**[Magnet Player][magnet-player]** - Stream video torrents directly from your browser ([source code][magnet-player-source])
+- **[Magnet Player][magnet-player]** - Stream video torrents directly from your browser ([source code][magnet-player-source])
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 [webtorrent-desktop]: https://webtorrent.io/desktop
