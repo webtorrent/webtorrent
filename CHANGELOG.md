@@ -18,8 +18,8 @@
 
 ## v0.96.2 - 2016-08-20
 
-- replace 'hat' with 'randombytes'
-- better debug logs
+- Replace 'hat' with 'randombytes'
+- Better debug logs
 
 ## v0.96.1 - 2016-08-18
 
