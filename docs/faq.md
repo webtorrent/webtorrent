@@ -82,6 +82,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Squidlink][squidlink]** - Transfer files from A to B without the Cloud ([source code][squidlink-source])
 - **[Web2web][web2web]** - Server-less & domain-less websites updatable via torrents and bitcoin blockchain ([source code][web2web-source])
 - **[Magnet Player][magnet-player]** - Stream video torrents directly from your browser ([source code][magnet-player-source])
+- **[PeerFast][peerfast]** - First P2P Internet Speed Test ([source code][peerfast-source])
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 [webtorrent-desktop]: https://webtorrent.io/desktop
@@ -125,6 +126,8 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 [web2web-source]: https://github.com/elendirx/web2web
 [magnet-player]: https://ferrolho.github.io/magnet-player/
 [magnet-player-source]: https://github.com/ferrolho/magnet-player/
+[peerfast]: https://diegorbaquero.github.io/PeerFast/#
+[peerfast-source]: https://github.com/DiegoRBaquero/PeerFast
 
 ## How does WebTorrent work?
 
