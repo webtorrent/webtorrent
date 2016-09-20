@@ -14,7 +14,8 @@ test('client.seed: torrent file (Buffer)', function (t) {
   client.on('warning', function (err) { t.fail(err) })
 
   client.seed(fixtures.leaves.content, {
-    name: 'Leaves of Grass by Walt Whitman.epub'
+    name: 'Leaves of Grass by Walt Whitman.epub',
+    announce: []
   }, function (torrent) {
     t.equal(client.torrents.length, 1)
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
@@ -38,7 +39,7 @@ test('client.seed: torrent file (Buffer), set name on buffer', function (t) {
   var buf = Buffer.from(fixtures.leaves.content)
   buf.name = 'Leaves of Grass by Walt Whitman.epub'
 
-  client.seed(buf, function (torrent) {
+  client.seed(buf, {announce: []}, function (torrent) {
     t.equal(client.torrents.length, 1)
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
     t.equal(torrent.magnetURI, fixtures.leaves.magnetURI)
@@ -61,7 +62,8 @@ test('client.seed: torrent file (Blob)', function (t) {
   client.on('warning', function (err) { t.fail(err) })
 
   client.seed(new Blob([ fixtures.leaves.content ]), {
-    name: 'Leaves of Grass by Walt Whitman.epub'
+    name: 'Leaves of Grass by Walt Whitman.epub',
+    announce: []
   }, function (torrent) {
     t.equal(client.torrents.length, 1)
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
