@@ -82,6 +82,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Squidlink][squidlink]** - Transfer files from A to B without the Cloud ([source code][squidlink-source])
 - **[Web2web][web2web]** - Server-less & domain-less websites updatable via torrents and bitcoin blockchain ([source code][web2web-source])
 - **[Magnet Player][magnet-player]** - Stream video torrents directly from your browser ([source code][magnet-player-source])
+- **[TorrentMedia][torrentmedia]** - Fully-featured desktop WebTorrent client
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 [webtorrent-desktop]: https://webtorrent.io/desktop
@@ -125,6 +126,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 [web2web-source]: https://github.com/elendirx/web2web
 [magnet-player]: https://ferrolho.github.io/magnet-player/
 [magnet-player-source]: https://github.com/ferrolho/magnet-player/
+[torrentmedia]: https://github.com/FaCuZ/torrentmedia
 
 ## How does WebTorrent work?
 
@@ -221,6 +223,7 @@ Right now, we know of these WebRTC-capable torrent clients:
 - **[`webtorrent-hybrid`][webtorrent-hybrid]** - Node.js package (command line and API)
 - **[Instant.io][instant.io]** - Simple WebTorrent client in a website
 - **[βTorrent][btorrent]** - Fully-featured browser WebTorrent client ([source code][btorrent-source])
+- **[TorrentMedia][torrentmedia]** - Desktop WebTorrent client
 - *More coming soon – [Send a PR][pr] to add your client to the list!*
 
 ### A bit more about `webtorrent-hybrid`
