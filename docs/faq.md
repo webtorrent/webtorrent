@@ -81,9 +81,15 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[webtorrent-cljs][webtorrent-cljs]** - Clojurescript wrapper for WebTorrent
 - **[Squidlink][squidlink]** - Transfer files from A to B without the Cloud ([source code][squidlink-source])
 - **[Web2web][web2web]** - Server-less & domain-less websites updatable via torrents and bitcoin blockchain ([source code][web2web-source])
+- **[Magnet Player][magnet-player]** - Stream video torrents directly from your browser ([source code][magnet-player-source])
+- **[PeerFast][peerfast]** - First P2P Internet Speed Test ([source code][peerfast-source])
+- **[TorrentMedia][torrentmedia]** - Fully-featured desktop WebTorrent client
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
-#### Looking product clones? Check this awesome list: [WebTorrent Product Clones][webtorrent-clones]
+#### WebTorrent Product Alternatives
+
+There's also a list of WebTorrent-powered alternatives to centralized services here: [WebTorrent Product Clones][webtorrent-clones]
+[webtorrent-clones]: https://github.com/DiegoRBaquero/awesome-webtorrent-clones
 
 [webtorrent-desktop]: https://webtorrent.io/desktop
 [webtorrent-desktop-source]: https://github.com/feross/webtorrent-desktop
@@ -124,7 +130,11 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 [squidlink-source]: https://github.com/darkenvy/Squidl.ink
 [web2web]: https://elendirx.github.io/web2web
 [web2web-source]: https://github.com/elendirx/web2web
-[webtorrent-clones]: https://github.com/DiegoRBaquero/awesome-webtorrent-clones
+[magnet-player]: https://ferrolho.github.io/magnet-player/
+[magnet-player-source]: https://github.com/ferrolho/magnet-player/
+[peerfast]: https://diegorbaquero.github.io/PeerFast/#
+[peerfast-source]: https://github.com/DiegoRBaquero/PeerFast
+[torrentmedia]: https://github.com/FaCuZ/torrentmedia
 
 ## How does WebTorrent work?
 
@@ -221,6 +231,7 @@ Right now, we know of these WebRTC-capable torrent clients:
 - **[`webtorrent-hybrid`][webtorrent-hybrid]** - Node.js package (command line and API)
 - **[Instant.io][instant.io]** - Simple WebTorrent client in a website
 - **[βTorrent][btorrent]** - Fully-featured browser WebTorrent client ([source code][btorrent-source])
+- **[TorrentMedia][torrentmedia]** - Desktop WebTorrent client
 - *More coming soon – [Send a PR][pr] to add your client to the list!*
 
 ### A bit more about `webtorrent-hybrid`

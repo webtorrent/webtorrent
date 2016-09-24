@@ -2,7 +2,48 @@
 
 ## v0.97.0 - 2016-09-17
 
-- Option to disable web seeds (BEP19)
+- Add option to disable BEP19 web seeds (`webSeeds` option to the `WebTorrent` constructor)
+
+## v0.96.5 - 2016-09-13
+
+- Fix exceptions in `server.close()` and `server.destroy()`
+
+## v0.96.4 - 2016-08-23
+
+- Warn when WebTorrent is installed on Node.js older than v4.0.0.
+
+## v0.96.3 - 2016-08-22
+
+- Better docs for .renderTo()
+
+## v0.96.2 - 2016-08-20
+
+- Replace 'hat' with 'randombytes'
+- Better debug logs
+
+## v0.96.1 - 2016-08-18
+
+- Prevent possible stack overflow
+
+## v0.96.0 - 2016-08-03
+
+- Add options to disable autoplay/hide controls with `appendTo()` and `renderTo()`
+
+## v0.95.6 - 2016-07-28
+
+- Allow deselecting the entire torrent with `deselect()` to happen earlier
+
+## v0.95.5 - 2016-07-26
+
+- Fix support for FileList input to client.seed()
+
+## v0.95.4 - 2016-07-26
+
+- Skip blocklist logic when opts.blocklist is not set 
+
+## v0.95.3 - 2016-07-26
+
+- Fix WebTorrent version string
 
 ## v0.95.2 - 2016-06-22
 
