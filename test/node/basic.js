@@ -99,7 +99,7 @@ test('client.seed: filesystem path to folder with one file, string', function (t
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  client.seed(fixtures.folder.contentPath, {announce: false}, function (torrent) {
+  client.seed(fixtures.folder.contentPath, {announce: []}, function (torrent) {
     t.equal(client.torrents.length, 1)
     t.equal(torrent.infoHash, fixtures.folder.parsedTorrent.infoHash)
     t.equal(torrent.magnetURI, fixtures.folder.magnetURI)
@@ -119,7 +119,7 @@ test('client.seed: filesystem path to folder with multiple files, string', funct
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  client.seed(fixtures.numbers.contentPath, {announce: false}, function (torrent) {
+  client.seed(fixtures.numbers.contentPath, {announce: []}, function (torrent) {
     t.equal(client.torrents.length, 1)
     t.equal(torrent.infoHash, fixtures.numbers.parsedTorrent.infoHash)
     t.equal(torrent.magnetURI, fixtures.numbers.magnetURI)
