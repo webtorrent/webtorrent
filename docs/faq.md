@@ -84,6 +84,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Magnet Player][magnet-player]** - Stream video torrents directly from your browser ([source code][magnet-player-source])
 - **[PeerFast][peerfast]** - First P2P Internet Speed Test ([source code][peerfast-source])
 - **[TorrentMedia][torrentmedia]** - Fully-featured desktop WebTorrent client
+- **[Gaia 3D Star Map][gaia]** - 2 million stars, rendered in 3D with WebGL, WebVR, and WebTorrent
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 #### WebTorrent Product Alternatives
@@ -135,6 +136,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [peerfast]: https://diegorbaquero.github.io/PeerFast/#
 [peerfast-source]: https://github.com/DiegoRBaquero/PeerFast
 [torrentmedia]: https://github.com/FaCuZ/torrentmedia
+[gaia]: http://charliehoey.com/threejs-demos/gaia_dr1.html
 
 ## How does WebTorrent work?
 
