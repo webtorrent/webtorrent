@@ -19,8 +19,8 @@ content**. The more people that use a WebTorrent-powered website, the faster and
 more resilient it becomes.
 
 Browser-to-browser communication **cuts out the middle-man** and lets people
-communicate on their own terms. No more client/server – just a network of peers, all
-equal. WebTorrent is the first step in the journey to
+communicate on their own terms. No more client/server – just a network of peers,
+all equal. WebTorrent is the first step in the journey to
 [redecentralize][redecentralize] the Web.
 
 > The way we code the Web will determine the way we live online. So we need to bake
@@ -41,9 +41,10 @@ Rarely-accessed content is served reliably over HTTP from the origin server.
 There are also exciting **business use cases**, from CDNs to app delivery.
 
 > WebTorrent has significant business potential to radically change the traditional
-> notion of client-server, with applications for internal infrastructure and external
-> closed user communications. WebTorrent has moved from an “idea” to a science
-> experiment to now on the edge of being viable. This is like really, seriously cool.
+> notion of client-server, with applications for internal infrastructure and
+> external closed user communications. WebTorrent has moved from an “idea” to a
+> science experiment to now on the edge of being viable. This is like really,
+> seriously cool.
 >
 > <cite>— Chris Kranky (from ["WebTorrent: Rethinking Delivery"][kranky-article])</cite>
 
@@ -57,7 +58,7 @@ There are also exciting **business use cases**, from CDNs to app delivery.
 
 WebTorrent is still pretty new, but it's already being used in cool ways:
 
-- **[WebTorrent Desktop][webtorrent-desktop]** - Open source streaming torrent client. For Mac, Windows, and Linux. ([source code][webtorrent-desktop-source])
+- **[WebTorrent Desktop][webtorrent-desktop]** - Streaming torrent app. For Mac, Windows, and Linux. ([source code][webtorrent-desktop-source])
 - **[Instant.io][instant.io]** – Streaming file transfer over WebTorrent ([source code][instant.io-source])
 - **[GitTorrent][gittorrent]** - Decentralized GitHub using BitTorrent and Bitcoin ([source code][gittorrent-source])
 - **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source])
@@ -248,8 +249,8 @@ npm install webtorrent-hybrid -g
 ```
 
 Note: If you just need to use WebTorrent in the browser (where WebRTC is available
-natively) then use [`webtorrent`][webtorrent] instead, which is faster to install because
-it won't need to install a WebRTC implementation.
+natively) then use [`webtorrent`][webtorrent] instead, which is faster to install
+because it won't need to install a WebRTC implementation.
 
 ## Can WebTorrent clients on different websites connect to each other?
 
@@ -263,16 +264,16 @@ websites (i.e. the WebTorrent script must be present on both sites).
 ## Who builds WebTorrent?
 
 WebTorrent is built by [Feross Aboukhadijeh][feross] and hundreds of open source
-contributors. The non-profit WebTorrent project is managed by
-[WebTorrent, LLC][webtorrent-io].
+contributors. The WebTorrent project is managed by
+[WebTorrent, LLC][webtorrent-io], as a non-profit project.
 
 Feross's other projects include [JavaScript Standard Style][standard],
 [PeerCDN][peercdn] (sold to Yahoo), [Study Notes][studynotes], and
 [YouTube Instant][ytinstant].
 
 In the past, Feross attended [Stanford University][stanford], did research in the
-[Stanford Human-Computer Interaction][hci] and [Computer Security][seclab] labs, and worked
-at [Quora][quora], [Facebook][facebook], and [Intel][intel].
+[Stanford Human-Computer Interaction][hci] and [Computer Security][seclab] labs,
+and worked at [Quora][quora], [Facebook][facebook], and [Intel][intel].
 
 [standard]: http://standardjs.com/
 [studynotes]: https://www.apstudynotes.org/
@@ -293,14 +294,14 @@ There are no plans to make a profit from WebTorrent.
 
 ## How is WebTorrent different from PeerCDN?
 
-[PeerCDN][peercdn] is a next-generation CDN powered by WebRTC for efficient
+[PeerCDN][peercdn] was a next-generation CDN powered by WebRTC for efficient
 peer-to-peer delivery of website content. PeerCDN was founded by
 [Feross Aboukhadijeh][feross], [Abi Raja][abi], and [John Hiesey][jhiesey] in
 March 2013 and was sold to [Yahoo][yahoo] in December 2013.
 
 WebTorrent is an independent project started by [Feross Aboukhadijeh][feross] in
-October 2013. Unlike PeerCDN, **WebTorrent is free software**, licensed under the [MIT
-License][license]. You're free to use it however you like!
+October 2013. Unlike PeerCDN, **WebTorrent is free software**, licensed under the
+[MIT License][license]. You're free to use it however you like!
 
 > "Free software" is a matter of liberty, not price. To understand the concept, you
 > should think of "free" as in "free speech," not as in "free beer."
@@ -350,6 +351,59 @@ There are many talks online about WebTorrent. Here are a few:
 ### WebRTC Everywhere: Beyond the Browser (slides only)
 
 <script async class="speakerdeck-embed" data-id="cb08869f2ac2445c99e8b73a4ac65d2b" data-ratio="1.77777777777778" src="//speakerdeck.com/assets/embed.js"></script>
+
+## WebTorrent supports sequential streaming. How does this affect the network?
+
+BitTorrent clients select which file pieces to download using an algorithm called
+"rarest-first". With every peer in the system trying to download the rarest pieces
+first, on average most pieces will have approximately the same availability in the
+network.
+
+In practice, the rarest-first algorithm is most important on poorly-seeded
+torrents, or in the first few hours of a torrent being published (when the ratio of
+seeders to leechers is bad).
+
+Most torrent clients support features that cause it to deviate from a pure rarest-
+first selection algorithm. For example, the ability to select/deselect or
+prioritize/deprioritize certain files in the torrent.
+
+WebTorrent supports streaming a torrent file "in order", which is useful for
+playing back media files. We’re working on improving the algorithm to switch back
+to a rarest-first strategy when there is not a high-priority need for specific
+pieces. In other words, when sufficient media is buffered, we can use the normal
+"rarest-first" piece selection algorithm.
+
+But the fact is that with the speed of today’s internet connections, the user is
+going to finish fully downloading the torrent in a fraction of the time it takes to
+consume it, so they will still spend more time seeding than downloading.
+
+Also note: BitTorrent Inc.'s official torrent client, uTorrent, offers sequential
+downloading, as well as selective file downloading, and the BitTorrent network
+remains very healthy.
+
+## Why wasn't WebTorrent designed as an entirely-new, modern protocol?
+
+BitTorrent is the most successful, most widely-deployed P2P protocol in existence.
+It works really well. Our goal with WebTorrent was to bring BitTorrent to the web
+in a way that interoperates with the existing torrent network.
+
+Re-inventing the protocol would have made WebTorrent fundamentally incompatible
+with existing clients and prevented adoption. The way we've done it is better. The
+wire protocol is exactly the same, but there's now a new way to connect to peers:
+WebRTC, in addition to the existing TCP and uTP.
+
+Also, re-inventing the protocol is a huge rabbit hole. There was already a lot of
+risk when we started the project -- will WebRTC get adopted by all the browser
+vendors? Will the Data Channel implementation stabilize and be performant? Is
+JavaScript fast enough to re-package MP4 videos on-the-fly for streaming playback
+with the MediaSource API? Our thinking was: Why add inventing a new wire protocol
+and several algorithms to the table?
+
+It's true that the BitTorrent protocol is dated in some ways. For example, it uses
+it's own strange data encoding called "bencoding". If it were invented today, it
+would probably just use JSON or MessagePack. But, this doesn't matter -- BitTorrent
+works really well, and we care more about building robust and useful software than
+conceptual purity or the latest software fashions.
 
 ## Is it possible to do live streaming with WebTorrent?
 
@@ -404,8 +458,8 @@ for yourself.
 It does work! But you can't just use any random magnet uri or `.torrent` file. The
 torrent must be seeded by a WebRTC-capable client, i.e.
 [WebTorrent Desktop][webtorrent-desktop], [Vuze][vuze-support],
-[webtorrent-hybrid][webtorrent-hybrid], [Playback][playback], [instant.io][instant.io], or
-[βTorrent][btorrent].
+[webtorrent-hybrid][webtorrent-hybrid], [Playback][playback],
+[instant.io][instant.io], or [βTorrent][btorrent].
 
 In the browser, WebTorrent can only download torrents that are explicitly seeded to
 web peers via a WebRTC-capable client. Desktop torrent clients need to support
