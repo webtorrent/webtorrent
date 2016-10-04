@@ -103,8 +103,9 @@ function WebTorrent (opts) {
       console.warn('WebTorrent: opts.wrtc is deprecated. Use opts.tracker.wrtc instead')
       self.tracker.wrtc = opts.wrtc
     }
-    if (global.WRTC && !self.tracker.wrtc) self.tracker.wrtc = global.WRTC
-    if (typeof self.tracker.wrtc === 'function') self.tracker.wrtc = self.tracker.wrtc() // Initialize
+    if (global.WRTC && !self.tracker.wrtc) {
+      self.tracker.wrtc = global.WRTC
+    }
   }
 
   if (typeof TCPPool === 'function') {
