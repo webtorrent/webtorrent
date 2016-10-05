@@ -86,7 +86,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[PeerFast][peerfast]** - First P2P Internet Speed Test ([source code][peerfast-source])
 - **[TorrentMedia][torrentmedia]** - Fully-featured desktop WebTorrent client
 - **[Gaia 3D Star Map][gaia]** - 2 million stars, rendered in 3D with WebGL, WebVR, and WebTorrent
-- **[Watchtor](https://watchtor.herokuapp.com)** - A minimalistic approach for online torrent watching
+- **[Watchtor][watchtor]** - A minimalistic approach for online torrent watching ([source code][watchtor-source])
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 #### WebTorrent Product Alternatives
@@ -139,6 +139,8 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [peerfast-source]: https://github.com/DiegoRBaquero/PeerFast
 [torrentmedia]: https://github.com/FaCuZ/torrentmedia
 [gaia]: http://charliehoey.com/threejs-demos/gaia_dr1.html
+[watchtor]: https://watchtor.herokuapp.com
+[watchtor-source]: https://github.com/codealchemist/watchtor
 
 ## How does WebTorrent work?
 
