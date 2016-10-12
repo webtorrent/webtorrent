@@ -1,7 +1,7 @@
 language: node_js
 node_js:
   - 'node'
-sudo: false
+sudo: true
 env:
   global:
   - secure: AJsEWFnWC5W8hcF3hJzm3PT7heazJpKg85xiSvIWVzLHZU/s0h4+WfJ6t0F9v3L4awaowm62vy8CRaxRkB4lJyJg+JK2K0QN7lNFGj2f8Jx2cFlVJ1IyY959GY4iUg66JrNj1yzS02+yQfweDngyifqzb7IlxnowiveDjUO2gyo=
