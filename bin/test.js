@@ -6,11 +6,11 @@ var runSauceLabs = !process.env.CI ||
   (process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_KEY)
 
 npmRun('test-node', function () {
-  npmRun('test-browser-headless', function () {
-    if (runSauceLabs) {
-      npmRun('test-browser')
-    }
-  })
+  if (runSauceLabs) {
+    npmRun('test-browser')
+  } else {
+    npmRun('test-browser-headless')
+  }
 })
 
 function npmRun (scriptName, onSuccess) {
