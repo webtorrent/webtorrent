@@ -22,8 +22,6 @@ var zeroFill = require('zero-fill')
 var TCPPool = require('./lib/tcp-pool') // browser exclude
 var Torrent = require('./lib/torrent')
 
-var util = require('util')
-
 /**
  * WebTorrent version.
  */
@@ -122,26 +120,18 @@ function WebTorrent (opts) {
   self._downloadSpeed = speedometer()
   self._uploadSpeed = speedometer()
 
-  debug('Real init!')
-
   // We need one DHT for IPv4, and one DHT for IPv6, as per BEP-0032:
   // "A node wishing to participate in both DHTs must maintain two distinct routing tables, one for IPv4 and one for IPv6."
 
-  var newOpts
-
   if (opts.dht !== false && typeof DHT === 'function' /* browser exclude */) {
-    newOpts = extend({ nodeId: self.nodeId, ipv6: false }, opts.dht)
-    debug('IPv4 dht: ' + util.inspect(opts, false, null))
-    self.dht = new DHT(newOpts)
+    self.dht = new DHT(extend({ nodeId: self.nodeId, ipv6: false }, opts.dht))
     this._initDHT(self.dht)
   } else {
     self.dht = false
   }
 
   if (opts.dht6 !== false && typeof DHT === 'function' /* browser exclude */) {
-    newOpts = extend({ nodeId: self.nodeId, ipv6: true }, opts.dht6)
-    debug('IPv6 dht: ' + util.inspect(opts, false, null))
-    self.dht6 = new DHT(newOpts)
+    self.dht6 = new DHT(extend({ nodeId: self.nodeId, ipv6: true }, opts.dht6))
     this._initDHT(self.dht6)
   } else {
     self.dht6 = false
