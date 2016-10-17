@@ -23,7 +23,7 @@ test('client.seed: stream', function (t) {
       var port = tracker.http.address().port
       announceUrl = 'http://localhost:' + port + '/announce'
 
-      seeder = new WebTorrent({ dht: false })
+      seeder = new WebTorrent({ dht: false, dht6: false })
 
       seeder.on('error', function (err) { t.fail(err) })
       seeder.on('warning', function (err) { t.fail(err) })
@@ -45,7 +45,7 @@ test('client.seed: stream', function (t) {
     },
 
     function (cb) {
-      client = new WebTorrent({ dht: false })
+      client = new WebTorrent({ dht: false, dht6: false })
 
       client.on('error', function (err) { t.fail(err) })
       client.on('warning', function (err) { t.fail(err) })

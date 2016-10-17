@@ -5,8 +5,8 @@ var WebTorrent = require('../../')
 test('ut_metadata transfer', function (t) {
   t.plan(6)
 
-  var client1 = new WebTorrent({ dht: false, tracker: false })
-  var client2 = new WebTorrent({ dht: false, tracker: false })
+  var client1 = new WebTorrent({ dht: false, dht6: false, tracker: false })
+  var client2 = new WebTorrent({ dht: false, dht6: false, tracker: false })
 
   client1.on('error', function (err) { t.fail(err) })
   client1.on('warning', function (err) { t.fail(err) })

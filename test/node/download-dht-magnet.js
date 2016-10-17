@@ -6,11 +6,12 @@ var networkAddress = require('network-address')
 var series = require('run-series')
 var test = require('tape')
 var WebTorrent = require('../../')
+var common = require('./common')
 
-test('Download using DHT (via magnet uri)', function (t) {
+common.wrapTest(test, 'Download using DHT (via magnet uri)', function (t, ipv6) {
   t.plan(12)
 
-  var dhtServer = new DHT({ bootstrap: false })
+  var dhtServer = new DHT({ bootstrap: false, ipv6: ipv6 })
 
   dhtServer.on('error', function (err) { t.fail(err) })
   dhtServer.on('warning', function (err) { t.fail(err) })
@@ -23,13 +24,18 @@ test('Download using DHT (via magnet uri)', function (t) {
     },
 
     function (cb) {
+      var dhtOpts = { bootstrap: (ipv6 ? '[::1]:' : '127.0.0.1:') + dhtServer.address().port, host: ipv6 ? networkAddress.ipv6() : networkAddress.ipv4() }
+
       client1 = new WebTorrent({
         tracker: false,
-        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port, host: networkAddress.ipv4() }
+        dht: ipv6 ? false : dhtOpts,
+        dht6: ipv6 ? dhtOpts : false
       })
 
-      client1.dht.on('listening', function () {
-        t.equal(client1.dhtPort, client1.dht.address().port)
+      var dht = ipv6 ? client1.dht6 : client1.dht
+
+      dht.on('listening', function () {
+        t.equal(ipv6 ? client1.dhtPort6 : client1.dhtPort, dht.address().port)
       })
 
       client1.on('error', function (err) { t.fail(err) })
@@ -65,9 +71,12 @@ test('Download using DHT (via magnet uri)', function (t) {
     },
 
     function (cb) {
+      var dhtOpts = { bootstrap: (ipv6 ? '[::1]:' : '127.0.0.1:') + dhtServer.address().port, host: ipv6 ? networkAddress.ipv6() : networkAddress.ipv4() }
+
       client2 = new WebTorrent({
         tracker: false,
-        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port, host: networkAddress.ipv4() }
+        dht: ipv6 ? false : dhtOpts,
+        dht6: ipv6 ? dhtOpts : false
       })
 
       client2.on('error', function (err) { t.fail(err) })

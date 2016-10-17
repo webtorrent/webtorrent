@@ -3,12 +3,12 @@ var fixtures = require('webtorrent-fixtures')
 var MemoryChunkStore = require('memory-chunk-store')
 var series = require('run-series')
 var test = require('tape')
-var WebTorrent = require('../../')
+var common = require('./common')
 
-test('private torrent should not use DHT', function (t) {
+common.wrapTest(test, 'private torrent should not use DHT', function (t, ipv6) {
   t.plan(4)
 
-  var dhtServer = new DHT({ bootstrap: false })
+  var dhtServer = new DHT({ bootstrap: false, ipv6: ipv6 })
 
   dhtServer.on('error', function (err) { t.fail(err) })
   dhtServer.on('warning', function (err) { t.fail(err) })
@@ -21,10 +21,7 @@ test('private torrent should not use DHT', function (t) {
     },
 
     function (cb) {
-      client = new WebTorrent({
-        tracker: false,
-        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
-      })
+      client = common.newClient(ipv6, dhtServer.address().port)
 
       client.on('error', function (err) { t.fail(err) })
       client.on('warning', function (err) { t.fail(err) })
@@ -36,7 +33,7 @@ test('private torrent should not use DHT', function (t) {
       })
 
       client.on('torrent', function () {
-        if (!torrent.discovery.dht) {
+        if ((ipv6 && !torrent.discovery.dht6) || (!ipv6 && !torrent.discovery.dht)) {
           t.pass('dht is disabled for this torrent')
           cb(null)
         }
@@ -54,10 +51,10 @@ test('private torrent should not use DHT', function (t) {
   })
 })
 
-test('public torrent should use DHT', function (t) {
+common.wrapTest(test, 'public torrent should use DHT', function (t, ipv6) {
   t.plan(4)
 
-  var dhtServer = new DHT({ bootstrap: false })
+  var dhtServer = new DHT({ bootstrap: false, ipv6: ipv6 })
 
   dhtServer.on('error', function (err) { t.fail(err) })
   dhtServer.on('warning', function (err) { t.fail(err) })
@@ -70,10 +67,7 @@ test('public torrent should use DHT', function (t) {
     },
 
     function (cb) {
-      client = new WebTorrent({
-        tracker: false,
-        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
-      })
+      client = common.newClient(ipv6, dhtServer.address().port)
       client.on('error', function (err) { t.fail(err) })
       client.on('warning', function (err) { t.fail(err) })
 
@@ -85,7 +79,7 @@ test('public torrent should use DHT', function (t) {
       })
 
       client.on('torrent', function () {
-        if (!torrent.client.dht) {
+        if (!(ipv6 ? torrent.client.dht6 : torrent.client.dht)) {
           t.fail('dht server is null')
         }
       })

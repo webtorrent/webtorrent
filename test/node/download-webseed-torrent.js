@@ -36,7 +36,7 @@ test('Download using webseed (via .torrent file)', function (t) {
         'http://localhost:' + httpServer.address().port + '/' + fixtures.leaves.parsedTorrent.name
       ]
 
-      client = new WebTorrent({ dht: false, tracker: false })
+      client = new WebTorrent({ dht: false, dht6: false, tracker: false })
 
       client.on('error', function (err) { t.fail(err) })
       client.on('warning', function (err) { t.fail(err) })
@@ -97,7 +97,7 @@ test('Disable webseeds', function (t) {
         'http://localhost:' + httpServer.address().port + '/' + fixtures.leaves.parsedTorrent.name
       ]
 
-      client = new WebTorrent({ dht: false, tracker: false, webSeeds: false })
+      client = new WebTorrent({ dht: false, dht6: false, tracker: false, webSeeds: false })
 
       client.on('error', function (err) { t.fail(err) })
       client.on('warning', function (err) { t.fail(err) })
