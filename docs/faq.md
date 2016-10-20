@@ -87,6 +87,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[TorrentMedia][torrentmedia]** - Fully-featured desktop WebTorrent client
 - **[Gaia 3D Star Map][gaia]** - 2 million stars, rendered in 3D with WebGL, WebVR, and WebTorrent
 - **[Watchtor][watchtor]** - A minimalistic approach for online torrent watching ([source code][watchtor-source])
+- **[CacheP2P][cachep2p]** - Highly distributed cache platform ([source code][cachep2p-source])
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 #### WebTorrent Product Alternatives
@@ -141,6 +142,8 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [gaia]: http://charliehoey.com/threejs-demos/gaia_dr1.html
 [watchtor]: https://watchtor.herokuapp.com
 [watchtor-source]: https://github.com/codealchemist/watchtor
+[cachep2p]: http://www.cachep2p.com/
+[cachep2p-source]: https://github.com/guerrerocarlos/CacheP2P
 
 ## How does WebTorrent work?
 
