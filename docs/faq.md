@@ -89,6 +89,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Watchtor][watchtor]** - A minimalistic approach for online torrent watching ([source code][watchtor-source])
 - **[CacheP2P][cachep2p]** - Highly distributed cache platform ([source code][cachep2p-source])
 - **[DropClickPaste][dropclickpaste]** - Drop Dead Simple Content Sharing
+- **[LocalFiles][localfiles]** - Share files by pinning them to geographic locations
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 #### WebTorrent Product Alternatives
@@ -146,6 +147,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [cachep2p]: http://www.cachep2p.com/
 [cachep2p-source]: https://github.com/guerrerocarlos/CacheP2P
 [dropclickpaste]: http://dropclickpaste.com/
+[localfiles]: https://localfiles.alhur.es/
 
 ## How does WebTorrent work?
 
