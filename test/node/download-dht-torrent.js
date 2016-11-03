@@ -1,12 +1,13 @@
-var common = require('../common')
 var DHT = require('bittorrent-dht/server')
+var fixtures = require('webtorrent-fixtures')
 var fs = require('fs')
+var MemoryChunkStore = require('memory-chunk-store')
 var series = require('run-series')
 var test = require('tape')
 var WebTorrent = require('../../')
 
 test('Download using DHT (via .torrent file)', function (t) {
-  t.plan(8)
+  t.plan(10)
 
   var dhtServer = new DHT({ bootstrap: false })
 
@@ -26,10 +27,14 @@ test('Download using DHT (via .torrent file)', function (t) {
         dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
       })
 
+      client1.dht.on('listening', function () {
+        t.equal(client1.dhtPort, client1.dht.address().port)
+      })
+
       client1.on('error', function (err) { t.fail(err) })
       client1.on('warning', function (err) { t.fail(err) })
 
-      var torrent = client1.add(common.leaves.parsedTorrent)
+      var torrent = client1.add(fixtures.leaves.parsedTorrent, {store: MemoryChunkStore})
 
       torrent.on('ready', function () {
         // torrent metadata has been fetched -- sanity check it
@@ -39,7 +44,7 @@ test('Download using DHT (via .torrent file)', function (t) {
         t.deepEqual(torrent.files.map(function (file) { return file.name }), names)
       })
 
-      torrent.load(fs.createReadStream(common.leaves.contentPath), function (err) {
+      torrent.load(fs.createReadStream(fixtures.leaves.contentPath), function (err) {
         loaded = true
         maybeDone(err)
       })
@@ -49,10 +54,17 @@ test('Download using DHT (via .torrent file)', function (t) {
         maybeDone(null)
       })
 
+      torrent.on('noPeers', function (announceType) {
+        t.equal(announceType, 'dht', 'noPeers event seen with correct announceType')
+        noPeersFound = true
+        maybeDone(null)
+      })
+
       var announced = false
       var loaded = false
+      var noPeersFound = false
       function maybeDone (err) {
-        if ((announced && loaded) || err) cb(err, client1)
+        if ((announced && loaded && noPeersFound) || err) cb(err, client1)
       }
     },
 
@@ -69,7 +81,7 @@ test('Download using DHT (via .torrent file)', function (t) {
         torrent.files.forEach(function (file) {
           file.getBuffer(function (err, buf) {
             if (err) throw err
-            t.deepEqual(buf, common.leaves.content, 'downloaded correct content')
+            t.deepEqual(buf, fixtures.leaves.content, 'downloaded correct content')
             gotBuffer = true
             maybeDone()
           })
@@ -88,7 +100,7 @@ test('Download using DHT (via .torrent file)', function (t) {
         }
       })
 
-      client2.add(common.leaves.parsedTorrent)
+      client2.add(fixtures.leaves.parsedTorrent, {store: MemoryChunkStore})
     }
   ], function (err) {
     t.error(err)

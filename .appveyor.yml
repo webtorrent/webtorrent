@@ -1,0 +1,27 @@
+# Explicitly ensure line endings aren't mangled
+# http://www.appveyor.com/docs/lang/nodejs-iojs#line-endings
+init:
+  - git config --global core.autocrlf input
+
+# Test against these versions of Node.js
+# https://www.appveyor.com/docs/lang/nodejs-iojs#testing-under-multiple-versions-of-node-js-or-io-js
+environment:
+  matrix:
+  - nodejs_version: "" # https://www.appveyor.com/docs/installed-software#node-js
+
+# Install scripts. (runs after repo cloning)
+install:
+  # https://www.appveyor.com/docs/lang/nodejs-iojs#installing-em-any-em-version-of-node-js-or-io-js
+  - ps: Install-Product node $env:nodejs_version
+  # install modules
+  - npm install
+
+# Post-install test scripts.
+test_script:
+  - node --version
+  - npm --version
+  - npm run test-node # (not `npm test`, because saucelabs tests run via Travis)
+
+# Don't actually build.
+# https://www.appveyor.com/docs/lang/nodejs-iojs#quick-start
+build: off

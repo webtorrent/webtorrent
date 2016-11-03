@@ -1,4 +1,4 @@
-var common = require('../common')
+var fixtures = require('webtorrent-fixtures')
 var http = require('http')
 var test = require('tape')
 var WebTorrent = require('../../')
@@ -23,7 +23,7 @@ test('client.add: http url to a torrent file, string', function (t) {
 
   var server = http.createServer(function (req, res) {
     t.ok(req.headers['user-agent'].indexOf('WebTorrent') !== -1)
-    res.end(common.leaves.torrent)
+    res.end(fixtures.leaves.torrent)
   })
 
   server.listen(0, function () {
@@ -36,8 +36,8 @@ test('client.add: http url to a torrent file, string', function (t) {
 
     client.add(url, function (torrent) {
       t.equal(client.torrents.length, 1)
-      t.equal(torrent.infoHash, common.leaves.parsedTorrent.infoHash)
-      t.equal(torrent.magnetURI, common.leaves.magnetURI)
+      t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
+      t.equal(torrent.magnetURI, fixtures.leaves.magnetURI)
 
       client.remove(torrent, function (err) { t.error(err, 'torrent destroyed') })
       t.equal(client.torrents.length, 0)
@@ -56,10 +56,10 @@ test('client.add: filesystem path to a torrent file, string', function (t) {
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  client.add(common.leaves.torrentPath, function (torrent) {
+  client.add(fixtures.leaves.torrentPath, function (torrent) {
     t.equal(client.torrents.length, 1)
-    t.equal(torrent.infoHash, common.leaves.parsedTorrent.infoHash)
-    t.equal(torrent.magnetURI, common.leaves.magnetURI)
+    t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
+    t.equal(torrent.magnetURI, fixtures.leaves.magnetURI)
 
     client.remove(torrent, function (err) { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
@@ -76,12 +76,13 @@ test('client.seed: filesystem path to file, string', function (t) {
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  client.seed(common.leaves.contentPath, {
-    name: 'Leaves of Grass by Walt Whitman.epub'
+  client.seed(fixtures.leaves.contentPath, {
+    name: 'Leaves of Grass by Walt Whitman.epub',
+    announce: []
   }, function (torrent) {
     t.equal(client.torrents.length, 1)
-    t.equal(torrent.infoHash, common.leaves.parsedTorrent.infoHash)
-    t.equal(torrent.magnetURI, common.leaves.magnetURI)
+    t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
+    t.equal(torrent.magnetURI, fixtures.leaves.magnetURI)
 
     client.remove(torrent, function (err) { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
@@ -98,10 +99,10 @@ test('client.seed: filesystem path to folder with one file, string', function (t
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  client.seed(common.folder.contentPath, function (torrent) {
+  client.seed(fixtures.folder.contentPath, {announce: []}, function (torrent) {
     t.equal(client.torrents.length, 1)
-    t.equal(torrent.infoHash, common.folder.parsedTorrent.infoHash)
-    t.equal(torrent.magnetURI, common.folder.magnetURI)
+    t.equal(torrent.infoHash, fixtures.folder.parsedTorrent.infoHash)
+    t.equal(torrent.magnetURI, fixtures.folder.magnetURI)
 
     client.remove(torrent, function (err) { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
@@ -118,10 +119,10 @@ test('client.seed: filesystem path to folder with multiple files, string', funct
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  client.seed(common.numbers.contentPath, function (torrent) {
+  client.seed(fixtures.numbers.contentPath, {announce: []}, function (torrent) {
     t.equal(client.torrents.length, 1)
-    t.equal(torrent.infoHash, common.numbers.parsedTorrent.infoHash)
-    t.equal(torrent.magnetURI, common.numbers.magnetURI)
+    t.equal(torrent.infoHash, fixtures.numbers.parsedTorrent.infoHash)
+    t.equal(torrent.magnetURI, fixtures.numbers.magnetURI)
 
     client.remove(torrent, function (err) { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)

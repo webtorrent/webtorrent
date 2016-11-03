@@ -1,5 +1,6 @@
-var common = require('./common')
+var Buffer = require('safe-buffer').Buffer
 var extend = require('xtend')
+var fixtures = require('webtorrent-fixtures')
 var test = require('tape')
 var WebTorrent = require('../')
 
@@ -11,14 +12,14 @@ test('client.add: magnet uri, utf-8 string', function (t) {
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  var torrent = client.add(common.leaves.magnetURI)
+  var torrent = client.add(fixtures.leaves.magnetURI)
   t.equal(client.torrents.length, 1)
 
   torrent.on('infoHash', function () {
-    t.equal(torrent.infoHash, common.leaves.parsedTorrent.infoHash)
-    t.equal(torrent.magnetURI, common.leaves.magnetURI)
+    t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
+    t.equal(torrent.magnetURI, fixtures.leaves.magnetURI)
 
-    client.remove(common.leaves.magnetURI, function (err) { t.error(err, 'torrent destroyed') })
+    client.remove(fixtures.leaves.magnetURI, function (err) { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(function (err) { t.error(err, 'client destroyed') })
@@ -33,14 +34,14 @@ test('client.add: torrent file, buffer', function (t) {
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  var torrent = client.add(common.leaves.torrent)
+  var torrent = client.add(fixtures.leaves.torrent)
   t.equal(client.torrents.length, 1)
 
   torrent.on('infoHash', function () {
-    t.equal(torrent.infoHash, common.leaves.parsedTorrent.infoHash)
-    t.equal(torrent.magnetURI, common.leaves.magnetURI)
+    t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
+    t.equal(torrent.magnetURI, fixtures.leaves.magnetURI)
 
-    client.remove(common.leaves.torrent, function (err) { t.error(err, 'torrent destroyed') })
+    client.remove(fixtures.leaves.torrent, function (err) { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(function (err) { t.error(err, 'client destroyed') })
@@ -55,14 +56,14 @@ test('client.add: info hash, hex string', function (t) {
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  var torrent = client.add(common.leaves.parsedTorrent.infoHash)
+  var torrent = client.add(fixtures.leaves.parsedTorrent.infoHash)
   t.equal(client.torrents.length, 1)
 
   torrent.on('infoHash', function () {
-    t.equal(torrent.infoHash, common.leaves.parsedTorrent.infoHash)
-    t.equal(torrent.magnetURI, 'magnet:?xt=urn:btih:' + common.leaves.parsedTorrent.infoHash)
+    t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
+    t.equal(torrent.magnetURI, 'magnet:?xt=urn:btih:' + fixtures.leaves.parsedTorrent.infoHash)
 
-    client.remove(common.leaves.parsedTorrent.infoHash, function (err) { t.error(err, 'torrent destroyed') })
+    client.remove(fixtures.leaves.parsedTorrent.infoHash, function (err) { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(function (err) { t.error(err, 'client destroyed') })
@@ -77,14 +78,14 @@ test('client.add: info hash, buffer', function (t) {
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  var torrent = client.add(common.leaves.parsedTorrent.infoHashBuffer)
+  var torrent = client.add(fixtures.leaves.parsedTorrent.infoHashBuffer)
   t.equal(client.torrents.length, 1)
 
   torrent.on('infoHash', function () {
-    t.equal(torrent.infoHash, common.leaves.parsedTorrent.infoHash)
-    t.ok(torrent.magnetURI.indexOf('magnet:?xt=urn:btih:' + common.leaves.parsedTorrent.infoHash) === 0)
+    t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
+    t.ok(torrent.magnetURI.indexOf('magnet:?xt=urn:btih:' + fixtures.leaves.parsedTorrent.infoHash) === 0)
 
-    client.remove(new Buffer(common.leaves.parsedTorrent.infoHash, 'hex'), function (err) { t.error(err, 'torrent destroyed') })
+    client.remove(Buffer.from(fixtures.leaves.parsedTorrent.infoHash, 'hex'), function (err) { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(function (err) { t.error(err, 'client destroyed') })
@@ -99,14 +100,14 @@ test('client.add: parsed torrent, from `parse-torrent`', function (t) {
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  var torrent = client.add(common.leaves.parsedTorrent)
+  var torrent = client.add(fixtures.leaves.parsedTorrent)
   t.equal(client.torrents.length, 1)
 
   torrent.on('infoHash', function () {
-    t.equal(torrent.infoHash, common.leaves.parsedTorrent.infoHash)
-    t.equal(torrent.magnetURI, common.leaves.magnetURI)
+    t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
+    t.equal(torrent.magnetURI, fixtures.leaves.magnetURI)
 
-    client.remove(common.leaves.parsedTorrent, function (err) { t.error(err, 'torrent destroyed') })
+    client.remove(fixtures.leaves.parsedTorrent, function (err) { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(function (err) { t.error(err, 'client destroyed') })
@@ -121,23 +122,23 @@ test('client.add: parsed torrent, with string type announce property', function 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  var parsedTorrent = extend(common.leaves.parsedTorrent)
+  var parsedTorrent = extend(fixtures.leaves.parsedTorrent)
   parsedTorrent.announce = 'http://tracker.local:80'
 
   var torrent = client.add(parsedTorrent)
   t.equal(client.torrents.length, 1)
 
   torrent.on('infoHash', function () {
-    t.equal(torrent.infoHash, common.leaves.parsedTorrent.infoHash)
+    t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
 
-    var expectedMagnetURI = common.leaves.magnetURI +
+    var expectedMagnetURI = fixtures.leaves.magnetURI +
       '&tr=' + encodeURIComponent('http://tracker.local:80')
     t.equal(torrent.magnetURI, expectedMagnetURI)
 
     // `torrent.announce` must always be an array
     t.deepEqual(torrent.announce, [ 'http://tracker.local:80' ])
 
-    client.remove(common.leaves.parsedTorrent, function (err) { t.error(err, 'torrent destroyed') })
+    client.remove(fixtures.leaves.parsedTorrent, function (err) { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(function (err) { t.error(err, 'client destroyed') })
@@ -152,23 +153,23 @@ test('client.add: parsed torrent, with array type announce property', function (
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  var parsedTorrent = extend(common.leaves.parsedTorrent)
+  var parsedTorrent = extend(fixtures.leaves.parsedTorrent)
   parsedTorrent.announce = [ 'http://tracker.local:80', 'http://tracker.local:81' ]
 
   var torrent = client.add(parsedTorrent)
   t.equal(client.torrents.length, 1)
 
   torrent.on('infoHash', function () {
-    t.equal(torrent.infoHash, common.leaves.parsedTorrent.infoHash)
+    t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
 
-    var expectedMagnetURI = common.leaves.magnetURI +
+    var expectedMagnetURI = fixtures.leaves.magnetURI +
       '&tr=' + encodeURIComponent('http://tracker.local:80') +
       '&tr=' + encodeURIComponent('http://tracker.local:81')
     t.equal(torrent.magnetURI, expectedMagnetURI)
 
     t.deepEqual(torrent.announce, [ 'http://tracker.local:80', 'http://tracker.local:81' ])
 
-    client.remove(common.leaves.parsedTorrent, function (err) { t.error(err, 'torrent destroyed') })
+    client.remove(fixtures.leaves.parsedTorrent, function (err) { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(function (err) { t.error(err, 'client destroyed') })
@@ -204,5 +205,5 @@ test('client.add: invalid torrent id: short buffer', function (t) {
   })
   client.on('warning', function (err) { t.fail(err) })
 
-  client.add(new Buffer('abc'))
+  client.add(Buffer.from('abc'))
 })

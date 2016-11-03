@@ -1,4 +1,4 @@
-var common = require('../common')
+var fixtures = require('webtorrent-fixtures')
 var test = require('tape')
 var WebTorrent = require('../../')
 
@@ -39,17 +39,17 @@ test('extension support', function (t) {
   client2.on('error', function (err) { t.fail(err) })
   client2.on('warning', function (err) { t.fail(err) })
 
-  client1.add(common.leaves.parsedTorrent, function (torrent1) {
+  client1.add(fixtures.leaves.parsedTorrent, function (torrent1) {
     torrent1.on('wire', function (wire) {
       t.pass('client1 onWire')
       wire.use(Extension)
     })
-    var torrent2 = client2.add(common.leaves.parsedTorrent.infoHash)
+    var torrent2 = client2.add(fixtures.leaves.parsedTorrent.infoHash)
     torrent2.on('wire', function (wire) {
       t.pass('client2 onWire')
       wire.use(Extension)
     })
-    client2.on('listening', function () {
+    torrent2.on('infoHash', function () {
       torrent2.addPeer('127.0.0.1:' + client1.address().port)
     })
   })

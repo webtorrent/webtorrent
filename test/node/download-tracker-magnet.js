@@ -1,6 +1,7 @@
-var common = require('../common')
 var extend = require('xtend')
+var fixtures = require('webtorrent-fixtures')
 var fs = require('fs')
+var MemoryChunkStore = require('memory-chunk-store')
 var series = require('run-series')
 var test = require('tape')
 var TrackerServer = require('bittorrent-tracker/server')
@@ -15,7 +16,7 @@ test('Download using HTTP tracker (via magnet uri)', function (t) {
 })
 
 function magnetDownloadTest (t, serverType) {
-  t.plan(9)
+  t.plan(10)
 
   var tracker = new TrackerServer(
     serverType === 'udp' ? { http: false, ws: false } : { udp: false, ws: false }
@@ -29,7 +30,7 @@ function magnetDownloadTest (t, serverType) {
     trackerStartCount += 1
   })
 
-  var parsedTorrent = extend(common.leaves.parsedTorrent)
+  var parsedTorrent = extend(fixtures.leaves.parsedTorrent)
   var magnetURI, client1, client2
 
   series([
@@ -59,14 +60,18 @@ function magnetDownloadTest (t, serverType) {
           'Leaves of Grass by Walt Whitman.epub'
         ]
 
+        torrent.once('noPeers', function (announceType) {
+          t.equal(announceType, 'tracker', 'noPeers event seen with correct announceType')
+        })
+
         t.deepEqual(torrent.files.map(function (file) { return file.name }), names)
 
-        torrent.load(fs.createReadStream(common.leaves.contentPath), function (err) {
+        torrent.load(fs.createReadStream(fixtures.leaves.contentPath), function (err) {
           cb(err)
         })
       })
 
-      client1.add(parsedTorrent)
+      client1.add(parsedTorrent, {store: MemoryChunkStore})
     },
 
     function (cb) {
@@ -79,7 +84,7 @@ function magnetDownloadTest (t, serverType) {
         torrent.files.forEach(function (file) {
           file.getBuffer(function (err, buf) {
             if (err) throw err
-            t.deepEqual(buf, common.leaves.content, 'downloaded correct content')
+            t.deepEqual(buf, fixtures.leaves.content, 'downloaded correct content')
             gotBuffer = true
             maybeDone()
           })
@@ -98,7 +103,7 @@ function magnetDownloadTest (t, serverType) {
         }
       })
 
-      client2.add(magnetURI)
+      client2.add(magnetURI, {store: MemoryChunkStore})
     }
 
   ], function (err) {

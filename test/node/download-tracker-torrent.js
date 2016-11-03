@@ -1,6 +1,7 @@
-var common = require('../common')
 var extend = require('xtend')
+var fixtures = require('webtorrent-fixtures')
 var fs = require('fs')
+var MemoryChunkStore = require('memory-chunk-store')
 var series = require('run-series')
 var test = require('tape')
 var TrackerServer = require('bittorrent-tracker/server')
@@ -18,7 +19,7 @@ function torrentDownloadTest (t, serverType) {
   t.plan(9)
 
   var trackerStartCount = 0
-  var parsedTorrent = extend(common.leaves.parsedTorrent)
+  var parsedTorrent = extend(fixtures.leaves.parsedTorrent)
 
   var tracker = new TrackerServer(
     serverType === 'udp' ? { http: false, ws: false } : { udp: false, ws: false }
@@ -62,10 +63,10 @@ function torrentDownloadTest (t, serverType) {
 
         t.deepEqual(torrent.files.map(function (file) { return file.name }), names)
 
-        torrent.load(fs.createReadStream(common.leaves.contentPath), cb)
+        torrent.load(fs.createReadStream(fixtures.leaves.contentPath), cb)
       })
 
-      client1.add(parsedTorrent)
+      client1.add(parsedTorrent, {store: MemoryChunkStore})
     },
 
     function (cb) {
@@ -73,13 +74,13 @@ function torrentDownloadTest (t, serverType) {
       client2.on('error', function (err) { t.fail(err) })
       client2.on('warning', function (err) { t.fail(err) })
 
-      client2.add(parsedTorrent)
+      client2.add(parsedTorrent, {store: MemoryChunkStore})
 
       client2.on('torrent', function (torrent) {
         torrent.files.forEach(function (file) {
           file.getBuffer(function (err, buf) {
             if (err) throw err
-            t.deepEqual(buf, common.leaves.content, 'downloaded correct content')
+            t.deepEqual(buf, fixtures.leaves.content, 'downloaded correct content')
             gotBuffer = true
             maybeDone()
           })
