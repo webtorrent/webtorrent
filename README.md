@@ -15,6 +15,7 @@
   <a href="https://ci.appveyor.com/project/feross/webtorrent"><img src="https://ci.appveyor.com/api/projects/status/cgu85xlgl72uoswq/branch/master?svg=true" alt="AppVeyor Build"></a>
   <a href="https://www.npmjs.com/package/webtorrent"><img src="https://img.shields.io/npm/dm/webtorrent.svg" alt="NPM Downloads"></a>
   <a href="https://www.npmjs.com/package/webtorrent"><img src="https://img.shields.io/npm/v/webtorrent.svg" alt="NPM Version"></a>
+  <a href="https://changelog.com/podcast/227"><img src="https://img.shields.io/badge/changelog-%23227-9E978E.svg" alt="Changelog #227"></a>
 </p>
 <br>
 
