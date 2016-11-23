@@ -460,6 +460,10 @@ File path, as specified by the torrent. *Example: 'some-folder/some-filename.txt
 
 File length (in bytes), as specified by the torrent. *Example: 12345*
 
+## `file.downloaded`
+
+Total *verified* bytes received from peers, for this file.
+
 ## `file.select()`
 
 Selects the file to be downloaded, but at a lower priority than files with streams.
