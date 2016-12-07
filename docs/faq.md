@@ -91,6 +91,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[DropClickPaste][dropclickpaste]** - Drop Dead Simple Content Sharing
 - **[LocalFiles][localfiles]** - Share files by pinning them to geographic locations
 - **[WebTorrent Google Cast (WTGC)][wtgc]** - Cast WebTorrent videos to Google Cast devices ([source code][wtgc-source])
+- **[WebTorrent Player][webtorrent-player]** - A WebTorrent player built by Angular 2 and ngrx ([source code][webtorrent-player-source])
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 #### WebTorrent Product Alternatives
@@ -151,6 +152,8 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [localfiles]: https://localfiles.alhur.es/
 [wtgc]: https://wtgc.firebaseapp.com
 [wtgc-source]: https://github.com/FluorescentHallucinogen/webtorrent-googlecast
+[webtorrent-player]: http://webtorrent-player.s3-website-us-east-1.amazonaws.com/
+[webtorrent-player-source]: https://github.com/Hongbo-Miao/webtorrent-player
 
 ## How does WebTorrent work?
 
