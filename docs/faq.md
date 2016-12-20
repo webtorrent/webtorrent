@@ -157,7 +157,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [wtgc-source]: https://github.com/FluorescentHallucinogen/webtorrent-googlecast
 [webtorrent-player]: http://webtorrent-player.s3-website-us-east-1.amazonaws.com/
 [webtorrent-player-source]: https://github.com/Hongbo-Miao/webtorrent-player
-[lunik-torrent]: https://github.com/Lunik/Lunik-Torrent
+[lunik-torrent]: https://tcloud-lunik.herokuapp.com
 ## How does WebTorrent work?
 
 The WebTorrent protocol works just like [BitTorrent protocol][bittorrent-protocol],
