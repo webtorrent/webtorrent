@@ -93,6 +93,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[WebTorrent Google Cast (WTGC)][wtgc]** - Cast WebTorrent videos to Google Cast devices ([source code][wtgc-source])
 - **[WebTorrent Player][webtorrent-player]** - A WebTorrent player built by Angular 2 and ngrx ([source code][webtorrent-player-source])
 - **[CodeDump][codedump]** - A WebTorrent based code pastebin
+- **[Lunik-Torrent][lunik-torrent]** - WebTorrent downloader and file manager.
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 #### WebTorrent Product Alternatives
@@ -156,7 +157,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [wtgc-source]: https://github.com/FluorescentHallucinogen/webtorrent-googlecast
 [webtorrent-player]: http://webtorrent-player.s3-website-us-east-1.amazonaws.com/
 [webtorrent-player-source]: https://github.com/Hongbo-Miao/webtorrent-player
-
+[lunik-torrent]: https://tcloud-lunik.herokuapp.com
 ## How does WebTorrent work?
 
 The WebTorrent protocol works just like [BitTorrent protocol][bittorrent-protocol],
