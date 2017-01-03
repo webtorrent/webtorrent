@@ -94,6 +94,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[WebTorrent Player][webtorrent-player]** - A WebTorrent player built by Angular 2 and ngrx ([source code][webtorrent-player-source])
 - **[CodeDump][codedump]** - A WebTorrent based code pastebin ([source code][codedump-source])
 - **[Lunik-Torrent][lunik-torrent]** - WebTorrent downloader and file manager. ([source code][lunik-torrent-source])
+- **[BitChute][bitchute]** - A decentralized video streaming social network
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 #### WebTorrent Product Alternatives
@@ -160,6 +161,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [codedump-source]: https://github.com/ronsoros/ronsoros.github.io/blob/master/index.html
 [lunik-torrent]: https://tcloud-lunik.herokuapp.com
 [lunik-torrent-source]: https://github.com/Lunik/Lunik-Torrent
+[bitchute]: https://www.bitchute.com
 ## How does WebTorrent work?
 
 The WebTorrent protocol works just like [BitTorrent protocol][bittorrent-protocol],
