@@ -165,7 +165,7 @@ Always listen for the 'error' event.
 Remove a torrent from the client. Destroy all connections to peers and delete all saved
 file data. If `callback` is specified, it will be called when file data is removed.
 
-*Note: This feature is currently not delete torrent data ```/tmp/webtorrent/...``` (see client.add options), until it is implement, please implement it yourself (recommend using rimraf npm package).
+*Note: This method does not currently delete torrent data (in e.g. `/tmp/webtorrent/...`, see the `path` option to `client.add`). Until this is fixed, please implement it yourself (consider using the `rimraf` npm package).
 
 ## `client.destroy([function callback (err) {}])`
 
