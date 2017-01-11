@@ -476,6 +476,8 @@ Useful if you know you need the file at a later stage.
 Deselects the file, which means it won't be downloaded unless someone creates a stream
 for it.
 
+*Note: This method is currently not working as expected, see [dcposch answer on #164](https://github.com/feross/webtorrent/issues/164) for a nice work around solution.
+
 ## `stream = file.createReadStream([opts])`
 
 Create a [readable stream](https://nodejs.org/api/stream.html#stream_class_stream_readable)
