@@ -91,6 +91,7 @@
 - Jerod Santo (jerod.santo@gmail.com)
 - George Petrov (george@dmxzone.com)
 - Alexey Rodionov (fluorescent.hallucinogen@gmail.com)
+- Sidd Sridharan (sidd@sidd.com)
 - Hongbo Miao (Hongbo.Miao@outlook.com)
 - ronsoros (ronsor@mailnesia.com)
 - Ray Vahey (rnvahey@gmail.com)
