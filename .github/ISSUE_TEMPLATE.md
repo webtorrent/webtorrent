@@ -1,5 +1,13 @@
-<!-- Issue with the desktop app? Those go here: https://github.com/feross/webtorrent-desktop/issues -->
+<!-- DO NOT POST LINKS OR REFERENCES TO COPYRIGHTED CONTENT IN YOUR ISSUE. -->
 
-* WebTorrent version:
-* Node.js version:
-* Browser name/version (if using WebTorrent in the browser):
+<!-- Issue with the desktop app? Post here: https://github.com/feross/webtorrent-desktop/issues -->
+
+**What version of WebTorrent?**
+
+**What operating system and Node.js version?**
+
+**What browser and version? (if using WebTorrent in the browser)**
+
+**What did you expect to happen?**
+
+**What actually happened?**
