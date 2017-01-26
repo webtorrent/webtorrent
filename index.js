@@ -78,6 +78,12 @@ function WebTorrent (opts) {
   }
   self.nodeIdBuffer = Buffer.from(self.nodeId, 'hex')
 
+  if (typeof opts.userAgent === 'string') {
+    self.userAgent = opts.userAgent
+  } else {
+    self.userAgent = 'WebTorrent/' + VERSION + ' (https://webtorrent.io)'
+  }
+
   self.destroyed = false
   self.listening = false
   self.torrentPort = opts.torrentPort || 0
