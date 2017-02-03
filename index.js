@@ -78,6 +78,8 @@ function WebTorrent (opts) {
   }
   self.nodeIdBuffer = Buffer.from(self.nodeId, 'hex')
 
+  self._debugId = self.peerId.toString('hex').substring(0, 7)
+
   self.destroyed = false
   self.listening = false
   self.torrentPort = opts.torrentPort || 0
@@ -86,7 +88,7 @@ function WebTorrent (opts) {
   self.torrents = []
   self.maxConns = Number(opts.maxConns) || 55
 
-  debug(
+  self._debug(
     'new webtorrent (peerId %s, nodeId %s, port %s)',
     self.peerId, self.nodeId, self.torrentPort
   )
@@ -252,7 +254,7 @@ WebTorrent.prototype.add = function (torrentId, opts, ontorrent) {
   if (self.destroyed) throw new Error('client is destroyed')
   if (typeof opts === 'function') return self.add(torrentId, null, opts)
 
-  debug('add')
+  self._debug('add')
   opts = opts ? extend(opts) : {}
 
   var torrent = new Torrent(torrentId, self, opts)
@@ -299,7 +301,7 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
   if (self.destroyed) throw new Error('client is destroyed')
   if (typeof opts === 'function') return self.seed(input, null, opts)
 
-  debug('seed')
+  self._debug('seed')
   opts = opts ? extend(opts) : {}
 
   // When seeding from fs path, initialize store from that path to avoid a copy
@@ -362,7 +364,7 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
   }
 
   function _onseed (torrent) {
-    debug('on seed')
+    self._debug('on seed')
     if (typeof onseed === 'function') onseed(torrent)
     torrent.emit('seed')
     self.emit('seed', torrent)
@@ -377,7 +379,7 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
  * @param  {function} cb
  */
 WebTorrent.prototype.remove = function (torrentId, cb) {
-  debug('remove')
+  this._debug('remove')
   var torrent = this.get(torrentId)
   if (!torrent) throw new Error('No torrent with id ' + torrentId)
   this._remove(torrentId, cb)
@@ -408,7 +410,7 @@ WebTorrent.prototype.destroy = function (cb) {
 
 WebTorrent.prototype._destroy = function (err, cb) {
   var self = this
-  debug('client destroy')
+  self._debug('client destroy')
   self.destroyed = true
 
   var tasks = self.torrents.map(function (torrent) {
@@ -439,6 +441,7 @@ WebTorrent.prototype._destroy = function (err, cb) {
 }
 
 WebTorrent.prototype._onListening = function () {
+  this._debug('listening')
   this.listening = true
 
   if (this._tcpPool) {
@@ -449,6 +452,12 @@ WebTorrent.prototype._onListening = function () {
   }
 
   this.emit('listening')
+}
+
+WebTorrent.prototype._debug = function () {
+  var args = [].slice.call(arguments)
+  args[0] = '[' + this._debugId + '] ' + args[0]
+  debug.apply(null, args)
 }
 
 /**
