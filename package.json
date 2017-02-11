@@ -57,6 +57,7 @@
     "simple-peer": "^6.0.4",
     "simple-sha1": "^2.0.8",
     "speedometer": "^1.0.0",
+    "stream-throttle": "^0.1.3",
     "stream-to-blob": "^1.0.0",
     "stream-to-blob-url": "^2.1.0",
     "stream-with-known-length-to-buffer": "^1.0.0",

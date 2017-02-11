@@ -18,6 +18,7 @@ var Peer = require('simple-peer')
 var randombytes = require('randombytes')
 var speedometer = require('speedometer')
 var zeroFill = require('zero-fill')
+var ThrottleGroup = require('stream-throttle').ThrottleGroup
 
 var TCPPool = require('./lib/tcp-pool') // browser exclude
 var Torrent = require('./lib/torrent')
@@ -87,6 +88,8 @@ function WebTorrent (opts) {
   self.tracker = opts.tracker !== undefined ? opts.tracker : {}
   self.torrents = []
   self.maxConns = Number(opts.maxConns) || 55
+  self.downloadLimit = Number(opts.downloadLimit) || Number.MAX_VALUE
+  self.uploadLimit = Number(opts.uploadLimit) || Number.MAX_VALUE
 
   self._debug(
     'new webtorrent (peerId %s, nodeId %s, port %s)',
@@ -108,6 +111,11 @@ function WebTorrent (opts) {
     if (global.WRTC && !self.tracker.wrtc) {
       self.tracker.wrtc = global.WRTC
     }
+  }
+
+  self.throttleGroups = {
+     down: new ThrottleGroup({rate: self.downloadLimit}),
+     up: new ThrottleGroup({rate: self.uploadLimit})
   }
 
   if (typeof TCPPool === 'function') {
@@ -458,6 +466,26 @@ WebTorrent.prototype._debug = function () {
   var args = [].slice.call(arguments)
   args[0] = '[' + this._debugId + '] ' + args[0]
   debug.apply(null, args)
+}
+
+/**
+ * Set global download throttle rate
+ * @param  {Number} rate
+ */
+WebTorrent.prototype.throttleDownload = function (rate) {
+  if (!Number(rate) || Number(rate) < 0) return
+  self.throttleGroups.down.bucket.bucketSize = rate
+  self.throttleGroups.down.bucket.tokensPerInterval = rate
+}
+
+/**
+ * Set global upload throttle rate
+ * @param  {Number} rate
+ */
+WebTorrent.prototype.throttleUpload = function (rate) {
+  if (!Number(rate) || Number(rate) < 0) return
+  self.throttleGroups.up.bucket.bucketSize = rate
+  self.throttleGroups.up.bucket.tokensPerInterval = rate
 }
 
 /**
