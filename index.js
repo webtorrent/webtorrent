@@ -114,8 +114,8 @@ function WebTorrent (opts) {
   }
 
   self.throttleGroups = {
-     down: new ThrottleGroup({rate: self.downloadLimit}),
-     up: new ThrottleGroup({rate: self.uploadLimit})
+    down: new ThrottleGroup({rate: self.downloadLimit}),
+    up: new ThrottleGroup({rate: self.uploadLimit})
   }
 
   if (typeof TCPPool === 'function') {
@@ -474,8 +474,8 @@ WebTorrent.prototype._debug = function () {
  */
 WebTorrent.prototype.throttleDownload = function (rate) {
   if (!Number(rate) || Number(rate) < 0) return
-  self.throttleGroups.down.bucket.bucketSize = rate
-  self.throttleGroups.down.bucket.tokensPerInterval = rate
+  this.throttleGroups.down.bucket.bucketSize = rate
+  this.throttleGroups.down.bucket.tokensPerInterval = rate
 }
 
 /**
@@ -484,8 +484,8 @@ WebTorrent.prototype.throttleDownload = function (rate) {
  */
 WebTorrent.prototype.throttleUpload = function (rate) {
   if (!Number(rate) || Number(rate) < 0) return
-  self.throttleGroups.up.bucket.bucketSize = rate
-  self.throttleGroups.up.bucket.tokensPerInterval = rate
+  this.throttleGroups.up.bucket.bucketSize = rate
+  this.throttleGroups.up.bucket.tokensPerInterval = rate
 }
 
 /**
