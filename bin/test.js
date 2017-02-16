@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var spawn = require('cross-spawn-async')
+var spawn = require('cross-spawn')
 
 var runSauceLabs = !process.env.CI ||
   (process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_KEY)

@@ -10,26 +10,11 @@
 <h4 align="center">The streaming torrent client. For node.js and the web.</h4>
 
 <p align="center">
-  <a href="https://gitter.im/feross/webtorrent">
-    <img src="https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg"
-         alt="Gitter">
-  </a>
-  <a href="https://travis-ci.org/feross/webtorrent">
-    <img src="https://img.shields.io/travis/feross/webtorrent/master.svg"
-         alt="Travis Build">
-  </a>
-  <a href="https://ci.appveyor.com/project/feross/webtorrent">
-    <img src="https://ci.appveyor.com/api/projects/status/cgu85xlgl72uoswq/branch/master?svg=true"
-         alt="AppVeyor Build">
-  </a>
-  <a href="https://www.npmjs.com/package/webtorrent">
-    <img src="https://img.shields.io/npm/dm/webtorrent.svg"
-         alt="NPM Downloads">
-  </a>
-  <a href="https://www.npmjs.com/package/webtorrent">
-    <img src="https://img.shields.io/npm/v/webtorrent.svg"
-         alt="NPM Version">
-  </a>
+  <a href="https://gitter.im/feross/webtorrent"><img src="https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg" alt="Gitter"></a>
+  <a href="https://travis-ci.org/feross/webtorrent"><img src="https://img.shields.io/travis/feross/webtorrent/master.svg" alt="Travis Build"></a>
+  <a href="https://ci.appveyor.com/project/feross/webtorrent"><img src="https://ci.appveyor.com/api/projects/status/cgu85xlgl72uoswq/branch/master?svg=true" alt="AppVeyor Build"></a>
+  <a href="https://www.npmjs.com/package/webtorrent"><img src="https://img.shields.io/npm/dm/webtorrent.svg" alt="NPM Downloads"></a>
+  <a href="https://www.npmjs.com/package/webtorrent"><img src="https://img.shields.io/npm/v/webtorrent.svg" alt="NPM Version"></a>
 </p>
 <br>
 
@@ -82,7 +67,7 @@ they can connect to both normal *and* web peers. We hope other clients will foll
     for adding new extensions
 - **Comprehensive test suite** (runs completely offline, so it's reliable and fast)
 
-#### Browser-only features
+#### Browser/WebRTC environment features
 
 - **WebRTC data channels** for lightweight peer-to-peer communication with **no plugins**
 - **No silos.** WebTorrent is a P2P network for the **entire web.** WebTorrent clients
@@ -92,14 +77,9 @@ they can connect to both normal *and* web peers. We hope other clients will foll
 
 <p align="center">
   <a href="https://saucelabs.com/u/webtorrent">
-    <img src="https://saucelabs.com/browser-matrix/webtorrent.svg"
-         alt="Sauce Labs Build">
+    <img src="https://saucelabs.com/browser-matrix/webtorrent.svg" alt="Sauce Labs">
   </a>
 </p>
-
-#### Node-only features
-
-- Stream to **AirPlay**, **Chromecast**, **VLC player**, and many other devices/players
 
 ### Install
 
@@ -116,7 +96,7 @@ To install a `webtorrent`
 npm install webtorrent-cli -g
 ```
 
-To install a WebTorrent desktop appliation for OS X, Windows, or Linux, see
+To install a WebTorrent desktop appliation for Mac, Windows, or Linux, see
 [WebTorrent Desktop][webtorrent-desktop].
 
 ### Ways to help
@@ -269,7 +249,7 @@ There are many supported streaming options:
 --stdout                standard out [implies --quiet]
 ```
 
-In addition to magnet uris, webtorrent supports [many ways to specify a torrent](#clientaddtorrentid-opts-function-ontorrent-torrent-).
+In addition to magnet uris, webtorrent supports [many ways](docs/api.md#clientaddtorrentid-opts-function-ontorrent-torrent-) to specify a torrent.
 
 ### Modules
 
@@ -407,4 +387,4 @@ localStorage.removeItem('debug')
 
 ### License
 
-MIT. Copyright (c) [Feross Aboukhadijeh](http://feross.org).
+MIT. Copyright (c) [WebTorrent, LLC](https://webtorrent.io).

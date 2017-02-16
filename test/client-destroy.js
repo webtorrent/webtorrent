@@ -1,3 +1,4 @@
+var Buffer = require('safe-buffer').Buffer
 var fixtures = require('webtorrent-fixtures')
 var test = require('tape')
 var WebTorrent = require('../')
@@ -16,7 +17,7 @@ test('after client.destroy(), throw on client.add() or client.seed()', function 
     client.add('magnet:?xt=urn:btih:' + fixtures.leaves.parsedTorrent.infoHash)
   })
   t.throws(function () {
-    client.seed(new Buffer('sup'))
+    client.seed(Buffer.from('sup'))
   })
 })
 
