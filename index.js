@@ -19,7 +19,6 @@ var randombytes = require('randombytes')
 var speedometer = require('speedometer')
 var zeroFill = require('zero-fill')
 
-var NatTraversal = require('./lib/nat-traversal') // browser exclude
 var TCPPool = require('./lib/tcp-pool') // browser exclude
 var Torrent = require('./lib/torrent')
 
@@ -107,9 +106,7 @@ function WebTorrent (opts) {
     if (global.WRTC && !self.tracker.wrtc) self.tracker.wrtc = global.WRTC
   }
 
-  if (typeof NatTraversal === 'function') {
-    self._natTraversal = new NatTraversal()
-  }
+  self._natTraversal = require('./lib/nat-traversal') // browser exclude
 
   if (typeof TCPPool === 'function') {
     self._tcpPool = new TCPPool(self)
@@ -437,12 +434,6 @@ WebTorrent.prototype._destroy = function (err, cb) {
 
   if (self._natTraversal) {
     tasks.push(function (cb) {
-      if (self.dhtPort) {
-        self._natTraversal.portUnMapping(self.dhtPort)
-      }
-      if (self.torrentPort) {
-        self._natTraversal.portUnMapping(self.torrentPort)
-      }
       self._natTraversal.destroy(cb)
     })
   }
