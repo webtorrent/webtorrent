@@ -54,8 +54,7 @@ test('Seed and download a file at the same time', function (t) {
     function (cb) {
       client2 = new WebTorrent({
         tracker: false,
-        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port },
-        torrentPort: client1.torrentPort + 1
+        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
       })
 
       client2.on('error', function (err) { t.fail(err) })
