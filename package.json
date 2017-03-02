@@ -71,6 +71,7 @@
   },
   "devDependencies": {
     "bittorrent-tracker": "^8.0.7",
+    "bogota": "^2.0.1",
     "brfs": "^1.4.3",
     "browserify": "^14.0.0",
     "cross-spawn": "^5.0.1",
@@ -119,7 +120,7 @@
     "test-browser": "zuul -- test/*.js test/browser/*.js",
     "test-browser-headless": "zuul --electron -- test/*.js test/browser/*.js",
     "test-browser-local": "zuul --local -- test/*.js test/browser/*.js",
-    "test-node": "tape test/*.js test/node/*.js",
+    "test-node": "bogota test/*.js test/node/*.js",
     "update-authors": "./bin/update-authors.sh"
   }
 }
