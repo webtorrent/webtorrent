@@ -70,7 +70,7 @@
     "zero-fill": "^2.2.3"
   },
   "devDependencies": {
-    "bittorrent-tracker": "^8.0.7",
+    "bittorrent-tracker": "^9.0.0",
     "brfs": "^1.4.3",
     "browserify": "^14.0.0",
     "cross-spawn": "^5.0.1",
