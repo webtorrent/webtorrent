@@ -573,7 +573,9 @@ via a sandboxed `<iframe>` tag.
 
 ## `file.renderTo(elem, [opts], [function callback (err, elem) {}])` *(browser only)*
 
-Like `file.appendTo` but renders directly into given element (or CSS selector).
+Like `file.appendTo` but renders directly into given element (or CSS selector). For
+example, to render a video, provide a `<video>` element like
+`file.renderTo('video#player')`.
 
 ## `file.getBlob(function callback (err, blob) {})` *(browser only)*
 
