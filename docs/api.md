@@ -573,7 +573,7 @@ via a sandboxed `<iframe>` tag.
 
 ## `file.renderTo(elem, [opts], [function callback (err, elem) {}])` *(browser only)*
 
-Like `file.appendTo` but renders directly into given element (or CSS selector).
+Like `file.appendTo` but renders directly into given element (or CSS selector). Should be given path to a `<video>` element: `file.renderTo('video#player')`
 
 ## `file.getBlob(function callback (err, blob) {})` *(browser only)*
 
