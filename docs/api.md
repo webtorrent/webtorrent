@@ -314,12 +314,13 @@ Deprioritizes a range of previously selected pieces.
 Marks a range of pieces as critical priority to be downloaded ASAP. From `start` to `end`
 (both inclusive).
 
-## `torrent.createServer([opts])`
+## `torrent.createServer([requestListener])`
 
 Create an http server to serve the contents of this torrent, dynamically fetching the
 needed torrent pieces to satisfy http requests. Range requests are supported.
 
-Returns an `http.Server` instance (got from calling `http.createServer`). If `opts` is specified, it is passed to the `http.createServer` function.
+Returns an `http.Server` instance (got from calling `http.createServer`). If
+`requestListener` is specified, it is added to the 'request' event.
 
 Visiting the root of the server `/` will show a list of links to individual files. Access
 individual files at `/<index>` where `<index>` is the index in the `torrent.files` array
