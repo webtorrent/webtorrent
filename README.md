@@ -10,11 +10,12 @@
 <h4 align="center">The streaming torrent client. For node.js and the web.</h4>
 
 <p align="center">
-  <a href="https://gitter.im/feross/webtorrent"><img src="https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg" alt="Gitter"></a>
-  <a href="https://travis-ci.org/feross/webtorrent"><img src="https://img.shields.io/travis/feross/webtorrent/master.svg" alt="Travis Build"></a>
-  <a href="https://ci.appveyor.com/project/feross/webtorrent"><img src="https://ci.appveyor.com/api/projects/status/cgu85xlgl72uoswq/branch/master?svg=true" alt="AppVeyor Build"></a>
-  <a href="https://www.npmjs.com/package/webtorrent"><img src="https://img.shields.io/npm/dm/webtorrent.svg" alt="NPM Downloads"></a>
-  <a href="https://www.npmjs.com/package/webtorrent"><img src="https://img.shields.io/npm/v/webtorrent.svg" alt="NPM Version"></a>
+  <a href="https://gitter.im/feross/webtorrent"><img src="https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg" alt="gitter"></a>
+  <a href="https://travis-ci.org/feross/webtorrent"><img src="https://img.shields.io/travis/feross/webtorrent/master.svg" alt="travis"></a>
+  <a href="https://ci.appveyor.com/project/feross/webtorrent"><img src="https://ci.appveyor.com/api/projects/status/cgu85xlgl72uoswq/branch/master?svg=true" alt="appveyor"></a>
+  <a href="https://www.npmjs.com/package/webtorrent"><img src="https://img.shields.io/npm/v/webtorrent.svg" alt="npm version"></a>
+  <a href="https://www.npmjs.com/package/webtorrent"><img src="https://img.shields.io/npm/dm/webtorrent.svg" alt="npm downloads"></a>
+  <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="Standard - JavaScript Style Guide"></a>
 </p>
 <br>
 
