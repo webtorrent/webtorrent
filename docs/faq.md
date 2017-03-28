@@ -96,7 +96,6 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Lunik-Torrent][lunik-torrent]** - WebTorrent downloader and file manager. ([source code][lunik-torrent-source])
 - **[BitChute][bitchute]** - A decentralized video streaming social network
 - **[Planktos][planktos]** - Enables websites to serve their static content over BitTorrent ([source code][planktos-source])
-- **[Planktos][planktos]** - Enables websites to serve their static content over BitTorrent ([source code][planktos-source])
 - **[KEEN.TV][keentv]** - Free Web-based Media Center and Video Player
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
