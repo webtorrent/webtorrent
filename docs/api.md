@@ -85,7 +85,7 @@ If `opts` is specified, then the default options (shown below) will be overridde
 
 ```js
 {
-  announce: [],              // Torrent trackers to use (added to list in .torrent or magnet uri)
+  announce: [String],        // Torrent trackers to use (added to list in .torrent or magnet uri)
   getAnnounceOpts: Function, // Custom callback to allow sending extra parameters to the tracker
   maxWebConns: Number,       // Max number of simultaneous connections per web seed [default=4]
   path: String,              // Folder to download files to (default=`/tmp/webtorrent/`)
@@ -316,13 +316,19 @@ Deprioritizes a range of previously selected pieces.
 Marks a range of pieces as critical priority to be downloaded ASAP. From `start` to `end`
 (both inclusive).
 
-## `torrent.createServer([requestListener])`
+## `torrent.createServer([opts])`
 
 Create an http server to serve the contents of this torrent, dynamically fetching the
 needed torrent pieces to satisfy http requests. Range requests are supported.
 
 Returns an `http.Server` instance (got from calling `http.createServer`). If
-`requestListener` is specified, it is added to the 'request' event.
+`opts` is specified, it can have the following properties:
+
+```js
+{
+  origin: String // Allow requests from specific origin. `false` for same-origin. [default: '*']
+}
+```
 
 Visiting the root of the server `/` will show a list of links to individual files. Access
 individual files at `/<index>` where `<index>` is the index in the `torrent.files` array
