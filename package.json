@@ -49,6 +49,7 @@
     "range-parser": "^1.2.0",
     "readable-stream": "^2.1.4",
     "render-media": "^2.8.0",
+    "rimraf": "^2.6.1",
     "run-parallel": "^1.1.6",
     "run-parallel-limit": "^1.0.3",
     "safe-buffer": "^5.0.1",
