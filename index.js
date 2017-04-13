@@ -389,7 +389,7 @@ WebTorrent.prototype._remove = function (torrentId, cb) {
   var torrent = this.get(torrentId)
   if (!torrent) return
   this.torrents.splice(this.torrents.indexOf(torrent), 1)
-  torrent.destroy(cb)
+  torrent.delete(cb)
 }
 
 WebTorrent.prototype.address = function () {
