@@ -446,7 +446,6 @@ WebTorrent.prototype._onListening = function () {
 
   if (this._tcpPool) {
     // Sometimes server.address() returns `null` in Docker.
-    // WebTorrent issue: https://github.com/feross/bittorrent-swarm/pull/18
     var address = this._tcpPool.server.address()
     if (address) this.torrentPort = address.port
   }

@@ -24,7 +24,7 @@ and to avoid style arguments. `npm test` runs `standard` automatically, so you d
 to!
 
 [standard-image]: https://cdn.rawgit.com/feross/standard/master/badge.svg
-[standard-url]: https://github.com/feross/standard
+[standard-url]: https://standardjs.com
 
 ## Project Governance
 

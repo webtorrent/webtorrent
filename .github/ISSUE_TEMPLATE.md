@@ -1,6 +1,6 @@
 <!-- DO NOT POST LINKS OR REFERENCES TO COPYRIGHTED CONTENT IN YOUR ISSUE. -->
 
-<!-- Issue with the desktop app? Post here: https://github.com/feross/webtorrent-desktop/issues -->
+<!-- Issue with the desktop app? Post here: https://github.com/webtorrent/webtorrent-desktop/issues -->
 
 **What version of WebTorrent?**
 

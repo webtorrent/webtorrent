@@ -104,8 +104,8 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [webtorrent-clones]: https://github.com/DiegoRBaquero/awesome-webtorrent-clones
 
 [webtorrent-desktop]: https://webtorrent.io/desktop
-[webtorrent-desktop-source]: https://github.com/feross/webtorrent-desktop
-[instant.io-source]: https://github.com/feross/instant.io
+[webtorrent-desktop-source]: https://github.com/webtorrent/webtorrent-desktop
+[instant.io-source]: https://github.com/webtorrent/instant.io
 [gittorrent]: http://blog.printf.net/articles/2015/05/29/announcing-gittorrent-a-decentralized-github/
 [gittorrent-source]: https://github.com/cjb/GitTorrent
 [filepizza]: http://file.pizza/
@@ -218,7 +218,7 @@ client.add(torrentId, function (torrent) {
 })
 ```
 
-This supports video, audio, images, PDFs, Markdown, [and more][append-to], right
+This supports video, audio, images, PDFs, Markdown, [and more][render-media], right
 out of the box. There are additional ways to access file content directly, including
 as a node-style stream, Buffer, or Blob URL.
 
@@ -369,8 +369,8 @@ If you're looking for help getting started, come join us in [Gitter][gitter] or 
 IRC at `#webtorrent` (freenode) and how you can get started.
 
 
-[open-issues]: https://github.com/feross/webtorrent/issues?state=open
-[contributing]: https://github.com/feross/webtorrent/blob/master/CONTRIBUTING.md
+[open-issues]: https://github.com/webtorrent/webtorrent/issues?state=open
+[contributing]: https://github.com/webtorrent/webtorrent/blob/master/CONTRIBUTING.md
 
 ## Where can I learn more?
 
@@ -503,8 +503,8 @@ Streaming support depends on support for `MediaSource` API in the browser. All
 modern browsers have `MediaSource` support. In Firefox, support was added in
 Firefox 42 (i.e. Firefox Nightly).
 
-[Many file types][append-to] are supported (again, depending on browser support),
-but only `.mp4`, `.m4v`, and `.m4a`       have full support, including seeking.
+[Many file types][render-media] are supported (again, depending on browser support),
+but only `.mp4`, `.m4v`, and `.m4a` have full support, including seeking.
 
 To support video/audio streaming of arbitrary files, WebTorrent uses the
 [`videostream`][videostream] package, which in turn uses [`mp4box.js`][mp4box.js].
@@ -520,13 +520,13 @@ Open an issue on the WebTorrent [issue tracker][issues], or join us in
 [Gitter][gitter] or on IRC at `#webtorrent` (freenode).
 
 [webtorrent-io]: https://webtorrent.io
-[append-to]: https://github.com/feross/webtorrent/blob/master/lib/append-to.js#L6-L14
-[gitter]: https://gitter.im/feross/webtorrent
+[render-media]: https://github.com/feross/render-media/blob/master/index.js
+[gitter]: https://gitter.im/webtorrent/webtorrent
 [instant.io]: https://instant.io
-[issues]: https://github.com/feross/webtorrent/issues
-[license]: https://github.com/feross/webtorrent/blob/master/LICENSE
+[issues]: https://github.com/webtorrent/webtorrent/issues
+[license]: https://github.com/webtorrent/webtorrent/blob/master/LICENSE
 [peercdn]: http://www.peercdn.com/
 [playback]: https://mafintosh.github.io/playback/
-[pr]: https://github.com/feross/webtorrent
+[pr]: https://github.com/webtorrent/webtorrent
 [webtorrent-hybrid]: https://npmjs.com/package/webtorrent-hybrid
 [webtorrent]: https://npmjs.com/package/webtorrent

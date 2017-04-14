@@ -23,7 +23,7 @@
     ]
   },
   "bugs": {
-    "url": "https://github.com/feross/webtorrent/issues"
+    "url": "https://github.com/webtorrent/webtorrent/issues"
   },
   "dependencies": {
     "addr-to-ip-port": "^1.4.2",
@@ -109,7 +109,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/feross/webtorrent.git"
+    "url": "git://github.com/webtorrent/webtorrent.git"
   },
   "scripts": {
     "build": "browserify -s WebTorrent -e ./ | uglifyjs -c warnings=false -m > webtorrent.min.js",
