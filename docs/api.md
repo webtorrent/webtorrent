@@ -162,10 +162,20 @@ destroyed and all torrents are removed and cleaned up when this occurs.
 
 Always listen for the 'error' event.
 
-## `client.remove(torrentId, [function callback (err) {}])`
+## `client.remove(torrentId, [opts], [function callback (err) {}])`
 
 Remove a torrent from the client. Destroy all connections to peers and delete all saved
-file data. If `callback` is specified, it will be called when file data is removed.
+file data.
+
+If `opts` is specified, then the default options (shown below) will be overridden.
+
+```js
+{
+  remove: Boolean             // Delete torrent data (default to false)
+}
+```
+
+If `callback` is specified, it will be called when file data is removed.
 
 ## `client.destroy([function callback (err) {}])`
 
@@ -262,19 +272,20 @@ Number of peers in the torrent swarm.
 
 Torrent download location.
 
-## `torrent.destroy([callback])`
+## `torrent.destroy([opts], [callback])`
 
-Alias for `client.remove(torrent)`. If `callback` is provided, it will be called when
-the torrent is fully destroyed, i.e. all open sockets are closed, and the storage is
-closed.
+Alias for `client.remove(torrent)`.
 
-## `torrent.delete([callback])`
+If `opts` is specified, then the default options (shown below) will be overridden.
 
-Does the same as `torrent.destroy([callback])`. If `callback` is provided, it will be
-called when the torrent is fully destroyed, i.e. all open sockets are closed, the
-storage is closed and *torrent data are deleted*.
+```js
+{
+  remove: Boolean             // Delete torrent data (default to false)
+}
+```
 
-*Note: Torrent data are only deleted in node applications.
+If `callback` is provided, it will be called when the torrent is fully destroyed, i.e.
+all open sockets are closed, and the storage is closed.
 
 ## `torrent.addPeer(peer)`
 

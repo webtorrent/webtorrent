@@ -378,18 +378,20 @@ WebTorrent.prototype.seed = function (input, opts, onseed) {
  * @param  {string|Buffer|Torrent}   torrentId
  * @param  {function} cb
  */
-WebTorrent.prototype.remove = function (torrentId, cb) {
+WebTorrent.prototype.remove = function (torrentId, opts, cb) {
   this._debug('remove')
+  if (typeof opts === 'function') return this.remove(torrentId, null, opts)
   var torrent = this.get(torrentId)
   if (!torrent) throw new Error('No torrent with id ' + torrentId)
-  this._remove(torrentId, cb)
+  this._remove(torrentId, opts, cb)
 }
 
-WebTorrent.prototype._remove = function (torrentId, cb) {
+WebTorrent.prototype._remove = function (torrentId, opts, cb) {
+  if (typeof opts === 'function') return this._remove(torrentId, null, opts)
   var torrent = this.get(torrentId)
   if (!torrent) return
   this.torrents.splice(this.torrents.indexOf(torrent), 1)
-  torrent.delete(cb)
+  torrent.destroy(opts, cb)
 }
 
 WebTorrent.prototype.address = function () {
