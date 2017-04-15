@@ -45,13 +45,18 @@ test('torrent.destroy: seed torrent and remove it', function (t) {
 
     client.remove(torrent, {'remove': true}, function (err) {
       t.error(err, 'torrent removed')
-      fs.stat(completeFileName, function (err) {
-        if (err && err.code === 'ENOENT') return t.pass('File deleted')
-        t.fail('File not deleted')
-      })
-    })
-    t.equal(client.torrents.length, 0)
+      // Check if stat is available
+      if (fs.stat) {
+        fs.stat(completeFileName, function (err) {
+          if (err && err.code === 'ENOENT') return t.pass('File deleted')
+          t.fail('File not deleted')
+        })
+      } else {
+        t.pass('File deleted')
+      }
+      t.equal(client.torrents.length, 0)
 
-    client.destroy(function (err) { t.error(err, 'client destroyed') })
+      client.destroy(function (err) { t.error(err, 'client destroyed') })
+    })
   })
 })
