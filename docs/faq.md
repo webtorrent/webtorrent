@@ -101,8 +101,8 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 #### WebTorrent Product Alternatives
 
 There's also a list of WebTorrent-powered alternatives to centralized services here: [WebTorrent Product Clones][webtorrent-clones]
-[webtorrent-clones]: https://github.com/DiegoRBaquero/awesome-webtorrent-clones
 
+[webtorrent-clones]: https://github.com/DiegoRBaquero/awesome-webtorrent-clones
 [webtorrent-desktop]: https://webtorrent.io/desktop
 [webtorrent-desktop-source]: https://github.com/webtorrent/webtorrent-desktop
 [instant.io-source]: https://github.com/webtorrent/instant.io
