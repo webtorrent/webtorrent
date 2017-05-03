@@ -1,0 +1,10 @@
+{
+  "name": "webtorrent",
+  "homepage": "https://github.com/feross/webtorrent",
+  "version": "0.11.2",
+  "main": "webtorrent.min.js",
+  "ignore":[
+    "bin/**/*",
+    "img/**/*"
+  ]
+}
