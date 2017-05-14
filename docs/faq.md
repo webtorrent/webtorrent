@@ -75,6 +75,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Peerify][peerify]** - Instant Web-seeded torrents for your files
 - **[Instant-Share][instant-share]** - File sharing over WebTorrent
 - **[P2PDrop][p2pdrop]** - Securely share files between peers ([source code][p2pdrop-source])
+- **[P2P-CDN][p2pcdn]** - WebTorrent CDN with graceful degradation
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 [webtorrent-desktop]: https://webtorrent.io/desktop
@@ -106,6 +107,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 [instant-share]: http://fs.lunik.xyz/
 [p2pdrop]: http://p2pdrop.com
 [p2pdrop-source]: https://github.com/ajainvivek/P2PDrop
+[p2pcdn]: https://github.com/andreapaiola/P2P-CDN
 
 ## How does WebTorrent work?
 
