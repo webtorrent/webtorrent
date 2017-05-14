@@ -96,6 +96,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Lunik-Torrent][lunik-torrent]** - WebTorrent downloader and file manager. ([source code][lunik-torrent-source])
 - **[BitChute][bitchute]** - A decentralized video streaming social network
 - **[Planktos][planktos]** - Enables websites to serve their static content over BitTorrent ([source code][planktos-source])
+- **[P2P-CDN][p2pcdn]** - WebTorrent CDN with graceful degradation
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 #### WebTorrent Product Alternatives
@@ -165,6 +166,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [bitchute]: https://www.bitchute.com
 [planktos]: https://xuset.github.io/planktos/
 [planktos-source]: https://github.com/xuset/planktos
+[p2pcdn]: https://github.com/andreapaiola/P2P-CDN
 
 ## How does WebTorrent work?
 
