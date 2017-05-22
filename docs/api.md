@@ -18,11 +18,13 @@ npm install webtorrent
 ```js
 var client = new WebTorrent()
 
-var torrentId = 'magnet:?xt=urn:btih:6a9759bffd5c0af65319979fb7832189f4f3c35d&dn=sintel.mp4&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel-1024-surround.mp4'
+var torrentId = 'magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel.torrent'
 
 client.add(torrentId, function (torrent) {
-  // Torrents can contain many files. Let's use the first.
-  var file = torrent.files[0]
+  // Torrents can contain many files. Let's use the .mp4 file
+  var file = torrent.files.find(function (file) {
+    return file.name.endsWith('.mp4')
+  })
 
   // Display the file by adding it to the DOM. Supports video, audio, image, etc. files
   file.appendTo('body')
@@ -61,10 +63,10 @@ If `opts` is specified, then the default options (shown below) will be overridde
 ```
 
 For possible values of `opts.dht` see the
-[`bittorrent-dht` documentation](https://github.com/feross/bittorrent-dht#dht--new-dhtopts).
+[`bittorrent-dht` documentation](https://github.com/webtorrent/bittorrent-dht#dht--new-dhtopts).
 
 For possible values of `opts.tracker` see the
-[`bittorrent-tracker` documentation](https://github.com/feross/bittorrent-tracker#client).
+[`bittorrent-tracker` documentation](https://github.com/webtorrent/bittorrent-tracker#client).
 
 ## `client.add(torrentId, [opts], [function ontorrent (torrent) {}])`
 
@@ -75,7 +77,7 @@ Start downloading a new torrent.
 - magnet uri (string)
 - torrent file (buffer)
 - info hash (hex string or buffer)
-- parsed torrent (from [parse-torrent](https://github.com/feross/parse-torrent))
+- parsed torrent (from [parse-torrent](https://github.com/webtorrent/parse-torrent))
 - http/https url to a torrent file (string)
 - filesystem path to a torrent file (string) *(Node.js only)*
 
@@ -123,7 +125,7 @@ Or, an **array of `string`, `File`, `Buffer`, or `stream.Readable` objects**.
 
 If `opts` is specified, it should contain the following types of options:
 
-- options for [create-torrent](https://github.com/feross/create-torrent#createtorrentinput-opts-function-callback-err-torrent-) (to allow configuration of the .torrent file that is created)
+- options for [create-torrent](https://github.com/webtorrent/create-torrent#createtorrentinput-opts-function-callback-err-torrent-) (to allow configuration of the .torrent file that is created)
 - options for `client.add` (see above)
 
 If `onseed` is specified, it will be called when the client has begun seeding the file.
@@ -314,12 +316,13 @@ Deprioritizes a range of previously selected pieces.
 Marks a range of pieces as critical priority to be downloaded ASAP. From `start` to `end`
 (both inclusive).
 
-## `torrent.createServer([opts])`
+## `torrent.createServer([requestListener])`
 
 Create an http server to serve the contents of this torrent, dynamically fetching the
 needed torrent pieces to satisfy http requests. Range requests are supported.
 
-Returns an `http.Server` instance (got from calling `http.createServer`). If `opts` is specified, it is passed to the `http.createServer` function.
+Returns an `http.Server` instance (got from calling `http.createServer`). If
+`requestListener` is specified, it is added to the 'request' event.
 
 Visiting the root of the server `/` will show a list of links to individual files. Access
 individual files at `/<index>` where `<index>` is the index in the `torrent.files` array
@@ -425,9 +428,9 @@ Emitted whenever data is uploaded. Useful for reporting the current torrent stat
 ## `torrent.on('wire', function (wire) {})`
 
 Emitted whenever a new peer is connected for this torrent. `wire` is an instance of
-[`bittorrent-protocol`](https://github.com/feross/bittorrent-protocol), which is a
+[`bittorrent-protocol`](https://github.com/webtorrent/bittorrent-protocol), which is a
 node.js-style duplex stream to the remote peer. This event can be used to specify
-[custom BitTorrent protocol extensions](https://github.com/feross/bittorrent-protocol#extension-api).
+[custom BitTorrent protocol extensions](https://github.com/webtorrent/bittorrent-protocol#extension-api).
 
 Here is a usage example:
 
@@ -441,7 +444,7 @@ torrent1.on('wire', function (wire, addr) {
 ```
 
 See the `bittorrent-protocol`
-[extension api docs](https://github.com/feross/bittorrent-protocol#extension-api) for more
+[extension api docs](https://github.com/webtorrent/bittorrent-protocol#extension-api) for more
 information on how to define a protocol extension.
 
 ## `torrent.on('noPeers', function (announceType) {})`
@@ -476,7 +479,7 @@ Useful if you know you need the file at a later stage.
 Deselects the file, which means it won't be downloaded unless someone creates a stream
 for it.
 
-*Note: This method is currently not working as expected, see [dcposch answer on #164](https://github.com/feross/webtorrent/issues/164) for a nice work around solution.
+*Note: This method is currently not working as expected, see [dcposch answer on #164](https://github.com/webtorrent/webtorrent/issues/164) for a nice work around solution.
 
 ## `stream = file.createReadStream([opts])`
 
@@ -573,7 +576,9 @@ via a sandboxed `<iframe>` tag.
 
 ## `file.renderTo(elem, [opts], [function callback (err, elem) {}])` *(browser only)*
 
-Like `file.appendTo` but renders directly into given element (or CSS selector).
+Like `file.appendTo` but renders directly into given element (or CSS selector). For
+example, to render a video, provide a `<video>` element like
+`file.renderTo('video#player')`.
 
 ## `file.getBlob(function callback (err, blob) {})` *(browser only)*
 
