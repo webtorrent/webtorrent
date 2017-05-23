@@ -1,0 +1,15 @@
+engines:
+ duplication:
+  enabled: true
+  config:
+    languages:
+      javascript:
+        mass_threshold: 50
+ eslint:
+  enabled: true
+
+ratings:
+ paths:
+ - "**.js"
+
+exclude_paths:
