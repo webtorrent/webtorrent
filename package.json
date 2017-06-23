@@ -70,6 +70,7 @@
     "zero-fill": "^2.2.3"
   },
   "devDependencies": {
+    "babili": "^0.1.4",
     "bittorrent-tracker": "^9.0.0",
     "brfs": "^1.4.3",
     "browserify": "^14.0.0",
@@ -81,7 +82,6 @@
     "serve-static": "^1.11.1",
     "standard": "*",
     "tape": "^4.6.0",
-    "uglify-js": "^2.7.0",
     "webtorrent-fixtures": "^1.5.0",
     "zuul": "^3.10.1"
   },
@@ -112,7 +112,7 @@
     "url": "git://github.com/webtorrent/webtorrent.git"
   },
   "scripts": {
-    "build": "browserify -s WebTorrent -e ./ | uglifyjs -c warnings=false -m > webtorrent.min.js",
+    "build": "browserify -s WebTorrent -e ./ | babili > webtorrent.min.js",
     "build-debug": "browserify -s WebTorrent -e ./ > webtorrent.debug.js",
     "size": "npm run build && cat webtorrent.min.js | gzip | wc -c",
     "test": "standard && node ./bin/test.js",
