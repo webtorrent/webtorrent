@@ -469,6 +469,10 @@ File length (in bytes), as specified by the torrent. *Example: 12345*
 
 Total *verified* bytes received from peers, for this file.
 
+## `file.progress`
+
+File download progress, from 0 to 1.
+
 ## `file.select()`
 
 Selects the file to be downloaded, but at a lower priority than files with streams.
