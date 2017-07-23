@@ -68,7 +68,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Colored Coins][coloredcoins]** - Open protocol for creating digital assets on the Blockchain ([source code][coloredcoins-source])
 - **[Tokenly Pockets][pockets]** - Digital token issuance with WebTorrent-based metadata ([source code][pockets-source])
 - **[βTorrent][btorrent]** - Fully-featured browser WebTorrent client ([source code][btorrent-source])
-- **[Seedshot][seedshot]** - Peer to peer screenshot sharing from your browser ([source code][seedshot-source])
+- **[Zapsnap][zapsnap]** - Temporary peer to peer screenshot sharing from your browser ([source code][zapsnap-source])
 - **[PeerWeb][peerweb]** - Fetch and render a static website from a torrent
 - **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s))
 - **[Vique][vique]** - Video player queue to share videos
@@ -123,8 +123,8 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [pockets-source]: https://github.com/loon3/Tokenly-Pockets
 [btorrent]: https://btorrent.xyz
 [btorrent-source]: https://github.com/DiegoRBaquero/bTorrent
-[seedshot]: http://seedshot.io/
-[seedshot-source]: https://github.com/twobucks/seedshot
+[zapsnap]: http://zapsnap.io/
+[zapsnap-source]: https://github.com/twobucks/zapsnap
 [peerweb]: https://github.com/retrohacker/peerweb.js
 [niagara]: https://andreapaiola.name/niagara/
 [vique]: https://andreapaiola.name/vique/
