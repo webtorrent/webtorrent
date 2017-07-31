@@ -176,7 +176,13 @@ to browserify. However, webpack requires the following extra configuration:
   target: 'web',
   node: {
     fs: 'empty'
-  },
+  }
+}
+```
+
+If you are on webpack 1.x, you will also need to add the `json-loader`:
+```js
+{
   module: {
     loaders: [
       // make sure to install the 'json-loader' package: npm install json-loader
@@ -188,6 +194,7 @@ to browserify. However, webpack requires the following extra configuration:
   }
 }
 ```
+
 Otherwise you could also directly use the pre-built version via `require('webtorrent/webtorrent.min')`.
 
 ##### Script tag
