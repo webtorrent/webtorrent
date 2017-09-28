@@ -100,6 +100,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[P2P-CDN][p2pcdn]** - WebTorrent CDN with graceful degradation
 - **[PearPlayer][PearPlayer]** - A WebTorrent based multi-source and multi-protocol P2P streaming media player
 - **[Rakam][rakam]** - A minimalist WebTorrent video player
+- **[Tcloud][tcloud]** - File sharing and torrent downloading
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 #### WebTorrent Product Alternatives
@@ -174,7 +175,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [p2pcdn]: https://github.com/andreapaiola/P2P-CDN
 [PearPlayer]: https://github.com/PearInc/PearPlayer.js
 [rakam]: https://rakam.ga
-
+[tcloud]: https://github.com/Lunik/tcloud
 ## How does WebTorrent work?
 
 The WebTorrent protocol works just like [BitTorrent protocol][bittorrent-protocol],
