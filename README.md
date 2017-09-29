@@ -16,6 +16,7 @@
   <a href="https://www.npmjs.com/package/webtorrent"><img src="https://img.shields.io/npm/v/webtorrent.svg" alt="npm version"></a>
   <a href="https://www.npmjs.com/package/webtorrent"><img src="https://img.shields.io/npm/dm/webtorrent.svg" alt="npm downloads"></a>
   <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="Standard - JavaScript Style Guide"></a>
+  <a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/webtorrent/webtorrent.svg" alt="Greenkeeper badge"></a>
 </p>
 <br>
 
@@ -51,8 +52,6 @@ they can connect to both normal *and* web peers. We hope other clients will foll
 ![Network](https://webtorrent.io/img/network.png)
 
 ### Features
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/webtorrent/webtorrent.svg)](https://greenkeeper.io/)
 
 - **Torrent client for node.js & the browser** (same npm package!)
 - **Insanely fast**
