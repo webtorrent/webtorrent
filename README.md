@@ -52,6 +52,8 @@ they can connect to both normal *and* web peers. We hope other clients will foll
 
 ### Features
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/webtorrent/webtorrent.svg)](https://greenkeeper.io/)
+
 - **Torrent client for node.js & the browser** (same npm package!)
 - **Insanely fast**
 - Download **multiple torrents** simultaneously, efficiently
