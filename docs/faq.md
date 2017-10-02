@@ -253,7 +253,7 @@ enable next-generation applications in healthcare, education, science, and more.
 WebTorrent is just one example.
 
 WebRTC [works everywhere][webrtc-everywhere], and browser support is excellent.
-**Chrome**, **Firefox**, and **Opera** for Desktop and Android, as well as
+**Chrome**, **Firefox**, **Opera** and **Safari** for Desktop and Android, as well as
 **Microsoft Edge** have support.
 
 You can learn more about WebRTC data channels at [HTML5Rocks][datachannel-intro].
