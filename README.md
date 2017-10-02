@@ -75,7 +75,7 @@ they can connect to both normal *and* web peers. We hope other clients will foll
 - **No silos.** WebTorrent is a P2P network for the **entire web.** WebTorrent clients
   running on one domain can connect to clients on any other domain.
 - Stream video torrents into a `<video>` tag (`webm (vp8, vp9)` or `mp4 (h.264)`)
-- Supports Chrome, Firefox, and Opera.
+- Supports Chrome, Firefox, Opera and Safari.
 
 <p align="center">
   <a href="https://saucelabs.com/u/webtorrent">
