@@ -1,4 +1,5 @@
-var Buffer = require('safe-buffer').Buffer
+// var Buffer = require('safe-buffer').Buffer
+var Buffer = require('buffer').Buffer
 var test = require('tape')
 var WebTorrent = require('../../')
 var fs = require('fs')
@@ -18,13 +19,16 @@ img3.name = 'img3.png'
 test('seed Multiple Torrents', function (t) {
   t.plan(3)
   var client = new WebTorrent({ dht: false, tracker: false })
+
   client.seed(img, function (torrent) {
     t.equal(torrent.infoHash,'fe83c6629dc58cc08b7809256000ad068a167b95')
   })
+
   client.seed(img2, function (torrent) {
     t.equal(torrent.infoHash, 'fd5c8c050571e1f8c369541ed5560f7696931e3f')
   })
   client.seed(img3, function (torrent) {
     t.equal(torrent.infoHash,'c36facf1ca9d3071a81bc8f85f77d3fa3b684048')
   })
+
 })
