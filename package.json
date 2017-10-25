@@ -121,6 +121,7 @@
     "test-browser-headless": "zuul --electron -- test/*.js test/browser/*.js",
     "test-browser-local": "zuul --local --open -- test/*.js test/browser/*.js",
     "test-node": "tape test/*.js test/node/*.js",
-    "update-authors": "./bin/update-authors.sh"
+    "update-authors": "./bin/update-authors.sh",
+    "test:large": "zuul --local --open -- test/browser/large-file.js"
   }
 }
