@@ -11,7 +11,7 @@ var data2 = fs.readFileSync('test/browser/data/data2.5MB.base64')
 var img2 = Buffer.from(data2, 'base64')
 img2.name = 'img2.png'
 
-var data3 = fs.readFileSync('test/browser/data/data2.5MB.base64')
+var data3 = fs.readFileSync('test/browser/data/data2.7MB.base64')
 var img3 = Buffer.from(data3, 'base64')
 img3.name = 'img3.png'
 
@@ -36,5 +36,4 @@ test('seed Multiple Torrents', function (t) {
    	t.equal(torrent, window.test.torrent)
    	console.warn(torrent)
   })
-
 })
