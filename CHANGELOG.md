@@ -1,5 +1,11 @@
 # WebTorrent Version History
 
+## v0.98.20 - 2017-10-17
+
+- Fix `file.downloaded` for last piece
+- Fix destroyed torrent debug
+- Update dependencies
+
 ## v0.97.0 - 2016-09-17
 
 - Add option to disable BEP19 web seeds (`webSeeds` option to the `WebTorrent` constructor)
