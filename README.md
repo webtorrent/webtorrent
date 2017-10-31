@@ -386,6 +386,7 @@ localStorage.removeItem('debug')
 
 ### Talks about WebTorrent
 
+- May 2017 (Char.la - Spanish) - [WebTorrent and Peerify](https://youtu.be/D-04vg5hvEQ?t=54m20s)
 - May 2015 (Data Terra Nemo) - [WebTorrent: Mother of all demos](https://www.youtube.com/watch?v=RRtNEcAaUO8)
 - Nov 2014 (JSConf Asia) - [How WebTorrent Works](https://www.youtube.com/watch?v=kxHRATfvnlw)
 - Sep 2014 (NodeConf EU) – [WebTorrent Mad Science](https://www.youtube.com/watch?v=BVBXkzVjvPc) (first working WebTorrent demo)
