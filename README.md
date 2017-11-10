@@ -303,9 +303,9 @@ These are the main modules that make up WebTorrent:
 [bittorrent-dht-ni]: https://img.shields.io/npm/v/bittorrent-dht.svg
 [bittorrent-dht-nu]: https://www.npmjs.com/package/bittorrent-dht
 
-[bittorrent-peerid]: https://github.com/fisch0920/bittorrent-peerid
-[bittorrent-peerid-ti]: https://img.shields.io/travis/fisch0920/bittorrent-peerid.svg
-[bittorrent-peerid-tu]: https://travis-ci.org/fisch0920/bittorrent-peerid
+[bittorrent-peerid]: https://github.com/webtorrent/bittorrent-peerid
+[bittorrent-peerid-ti]: https://img.shields.io/travis/webtorrent/bittorrent-peerid.svg
+[bittorrent-peerid-tu]: https://travis-ci.org/webtorrent/bittorrent-peerid
 [bittorrent-peerid-ni]: https://img.shields.io/npm/v/bittorrent-peerid.svg
 [bittorrent-peerid-nu]: https://www.npmjs.com/package/bittorrent-peerid
 
@@ -357,9 +357,9 @@ These are the main modules that make up WebTorrent:
 [ut_metadata-ni]: https://img.shields.io/npm/v/ut_metadata.svg
 [ut_metadata-nu]: https://www.npmjs.com/package/ut_metadata
 
-[ut_pex]: https://github.com/fisch0920/ut_pex
-[ut_pex-ti]: https://img.shields.io/travis/fisch0920/ut_pex.svg
-[ut_pex-tu]: https://travis-ci.org/fisch0920/ut_pex
+[ut_pex]: https://github.com/webtorrent/ut_pex
+[ut_pex-ti]: https://img.shields.io/travis/webtorrent/ut_pex.svg
+[ut_pex-tu]: https://travis-ci.org/webtorrent/ut_pex
 [ut_pex-ni]: https://img.shields.io/npm/v/ut_pex.svg
 [ut_pex-nu]: https://www.npmjs.com/package/ut_pex
 
