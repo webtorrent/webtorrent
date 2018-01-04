@@ -73,7 +73,7 @@
     "babili": "^0.1.4",
     "bittorrent-tracker": "^9.0.0",
     "brfs": "^1.4.3",
-    "browserify": "^14.0.0",
+    "browserify": "^15.0.0",
     "cross-spawn": "^5.0.1",
     "electron": "^1.7.8",
     "finalhandler": "^1.0.0",
