@@ -32,7 +32,7 @@ It can be used **without** browser plugins, extensions, or installations. It's J
 JavaScript&trade;. Note: WebTorrent does **not** support UDP/TCP peers in browser.
 
 Simply include the
-[`webtorrent.min.js`](https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js) script
+[`webtorrent.min.js`](https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js) script
 on your page to start fetching files over WebRTC using the BitTorrent protocol, or
 `require('webtorrent')` with [browserify](http://browserify.org/). See [demo apps
 ](#webtorrent-in-production) and [code examples](#usage) below.
@@ -212,7 +212,7 @@ The WebTorrent script is also hosted on fast, reliable CDN infrastructure (Cloud
 MaxCDN) for easy inclusion on your site:
 
 ```html
-<script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"></script>
 ```
 
 #### In Node.js
