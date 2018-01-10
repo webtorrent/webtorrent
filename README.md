@@ -101,6 +101,11 @@ npm install webtorrent-cli -g
 To install a WebTorrent desktop appliation for Mac, Windows, or Linux, see
 [WebTorrent Desktop][webtorrent-desktop].
 
+### Open Source Sponsors
+
+[<img src='https://webtorrent.io/img/supporters/popchest.png' width=300>](https://popchest.com) | [<img src='https://webtorrent.io/img/supporters/brave.png' width=300>](https://brave.com)
+|---|---|
+
 ### Ways to help
 
 - **Join us in [Gitter][webtorrent-gitter-url]** or on freenode at `#webtorrent` to help
