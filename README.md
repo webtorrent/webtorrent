@@ -103,7 +103,7 @@ To install a `webtorrent`
 npm install webtorrent-cli -g
 ```
 
-To install a WebTorrent desktop appliation for Mac, Windows, or Linux, see
+To install a WebTorrent desktop application for Mac, Windows, or Linux, see
 [WebTorrent Desktop][webtorrent-desktop].
 
 ### Ways to help
@@ -263,7 +263,7 @@ There are many supported streaming options:
 --stdout                standard out [implies --quiet]
 ```
 
-In addition to magnet uris, webtorrent supports [many ways](docs/api.md#clientaddtorrentid-opts-function-ontorrent-torrent-) to specify a torrent.
+In addition to magnet uris, WebTorrent supports [many ways](docs/api.md#clientaddtorrentid-opts-function-ontorrent-torrent-) to specify a torrent.
 
 ### Modules
 
