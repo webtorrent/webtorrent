@@ -43,7 +43,7 @@
     "multistream": "^2.0.5",
     "package-json-versionify": "^1.0.2",
     "parse-torrent": "^5.8.0",
-    "pump": "^1.0.1",
+    "pump": "^2.0.1",
     "random-iterate": "^1.0.1",
     "randombytes": "^2.0.3",
     "range-parser": "^1.2.0",
