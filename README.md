@@ -16,7 +16,6 @@
   <a href="https://www.npmjs.com/package/webtorrent"><img src="https://img.shields.io/npm/v/webtorrent.svg" alt="npm version"></a>
   <a href="https://www.npmjs.com/package/webtorrent"><img src="https://img.shields.io/npm/dm/webtorrent.svg" alt="npm downloads"></a>
   <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="Standard - JavaScript Style Guide"></a>
-  <a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/webtorrent/webtorrent.svg" alt="Greenkeeper badge"></a>
 </p>
 <br>
 
