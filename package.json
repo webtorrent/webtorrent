@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "addr-to-ip-port": "^1.4.2",
+    "base64-img": "^1.0.3",
     "bitfield": "^1.1.2",
     "bittorrent-dht": "^7.2.2",
     "bittorrent-protocol": "^2.1.5",
@@ -118,8 +119,9 @@
     "test": "standard && node ./bin/test.js",
     "test-browser": "zuul -- test/*.js test/browser/*.js",
     "test-browser-headless": "zuul --electron -- test/*.js test/browser/*.js",
-    "test-browser-local": "zuul --local -- test/*.js test/browser/*.js",
+    "test-browser-local": "zuul --local --open -- test/*.js test/browser/*.js",
     "test-node": "tape test/*.js test/node/*.js",
-    "update-authors": "./bin/update-authors.sh"
+    "update-authors": "./bin/update-authors.sh",
+    "test:large": "zuul --local --open -- test/browser/large-file.js"
   }
 }

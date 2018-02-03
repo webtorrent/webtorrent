@@ -1,5 +1,5 @@
 /* global FileList */
-
+'use strict'
 module.exports = WebTorrent
 
 var Buffer = require('safe-buffer').Buffer
