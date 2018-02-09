@@ -389,6 +389,10 @@ WebTorrent.prototype._remove = function (torrentId, cb) {
   var torrent = this.get(torrentId)
   if (!torrent) return
   this.torrents.splice(this.torrents.indexOf(torrent), 1)
+  // clear hash entity in cache to be able use pears search again
+  if (this.dht) {
+    this.dht._tables.remove(torrent.infoHash)
+  }
   torrent.destroy(cb)
 }
 
