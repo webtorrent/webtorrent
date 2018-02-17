@@ -99,6 +99,10 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[SuperQuickShare][superquickshare]** - Quickly share files between devices using webtorrent and qrcodes ([source code][superquickshare-source])
 - **[P2P-CDN][p2pcdn]** - WebTorrent CDN with graceful degradation
 - **[PearPlayer][PearPlayer]** - A WebTorrent based multi-source and multi-protocol P2P streaming media player
+- **[Tcloud][tcloud]** - File sharing and torrent downloading
+- **[Webtorrent-webui][webtorrent-webui]** - A WebTorrent client with a simple web interface for easy remote usage
+- **[CineTimes][cinetimes]** - A streaming website of public domain movies
+- **[Bitlove.org][bitlove]** - Your favorite podcasts via BitTorrent
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 #### WebTorrent Product Alternatives
@@ -172,6 +176,10 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [superquickshare-source]: https://github.com/manicphase/super-quick-share
 [p2pcdn]: https://github.com/andreapaiola/P2P-CDN
 [PearPlayer]: https://github.com/PearInc/PearPlayer.js
+[tcloud]: https://github.com/Lunik/tcloud
+[webtorrent-webui]: https://github.com/pldubouilh/webtorrent-webui
+[cinetimes]: http://cinetimes.org/
+[bitlove]: https://bitlove.org/
 
 ## How does WebTorrent work?
 
@@ -251,7 +259,7 @@ WebTorrent is just one example.
 
 WebRTC [works everywhere][webrtc-everywhere], and browser support is excellent.
 **Chrome**, **Firefox**, and **Opera** for Desktop and Android, as well as
-**Microsoft Edge** have support.
+**Microsoft Edge** and **Safari** have support.
 
 You can learn more about WebRTC data channels at [HTML5Rocks][datachannel-intro].
 

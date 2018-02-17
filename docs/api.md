@@ -3,7 +3,7 @@
 WebTorrent is a streaming torrent client for **Node.js** and the **web**. WebTorrent
 provides the same API in both environments.
 
-To use WebTorrent in the browser, [WebRTC] support is required (Chrome, Firefox, Opera).
+To use WebTorrent in the browser, [WebRTC] support is required (Chrome, Firefox, Opera, Safari).
 
 [webrtc]: https://en.wikipedia.org/wiki/WebRTC
 
