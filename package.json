@@ -71,7 +71,7 @@
   },
   "devDependencies": {
     "babili": "^0.1.4",
-    "bittorrent-tracker": "^9.0.0",
+    "bittorrent-tracker": "^9.4.0",
     "brfs": "^1.4.3",
     "browserify": "^16.0.0",
     "cross-spawn": "^6.0.3",
