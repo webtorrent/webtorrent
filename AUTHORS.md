@@ -112,6 +112,7 @@
 - snowinszu (86755838@qq.com)
 - XiaoJun (magic.xiao@admaster.com.cn)
 - Pierre Brocart (pierbrocar@gmail.com)
+- saramkn1 (31823057+saramkn1@users.noreply.github.com)
 - Alex (alxmorais8@msn.com)
 - Brian Clifton (brian@clifton.me)
 - greenkeeper[bot] (greenkeeper[bot]@users.noreply.github.com)
