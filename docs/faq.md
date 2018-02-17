@@ -103,6 +103,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Webtorrent-webui][webtorrent-webui]** - A WebTorrent client with a simple web interface for easy remote usage
 - **[CineTimes][cinetimes]** - A streaming website of public domain movies
 - **[Bitlove.org][bitlove]** - Your favorite podcasts via BitTorrent
+- **[lofiTorrent][lofitorrent]** - Online and offline browser torrent client
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 #### WebTorrent Product Alternatives
@@ -180,6 +181,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [webtorrent-webui]: https://github.com/pldubouilh/webtorrent-webui
 [cinetimes]: http://cinetimes.org/
 [bitlove]: https://bitlove.org/
+[lofitorrent]: https://lofitorrent.js.org/
 
 ## How does WebTorrent work?
 
