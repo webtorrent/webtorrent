@@ -120,6 +120,7 @@
 - Pierre-Louis Dubouilh (pldubouilh@gmail.com)
 - MiKatre (0mica4420@gmail.com)
 - Matthew Peveler (matt.peveler@gmail.com)
+- yan (yan@mit.edu)
 - Thijs Triemstra (info@collab.nl)
 - DEADBLACKCLOVER (asocio@protonmail.com)
 - Pierre Dubouilh (pldubouilh@gmail.com)
