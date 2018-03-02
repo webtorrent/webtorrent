@@ -327,6 +327,7 @@ Returns an `http.Server` instance (got from calling `http.createServer`). If
 ```js
 {
   origin: String // Allow requests from specific origin. `false` for same-origin. [default: '*']
+  hostname: String // If specified, only allow requests whose `Host` header matches this hostname. Note that you should not specify the port since this is automatically determined by the server. Ex: `localhost` [default: `undefined`]
 }
 ```
 
