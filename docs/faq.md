@@ -491,7 +491,7 @@ provides hundreds of vectors for fingerprinting you
 language, etc.).
 
 If you have a VPN enabled, then WebRTC data channels will not connect to peers
-using your true public IP address, nor will it be reveled to the JavaScript running
+using your true public IP address, nor will it be revealed to the JavaScript running
 on the webpage.
 
 At one point in time, WebRTC did have an issue where it would allow a website
