@@ -87,6 +87,7 @@ function WebTorrent (opts) {
   self.tracker = opts.tracker !== undefined ? opts.tracker : {}
   self.torrents = []
   self.maxConns = Number(opts.maxConns) || 55
+  self.utp = opts.utp !== false
 
   self._debug(
     'new webtorrent (peerId %s, nodeId %s, port %s)',
