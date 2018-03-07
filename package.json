@@ -9,7 +9,7 @@
   },
   "browser": {
     "./lib/server.js": false,
-    "./lib/tcp-pool.js": false,
+    "./lib/conn-pool.js": false,
     "bittorrent-dht/client": false,
     "fs-chunk-store": "memory-chunk-store",
     "load-ip-set": false,
@@ -66,6 +66,7 @@
     "unordered-array-remove": "^1.0.2",
     "ut_metadata": "^3.0.8",
     "ut_pex": "^1.1.1",
+    "utp": "0.0.9",
     "xtend": "^4.0.1",
     "zero-fill": "^2.2.3"
   },
