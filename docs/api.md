@@ -196,7 +196,7 @@ Total download progress for all **active** torrents, from 0 to 1.
 
 ## `client.ratio`
 
-Aggregate "seed ratio" for all torrents (uploaded / downloaded), from 0 to 1.
+Aggregate "seed ratio" for all torrents (uploaded / downloaded).
 
 
 # Torrent API
@@ -252,7 +252,7 @@ Torrent download progress, from 0 to 1.
 
 ## `torrent.ratio`
 
-Torrent "seed ratio" (uploaded / downloaded), from 0 to 1.
+Torrent "seed ratio" (uploaded / downloaded).
 
 ## `torrent.numPeers`
 
