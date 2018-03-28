@@ -34,7 +34,7 @@ Simply include the
 [`webtorrent.min.js`](https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js) script
 on your page to start fetching files over WebRTC using the BitTorrent protocol, or
 `require('webtorrent')` with [browserify](http://browserify.org/). See [demo apps
-](#webtorrent-in-production) and [code examples](#usage) below.
+](#who-is-using-webtorrent-today) and [code examples](#usage) below.
 
 [![jsdelivr download count](https://data.jsdelivr.com/v1/package/npm/webtorrent/badge)](https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js)
 
