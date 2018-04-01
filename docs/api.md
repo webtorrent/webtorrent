@@ -407,7 +407,7 @@ Here is a usage example:
 
 ```js
 torrent.on('done', function(){
-  console.log('torrent finished downloading');
+  console.log('torrent finished downloading')
   torrent.files.forEach(function(file){
      // do something with file
   })
@@ -422,7 +422,7 @@ instance:
 ```js
 torrent.on('download', function (bytes) {
   console.log('just downloaded: ' + bytes)
-  console.log('total downloaded: ' + torrent.downloaded);
+  console.log('total downloaded: ' + torrent.downloaded)
   console.log('download speed: ' + torrent.downloadSpeed)
   console.log('progress: ' + torrent.progress)
 })
