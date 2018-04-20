@@ -266,6 +266,20 @@ There are many supported streaming options:
 
 In addition to magnet uris, WebTorrent supports [many ways](docs/api.md#clientaddtorrentid-opts-function-ontorrent-torrent-) to specify a torrent.
 
+### Talks about WebTorrent
+
+- Sep 2017 - Nordic JS - [Get Rich Quick With P2P Crypto Currency](https://www.youtube.com/watch?v=8N_4Furztjo)
+- May 2017 - Char.la - [WebTorrent and Peerify](https://youtu.be/D-04vg5hvEQ?t=54m20s) (Spanish)
+- Nov 2016 - NodeConf Argentina - [Real world Electron: Building Cross-platform desktop apps with JavaScript](https://www.youtube.com/watch?v=YLExGgEnbFY)
+- May 2016 - SIGNAL Conference - [BitTorrent in the Browser](https://www.youtube.com/watch?v=2qrUx-C5Np4)
+- May 2015 - Data Terra Nemo - [WebTorrent: Mother of all demos](https://www.youtube.com/watch?v=RRtNEcAaUO8)
+- May 2015 - Data Terra Nemo - [WebRTC Everywhere](https://www.youtube.com/watch?v=RRtNEcAaUO8)
+- Nov 2014 - JSConf Asia - [How WebTorrent Works](https://www.youtube.com/watch?v=kxHRATfvnlw)
+- Sep 2014 - NodeConf EU - [WebRTC Mad Science](https://www.youtube.com/watch?v=BVBXkzVjvPc) (first working WebTorrent demo)
+- Apr 2014 - CraftConf - [Bringing BitTorrent to the Web](https://www.youtube.com/watch?v=PT8s_IVWDgw)
+- May 2014 - JS.LA - [How I Built a BitTorrent Client in the Browser](https://vimeo.com/97324247) (progress update; node client working)
+- Oct 2013 - RealtimeConf - [WebRTC Black Magic](https://vimeo.com/77265280) (first mention of idea for WebTorrent)
+
 ### Modules
 
 Most of the active development is happening inside of small npm packages which are used by WebTorrent.
@@ -389,15 +403,6 @@ Disable by running this:
 ```js
 localStorage.removeItem('debug')
 ```
-
-### Talks about WebTorrent
-
-- May 2017 (Char.la - Spanish) - [WebTorrent and Peerify](https://youtu.be/D-04vg5hvEQ?t=54m20s)
-- May 2015 (Data Terra Nemo) - [WebTorrent: Mother of all demos](https://www.youtube.com/watch?v=RRtNEcAaUO8)
-- Nov 2014 (JSConf Asia) - [How WebTorrent Works](https://www.youtube.com/watch?v=kxHRATfvnlw)
-- Sep 2014 (NodeConf EU) – [WebTorrent Mad Science](https://www.youtube.com/watch?v=BVBXkzVjvPc) (first working WebTorrent demo)
-- May 2014 (JS.LA) – [How I Built a BitTorrent Client in the Browser](https://vimeo.com/97324247) (progress update; node client working)
-- Oct 2013 (RealtimeConf) – [WebRTC Black Magic](https://vimeo.com/77265280) (first mention of idea for WebTorrent)
 
 ### License
 
