@@ -168,6 +168,7 @@ function WebTorrent (opts) {
 }
 
 WebTorrent.WEBRTC_SUPPORT = Peer.WEBRTC_SUPPORT
+WebTorrent.VERSION = VERSION
 
 Object.defineProperty(WebTorrent.prototype, 'downloadSpeed', {
   get: function () { return this._downloadSpeed() }
