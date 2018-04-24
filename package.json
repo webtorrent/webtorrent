@@ -53,7 +53,7 @@
     "run-parallel-limit": "^1.0.3",
     "safe-buffer": "^5.0.1",
     "simple-concat": "^1.0.0",
-    "simple-get": "^2.2.1",
+    "simple-get": "^3.0.1",
     "simple-peer": "^9.0.0",
     "simple-sha1": "^2.0.8",
     "speedometer": "^1.0.0",
