@@ -163,12 +163,14 @@ destroyed and all torrents are removed and cleaned up when this occurs.
 
 Always listen for the 'error' event.
 
-## `client.remove(torrentId, [function callback (err) {}])`
+## `client.remove(torrentId, [opts], [function callback (err) {}])`
 
-Remove a torrent from the client. Destroy all connections to peers and delete all saved
-file data. If `callback` is specified, it will be called when file data is removed.
+Remove a torrent from the client. Destroy all connections to peers and delete all saved file metadata.
 
-*Note: This method does not currently delete torrent data (in e.g. `/tmp/webtorrent/...`, see the `path` option to `client.add`). Until this is fixed, please implement it yourself (consider using the `rimraf` npm package).
+If `opts.destroyStore` is truthy, `store.destroy()` will be called, which will delete the torrent's files from the disk.
+
+If `callback` is provided, it will be called when the torrent is fully destroyed,
+i.e. all open sockets are closed, and the storage is either closed or destroyed.
 
 ## `client.destroy([function callback (err) {}])`
 
@@ -319,11 +321,14 @@ Author of the torrent (string).
 
 A comment optionnaly set by the author (string).
 
-## `torrent.destroy([callback])`
+## `torrent.destroy([opts], [callback])`
 
-Alias for `client.remove(torrent)`. If `callback` is provided, it will be called when
-the torrent is fully destroyed, i.e. all open sockets are closed, and the storage is
-closed.
+Remove the torrent from its client. Destroy all connections to peers and delete all saved file metadata.
+
+If `opts.destroyStore` is truthy, `store.destroy()` will be called, which will delete the torrent's files from the disk.
+
+If `callback` is provided, it will be called when the torrent is fully destroyed,
+i.e. all open sockets are closed, and the storage is either closed or destroyed.
 
 ## `torrent.addPeer(peer)`
 

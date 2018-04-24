@@ -1,4 +1,6 @@
 var fixtures = require('webtorrent-fixtures')
+var fs = require('fs')
+var path = require('path')
 var http = require('http')
 var test = require('tape')
 var WebTorrent = require('../../')
@@ -156,4 +158,50 @@ test('client.add: invalid torrent id: invalid filesystem path', function (t) {
   client.on('warning', function (err) { t.fail(err) })
 
   client.add('/invalid/filesystem/path/123')
+})
+
+test('client.remove: opts.destroyStore', function (t) {
+  t.plan(2)
+
+  var client = new WebTorrent({ dht: false, tracker: false })
+
+  client.on('error', function (err) { t.fail(err) })
+  client.on('warning', function (err) { t.fail(err) })
+
+  client.seed(fixtures.alice.content, { name: 'alice.txt', announce: [] }, function (torrent) {
+    var torrentPath = torrent.path
+    client.remove(torrent, { destroyStore: true }, function (err) {
+      if (err) t.fail(err)
+
+      fs.stat(path.join(torrentPath, 'alice.txt'), function (err) {
+        if (err && err.code === 'ENOENT') t.pass('file deleted')
+        else t.fail('file still exists')
+
+        client.destroy(function (err) { t.error(err, 'client destroyed') })
+      })
+    })
+  })
+})
+
+test('torrent.destroy: opts.destroyStore', function (t) {
+  t.plan(2)
+
+  var client = new WebTorrent({ dht: false, tracker: false })
+
+  client.on('error', function (err) { t.fail(err) })
+  client.on('warning', function (err) { t.fail(err) })
+
+  client.seed(fixtures.alice.content, { name: 'alice.txt', announce: [] }, function (torrent) {
+    var torrentPath = torrent.path
+    torrent.destroy({ destroyStore: true }, function (err) {
+      if (err) t.fail(err)
+
+      fs.stat(path.join(torrentPath, 'alice.txt'), function (err) {
+        if (err && err.code === 'ENOENT') t.pass('file deleted')
+        else t.fail('file still exists')
+
+        client.destroy(function (err) { t.error(err, 'client destroyed') })
+      })
+    })
+  })
 })
