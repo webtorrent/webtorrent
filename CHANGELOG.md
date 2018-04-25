@@ -1,5 +1,15 @@
 # WebTorrent Version History
 
+## v0.99.2 - 2018-04-24
+
+- Use `.npmignore` to prevent unneeded files from being included in the published package
+
+## v0.99.1 - 2018-04-24
+
+- Expose `WebTorrent.VERSION` (#1358)
+- Update to simple-get@3
+- Update to parse-torrent@6
+
 ## v0.99.0 - 2018-04-19
 
 - `renderTo()`/`appendTo()` does not autoplay by default anymore ([rationale](https://github.com/webtorrent/webtorrent/commit/fbbffbbb445096a909c851cdc4ca15204b9952b9))
