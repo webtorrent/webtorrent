@@ -1,0 +1,7 @@
+.airtap.yml
+.appveyor.yml
+.github/
+.travis.yml
+CONTRIBUTING.md
+scripts/
+test/
