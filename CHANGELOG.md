@@ -1,5 +1,9 @@
 # WebTorrent Version History
 
+## v0.99.3 - 2018-04-26
+
+- Add extra check to prevent invalid `peer.conn.remotePort` from being used ([webtorrent-hybrid/#76](https://github.com/webtorrent/webtorrent-hybrid/issues/76))
+
 ## v0.99.2 - 2018-04-24
 
 - Use `.npmignore` to prevent unneeded files from being included in the published package
