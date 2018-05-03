@@ -1,0 +1,7 @@
+# ProBot Lock Threads (https://probot.github.io/apps/lock/)
+
+daysUntilLock: 365
+lockComment: >
+  This thread has been automatically locked because it has not had recent
+  activity. Please open a new issue for related bugs and link to relevant
+  comments in this thread. ![](https://feross.net/s/cats/36.gif)
