@@ -1,0 +1,10 @@
+# ProBot No Response (https://probot.github.io/apps/no-response/)
+
+daysUntilClose: 14
+responseRequiredLabel: need more info
+closeComment: >
+  This issue has been automatically closed because there has been no response
+  to our request for more information from the original author. With only the
+  information that is currently in the issue, we don't have enough information
+  to take action. Please reach out if you have or find the answers we need so
+  that we can investigate further. ![](https://feross.net/s/cats/7.gif)
