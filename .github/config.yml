@@ -1,10 +1,8 @@
 # ProBot Request Info (https://probot.github.io/apps/request-info/)
 
-requestInfoReplyComment: |
+requestInfoReplyComment: >
   We would appreciate it if you could provide us with more information about this
-  issue/PR.
-
-  ![](https://feross.net/s/cats/14.gif)
+  issue/PR. <br><br> ![](https://feross.net/s/cats/14.gif)
 
 # ProBot Welcome (https://probot.github.io/apps/welcome/)
 
