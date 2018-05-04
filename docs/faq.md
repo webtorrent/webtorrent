@@ -157,7 +157,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [peerfast-source]: https://github.com/DiegoRBaquero/PeerFast
 [torrentmedia]: https://github.com/FaCuZ/torrentmedia
 [gaia]: http://charliehoey.com/threejs-demos/gaia_dr1.html
-[watchtor]: https://watchtor.herokuapp.com
+[watchtor]: https://open-watchtor.hashbase.io
 [watchtor-source]: https://github.com/codealchemist/watchtor
 [cachep2p]: http://www.cachep2p.com/
 [cachep2p-source]: https://github.com/guerrerocarlos/CacheP2P
