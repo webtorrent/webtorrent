@@ -71,7 +71,7 @@
   },
   "devDependencies": {
     "airtap": "0.0.4",
-    "babili": "^0.1.4",
+    "babel-minify": "^0.3.0",
     "bittorrent-tracker": "^9.4.0",
     "brfs": "^1.4.3",
     "browserify": "^16.0.0",
@@ -112,7 +112,7 @@
     "url": "git://github.com/webtorrent/webtorrent.git"
   },
   "scripts": {
-    "build": "browserify -s WebTorrent -e ./ | babili > webtorrent.min.js",
+    "build": "browserify -s WebTorrent -e ./ | minify > webtorrent.min.js",
     "build-debug": "browserify -s WebTorrent -e ./ > webtorrent.debug.js",
     "size": "npm run build && cat webtorrent.min.js | gzip | wc -c",
     "test": "standard && npm run test-node && npm run test-browser",
