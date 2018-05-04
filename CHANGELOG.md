@@ -1,5 +1,9 @@
 # WebTorrent Version History
 
+## v0.99.4 - 2018-05-03
+
+- Use updated `babel-minify` minifier instead of deprecated `babili`
+
 ## v0.99.3 - 2018-04-26
 
 - Add extra check to prevent invalid `peer.conn.remotePort` from being used ([webtorrent-hybrid/#76](https://github.com/webtorrent/webtorrent-hybrid/issues/76))
