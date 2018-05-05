@@ -1,6 +1,4 @@
 # ProBot Lock Threads (https://probot.github.io/apps/lock/)
 
 daysUntilLock: 365
-lockComment: >
-  This thread has been automatically locked because it has not had recent
-  activity. To discuss futher, please open a new issue.
+lockComment: false
