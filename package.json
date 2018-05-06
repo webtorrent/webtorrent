@@ -70,7 +70,7 @@
     "zero-fill": "^2.2.3"
   },
   "devDependencies": {
-    "airtap": "0.0.4",
+    "airtap": "0.0.5",
     "babel-minify": "^0.3.0",
     "bittorrent-tracker": "^9.4.0",
     "brfs": "^1.4.3",
