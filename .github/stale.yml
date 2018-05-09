@@ -7,6 +7,5 @@ exemptLabels:
 staleLabel: stale
 markComment: >
   This issue has been automatically marked as stale because it has not had
-  recent activity. It will be closed if no further activity occurs. <br><br>
-  ![](https://feross.net/s/cats/18.gif)
+  recent activity. It will be closed if no further activity occurs.
 closeComment: false
