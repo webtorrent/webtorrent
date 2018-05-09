@@ -1,4 +1,4 @@
 # ProBot Lock Threads (https://probot.github.io/apps/lock/)
 
-daysUntilLock: 365
+daysUntilLock: 180
 lockComment: false
