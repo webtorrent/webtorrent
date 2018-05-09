@@ -1,6 +1,6 @@
 # ProBot Stale (https://probot.github.io/apps/stale/)
 
-daysUntilStale: 120
+daysUntilStale: 90
 daysUntilClose: 7
 exemptLabels:
   - accepted
