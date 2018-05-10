@@ -11,7 +11,7 @@ newPRWelcomeComment: >
   Thanks for opening this pull request! Please check out our contributing guidelines.
   <br><br> ![](https://feross.net/s/cats/9.gif)
 firstPRMergeComment: >
-  Congrats on getting your first pull request merged! <br><br>
+  Congrats on getting your first pull request landed! <br><br>
   ![](https://feross.net/s/cats/29.gif)
 
 # ProBot WIP (https://probot.github.io/apps/wip/)
