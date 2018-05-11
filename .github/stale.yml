@@ -6,6 +6,7 @@ exemptLabels:
   - accepted
   - bug
   - enhancement
+  - meta
 staleLabel: stale
 markComment: >
   This issue has been automatically marked as stale because it has not had
