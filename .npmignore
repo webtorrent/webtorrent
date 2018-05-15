@@ -4,4 +4,5 @@
 .travis.yml
 CONTRIBUTING.md
 scripts/
+SECURITY.md
 test/
