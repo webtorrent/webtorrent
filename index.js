@@ -19,7 +19,7 @@ var randombytes = require('randombytes')
 var speedometer = require('speedometer')
 var zeroFill = require('zero-fill')
 
-var TCPPool = require('./lib/tcp-pool') // browser exclude
+var ConnPool = require('./lib/conn-pool') // browser exclude
 var Torrent = require('./lib/torrent')
 
 /**
@@ -87,6 +87,7 @@ function WebTorrent (opts) {
   self.tracker = opts.tracker !== undefined ? opts.tracker : {}
   self.torrents = []
   self.maxConns = Number(opts.maxConns) || 55
+  self.utp = opts.utp !== false
 
   self._debug(
     'new webtorrent (peerId %s, nodeId %s, port %s)',
@@ -110,8 +111,8 @@ function WebTorrent (opts) {
     }
   }
 
-  if (typeof TCPPool === 'function') {
-    self._tcpPool = new TCPPool(self)
+  if (typeof ConnPool === 'function') {
+    self._connPool = new ConnPool(self)
   } else {
     process.nextTick(function () {
       self._onListening()
@@ -395,8 +396,8 @@ WebTorrent.prototype._remove = function (torrentId, cb) {
 
 WebTorrent.prototype.address = function () {
   if (!this.listening) return null
-  return this._tcpPool
-    ? this._tcpPool.server.address()
+  return this._connPool
+    ? this._connPool.tcpServer.address()
     : { address: '0.0.0.0', family: 'IPv4', port: 0 }
 }
 
@@ -420,9 +421,9 @@ WebTorrent.prototype._destroy = function (err, cb) {
     }
   })
 
-  if (self._tcpPool) {
+  if (self._connPool) {
     tasks.push(function (cb) {
-      self._tcpPool.destroy(cb)
+      self._connPool.destroy(cb)
     })
   }
 
@@ -437,7 +438,7 @@ WebTorrent.prototype._destroy = function (err, cb) {
   if (err) self.emit('error', err)
 
   self.torrents = []
-  self._tcpPool = null
+  self._connPool = null
   self.dht = null
 }
 
@@ -445,9 +446,9 @@ WebTorrent.prototype._onListening = function () {
   this._debug('listening')
   this.listening = true
 
-  if (this._tcpPool) {
+  if (this._connPool) {
     // Sometimes server.address() returns `null` in Docker.
-    var address = this._tcpPool.server.address()
+    var address = this._connPool.tcpServer.address()
     if (address) this.torrentPort = address.port
   }
 
