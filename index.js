@@ -257,6 +257,9 @@ class WebTorrent extends EventEmitter {
     this._debug('seed')
     opts = opts ? Object.assign({}, opts) : {}
 
+    // no need to verify the hashes we create
+    opts.skipVerify = true
+
     const isFilePath = typeof input === 'string'
 
     // When seeding from fs path, initialize store from that path to avoid a copy
