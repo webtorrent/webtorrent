@@ -42,6 +42,7 @@
     "mime": "^2.2.0",
     "multistream": "^2.0.5",
     "package-json-versionify": "^1.0.2",
+    "parse-numeric-range": "^0.0.2",
     "parse-torrent": "^6.0.0",
     "pump": "^3.0.0",
     "random-iterate": "^1.0.1",
