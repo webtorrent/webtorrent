@@ -35,7 +35,7 @@ var VERSION = require('./package.json').version
  */
 var VERSION_STR = VERSION.match(/([0-9]+)/g)
   .slice(0, 2)
-  .map(function (v) { return zeroFill(2, v) })
+  .map(function (v) { return zeroFill(2, v % 100) })
   .join('')
 
 /**
