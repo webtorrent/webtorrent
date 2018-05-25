@@ -1,7 +1,7 @@
 # ProBot Request Info (https://probot.github.io/apps/request-info/)
 
 requestInfoReplyComment: >
-  We would appreciate it if you could provide us with more information about this
+  👋 We would appreciate it if you could provide us with more information about this
   issue. <br><br> ![](https://feross.net/s/cats/14.gif)
 requestInfoLabelToAdd: 'need more info'
 
