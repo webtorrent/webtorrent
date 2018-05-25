@@ -3,9 +3,7 @@
 daysUntilClose: 7
 responseRequiredLabel: 'need more info'
 closeComment: >
-  This issue has been automatically closed because there was no response to the
-  maintainer's request for more information from the issue opener. With only the
-  information that is currently in the issue, we don't have enough information to
-  take action. Please leave a comment or open a new issue if you have the additional
-  information we need to investigate further. <br><br>
-  ![](https://feross.net/s/cats/7.gif)
+  This issue has been automatically closed because there was no response to a
+  request for more information from the issue opener. Please leave a comment or
+  open a new issue if you have additional information related to this issue.
+  <br><br> ![](https://feross.net/s/cats/7.gif)
