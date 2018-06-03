@@ -441,6 +441,90 @@ WebTorrent.prototype._destroy = function (err, cb) {
   self.dht = null
 }
 
+/**
+ * Render files from a torrent into DOM nodes with custom attributes:
+ * [data-torrent-src] TorrentId to render
+ * [data-torrent-path] path to the file to render in a multi file torrent
+ * [data-torrent-fallback] fallback url for src
+ * @param  {Object}   opts
+ * @param  {function} cb
+ */
+WebTorrent.prototype.render = function (opts, cb) {
+  var self = this
+  if (typeof opts === 'function') return self.render(null, opts)
+
+  if (!opts) opts = {}
+
+  var nodes = opts.elements || document.querySelectorAll('[data-torrent-src]')
+
+  if (nodes.length === 0) return cb()
+
+  var numRendered = 0
+
+  nodes.forEach(function (elem) {
+    var torrentId = elem.getAttribute('data-torrent-src')
+
+    var torrent = self.get(torrentId) || self.add(torrentId)
+
+    // don't pass error to fallback() because the cb() might have already been called before the torrent error
+    torrent.once('error', function () { fallback() })
+
+    // if nothing has been downloaded after timeout length, use fallback
+    setTimeout(function () {
+      if (torrent.downloaded === 0) {
+        fallback(new Error('Torrent with infohash: ' + torrent.infoHash + ' timed out. Using fallback url.'))
+      }
+    }, opts.timeout || 5000)
+
+    // ensure metadata is available before using files in renderFile()
+    if (torrent.metadata) {
+      renderFile()
+    } else {
+      torrent.once('metadata', function () { renderFile() })
+    }
+
+    function renderFile () {
+      var filePath = elem.getAttribute('data-torrent-path')
+
+      var fileToRender = torrent.files.find(function (file) {
+        if (!filePath) return true // if no path is specified, render the first file
+
+        var rootDir = /\//.test(file.path) ? (torrent.name + '/') : ''
+
+        // remove initial / if present
+        filePath = filePath.replace(/^\//, '')
+
+        return file.path === rootDir + filePath
+      })
+
+      if (!fileToRender) {
+        return fallback(new Error('No file found matching this path: ' + filePath + ' in torrent with infohash: ' + torrent.infoHash))
+      }
+
+      // some errors from render-media are thrown, and some are passed to the callback
+      try {
+        fileToRender.renderTo(elem, {
+          autoplay: elem.hasAttribute('autoplay'),
+          controls: elem.hasAttribute('controls')
+        }, function (err) {
+          if (err) return fallback(err)
+
+          if (++numRendered === nodes.length) cb()
+        })
+      } catch (err) {
+        fallback(err)
+      }
+    }
+
+    function fallback (error) {
+      var fallbackSrc = elem.getAttribute('data-torrent-fallback')
+      if (fallbackSrc) elem.setAttribute('src', fallbackSrc)
+
+      if (error) cb(error)
+    }
+  })
+}
+
 WebTorrent.prototype._onListening = function () {
   this._debug('listening')
   this.listening = true
