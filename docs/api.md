@@ -15,20 +15,18 @@ npm install webtorrent
 
 ## Quick Example
 
-```js
+```html
+<video autoplay controls
+data-torrent-src="magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel.torrent"
+data-torrent-path="Sintel.mp4"></video>
+<script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
+<script>
 var client = new WebTorrent()
 
-var torrentId = 'magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel.torrent'
-
-client.add(torrentId, function (torrent) {
-  // Torrents can contain many files. Let's use the .mp4 file
-  var file = torrent.files.find(function (file) {
-    return file.name.endsWith('.mp4')
-  })
-
-  // Display the file by adding it to the DOM. Supports video, audio, image, etc. files
-  file.appendTo('body')
+client.render(function (err) {
+  throw err
 })
+</script>
 ```
 
 # WebTorrent API
@@ -149,6 +147,33 @@ var buf = new Buffer('Some file content')
 buf.name = 'Some file name'
 client.seed(buf, cb)
 ```
+
+## `client.render([opts], function onrendered (err) {})`
+
+Render files into the DOM using data attributes.
+
+```html
+<img data-torrent-src="torrentId" /> <!-- The torrentId that contains the file to render (see client.add()) -->
+<img data-torrent-src="torrentId" data-torrent-path="path/to/file" /> <!-- The path to the desired file in a multi file torrent -->
+<img data-torrent-src="torrentId" data-torrent-fallback="http://example.com/img.png"/> <!-- A normal src URL to fall back to in case of errors -->
+```
+
+The torrentId passed to `[data-torrent-src]` will use an existing matching torrent with client.get(), or it will create a new one with client.add(). If there's an existing matching torrent, then it won't be modified by a new magnet link, so no new webseeds, trackers, or other options will be added.
+
+If `opts` is specified, then the default options (shown below) will be overridden.
+
+```js
+{
+  elements: [Node], // An array of DOM nodes to render to (default=document.querySelectorAll('[data-torrent-src]'))
+  timeout: Number // Number of milliseconds to wait for downloads to initiate before using fallback url (default=5000ms)
+}
+```
+
+If the `onrendered` callback is specified, then it will be called after all the DOM nodes are successfully rendered to.
+
+If no path is specified via `[data-torrent-path]`, then `torrent.files[0]` will be used.
+
+The path in `[data-torrent-path]` is relative to the torrent's root folder, unlike `file.path` which includes the root directory.
 
 ## `client.on('torrent', function (torrent) {})`
 
