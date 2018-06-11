@@ -105,6 +105,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Bitlove.org][bitlove]** - Your favorite podcasts via BitTorrent
 - **[lofiTorrent][lofitorrent]** - Online and offline browser torrent client
 - **[Live-torrent][live-torrent]** - Simple implementation of a webtorrent powered live streaming solution ([source code][live-torrent-source])
+- **[CDNBye][CDNBye]** -  CDNBye implements WebRTC datachannel to scale live/vod video streaming by peer-to-peer network using bittorrent-like protocol.
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 #### WebTorrent Product Alternatives
@@ -185,6 +186,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [lofitorrent]: https://lofitorrent.js.org/
 [live-torrent]: https://live.computer
 [live-torrent-source]: https://github.com/pldubouilh/live-torrent
+[CDNBye]: https://github.com/cdnbye/hlsjs-p2p-engine
 
 ## How does WebTorrent work?
 
