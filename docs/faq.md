@@ -105,6 +105,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Bitlove.org][bitlove]** - Your favorite podcasts via BitTorrent
 - **[lofiTorrent][lofitorrent]** - Online and offline browser torrent client
 - **[Live-torrent][live-torrent]** - Simple implementation of a webtorrent powered live streaming solution ([source code][live-torrent-source])
+- **[WWT][wwt]** - Watch videos by torrents in your browser
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 #### WebTorrent Product Alternatives
@@ -185,6 +186,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [lofitorrent]: https://lofitorrent.js.org/
 [live-torrent]: https://live.computer
 [live-torrent-source]: https://github.com/pldubouilh/live-torrent
+[wwt]: https://tnoevry.github.io/wwt/
 
 ## How does WebTorrent work?
 
