@@ -68,7 +68,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Colored Coins][coloredcoins]** - Open protocol for creating digital assets on the Blockchain ([source code][coloredcoins-source])
 - **[Tokenly Pockets][pockets]** - Digital token issuance with WebTorrent-based metadata ([source code][pockets-source])
 - **[βTorrent][btorrent]** - Fully-featured browser WebTorrent client ([source code][btorrent-source])
-- **[Seedshot][seedshot]** - Peer to peer screenshot sharing from your browser ([source code][seedshot-source])
+- **[Zapsnap][zapsnap]** - Temporary peer to peer screenshot sharing from your browser ([source code][zapsnap-source])
 - **[PeerWeb][peerweb]** - Fetch and render a static website from a torrent
 - **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s))
 - **[Vique][vique]** - Video player queue to share videos
@@ -96,16 +96,26 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Lunik-Torrent][lunik-torrent]** - WebTorrent downloader and file manager. ([source code][lunik-torrent-source])
 - **[BitChute][bitchute]** - A decentralized video streaming social network
 - **[Planktos][planktos]** - Enables websites to serve their static content over BitTorrent ([source code][planktos-source])
+- **[SuperQuickShare][superquickshare]** - Quickly share files between devices using webtorrent and qrcodes ([source code][superquickshare-source])
+- **[P2P-CDN][p2pcdn]** - WebTorrent CDN with graceful degradation
+- **[PearPlayer][PearPlayer]** - A WebTorrent based multi-source and multi-protocol P2P streaming media player
+- **[Tcloud][tcloud]** - File sharing and torrent downloading
+- **[Webtorrent-webui][webtorrent-webui]** - A WebTorrent client with a simple web interface for easy remote usage
+- **[CineTimes][cinetimes]** - A streaming website of public domain movies
+- **[Bitlove.org][bitlove]** - Your favorite podcasts via BitTorrent
+- **[lofiTorrent][lofitorrent]** - Online and offline browser torrent client
+- **[Live-torrent][live-torrent]** - Simple implementation of a webtorrent powered live streaming solution ([source code][live-torrent-source])
+- **[WWT][wwt]** - Watch videos by torrents in your browser
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 #### WebTorrent Product Alternatives
 
 There's also a list of WebTorrent-powered alternatives to centralized services here: [WebTorrent Product Clones][webtorrent-clones]
-[webtorrent-clones]: https://github.com/DiegoRBaquero/awesome-webtorrent-clones
 
+[webtorrent-clones]: https://github.com/DiegoRBaquero/awesome-webtorrent-clones
 [webtorrent-desktop]: https://webtorrent.io/desktop
-[webtorrent-desktop-source]: https://github.com/feross/webtorrent-desktop
-[instant.io-source]: https://github.com/feross/instant.io
+[webtorrent-desktop-source]: https://github.com/webtorrent/webtorrent-desktop
+[instant.io-source]: https://github.com/webtorrent/instant.io
 [gittorrent]: http://blog.printf.net/articles/2015/05/29/announcing-gittorrent-a-decentralized-github/
 [gittorrent-source]: https://github.com/cjb/GitTorrent
 [filepizza]: http://file.pizza/
@@ -121,8 +131,8 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [pockets-source]: https://github.com/loon3/Tokenly-Pockets
 [btorrent]: https://btorrent.xyz
 [btorrent-source]: https://github.com/DiegoRBaquero/bTorrent
-[seedshot]: http://seedshot.io/
-[seedshot-source]: https://github.com/twobucks/seedshot
+[zapsnap]: http://zapsnap.io/
+[zapsnap-source]: https://github.com/twobucks/zapsnap
 [peerweb]: https://github.com/retrohacker/peerweb.js
 [niagara]: https://andreapaiola.name/niagara/
 [vique]: https://andreapaiola.name/vique/
@@ -148,7 +158,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [peerfast-source]: https://github.com/DiegoRBaquero/PeerFast
 [torrentmedia]: https://github.com/FaCuZ/torrentmedia
 [gaia]: http://charliehoey.com/threejs-demos/gaia_dr1.html
-[watchtor]: https://watchtor.herokuapp.com
+[watchtor]: https://open-watchtor.hashbase.io
 [watchtor-source]: https://github.com/codealchemist/watchtor
 [cachep2p]: http://www.cachep2p.com/
 [cachep2p-source]: https://github.com/guerrerocarlos/CacheP2P
@@ -165,6 +175,18 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [bitchute]: https://www.bitchute.com
 [planktos]: https://xuset.github.io/planktos/
 [planktos-source]: https://github.com/xuset/planktos
+[superquickshare]: https://sqs.fun
+[superquickshare-source]: https://github.com/manicphase/super-quick-share
+[p2pcdn]: https://github.com/andreapaiola/P2P-CDN
+[PearPlayer]: https://github.com/PearInc/PearPlayer.js
+[tcloud]: https://github.com/Lunik/tcloud
+[webtorrent-webui]: https://github.com/pldubouilh/webtorrent-webui
+[cinetimes]: http://cinetimes.org/
+[bitlove]: https://bitlove.org/
+[lofitorrent]: https://lofitorrent.js.org/
+[live-torrent]: https://live.computer
+[live-torrent-source]: https://github.com/pldubouilh/live-torrent
+[wwt]: https://tnoevry.github.io/wwt/
 
 ## How does WebTorrent work?
 
@@ -207,15 +229,18 @@ It's easy to download a torrent and add it to the page.
 ```js
 var client = new WebTorrent()
 
-var torrentId = 'magnet:?xt=urn:btih:6a9759bffd5c0af65319979fb7832189f4f3c35d&dn=sintel.mp4&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel-1024-surround.mp4'
+var torrentId = 'magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel.torrent'
 
 client.add(torrentId, function (torrent) {
-  var file = torrent.files[0]
+  // Torrents can contain many files. Let's use the .mp4 file
+  var file = torrent.files.find(function (file) {
+    return file.name.endsWith('.mp4')
+  })
   file.appendTo('body') // append the file to the DOM
 })
 ```
 
-This supports video, audio, images, PDFs, Markdown, [and more][append-to], right
+This supports video, audio, images, PDFs, Markdown, [and more][render-media], right
 out of the box. There are additional ways to access file content directly, including
 as a node-style stream, Buffer, or Blob URL.
 
@@ -241,7 +266,7 @@ WebTorrent is just one example.
 
 WebRTC [works everywhere][webrtc-everywhere], and browser support is excellent.
 **Chrome**, **Firefox**, and **Opera** for Desktop and Android, as well as
-**Microsoft Edge** have support.
+**Microsoft Edge** and **Safari** have support.
 
 You can learn more about WebRTC data channels at [HTML5Rocks][datachannel-intro].
 
@@ -366,8 +391,8 @@ If you're looking for help getting started, come join us in [Gitter][gitter] or 
 IRC at `#webtorrent` (freenode) and how you can get started.
 
 
-[open-issues]: https://github.com/feross/webtorrent/issues?state=open
-[contributing]: https://github.com/feross/webtorrent/blob/master/CONTRIBUTING.md
+[open-issues]: https://github.com/webtorrent/webtorrent/issues?state=open
+[contributing]: https://github.com/webtorrent/webtorrent/blob/master/CONTRIBUTING.md
 
 ## Where can I learn more?
 
@@ -468,7 +493,7 @@ provides hundreds of vectors for fingerprinting you
 language, etc.).
 
 If you have a VPN enabled, then WebRTC data channels will not connect to peers
-using your true public IP address, nor will it be reveled to the JavaScript running
+using your true public IP address, nor will it be revealed to the JavaScript running
 on the webpage.
 
 At one point in time, WebRTC did have an issue where it would allow a website
@@ -500,8 +525,8 @@ Streaming support depends on support for `MediaSource` API in the browser. All
 modern browsers have `MediaSource` support. In Firefox, support was added in
 Firefox 42 (i.e. Firefox Nightly).
 
-[Many file types][append-to] are supported (again, depending on browser support),
-but only `.mp4`, `.m4v`, and `.m4a`       have full support, including seeking.
+[Many file types][render-media] are supported (again, depending on browser support),
+but only `.mp4`, `.m4v`, and `.m4a` have full support, including seeking.
 
 To support video/audio streaming of arbitrary files, WebTorrent uses the
 [`videostream`][videostream] package, which in turn uses [`mp4box.js`][mp4box.js].
@@ -517,13 +542,13 @@ Open an issue on the WebTorrent [issue tracker][issues], or join us in
 [Gitter][gitter] or on IRC at `#webtorrent` (freenode).
 
 [webtorrent-io]: https://webtorrent.io
-[append-to]: https://github.com/feross/webtorrent/blob/master/lib/append-to.js#L6-L14
-[gitter]: https://gitter.im/feross/webtorrent
+[render-media]: https://github.com/feross/render-media/blob/master/index.js
+[gitter]: https://gitter.im/webtorrent/webtorrent
 [instant.io]: https://instant.io
-[issues]: https://github.com/feross/webtorrent/issues
-[license]: https://github.com/feross/webtorrent/blob/master/LICENSE
+[issues]: https://github.com/webtorrent/webtorrent/issues
+[license]: https://github.com/webtorrent/webtorrent/blob/master/LICENSE
 [peercdn]: http://www.peercdn.com/
 [playback]: https://mafintosh.github.io/playback/
-[pr]: https://github.com/feross/webtorrent
+[pr]: https://github.com/webtorrent/webtorrent
 [webtorrent-hybrid]: https://npmjs.com/package/webtorrent-hybrid
 [webtorrent]: https://npmjs.com/package/webtorrent

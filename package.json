@@ -1,7 +1,7 @@
 {
   "name": "webtorrent",
   "description": "Streaming torrent client",
-  "version": "0.98.8",
+  "version": "0.100.0",
   "author": {
     "name": "WebTorrent, LLC",
     "email": "feross@webtorrent.io",
@@ -27,47 +27,48 @@
     ]
   },
   "bugs": {
-    "url": "https://github.com/feross/webtorrent/issues"
+    "url": "https://github.com/webtorrent/webtorrent/issues"
   },
   "dependencies": {
     "addr-to-ip-port": "^1.4.2",
-    "bitfield": "^1.1.2",
-    "bittorrent-dht": "^7.2.2",
+    "bitfield": "^2.0.0",
+    "bittorrent-dht": "^8.0.0",
     "bittorrent-protocol": "^2.1.5",
     "chunk-store-stream": "^2.0.2",
     "create-torrent": "^3.24.5",
-    "debug": "^2.2.0",
+    "debug": "^3.1.0",
     "end-of-stream": "^1.1.0",
     "fs-chunk-store": "^1.6.2",
     "immediate-chunk-store": "^1.0.8",
     "inherits": "^2.0.1",
     "load-ip-set": "^1.2.7",
     "memory-chunk-store": "^1.2.0",
-    "mime": "^1.3.4",
+    "mime": "^2.2.0",
     "multistream": "^2.0.5",
     "nat-pmp": "github:yciabaud/node-nat-pmp#patch-1",
     "nat-upnp": "^1.0.4",
     "network": "^0.3.2",
     "package-json-versionify": "^1.0.2",
-    "parse-torrent": "^5.8.0",
-    "pump": "^1.0.1",
+    "parse-numeric-range": "^0.0.2",
+    "parse-torrent": "^6.0.0",
+    "pump": "^3.0.0",
     "random-iterate": "^1.0.1",
     "randombytes": "^2.0.3",
     "range-parser": "^1.2.0",
     "readable-stream": "^2.1.4",
-    "render-media": "^2.8.0",
+    "render-media": "^3.0.0",
     "run-parallel": "^1.1.6",
     "run-parallel-limit": "^1.0.3",
     "safe-buffer": "^5.0.1",
     "simple-concat": "^1.0.0",
-    "simple-get": "^2.2.1",
-    "simple-peer": "^6.0.4",
+    "simple-get": "^3.0.1",
+    "simple-peer": "^9.0.0",
     "simple-sha1": "^2.0.8",
     "speedometer": "^1.0.0",
     "stream-to-blob": "^1.0.0",
     "stream-to-blob-url": "^2.1.0",
     "stream-with-known-length-to-buffer": "^1.0.0",
-    "torrent-discovery": "^8.1.0",
+    "torrent-discovery": "^8.3.1",
     "torrent-piece": "^1.1.0",
     "uniq": "^1.0.1",
     "unordered-array-remove": "^1.0.2",
@@ -77,20 +78,20 @@
     "zero-fill": "^2.2.3"
   },
   "devDependencies": {
-    "bittorrent-tracker": "^8.0.7",
+    "airtap": "0.0.7",
+    "babel-minify": "^0.4.3",
+    "bittorrent-tracker": "^9.4.0",
     "brfs": "^1.4.3",
-    "browserify": "^14.0.0",
-    "cross-spawn": "^5.0.1",
-    "electron-prebuilt": "^0.37.8",
-    "finalhandler": "^0.5.0",
+    "browserify": "^16.0.0",
+    "cross-spawn": "^6.0.3",
+    "electron": "^2.0.0",
+    "finalhandler": "^1.0.0",
     "network-address": "^1.1.0",
     "run-series": "^1.1.4",
     "serve-static": "^1.11.1",
     "standard": "*",
     "tape": "^4.6.0",
-    "uglify-js": "^2.7.0",
-    "webtorrent-fixtures": "^1.5.0",
-    "zuul": "^3.10.1"
+    "webtorrent-fixtures": "^1.5.0"
   },
   "engines": {
     "node": ">=4"
@@ -116,17 +117,16 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/feross/webtorrent.git"
+    "url": "git://github.com/webtorrent/webtorrent.git"
   },
   "scripts": {
-    "build": "browserify -s WebTorrent -e ./ | uglifyjs -c warnings=false -m > webtorrent.min.js",
+    "build": "browserify -s WebTorrent -e ./ | minify > webtorrent.min.js",
     "build-debug": "browserify -s WebTorrent -e ./ > webtorrent.debug.js",
     "size": "npm run build && cat webtorrent.min.js | gzip | wc -c",
-    "test": "standard && node ./bin/test.js",
-    "test-browser": "zuul -- test/*.js test/browser/*.js",
-    "test-browser-headless": "zuul --electron -- test/*.js test/browser/*.js",
-    "test-browser-local": "zuul --local -- test/*.js test/browser/*.js",
+    "test": "standard && npm run test-node && npm run test-browser",
+    "test-browser": "airtap -- test/*.js test/browser/*.js",
+    "test-browser-local": "airtap --local -- test/*.js test/browser/*.js",
     "test-node": "tape test/*.js test/node/*.js",
-    "update-authors": "./bin/update-authors.sh"
+    "update-authors": "./scripts/update-authors.sh"
   }
 }
