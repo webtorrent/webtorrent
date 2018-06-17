@@ -8,12 +8,16 @@
     "url": "https://webtorrent.io"
   },
   "browser": {
+    "./lib/nat-traversal.js": false,
     "./lib/server.js": false,
     "./lib/tcp-pool.js": false,
     "bittorrent-dht/client": false,
     "fs-chunk-store": "memory-chunk-store",
     "load-ip-set": false,
+    "nat-pmp": false,
+    "nat-upnp": false,
     "net": false,
+    "network": false,
     "os": false,
     "ut_pex": false
   },
@@ -41,6 +45,9 @@
     "memory-chunk-store": "^1.2.0",
     "mime": "^1.3.4",
     "multistream": "^2.0.5",
+    "nat-pmp": "github:yciabaud/node-nat-pmp#patch-1",
+    "nat-upnp": "^1.0.4",
+    "network": "^0.3.2",
     "package-json-versionify": "^1.0.2",
     "parse-torrent": "^5.8.0",
     "pump": "^1.0.1",
