@@ -137,7 +137,7 @@ function WebTorrent (opts) {
       if (address) {
         self.dhtPort = address.port
         if (self._natTraversal.portMapping) {
-          self._natTraversal.portMapping(self.dhtPort)
+          self._natTraversal.portMapping(self.dhtPort, 'udp')
         }
       }
     })
@@ -464,7 +464,7 @@ WebTorrent.prototype._onListening = function () {
     if (address) {
       this.torrentPort = address.port
       if (this._natTraversal.portMapping) {
-        this._natTraversal.portMapping(this.torrentPort)
+        this._natTraversal.portMapping(this.torrentPort, 'tcp')
       }
     }
   }
