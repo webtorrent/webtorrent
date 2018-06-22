@@ -74,7 +74,7 @@
     "airtap": "0.0.7",
     "babel-minify": "^0.4.3",
     "bittorrent-tracker": "^9.4.0",
-    "brfs": "^1.4.3",
+    "brfs": "^2.0.0",
     "browserify": "^16.0.0",
     "cross-spawn": "^6.0.3",
     "electron": "^2.0.0",
