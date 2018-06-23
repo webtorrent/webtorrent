@@ -1,0 +1,4 @@
+# ProBot Lock (https://probot.github.io/apps/lock/)
+
+daysUntilLock: 90
+lockComment: false

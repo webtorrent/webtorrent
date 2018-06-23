@@ -196,7 +196,7 @@ Total download progress for all **active** torrents, from 0 to 1.
 
 ## `client.ratio`
 
-Aggregate "seed ratio" for all torrents (uploaded / downloaded), from 0 to 1.
+Aggregate "seed ratio" for all torrents (uploaded / downloaded).
 
 
 # Torrent API
@@ -252,7 +252,7 @@ Torrent download progress, from 0 to 1.
 
 ## `torrent.ratio`
 
-Torrent "seed ratio" (uploaded / downloaded), from 0 to 1.
+Torrent "seed ratio" (uploaded / downloaded).
 
 ## `torrent.numPeers`
 
@@ -327,6 +327,7 @@ Returns an `http.Server` instance (got from calling `http.createServer`). If
 ```js
 {
   origin: String // Allow requests from specific origin. `false` for same-origin. [default: '*']
+  hostname: String // If specified, only allow requests whose `Host` header matches this hostname. Note that you should not specify the port since this is automatically determined by the server. Ex: `localhost` [default: `undefined`]
 }
 ```
 
@@ -406,7 +407,7 @@ Here is a usage example:
 
 ```js
 torrent.on('done', function(){
-  console.log('torrent finished downloading');
+  console.log('torrent finished downloading')
   torrent.files.forEach(function(file){
      // do something with file
   })
@@ -421,7 +422,7 @@ instance:
 ```js
 torrent.on('download', function (bytes) {
   console.log('just downloaded: ' + bytes)
-  console.log('total downloaded: ' + torrent.downloaded);
+  console.log('total downloaded: ' + torrent.downloaded)
   console.log('download speed: ' + torrent.downloadSpeed)
   console.log('progress: ' + torrent.progress)
 })
@@ -542,9 +543,15 @@ will be shown in. A new DOM node will be created for the content and appended to
 
 If provided, `opts` can contain the following options:
 
-- `autoplay`: Autoplay video/audio files (default: `true`)
+- `autoplay`: Autoplay video/audio files (default: `false`)
+- `muted`: Mute video/audio files (default: `false`)
 - `controls`: Show video/audio player controls (default: `true`)
 - `maxBlobLength`: Files above this size will skip the "blob" strategy and fail (default: `200 * 1000 * 1000` bytes)
+
+Note: Modern browsers tend to block media that autoplays with audio (here's the
+[Chrome policy](https://developers.google.com/web/updates/2017/09/autoplay-policy-changes)
+for instance) so if you set `autoplay` to `true`, it's a good idea to also set
+`muted` to `true`.
 
 If provided, `callback` will be called once the file is visible to the user.
 `callback` is called with an `Error` (or `null`) and the new DOM node that is

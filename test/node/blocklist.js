@@ -53,22 +53,22 @@ test('blocklist (array of IPs)', function (t) {
     tracker: false,
     blocklist: [ '1.2.3.4', '5.6.7.8' ]
   })
-  .on('error', function (err) { t.fail(err) })
-  .on('warning', function (err) { t.fail(err) })
-  .on('ready', function () {
-    client.add(fixtures.leaves.parsedTorrent, function (torrent) {
-      assertBlocked(t, torrent, '1.2.3.4:1234')
-      assertBlocked(t, torrent, '1.2.3.4:6969')
-      assertBlocked(t, torrent, '5.6.7.8:1234')
-      assertBlocked(t, torrent, '5.6.7.8:6969')
-      assertReachable(t, torrent, '1.1.1.1:1234')
-      assertReachable(t, torrent, '1.1.1.1:6969')
+    .on('error', function (err) { t.fail(err) })
+    .on('warning', function (err) { t.fail(err) })
+    .on('ready', function () {
+      client.add(fixtures.leaves.parsedTorrent, function (torrent) {
+        assertBlocked(t, torrent, '1.2.3.4:1234')
+        assertBlocked(t, torrent, '1.2.3.4:6969')
+        assertBlocked(t, torrent, '5.6.7.8:1234')
+        assertBlocked(t, torrent, '5.6.7.8:6969')
+        assertReachable(t, torrent, '1.1.1.1:1234')
+        assertReachable(t, torrent, '1.1.1.1:6969')
 
-      client.destroy(function (err) {
-        t.error(err, 'client destroyed')
+        client.destroy(function (err) {
+          t.error(err, 'client destroyed')
+        })
       })
     })
-  })
 })
 
 // 48 asserts
@@ -120,16 +120,16 @@ test('blocklist (array of IP ranges)', function (t) {
       { start: '5.6.7.0', end: '5.6.7.255' }
     ]
   })
-  .on('error', function (err) { t.fail(err) })
-  .on('warning', function (err) { t.fail(err) })
-  .on('ready', function () {
-    client.add(fixtures.leaves.parsedTorrent, function (torrent) {
-      assertList(t, torrent)
-      client.destroy(function (err) {
-        t.error(err, 'client destroyed')
+    .on('error', function (err) { t.fail(err) })
+    .on('warning', function (err) { t.fail(err) })
+    .on('ready', function () {
+      client.add(fixtures.leaves.parsedTorrent, function (torrent) {
+        assertList(t, torrent)
+        client.destroy(function (err) {
+          t.error(err, 'client destroyed')
+        })
       })
     })
-  })
 })
 
 test('blocklist (http url)', function (t) {
@@ -149,19 +149,19 @@ test('blocklist (http url)', function (t) {
       tracker: false,
       blocklist: url
     })
-    .on('error', function (err) { t.fail(err) })
-    .on('warning', function (err) { t.fail(err) })
-    .on('ready', function () {
-      client.add(fixtures.leaves.parsedTorrent, function (torrent) {
-        assertList(t, torrent)
-        client.destroy(function (err) {
-          t.error(err, 'client destroyed')
-        })
-        server.close(function () {
-          t.pass('server closed')
+      .on('error', function (err) { t.fail(err) })
+      .on('warning', function (err) { t.fail(err) })
+      .on('ready', function () {
+        client.add(fixtures.leaves.parsedTorrent, function (torrent) {
+          assertList(t, torrent)
+          client.destroy(function (err) {
+            t.error(err, 'client destroyed')
+          })
+          server.close(function () {
+            t.pass('server closed')
+          })
         })
       })
-    })
   })
 })
 
@@ -185,19 +185,19 @@ test('blocklist (http url with gzip encoding)', function (t) {
       tracker: false,
       blocklist: url
     })
-    .on('error', function (err) { t.fail(err) })
-    .on('warning', function (err) { t.fail(err) })
-    .on('ready', function () {
-      client.add(fixtures.leaves.parsedTorrent, function (torrent) {
-        assertList(t, torrent)
-        client.destroy(function (err) {
-          t.error(err, 'client destroyed')
-        })
-        server.close(function () {
-          t.pass('server closed')
+      .on('error', function (err) { t.fail(err) })
+      .on('warning', function (err) { t.fail(err) })
+      .on('ready', function () {
+        client.add(fixtures.leaves.parsedTorrent, function (torrent) {
+          assertList(t, torrent)
+          client.destroy(function (err) {
+            t.error(err, 'client destroyed')
+          })
+          server.close(function () {
+            t.pass('server closed')
+          })
         })
       })
-    })
   })
 })
 
@@ -221,19 +221,19 @@ test('blocklist (http url with deflate encoding)', function (t) {
       tracker: false,
       blocklist: url
     })
-    .on('error', function (err) { t.fail(err) })
-    .on('warning', function (err) { t.fail(err) })
-    .on('ready', function () {
-      client.add(fixtures.leaves.parsedTorrent, function (torrent) {
-        assertList(t, torrent)
-        client.destroy(function (err) {
-          t.error(err, 'client destroyed')
-        })
-        server.close(function () {
-          t.pass('server closed')
+      .on('error', function (err) { t.fail(err) })
+      .on('warning', function (err) { t.fail(err) })
+      .on('ready', function () {
+        client.add(fixtures.leaves.parsedTorrent, function (torrent) {
+          assertList(t, torrent)
+          client.destroy(function (err) {
+            t.error(err, 'client destroyed')
+          })
+          server.close(function () {
+            t.pass('server closed')
+          })
         })
       })
-    })
   })
 })
 
@@ -244,16 +244,16 @@ test('blocklist (fs path)', function (t) {
     tracker: false,
     blocklist: fixtures.blocklist.path
   })
-  .on('error', function (err) { t.fail(err) })
-  .on('warning', function (err) { t.fail(err) })
-  .on('ready', function () {
-    client.add(fixtures.leaves.parsedTorrent, function (torrent) {
-      assertList(t, torrent)
-      client.destroy(function (err) {
-        t.error(err, 'client destroyed')
+    .on('error', function (err) { t.fail(err) })
+    .on('warning', function (err) { t.fail(err) })
+    .on('ready', function () {
+      client.add(fixtures.leaves.parsedTorrent, function (torrent) {
+        assertList(t, torrent)
+        client.destroy(function (err) {
+          t.error(err, 'client destroyed')
+        })
       })
     })
-  })
 })
 
 test('blocklist (fs path with gzip)', function (t) {
@@ -263,14 +263,14 @@ test('blocklist (fs path with gzip)', function (t) {
     tracker: false,
     blocklist: fixtures.blocklist.gzipPath
   })
-  .on('error', function (err) { t.fail(err) })
-  .on('warning', function (err) { t.fail(err) })
-  .on('ready', function () {
-    client.add(fixtures.leaves.parsedTorrent, function (torrent) {
-      assertList(t, torrent)
-      client.destroy(function (err) {
-        t.error(err, 'client destroyed')
+    .on('error', function (err) { t.fail(err) })
+    .on('warning', function (err) { t.fail(err) })
+    .on('ready', function () {
+      client.add(fixtures.leaves.parsedTorrent, function (torrent) {
+        assertList(t, torrent)
+        client.destroy(function (err) {
+          t.error(err, 'client destroyed')
+        })
       })
     })
-  })
 })

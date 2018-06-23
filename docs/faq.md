@@ -99,11 +99,14 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[SuperQuickShare][superquickshare]** - Quickly share files between devices using webtorrent and qrcodes ([source code][superquickshare-source])
 - **[P2P-CDN][p2pcdn]** - WebTorrent CDN with graceful degradation
 - **[PearPlayer][PearPlayer]** - A WebTorrent based multi-source and multi-protocol P2P streaming media player
-- **[Rakam][rakam]** - A minimalist WebTorrent video player
 - **[Tcloud][tcloud]** - File sharing and torrent downloading
 - **[Webtorrent-webui][webtorrent-webui]** - A WebTorrent client with a simple web interface for easy remote usage
 - **[CineTimes][cinetimes]** - A streaming website of public domain movies
 - **[Bitlove.org][bitlove]** - Your favorite podcasts via BitTorrent
+- **[lofiTorrent][lofitorrent]** - Online and offline browser torrent client
+- **[Live-torrent][live-torrent]** - Simple implementation of a webtorrent powered live streaming solution ([source code][live-torrent-source])
+- **[WWT][wwt]** - Watch videos by torrents in your browser
+- **[CDNBye][CDNBye]** -  CDNBye implements WebRTC datachannel to scale live/vod video streaming by peer-to-peer network using bittorrent-like protocol.
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 #### WebTorrent Product Alternatives
@@ -156,7 +159,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [peerfast-source]: https://github.com/DiegoRBaquero/PeerFast
 [torrentmedia]: https://github.com/FaCuZ/torrentmedia
 [gaia]: http://charliehoey.com/threejs-demos/gaia_dr1.html
-[watchtor]: https://watchtor.herokuapp.com
+[watchtor]: https://open-watchtor.hashbase.io
 [watchtor-source]: https://github.com/codealchemist/watchtor
 [cachep2p]: http://www.cachep2p.com/
 [cachep2p-source]: https://github.com/guerrerocarlos/CacheP2P
@@ -177,11 +180,15 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [superquickshare-source]: https://github.com/manicphase/super-quick-share
 [p2pcdn]: https://github.com/andreapaiola/P2P-CDN
 [PearPlayer]: https://github.com/PearInc/PearPlayer.js
-[rakam]: https://rakam.ga
 [tcloud]: https://github.com/Lunik/tcloud
 [webtorrent-webui]: https://github.com/pldubouilh/webtorrent-webui
 [cinetimes]: http://cinetimes.org/
 [bitlove]: https://bitlove.org/
+[lofitorrent]: https://lofitorrent.js.org/
+[live-torrent]: https://live.computer
+[live-torrent-source]: https://github.com/pldubouilh/live-torrent
+[wwt]: https://tnoevry.github.io/wwt/
+[CDNBye]: https://github.com/cdnbye/hlsjs-p2p-engine
 
 ## How does WebTorrent work?
 
@@ -488,7 +495,7 @@ provides hundreds of vectors for fingerprinting you
 language, etc.).
 
 If you have a VPN enabled, then WebRTC data channels will not connect to peers
-using your true public IP address, nor will it be reveled to the JavaScript running
+using your true public IP address, nor will it be revealed to the JavaScript running
 on the webpage.
 
 At one point in time, WebRTC did have an issue where it would allow a website
