@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "addr-to-ip-port": "^1.4.2",
+    "app-data-folder": "^1.0.0",
     "bitfield": "^2.0.0",
     "bittorrent-dht": "^8.0.0",
     "bittorrent-protocol": "^2.1.5",
@@ -40,6 +41,7 @@
     "load-ip-set": "^1.2.7",
     "memory-chunk-store": "^1.2.0",
     "mime": "^2.2.0",
+    "mkdirp": "^0.5.1",
     "multistream": "^2.0.5",
     "package-json-versionify": "^1.0.2",
     "parse-numeric-range": "^0.0.2",

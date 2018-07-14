@@ -2,6 +2,7 @@
 
 module.exports = WebTorrent
 
+var appDataFolder = require('app-data-folder')
 var Buffer = require('safe-buffer').Buffer
 var concat = require('simple-concat')
 var createTorrent = require('create-torrent')
@@ -9,8 +10,10 @@ var debug = require('debug')('webtorrent')
 var DHT = require('bittorrent-dht/client') // browser exclude
 var EventEmitter = require('events').EventEmitter
 var extend = require('xtend')
+var fs = require('fs')
 var inherits = require('inherits')
 var loadIPSet = require('load-ip-set') // browser exclude
+var mkdirp = require('mkdirp')
 var parallel = require('run-parallel')
 var parseTorrent = require('parse-torrent')
 var path = require('path')
@@ -78,6 +81,9 @@ function WebTorrent (opts) {
   }
   self.nodeIdBuffer = Buffer.from(self.nodeId, 'hex')
 
+  // Default opts.dhtState to true
+  if (!('dhtState' in opts)) opts.dhtState = true
+
   self._debugId = self.peerId.toString('hex').substring(0, 7)
 
   self.destroyed = false
@@ -122,9 +128,102 @@ function WebTorrent (opts) {
   self._downloadSpeed = speedometer()
   self._uploadSpeed = speedometer()
 
+  // DHT state save location
+  var dhtSaveFile
+
+  var savingDhtState = false
+  function saveDhtState () {
+    if (savingDhtState) return
+    if (!self.dht) return // Quell after destroy
+    savingDhtState = true
+    var dhtState = self.dht.toJSON()
+    var dhtStateJson = JSON.stringify(dhtState)
+    mkdirp(
+      path.dirname(dhtSaveFile),
+      function handleDhtSaveDirCreated (err) {
+        if (err) {
+          savingDhtState = false
+          return
+        }
+        fs.writeFile(
+          dhtSaveFile,
+          dhtStateJson,
+          function handleDhtStateWritten () {
+            savingDhtState = false
+          }
+        )
+      }
+    )
+  }
+
+  function readDhtState (file) {
+    try {
+      return fs.readFileSync(file)
+    } catch (e) {
+      switch (e.code) {
+        case 'EACCES':
+        case 'EISDIR':
+        case 'ENOENT':
+        case 'EPERM':
+          return null
+        default:
+          throw e
+      }
+    }
+  }
+
+  function parseDhtState (dhtStateJson) {
+    try {
+      return JSON.parse(dhtStateJson)
+    } catch (e) {
+      if (e instanceof SyntaxError) return null
+      else throw e
+    }
+  }
+
+  function loadDhtState (file) {
+    var dhtStateJson = readDhtState(file)
+    if (!dhtStateJson) return null
+    var dhtState = parseDhtState(dhtStateJson)
+    if (!dhtState) return null
+    return dhtState
+  }
+
+  function loadDhtNodes (file) {
+    var dhtState = loadDhtState(file)
+    if (!dhtState) return null
+    if (!('nodes' in dhtState)) return null
+    var nodes = dhtState.nodes
+    if (!Array.isArray(nodes)) return null
+    if (nodes.length === 0) return null // Don't load an empty nodes list
+    return nodes
+  }
+
   if (opts.dht !== false && typeof DHT === 'function' /* browser exclude */) {
+    var dhtOpts = extend({ nodeId: self.nodeId }, opts.dht)
+
+    if (opts.dhtState) {
+      // Construct state save location
+      dhtSaveFile =
+        opts.dhtState === true
+          ? path.join(appDataFolder('webtorrent'), 'dht.json')
+          : opts.dhtState
+
+      if (!('bootstrap' in dhtOpts)) {
+        // Load persisted state
+        var nodes = loadDhtNodes(dhtSaveFile)
+        if (nodes) dhtOpts.bootstrap = nodes
+      }
+    }
+
     // use a single DHT instance for all torrents, so the routing table can be reused
-    self.dht = new DHT(extend({ nodeId: self.nodeId }, opts.dht))
+    self.dht = new DHT(dhtOpts)
+
+    if (opts.dhtState) {
+      // Persist state periodically
+      var saveInterval = 15 * 60 * 1000 // 15 minutes
+      self.saveDhtStateTimer = setInterval(saveDhtState, saveInterval)
+    }
 
     self.dht.once('error', function (err) {
       self._destroy(err)
@@ -428,6 +527,7 @@ WebTorrent.prototype._destroy = function (err, cb) {
 
   if (self.dht) {
     tasks.push(function (cb) {
+      clearInterval(self.saveDhtStateTimer)
       self.dht.destroy(cb)
     })
   }
