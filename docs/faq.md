@@ -107,6 +107,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Live-torrent][live-torrent]** - Simple implementation of a webtorrent powered live streaming solution ([source code][live-torrent-source])
 - **[WWT][wwt]** - Watch videos by torrents in your browser
 - **[CDNBye][CDNBye]** -  CDNBye implements WebRTC datachannel to scale live/vod video streaming by peer-to-peer network using bittorrent-like protocol.
+- **[Files.fm][Files.fm]** - a fast file sharing and freemium cloud storage service that uses P2P technology to accelerate unlimited downloads and file distribution.
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 #### WebTorrent Product Alternatives
@@ -189,6 +190,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [live-torrent-source]: https://github.com/pldubouilh/live-torrent
 [wwt]: https://tnoevry.github.io/wwt/
 [CDNBye]: https://github.com/cdnbye/hlsjs-p2p-engine
+[Files.fm]: https://files.fm
 
 ## How does WebTorrent work?
 
