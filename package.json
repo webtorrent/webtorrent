@@ -32,7 +32,7 @@
   "dependencies": {
     "addr-to-ip-port": "^1.4.2",
     "bitfield": "^2.0.0",
-    "bittorrent-dht": "^8.0.0",
+    "bittorrent-dht": "git+https://github.com/oleiba/bittorrent-dht.git",
     "bittorrent-protocol": "^2.1.5",
     "chunk-store-stream": "^2.0.2",
     "create-torrent": "^3.24.5",
