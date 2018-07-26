@@ -111,6 +111,9 @@ function WebTorrent (opts) {
   }
 
   self._natTraversal = require('./lib/nat-traversal') // browser exclude
+  if (opts.enableNatTraversal === false) {
+    self._natTraversal.portMapping = null
+  }
 
   if (typeof TCPPool === 'function') {
     self._tcpPool = new TCPPool(self)
