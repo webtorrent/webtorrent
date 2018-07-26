@@ -110,6 +110,11 @@ function WebTorrent (opts) {
     }
   }
 
+  self._natTraversal = require('./lib/nat-traversal') // browser exclude
+  if (opts.enableNatTraversal === false) {
+    self._natTraversal.portMapping = null
+  }
+
   if (typeof TCPPool === 'function') {
     self._tcpPool = new TCPPool(self)
   } else {
@@ -132,7 +137,12 @@ function WebTorrent (opts) {
 
     self.dht.once('listening', function () {
       var address = self.dht.address()
-      if (address) self.dhtPort = address.port
+      if (address) {
+        self.dhtPort = address.port
+        if (self._natTraversal.portMapping) {
+          self._natTraversal.portMapping(self.dhtPort, 'udp')
+        }
+      }
     })
 
     // Ignore warning when there are > 10 torrents in the client
@@ -432,6 +442,12 @@ WebTorrent.prototype._destroy = function (err, cb) {
     })
   }
 
+  if (self._natTraversal.destroy) {
+    tasks.push(function (cb) {
+      self._natTraversal.destroy(cb)
+    })
+  }
+
   parallel(tasks, cb)
 
   if (err) self.emit('error', err)
@@ -448,7 +464,12 @@ WebTorrent.prototype._onListening = function () {
   if (this._tcpPool) {
     // Sometimes server.address() returns `null` in Docker.
     var address = this._tcpPool.server.address()
-    if (address) this.torrentPort = address.port
+    if (address) {
+      this.torrentPort = address.port
+      if (this._natTraversal.portMapping) {
+        this._natTraversal.portMapping(this.torrentPort, 'tcp')
+      }
+    }
   }
 
   this.emit('listening')
