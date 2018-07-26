@@ -26,7 +26,7 @@
     "url": "https://github.com/webtorrent/webtorrent/issues"
   },
   "dependencies": {
-    "addr-to-ip-port": "^1.4.2",
+    "addr-to-ip-port": "^1.5.1",
     "bitfield": "^2.0.0",
     "bittorrent-dht": "^8.0.0",
     "bittorrent-protocol": "^2.1.5",
