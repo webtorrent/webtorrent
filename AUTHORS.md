@@ -97,6 +97,8 @@
 - Ray Vahey (rnvahey@gmail.com)
 - Chuong (kocoten1992@users.noreply.github.com)
 - William (willyb321@users.noreply.github.com)
+- bradleyjkemp (scytheon3@gmail.com)
+- bradleyjkemp (bradleyjkemp@users.noreply.github.com)
 - Anthony Ettinger (anthony@chovy.com)
 - malone (toby.walsh@fxhome.com)
 - pahwaranger (amit@amitpahwa.com)
