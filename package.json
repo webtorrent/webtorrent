@@ -37,7 +37,7 @@
     "fs-chunk-store": "^1.6.2",
     "immediate-chunk-store": "^1.0.8",
     "inherits": "^2.0.1",
-    "load-ip-set": "^1.2.7",
+    "load-ip-set": "^2.1.0",
     "memory-chunk-store": "^1.2.0",
     "mime": "^2.2.0",
     "multistream": "^2.0.5",
