@@ -29,7 +29,7 @@
     "addr-to-ip-port": "^1.4.2",
     "bitfield": "^2.0.0",
     "bittorrent-dht": "^8.0.0",
-    "bittorrent-protocol": "^2.1.5",
+    "bittorrent-protocol": "^3.0.0",
     "chunk-store-stream": "^2.0.2",
     "create-torrent": "^3.24.5",
     "debug": "^3.1.0",
