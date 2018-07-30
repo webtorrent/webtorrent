@@ -86,6 +86,7 @@
     "serve-static": "^1.11.1",
     "standard": "*",
     "tape": "^4.6.0",
+    "tmp": "0.0.33",
     "webtorrent-fixtures": "^1.5.0"
   },
   "engines": {
