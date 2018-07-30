@@ -137,7 +137,7 @@ function WebTorrent (opts) {
           ? path.join(appDataFolder('webtorrent'), 'dht.json')
           : opts.dhtState
 
-      if (!('bootstrap' in dhtOpts)) {
+      if (!dhtOpts.bootstrap) {
         // Load persisted state
         var nodes = dhtPersist.loadNodes(self.dhtSaveFile)
         if (nodes) {
