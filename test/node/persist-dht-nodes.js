@@ -9,7 +9,7 @@ var loopback = '127.0.0.1'
 var localAddress = networkAddress.ipv4()
 var port = 9999
 
-test.only('Save DHT state', function (t) {
+test('Save DHT state', function (t) {
   t.plan(4)
   var saveFile = tmp.tmpNameSync()
   var dhtServer = new DHT({ bootstrap: false })
@@ -37,6 +37,43 @@ test.only('Save DHT state', function (t) {
         dhtServer.destroy(function handleDhtServerDestroyed (err) {
           t.error(err, 'dht server destroyed')
         })
+      })
+    })
+  })
+})
+
+test('Load DHT state', function (t) {
+  t.plan(4)
+  var saveFile = tmp.tmpNameSync()
+  var node = {
+    host: loopback,
+    port: port
+  }
+  var nodes = [ node ]
+  var dhtState = { nodes: nodes, values: {} }
+  var dhtStateJson = JSON.stringify(dhtState)
+  fs.writeFileSync(saveFile, dhtStateJson)
+  var dhtServer = new DHT({ bootstrap: false })
+  dhtServer.on('error', function (err) { t.fail(err) })
+  dhtServer.on('warning', function (err) { t.fail(err) })
+  dhtServer.listen(port, function handleServerListening () {
+    var client = new WebTorrent({
+      dht: { host: localAddress },
+      dhtState: saveFile
+    })
+    client.on('error', function (err) { t.fail(err) })
+    client.on('warning', function (err) { t.fail(err) })
+    client.dht.on('ready', function handleReady () {
+      var dhtState = client.dht.toJSON()
+      var nodes = dhtState.nodes
+      var node = nodes[0]
+      t.equal(node.host, loopback)
+      t.equal(node.port, port)
+      client.destroy(function handleClientDestroyed (err) {
+        t.error(err, 'client destroyed')
+      })
+      dhtServer.destroy(function handleDhtServerDestroyed (err) {
+        t.error(err, 'dht server destroyed')
       })
     })
   })
