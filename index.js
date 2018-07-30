@@ -140,7 +140,14 @@ function WebTorrent (opts) {
       if (!('bootstrap' in dhtOpts)) {
         // Load persisted state
         var nodes = dhtPersist.loadNodes(self.dhtSaveFile)
-        if (nodes) dhtOpts.bootstrap = nodes
+        if (nodes) {
+          var bootstrap = []
+          for (var node of nodes) {
+            var nodeString = node.host + ':' + node.port
+            bootstrap.push(nodeString)
+          }
+          dhtOpts.bootstrap = bootstrap
+        }
       }
     }
 
