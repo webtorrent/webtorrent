@@ -10,10 +10,8 @@ var debug = require('debug')('webtorrent')
 var DHT = require('bittorrent-dht/client') // browser exclude
 var EventEmitter = require('events').EventEmitter
 var extend = require('xtend')
-var fs = require('fs')
 var inherits = require('inherits')
 var loadIPSet = require('load-ip-set') // browser exclude
-var mkdirp = require('mkdirp')
 var parallel = require('run-parallel')
 var parseTorrent = require('parse-torrent')
 var path = require('path')
@@ -22,6 +20,7 @@ var randombytes = require('randombytes')
 var speedometer = require('speedometer')
 var zeroFill = require('zero-fill')
 
+var dhtPersist = require('./lib/dhtpersist') // browser exclude
 var TCPPool = require('./lib/tcp-pool') // browser exclude
 var Torrent = require('./lib/torrent')
 
@@ -128,90 +127,19 @@ function WebTorrent (opts) {
   self._downloadSpeed = speedometer()
   self._uploadSpeed = speedometer()
 
-  // DHT state save location
-  var dhtSaveFile
-
-  var savingDhtState = false
-  function saveDhtState () {
-    if (savingDhtState) return
-    if (!self.dht) return // Quell after destroy
-    savingDhtState = true
-    var dhtState = self.dht.toJSON()
-    var dhtStateJson = JSON.stringify(dhtState)
-    mkdirp(
-      path.dirname(dhtSaveFile),
-      function handleDhtSaveDirCreated (err) {
-        if (err) {
-          savingDhtState = false
-          return
-        }
-        fs.writeFile(
-          dhtSaveFile,
-          dhtStateJson,
-          function handleDhtStateWritten () {
-            savingDhtState = false
-          }
-        )
-      }
-    )
-  }
-
-  function readDhtState (file) {
-    try {
-      return fs.readFileSync(file)
-    } catch (e) {
-      switch (e.code) {
-        case 'EACCES':
-        case 'EISDIR':
-        case 'ENOENT':
-        case 'EPERM':
-          return null
-        default:
-          throw e
-      }
-    }
-  }
-
-  function parseDhtState (dhtStateJson) {
-    try {
-      return JSON.parse(dhtStateJson)
-    } catch (e) {
-      if (e instanceof SyntaxError) return null
-      else throw e
-    }
-  }
-
-  function loadDhtState (file) {
-    var dhtStateJson = readDhtState(file)
-    if (!dhtStateJson) return null
-    var dhtState = parseDhtState(dhtStateJson)
-    if (!dhtState) return null
-    return dhtState
-  }
-
-  function loadDhtNodes (file) {
-    var dhtState = loadDhtState(file)
-    if (!dhtState) return null
-    if (!('nodes' in dhtState)) return null
-    var nodes = dhtState.nodes
-    if (!Array.isArray(nodes)) return null
-    if (nodes.length === 0) return null // Don't load an empty nodes list
-    return nodes
-  }
-
   if (opts.dht !== false && typeof DHT === 'function' /* browser exclude */) {
     var dhtOpts = extend({ nodeId: self.nodeId }, opts.dht)
 
     if (opts.dhtState) {
       // Construct state save location
-      dhtSaveFile =
+      self.dhtSaveFile =
         opts.dhtState === true
           ? path.join(appDataFolder('webtorrent'), 'dht.json')
           : opts.dhtState
 
       if (!('bootstrap' in dhtOpts)) {
         // Load persisted state
-        var nodes = loadDhtNodes(dhtSaveFile)
+        var nodes = dhtPersist.loadNodes(self.dhtSaveFile)
         if (nodes) dhtOpts.bootstrap = nodes
       }
     }
@@ -222,7 +150,9 @@ function WebTorrent (opts) {
     if (opts.dhtState) {
       // Persist state periodically
       var saveInterval = 15 * 60 * 1000 // 15 minutes
-      self.saveDhtStateTimer = setInterval(saveDhtState, saveInterval)
+      self.saveDhtStateTimer = setInterval(function saveDhtState () {
+        dhtPersist.save(self.dht, self.dhtSaveFile)
+      }, saveInterval)
     }
 
     self.dht.once('error', function (err) {
@@ -497,6 +427,20 @@ WebTorrent.prototype.address = function () {
   return this._tcpPool
     ? this._tcpPool.server.address()
     : { address: '0.0.0.0', family: 'IPv4', port: 0 }
+}
+
+/**
+ * Persist DHT state to disk.
+ * No effect if DHT is not loaded.
+ */
+WebTorrent.prototype.saveDhtState = function (cb) {
+  if (
+    this.dht !== false &&
+    this.dhtSaveFile &&
+    typeof DHT === 'function' /* browser exclude */
+  ) {
+    dhtPersist.save(this.dht, this.dhtSaveFile, cb)
+  }
 }
 
 /**
