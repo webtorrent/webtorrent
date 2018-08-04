@@ -35,7 +35,7 @@
     "debug": "^3.1.0",
     "end-of-stream": "^1.1.0",
     "fs-chunk-store": "^1.6.2",
-    "immediate-chunk-store": "^1.0.8",
+    "immediate-chunk-store": "^2.0.0",
     "inherits": "^2.0.1",
     "load-ip-set": "^2.1.0",
     "memory-chunk-store": "^1.2.0",
