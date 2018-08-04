@@ -30,7 +30,7 @@
     "bitfield": "^2.0.0",
     "bittorrent-dht": "^8.0.0",
     "bittorrent-protocol": "^3.0.0",
-    "chunk-store-stream": "^2.0.2",
+    "chunk-store-stream": "^3.0.0",
     "create-torrent": "^3.24.5",
     "debug": "^3.1.0",
     "end-of-stream": "^1.1.0",
