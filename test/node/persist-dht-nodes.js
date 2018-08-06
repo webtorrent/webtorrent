@@ -18,7 +18,7 @@ test('Save DHT state', function (t) {
   dhtServer.listen(port, function handleServerListening () {
     var client = new WebTorrent({
       dht: { bootstrap: false, host: localAddress },
-      dhtState: saveFile
+      persistDhtPath: saveFile
     })
     client.on('error', function (err) { t.fail(err) })
     client.on('warning', function (err) { t.fail(err) })
@@ -59,7 +59,7 @@ test('Load DHT state', function (t) {
   dhtServer.listen(port, function handleServerListening () {
     var client = new WebTorrent({
       dht: { host: localAddress },
-      dhtState: saveFile
+      persistDhtPath: saveFile
     })
     client.on('error', function (err) { t.fail(err) })
     client.on('warning', function (err) { t.fail(err) })

@@ -58,7 +58,8 @@ If `opts` is specified, then the default options (shown below) will be overridde
   peerId: String|Buffer,    // Wire protocol peer ID (default=randomly generated)
   tracker: Boolean|Object,  // Enable trackers (default=true), or options object for Tracker
   dht: Boolean|Object,      // Enable DHT (default=true), or options object for DHT
-  dhtState: Boolean|String, // Persist DHT nodes (default=true), or save file path
+  persistDht: Boolean,      // Persist DHT nodes (default=true)
+  persistDhtPath: String,   // DHT persist save file (default=dht.json under OS appdata dir)
   webSeeds: Boolean         // Enable BEP19 web seeds (default=true)
 }
 ```

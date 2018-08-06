@@ -80,8 +80,8 @@ function WebTorrent (opts) {
   }
   self.nodeIdBuffer = Buffer.from(self.nodeId, 'hex')
 
-  // Default opts.dhtState to true
-  if (!('dhtState' in opts)) opts.dhtState = true
+  // Default DHT persistence flag
+  if (!('persistDht' in opts)) opts.persistDht = true
 
   self._debugId = self.peerId.toString('hex').substring(0, 7)
 
@@ -130,12 +130,11 @@ function WebTorrent (opts) {
   if (opts.dht !== false && typeof DHT === 'function' /* browser exclude */) {
     var dhtOpts = extend({ nodeId: self.nodeId }, opts.dht)
 
-    if (opts.dhtState) {
+    if (opts.persistDht) {
       // Construct state save location
       self.dhtSaveFile =
-        opts.dhtState === true
-          ? path.join(appDataFolder('webtorrent'), 'dht.json')
-          : opts.dhtState
+        opts.persistDhtPath ||
+        path.join(appDataFolder('webtorrent'), 'dht.json')
 
       if (!dhtOpts.bootstrap) {
         // Load persisted state
@@ -154,7 +153,7 @@ function WebTorrent (opts) {
     // use a single DHT instance for all torrents, so the routing table can be reused
     self.dht = new DHT(dhtOpts)
 
-    if (opts.dhtState) {
+    if (opts.persistDht) {
       // Persist state periodically
       var saveInterval = 15 * 60 * 1000 // 15 minutes
       self.saveDhtStateTimer = setInterval(function saveDhtState () {
