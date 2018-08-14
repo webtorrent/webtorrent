@@ -109,6 +109,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[CDNBye][CDNBye]** -  CDNBye implements WebRTC datachannel to scale live/vod video streaming by peer-to-peer network using bittorrent-like protocol.
 - **[Files.fm][Files.fm]** - a fast file sharing and freemium cloud storage service that uses P2P technology to accelerate unlimited downloads and file distribution.
 - **[imgest][imgest]** - Serverless shareable image gallery built with JavaScript and WebTorrent.
+- **[Bugout][Bugout]** - build and run back-end web services in a browser tab.
 - **[P2P Media Loader][p2p-media-loader]** - engine for Hls.js and Shaka Player that enables P2P sharing of live and VOD streams over HLS or DASH protocols.
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
@@ -194,6 +195,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [CDNBye]: https://github.com/cdnbye/hlsjs-p2p-engine
 [Files.fm]: https://files.fm
 [imgest]: https://imgest.hashbase.io
+[Bugout]: https://github.com/chr15m/bugout
 [p2p-media-loader]: https://github.com/novage/p2p-media-loader
 
 ## How does WebTorrent work?
