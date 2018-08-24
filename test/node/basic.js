@@ -112,7 +112,7 @@ test('client.seed: filesystem path to folder with one file, string', function (t
 })
 
 test('client.seed: filesystem path to folder with multiple files, string', function (t) {
-  t.plan(6)
+  t.plan(7)
 
   var client = new WebTorrent({ dht: false, tracker: false })
 
@@ -123,6 +123,17 @@ test('client.seed: filesystem path to folder with multiple files, string', funct
     t.equal(client.torrents.length, 1)
     t.equal(torrent.infoHash, fixtures.numbers.parsedTorrent.infoHash)
     t.equal(torrent.magnetURI, fixtures.numbers.magnetURI)
+
+    const downloaded = torrent.files.map(file => ({
+      length: file.length,
+      downloaded: file.downloaded
+    }))
+
+    t.deepEqual(downloaded, [
+      { length: 1, downloaded: 1 },
+      { length: 2, downloaded: 2 },
+      { length: 3, downloaded: 3 }
+    ], 'expected downloaded to be calculated correctly')
 
     client.remove(torrent, function (err) { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
