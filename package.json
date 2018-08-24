@@ -48,7 +48,7 @@
     "random-iterate": "^1.0.1",
     "randombytes": "^2.0.3",
     "range-parser": "^1.2.0",
-    "readable-stream": "^2.1.4",
+    "readable-stream": "^3.0.0",
     "render-media": "^3.0.0",
     "run-parallel": "^1.1.6",
     "run-parallel-limit": "^1.0.3",
