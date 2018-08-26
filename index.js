@@ -334,18 +334,22 @@ class WebTorrent extends EventEmitter {
    * @param  {string|Buffer|Torrent}   torrentId
    * @param  {function} cb
    */
-  remove (torrentId, cb) {
+  remove (torrentId, opts, cb) {
+    if (typeof opts === 'function') return this.remove(torrentId, null, opts)
+
     this._debug('remove')
     const torrent = this.get(torrentId)
     if (!torrent) throw new Error(`No torrent with id ${torrentId}`)
-    this._remove(torrentId, cb)
+    this._remove(torrentId, opts, cb)
   }
 
-  _remove (torrentId, cb) {
+  _remove (torrentId, opts, cb) {
+    if (typeof opts === 'function') return this._remove(torrentId, null, opts)
+
     const torrent = this.get(torrentId)
     if (!torrent) return
     this.torrents.splice(this.torrents.indexOf(torrent), 1)
-    torrent.destroy(cb)
+    torrent.destroy(opts, cb)
   }
 
   address () {
