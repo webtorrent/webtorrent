@@ -111,6 +111,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[imgest][imgest]** - Serverless shareable image gallery built with JavaScript and WebTorrent.
 - **[Bugout][Bugout]** - build and run back-end web services in a browser tab.
 - **[P2P Media Loader][p2p-media-loader]** - engine for Hls.js and Shaka Player that enables P2P sharing of live and VOD streams over HLS or DASH protocols.
+- **[Cheff][Cheff]** - Share food recipes between your devices. [source code](https://github.com/vasco3/cheff)
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 #### WebTorrent Product Alternatives
@@ -197,6 +198,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [imgest]: https://imgest.hashbase.io
 [Bugout]: https://github.com/chr15m/bugout
 [p2p-media-loader]: https://github.com/novage/p2p-media-loader
+[Cheff]: https://cheff.cuadranteweb.com
 
 ## How does WebTorrent work?
 
