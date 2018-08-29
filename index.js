@@ -13,7 +13,6 @@ const path = require('path')
 const Peer = require('simple-peer')
 const randombytes = require('randombytes')
 const speedometer = require('speedometer')
-const zeroFill = require('zero-fill')
 
 const TCPPool = require('./lib/tcp-pool') // browser exclude
 const Torrent = require('./lib/torrent')
@@ -25,10 +24,9 @@ const VERSION = require('./package.json').version
  *   '0.16.1' -> '0016'
  *   '1.2.5' -> '0102'
  */
-const VERSION_STR = VERSION.match(/([0-9]+)/g)
-  .slice(0, 2)
-  .map(v => zeroFill(2, v % 100))
-  .join('')
+const VERSION_STR = VERSION
+  .replace(/\d*./g, v => `0${v % 100}`.slice(-2))
+  .slice(0, 4)
 
 /**
  * Version prefix string (used in peer ID). WebTorrent uses the Azureus-style
