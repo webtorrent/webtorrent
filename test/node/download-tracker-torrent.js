@@ -1,4 +1,3 @@
-var extend = require('xtend')
 var fixtures = require('webtorrent-fixtures')
 var fs = require('fs')
 var MemoryChunkStore = require('memory-chunk-store')
@@ -19,7 +18,7 @@ function torrentDownloadTest (t, serverType) {
   t.plan(9)
 
   var trackerStartCount = 0
-  var parsedTorrent = extend(fixtures.leaves.parsedTorrent)
+  var parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
 
   var tracker = new TrackerServer(
     serverType === 'udp' ? { http: false, ws: false } : { udp: false, ws: false }

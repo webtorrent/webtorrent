@@ -1,4 +1,3 @@
-var extend = require('xtend')
 var fixtures = require('webtorrent-fixtures')
 var series = require('run-series')
 var test = require('tape')
@@ -8,7 +7,7 @@ var WebTorrent = require('../../')
 test('blocklist blocks peers discovered via tracker', function (t) {
   t.plan(9)
 
-  var parsedTorrent = extend(fixtures.leaves.parsedTorrent)
+  var parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
   var tracker, client1, client2
 
   series([

@@ -1,4 +1,3 @@
-var extend = require('xtend')
 var fixtures = require('webtorrent-fixtures')
 var randombytes = require('randombytes')
 var test = require('tape')
@@ -9,7 +8,7 @@ test('Rarity map usage', function (t) {
   t.plan(16)
 
   var numPieces = 4
-  var torrentId = extend(fixtures.numbers.parsedTorrent, {
+  var torrentId = Object.assign({}, fixtures.numbers.parsedTorrent, {
     pieces: Array(numPieces)
   })
   var client = {

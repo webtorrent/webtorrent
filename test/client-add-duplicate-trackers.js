@@ -1,4 +1,3 @@
-var extend = require('xtend')
 var fixtures = require('webtorrent-fixtures')
 var test = require('tape')
 var WebTorrent = require('../')
@@ -61,10 +60,10 @@ test('client.add: duplicate trackers (including in .torrent file), multiple torr
   }
 
   // Include the duplicate trackers in the .torrent files
-  var parsedTorrentLeaves = extend(fixtures.leaves.parsedTorrent)
+  var parsedTorrentLeaves = Object.assign({}, fixtures.leaves.parsedTorrent)
   parsedTorrentLeaves.announce = [ 'wss://example.com', 'wss://example.com', 'wss://example.com' ]
 
-  var parsedTorrentAlice = extend(fixtures.alice.parsedTorrent)
+  var parsedTorrentAlice = Object.assign({}, fixtures.alice.parsedTorrent)
   parsedTorrentAlice.announce = [ 'wss://example.com', 'wss://example.com', 'wss://example.com' ]
 
   var client = new WebTorrent({ dht: false, tracker: false })
