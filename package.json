@@ -65,8 +65,7 @@
     "uniq": "^1.0.1",
     "unordered-array-remove": "^1.0.2",
     "ut_metadata": "^3.0.8",
-    "ut_pex": "^1.1.1",
-    "xtend": "^4.0.1"
+    "ut_pex": "^1.1.1"
   },
   "devDependencies": {
     "airtap": "0.1.0",
