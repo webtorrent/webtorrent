@@ -71,7 +71,7 @@ function magnetDownloadTest (t, serverType) {
         })
       })
 
-      client1.add(parsedTorrent, {store: MemoryChunkStore})
+      client1.add(parsedTorrent, { store: MemoryChunkStore })
     },
 
     function (cb) {
@@ -103,7 +103,7 @@ function magnetDownloadTest (t, serverType) {
         }
       })
 
-      client2.add(magnetURI, {store: MemoryChunkStore})
+      client2.add(magnetURI, { store: MemoryChunkStore })
     }
 
   ], function (err) {

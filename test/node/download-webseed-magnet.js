@@ -52,7 +52,7 @@ test('Download using webseed (via magnet uri)', function (t) {
         maybeDone()
       })
 
-      var torrent = client1.add(fixtures.leaves.parsedTorrent, {store: MemoryChunkStore})
+      var torrent = client1.add(fixtures.leaves.parsedTorrent, { store: MemoryChunkStore })
 
       torrent.on('infoHash', function () {
         gotListening = true
@@ -92,7 +92,7 @@ test('Download using webseed (via magnet uri)', function (t) {
         }
       })
 
-      var torrent = client2.add(magnetURI, {store: MemoryChunkStore})
+      var torrent = client2.add(magnetURI, { store: MemoryChunkStore })
 
       torrent.on('infoHash', function () {
         torrent.addPeer('127.0.0.1:' + client1.address().port)
