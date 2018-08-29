@@ -39,7 +39,7 @@ test('client.seed: torrent file (Buffer), set name on buffer', function (t) {
   var buf = Buffer.from(fixtures.leaves.content)
   buf.name = 'Leaves of Grass by Walt Whitman.epub'
 
-  client.seed(buf, {announce: []}, function (torrent) {
+  client.seed(buf, { announce: [] }, function (torrent) {
     t.equal(client.torrents.length, 1)
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
     t.equal(torrent.magnetURI, fixtures.leaves.magnetURI)

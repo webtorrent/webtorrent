@@ -29,7 +29,7 @@ test('private torrent should not use DHT', function (t) {
       client.on('error', function (err) { t.fail(err) })
       client.on('warning', function (err) { t.fail(err) })
 
-      var torrent = client.add(fixtures.bunny.parsedTorrent, {store: MemoryChunkStore})
+      var torrent = client.add(fixtures.bunny.parsedTorrent, { store: MemoryChunkStore })
 
       torrent.on('dhtAnnounce', function () {
         t.fail('client announced to dht')
@@ -77,7 +77,7 @@ test('public torrent should use DHT', function (t) {
       client.on('error', function (err) { t.fail(err) })
       client.on('warning', function (err) { t.fail(err) })
 
-      var torrent = client.add(fixtures.leaves.parsedTorrent, {store: MemoryChunkStore})
+      var torrent = client.add(fixtures.leaves.parsedTorrent, { store: MemoryChunkStore })
 
       torrent.on('dhtAnnounce', function () {
         t.pass('client announced to dht')

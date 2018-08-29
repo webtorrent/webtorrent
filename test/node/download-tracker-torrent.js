@@ -66,7 +66,7 @@ function torrentDownloadTest (t, serverType) {
         torrent.load(fs.createReadStream(fixtures.leaves.contentPath), cb)
       })
 
-      client1.add(parsedTorrent, {store: MemoryChunkStore})
+      client1.add(parsedTorrent, { store: MemoryChunkStore })
     },
 
     function (cb) {
@@ -74,7 +74,7 @@ function torrentDownloadTest (t, serverType) {
       client2.on('error', function (err) { t.fail(err) })
       client2.on('warning', function (err) { t.fail(err) })
 
-      client2.add(parsedTorrent, {store: MemoryChunkStore})
+      client2.add(parsedTorrent, { store: MemoryChunkStore })
 
       client2.on('torrent', function (torrent) {
         torrent.files.forEach(function (file) {

@@ -64,7 +64,7 @@ test('Download using webseed (via .torrent file)', function (t) {
         }
       })
 
-      client.add(parsedTorrent, {store: MemoryChunkStore})
+      client.add(parsedTorrent, { store: MemoryChunkStore })
     }
   ], function (err) {
     t.error(err)
@@ -102,7 +102,7 @@ test('Disable webseeds', function (t) {
       client.on('error', function (err) { t.fail(err) })
       client.on('warning', function (err) { t.fail(err) })
 
-      client.add(parsedTorrent, {store: MemoryChunkStore})
+      client.add(parsedTorrent, { store: MemoryChunkStore })
 
       // The test above ensures that we can download the whole torrent over webseeds within a
       // short time. Here, we wait the same amount of time and make sure no HTTP requests happen.
