@@ -117,15 +117,15 @@ class WebTorrent extends EventEmitter {
         this._destroy(err)
       })
 
-    this.dht.once('listening', function () {
-      var address = this.dht.address()
-      if (address) {
-        this.dhtPort = address.port
-        if (self._natTraversal.portMapping) {
-          this._natTraversal.portMapping(this.dhtPort, 'udp')
+      this.dht.once('listening', () => {
+        const address = this.dht.address()
+        if (address) {
+          this.dhtPort = address.port
+          if (this._natTraversal.portMapping) {
+            this._natTraversal.portMapping(this.dhtPort, 'udp')
+          }
         }
-      }
-    })
+      })
 
       // Ignore warning when there are > 10 torrents in the client
       this.dht.setMaxListeners(0)
