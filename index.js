@@ -421,7 +421,7 @@ class WebTorrent extends EventEmitter {
     this.emit('listening')
   }
 
-  _debug () {
+  this._debug () {
     const args = [].slice.call(arguments)
     args[0] = `[${this._debugId}] ${args[0]}`
     debug(...args)
