@@ -405,23 +405,18 @@ class WebTorrent extends EventEmitter {
 
     if (this._tcpPool) {
       // Sometimes server.address() returns `null` in Docker.
-      const address = this._tcpPool.server.address()
-      if (address) this.torrentPort = address.port
-    }
-
-  if (this._tcpPool) {
-    // Sometimes server.address() returns `null` in Docker.
-    var address = this._tcpPool.server.address()
-    if (address) {
-      this.torrentPort = address.port
-      if (this._natTraversal.portMapping) {
-        this._natTraversal.portMapping(this.torrentPort, 'tcp')
+      var address = this._tcpPool.server.address()
+      if (address) {
+        this.torrentPort = address.port
+        if (this._natTraversal.portMapping) {
+          this._natTraversal.portMapping(this.torrentPort, 'tcp')
+        }
       }
+      this.emit('listening')
     }
-    this.emit('listening')
   }
 
-  this._debug () {
+  _debug () {
     const args = [].slice.call(arguments)
     args[0] = `[${this._debugId}] ${args[0]}`
     debug(...args)
