@@ -385,7 +385,7 @@ class WebTorrent extends EventEmitter {
     }
 
     if (this._natTraversal.destroy) {
-      tasks.push(function (cb) {
+      tasks.push(cb => {
         this._natTraversal.destroy(cb)
       })
     }
