@@ -1,5 +1,4 @@
 var Buffer = require('safe-buffer').Buffer
-var extend = require('xtend')
 var fixtures = require('webtorrent-fixtures')
 var test = require('tape')
 var WebTorrent = require('../')
@@ -122,7 +121,7 @@ test('client.add: parsed torrent, with string type announce property', function 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  var parsedTorrent = extend(fixtures.leaves.parsedTorrent)
+  var parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
   parsedTorrent.announce = 'http://tracker.local:80'
 
   var torrent = client.add(parsedTorrent)
@@ -153,7 +152,7 @@ test('client.add: parsed torrent, with array type announce property', function (
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  var parsedTorrent = extend(fixtures.leaves.parsedTorrent)
+  var parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
   parsedTorrent.announce = [ 'http://tracker.local:80', 'http://tracker.local:81' ]
 
   var torrent = client.add(parsedTorrent)

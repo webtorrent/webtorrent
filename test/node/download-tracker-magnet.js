@@ -1,4 +1,3 @@
-var extend = require('xtend')
 var fixtures = require('webtorrent-fixtures')
 var fs = require('fs')
 var MemoryChunkStore = require('memory-chunk-store')
@@ -30,7 +29,7 @@ function magnetDownloadTest (t, serverType) {
     trackerStartCount += 1
   })
 
-  var parsedTorrent = extend(fixtures.leaves.parsedTorrent)
+  var parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
   var magnetURI, client1, client2
 
   series([
@@ -71,7 +70,7 @@ function magnetDownloadTest (t, serverType) {
         })
       })
 
-      client1.add(parsedTorrent, {store: MemoryChunkStore})
+      client1.add(parsedTorrent, { store: MemoryChunkStore })
     },
 
     function (cb) {
@@ -103,7 +102,7 @@ function magnetDownloadTest (t, serverType) {
         }
       })
 
-      client2.add(magnetURI, {store: MemoryChunkStore})
+      client2.add(magnetURI, { store: MemoryChunkStore })
     }
 
   ], function (err) {

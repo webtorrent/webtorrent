@@ -1,31 +1,22 @@
 /* global FileList */
 
-module.exports = WebTorrent
+const { Buffer } = require('safe-buffer')
+const { EventEmitter } = require('events')
+const concat = require('simple-concat')
+const createTorrent = require('create-torrent')
+const debug = require('debug')('webtorrent')
+const DHT = require('bittorrent-dht/client') // browser exclude
+const loadIPSet = require('load-ip-set') // browser exclude
+const parallel = require('run-parallel')
+const parseTorrent = require('parse-torrent')
+const path = require('path')
+const Peer = require('simple-peer')
+const randombytes = require('randombytes')
+const speedometer = require('speedometer')
 
-var Buffer = require('safe-buffer').Buffer
-var concat = require('simple-concat')
-var createTorrent = require('create-torrent')
-var debug = require('debug')('webtorrent')
-var DHT = require('bittorrent-dht/client') // browser exclude
-var EventEmitter = require('events').EventEmitter
-var extend = require('xtend')
-var inherits = require('inherits')
-var loadIPSet = require('load-ip-set') // browser exclude
-var parallel = require('run-parallel')
-var parseTorrent = require('parse-torrent')
-var path = require('path')
-var Peer = require('simple-peer')
-var randombytes = require('randombytes')
-var speedometer = require('speedometer')
-var zeroFill = require('zero-fill')
-
-var TCPPool = require('./lib/tcp-pool') // browser exclude
-var Torrent = require('./lib/torrent')
-
-/**
- * WebTorrent version.
- */
-var VERSION = require('./package.json').version
+const TCPPool = require('./lib/tcp-pool') // browser exclude
+const Torrent = require('./lib/torrent')
+const VERSION = require('./package.json').version
 
 /**
  * Version number in Azureus-style. Generated from major and minor semver version.
@@ -33,10 +24,9 @@ var VERSION = require('./package.json').version
  *   '0.16.1' -> '0016'
  *   '1.2.5' -> '0102'
  */
-var VERSION_STR = VERSION.match(/([0-9]+)/g)
-  .slice(0, 2)
-  .map(function (v) { return zeroFill(2, v % 100) })
-  .join('')
+const VERSION_STR = VERSION
+  .replace(/\d*./g, v => `0${v % 100}`.slice(-2))
+  .slice(0, 4)
 
 /**
  * Version prefix string (used in peer ID). WebTorrent uses the Azureus-style
@@ -45,418 +35,379 @@ var VERSION_STR = VERSION.match(/([0-9]+)/g)
  * For example:
  *   '-WW0102-'...
  */
-var VERSION_PREFIX = '-WW' + VERSION_STR + '-'
-
-inherits(WebTorrent, EventEmitter)
+const VERSION_PREFIX = `-WW${VERSION_STR}-`
 
 /**
  * WebTorrent Client
  * @param {Object=} opts
  */
-function WebTorrent (opts) {
-  var self = this
-  if (!(self instanceof WebTorrent)) return new WebTorrent(opts)
-  EventEmitter.call(self)
+class WebTorrent extends EventEmitter {
+  constructor (opts = {}) {
+    super()
 
-  if (!opts) opts = {}
-
-  if (typeof opts.peerId === 'string') {
-    self.peerId = opts.peerId
-  } else if (Buffer.isBuffer(opts.peerId)) {
-    self.peerId = opts.peerId.toString('hex')
-  } else {
-    self.peerId = Buffer.from(VERSION_PREFIX + randombytes(9).toString('base64')).toString('hex')
-  }
-  self.peerIdBuffer = Buffer.from(self.peerId, 'hex')
-
-  if (typeof opts.nodeId === 'string') {
-    self.nodeId = opts.nodeId
-  } else if (Buffer.isBuffer(opts.nodeId)) {
-    self.nodeId = opts.nodeId.toString('hex')
-  } else {
-    self.nodeId = randombytes(20).toString('hex')
-  }
-  self.nodeIdBuffer = Buffer.from(self.nodeId, 'hex')
-
-  self._debugId = self.peerId.toString('hex').substring(0, 7)
-
-  self.destroyed = false
-  self.listening = false
-  self.torrentPort = opts.torrentPort || 0
-  self.dhtPort = opts.dhtPort || 0
-  self.tracker = opts.tracker !== undefined ? opts.tracker : {}
-  self.torrents = []
-  self.maxConns = Number(opts.maxConns) || 55
-
-  self._debug(
-    'new webtorrent (peerId %s, nodeId %s, port %s)',
-    self.peerId, self.nodeId, self.torrentPort
-  )
-
-  if (self.tracker) {
-    if (typeof self.tracker !== 'object') self.tracker = {}
-    if (opts.rtcConfig) {
-      // TODO: remove in v1
-      console.warn('WebTorrent: opts.rtcConfig is deprecated. Use opts.tracker.rtcConfig instead')
-      self.tracker.rtcConfig = opts.rtcConfig
+    if (typeof opts.peerId === 'string') {
+      this.peerId = opts.peerId
+    } else if (Buffer.isBuffer(opts.peerId)) {
+      this.peerId = opts.peerId.toString('hex')
+    } else {
+      this.peerId = Buffer.from(VERSION_PREFIX + randombytes(9).toString('base64')).toString('hex')
     }
-    if (opts.wrtc) {
-      // TODO: remove in v1
-      console.warn('WebTorrent: opts.wrtc is deprecated. Use opts.tracker.wrtc instead')
-      self.tracker.wrtc = opts.wrtc
-    }
-    if (global.WRTC && !self.tracker.wrtc) {
-      self.tracker.wrtc = global.WRTC
-    }
-  }
+    this.peerIdBuffer = Buffer.from(this.peerId, 'hex')
 
-  self._natTraversal = require('./lib/nat-traversal') // browser exclude
+    if (typeof opts.nodeId === 'string') {
+      this.nodeId = opts.nodeId
+    } else if (Buffer.isBuffer(opts.nodeId)) {
+      this.nodeId = opts.nodeId.toString('hex')
+    } else {
+      this.nodeId = randombytes(20).toString('hex')
+    }
+    this.nodeIdBuffer = Buffer.from(this.nodeId, 'hex')
+
+    this._debugId = this.peerId.toString('hex').substring(0, 7)
+
+    this.destroyed = false
+    this.listening = false
+    this.torrentPort = opts.torrentPort || 0
+    this.dhtPort = opts.dhtPort || 0
+    this.tracker = opts.tracker !== undefined ? opts.tracker : {}
+    this.torrents = []
+    this.maxConns = Number(opts.maxConns) || 55
+
+    this._debug(
+      'new webtorrent (peerId %s, nodeId %s, port %s)',
+      this.peerId, this.nodeId, this.torrentPort
+    )
+
+    if (this.tracker) {
+      if (typeof this.tracker !== 'object') this.tracker = {}
+      if (opts.rtcConfig) {
+        // TODO: remove in v1
+        console.warn('WebTorrent: opts.rtcConfig is deprecated. Use opts.tracker.rtcConfig instead')
+        this.tracker.rtcConfig = opts.rtcConfig
+      }
+      if (opts.wrtc) {
+        // TODO: remove in v1
+        console.warn('WebTorrent: opts.wrtc is deprecated. Use opts.tracker.wrtc instead')
+        this.tracker.wrtc = opts.wrtc
+      }
+      if (global.WRTC && !this.tracker.wrtc) {
+        this.tracker.wrtc = global.WRTC
+      }
+    }
+
+  this._natTraversal = require('./lib/nat-traversal') // browser exclude
 
   if (typeof TCPPool === 'function') {
-    self._tcpPool = new TCPPool(self)
+    this._tcpPool = new TCPPool(this)
   } else {
     process.nextTick(function () {
-      self._onListening()
+      this._onListening()
     })
   }
 
-  // stats
-  self._downloadSpeed = speedometer()
-  self._uploadSpeed = speedometer()
+    // stats
+    this._downloadSpeed = speedometer()
+    this._uploadSpeed = speedometer()
 
-  if (opts.dht !== false && typeof DHT === 'function' /* browser exclude */) {
-    // use a single DHT instance for all torrents, so the routing table can be reused
-    self.dht = new DHT(extend({ nodeId: self.nodeId }, opts.dht))
+    if (opts.dht !== false && typeof DHT === 'function' /* browser exclude */) {
+      // use a single DHT instance for all torrents, so the routing table can be reused
+      this.dht = new DHT(Object.assign({}, { nodeId: this.nodeId }, opts.dht))
 
-    self.dht.once('error', function (err) {
-      self._destroy(err)
-    })
+      this.dht.once('error', err => {
+        this._destroy(err)
+      })
 
-    self.dht.once('listening', function () {
-      var address = self.dht.address()
+    this.dht.once('listening', function () {
+      var address = this.dht.address()
       if (address) {
-        self.dhtPort = address.port
+        this.dhtPort = address.port
         if (self._natTraversal.portMapping) {
-          self._natTraversal.portMapping(self.dhtPort, 'udp')
+          this._natTraversal.portMapping(this.dhtPort, 'udp')
         }
       }
     })
 
-    // Ignore warning when there are > 10 torrents in the client
-    self.dht.setMaxListeners(0)
+      // Ignore warning when there are > 10 torrents in the client
+      this.dht.setMaxListeners(0)
 
-    self.dht.listen(self.dhtPort)
-  } else {
-    self.dht = false
+      this.dht.listen(this.dhtPort)
+    } else {
+      this.dht = false
+    }
+
+    // Enable or disable BEP19 (Web Seeds). Enabled by default:
+    this.enableWebSeeds = opts.webSeeds !== false
+
+    const ready = () => {
+      if (this.destroyed) return
+      this.ready = true
+      this.emit('ready')
+    }
+
+    if (typeof loadIPSet === 'function' && opts.blocklist != null) {
+      loadIPSet(opts.blocklist, {
+        headers: {
+          'user-agent': `WebTorrent/${VERSION} (https://webtorrent.io)`
+        }
+      }, (err, ipSet) => {
+        if (err) return this.error(`Failed to load blocklist: ${err.message}`)
+        this.blocked = ipSet
+        ready()
+      })
+    } else {
+      process.nextTick(ready)
+    }
   }
 
-  // Enable or disable BEP19 (Web Seeds). Enabled by default:
-  self.enableWebSeeds = opts.webSeeds !== false
+  get downloadSpeed () { return this._downloadSpeed() }
+  get uploadSpeed () { return this._uploadSpeed() }
 
-  if (typeof loadIPSet === 'function' && opts.blocklist != null) {
-    loadIPSet(opts.blocklist, {
-      headers: {
-        'user-agent': 'WebTorrent/' + VERSION + ' (https://webtorrent.io)'
-      }
-    }, function (err, ipSet) {
-      if (err) return self.error('Failed to load blocklist: ' + err.message)
-      self.blocked = ipSet
-      ready()
-    })
-  } else {
-    process.nextTick(ready)
-  }
-
-  function ready () {
-    if (self.destroyed) return
-    self.ready = true
-    self.emit('ready')
-  }
-}
-
-WebTorrent.WEBRTC_SUPPORT = Peer.WEBRTC_SUPPORT
-WebTorrent.VERSION = VERSION
-
-Object.defineProperty(WebTorrent.prototype, 'downloadSpeed', {
-  get: function () { return this._downloadSpeed() }
-})
-
-Object.defineProperty(WebTorrent.prototype, 'uploadSpeed', {
-  get: function () { return this._uploadSpeed() }
-})
-
-Object.defineProperty(WebTorrent.prototype, 'progress', {
-  get: function () {
-    var torrents = this.torrents.filter(function (torrent) {
-      return torrent.progress !== 1
-    })
-    var downloaded = torrents.reduce(function (total, torrent) {
-      return total + torrent.downloaded
-    }, 0)
-    var length = torrents.reduce(function (total, torrent) {
-      return total + (torrent.length || 0)
-    }, 0) || 1
+  get progress () {
+    const torrents = this.torrents.filter(torrent => torrent.progress !== 1)
+    const downloaded = torrents.reduce((total, torrent) => total + torrent.downloaded, 0)
+    const length = torrents.reduce((total, torrent) => total + (torrent.length || 0), 0) || 1
     return downloaded / length
   }
-})
 
-Object.defineProperty(WebTorrent.prototype, 'ratio', {
-  get: function () {
-    var uploaded = this.torrents.reduce(function (total, torrent) {
-      return total + torrent.uploaded
-    }, 0)
-    var received = this.torrents.reduce(function (total, torrent) {
-      return total + torrent.received
-    }, 0) || 1
+  get ratio () {
+    const uploaded = this.torrents.reduce((total, torrent) => total + torrent.uploaded, 0)
+    const received = this.torrents.reduce((total, torrent) => total + torrent.received, 0) || 1
     return uploaded / received
   }
-})
 
-/**
- * Returns the torrent with the given `torrentId`. Convenience method. Easier than
- * searching through the `client.torrents` array. Returns `null` if no matching torrent
- * found.
- *
- * @param  {string|Buffer|Object|Torrent} torrentId
- * @return {Torrent|null}
- */
-WebTorrent.prototype.get = function (torrentId) {
-  var self = this
-  var i, torrent
-  var len = self.torrents.length
+  /**
+   * Returns the torrent with the given `torrentId`. Convenience method. Easier than
+   * searching through the `client.torrents` array. Returns `null` if no matching torrent
+   * found.
+   *
+   * @param  {string|Buffer|Object|Torrent} torrentId
+   * @return {Torrent|null}
+   */
+  get (torrentId) {
+    if (torrentId instanceof Torrent) {
+      if (this.torrents.includes(torrentId)) return torrentId
+    } else {
+      let parsed
+      try { parsed = parseTorrent(torrentId) } catch (err) {}
 
-  if (torrentId instanceof Torrent) {
-    for (i = 0; i < len; i++) {
-      torrent = self.torrents[i]
-      if (torrent === torrentId) return torrent
-    }
-  } else {
-    var parsed
-    try { parsed = parseTorrent(torrentId) } catch (err) {}
+      if (!parsed) return null
+      if (!parsed.infoHash) throw new Error('Invalid torrent identifier')
 
-    if (!parsed) return null
-    if (!parsed.infoHash) throw new Error('Invalid torrent identifier')
-
-    for (i = 0; i < len; i++) {
-      torrent = self.torrents[i]
-      if (torrent.infoHash === parsed.infoHash) return torrent
-    }
-  }
-  return null
-}
-
-// TODO: remove in v1
-WebTorrent.prototype.download = function (torrentId, opts, ontorrent) {
-  console.warn('WebTorrent: client.download() is deprecated. Use client.add() instead')
-  return this.add(torrentId, opts, ontorrent)
-}
-
-/**
- * Start downloading a new torrent. Aliased as `client.download`.
- * @param {string|Buffer|Object} torrentId
- * @param {Object} opts torrent-specific options
- * @param {function=} ontorrent called when the torrent is ready (has metadata)
- */
-WebTorrent.prototype.add = function (torrentId, opts, ontorrent) {
-  var self = this
-  if (self.destroyed) throw new Error('client is destroyed')
-  if (typeof opts === 'function') return self.add(torrentId, null, opts)
-
-  self._debug('add')
-  opts = opts ? extend(opts) : {}
-
-  var torrent = new Torrent(torrentId, self, opts)
-  self.torrents.push(torrent)
-
-  torrent.once('_infoHash', onInfoHash)
-  torrent.once('ready', onReady)
-  torrent.once('close', onClose)
-
-  function onInfoHash () {
-    if (self.destroyed) return
-    for (var i = 0, len = self.torrents.length; i < len; i++) {
-      var t = self.torrents[i]
-      if (t.infoHash === torrent.infoHash && t !== torrent) {
-        torrent._destroy(new Error('Cannot add duplicate torrent ' + torrent.infoHash))
-        return
+      for (const torrent of this.torrents) {
+        if (torrent.infoHash === parsed.infoHash) return torrent
       }
     }
+    return null
   }
 
-  function onReady () {
-    if (self.destroyed) return
-    if (typeof ontorrent === 'function') ontorrent(torrent)
-    self.emit('torrent', torrent)
+  // TODO: remove in v1
+  download (torrentId, opts, ontorrent) {
+    console.warn('WebTorrent: client.download() is deprecated. Use client.add() instead')
+    return this.add(torrentId, opts, ontorrent)
   }
 
-  function onClose () {
-    torrent.removeListener('_infoHash', onInfoHash)
-    torrent.removeListener('ready', onReady)
-    torrent.removeListener('close', onClose)
+  /**
+   * Start downloading a new torrent. Aliased as `client.download`.
+   * @param {string|Buffer|Object} torrentId
+   * @param {Object} opts torrent-specific options
+   * @param {function=} ontorrent called when the torrent is ready (has metadata)
+   */
+  add (torrentId, opts = {}, ontorrent) {
+    if (this.destroyed) throw new Error('client is destroyed')
+    if (typeof opts === 'function') [opts, ontorrent] = [{}, opts]
+
+    const onInfoHash = () => {
+      if (this.destroyed) return
+      for (const t of this.torrents) {
+        if (t.infoHash === torrent.infoHash && t !== torrent) {
+          torrent._destroy(new Error(`Cannot add duplicate torrent ${torrent.infoHash}`))
+          return
+        }
+      }
+    }
+
+    const onReady = () => {
+      if (this.destroyed) return
+      if (typeof ontorrent === 'function') ontorrent(torrent)
+      this.emit('torrent', torrent)
+    }
+
+    function onClose () {
+      torrent.removeListener('_infoHash', onInfoHash)
+      torrent.removeListener('ready', onReady)
+      torrent.removeListener('close', onClose)
+    }
+
+    this._debug('add')
+    opts = opts ? Object.assign({}, opts) : {}
+
+    const torrent = new Torrent(torrentId, this, opts)
+    this.torrents.push(torrent)
+
+    torrent.once('_infoHash', onInfoHash)
+    torrent.once('ready', onReady)
+    torrent.once('close', onClose)
+
+    return torrent
   }
 
-  return torrent
-}
+  /**
+   * Start seeding a new file/folder.
+   * @param  {string|File|FileList|Buffer|Array.<string|File|Buffer>} input
+   * @param  {Object=} opts
+   * @param  {function=} onseed called when torrent is seeding
+   */
+  seed (input, opts, onseed) {
+    if (this.destroyed) throw new Error('client is destroyed')
+    if (typeof opts === 'function') [opts, onseed] = [{}, opts]
 
-/**
- * Start seeding a new file/folder.
- * @param  {string|File|FileList|Buffer|Array.<string|File|Buffer>} input
- * @param  {Object=} opts
- * @param  {function=} onseed called when torrent is seeding
- */
-WebTorrent.prototype.seed = function (input, opts, onseed) {
-  var self = this
-  if (self.destroyed) throw new Error('client is destroyed')
-  if (typeof opts === 'function') return self.seed(input, null, opts)
+    this._debug('seed')
+    opts = opts ? Object.assign({}, opts) : {}
 
-  self._debug('seed')
-  opts = opts ? extend(opts) : {}
+    // When seeding from fs path, initialize store from that path to avoid a copy
+    if (typeof input === 'string') opts.path = path.dirname(input)
+    if (!opts.createdBy) opts.createdBy = `WebTorrent/${VERSION_STR}`
 
-  // When seeding from fs path, initialize store from that path to avoid a copy
-  if (typeof input === 'string') opts.path = path.dirname(input)
-  if (!opts.createdBy) opts.createdBy = 'WebTorrent/' + VERSION_STR
+    const onTorrent = torrent => {
+      const tasks = [
+        cb => {
+          torrent.load(streams, cb)
+        }
+      ]
+      if (this.dht) {
+        tasks.push(cb => {
+          torrent.once('dhtAnnounce', cb)
+        })
+      }
+      parallel(tasks, err => {
+        if (this.destroyed) return
+        if (err) return torrent._destroy(err)
+        _onseed(torrent)
+      })
+    }
 
-  var torrent = self.add(null, opts, onTorrent)
-  var streams
+    const _onseed = torrent => {
+      this._debug('on seed')
+      if (typeof onseed === 'function') onseed(torrent)
+      torrent.emit('seed')
+      this.emit('seed', torrent)
+    }
 
-  if (isFileList(input)) input = Array.prototype.slice.call(input)
-  if (!Array.isArray(input)) input = [ input ]
+    const torrent = this.add(null, opts, onTorrent)
+    let streams
 
-  parallel(input.map(function (item) {
-    return function (cb) {
+    if (isFileList(input)) input = Array.from(input)
+    else if (!Array.isArray(input)) input = [ input ]
+
+    parallel(input.map(item => cb => {
       if (isReadable(item)) concat(item, cb)
       else cb(null, item)
-    }
-  }), function (err, input) {
-    if (self.destroyed) return
-    if (err) return torrent._destroy(err)
-
-    createTorrent.parseInput(input, opts, function (err, files) {
-      if (self.destroyed) return
+    }), (err, input) => {
+      if (this.destroyed) return
       if (err) return torrent._destroy(err)
 
-      streams = files.map(function (file) {
-        return file.getStream
-      })
-
-      createTorrent(input, opts, function (err, torrentBuf) {
-        if (self.destroyed) return
+      createTorrent.parseInput(input, opts, (err, files) => {
+        if (this.destroyed) return
         if (err) return torrent._destroy(err)
 
-        var existingTorrent = self.get(torrentBuf)
-        if (existingTorrent) {
-          torrent._destroy(new Error('Cannot add duplicate torrent ' + existingTorrent.infoHash))
-        } else {
-          torrent._onTorrentId(torrentBuf)
-        }
+        streams = files.map(file => file.getStream)
+
+        createTorrent(input, opts, (err, torrentBuf) => {
+          if (this.destroyed) return
+          if (err) return torrent._destroy(err)
+
+          const existingTorrent = this.get(torrentBuf)
+          if (existingTorrent) {
+            torrent._destroy(new Error(`Cannot add duplicate torrent ${existingTorrent.infoHash}`))
+          } else {
+            torrent._onTorrentId(torrentBuf)
+          }
+        })
       })
     })
-  })
 
-  function onTorrent (torrent) {
-    var tasks = [
-      function (cb) {
-        torrent.load(streams, cb)
-      }
-    ]
-    if (self.dht) {
-      tasks.push(function (cb) {
-        torrent.once('dhtAnnounce', cb)
-      })
-    }
-    parallel(tasks, function (err) {
-      if (self.destroyed) return
-      if (err) return torrent._destroy(err)
-      _onseed(torrent)
-    })
+    return torrent
   }
 
-  function _onseed (torrent) {
-    self._debug('on seed')
-    if (typeof onseed === 'function') onseed(torrent)
-    torrent.emit('seed')
-    self.emit('seed', torrent)
+  /**
+   * Remove a torrent from the client.
+   * @param  {string|Buffer|Torrent}   torrentId
+   * @param  {function} cb
+   */
+  remove (torrentId, cb) {
+    this._debug('remove')
+    const torrent = this.get(torrentId)
+    if (!torrent) throw new Error(`No torrent with id ${torrentId}`)
+    this._remove(torrentId, cb)
   }
 
-  return torrent
-}
+  _remove (torrentId, cb) {
+    const torrent = this.get(torrentId)
+    if (!torrent) return
+    this.torrents.splice(this.torrents.indexOf(torrent), 1)
+    torrent.destroy(cb)
+  }
 
-/**
- * Remove a torrent from the client.
- * @param  {string|Buffer|Torrent}   torrentId
- * @param  {function} cb
- */
-WebTorrent.prototype.remove = function (torrentId, cb) {
-  this._debug('remove')
-  var torrent = this.get(torrentId)
-  if (!torrent) throw new Error('No torrent with id ' + torrentId)
-  this._remove(torrentId, cb)
-}
+  address () {
+    if (!this.listening) return null
+    return this._tcpPool
+      ? this._tcpPool.server.address()
+      : { address: '0.0.0.0', family: 'IPv4', port: 0 }
+  }
 
-WebTorrent.prototype._remove = function (torrentId, cb) {
-  var torrent = this.get(torrentId)
-  if (!torrent) return
-  this.torrents.splice(this.torrents.indexOf(torrent), 1)
-  torrent.destroy(cb)
-}
+  /**
+   * Destroy the client, including all torrents and connections to peers.
+   * @param  {function} cb
+   */
+  destroy (cb) {
+    if (this.destroyed) throw new Error('client already destroyed')
+    this._destroy(null, cb)
+  }
 
-WebTorrent.prototype.address = function () {
-  if (!this.listening) return null
-  return this._tcpPool
-    ? this._tcpPool.server.address()
-    : { address: '0.0.0.0', family: 'IPv4', port: 0 }
-}
+  _destroy (err, cb) {
+    this._debug('client destroy')
+    this.destroyed = true
 
-/**
- * Destroy the client, including all torrents and connections to peers.
- * @param  {function} cb
- */
-WebTorrent.prototype.destroy = function (cb) {
-  if (this.destroyed) throw new Error('client already destroyed')
-  this._destroy(null, cb)
-}
-
-WebTorrent.prototype._destroy = function (err, cb) {
-  var self = this
-  self._debug('client destroy')
-  self.destroyed = true
-
-  var tasks = self.torrents.map(function (torrent) {
-    return function (cb) {
+    const tasks = this.torrents.map(torrent => cb => {
       torrent.destroy(cb)
+    })
+
+    if (this._tcpPool) {
+      tasks.push(cb => {
+        this._tcpPool.destroy(cb)
+      })
     }
-  })
 
-  if (self._tcpPool) {
-    tasks.push(function (cb) {
-      self._tcpPool.destroy(cb)
-    })
+    if (this.dht) {
+      tasks.push(cb => {
+        this.dht.destroy(cb)
+      })
+    }
+
+    if (this._natTraversal.destroy) {
+      tasks.push(function (cb) {
+        this._natTraversal.destroy(cb)
+      })
+    }
+
+    parallel(tasks, cb)
+    
+    if (err) this.emit('error', err)
+
+    this.torrents = []
+    this._tcpPool = null
+    this.dht = null
   }
 
-  if (self.dht) {
-    tasks.push(function (cb) {
-      self.dht.destroy(cb)
-    })
-  }
+  _onListening () {
+    this._debug('listening')
+    this.listening = true
 
-  if (self._natTraversal.destroy) {
-    tasks.push(function (cb) {
-      self._natTraversal.destroy(cb)
-    })
-  }
-
-  parallel(tasks, cb)
-
-  if (err) self.emit('error', err)
-
-  self.torrents = []
-  self._tcpPool = null
-  self.dht = null
-}
-
-WebTorrent.prototype._onListening = function () {
-  this._debug('listening')
-  this.listening = true
+    if (this._tcpPool) {
+      // Sometimes server.address() returns `null` in Docker.
+      const address = this._tcpPool.server.address()
+      if (address) this.torrentPort = address.port
+    }
 
   if (this._tcpPool) {
     // Sometimes server.address() returns `null` in Docker.
@@ -467,16 +418,18 @@ WebTorrent.prototype._onListening = function () {
         this._natTraversal.portMapping(this.torrentPort, 'tcp')
       }
     }
+    this.emit('listening')
   }
 
-  this.emit('listening')
+  _debug () {
+    const args = [].slice.call(arguments)
+    args[0] = `[${this._debugId}] ${args[0]}`
+    debug(...args)
+  }
 }
 
-WebTorrent.prototype._debug = function () {
-  var args = [].slice.call(arguments)
-  args[0] = '[' + this._debugId + '] ' + args[0]
-  debug.apply(null, args)
-}
+WebTorrent.WEBRTC_SUPPORT = Peer.WEBRTC_SUPPORT
+WebTorrent.VERSION = VERSION
 
 /**
  * Check if `obj` is a node Readable stream
@@ -495,3 +448,5 @@ function isReadable (obj) {
 function isFileList (obj) {
   return typeof FileList !== 'undefined' && obj instanceof FileList
 }
+
+module.exports = WebTorrent

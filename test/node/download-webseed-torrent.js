@@ -1,4 +1,3 @@
-var extend = require('xtend')
 var finalhandler = require('finalhandler')
 var fixtures = require('webtorrent-fixtures')
 var http = require('http')
@@ -16,7 +15,7 @@ test('Download using webseed (via .torrent file)', function (t) {
   t.plan(6)
   t.timeoutAfter(WEB_SEED_TIMEOUT_MS)
 
-  var parsedTorrent = extend(fixtures.leaves.parsedTorrent)
+  var parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
 
   var httpServer = http.createServer(function (req, res) {
     var done = finalhandler(req, res)
@@ -64,7 +63,7 @@ test('Download using webseed (via .torrent file)', function (t) {
         }
       })
 
-      client.add(parsedTorrent, {store: MemoryChunkStore})
+      client.add(parsedTorrent, { store: MemoryChunkStore })
     }
   ], function (err) {
     t.error(err)
@@ -78,7 +77,7 @@ test('Download using webseed (via .torrent file)', function (t) {
 })
 
 test('Disable webseeds', function (t) {
-  var parsedTorrent = extend(fixtures.leaves.parsedTorrent)
+  var parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
 
   var httpServer = http.createServer(function (req, res) {
     t.fail('webseed http server should not get any requests')
@@ -102,7 +101,7 @@ test('Disable webseeds', function (t) {
       client.on('error', function (err) { t.fail(err) })
       client.on('warning', function (err) { t.fail(err) })
 
-      client.add(parsedTorrent, {store: MemoryChunkStore})
+      client.add(parsedTorrent, { store: MemoryChunkStore })
 
       // The test above ensures that we can download the whole torrent over webseeds within a
       // short time. Here, we wait the same amount of time and make sure no HTTP requests happen.
