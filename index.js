@@ -95,15 +95,15 @@ class WebTorrent extends EventEmitter {
       }
     }
 
-  this._natTraversal = require('./lib/nat-traversal') // browser exclude
+    this._natTraversal = require('./lib/nat-traversal') // browser exclude
 
-  if (typeof TCPPool === 'function') {
-    this._tcpPool = new TCPPool(this)
-  } else {
-    process.nextTick(function () {
-      this._onListening()
-    })
-  }
+    if (typeof TCPPool === 'function') {
+      this._tcpPool = new TCPPool(this)
+    } else {
+      process.nextTick(function () {
+        this._onListening()
+      })
+    }
 
     // stats
     this._downloadSpeed = speedometer()
@@ -391,7 +391,7 @@ class WebTorrent extends EventEmitter {
     }
 
     parallel(tasks, cb)
-    
+
     if (err) this.emit('error', err)
 
     this.torrents = []
