@@ -69,7 +69,7 @@
   },
   "devDependencies": {
     "airtap": "0.1.0",
-    "babel-minify": "^0.4.3",
+    "babel-minify": "^0.5.0",
     "bittorrent-tracker": "^9.4.0",
     "brfs": "^2.0.0",
     "browserify": "^16.0.0",
