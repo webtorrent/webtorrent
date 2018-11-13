@@ -133,7 +133,6 @@
 - Kaylee (34007889+KayleePop@users.noreply.github.com)
 - Brad Marsden (silentbot1@gmail.com)
 - lovefoodcode (38153617+lovefoodcode@users.noreply.github.com)
-- Gabriel Almeida (gabrieel@email.com)
 - filesfm (41144556+filesfm@users.noreply.github.com)
 - John Hiesey (john@hiesey.com)
 - KayleePop (34007889+KayleePop@users.noreply.github.com)
