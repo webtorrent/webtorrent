@@ -32,7 +32,7 @@
     "bittorrent-protocol": "^3.0.0",
     "chunk-store-stream": "^3.0.1",
     "create-torrent": "^3.33.0",
-    "debug": "^4.1.0",
+    "debug": "^4.1.1",
     "end-of-stream": "^1.1.0",
     "fs-chunk-store": "^1.6.2",
     "immediate-chunk-store": "^2.0.0",
