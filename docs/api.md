@@ -366,6 +366,14 @@ connections, nor does it pause the streams of existing connections or their wire
 
 Resume connecting to new peers.
 
+## `torrent.rescanFiles([function callback (err) {}])`
+
+Verify the hashes of all pieces in the store and update the bitfield for any new valid
+pieces. Useful if data has been added to the store outside WebTorrent, e.g. if another
+process puts a valid file in the right place. Once the scan is complete,
+`callback(null)` will be called (if provided), unless the torrent was destroyed during
+the scan, in which case `callback` will be called with an error.
+
 ## `torrent.on('infoHash', function () {})`
 
 Emitted when the info hash of the torrent has been determined.
