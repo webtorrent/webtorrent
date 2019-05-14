@@ -1,7 +1,7 @@
 {
   "name": "webtorrent-jali",
   "description": "Streaming torrent client",
-  "version": "0.103.1+1",
+  "version": "0.103.1b",
   "author": {
     "name": "WebTorrent, LLC",
     "email": "feross@webtorrent.io",
@@ -34,7 +34,6 @@
     "create-torrent": "^3.33.0",
     "debug": "^4.1.0",
     "end-of-stream": "^1.1.0",
-    "filename-reserved-regex": "^2.0.0",
     "fs-chunk-store": "^1.6.2",
     "immediate-chunk-store": "^2.0.0",
     "load-ip-set": "^2.1.0",
@@ -53,6 +52,7 @@
     "run-parallel": "^1.1.6",
     "run-parallel-limit": "^1.0.3",
     "safe-buffer": "^5.0.1",
+    "safe-filename": "^1.0.1",
     "simple-concat": "^1.0.0",
     "simple-get": "^3.0.1",
     "simple-peer": "^9.0.0",
