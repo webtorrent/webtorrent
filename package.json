@@ -1,5 +1,5 @@
 {
-  "name": "webtorrent-jali",
+  "name": "webtorrent",
   "description": "Streaming torrent client",
   "version": "0.103.1b",
   "author": {
@@ -23,7 +23,7 @@
     ]
   },
   "bugs": {
-    "url": "https://github.com/Jaliborc/webtorrent/issues"
+    "url": "https://github.com/webtorrent/webtorrent/issues"
   },
   "dependencies": {
     "addr-to-ip-port": "^1.4.2",
@@ -108,7 +108,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/Jaliborc/webtorrent.git"
+    "url": "git://github.com/webtorrent/webtorrent.git"
   },
   "scripts": {
     "build": "browserify -s WebTorrent -e ./ | minify > webtorrent.min.js",
