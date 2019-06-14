@@ -111,6 +111,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Bugout][Bugout]** - build and run back-end web services in a browser tab.
 - **[P2P Media Loader][p2p-media-loader]** - engine for Hls.js and Shaka Player that enables P2P sharing of live and VOD streams over HLS or DASH protocols.
 - **[Cheff][Cheff]** - Share food recipes between your devices. [source code](https://github.com/vasco3/cheff)
+- **[Hubzilla](https://hubzilla.org)** - WebTorrent player integration into posts ([source code](https://github.com/demitas-ace/wtplayer/tree/master/wtplayer))
 - ***Your app here – [Send a pull request][pr] with your URL!***
 
 #### WebTorrent Product Alternatives
