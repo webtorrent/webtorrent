@@ -1,7 +1,7 @@
 {
   "name": "webtorrent",
   "description": "Streaming torrent client",
-  "version": "0.103.2",
+  "version": "0.103.4",
   "author": {
     "name": "WebTorrent, LLC",
     "email": "feross@webtorrent.io",
@@ -74,7 +74,7 @@
     "brfs": "^2.0.0",
     "browserify": "^16.2.3",
     "cross-spawn": "^6.0.3",
-    "electron": "^4.0.0",
+    "electron": "^5.0.4",
     "finalhandler": "^1.0.0",
     "network-address": "^1.1.0",
     "run-series": "^1.1.4",
