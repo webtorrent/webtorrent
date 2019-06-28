@@ -39,7 +39,7 @@
     "load-ip-set": "^2.1.0",
     "memory-chunk-store": "^1.2.0",
     "mime": "^2.4.0",
-    "multistream": "^2.0.5",
+    "multistream": "^3.0.0",
     "package-json-versionify": "^1.0.2",
     "parse-numeric-range": "^0.0.2",
     "parse-torrent": "^6.1.2",
