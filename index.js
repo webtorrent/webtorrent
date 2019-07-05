@@ -153,6 +153,7 @@ class WebTorrent extends EventEmitter {
   }
 
   get downloadSpeed () { return this._downloadSpeed() }
+
   get uploadSpeed () { return this._uploadSpeed() }
 
   get progress () {
