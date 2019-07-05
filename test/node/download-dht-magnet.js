@@ -47,7 +47,7 @@ test('Download using DHT (via magnet uri)', function (t) {
         // torrent metadata has been fetched -- sanity check it
         t.equal(torrent.name, 'Leaves of Grass by Walt Whitman.epub')
 
-        var names = [ 'Leaves of Grass by Walt Whitman.epub' ]
+        var names = ['Leaves of Grass by Walt Whitman.epub']
         t.deepEqual(torrent.files.map(function (file) { return file.name }), names)
       })
 

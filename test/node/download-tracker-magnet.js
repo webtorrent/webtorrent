@@ -43,7 +43,7 @@ function magnetDownloadTest (t, serverType) {
         ? 'http://127.0.0.1:' + port + '/announce'
         : 'udp://127.0.0.1:' + port
 
-      parsedTorrent.announce = [ announceUrl ]
+      parsedTorrent.announce = [announceUrl]
       magnetURI = 'magnet:?xt=urn:btih:' + parsedTorrent.infoHash + '&tr=' + encodeURIComponent(announceUrl)
 
       client1 = new WebTorrent({ dht: false })

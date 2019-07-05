@@ -25,7 +25,7 @@ test('blocklist (single IP)', function (t) {
   var client = new WebTorrent({
     dht: false,
     tracker: false,
-    blocklist: [ '1.2.3.4' ]
+    blocklist: ['1.2.3.4']
   })
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
@@ -51,7 +51,7 @@ test('blocklist (array of IPs)', function (t) {
   var client = new WebTorrent({
     dht: false,
     tracker: false,
-    blocklist: [ '1.2.3.4', '5.6.7.8' ]
+    blocklist: ['1.2.3.4', '5.6.7.8']
   })
     .on('error', function (err) { t.fail(err) })
     .on('warning', function (err) { t.fail(err) })

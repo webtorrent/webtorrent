@@ -50,7 +50,7 @@ function torrentDownloadTest (t, serverType) {
         : 'udp://127.0.0.1:' + port
 
       // Overwrite announce with our local tracker
-      parsedTorrent.announce = [ announceUrl ]
+      parsedTorrent.announce = [announceUrl]
 
       client1.on('torrent', function (torrent) {
         // torrent metadata has been fetched -- sanity check it

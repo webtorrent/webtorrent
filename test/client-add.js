@@ -135,7 +135,7 @@ test('client.add: parsed torrent, with string type announce property', function 
     t.equal(torrent.magnetURI, expectedMagnetURI)
 
     // `torrent.announce` must always be an array
-    t.deepEqual(torrent.announce, [ 'http://tracker.local:80' ])
+    t.deepEqual(torrent.announce, ['http://tracker.local:80'])
 
     client.remove(fixtures.leaves.parsedTorrent, function (err) { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
@@ -153,7 +153,7 @@ test('client.add: parsed torrent, with array type announce property', function (
   client.on('warning', function (err) { t.fail(err) })
 
   var parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
-  parsedTorrent.announce = [ 'http://tracker.local:80', 'http://tracker.local:81' ]
+  parsedTorrent.announce = ['http://tracker.local:80', 'http://tracker.local:81']
 
   var torrent = client.add(parsedTorrent)
   t.equal(client.torrents.length, 1)
@@ -166,7 +166,7 @@ test('client.add: parsed torrent, with array type announce property', function (
       '&tr=' + encodeURIComponent('http://tracker.local:81')
     t.equal(torrent.magnetURI, expectedMagnetURI)
 
-    t.deepEqual(torrent.announce, [ 'http://tracker.local:80', 'http://tracker.local:81' ])
+    t.deepEqual(torrent.announce, ['http://tracker.local:80', 'http://tracker.local:81'])
 
     client.remove(fixtures.leaves.parsedTorrent, function (err) { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)

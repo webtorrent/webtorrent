@@ -36,7 +36,7 @@ test('client.seed: stream', function (t) {
       var seederOpts = {
         name: 'hello.txt',
         pieceLength: 5,
-        announce: [ announceUrl ]
+        announce: [announceUrl]
       }
       seeder.seed([stream], seederOpts, function (torrent) {
         magnetURI = torrent.magnetURI
