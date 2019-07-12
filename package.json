@@ -68,7 +68,7 @@
     "ut_pex": "^1.1.1"
   },
   "devDependencies": {
-    "airtap": "2.0.2",
+    "airtap": "2.0.3",
     "babel-minify": "^0.5.0",
     "bittorrent-tracker": "^9.4.0",
     "brfs": "^2.0.0",
