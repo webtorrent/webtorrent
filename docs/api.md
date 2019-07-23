@@ -201,6 +201,10 @@ Aggregate "seed ratio" for all torrents (uploaded / downloaded).
 
 # Torrent API
 
+## `torrent.name`
+
+Name of the torrent (string).
+
 ## `torrent.infoHash`
 
 Info hash of the torrent (string).
