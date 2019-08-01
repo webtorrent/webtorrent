@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "addr-to-ip-port": "^1.4.2",
-    "bitfield": "^2.0.0",
+    "bitfield": "^3.0.0",
     "bittorrent-dht": "^9.0.0",
     "bittorrent-protocol": "^3.0.0",
     "chunk-store-stream": "^4.0.0",
