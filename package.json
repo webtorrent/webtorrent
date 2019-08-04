@@ -84,7 +84,7 @@
     "webtorrent-fixtures": "^1.5.0"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "homepage": "https://webtorrent.io",
   "keywords": [
