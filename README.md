@@ -54,8 +54,8 @@ they can connect to both normal *and* web peers. We hope other clients will foll
 
 ### Open Source Sponsors
 
-[<img src='https://webtorrent.io/img/supporters/popchest.png' width=300>](https://popchest.com) | [<img src='https://webtorrent.io/img/supporters/brave.png' width=300>](https://brave.com)
-|---|---|
+[<img src='https://webtorrent.io/img/supporters/brave.png' width=300>](https://brave.com)
+|---|
 
 ### Features
 
