@@ -1,11 +1,14 @@
 # ProBot Stale (https://probot.github.io/apps/stale/)
 
 daysUntilStale: 90
-daysUntilClose: 7
+daysUntilClose: 14
 exemptLabels:
   - accepted
+  - blocked
   - bug
   - enhancement
+  - greenkeeper
+  - 'help wanted'
   - meta
 staleLabel: stale
 markComment: >
