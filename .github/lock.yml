@@ -2,4 +2,3 @@
 
 daysUntilLock: 365
 lockComment: false
-only: issues
