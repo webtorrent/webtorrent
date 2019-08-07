@@ -1,4 +1,3 @@
-var Buffer = require('safe-buffer').Buffer
 var test = require('tape')
 var WebTorrent = require('../../')
 

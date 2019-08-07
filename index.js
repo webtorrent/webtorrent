@@ -1,6 +1,5 @@
 /* global FileList */
 
-const { Buffer } = require('safe-buffer')
 const { EventEmitter } = require('events')
 const concat = require('simple-concat')
 const createTorrent = require('create-torrent')

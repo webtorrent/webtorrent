@@ -1,6 +1,5 @@
 /* global Blob */
 
-var Buffer = require('safe-buffer').Buffer
 var fixtures = require('webtorrent-fixtures')
 var test = require('tape')
 var WebTorrent = require('../')

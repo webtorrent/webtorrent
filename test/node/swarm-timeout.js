@@ -1,4 +1,3 @@
-// var Buffer = require('safe-buffer').Buffer
 // var randombytes = require('randombytes')
 // var Swarm = require('../../lib/swarm')
 // var test = require('tape')
