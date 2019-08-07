@@ -78,6 +78,7 @@
     "serve-static": "^1.11.1",
     "standard": "*",
     "tape": "^4.6.0",
+    "tinyify": "^2.5.1",
     "webtorrent-fixtures": "^1.5.0"
   },
   "engines": {
@@ -107,7 +108,7 @@
     "url": "git://github.com/webtorrent/webtorrent.git"
   },
   "scripts": {
-    "build": "browserify -s WebTorrent -e ./ | minify > webtorrent.min.js",
+    "build": "browserify --plugin tinyify -s WebTorrent -e . | minify > webtorrent.min.js",
     "build-debug": "browserify -s WebTorrent -e ./ > webtorrent.debug.js",
     "size": "npm run build && cat webtorrent.min.js | gzip | wc -c",
     "test": "standard && npm run test-node && npm run test-browser",
