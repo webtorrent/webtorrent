@@ -71,6 +71,7 @@
     "babel-minify": "^0.5.0",
     "bittorrent-tracker": "^9.4.0",
     "browserify": "^16.2.3",
+    "disc": "^1.3.3",
     "electron": "^6.0.0",
     "finalhandler": "^1.0.0",
     "network-address": "^1.1.0",
@@ -110,7 +111,9 @@
   "scripts": {
     "build": "browserify --plugin tinyify -s WebTorrent -e . | minify > webtorrent.min.js",
     "build-debug": "browserify -s WebTorrent -e ./ > webtorrent.debug.js",
-    "size": "npm run build && cat webtorrent.min.js | gzip | wc -c",
+    "size": "npm run size-js && npm run size-disc",
+    "size-js": "npm run build && cat webtorrent.min.js | gzip | wc -c",
+    "size-disc": "browserify --plugin tinyify --full-paths . | discify --open",
     "test": "standard && npm run test-node && npm run test-browser",
     "test-browser": "airtap -- test/*.js test/browser/*.js",
     "test-browser-local": "airtap --local -- test/*.js test/browser/*.js",
