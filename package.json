@@ -34,7 +34,7 @@
     "create-torrent": "^4.0.0",
     "debug": "^4.1.0",
     "end-of-stream": "^1.1.0",
-    "fs-chunk-store": "^1.6.2",
+    "fs-chunk-store": "^2.0.0",
     "immediate-chunk-store": "^2.0.0",
     "load-ip-set": "^2.1.0",
     "memory-chunk-store": "^1.2.0",
