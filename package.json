@@ -78,7 +78,7 @@
   "devDependencies": {
     "airtap": "^2.0.3",
     "bittorrent-tracker": "^9.14.0",
-    "browserify": "^16.4.0",
+    "browserify": "^16.5.0",
     "disc": "^1.3.3",
     "electron": "^6.0.1",
     "finalhandler": "^1.0.0",
@@ -117,11 +117,14 @@
     "url": "git://github.com/webtorrent/webtorrent.git"
   },
   "scripts": {
-    "build": "browserify --standalone WebTorrent --plugin tinyify . > webtorrent.min.js",
-    "build-debug": "browserify --standalone WebTorrent . > webtorrent.debug.js",
+    "build": "npm run build-js && npm run build-chromeapp",
+    "build-chromeapp": "browserify --browser-field=chromeapp --standalone WebTorrent --require .:webtorrent --plugin tinyify . > webtorrent.chromeapp.js",
+    "build-chromeapp-debug": "browserify --browser-field=chromeapp --standalone WebTorrent --require .:webtorrent . > webtorrent.chromeapp.js",
+    "build-js": "browserify --standalone WebTorrent --plugin tinyify . > webtorrent.min.js",
+    "build-js-debug": "browserify --standalone WebTorrent . > webtorrent.debug.js",
     "size": "npm run size-js && npm run size-disc",
-    "size-disc": "browserify --plugin tinyify --full-paths . | discify --open",
     "size-js": "npm run build && cat webtorrent.min.js | gzip | wc -c",
+    "size-disc": "browserify --plugin tinyify --full-paths . | discify --open",
     "test": "standard && npm run test-node && npm run test-browser",
     "test-browser": "airtap -- test/*.js test/browser/*.js",
     "test-browser-local": "airtap --local -- test/*.js test/browser/*.js",
