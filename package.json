@@ -76,7 +76,6 @@
   },
   "devDependencies": {
     "airtap": "^2.0.3",
-    "babel-minify": "^0.5.0",
     "bittorrent-tracker": "^9.4.0",
     "browserify": "^16.2.3",
     "disc": "^1.3.3",
@@ -117,8 +116,8 @@
     "url": "git://github.com/webtorrent/webtorrent.git"
   },
   "scripts": {
-    "build": "browserify --plugin tinyify -s WebTorrent -e . | minify > webtorrent.min.js",
     "build-debug": "browserify -s WebTorrent -e ./ > webtorrent.debug.js",
+    "build": "browserify --plugin tinyify -s WebTorrent -e . > webtorrent.min.js",
     "size": "npm run size-js && npm run size-disc",
     "size-js": "npm run build && cat webtorrent.min.js | gzip | wc -c",
     "size-disc": "browserify --plugin tinyify --full-paths . | discify --open",
