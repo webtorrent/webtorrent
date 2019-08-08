@@ -267,7 +267,7 @@ class WebTorrent extends EventEmitter {
     if (!opts.createdBy) opts.createdBy = `WebTorrent/${VERSION_STR}`
 
     const onTorrent = torrent => {
-      opts.onTorrent && opts.onTorrent(torrent);
+      opts.onTorrent && opts.onTorrent(torrent)
       const tasks = [
         cb => {
           // when a filesystem path is specified, files are already in the FS store
