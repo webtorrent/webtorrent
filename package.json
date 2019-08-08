@@ -17,6 +17,12 @@
     "os": false,
     "ut_pex": false
   },
+  "chromeapp": {
+    "fs-chunk-store": "memory-chunk-store",
+    "http": "http-node",
+    "net": "chrome-net",
+    "os": false
+  },
   "browserify": {
     "transform": [
       "package-json-versionify"
@@ -30,11 +36,13 @@
     "bitfield": "^3.0.0",
     "bittorrent-dht": "^9.0.0",
     "bittorrent-protocol": "^3.0.0",
+    "chrome-net": "^3.3.2",
     "chunk-store-stream": "^4.0.0",
     "create-torrent": "^4.0.0",
     "debug": "^4.1.0",
     "end-of-stream": "^1.1.0",
     "fs-chunk-store": "^2.0.0",
+    "http-node": "feross/http-node#cddd2872f0020ecf5016f326cf5e58c965eef52a",
     "immediate-chunk-store": "^2.0.0",
     "load-ip-set": "^2.1.0",
     "memory-chunk-store": "^1.2.0",
