@@ -234,7 +234,7 @@ class WebTorrent extends EventEmitter {
     this._debug('add')
     opts = opts ? Object.assign({}, opts) : {}
 
-    const torrent = new Torrent(torrentId, this, opts)
+    const torrent = torrentId instanceof Torrent ? torrentId : new Torrent(torrentId, this, opts)
     this.torrents.push(torrent)
 
     torrent.once('_infoHash', onInfoHash)
