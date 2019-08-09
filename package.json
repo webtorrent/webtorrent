@@ -20,6 +20,7 @@
   "chromeapp": {
     "fs-chunk-store": "memory-chunk-store",
     "http": "http-node",
+    "load-ip-set": false,
     "net": "chrome-net",
     "os": false
   },
