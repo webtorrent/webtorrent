@@ -118,8 +118,8 @@
   },
   "scripts": {
     "build": "npm run build-js && npm run build-chromeapp",
-    "build-chromeapp": "browserify --browser-field=chromeapp --standalone WebTorrent --require .:webtorrent --plugin tinyify . > webtorrent.chromeapp.js",
-    "build-chromeapp-debug": "browserify --browser-field=chromeapp --standalone WebTorrent --require .:webtorrent . > webtorrent.chromeapp.js",
+    "build-chromeapp": "browserify --browser-field=chromeapp --standalone WebTorrent --plugin tinyify . > webtorrent.chromeapp.js",
+    "build-chromeapp-debug": "browserify --browser-field=chromeapp --standalone WebTorrent . > webtorrent.chromeapp.js",
     "build-js": "browserify --standalone WebTorrent --plugin tinyify . > webtorrent.min.js",
     "build-js-debug": "browserify --standalone WebTorrent . > webtorrent.debug.js",
     "size": "npm run size-js && npm run size-disc",
