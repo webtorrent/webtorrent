@@ -17,13 +17,6 @@
     "os": false,
     "ut_pex": false
   },
-  "chromeapp": {
-    "fs-chunk-store": "memory-chunk-store",
-    "http": "http-node",
-    "load-ip-set": false,
-    "net": "chrome-net",
-    "os": false
-  },
   "browserify": {
     "transform": [
       "package-json-versionify"
@@ -31,6 +24,13 @@
   },
   "bugs": {
     "url": "https://github.com/webtorrent/webtorrent/issues"
+  },
+  "chromeapp": {
+    "fs-chunk-store": "memory-chunk-store",
+    "http": "http-node",
+    "load-ip-set": false,
+    "net": "chrome-net",
+    "os": false
   },
   "dependencies": {
     "addr-to-ip-port": "^1.4.2",
