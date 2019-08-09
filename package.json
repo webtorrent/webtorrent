@@ -117,11 +117,11 @@
     "url": "git://github.com/webtorrent/webtorrent.git"
   },
   "scripts": {
-    "build-debug": "browserify -s WebTorrent -e ./ > webtorrent.debug.js",
-    "build": "browserify --plugin tinyify -s WebTorrent -e . > webtorrent.min.js",
+    "build": "browserify --standalone WebTorrent --plugin tinyify . > webtorrent.min.js",
+    "build-debug": "browserify --standalone WebTorrent . > webtorrent.debug.js",
     "size": "npm run size-js && npm run size-disc",
-    "size-js": "npm run build && cat webtorrent.min.js | gzip | wc -c",
     "size-disc": "browserify --plugin tinyify --full-paths . | discify --open",
+    "size-js": "npm run build && cat webtorrent.min.js | gzip | wc -c",
     "test": "standard && npm run test-node && npm run test-browser",
     "test-browser": "airtap -- test/*.js test/browser/*.js",
     "test-browser-local": "airtap --local -- test/*.js test/browser/*.js",
