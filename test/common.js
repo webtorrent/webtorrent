@@ -3,11 +3,11 @@ const fs = require('fs')
 const path = require('path')
 
 exports.getDownloadPath = function (infix, infoHash) {
-  let downloadPath
+  let tmpPath
   try {
-    downloadPath = path.join(fs.statSync('/tmp') && '/tmp', 'webtorrent', 'test')
+    tmpPath = path.join(fs.statSync('/tmp') && '/tmp')
   } catch (err) {
-    downloadPath = path.join(typeof os.tmpdir === 'function' ? os.tmpdir() : '/', 'webtorrent', 'test')
+    tmpPath = path.join(typeof os.tmpdir === 'function' ? os.tmpdir() : '/')
   }
-  return path.join(downloadPath, infix, infoHash)
+  return path.join(tmpPath, 'webtorrent', 'test', infix, infoHash)
 }
