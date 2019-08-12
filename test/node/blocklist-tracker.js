@@ -40,7 +40,7 @@ test('blocklist blocks peers discovered via tracker', function (t) {
       client1.on('warning', function (err) { t.fail(err) })
 
       var torrent1 = client1.add(parsedTorrent, {
-        path: common.getTestPath('client_1', parsedTorrent.infoHash)
+        path: common.getDownloadPath('client_1', parsedTorrent.infoHash)
       })
 
       torrent1.on('invalidPeer', function () {
@@ -62,7 +62,7 @@ test('blocklist blocks peers discovered via tracker', function (t) {
       client2.on('warning', function (err) { t.fail(err) })
 
       var torrent2 = client2.add(parsedTorrent, {
-        path: common.getTestPath('client_2', parsedTorrent.infoHash)
+        path: common.getDownloadPath('client_2', parsedTorrent.infoHash)
       })
 
       torrent2.once('blockedPeer', function () {

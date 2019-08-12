@@ -27,7 +27,7 @@ test('blocklist blocks peers discovered via DHT', function (t) {
       client1.on('warning', function (err) { t.fail(err) })
 
       var torrent1 = client1.add(fixtures.leaves.parsedTorrent, {
-        path: common.getTestPath('client_1', fixtures.leaves.parsedTorrent.infoHash)
+        path: common.getDownloadPath('client_1', fixtures.leaves.parsedTorrent.infoHash)
       })
 
       torrent1.on('peer', function () {
@@ -67,7 +67,7 @@ test('blocklist blocks peers discovered via DHT', function (t) {
       client2.on('warning', function (err) { t.fail(err) })
 
       var torrent2 = client2.add(fixtures.leaves.parsedTorrent, {
-        path: common.getTestPath('client_2', fixtures.leaves.parsedTorrent.infoHash)
+        path: common.getDownloadPath('client_2', fixtures.leaves.parsedTorrent.infoHash)
       })
 
       torrent2.on('blockedPeer', function (addr) {
