@@ -306,14 +306,6 @@ True when all the torrent files have been downloaded.
 
 Sum of the files length (in bytes).
 
-## `torrent.pieceLength`
-
-Length in bytes of all the pieces but the last one.
-
-## `torrent.lastPieceLength`
-
-Length in bytes of the last piece (<= `torrent.pieceLength`)
-
 ## `torrent.created`
 
 Date of creation of the torrent (as a [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object).
