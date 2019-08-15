@@ -221,10 +221,27 @@ Magnet URI of the torrent (string).
 
 `.torrent` file of the torrent (Blob URL).
 
+## `torrent.announce[...]`
+
+Array of all tracker servers. Each announce is an URL (string).
+
 ## `torrent.files[...]`
 
 Array of all files in the torrent. See documentation for `File` below to learn what
 methods/properties files have.
+
+## `torrent.pieces[...]`
+
+Array of all pieces in the torrent. See documentation for `Piece` below to learn what
+properties pieces have. Some pieces can be null.
+
+## `torrent.pieceLength`
+
+Length in bytes of every piece but the last one.
+
+## `torrent.lastPieceLength`
+
+Length in bytes of the last piece (<= of `torrent.pieceLength`).
 
 ## `torrent.timeRemaining`
 
@@ -262,9 +279,44 @@ Torrent "seed ratio" (uploaded / downloaded).
 
 Number of peers in the torrent swarm.
 
+## `torrent.maxWebConns`
+
+Max number of simultaneous connections per web seed, as passed in the options.
+
 ## `torrent.path`
 
 Torrent download location.
+
+## `torrent.ready`
+
+True when the torrent is ready to be used (i.e. metadata is available and store is
+ready).
+
+## `torrent.paused`
+
+True when the torrent has stopped connecting to new peers. Note that this does
+not pause new incoming connections, nor does it pause the streams of existing
+connections or their wires.
+
+## `torrent.done`
+
+True when all the torrent files have been downloaded.
+
+## `torrent.length`
+
+Sum of the files length (in bytes).
+
+## `torrent.created`
+
+Date of creation of the torrent (as a [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object).
+
+## `torrent.createdBy`
+
+Author of the torrent (string).
+
+## `torrent.comment`
+
+A comment optionnaly set by the author (string).
 
 ## `torrent.destroy([callback])`
 
@@ -637,3 +689,13 @@ file.getBlobURL(function (err, url) {
   document.body.appendChild(a)
 })
 ```
+
+# Piece API
+
+## `piece.length`
+
+Piece length (in bytes). *Example: 12345*
+
+## `piece.missing`
+
+Piece missing length (in bytes). *Example: 100*
