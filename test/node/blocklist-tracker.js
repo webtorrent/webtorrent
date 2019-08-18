@@ -3,6 +3,7 @@ var series = require('run-series')
 var test = require('tape')
 var TrackerServer = require('bittorrent-tracker/server')
 var WebTorrent = require('../../')
+var common = require('../common')
 
 test('blocklist blocks peers discovered via tracker', function (t) {
   t.plan(9)
@@ -38,7 +39,9 @@ test('blocklist blocks peers discovered via tracker', function (t) {
       client1.on('error', function (err) { t.fail(err) })
       client1.on('warning', function (err) { t.fail(err) })
 
-      var torrent1 = client1.add(parsedTorrent)
+      var torrent1 = client1.add(parsedTorrent, {
+        path: common.getDownloadPath('client_1', parsedTorrent.infoHash)
+      })
 
       torrent1.on('invalidPeer', function () {
         t.pass('client1 found itself')
@@ -58,7 +61,9 @@ test('blocklist blocks peers discovered via tracker', function (t) {
       client2.on('error', function (err) { t.fail(err) })
       client2.on('warning', function (err) { t.fail(err) })
 
-      var torrent2 = client2.add(parsedTorrent)
+      var torrent2 = client2.add(parsedTorrent, {
+        path: common.getDownloadPath('client_2', parsedTorrent.infoHash)
+      })
 
       torrent2.once('blockedPeer', function () {
         t.pass('client2 blocked first peer')
