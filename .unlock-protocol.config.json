@@ -1,0 +1,14 @@
+{
+   "persistentCheckout": true,
+   "icon": "https://assets.unlock-protocol.com/tmp/webtorrent.png",
+   "callToAction": {
+     "default": "👋 Hey there, I'm Feross! ✨\n\nI'm an open source author, maintainer, and mad scientist. I maintain 100+ packages on npm which are downloaded 100+ million times per month 🤯It's quite mind-blowing, tbh! All my code is freely accessible on GitHub.\n\nPlease, help me continue my work on WebTorrent by showing your support!",
+     "pending": "Thank you for your support. It means a lot to me!",
+     "confirmed": "Thank you for your support. It means a lot to me!"
+   },
+   "locks": {
+     "0x7567Ce8bBEb821AA39883f4E80f75DA605FdD394": {
+       "name": "WebTorrent Supporters"
+     }
+   }
+ }
