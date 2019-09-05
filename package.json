@@ -64,7 +64,7 @@
     "simple-concat": "^1.0.0",
     "simple-get": "^3.0.1",
     "simple-peer": "^9.0.0",
-    "simple-sha1": "^2.0.8",
+    "simple-sha1": "^3.0.0",
     "speedometer": "^1.0.0",
     "stream-to-blob": "^2.0.0",
     "stream-to-blob-url": "^3.0.0",
