@@ -6,7 +6,7 @@ to get started!
 ## Install
 
 To start using WebTorrent, simply include the
-[`webtorrent.min.js`](https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js)
+[`webtorrent.min.js`](https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js)
 script on your page.
 
 ```html
@@ -129,7 +129,7 @@ downloaded.
     <div class="log"></div>
 
     <!-- Include the latest version of WebTorrent -->
-    <script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"></script>
 
     <script>
       var client = new WebTorrent()
@@ -282,7 +282,7 @@ or [Instant.io](https://instant.io) to seed torrents to the WebTorrent network.
       </div>
     </div>
     <!-- Include the latest version of WebTorrent -->
-    <script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"></script>
 
     <!-- Moment is used to show a human-readable remaining time -->
     <script src="http://momentjs.com/downloads/moment.min.js"></script>

@@ -231,7 +231,7 @@ clients like Transmission, and uTorrent to add support for WebTorrent. **Vuze**
 ## How do I get started?
 
 To start using WebTorrent, simply include the
-[`webtorrent.min.js`](https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js)
+[`webtorrent.min.js`](https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js)
 script on your page. If you use [browserify](http://browserify.org/), you can
 `npm install webtorrent` and `require('webtorrent')`.
 
