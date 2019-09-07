@@ -145,12 +145,12 @@
 - Chocobozzz (me@florianbigard.com)
 - Gabriel (gabrieel@email.com)
 - Shachar Itzhaky (corwin.amber@gmail.com)
+- Eric Guan (guanzo91@gmail.com)
 - Arnaldas Augutis (info@untitled.lt)
 - Diego Rodriguez (diegorbaquero@gmail.com)
 - Francois Carpentier (Francewhoa@users.noreply.github.com)
 - greenkeeper[bot] (23040076+greenkeeper[bot]@users.noreply.github.com)
 - Dan Dumont (ddumont@gmail.com)
-- Eric Guan (guanzo91@gmail.com)
 - Gabriel Juchault (gabriel.juchault@gmail.com)
 - Feross (feross@feross.org)
 
