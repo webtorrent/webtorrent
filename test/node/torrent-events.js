@@ -1,6 +1,6 @@
 const fixtures = require('webtorrent-fixtures')
 const test = require('tape')
-const WebTorrent = require('../')
+const WebTorrent = require('../../')
 const MemoryChunkStore = require('memory-chunk-store')
 
 test('client.add: emit torrent events in order', function (t) {
