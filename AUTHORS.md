@@ -149,6 +149,7 @@
 - Arnaldas Augutis (info@untitled.lt)
 - Diego Rodriguez (diegorbaquero@gmail.com)
 - Francois Carpentier (Francewhoa@users.noreply.github.com)
+- Anton Harniakou (anton.harniakou@gmail.com)
 - greenkeeper[bot] (23040076+greenkeeper[bot]@users.noreply.github.com)
 - Dan Dumont (ddumont@gmail.com)
 - Gabriel Juchault (gabriel.juchault@gmail.com)
