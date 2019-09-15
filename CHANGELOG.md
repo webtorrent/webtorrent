@@ -1,5 +1,35 @@
 # WebTorrent Version History
 
+## v0.102.2 - 2018-08-28
+
+- Update some webtorrent packages to ES6 [webtorrent/#1443](https://github.com/webtorrent/webtorrent/issues/1443))
+
+## v0.102.1 - 2018-08-10
+
+- No meaningful changes
+
+## v0.102.0 - 2018-08-04
+
+- Updated to chunk-store-stream@3.0.0
+- Updated to immediate-chunk-store@2.0.0
+
+## v0.101.2 - 2018-07-27
+
+- Updated to torrent-discovery@9.0.2
+
+## v0.101.1 - 2018-07-27
+
+- Updated to bittorrent-protocol@3.0.1
+- Optimized peers:  peers now start as uninterested and only move to interested if/once they have a piece that we need  ([webtorrent/#1059](https://github.com/webtorrent/webtorrent/issues/1059))
+
+## v0.101.0 - 2018-07-19
+
+- Added extra check to skip verifying existing torrent data
+
+## v0.100.0 - 2018-05-23
+
+- Implemented BEP53 to alow file selection using `select only` parameter in MagnetURIs ([webtorrent/#1395](https://github.com/webtorrent/webtorrent-hybrid/issues/1395))
+
 ## v0.99.4 - 2018-05-03
 
 - Use updated `babel-minify` minifier instead of deprecated `babili`
