@@ -113,7 +113,7 @@ To install a WebTorrent desktop application for Mac, Windows, or Linux, see
   with development or to hang out with some mad science hackers :)
 - **[Create a new issue](https://github.com/webtorrent/webtorrent/issues/new)** to report bugs
 - **[Fix an issue](https://github.com/webtorrent/webtorrent/issues?state=open)**. WebTorrent
-  is an [OPEN Open Source Project](CONTRIBUTING.md)!
+  is an [OPEN Open Source Project](https://github.com/webtorrent/.github/blob/master/CONTRIBUTING.md)!
 
 ### Who is using WebTorrent today?
 
