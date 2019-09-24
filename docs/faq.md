@@ -403,7 +403,7 @@ IRC at `#webtorrent` (freenode) and how you can get started.
 
 
 [open-issues]: https://github.com/webtorrent/webtorrent/issues?state=open
-[contributing]: https://github.com/webtorrent/webtorrent/blob/master/CONTRIBUTING.md
+[contributing]: https://github.com/webtorrent/.github/blob/master/CONTRIBUTING.md
 
 ## Where can I learn more?
 
