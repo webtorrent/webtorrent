@@ -3,8 +3,11 @@
   <a href="https://webtorrent.io"><img src="https://webtorrent.io/img/WebTorrent.png" alt="WebTorrent" width="200"></a>
   <br>
   WebTorrent
-  <br>
-  <br>
+  <p align="center">
+    <a href="https://codefund.io/properties/455/visit-sponsor">
+      <img src="https://codefund.io/properties/455/sponsor" />
+    </a>
+  </p>    
 </h1>
 
 <h4 align="center">The streaming torrent client. For node.js and the web.</h4>
