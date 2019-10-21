@@ -81,8 +81,8 @@ class WebTorrent extends EventEmitter {
     )
 
     this.throttleGroups = {
-      down: new ThrottleGroup({rate: this.downloadLimit}),
-      up: new ThrottleGroup({rate: this.uploadLimit})
+      down: new ThrottleGroup({ rate: this.downloadLimit }),
+      up: new ThrottleGroup({ rate: this.uploadLimit })
     }
 
     if (this.tracker) {
@@ -367,7 +367,7 @@ class WebTorrent extends EventEmitter {
    * Set global download throttle rate
    * @param  {Number} rate
    */
-  throttleDownload(rate) {
+  throttleDownload (rate) {
     if (!Number(rate) || Number(rate) < 0) return
     this.throttleGroups.down.bucket.bucketSize = rate
     this.throttleGroups.down.bucket.tokensPerInterval = rate
@@ -377,7 +377,7 @@ class WebTorrent extends EventEmitter {
    * Set global upload throttle rate
    * @param  {Number} rate
    */
-  throttleUpload(rate) {
+  throttleUpload (rate) {
     if (!Number(rate) || Number(rate) < 0) return
     this.throttleGroups.up.bucket.bucketSize = rate
     this.throttleGroups.up.bucket.tokensPerInterval = rate
