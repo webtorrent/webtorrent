@@ -207,6 +207,7 @@ test('client.add: invalid torrent id: short buffer', function (t) {
 })
 
 test('client.add: non-bittorrent URNs', function (t) {
+  // Non-bittorrent URNs (examples from Wikipedia)
   const magnets = [
     'magnet:?xt=urn:sha1:PDAQRAOQQRYS76MRZJ33LK4MMVZBDSCL',
     'magnet:?xt=urn:tree:tiger:IZZG2KNL4BKA7LYEKK5JAX6BQ27UV4QZKPL2JZQ',
@@ -227,12 +228,10 @@ test('client.add: non-bittorrent URNs', function (t) {
     t.ok(err.message.indexOf('Invalid torrent identifier') >= 0)
 
     done += 1
-
     if (done === magnets.length) client.destroy(function (err) { t.error(err, 'client destroyed') })
   })
   client.on('warning', function (err) { t.fail(err) })
 
-  // Non-bittorrent URNs (examples from Wikipedia)
   magnets.forEach(function (magnet) {
     client.add(magnet)
   })
