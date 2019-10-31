@@ -8,7 +8,9 @@
   <br>
   <a href="https://webtorrent.io"><img src="https://webtorrent.io/img/WebTorrent.png" alt="WebTorrent" width="200"></a>
   <br>
-  WebTorrent    
+  WebTorrent
+  <br>
+  <br>
 </h1>
 
 <h4 align="center">The streaming torrent client. For node.js and the web.</h4>
