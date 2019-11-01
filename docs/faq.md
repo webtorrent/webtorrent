@@ -61,15 +61,12 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[WebTorrent Desktop][webtorrent-desktop]** - Streaming torrent app. For Mac, Windows, and Linux. ([source code][webtorrent-desktop-source])
 - **[Instant.io][instant.io]** – Streaming file transfer over WebTorrent ([source code][instant.io-source])
 - **[GitTorrent][gittorrent]** - Decentralized GitHub using BitTorrent and Bitcoin ([source code][gittorrent-source])
-<!-- - **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source]) -->
 - **[File.pizza][filepizza]** - Free peer-to-peer file transfers in your browser ([source code][filepizza-source])
 - **[Webtorrentapp][webtorrentapp]** – Platform for launching web apps from torrents
 - **[Fastcast][fastcast]** – Gallery site with some videos ([source code][fastcast-source])
 - **[Tokenly Pockets][pockets]** - Digital token issuance with WebTorrent-based metadata ([source code][pockets-source])
 - **[βTorrent][btorrent]** - Fully-featured browser WebTorrent client ([source code][btorrent-source])
 - **[PeerWeb][peerweb]** - Fetch and render a static website from a torrent
-<!-- - **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s)) -->
-<!-- - **[Vique][vique]** - Video player queue to share videos -->
 - **[YouShark][youshark]** - Web music player for WebTorrent ([source code][youshark-source])
 - **[Twister][twister]** - Decentralized microblogging service, using WebTorrent for media attachments ([source code][twister-source])
 - **[PeerTube][peertube]** - Prototype of a decentralized video streaming platform in the web browser ([source code][peertube-source])
@@ -103,6 +100,9 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[P2P Media Loader][p2p-media-loader]** - engine for Hls.js and Shaka Player that enables P2P sharing of live and VOD streams over HLS or DASH protocols.
 - **[Hubzilla][hubzilla]** - WebTorrent player integration into posts ([source code][hubzilla-source])
 - ***Your app here – [Send a pull request][pr] with your URL!***
+<!-- - **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source]) -->
+<!-- - **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s)) -->
+<!-- - **[Vique][vique]** - Video player queue to share videos -->
 
 #### WebTorrent Product Alternatives
 
