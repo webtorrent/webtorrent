@@ -17,11 +17,11 @@
   <a href="https://www.npmjs.com/package/webtorrent"><img src="https://img.shields.io/npm/dm/webtorrent.svg" alt="npm downloads"></a>
   <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="Standard - JavaScript Style Guide"></a>
 </p>
-<br>
 
 <h5 align="center">
   Sponsored by&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://brave.com" rel="nofollow"><img src="https://webtorrent.io/img/supporters/brave.png" alt="Brave" height=35 valign="middle"></a>
 </h5>
+<br>
 
 **WebTorrent** is a streaming torrent client for **node.js** and the **browser**. YEP,
 THAT'S RIGHT. THE BROWSER. It's written completely in JavaScript – the language of the web
