@@ -19,6 +19,10 @@
 </p>
 <br>
 
+<h5 align="center">
+  Sponsored by&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://brave.com" rel="nofollow"><img src="https://webtorrent.io/img/supporters/brave.png" alt="Brave" height=35 valign="middle"></a>
+</h5>
+
 **WebTorrent** is a streaming torrent client for **node.js** and the **browser**. YEP,
 THAT'S RIGHT. THE BROWSER. It's written completely in JavaScript – the language of the web
 – so the same code works in both runtimes.
@@ -51,11 +55,6 @@ or [Instant.io](https://instant.io/), a website. Established torrent clients lik
 they can connect to both normal *and* web peers. We hope other clients will follow.
 
 ![Network](https://webtorrent.io/img/network.png)
-
-### Open Source Sponsors
-
-[<img src='https://webtorrent.io/img/supporters/brave.png' width=300>](https://brave.com)
-|---|
 
 ### Features
 
