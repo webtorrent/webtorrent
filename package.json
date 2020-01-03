@@ -41,7 +41,7 @@
     "chunk-store-stream": "^4.0.0",
     "create-torrent": "^4.0.0",
     "debug": "^4.1.0",
-    "end-of-stream": "^1.1.0",
+    "end-of-stream": "1.4.1",
     "escape-html": "^1.0.3",
     "fs-chunk-store": "^2.0.0",
     "http-node": "github:feross/http-node#webtorrent",
