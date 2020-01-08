@@ -103,20 +103,11 @@ To install a `webtorrent`
 npm install webtorrent-cli -g
 ```
 
-To install a WebTorrent desktop application for Mac, Windows, or Linux, see
-[WebTorrent Desktop][webtorrent-desktop].
-
 ### Ways to help
 
-- **Join us in [Gitter][webtorrent-gitter-url]** or on freenode at `#webtorrent` to help
-  with development or to hang out with some mad science hackers :)
-- **[Create a new issue](https://github.com/webtorrent/webtorrent/issues/new)** to report bugs
-- **[Fix an issue](https://github.com/webtorrent/webtorrent/issues?state=open)**. WebTorrent
-  is an [OPEN Open Source Project](https://github.com/webtorrent/.github/blob/master/CONTRIBUTING.md)!
+- **[Create a new issue](https://github.com/ibinti/kotorrent/issues/new)** to report bugs
+- **[Fix an issue](https://github.com/ibinti/kotorrent/issues?state=open)**.
 
-### Who is using WebTorrent today?
-
-**[Lots of folks!](docs/faq.md#who-is-using-webtorrent-today)**
 
 ### WebTorrent API Documentation
 
@@ -171,37 +162,6 @@ There are more examples in [docs/get-started.md](docs/get-started.md).
 
 WebTorrent works great with [browserify](http://browserify.org/), an npm package that let's
 you use [node](http://nodejs.org/)-style require() to organize your browser code and load modules installed by [npm](https://www.npmjs.com/) (as seen in the previous examples).
-
-##### Webpack
-
-WebTorrent also works with [webpack](http://webpack.github.io/), a module bundler similar
-to browserify. However, webpack requires the following extra configuration:
-
-```js
-{
-  target: 'web',
-  node: {
-    fs: 'empty'
-  }
-}
-```
-
-If you are on webpack 1.x, you will also need to add the `json-loader`:
-```js
-{
-  module: {
-    loaders: [
-      // make sure to install the 'json-loader' package: npm install json-loader
-      {
-        test: /\.json$/,
-        loader: 'json'
-      }
-    ]
-  }
-}
-```
-
-Otherwise you could also directly use the pre-built version via `require('webtorrent/webtorrent.min')`.
 
 ##### Script tag
 
