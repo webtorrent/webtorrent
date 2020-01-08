@@ -1,11 +1,11 @@
 {
-  "name": "webtorrent",
-  "description": "Streaming torrent client",
+  "name": "kotorrent",
+  "description": "webtorrent in kotlin",
   "version": "0.107.17",
   "author": {
-    "name": "WebTorrent, LLC",
-    "email": "feross@webtorrent.io",
-    "url": "https://webtorrent.io"
+    "name": "kotorrent",
+    "email": "kotorrent@ibinti.com",
+    "url": "https://kotorrent.ibinti.com"
   },
   "browser": {
     "./lib/server.js": false,
@@ -23,7 +23,7 @@
     ]
   },
   "bugs": {
-    "url": "https://github.com/webtorrent/webtorrent/issues"
+    "url": "https://github.com/ibinti/kotorrent/issues"
   },
   "chromeapp": {
     "fs-chunk-store": "memory-chunk-store",
@@ -94,7 +94,7 @@
   "engines": {
     "node": ">=10"
   },
-  "homepage": "https://webtorrent.io",
+  "homepage": "https://kotorrent.ibinti.com",
   "keywords": [
     "bittorrent",
     "bittorrent client",
@@ -115,7 +115,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/webtorrent/webtorrent.git"
+    "url": "git://github.com/ibinti/kotorrent.git"
   },
   "scripts": {
     "build": "browserify --standalone WebTorrent . | minify > webtorrent.min.js",
