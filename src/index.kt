@@ -2,7 +2,6 @@ package kotorrent
 
 /* global FileList */
 
-val (_,EventEmitter) = require("events")
 val concat = require("simple-concat")
 val createTorrent = require("create-torrent")
 val debug = require("debug")("webtorrent")
