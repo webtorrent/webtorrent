@@ -22,3 +22,5 @@ fun get_version_azureus(version:String):String {
 }
 
 val jstype = {t:Any->js("typeof t")}
+//fun jstype(t:Any):String { return js("typeof t")}
+external val setImmediate:dynamic = definedExternally
