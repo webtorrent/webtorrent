@@ -22,7 +22,9 @@ val VERSION = require("../package.json").version
  * Version number in Azureus-style. Generated from major and minor semver version.
  * For example:
  *   '0.16.1' -> '0016'
- *   '1.2.5' -> '0102'
+ *   '1.2.5' -> '0102' 
+ *   '0.07.17' -> '0007'
+ *   '0.107.17' -> '0007' <- how to handle this? two digit scheme is flawed, obviously cannot handle 3 digit minor version 
  */
 val VERSION_STR = version_azureus(VERSION)
 
