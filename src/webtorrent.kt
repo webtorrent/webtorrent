@@ -1,4 +1,4 @@
-package kotorrent
+package ibinti
 
 /* global FileList */
 
@@ -43,9 +43,9 @@ val VERSION_PREFIX = "-WW${VERSION_STR}-"
  */
 @JsModule("events")
 external abstract class EventEmitter(){}
-//class WebTorrent : EventEmitter {
-//
-//
-//
-//
-//}
+class WebTorrent(opts:dynamic=object{}):EventEmitter() {
+
+
+
+
+}

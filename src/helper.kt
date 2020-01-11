@@ -1,4 +1,4 @@
-package kotorrent
+package ibinti
 
 external val require:dynamic = definedExternally
 external val process:dynamic = definedExternally

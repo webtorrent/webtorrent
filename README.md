@@ -105,8 +105,8 @@ npm install webtorrent-cli -g
 
 ### Ways to help
 
-- **[Create a new issue](https://github.com/ibinti/kotorrent/issues/new)** to report bugs
-- **[Fix an issue](https://github.com/ibinti/kotorrent/issues?state=open)**.
+- **[Create a new issue](https://github.com/ibinti/webtorrent/issues/new)** to report bugs
+- **[Fix an issue](https://github.com/ibinti/webtorrent/issues?state=open)**.
 
 
 ### WebTorrent API Documentation
