@@ -1,0 +1,55 @@
+{
+  "name": "ibinti.com/webtorrent",
+  "description": "secure, anonymous, streaming file transfer",
+  "version": "0.0.0",
+  "author": {
+    "name": "ibinti.com/webtorrent",
+    "email": "webtorrent@ibinti.com",
+    "url": "https://ibinti.com/webtorrent"
+  },
+  "bugs": {
+    "url": "https://github.com/ibinti/webtorrent/issues"
+  },
+  "dependencies": {
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "create-torrent": "^4.4.1",
+    "date-fns": "^2.6.0",
+    "debug": "^4.1.1",
+    "drag-drop": "^6.0.0",
+    "express": "^4.17.1",
+    "jszip": "^3.2.2",
+    "prettier-bytes": "^1.0.4",
+    "pug": "^2.0.4",
+    "rollbar": "^2.13.0",
+    "simple-get": "^3.1.0",
+    "throttleit": "^1.0.0",
+    "thunky": "^1.1.0",
+    "twilio": "^3.36.0",
+    "upload-element": "^1.0.1",
+    "webtorrent": "^0.107.6"
+  },
+  "devDependencies": {
+    "browserify": "^16.5.0",
+    "tinyify": "^2.5.2"
+  },
+  "homepage": "https://ibinti.com/webtorrent",
+  "keywords": [
+    "data channel",
+    "file transfer",
+    "p2p",
+    "webrtc"
+  ],
+  "license": "MIT",
+  "main": "webtorrentfile.js",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ibinti/webtorrent.git"
+  },
+  "scripts": {
+    "build": "npm run build-js",
+    "build-js": "browserify client > static/bundle.js",
+    "start": "npm run build && node server"
+  }
+}

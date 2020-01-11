@@ -1,0 +1,26 @@
+extends layout
+
+block body
+  main
+    p.subtitle Streaming file transfer over <a href="https://webtorrent.ibinti.com" target="_blank">WebTorrent in Kotlin</a> (torrents on the web)
+
+    h1#logHeading(style='display: none') Log
+    .speed
+    .log
+
+    section
+      h1 Start sharing
+      p
+        | Drag-and-drop files to begin seeding. Or choose a file:
+        | #{ ' ' }
+        input(type='file', name='upload', multiple)
+
+    section
+      h1 Start downloading
+      form
+        label(for='torrentId') Download from a magnet link or info hash
+        input(name='torrentId', placeholder='magnet:' required)
+        button(type='submit') Download
+
+    footer
+      p: small Powered by <a href="https://webtorrent.ibinti.com" target="_blank">WebTorrent in Kotlin</a>. Works in Chrome, Firefox, and Opera. Source code available on <a href="https://github.com/ibinti/webtorrent" target="_blank">GitHub</a>
