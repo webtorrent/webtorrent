@@ -89,6 +89,7 @@ If `opts` is specified, then the default options (shown below) will be overridde
   getAnnounceOpts: Function, // Custom callback to allow sending extra parameters to the tracker
   maxWebConns: Number,       // Max number of simultaneous connections per web seed [default=4]
   path: String,              // Folder to download files to (default=`/tmp/webtorrent/`)
+  private: Boolean,          // If true, client will not share the hash with the DHT nor with PEX (default is the privacy of the parsed torrent)
   store: Function            // Custom chunk store (must follow [abstract-chunk-store](https://www.npmjs.com/package/abstract-chunk-store) API)
 }
 ```
