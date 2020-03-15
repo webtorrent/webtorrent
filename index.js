@@ -81,6 +81,10 @@ class WebTorrent extends EventEmitter {
     this._downloadLimit = Math.max((typeof opts.downloadLimit === 'number') ? opts.downloadLimit : -1, -1)
     this._uploadLimit = Math.max((typeof opts.uploadLimit === 'number') ? opts.uploadLimit : -1, -1)
 
+    if (opts.secure === true) {
+      require('./lib/peer').enableSecure();
+    }
+
     this._debug(
       'new webtorrent (peerId %s, nodeId %s, port %s)',
       this.peerId, this.nodeId, this.torrentPort
