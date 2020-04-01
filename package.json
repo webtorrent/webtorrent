@@ -117,7 +117,7 @@
     "url": "git://github.com/webtorrent/webtorrent.git"
   },
   "scripts": {
-    "build": "browserify --standalone WebTorrent . | minify > webtorrent.min.js",
+    "build": "browserify --standalone WebTorrent . | minify --mangle=false > webtorrent.min.js",
     "build-debug": "browserify --standalone WebTorrent . > webtorrent.debug.js",
     "size": "npm run size-js && npm run size-disc",
     "size-disc": "browserify --full-paths . | discify --open",
