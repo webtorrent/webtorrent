@@ -58,7 +58,9 @@ If `opts` is specified, then the default options (shown below) will be overridde
   peerId: String|Buffer,   // Wire protocol peer ID (default=randomly generated)
   tracker: Boolean|Object, // Enable trackers (default=true), or options object for Tracker
   dht: Boolean|Object,     // Enable DHT (default=true), or options object for DHT
-  webSeeds: Boolean        // Enable BEP19 web seeds (default=true)
+  webSeeds: Boolean,       // Enable BEP19 web seeds (default=true)
+  downloadLimit: Number,   // Download speed limit in bytes (default=Number.MAX_VALUE) - e.g. (200*1024) is 200kB or 1.6mbps
+  uploadLimit: Number,     // Upload speed limit in bytes (default=Number.MAX_VALUE)
 }
 ```
 
