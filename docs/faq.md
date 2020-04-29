@@ -100,6 +100,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[P2P Media Loader][p2p-media-loader]** - engine for Hls.js and Shaka Player that enables P2P sharing of live and VOD streams over HLS or DASH protocols.
 - **[Hubzilla][hubzilla]** - WebTorrent player integration into posts ([source code][hubzilla-source])
 - **[Come Over][comeover]** - Video stream sharing to watch movies together.
+- **[Peer Web Site][peerwebsite]** - Realtime P2P Web Site using WebTorrent for files and WebRTC for text.
 - ***Your app here – [Send a pull request][pr] with your URL!***
 <!-- - **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source]) -->
 <!-- - **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s)) -->
@@ -176,6 +177,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [hubzilla]: https://hubzilla.org
 [hubzilla-source]: https://github.com/demitas-ace/wtplayer/tree/master/wtplayer
 [comeover]: https://comeover.io
+[peerwebsite]: https://peerweb.site
 
 ## How does WebTorrent work?
 
