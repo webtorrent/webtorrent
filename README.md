@@ -10,13 +10,17 @@
 <h4 align="center">The streaming torrent client. For node.js and the web.</h4>
 
 <p align="center">
-  <a href="https://gitter.im/webtorrent/webtorrent"><img src="https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg" alt="gitter"></a>
+  <a href="https://discord.gg/cnXkm4Z"><img src="https://img.shields.io/discord/612575111718895616" alt="discord"></a>
   <a href="https://travis-ci.org/webtorrent/webtorrent"><img src="https://img.shields.io/travis/webtorrent/webtorrent/master.svg" alt="travis"></a>
   <a href="https://ci.appveyor.com/project/webtorrent/webtorrent"><img src="https://ci.appveyor.com/api/projects/status/cgu85xlgl72uoswq/branch/master?svg=true" alt="appveyor"></a>
   <a href="https://www.npmjs.com/package/webtorrent"><img src="https://img.shields.io/npm/v/webtorrent.svg" alt="npm version"></a>
   <a href="https://www.npmjs.com/package/webtorrent"><img src="https://img.shields.io/npm/dm/webtorrent.svg" alt="npm downloads"></a>
   <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="Standard - JavaScript Style Guide"></a>
 </p>
+
+<h5 align="center">
+  Sponsored by&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://brave.com" rel="nofollow"><img src="https://webtorrent.io/img/supporters/brave.png" alt="Brave" height=35 valign="middle"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.enya.ai/?utm_source=github_webtorrent&utm_medium=web" rel="nofollow"><img src="https://webtorrent.io/img/supporters/enya.png" alt="Enya" height=30 valign="middle"></a>
+</h5>
 <br>
 
 **WebTorrent** is a streaming torrent client for **node.js** and the **browser**. YEP,
@@ -51,11 +55,6 @@ or [Instant.io](https://instant.io/), a website. Established torrent clients lik
 they can connect to both normal *and* web peers. We hope other clients will follow.
 
 ![Network](https://webtorrent.io/img/network.png)
-
-### Open Source Sponsors
-
-[<img src='https://webtorrent.io/img/supporters/brave.png' width=300>](https://brave.com)
-|---|
 
 ### Features
 
@@ -113,7 +112,7 @@ To install a WebTorrent desktop application for Mac, Windows, or Linux, see
   with development or to hang out with some mad science hackers :)
 - **[Create a new issue](https://github.com/webtorrent/webtorrent/issues/new)** to report bugs
 - **[Fix an issue](https://github.com/webtorrent/webtorrent/issues?state=open)**. WebTorrent
-  is an [OPEN Open Source Project](CONTRIBUTING.md)!
+  is an [OPEN Open Source Project](https://github.com/webtorrent/.github/blob/master/CONTRIBUTING.md)!
 
 ### Who is using WebTorrent today?
 

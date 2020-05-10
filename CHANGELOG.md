@@ -1,5 +1,159 @@
 # WebTorrent Version History
 
+## v0.107.13 - 2019-09-10
+
+- Added tests to check the order of torrent events
+
+## v0.107.12 - 2019-09-08
+
+- Fixed how first piece's irrelevant bytes are calculated
+
+## v0.107.11 - 2019-09-07
+
+- Added timeout option for `requestIdlecallback` to prevent longer delays in download
+
+## v0.107.10 - 2019-09-07
+
+- Server now uses relative urls
+
+## v0.107.9 - 2019-09-07
+
+- Added a check in case user destroys torrent in response to `metadata` event
+
+## v0.107.8 - 2019-09-07
+
+- Fixed the torrent event emission order; now `metadata` is emitted before `ready` and `done`
+
+## v0.107.7 - 2019-09-06
+
+- Updated to simple-sha1@3
+- Updated jsdelivr urls to use latest Webtorrent
+
+## v0.107.6 - 2019-08-28
+
+- Fixed XSS vulnerability in the http Server ([issue](https://github.com/brave/brave-browser/issues/5821))
+
+## v0.107.5 - 2019-08-22
+
+- No meaningful changes
+
+## v0.107.4 - 2019-08-19
+
+- Added api documentation for some torrent properties
+- Bug fix: trackers now recieve 0 while seeding file instead of the file size
+- Updated org-wide security policies and contributing guidelines
+
+## v0.107.3 - 2019-08-10
+
+- No meaningful changes
+
+## v0.107.2 - 2019-08-09
+
+- Scripts are now more verbose
+
+## v0.107.1 - 2019-08-09
+
+- Updated to stream-to-bolob-url@3
+- Added `chromeapp` field to package.json for specifying Chrome App dependency substitutions
+
+## v0.107.0 - 2019-08-07
+
+- Smaller build with tinify
+- Added size-disc script to visualize bundle
+
+## v0.106.0 - 2019-08-05
+
+- Updated to electron@6
+- Dropped support for node versions < 10
+
+## v0.105.3 - 2019-08-02
+
+- Now uses 'application/octet-stream' mimetype as fallback instead of null
+
+## v0.105.2 - 2019-07-31
+
+- Fixed server `hostname` option to mitigate DNS rebinding attack ([issue](https://github.com/webtorrent/webtorrent/pull/1678))
+
+## v0.105.1 - 2019-07-24
+
+- Bug fixed: Video streaming is now fixed in Brave nightly and chromium nightly ([issue](https://github.com/brave/brave-browser/issues/5358))
+
+## v0.105.0 - 2019-07-06
+
+- Updated to parse-torrent@7
+- Added manual verification for torrent files
+
+## v0.104.0 - 2019-06-29
+
+- Updated to chunk-store-stream@4
+- Updated to multistream@3
+- Updated to create-torrent@4
+- Dropped support for node versions < 8
+
+## v0.103.4 - 2019-06-19
+
+- No meaningful changes
+
+## v0.103.3 - 2019-06-19
+
+- Updated to electron@5
+
+## v0.103.2 - 2019-06-12
+
+- Added the ability to close and restore streaming server
+
+## v0.103.1 - 2019-03-11
+
+- Updated to electron@4
+- Bug fixed: File progress is no longer shown in negative
+
+## v0.103.0 - 2018-12-11
+
+- No longer verifies file hashes passed to seed
+- No longer calls torrent.load() when seeding FS filepath
+- Reduced download impact on slower computers: now download chunks at a lower priority ([rationale](https://github.com/webtorrent/webtorrent/pull/1513))
+
+## v0.102.4 - 2018-08-31
+
+- No meaningful changes
+
+## v0.102.3 - 2018-08-31
+
+- Removed xtend
+- Removed the concurrency limit in browser
+- Reduced installtion size by removing zero-fill
+- Updated to bittorrent-dht@9
+
+## v0.102.2 - 2018-08-28
+
+- Update some webtorrent packages to ES6 ([webtorrent/#1443](https://github.com/webtorrent/webtorrent/issues/1443))
+
+## v0.102.1 - 2018-08-10
+
+- No meaningful changes
+
+## v0.102.0 - 2018-08-04
+
+- Updated to chunk-store-stream@3
+- Updated to immediate-chunk-store@2
+
+## v0.101.2 - 2018-07-27
+
+- Updated to torrent-discovery@9.0.2
+
+## v0.101.1 - 2018-07-27
+
+- Updated to bittorrent-protocol@3
+- Optimized peers:  peers now start as uninterested and only move to interested if/once they have a piece that we need  ([webtorrent/#1059](https://github.com/webtorrent/webtorrent/issues/1059))
+
+## v0.101.0 - 2018-07-19
+
+- No meaningful changes
+
+## v0.100.0 - 2018-05-23
+
+- Implemented BEP53 to alow file selection using `select only` parameter in MagnetURIs ([webtorrent/#1395](https://github.com/webtorrent/webtorrent-hybrid/issues/1395))
+
 ## v0.99.4 - 2018-05-03
 
 - Use updated `babel-minify` minifier instead of deprecated `babili`

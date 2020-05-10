@@ -61,21 +61,13 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[WebTorrent Desktop][webtorrent-desktop]** - Streaming torrent app. For Mac, Windows, and Linux. ([source code][webtorrent-desktop-source])
 - **[Instant.io][instant.io]** – Streaming file transfer over WebTorrent ([source code][instant.io-source])
 - **[GitTorrent][gittorrent]** - Decentralized GitHub using BitTorrent and Bitcoin ([source code][gittorrent-source])
-- **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source])
 - **[File.pizza][filepizza]** - Free peer-to-peer file transfers in your browser ([source code][filepizza-source])
 - **[Webtorrentapp][webtorrentapp]** – Platform for launching web apps from torrents
 - **[Fastcast][fastcast]** – Gallery site with some videos ([source code][fastcast-source])
-- **[Colored Coins][coloredcoins]** - Open protocol for creating digital assets on the Blockchain ([source code][coloredcoins-source])
 - **[Tokenly Pockets][pockets]** - Digital token issuance with WebTorrent-based metadata ([source code][pockets-source])
 - **[βTorrent][btorrent]** - Fully-featured browser WebTorrent client ([source code][btorrent-source])
-- **[Zapsnap][zapsnap]** - Temporary peer to peer screenshot sharing from your browser ([source code][zapsnap-source])
 - **[PeerWeb][peerweb]** - Fetch and render a static website from a torrent
-- **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s))
-- **[Vique][vique]** - Video player queue to share videos
 - **[YouShark][youshark]** - Web music player for WebTorrent ([source code][youshark-source])
-- **[Peerify][peerify]** - Instant Web-seeded torrents for your files
-- **[Instant-Share][instant-share]** - File sharing over WebTorrent
-- **[P2PDrop][p2pdrop]** - Securely share files between peers ([source code][p2pdrop-source])
 - **[Twister][twister]** - Decentralized microblogging service, using WebTorrent for media attachments ([source code][twister-source])
 - **[PeerTube][peertube]** - Prototype of a decentralized video streaming platform in the web browser ([source code][peertube-source])
 - **[Cinematrix][cinematrix]** - Stream your favorite free content
@@ -87,32 +79,32 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[TorrentMedia][torrentmedia]** - Fully-featured desktop WebTorrent client
 - **[Gaia 3D Star Map][gaia]** - 2 million stars, rendered in 3D with WebGL, WebVR, and WebTorrent
 - **[Watchtor][watchtor]** - A minimalistic approach for online torrent watching ([source code][watchtor-source])
-- **[CacheP2P][cachep2p]** - Highly distributed cache platform ([source code][cachep2p-source])
 - **[DropClickPaste][dropclickpaste]** - Drop Dead Simple Content Sharing
-- **[LocalFiles][localfiles]** - Share files by pinning them to geographic locations
+- **[FileMap][filemap]** - Share files by pinning them to geographic locations
 - **[WebTorrent Google Cast (WTGC)][wtgc]** - Play WebTorrent media on Google Cast devices ([source code][wtgc-source])
-- **[WebTorrent Player][webtorrent-player]** - A WebTorrent player built by Angular 2 and ngrx ([source code][webtorrent-player-source])
 - **[CodeDump][codedump]** - A WebTorrent based code pastebin ([source code][codedump-source])
 - **[Lunik-Torrent][lunik-torrent]** - WebTorrent downloader and file manager. ([source code][lunik-torrent-source])
 - **[BitChute][bitchute]** - A decentralized video streaming social network
 - **[Planktos][planktos]** - Enables websites to serve their static content over BitTorrent ([source code][planktos-source])
-- **[SuperQuickShare][superquickshare]** - Quickly share files between devices using webtorrent and qrcodes ([source code][superquickshare-source])
 - **[P2P-CDN][p2pcdn]** - WebTorrent CDN with graceful degradation
 - **[PearPlayer][PearPlayer]** - A WebTorrent based multi-source and multi-protocol P2P streaming media player
 - **[Tcloud][tcloud]** - File sharing and torrent downloading
 - **[Webtorrent-webui][webtorrent-webui]** - A WebTorrent client with a simple web interface for easy remote usage
 - **[CineTimes][cinetimes]** - A streaming website of public domain movies
 - **[Bitlove.org][bitlove]** - Your favorite podcasts via BitTorrent
-- **[lofiTorrent][lofitorrent]** - Online and offline browser torrent client
 - **[Live-torrent][live-torrent]** - Simple implementation of a webtorrent powered live streaming solution ([source code][live-torrent-source])
 - **[CDNBye][CDNBye]** -  CDNBye implements WebRTC datachannel to scale live/vod video streaming by peer-to-peer network using bittorrent-like protocol.
 - **[Files.fm][Files.fm]** - a fast file sharing and freemium cloud storage service that uses P2P technology to accelerate unlimited downloads and file distribution.
 - **[imgest][imgest]** - Serverless shareable image gallery built with JavaScript and WebTorrent.
 - **[Bugout][Bugout]** - build and run back-end web services in a browser tab.
 - **[P2P Media Loader][p2p-media-loader]** - engine for Hls.js and Shaka Player that enables P2P sharing of live and VOD streams over HLS or DASH protocols.
-- **[Cheff][Cheff]** - Share food recipes between your devices. [source code](https://github.com/vasco3/cheff)
-- **[Hubzilla](https://hubzilla.org)** - WebTorrent player integration into posts ([source code](https://github.com/demitas-ace/wtplayer/tree/master/wtplayer))
+- **[Hubzilla][hubzilla]** - WebTorrent player integration into posts ([source code][hubzilla-source])
+- **[Come Over][comeover]** - Video stream sharing to watch movies together.
+- **[Peer Web Site][peerwebsite]** - Realtime P2P Web Site using WebTorrent for files and WebRTC for text.
 - ***Your app here – [Send a pull request][pr] with your URL!***
+<!-- - **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source]) -->
+<!-- - **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s)) -->
+<!-- - **[Vique][vique]** - Video player queue to share videos -->
 
 #### WebTorrent Product Alternatives
 
@@ -131,23 +123,15 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [webtorrentapp]: https://github.com/alexeisavca/webtorrentapp
 [fastcast]: http://fastcast.nz
 [fastcast-source]: https://github.com/fastcast/fastcast
-[coloredcoins]: http://coloredcoins.org
-[coloredcoins-source]: https://github.com/Colored-Coins/Metadata-Handler
 [pockets]: https://tokenly.com/
 [pockets-source]: https://github.com/loon3/Tokenly-Pockets
 [btorrent]: https://btorrent.xyz
 [btorrent-source]: https://github.com/DiegoRBaquero/bTorrent
-[zapsnap]: http://zapsnap.io/
-[zapsnap-source]: https://github.com/twobucks/zapsnap
 [peerweb]: https://github.com/retrohacker/peerweb.js
 [niagara]: https://andreapaiola.name/niagara/
 [vique]: https://andreapaiola.name/vique/
 [youshark]: http://youshark.neocities.org/
 [youshark-source]: https://github.com/enorrmann/youshark
-[peerify]: https://peerify.btorrent.xyz
-[instant-share]: http://fs.lunik.xyz/
-[p2pdrop]: http://p2pdrop.com
-[p2pdrop-source]: https://github.com/ajainvivek/P2PDrop
 [twister]: http://twister.net.co/?p=589
 [twister-source]: https://github.com/miguelfreitas/twister-html
 [peertube]: http://peertube.cpy.re
@@ -166,14 +150,10 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [gaia]: http://charliehoey.com/threejs-demos/gaia_dr1.html
 [watchtor]: https://open-watchtor.hashbase.io
 [watchtor-source]: https://github.com/codealchemist/watchtor
-[cachep2p]: http://www.cachep2p.com/
-[cachep2p-source]: https://github.com/guerrerocarlos/CacheP2P
 [dropclickpaste]: http://dropclickpaste.com/
-[localfiles]: https://localfiles.alhur.es/
+[filemap]: https://filemap.xyz
 [wtgc]: https://wtgc.firebaseapp.com
 [wtgc-source]: https://git.io/wtgc
-[webtorrent-player]: http://webtorrent-player.s3-website-us-east-1.amazonaws.com/
-[webtorrent-player-source]: https://github.com/Hongbo-Miao/webtorrent-player
 [codedump]: http://ronsoros.github.io
 [codedump-source]: https://github.com/ronsoros/ronsoros.github.io/blob/master/index.html
 [lunik-torrent]: https://tcloud-lunik.herokuapp.com
@@ -181,15 +161,12 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [bitchute]: https://www.bitchute.com
 [planktos]: https://xuset.github.io/planktos/
 [planktos-source]: https://github.com/xuset/planktos
-[superquickshare]: https://sqs.fun
-[superquickshare-source]: https://github.com/manicphase/super-quick-share
 [p2pcdn]: https://github.com/andreapaiola/P2P-CDN
 [PearPlayer]: https://github.com/PearInc/PearPlayer.js
 [tcloud]: https://github.com/Lunik/tcloud
 [webtorrent-webui]: https://github.com/pldubouilh/webtorrent-webui
 [cinetimes]: http://cinetimes.org/
 [bitlove]: https://bitlove.org/
-[lofitorrent]: https://lofitorrent.js.org/
 [live-torrent]: https://live.computer
 [live-torrent-source]: https://github.com/pldubouilh/live-torrent
 [CDNBye]: https://github.com/cdnbye/hlsjs-p2p-engine
@@ -197,7 +174,10 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [imgest]: https://imgest.hashbase.io
 [Bugout]: https://github.com/chr15m/bugout
 [p2p-media-loader]: https://github.com/novage/p2p-media-loader
-[Cheff]: https://cheff.cuadranteweb.com
+[hubzilla]: https://hubzilla.org
+[hubzilla-source]: https://github.com/demitas-ace/wtplayer/tree/master/wtplayer
+[comeover]: https://comeover.io
+[peerwebsite]: https://peerweb.site
 
 ## How does WebTorrent work?
 
@@ -231,7 +211,7 @@ clients like Transmission, and uTorrent to add support for WebTorrent. **Vuze**
 ## How do I get started?
 
 To start using WebTorrent, simply include the
-[`webtorrent.min.js`](https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js)
+[`webtorrent.min.js`](https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js)
 script on your page. If you use [browserify](http://browserify.org/), you can
 `npm install webtorrent` and `require('webtorrent')`.
 
@@ -403,7 +383,7 @@ IRC at `#webtorrent` (freenode) and how you can get started.
 
 
 [open-issues]: https://github.com/webtorrent/webtorrent/issues?state=open
-[contributing]: https://github.com/webtorrent/webtorrent/blob/master/CONTRIBUTING.md
+[contributing]: https://github.com/webtorrent/.github/blob/master/CONTRIBUTING.md
 
 ## Where can I learn more?
 
