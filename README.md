@@ -174,8 +174,8 @@ you use [node](http://nodejs.org/)-style require() to organize your browser code
 
 ##### Webpack
 
-WebTorrent also works with [webpack](http://webpack.github.io/), a module bundler similar
-to browserify. However, webpack requires the following extra configuration:
+WebTorrent also works with [webpack](https://webpack.js.org/), another module
+bundler. However, webpack requires the following extra configuration:
 
 ```js
 {
@@ -186,22 +186,8 @@ to browserify. However, webpack requires the following extra configuration:
 }
 ```
 
-If you are on webpack 1.x, you will also need to add the `json-loader`:
-```js
-{
-  module: {
-    loaders: [
-      // make sure to install the 'json-loader' package: npm install json-loader
-      {
-        test: /\.json$/,
-        loader: 'json'
-      }
-    ]
-  }
-}
-```
-
-Otherwise you could also directly use the pre-built version via `require('webtorrent/webtorrent.min')`.
+Or, you can just use the pre-built version via
+`require('webtorrent/webtorrent.min.js')` and skip the webpack configuration.
 
 ##### Script tag
 
@@ -219,6 +205,18 @@ MaxCDN) for easy inclusion on your site:
 ```html
 <script src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"></script>
 ```
+
+##### Chrome App
+
+If you want to use WebTorrent in a
+[Chrome App](https://developer.chrome.com/apps/about_apps), you can include the
+following script:
+
+```html
+<script src="webtorrent.chromeapp.js"></script>
+```
+
+Be sure to enable the `chrome.sockets.udp` and `chrome.sockets.tcp` permissions!
 
 #### In Node.js
 
