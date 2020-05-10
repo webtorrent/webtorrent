@@ -1,3 +1,4 @@
+/*! webtorrent. MIT License. WebTorrent LLC <https://webtorrent.io/opensource> */
 /* global FileList */
 
 const { EventEmitter } = require('events')
