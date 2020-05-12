@@ -93,6 +93,20 @@
   "engines": {
     "node": ">=10"
   },
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/feross"
+    },
+    {
+      "type": "patreon",
+      "url": "https://www.patreon.com/feross"
+    },
+    {
+      "type": "consulting",
+      "url": "https://feross.org/support"
+    }
+  ],
   "homepage": "https://webtorrent.io",
   "keywords": [
     "bittorrent",
@@ -123,26 +137,18 @@
     "build-js": "browserify --standalone WebTorrent . | minify --mangle=false > webtorrent.min.js",
     "build-js-debug": "browserify --standalone WebTorrent . > webtorrent.debug.js",
     "size": "npm run size-js && npm run size-disc",
-    "size-js": "npm run build && cat webtorrent.min.js | gzip | wc -c",
     "size-disc": "browserify --full-paths . | discify --open",
+    "size-js": "npm run build && cat webtorrent.min.js | gzip | wc -c",
     "test": "standard && npm run test-node && npm run test-browser",
     "test-browser": "airtap -- test/*.js test/browser/*.js",
     "test-browser-local": "airtap --local -- test/*.js test/browser/*.js",
     "test-node": "tape test/*.js test/node/*.js",
     "update-authors": "./scripts/update-authors.sh"
   },
-  "funding": [
-    {
-      "type": "github",
-      "url": "https://github.com/sponsors/feross"
-    },
-    {
-      "type": "patreon",
-      "url": "https://www.patreon.com/feross"
-    },
-    {
-      "type": "consulting",
-      "url": "https://feross.org/support"
-    }
-  ]
+  "standard": {
+    "ignore": [
+      "webtorrent.min.js",
+      "webtorrent.chromeapp.js"
+    ]
+  }
 }
