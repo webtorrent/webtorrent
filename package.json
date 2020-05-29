@@ -58,7 +58,7 @@
     "randombytes": "^2.1.0",
     "range-parser": "^1.2.1",
     "readable-stream": "^3.6.0",
-    "render-media": "^3.4.2",
+    "render-media": "^3.4.3",
     "run-parallel": "^1.1.9",
     "run-parallel-limit": "^1.0.5",
     "simple-concat": "^1.0.0",
