@@ -11,28 +11,27 @@ const UPLOAD_SPEED_LIMIT = 3750000
 test('Limit download and upload', function (t) {
   t.plan(3)
 
-  var client1, speed = speedometer()
+  var client
+  var speed = speedometer()
 
   series([
 
     function (cb) {
-      client1 = new WebTorrent()
+      client = new WebTorrent({ downloadLimit: DOWNLOAD_SPEED_LIMIT, uploadLimit: UPLOAD_SPEED_LIMIT })
 
-      client1.on('error', function (err) {
+      client.on('error', function (err) {
         t.fail(err)
       })
-      client1.on('warning', function (err) {
+      client.on('warning', function (err) {
         t.fail(err)
       })
 
-      client1.add(fixtures.sintel.torrent)
+      client.add(fixtures.sintel.torrent)
       cb(null)
     },
 
     function (cb) {
-
-      client1.on('torrent', function (torrent) {
-
+      client.on('torrent', function (torrent) {
         const stream = torrent.files[0].createReadStream()
 
         stream.on('data', function (data) {
@@ -42,26 +41,14 @@ test('Limit download and upload', function (t) {
         })
 
         stream.pipe(devnull())
-
-        /*
-        if (torrent.downloadSpeed > 0 && torrent.downloadSpeed <= DOWNLOAD_SPEED_LIMIT) {
-                t.pass(`torrent download speed ${torrent.downloadSpeed}/${DOWNLOAD_SPEED_LIMIT}`)
-                cb(null);
-                return;
-            }
-
-            t.fail(`torrent download speed ${torrent.downloadSpeed}/${DOWNLOAD_SPEED_LIMIT}`)
-            cb(null);
-         */
       })
-
-    },
+    }
 
   ], function (err) {
     t.error(err)
 
-    client1.destroy(function (err) {
-      t.error(err, 'client1 destroyed')
+    client.destroy(function (err) {
+      t.error(err, 'client destroyed')
     })
   })
 })

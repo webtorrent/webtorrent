@@ -81,7 +81,7 @@ class WebTorrent extends EventEmitter {
 
     this._debug(
       'new webtorrent (peerId %s, nodeId %s, port %s)',
-      this.peerId, this.nodeId, this.torrentPort,
+      this.peerId, this.nodeId, this.torrentPort
     )
 
     if (this.tracker) {
@@ -105,7 +105,7 @@ class WebTorrent extends EventEmitter {
 
     this.throttleGroups = {
       down: new ThrottleGroup({ rate: this.downloadLimit }),
-      up: new ThrottleGroup({ rate: this.uploadLimit }),
+      up: new ThrottleGroup({ rate: this.uploadLimit })
     }
 
     if (typeof TCPPool === 'function') {
@@ -153,8 +153,8 @@ class WebTorrent extends EventEmitter {
     if (typeof loadIPSet === 'function' && opts.blocklist != null) {
       loadIPSet(opts.blocklist, {
         headers: {
-          'user-agent': `WebTorrent/${VERSION} (https://webtorrent.io)`,
-        },
+          'user-agent': `WebTorrent/${VERSION} (https://webtorrent.io)`
+        }
       }, (err, ipSet) => {
         if (err) return this.error(`Failed to load blocklist: ${err.message}`)
         this.blocked = ipSet
@@ -299,7 +299,7 @@ class WebTorrent extends EventEmitter {
           // when a filesystem path is specified, files are already in the FS store
           if (isFilePath) return cb()
           torrent.load(streams, cb)
-        },
+        }
       ]
       if (this.dht) {
         tasks.push(cb => {
