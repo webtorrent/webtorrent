@@ -81,6 +81,7 @@
     "babel-minify": "^0.5.1",
     "bittorrent-tracker": "^9.15.0",
     "browserify": "^16.5.1",
+    "dev-null": "^0.1.1",
     "disc": "^1.3.3",
     "electron": "^8.0.0",
     "finalhandler": "^1.1.2",

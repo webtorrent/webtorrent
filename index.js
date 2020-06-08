@@ -27,9 +27,8 @@ const VERSION = require('./package.json').version
  *   '0.16.1' -> '0016'
  *   '1.2.5' -> '0102'
  */
-const VERSION_STR = VERSION
-  .replace(/\d*./g, v => `0${v % 100}`.slice(-2))
-  .slice(0, 4)
+const VERSION_STR = VERSION.replace(/\d*./g,
+  v => `0${v % 100}`.slice(-2)).slice(0, 4)
 
 /**
  * Version prefix string (used in peer ID). WebTorrent uses the Azureus-style
@@ -54,7 +53,8 @@ class WebTorrent extends EventEmitter {
     } else if (Buffer.isBuffer(opts.peerId)) {
       this.peerId = opts.peerId.toString('hex')
     } else {
-      this.peerId = Buffer.from(VERSION_PREFIX + randombytes(9).toString('base64')).toString('hex')
+      this.peerId = Buffer.from(
+        VERSION_PREFIX + randombytes(9).toString('base64')).toString('hex')
     }
     this.peerIdBuffer = Buffer.from(this.peerId, 'hex')
 
@@ -81,19 +81,21 @@ class WebTorrent extends EventEmitter {
 
     this._debug(
       'new webtorrent (peerId %s, nodeId %s, port %s)',
-      this.peerId, this.nodeId, this.torrentPort
+      this.peerId, this.nodeId, this.torrentPort,
     )
 
     if (this.tracker) {
       if (typeof this.tracker !== 'object') this.tracker = {}
       if (opts.rtcConfig) {
         // TODO: remove in v1
-        console.warn('WebTorrent: opts.rtcConfig is deprecated. Use opts.tracker.rtcConfig instead')
+        console.warn(
+          'WebTorrent: opts.rtcConfig is deprecated. Use opts.tracker.rtcConfig instead')
         this.tracker.rtcConfig = opts.rtcConfig
       }
       if (opts.wrtc) {
         // TODO: remove in v1
-        console.warn('WebTorrent: opts.wrtc is deprecated. Use opts.tracker.wrtc instead')
+        console.warn(
+          'WebTorrent: opts.wrtc is deprecated. Use opts.tracker.wrtc instead')
         this.tracker.wrtc = opts.wrtc
       }
       if (global.WRTC && !this.tracker.wrtc) {
@@ -103,7 +105,7 @@ class WebTorrent extends EventEmitter {
 
     this.throttleGroups = {
       down: new ThrottleGroup({ rate: this.downloadLimit }),
-      up: new ThrottleGroup({ rate: this.uploadLimit })
+      up: new ThrottleGroup({ rate: this.uploadLimit }),
     }
 
     if (typeof TCPPool === 'function') {
@@ -151,8 +153,8 @@ class WebTorrent extends EventEmitter {
     if (typeof loadIPSet === 'function' && opts.blocklist != null) {
       loadIPSet(opts.blocklist, {
         headers: {
-          'user-agent': `WebTorrent/${VERSION} (https://webtorrent.io)`
-        }
+          'user-agent': `WebTorrent/${VERSION} (https://webtorrent.io)`,
+        },
       }, (err, ipSet) => {
         if (err) return this.error(`Failed to load blocklist: ${err.message}`)
         this.blocked = ipSet
@@ -163,20 +165,28 @@ class WebTorrent extends EventEmitter {
     }
   }
 
-  get downloadSpeed () { return this._downloadSpeed() }
+  get downloadSpeed () {
+    return this._downloadSpeed()
+  }
 
-  get uploadSpeed () { return this._uploadSpeed() }
+  get uploadSpeed () {
+    return this._uploadSpeed()
+  }
 
   get progress () {
     const torrents = this.torrents.filter(torrent => torrent.progress !== 1)
-    const downloaded = torrents.reduce((total, torrent) => total + torrent.downloaded, 0)
-    const length = torrents.reduce((total, torrent) => total + (torrent.length || 0), 0) || 1
+    const downloaded = torrents.reduce(
+      (total, torrent) => total + torrent.downloaded, 0)
+    const length = torrents.reduce(
+      (total, torrent) => total + (torrent.length || 0), 0) || 1
     return downloaded / length
   }
 
   get ratio () {
-    const uploaded = this.torrents.reduce((total, torrent) => total + torrent.uploaded, 0)
-    const received = this.torrents.reduce((total, torrent) => total + torrent.received, 0) || 1
+    const uploaded = this.torrents.reduce(
+      (total, torrent) => total + torrent.uploaded, 0)
+    const received = this.torrents.reduce(
+      (total, torrent) => total + torrent.received, 0) || 1
     return uploaded / received
   }
 
@@ -193,7 +203,10 @@ class WebTorrent extends EventEmitter {
       if (this.torrents.includes(torrentId)) return torrentId
     } else {
       let parsed
-      try { parsed = parseTorrent(torrentId) } catch (err) {}
+      try {
+        parsed = parseTorrent(torrentId)
+      } catch (err) {
+      }
 
       if (!parsed) return null
       if (!parsed.infoHash) throw new Error('Invalid torrent identifier')
@@ -207,7 +220,8 @@ class WebTorrent extends EventEmitter {
 
   // TODO: remove in v1
   download (torrentId, opts, ontorrent) {
-    console.warn('WebTorrent: client.download() is deprecated. Use client.add() instead')
+    console.warn(
+      'WebTorrent: client.download() is deprecated. Use client.add() instead')
     return this.add(torrentId, opts, ontorrent)
   }
 
@@ -225,7 +239,8 @@ class WebTorrent extends EventEmitter {
       if (this.destroyed) return
       for (const t of this.torrents) {
         if (t.infoHash === torrent.infoHash && t !== torrent) {
-          torrent._destroy(new Error(`Cannot add duplicate torrent ${torrent.infoHash}`))
+          torrent._destroy(
+            new Error(`Cannot add duplicate torrent ${torrent.infoHash}`))
           return
         }
       }
@@ -284,7 +299,7 @@ class WebTorrent extends EventEmitter {
           // when a filesystem path is specified, files are already in the FS store
           if (isFilePath) return cb()
           torrent.load(streams, cb)
-        }
+        },
       ]
       if (this.dht) {
         tasks.push(cb => {
@@ -330,7 +345,8 @@ class WebTorrent extends EventEmitter {
 
           const existingTorrent = this.get(torrentBuf)
           if (existingTorrent) {
-            torrent._destroy(new Error(`Cannot add duplicate torrent ${existingTorrent.infoHash}`))
+            torrent._destroy(new Error(
+              `Cannot add duplicate torrent ${existingTorrent.infoHash}`))
           } else {
             torrent._onTorrentId(torrentBuf)
           }
@@ -454,7 +470,8 @@ WebTorrent.VERSION = VERSION
  * @return {boolean}
  */
 function isReadable (obj) {
-  return typeof obj === 'object' && obj != null && typeof obj.pipe === 'function'
+  return typeof obj === 'object' && obj != null && typeof obj.pipe ===
+    'function'
 }
 
 /**
