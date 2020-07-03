@@ -178,7 +178,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [p2p-media-loader]: https://github.com/novage/p2p-media-loader
 [hubzilla]: https://hubzilla.org
 [hubzilla-source]: https://github.com/demitas-ace/wtplayer/tree/master/wtplayer
-[comeover]: https://comeover.io
+[comeover]: https://www.comeover.io
 [peerwebsite]: https://peerweb.site
 
 ## How does WebTorrent work?
