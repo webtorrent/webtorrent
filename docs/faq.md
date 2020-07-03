@@ -101,6 +101,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Hubzilla][hubzilla]** - WebTorrent player integration into posts ([source code][hubzilla-source])
 - **[Come Over][comeover]** - Video stream sharing to watch movies together.
 - **[Peer Web Site][peerwebsite]** - Realtime P2P Web Site using WebTorrent for files and WebRTC for text.
+- **[Slingcode][Slingcode]** - make, run, and share web apps P2P in the browser.
 - ***Your app here – [Send a pull request][pr] with your URL!***
 <!-- - **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source]) -->
 <!-- - **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s)) -->
@@ -173,6 +174,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [Files.fm]: https://files.fm
 [imgest]: https://imgest.hashbase.io
 [Bugout]: https://github.com/chr15m/bugout
+[Slingcode]: https://github.com/chr15m/slingcode
 [p2p-media-loader]: https://github.com/novage/p2p-media-loader
 [hubzilla]: https://hubzilla.org
 [hubzilla-source]: https://github.com/demitas-ace/wtplayer/tree/master/wtplayer
