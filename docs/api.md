@@ -109,6 +109,8 @@ If you provide `opts.store`, it will be called as
 * `storeOpts.files` - an array of torrent file objects
 * `storeOpts.torrent` - the torrent instance being stored
 
+**Note:** downloading a torrent automatically seeds it, allowing the user to also serve the file to others who need it
+
 ## `client.seed(input, [opts], [function onseed (torrent) {}])`
 
 Start seeding a new torrent.
