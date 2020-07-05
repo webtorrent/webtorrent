@@ -283,7 +283,7 @@ Most of the active development is happening inside of small npm packages which a
 
 #### The Node Way&trade;
 
-> "When applications are done well, they are just the really application-specific, brackish residue that can't be so easily abstracted away. All the nice, reusable components sublimate away onto github and npm where everybody can collaborate to advance the commons." — substack from ["how I write modules"](http://substack.net/how_I_write_modules)
+> "When applications are done well, they are just the really application-specific, brackish residue that can't be so easily abstracted away. All the nice, reusable components sublimate away onto github and npm where everybody can collaborate to advance the commons." — substack from ["how I write modules"](https://gist.github.com/substack/5075355)
 
 ![node.js is shiny](https://feross.net/x/node2.gif)
 
