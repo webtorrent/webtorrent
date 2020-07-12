@@ -102,6 +102,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Come Over][comeover]** - Video stream sharing to watch movies together.
 - **[Peer Web Site][peerwebsite]** - Realtime P2P Web Site using WebTorrent for files and WebRTC for text.
 - **[CipherTorrent][cipher-torrent]** - Online and offline browser torrent client ([source code][cipher-torrent-source])
+- **[Slingcode][Slingcode]** - make, run, and share web apps P2P in the browser.
 - ***Your app here – [Send a pull request][pr] with your URL!***
 <!-- - **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source]) -->
 <!-- - **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s)) -->
@@ -174,10 +175,11 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [Files.fm]: https://files.fm
 [imgest]: https://imgest.hashbase.io
 [Bugout]: https://github.com/chr15m/bugout
+[Slingcode]: https://github.com/chr15m/slingcode
 [p2p-media-loader]: https://github.com/novage/p2p-media-loader
 [hubzilla]: https://hubzilla.org
 [hubzilla-source]: https://github.com/demitas-ace/wtplayer/tree/master/wtplayer
-[comeover]: https://comeover.io
+[comeover]: https://www.comeover.io
 [peerwebsite]: https://peerweb.site
 [cipher-torrent]: https://torrent.cipherdogs.net
 [cipher-torrent-source]: https://github.com/CipherDogs/cipher-torrent
