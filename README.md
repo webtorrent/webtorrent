@@ -169,7 +169,7 @@ There are more examples in [docs/get-started.md](docs/get-started.md).
 
 ##### Browserify
 
-WebTorrent works great with [browserify](http://browserify.org/), an npm package that let's
+WebTorrent works great with [browserify](http://browserify.org/), an npm package that lets
 you use [node](http://nodejs.org/)-style require() to organize your browser code and load modules installed by [npm](https://www.npmjs.com/) (as seen in the previous examples).
 
 ##### Webpack
