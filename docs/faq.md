@@ -100,7 +100,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[P2P Media Loader][p2p-media-loader]** - engine for Hls.js and Shaka Player that enables P2P sharing of live and VOD streams over HLS or DASH protocols.
 - **[Hubzilla][hubzilla]** - WebTorrent player integration into posts ([source code][hubzilla-source])
 - **[Come Over][comeover]** - Video stream sharing to watch movies together.
-- **[Peer Web Site][peerwebsite]** - Realtime P2P Web Site using WebTorrent for files and WebRTC for text.
+- **[PeerWebSite][peerwebsite]** - Peer to Peer Web Site hosting at your fingertips! Send full featured HTML (incl. CSS, JS) sites from your browser and attach files eg. videos, images, etc.
 - **[CipherTorrent][cipher-torrent]** - Online and offline browser torrent client ([source code][cipher-torrent-source])
 - **[Slingcode][Slingcode]** - make, run, and share web apps P2P in the browser.
 - ***Your app here – [Send a pull request][pr] with your URL!***
