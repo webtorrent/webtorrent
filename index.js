@@ -14,7 +14,7 @@ const Peer = require('simple-peer')
 const randombytes = require('randombytes')
 const speedometer = require('speedometer')
 
-const TCPPool = require('./lib/tcp-pool') // browser exclude
+const ConnPool = require('./lib/conn-pool') // browser exclude
 const Torrent = require('./lib/torrent')
 const VERSION = require('./package.json').version
 
@@ -72,6 +72,7 @@ class WebTorrent extends EventEmitter {
     this.tracker = opts.tracker !== undefined ? opts.tracker : {}
     this.torrents = []
     this.maxConns = Number(opts.maxConns) || 55
+    this.utp = opts.utp === true
 
     this._debug(
       'new webtorrent (peerId %s, nodeId %s, port %s)',
@@ -95,8 +96,8 @@ class WebTorrent extends EventEmitter {
       }
     }
 
-    if (typeof TCPPool === 'function') {
-      this._tcpPool = new TCPPool(this)
+    if (typeof ConnPool === 'function') {
+      this._connPool = new ConnPool(this)
     } else {
       process.nextTick(() => {
         this._onListening()
@@ -355,8 +356,8 @@ class WebTorrent extends EventEmitter {
 
   address () {
     if (!this.listening) return null
-    return this._tcpPool
-      ? this._tcpPool.server.address()
+    return this._connPool
+      ? this._connPool.tcpServer.address()
       : { address: '0.0.0.0', family: 'IPv4', port: 0 }
   }
 
@@ -377,9 +378,9 @@ class WebTorrent extends EventEmitter {
       torrent.destroy(cb)
     })
 
-    if (this._tcpPool) {
+    if (this._connPool) {
       tasks.push(cb => {
-        this._tcpPool.destroy(cb)
+        this._connPool.destroy(cb)
       })
     }
 
@@ -394,7 +395,7 @@ class WebTorrent extends EventEmitter {
     if (err) this.emit('error', err)
 
     this.torrents = []
-    this._tcpPool = null
+    this._connPool = null
     this.dht = null
   }
 
@@ -402,9 +403,9 @@ class WebTorrent extends EventEmitter {
     this._debug('listening')
     this.listening = true
 
-    if (this._tcpPool) {
+    if (this._connPool) {
       // Sometimes server.address() returns `null` in Docker.
-      const address = this._tcpPool.server.address()
+      const address = this._connPool.tcpServer.address()
       if (address) this.torrentPort = address.port
     }
 
