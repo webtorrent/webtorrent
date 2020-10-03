@@ -9,13 +9,14 @@
   },
   "browser": {
     "./lib/server.js": false,
-    "./lib/tcp-pool.js": false,
+    "./lib/conn-pool.js": false,
     "bittorrent-dht/client": false,
     "fs-chunk-store": "memory-chunk-store",
     "load-ip-set": false,
     "net": false,
     "os": false,
-    "ut_pex": false
+    "ut_pex": false,
+    "utp-native": false
   },
   "browserify": {
     "transform": [
@@ -30,7 +31,8 @@
     "http": "http-node",
     "load-ip-set": false,
     "net": "chrome-net",
-    "os": false
+    "os": false,
+    "utp-native": false
   },
   "dependencies": {
     "addr-to-ip-port": "^1.5.1",
