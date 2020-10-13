@@ -82,7 +82,7 @@
     "airtap": "^3.0.0",
     "babel-minify": "^0.5.1",
     "bittorrent-tracker": "^9.15.0",
-    "browserify": "^16.5.1",
+    "browserify": "^17.0.0",
     "disc": "^1.3.3",
     "electron": "^9.1.0",
     "finalhandler": "^1.1.2",
