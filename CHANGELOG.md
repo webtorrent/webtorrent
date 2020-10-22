@@ -1,5 +1,76 @@
 # WebTorrent Version History
 
+## v0.109.0 - 2020-10-22
+
+- refactor torrent._rechoke()
+- simple-get@4
+- electron@9
+- deps
+- Add stale bot config
+- Create no-response.yml
+- Create config.yml
+- Update no-response.yml
+- Add uTP support (BEP29)
+- check if torrent is destroyed before emitting download/upload event
+- ut_pex 2.0.1
+- browserify@17
+- electron@10
+
+## v0.108.6 - 2020-05-29
+
+- update deps
+
+## v0.108.5 - 2020-05-29
+
+- bump deps
+
+## v0.108.4 - 2020-05-28
+
+- add test for downloading from a manually added peer
+- fix: not setting initial wire interest
+- update interest when a peer's bitfield changes
+
+## v0.108.3 - 2020-05-15
+
+- Create `webtorrent.chromeapp.js`
+- update bittorrent-dht to version 10.0.0
+- Change parseRange.parse to parseRange
+
+## v0.108.2 - 2020-05-10
+
+- implement store destruction option
+- Fix drag-drop.min.js link
+- update parse-numeric-range to version 1.2.0
+- browsers: add tests for safari, edge, android, iphone
+
+## v0.108.1 - 2020-04-01
+
+- fix ratio calculation
+
+## v0.108.0 - 2020-04-01
+
+- Check if client is set when debug logging
+- downgrade end-of-stream to v1.4.1
+- `private` option overrides default, only if it's defined
+- use native Set instead of uniq library
+- Improve code readability
+
+## v0.107.17 - 2019-11-12
+
+- Unbreak built file
+
+## v0.107.16 - 2019-09-10
+
+- fix git commit reference to `http-node` package
+
+## v0.107.15 - 2019-09-10
+
+- Return server from server.listen for method chaining to work
+
+## v0.107.14 - 2019-09-10
+
+- Update .gitignore
+
 ## v0.107.13 - 2019-09-10
 
 - Added tests to check the order of torrent events
