@@ -348,7 +348,7 @@
 
 ## v0.95.4 - 2016-07-26
 
-- Skip blocklist logic when opts.blocklist is not set 
+- Skip blocklist logic when opts.blocklist is not set
 
 ## v0.95.3 - 2016-07-26
 
@@ -356,7 +356,7 @@
 
 ## v0.95.2 - 2016-06-22
 
-- HEAD requests  to HTTP server should not send entire body
+- HEAD requests to HTTP server should not send entire body
 - WebTorrent, LLC is now the steward of the project
 
 ## v0.95.1 - 2016-06-15
@@ -365,7 +365,7 @@
 
 ## v0.95.0 - 2016-06-15
 
-- API: Add `file.getBlob()` method 
+- API: Add `file.getBlob()` method
 - Fix rare exception in `lib/tcp-pool.js`
 
 ## v0.94.4 - 2016-06-10
