@@ -1,6 +1,8 @@
 # WebTorrent Version History
 
-## Unreleased
+## v0.109.1 - 2020-10-23
+
+- Peer reconnect timeout throwing error after torrent is destroyed
 
 ## v0.109.0 - 2020-10-22
 
