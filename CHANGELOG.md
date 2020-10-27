@@ -1,5 +1,9 @@
 # WebTorrent Version History
 
+## v0.109.2 - 2020-10-27
+
+- Fix "Cannot read property 'utp' of null"
+
 ## v0.109.1 - 2020-10-23
 
 - Peer reconnect timeout throwing error after torrent is destroyed
