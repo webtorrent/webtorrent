@@ -63,7 +63,7 @@ Video and audio content can be streamed, i.e. playback will start before the ful
 file is downloaded. Seeking works too – WebTorrent dynamically fetches
 the needed torrent pieces from the network on-demand.
 
-**Note:** downloading a torrent automatically seeds it, allowing the user to also serve the file to other peers
+**Note:** Downloading a torrent automatically seeds it, making it available for download by other peers.
 
 ### Creating a new torrent and seed it (in the browser)
 
@@ -106,22 +106,18 @@ client.add(magnetURI, { path: '/path/to/folder' }, function (torrent) {
 
 ### Creating a new torrent and seed it (in Node.js)
 
-**Note:** Seeding a torrent to be compatible with the browser (i.e. with support for WebRTC) requires [webtorrent-hybrid](https://github.com/webtorrent/webtorrent-hybrid) (note this requires Node version 12, 13 to work, Node v14 will NOT work with this module, lower node versions may also be supported)
+**Note:** Seeding a torrent that can be downloaded by browser peers (i.e. with support for WebRTC) requires [webtorrent-hybrid](https://github.com/webtorrent/webtorrent-hybrid).
 
 ```js
 var WebTorrent = require('webtorrent-hybrid')
 var client = new WebTorrent()
 
-client.seed(__dirname + "/seedy.txt", function (torrent) {
+client.seed('/seed-me.txt', function (torrent) {
     console.log('Client is seeding ' + torrent.magnetURI)
 })
 ```
 
-where **seedy.txt** is a text file which is going to be seeded as a torrent, such as
-
-```
-hi there, I'm gonna be seeded as a torrent !
-```
+where **seed-me.txt** is a text file which is going to be seeded as a torrent.
 
 ### Complete HTML page example
 
