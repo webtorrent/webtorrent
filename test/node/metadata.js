@@ -1,12 +1,12 @@
-var fixtures = require('webtorrent-fixtures')
-var test = require('tape')
-var WebTorrent = require('../../')
+const fixtures = require('webtorrent-fixtures')
+const test = require('tape')
+const WebTorrent = require('../../')
 
 test('ut_metadata transfer', function (t) {
   t.plan(6)
 
-  var client1 = new WebTorrent({ dht: false, tracker: false })
-  var client2 = new WebTorrent({ dht: false, tracker: false })
+  const client1 = new WebTorrent({ dht: false, tracker: false })
+  const client2 = new WebTorrent({ dht: false, tracker: false })
 
   client1.on('error', function (err) { t.fail(err) })
   client1.on('warning', function (err) { t.fail(err) })
@@ -26,7 +26,7 @@ test('ut_metadata transfer', function (t) {
     t.deepEqual(torrent1.info, fixtures.leaves.parsedTorrent.info)
 
     // client2 starts with infohash
-    var torrent2 = client2.add(fixtures.leaves.parsedTorrent.infoHash)
+    const torrent2 = client2.add(fixtures.leaves.parsedTorrent.infoHash)
 
     torrent2.on('infoHash', function () {
       // manually add the peer

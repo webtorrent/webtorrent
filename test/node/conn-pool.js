@@ -1,14 +1,14 @@
-var test = require('tape')
-var fixtures = require('webtorrent-fixtures')
-var WebTorrent = require('../../')
+const test = require('tape')
+const fixtures = require('webtorrent-fixtures')
+const WebTorrent = require('../../')
 const MemoryChunkStore = require('memory-chunk-store')
 const dgram = require('dgram')
 
 test('client.conn-pool: use TCP when uTP disabled', function (t) {
   t.plan(6)
 
-  var client1 = new WebTorrent({ dht: false, tracker: false, utp: false })
-  var client2 = new WebTorrent({ dht: false, tracker: false, utp: false })
+  const client1 = new WebTorrent({ dht: false, tracker: false, utp: false })
+  const client2 = new WebTorrent({ dht: false, tracker: false, utp: false })
 
   client1.on('error', function (err) { t.fail(err) })
   client1.on('warning', function (err) { t.fail(err) })
@@ -24,12 +24,12 @@ test('client.conn-pool: use TCP when uTP disabled', function (t) {
 
   client2.on('listening', function () {
     // Start downloading
-    var torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
+    const torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
 
     // Manually connect peers
     torrent.addPeer('127.0.0.1:' + client2.address().port)
 
-    var order = 0
+    let order = 0
 
     torrent.on('infoHash', function () {
       t.equal(++order, 1)
@@ -55,8 +55,8 @@ test('client.conn-pool: use TCP when uTP disabled', function (t) {
 test('client.conn-pool: use uTP when uTP enabled', function (t) {
   t.plan(6)
 
-  var client1 = new WebTorrent({ dht: false, tracker: false, utp: true })
-  var client2 = new WebTorrent({ dht: false, tracker: false, utp: true })
+  const client1 = new WebTorrent({ dht: false, tracker: false, utp: true })
+  const client2 = new WebTorrent({ dht: false, tracker: false, utp: true })
 
   client1.on('error', function (err) { t.fail(err) })
   client1.on('warning', function (err) { t.fail(err) })
@@ -72,12 +72,12 @@ test('client.conn-pool: use uTP when uTP enabled', function (t) {
 
   client2.on('listening', function () {
     // Start downloading
-    var torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
+    const torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
 
     // Manually connect peers
     torrent.addPeer('127.0.0.1:' + client2.address().port)
 
-    var order = 0
+    let order = 0
 
     torrent.on('infoHash', function () {
       t.equal(++order, 1)
@@ -108,8 +108,8 @@ test('client.conn-pool: fallback to TCP when uTP server failed', function (t) {
   const server = dgram.createSocket('udp4')
   server.bind(63000)
 
-  var client1 = new WebTorrent({ dht: false, tracker: false, utp: true, torrentPort: 63000 })
-  var client2 = new WebTorrent({ dht: false, tracker: false, utp: false })
+  const client1 = new WebTorrent({ dht: false, tracker: false, utp: true, torrentPort: 63000 })
+  const client2 = new WebTorrent({ dht: false, tracker: false, utp: false })
 
   client1.on('error', function (err) { t.fail(err) })
   client1.on('warning', function (err) { t.fail(err) })
@@ -125,12 +125,12 @@ test('client.conn-pool: fallback to TCP when uTP server failed', function (t) {
 
   client2.on('listening', function () {
     // Start downloading
-    var torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
+    const torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
 
     // Manually connect peers
     torrent.addPeer('127.0.0.1:' + client2.address().port)
 
-    var order = 0
+    let order = 0
 
     torrent.on('infoHash', function () {
       t.equal(++order, 1)
@@ -159,8 +159,8 @@ test('client.conn-pool: fallback to TCP when uTP server failed', function (t) {
 test('client.conn-pool: fallback to TCP when remote client has uTP disabled', function (t) {
   t.plan(6)
 
-  var client1 = new WebTorrent({ dht: false, tracker: false, utp: true })
-  var client2 = new WebTorrent({ dht: false, tracker: false, utp: false })
+  const client1 = new WebTorrent({ dht: false, tracker: false, utp: true })
+  const client2 = new WebTorrent({ dht: false, tracker: false, utp: false })
 
   client1.on('error', function (err) { t.fail(err) })
   client1.on('warning', function (err) { t.fail(err) })
@@ -176,12 +176,12 @@ test('client.conn-pool: fallback to TCP when remote client has uTP disabled', fu
 
   client2.on('listening', function () {
     // Start downloading
-    var torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
+    const torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
 
     // Manually connect peers
     torrent.addPeer('127.0.0.1:' + client2.address().port)
 
-    var order = 0
+    let order = 0
 
     torrent.on('infoHash', function () {
       t.equal(++order, 1)

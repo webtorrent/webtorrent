@@ -1,16 +1,16 @@
-var fixtures = require('webtorrent-fixtures')
-var test = require('tape')
-var WebTorrent = require('../')
+const fixtures = require('webtorrent-fixtures')
+const test = require('tape')
+const WebTorrent = require('../')
 
 test('client.remove: remove by Torrent object', function (t) {
   t.plan(5)
 
-  var client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  var torrent = client.add(fixtures.leaves.parsedTorrent.infoHash)
+  const torrent = client.add(fixtures.leaves.parsedTorrent.infoHash)
   t.equal(client.torrents.length, 1)
 
   torrent.on('infoHash', function () {

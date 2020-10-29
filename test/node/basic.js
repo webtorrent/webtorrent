@@ -1,14 +1,14 @@
-var fixtures = require('webtorrent-fixtures')
-var fs = require('fs')
-var path = require('path')
-var http = require('http')
-var test = require('tape')
-var WebTorrent = require('../../')
+const fixtures = require('webtorrent-fixtures')
+const fs = require('fs')
+const path = require('path')
+const http = require('http')
+const test = require('tape')
+const WebTorrent = require('../../')
 
 test('WebTorrent.WEBRTC_SUPPORT', function (t) {
   t.plan(2)
 
-  var client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
@@ -23,15 +23,15 @@ test('WebTorrent.WEBRTC_SUPPORT', function (t) {
 test('client.add: http url to a torrent file, string', function (t) {
   t.plan(8)
 
-  var server = http.createServer(function (req, res) {
+  const server = http.createServer(function (req, res) {
     t.ok(req.headers['user-agent'].indexOf('WebTorrent') !== -1)
     res.end(fixtures.leaves.torrent)
   })
 
   server.listen(0, function () {
-    var port = server.address().port
-    var url = 'http://127.0.0.1:' + port
-    var client = new WebTorrent({ dht: false, tracker: false })
+    const port = server.address().port
+    const url = 'http://127.0.0.1:' + port
+    const client = new WebTorrent({ dht: false, tracker: false })
 
     client.on('error', function (err) { t.fail(err) })
     client.on('warning', function (err) { t.fail(err) })
@@ -53,7 +53,7 @@ test('client.add: http url to a torrent file, string', function (t) {
 test('client.add: filesystem path to a torrent file, string', function (t) {
   t.plan(6)
 
-  var client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
@@ -73,7 +73,7 @@ test('client.add: filesystem path to a torrent file, string', function (t) {
 test('client.seed: filesystem path to file, string', function (t) {
   t.plan(6)
 
-  var client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
@@ -96,7 +96,7 @@ test('client.seed: filesystem path to file, string', function (t) {
 test('client.seed: filesystem path to folder with one file, string', function (t) {
   t.plan(6)
 
-  var client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
@@ -116,7 +116,7 @@ test('client.seed: filesystem path to folder with one file, string', function (t
 test('client.seed: filesystem path to folder with multiple files, string', function (t) {
   t.plan(7)
 
-  var client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
@@ -147,7 +147,7 @@ test('client.seed: filesystem path to folder with multiple files, string', funct
 test('client.add: invalid torrent id: invalid filesystem path', function (t) {
   t.plan(3)
 
-  var client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false })
 
   client.on('error', function (err) {
     t.ok(err instanceof Error)
@@ -163,13 +163,13 @@ test('client.add: invalid torrent id: invalid filesystem path', function (t) {
 test('client.remove: opts.destroyStore', function (t) {
   t.plan(2)
 
-  var client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
   client.seed(fixtures.alice.content, { name: 'alice.txt', announce: [] }, function (torrent) {
-    var torrentPath = torrent.path
+    const torrentPath = torrent.path
     client.remove(torrent, { destroyStore: true }, function (err) {
       if (err) t.fail(err)
 
@@ -186,13 +186,13 @@ test('client.remove: opts.destroyStore', function (t) {
 test('torrent.destroy: opts.destroyStore', function (t) {
   t.plan(2)
 
-  var client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
   client.seed(fixtures.alice.content, { name: 'alice.txt', announce: [] }, function (torrent) {
-    var torrentPath = torrent.path
+    const torrentPath = torrent.path
     torrent.destroy({ destroyStore: true }, function (err) {
       if (err) t.fail(err)
 
