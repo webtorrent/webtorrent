@@ -1,7 +1,7 @@
-var test = require('tape')
-var WebTorrent = require('../../')
+const test = require('tape')
+const WebTorrent = require('../../')
 
-var img = Buffer.from('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'base64')
+const img = Buffer.from('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'base64')
 img.name = 'img.png'
 
 function verifyImage (t, err, elem) {
@@ -20,7 +20,7 @@ if (!(global && global.process && global.process.versions && global.process.vers
   test('image append w/ query selector', function (t) {
     t.plan(6)
 
-    var client = new WebTorrent({ dht: false, tracker: false })
+    const client = new WebTorrent({ dht: false, tracker: false })
 
     client.on('error', function (err) { t.fail(err) })
     client.on('warning', function (err) { t.fail(err) })
@@ -38,7 +38,7 @@ if (!(global && global.process && global.process.versions && global.process.vers
   test('image append w/ element', function (t) {
     t.plan(6)
 
-    var client = new WebTorrent({ dht: false, tracker: false })
+    const client = new WebTorrent({ dht: false, tracker: false })
 
     client.on('error', function (err) { t.fail(err) })
     client.on('warning', function (err) { t.fail(err) })
@@ -56,12 +56,12 @@ if (!(global && global.process && global.process.versions && global.process.vers
   test('image render w/ query selector', function (t) {
     t.plan(6)
 
-    var client = new WebTorrent({ dht: false, tracker: false })
+    const client = new WebTorrent({ dht: false, tracker: false })
 
     client.on('error', function (err) { t.fail(err) })
     client.on('warning', function (err) { t.fail(err) })
 
-    var tag = document.createElement('img')
+    const tag = document.createElement('img')
     tag.className = 'tag'
     document.body.appendChild(tag)
 
@@ -78,12 +78,12 @@ if (!(global && global.process && global.process.versions && global.process.vers
   test('image render w/ element', function (t) {
     t.plan(6)
 
-    var client = new WebTorrent({ dht: false, tracker: false })
+    const client = new WebTorrent({ dht: false, tracker: false })
 
     client.on('error', function (err) { t.fail(err) })
     client.on('warning', function (err) { t.fail(err) })
 
-    var tag = document.createElement('img')
+    const tag = document.createElement('img')
     document.body.appendChild(tag)
 
     client.seed(img, function (torrent) {
@@ -100,7 +100,7 @@ if (!(global && global.process && global.process.versions && global.process.vers
 test('WebTorrent.WEBRTC_SUPPORT', function (t) {
   t.plan(2)
 
-  var client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })

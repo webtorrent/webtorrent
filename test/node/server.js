@@ -1,23 +1,23 @@
-var fixtures = require('webtorrent-fixtures')
-var fs = require('fs')
-var get = require('simple-get')
-var test = require('tape')
-var WebTorrent = require('../../')
+const fixtures = require('webtorrent-fixtures')
+const fs = require('fs')
+const get = require('simple-get')
+const test = require('tape')
+const WebTorrent = require('../../')
 
 test('torrent.createServer: programmatic http server', function (t) {
   t.plan(9)
 
-  var client = new WebTorrent({ tracker: false, dht: false })
+  const client = new WebTorrent({ tracker: false, dht: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
   client.add(fixtures.leaves.torrent, function (torrent) {
     t.pass('got "torrent" event')
-    var server = torrent.createServer()
+    const server = torrent.createServer()
 
     server.listen(0, function () {
-      var port = server.address().port
+      const port = server.address().port
       t.pass('server is listening on ' + port)
 
       // Seeding after server is created should work
@@ -25,7 +25,7 @@ test('torrent.createServer: programmatic http server', function (t) {
         t.error(err, 'loaded seed content into torrent')
       })
 
-      var host = 'http://localhost:' + port
+      const host = 'http://localhost:' + port
 
       // Index page should list files in the torrent
       get.concat(host + '/', function (err, res, data) {

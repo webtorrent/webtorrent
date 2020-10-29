@@ -1,20 +1,20 @@
-var DHT = require('bittorrent-dht/server')
-var fixtures = require('webtorrent-fixtures')
-var fs = require('fs')
-var MemoryChunkStore = require('memory-chunk-store')
-var series = require('run-series')
-var test = require('tape')
-var WebTorrent = require('../../')
+const DHT = require('bittorrent-dht/server')
+const fixtures = require('webtorrent-fixtures')
+const fs = require('fs')
+const MemoryChunkStore = require('memory-chunk-store')
+const series = require('run-series')
+const test = require('tape')
+const WebTorrent = require('../../')
 
 test('Seed and download a file at the same time', function (t) {
   t.plan(14)
 
-  var dhtServer = new DHT({ bootstrap: false })
+  const dhtServer = new DHT({ bootstrap: false })
 
   dhtServer.on('error', function (err) { t.fail(err) })
   dhtServer.on('warning', function (err) { t.fail(err) })
 
-  var client1, client2
+  let client1, client2
 
   series([
     function (cb) {
@@ -22,6 +22,9 @@ test('Seed and download a file at the same time', function (t) {
     },
 
     function (cb) {
+      let announced = false
+      let loaded = false
+
       client1 = new WebTorrent({
         tracker: false,
         dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
@@ -30,7 +33,7 @@ test('Seed and download a file at the same time', function (t) {
       client1.on('error', function (err) { t.fail(err) })
       client1.on('warning', function (err) { t.fail(err) })
 
-      var torrent = client1.add(fixtures.leaves.torrent, { store: MemoryChunkStore })
+      const torrent = client1.add(fixtures.leaves.torrent, { store: MemoryChunkStore })
 
       torrent.on('dhtAnnounce', function () {
         t.pass('client1 finished dht announce')
@@ -44,14 +47,15 @@ test('Seed and download a file at the same time', function (t) {
         maybeDone()
       })
 
-      var announced = false
-      var loaded = false
       function maybeDone () {
         if (announced && loaded) cb(null)
       }
     },
 
     function (cb) {
+      let announced = false
+      let loaded = false
+
       client2 = new WebTorrent({
         tracker: false,
         dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
@@ -60,7 +64,7 @@ test('Seed and download a file at the same time', function (t) {
       client2.on('error', function (err) { t.fail(err) })
       client2.on('warning', function (err) { t.fail(err) })
 
-      var torrent = client2.add(fixtures.alice.torrent, { store: MemoryChunkStore })
+      const torrent = client2.add(fixtures.alice.torrent, { store: MemoryChunkStore })
 
       torrent.on('dhtAnnounce', function () {
         t.pass('client2 finished dht announce')
@@ -74,14 +78,17 @@ test('Seed and download a file at the same time', function (t) {
         maybeDone()
       })
 
-      var announced = false
-      var loaded = false
       function maybeDone () {
         if (announced && loaded) cb(null)
       }
     },
 
     function (cb) {
+      let gotBuffer1 = false
+      let gotBuffer2 = false
+      let gotDone1 = false
+      let gotDone2 = false
+
       client1.add(fixtures.alice.magnetURI, { store: MemoryChunkStore })
 
       client1.on('torrent', function (torrent) {
@@ -116,10 +123,6 @@ test('Seed and download a file at the same time', function (t) {
         })
       })
 
-      var gotBuffer1 = false
-      var gotBuffer2 = false
-      var gotDone1 = false
-      var gotDone2 = false
       function maybeDone () {
         if (gotBuffer1 && gotBuffer2 && gotDone1 && gotDone2) cb(null)
       }

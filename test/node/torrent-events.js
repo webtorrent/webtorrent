@@ -6,8 +6,8 @@ const MemoryChunkStore = require('memory-chunk-store')
 test('client.add: emit torrent events in order', function (t) {
   t.plan(6)
 
-  var client1 = new WebTorrent({ dht: false, tracker: false })
-  var client2 = new WebTorrent({ dht: false, tracker: false })
+  const client1 = new WebTorrent({ dht: false, tracker: false })
+  const client2 = new WebTorrent({ dht: false, tracker: false })
 
   client1.on('error', function (err) { t.fail(err) })
   client1.on('warning', function (err) { t.fail(err) })
@@ -23,12 +23,12 @@ test('client.add: emit torrent events in order', function (t) {
 
   client2.on('listening', function () {
     // Start downloading
-    var torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
+    const torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
 
     // Manually connect peers
     torrent.addPeer('127.0.0.1:' + client2.address().port)
 
-    var order = 0
+    let order = 0
 
     torrent.on('infoHash', function () {
       t.equal(++order, 1)
@@ -54,14 +54,14 @@ test('client.add: emit torrent events in order', function (t) {
 test('client.seed: emit torrent events in order', function (t) {
   t.plan(5)
 
-  var client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  var torrent = client.seed(fixtures.leaves.content)
+  const torrent = client.seed(fixtures.leaves.content)
 
-  var order = 0
+  let order = 0
 
   torrent.on('infoHash', function () {
     t.equal(++order, 1)

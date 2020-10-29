@@ -1,16 +1,16 @@
-var fixtures = require('webtorrent-fixtures')
-var test = require('tape')
-var WebTorrent = require('../')
+const fixtures = require('webtorrent-fixtures')
+const test = require('tape')
+const WebTorrent = require('../')
 
 test('client.add: magnet uri, utf-8 string', function (t) {
   t.plan(6)
 
-  var client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  var torrent = client.add(fixtures.leaves.magnetURI)
+  const torrent = client.add(fixtures.leaves.magnetURI)
   t.equal(client.torrents.length, 1)
 
   torrent.on('infoHash', function () {
@@ -27,12 +27,12 @@ test('client.add: magnet uri, utf-8 string', function (t) {
 test('client.add: torrent file, buffer', function (t) {
   t.plan(6)
 
-  var client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  var torrent = client.add(fixtures.leaves.torrent)
+  const torrent = client.add(fixtures.leaves.torrent)
   t.equal(client.torrents.length, 1)
 
   torrent.on('infoHash', function () {
@@ -49,12 +49,12 @@ test('client.add: torrent file, buffer', function (t) {
 test('client.add: info hash, hex string', function (t) {
   t.plan(6)
 
-  var client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  var torrent = client.add(fixtures.leaves.parsedTorrent.infoHash)
+  const torrent = client.add(fixtures.leaves.parsedTorrent.infoHash)
   t.equal(client.torrents.length, 1)
 
   torrent.on('infoHash', function () {
@@ -71,12 +71,12 @@ test('client.add: info hash, hex string', function (t) {
 test('client.add: info hash, buffer', function (t) {
   t.plan(6)
 
-  var client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  var torrent = client.add(fixtures.leaves.parsedTorrent.infoHashBuffer)
+  const torrent = client.add(fixtures.leaves.parsedTorrent.infoHashBuffer)
   t.equal(client.torrents.length, 1)
 
   torrent.on('infoHash', function () {
@@ -93,12 +93,12 @@ test('client.add: info hash, buffer', function (t) {
 test('client.add: parsed torrent, from `parse-torrent`', function (t) {
   t.plan(6)
 
-  var client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  var torrent = client.add(fixtures.leaves.parsedTorrent)
+  const torrent = client.add(fixtures.leaves.parsedTorrent)
   t.equal(client.torrents.length, 1)
 
   torrent.on('infoHash', function () {
@@ -115,21 +115,21 @@ test('client.add: parsed torrent, from `parse-torrent`', function (t) {
 test('client.add: parsed torrent, with string type announce property', function (t) {
   t.plan(7)
 
-  var client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  var parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
+  const parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
   parsedTorrent.announce = 'http://tracker.local:80'
 
-  var torrent = client.add(parsedTorrent)
+  const torrent = client.add(parsedTorrent)
   t.equal(client.torrents.length, 1)
 
   torrent.on('infoHash', function () {
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
 
-    var expectedMagnetURI = fixtures.leaves.magnetURI +
+    const expectedMagnetURI = fixtures.leaves.magnetURI +
       '&tr=' + encodeURIComponent('http://tracker.local:80')
     t.equal(torrent.magnetURI, expectedMagnetURI)
 
@@ -146,21 +146,21 @@ test('client.add: parsed torrent, with string type announce property', function 
 test('client.add: parsed torrent, with array type announce property', function (t) {
   t.plan(7)
 
-  var client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
-  var parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
+  const parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
   parsedTorrent.announce = ['http://tracker.local:80', 'http://tracker.local:81']
 
-  var torrent = client.add(parsedTorrent)
+  const torrent = client.add(parsedTorrent)
   t.equal(client.torrents.length, 1)
 
   torrent.on('infoHash', function () {
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
 
-    var expectedMagnetURI = fixtures.leaves.magnetURI +
+    const expectedMagnetURI = fixtures.leaves.magnetURI +
       '&tr=' + encodeURIComponent('http://tracker.local:80') +
       '&tr=' + encodeURIComponent('http://tracker.local:81')
     t.equal(torrent.magnetURI, expectedMagnetURI)
@@ -177,7 +177,7 @@ test('client.add: parsed torrent, with array type announce property', function (
 test('client.add: invalid torrent id: empty string', function (t) {
   t.plan(3)
 
-  var client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false })
 
   client.on('error', function (err) {
     t.ok(err instanceof Error)
@@ -193,7 +193,7 @@ test('client.add: invalid torrent id: empty string', function (t) {
 test('client.add: invalid torrent id: short buffer', function (t) {
   t.plan(3)
 
-  var client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false })
 
   client.on('error', function (err) {
     t.ok(err instanceof Error)

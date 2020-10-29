@@ -1,23 +1,23 @@
-var fixtures = require('webtorrent-fixtures')
-var series = require('run-series')
-var test = require('tape')
-var TrackerServer = require('bittorrent-tracker/server')
-var WebTorrent = require('../../')
-var common = require('../common')
+const fixtures = require('webtorrent-fixtures')
+const series = require('run-series')
+const test = require('tape')
+const TrackerServer = require('bittorrent-tracker/server')
+const WebTorrent = require('../../')
+const common = require('../common')
 
 test('blocklist blocks peers discovered via tracker', function (t) {
   t.plan(9)
 
-  var parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
-  var tracker, client1, client2
+  const parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
+  let tracker, client1, client2
 
   series([
     function (cb) {
       tracker = new TrackerServer({ udp: false, ws: false })
 
       tracker.listen(function () {
-        var port = tracker.http.address().port
-        var announceUrl = 'http://127.0.0.1:' + port + '/announce'
+        const port = tracker.http.address().port
+        const announceUrl = 'http://127.0.0.1:' + port + '/announce'
 
         // Overwrite announce with our local tracker
         parsedTorrent.announce = announceUrl
@@ -39,7 +39,7 @@ test('blocklist blocks peers discovered via tracker', function (t) {
       client1.on('error', function (err) { t.fail(err) })
       client1.on('warning', function (err) { t.fail(err) })
 
-      var torrent1 = client1.add(parsedTorrent, {
+      const torrent1 = client1.add(parsedTorrent, {
         path: common.getDownloadPath('client_1', parsedTorrent.infoHash)
       })
 
@@ -61,7 +61,7 @@ test('blocklist blocks peers discovered via tracker', function (t) {
       client2.on('error', function (err) { t.fail(err) })
       client2.on('warning', function (err) { t.fail(err) })
 
-      var torrent2 = client2.add(parsedTorrent, {
+      const torrent2 = client2.add(parsedTorrent, {
         path: common.getDownloadPath('client_2', parsedTorrent.infoHash)
       })
 

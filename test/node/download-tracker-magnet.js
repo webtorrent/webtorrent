@@ -1,10 +1,10 @@
-var fixtures = require('webtorrent-fixtures')
-var fs = require('fs')
-var MemoryChunkStore = require('memory-chunk-store')
-var series = require('run-series')
-var test = require('tape')
-var TrackerServer = require('bittorrent-tracker/server')
-var WebTorrent = require('../../')
+const fixtures = require('webtorrent-fixtures')
+const fs = require('fs')
+const MemoryChunkStore = require('memory-chunk-store')
+const series = require('run-series')
+const test = require('tape')
+const TrackerServer = require('bittorrent-tracker/server')
+const WebTorrent = require('../../')
 
 test('Download using UDP tracker (via magnet uri)', function (t) {
   magnetDownloadTest(t, 'udp')
@@ -17,20 +17,20 @@ test('Download using HTTP tracker (via magnet uri)', function (t) {
 function magnetDownloadTest (t, serverType) {
   t.plan(10)
 
-  var tracker = new TrackerServer(
+  const tracker = new TrackerServer(
     serverType === 'udp' ? { http: false, ws: false } : { udp: false, ws: false }
   )
 
   tracker.on('error', function (err) { t.fail(err) })
   tracker.on('warning', function (err) { t.fail(err) })
 
-  var trackerStartCount = 0
+  let trackerStartCount = 0
   tracker.on('start', function () {
     trackerStartCount += 1
   })
 
-  var parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
-  var magnetURI, client1, client2
+  const parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
+  let magnetURI, client1, client2
 
   series([
     function (cb) {
@@ -38,8 +38,8 @@ function magnetDownloadTest (t, serverType) {
     },
 
     function (cb) {
-      var port = tracker[serverType].address().port
-      var announceUrl = serverType === 'http'
+      const port = tracker[serverType].address().port
+      const announceUrl = serverType === 'http'
         ? 'http://127.0.0.1:' + port + '/announce'
         : 'udp://127.0.0.1:' + port
 
@@ -55,7 +55,7 @@ function magnetDownloadTest (t, serverType) {
         // torrent metadata has been fetched -- sanity check it
         t.equal(torrent.name, 'Leaves of Grass by Walt Whitman.epub')
 
-        var names = [
+        const names = [
           'Leaves of Grass by Walt Whitman.epub'
         ]
 
@@ -80,6 +80,9 @@ function magnetDownloadTest (t, serverType) {
       client2.on('warning', function (err) { t.fail(err) })
 
       client2.on('torrent', function (torrent) {
+        let gotBuffer = false
+        let torrentDone = false
+
         torrent.files.forEach(function (file) {
           file.getBuffer(function (err, buf) {
             if (err) throw err
@@ -95,8 +98,6 @@ function magnetDownloadTest (t, serverType) {
           maybeDone()
         })
 
-        var gotBuffer = false
-        var torrentDone = false
         function maybeDone () {
           if (gotBuffer && torrentDone) cb(null)
         }

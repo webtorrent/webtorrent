@@ -1,27 +1,27 @@
-var finalhandler = require('finalhandler')
-var fixtures = require('webtorrent-fixtures')
-var http = require('http')
-var MemoryChunkStore = require('memory-chunk-store')
-var path = require('path')
-var series = require('run-series')
-var serveStatic = require('serve-static')
-var test = require('tape')
-var WebTorrent = require('../../')
+const finalhandler = require('finalhandler')
+const fixtures = require('webtorrent-fixtures')
+const http = require('http')
+const MemoryChunkStore = require('memory-chunk-store')
+const path = require('path')
+const series = require('run-series')
+const serveStatic = require('serve-static')
+const test = require('tape')
+const WebTorrent = require('../../')
 
 // it should be fast to download a small torrent over local HTTP
-var WEB_SEED_TIMEOUT_MS = 500
+const WEB_SEED_TIMEOUT_MS = 500
 
 test('Download using webseed (via .torrent file)', function (t) {
   t.plan(6)
   t.timeoutAfter(WEB_SEED_TIMEOUT_MS)
 
-  var parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
+  const parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
 
-  var httpServer = http.createServer(function (req, res) {
-    var done = finalhandler(req, res)
+  const httpServer = http.createServer(function (req, res) {
+    const done = finalhandler(req, res)
     serveStatic(path.dirname(fixtures.leaves.contentPath))(req, res, done)
   })
-  var client
+  let client
 
   httpServer.on('error', function (err) { t.fail(err) })
 
@@ -41,6 +41,9 @@ test('Download using webseed (via .torrent file)', function (t) {
       client.on('warning', function (err) { t.fail(err) })
 
       client.on('torrent', function (torrent) {
+        let gotBuffer = false
+        let torrentDone = false
+
         torrent.files.forEach(function (file) {
           file.getBuffer(function (err, buf) {
             t.error(err)
@@ -56,8 +59,6 @@ test('Download using webseed (via .torrent file)', function (t) {
           maybeDone()
         })
 
-        var gotBuffer = false
-        var torrentDone = false
         function maybeDone () {
           if (gotBuffer && torrentDone) cb(null)
         }
@@ -77,12 +78,12 @@ test('Download using webseed (via .torrent file)', function (t) {
 })
 
 test('Disable webseeds', function (t) {
-  var parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
+  const parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
 
-  var httpServer = http.createServer(function (req, res) {
+  const httpServer = http.createServer(function (req, res) {
     t.fail('webseed http server should not get any requests')
   })
-  var client
+  let client
 
   httpServer.on('error', function (err) { t.fail(err) })
 

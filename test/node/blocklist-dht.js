@@ -1,14 +1,14 @@
-var DHT = require('bittorrent-dht/server')
-var fixtures = require('webtorrent-fixtures')
-var series = require('run-series')
-var test = require('tape')
-var WebTorrent = require('../../')
-var common = require('../common')
+const DHT = require('bittorrent-dht/server')
+const fixtures = require('webtorrent-fixtures')
+const series = require('run-series')
+const test = require('tape')
+const WebTorrent = require('../../')
+const common = require('../common')
 
 test('blocklist blocks peers discovered via DHT', function (t) {
   t.plan(8)
 
-  var dhtServer, client1, client2
+  let dhtServer, client1, client2
 
   series([
     function (cb) {
@@ -19,6 +19,9 @@ test('blocklist blocks peers discovered via DHT', function (t) {
     },
 
     function (cb) {
+      let torrentReady = false
+      let announced = false
+
       client1 = new WebTorrent({
         tracker: false,
         dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
@@ -26,7 +29,7 @@ test('blocklist blocks peers discovered via DHT', function (t) {
       client1.on('error', function (err) { t.fail(err) })
       client1.on('warning', function (err) { t.fail(err) })
 
-      var torrent1 = client1.add(fixtures.leaves.parsedTorrent, {
+      const torrent1 = client1.add(fixtures.leaves.parsedTorrent, {
         path: common.getDownloadPath('client_1', fixtures.leaves.parsedTorrent.infoHash)
       })
 
@@ -50,8 +53,6 @@ test('blocklist blocks peers discovered via DHT', function (t) {
         maybeDone()
       })
 
-      var torrentReady = false
-      var announced = false
       function maybeDone () {
         if (torrentReady && announced) cb(null)
       }
@@ -66,7 +67,7 @@ test('blocklist blocks peers discovered via DHT', function (t) {
       client2.on('error', function (err) { t.fail(err) })
       client2.on('warning', function (err) { t.fail(err) })
 
-      var torrent2 = client2.add(fixtures.leaves.parsedTorrent, {
+      const torrent2 = client2.add(fixtures.leaves.parsedTorrent, {
         path: common.getDownloadPath('client_2', fixtures.leaves.parsedTorrent.infoHash)
       })
 
@@ -86,7 +87,7 @@ test('blocklist blocks peers discovered via DHT', function (t) {
         t.fail('client2 should not find any peers')
       })
 
-      var blockedPeer, announced
+      let blockedPeer, announced
       function maybeDone () {
         if (blockedPeer && announced) cb(null)
       }

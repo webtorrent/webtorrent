@@ -1,10 +1,10 @@
-var fixtures = require('webtorrent-fixtures')
-var test = require('tape')
-var WebTorrent = require('../../')
+const fixtures = require('webtorrent-fixtures')
+const test = require('tape')
+const WebTorrent = require('../../')
 
 test('extension support', function (t) {
   t.plan(6)
-  var extendedHandshakes = 0
+  let extendedHandshakes = 0
 
   function Extension (wire) {
     wire.extendedHandshake.test = 'Hello, World!'
@@ -29,12 +29,12 @@ test('extension support', function (t) {
     }
   }
 
-  var client1 = new WebTorrent({ dht: false, tracker: false })
+  const client1 = new WebTorrent({ dht: false, tracker: false })
 
   client1.on('error', function (err) { t.fail(err) })
   client1.on('warning', function (err) { t.fail(err) })
 
-  var client2 = new WebTorrent({ dht: false, tracker: false })
+  const client2 = new WebTorrent({ dht: false, tracker: false })
 
   client2.on('error', function (err) { t.fail(err) })
   client2.on('warning', function (err) { t.fail(err) })
@@ -44,7 +44,7 @@ test('extension support', function (t) {
       t.pass('client1 onWire')
       wire.use(Extension)
     })
-    var torrent2 = client2.add(fixtures.leaves.parsedTorrent.infoHash)
+    const torrent2 = client2.add(fixtures.leaves.parsedTorrent.infoHash)
     torrent2.on('wire', function (wire) {
       t.pass('client2 onWire')
       wire.use(Extension)

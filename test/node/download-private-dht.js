@@ -1,19 +1,19 @@
-var DHT = require('bittorrent-dht/server')
-var fixtures = require('webtorrent-fixtures')
-var MemoryChunkStore = require('memory-chunk-store')
-var series = require('run-series')
-var test = require('tape')
-var WebTorrent = require('../../')
+const DHT = require('bittorrent-dht/server')
+const fixtures = require('webtorrent-fixtures')
+const MemoryChunkStore = require('memory-chunk-store')
+const series = require('run-series')
+const test = require('tape')
+const WebTorrent = require('../../')
 
 test('private torrent should not use DHT', function (t) {
   t.plan(4)
 
-  var dhtServer = new DHT({ bootstrap: false })
+  const dhtServer = new DHT({ bootstrap: false })
 
   dhtServer.on('error', function (err) { t.fail(err) })
   dhtServer.on('warning', function (err) { t.fail(err) })
 
-  var client
+  let client
 
   series([
     function (cb) {
@@ -29,7 +29,7 @@ test('private torrent should not use DHT', function (t) {
       client.on('error', function (err) { t.fail(err) })
       client.on('warning', function (err) { t.fail(err) })
 
-      var torrent = client.add(fixtures.bunny.parsedTorrent, { store: MemoryChunkStore })
+      const torrent = client.add(fixtures.bunny.parsedTorrent, { store: MemoryChunkStore })
 
       torrent.on('dhtAnnounce', function () {
         t.fail('client announced to dht')
@@ -57,12 +57,12 @@ test('private torrent should not use DHT', function (t) {
 test('public torrent should use DHT', function (t) {
   t.plan(4)
 
-  var dhtServer = new DHT({ bootstrap: false })
+  const dhtServer = new DHT({ bootstrap: false })
 
   dhtServer.on('error', function (err) { t.fail(err) })
   dhtServer.on('warning', function (err) { t.fail(err) })
 
-  var client
+  let client
 
   series([
     function (cb) {
@@ -77,7 +77,7 @@ test('public torrent should use DHT', function (t) {
       client.on('error', function (err) { t.fail(err) })
       client.on('warning', function (err) { t.fail(err) })
 
-      var torrent = client.add(fixtures.leaves.parsedTorrent, { store: MemoryChunkStore })
+      const torrent = client.add(fixtures.leaves.parsedTorrent, { store: MemoryChunkStore })
 
       torrent.on('dhtAnnounce', function () {
         t.pass('client announced to dht')
@@ -105,12 +105,12 @@ test('public torrent should use DHT', function (t) {
 test('public torrent with forced private option should not use DHT', function (t) {
   t.plan(4)
 
-  var dhtServer = new DHT({ bootstrap: false })
+  const dhtServer = new DHT({ bootstrap: false })
 
   dhtServer.on('error', function (err) { t.fail(err) })
   dhtServer.on('warning', function (err) { t.fail(err) })
 
-  var client
+  let client
 
   series([
     function (cb) {
@@ -126,7 +126,7 @@ test('public torrent with forced private option should not use DHT', function (t
       client.on('error', function (err) { t.fail(err) })
       client.on('warning', function (err) { t.fail(err) })
 
-      var torrent = client.add(fixtures.leaves.parsedTorrent, {
+      const torrent = client.add(fixtures.leaves.parsedTorrent, {
         private: true,
         store: MemoryChunkStore
       })
@@ -157,12 +157,12 @@ test('public torrent with forced private option should not use DHT', function (t
 test('private torrent with forced public option should use DHT', function (t) {
   t.plan(4)
 
-  var dhtServer = new DHT({ bootstrap: false })
+  const dhtServer = new DHT({ bootstrap: false })
 
   dhtServer.on('error', function (err) { t.fail(err) })
   dhtServer.on('warning', function (err) { t.fail(err) })
 
-  var client
+  let client
 
   series([
     function (cb) {
@@ -178,7 +178,7 @@ test('private torrent with forced public option should use DHT', function (t) {
       client.on('error', function (err) { t.fail(err) })
       client.on('warning', function (err) { t.fail(err) })
 
-      var torrent = client.add(fixtures.bunny.parsedTorrent, {
+      const torrent = client.add(fixtures.bunny.parsedTorrent, {
         private: false,
         store: MemoryChunkStore
       })

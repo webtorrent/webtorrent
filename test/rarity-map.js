@@ -1,17 +1,17 @@
-var fixtures = require('webtorrent-fixtures')
-var randombytes = require('randombytes')
-var test = require('tape')
-var Torrent = require('../lib/torrent')
-var Wire = require('bittorrent-protocol')
+const fixtures = require('webtorrent-fixtures')
+const randombytes = require('randombytes')
+const test = require('tape')
+const Torrent = require('../lib/torrent')
+const Wire = require('bittorrent-protocol')
 
 test('Rarity map usage', function (t) {
   t.plan(16)
 
-  var numPieces = 4
-  var torrentId = Object.assign({}, fixtures.numbers.parsedTorrent, {
+  const numPieces = 4
+  const torrentId = Object.assign({}, fixtures.numbers.parsedTorrent, {
     pieces: Array(numPieces)
   })
-  var client = {
+  const client = {
     listening: true,
     peerId: randombytes(20).toString('hex'),
     torrentPort: 6889,
@@ -19,13 +19,13 @@ test('Rarity map usage', function (t) {
     tracker: false,
     _remove: function () {}
   }
-  var opts = {}
-  var torrent = new Torrent(torrentId, client, opts)
+  const opts = {}
+  const torrent = new Torrent(torrentId, client, opts)
   torrent.on('metadata', function () {
     torrent._onWire(new Wire())
     torrent._onWire(new Wire())
 
-    var rarityMap = torrent._rarityMap
+    const rarityMap = torrent._rarityMap
 
     // test initial / empty case
     validateInitial()
@@ -42,7 +42,7 @@ test('Rarity map usage', function (t) {
     setPiece(torrent.wires[1], 3)
 
     // test rarest piece after setting pieces and handling 'have' events
-    var piece = rarityMap.getRarestPiece()
+    let piece = rarityMap.getRarestPiece()
     t.equal(piece, 2)
 
     rarityMap.recalculate()
@@ -87,7 +87,7 @@ test('Rarity map usage', function (t) {
     function validateInitial () {
       // note that getRarestPiece will return a random piece since they're all equal
       // so repeat the test several times to reasonably ensure its correctness.
-      var piece = rarityMap.getRarestPiece()
+      let piece = rarityMap.getRarestPiece()
       t.ok(piece >= 0 && piece < numPieces)
 
       piece = rarityMap.getRarestPiece()
@@ -106,14 +106,14 @@ test('Rarity map usage', function (t) {
     }
 
     function addWire () {
-      var wire = new Wire()
+      const wire = new Wire()
       wire.peerPieces.set(1)
       wire.peerPieces.set(2)
       torrent._onWire(wire)
     }
 
     function removeWire (index) {
-      var wire = torrent.wires.splice(index, 1)[0]
+      const wire = torrent.wires.splice(index, 1)[0]
       wire.destroy()
     }
   })

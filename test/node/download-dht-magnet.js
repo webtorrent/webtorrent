@@ -1,21 +1,21 @@
-var DHT = require('bittorrent-dht/server')
-var fixtures = require('webtorrent-fixtures')
-var fs = require('fs')
-var MemoryChunkStore = require('memory-chunk-store')
-var networkAddress = require('network-address')
-var series = require('run-series')
-var test = require('tape')
-var WebTorrent = require('../../')
+const DHT = require('bittorrent-dht/server')
+const fixtures = require('webtorrent-fixtures')
+const fs = require('fs')
+const MemoryChunkStore = require('memory-chunk-store')
+const networkAddress = require('network-address')
+const series = require('run-series')
+const test = require('tape')
+const WebTorrent = require('../../')
 
 test('Download using DHT (via magnet uri)', function (t) {
   t.plan(12)
 
-  var dhtServer = new DHT({ bootstrap: false })
+  const dhtServer = new DHT({ bootstrap: false })
 
   dhtServer.on('error', function (err) { t.fail(err) })
   dhtServer.on('warning', function (err) { t.fail(err) })
 
-  var client1, client2
+  let client1, client2
 
   series([
     function (cb) {
@@ -23,6 +23,9 @@ test('Download using DHT (via magnet uri)', function (t) {
     },
 
     function (cb) {
+      let announced = false
+      let loaded = false
+
       client1 = new WebTorrent({
         tracker: false,
         dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port, host: networkAddress.ipv4() }
@@ -35,7 +38,7 @@ test('Download using DHT (via magnet uri)', function (t) {
       client1.on('error', function (err) { t.fail(err) })
       client1.on('warning', function (err) { t.fail(err) })
 
-      var torrent = client1.add(fixtures.leaves.parsedTorrent, { store: MemoryChunkStore })
+      const torrent = client1.add(fixtures.leaves.parsedTorrent, { store: MemoryChunkStore })
 
       torrent.on('dhtAnnounce', function () {
         t.pass('finished dht announce')
@@ -47,7 +50,7 @@ test('Download using DHT (via magnet uri)', function (t) {
         // torrent metadata has been fetched -- sanity check it
         t.equal(torrent.name, 'Leaves of Grass by Walt Whitman.epub')
 
-        var names = ['Leaves of Grass by Walt Whitman.epub']
+        const names = ['Leaves of Grass by Walt Whitman.epub']
         t.deepEqual(torrent.files.map(function (file) { return file.name }), names)
       })
 
@@ -57,14 +60,15 @@ test('Download using DHT (via magnet uri)', function (t) {
         maybeDone()
       })
 
-      var announced = false
-      var loaded = false
       function maybeDone () {
         if (announced && loaded) cb(null)
       }
     },
 
     function (cb) {
+      let gotBuffer = false
+      let gotDone = false
+
       client2 = new WebTorrent({
         tracker: false,
         dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port, host: networkAddress.ipv4() }
@@ -92,8 +96,6 @@ test('Download using DHT (via magnet uri)', function (t) {
 
       client2.add(fixtures.leaves.magnetURI, { store: MemoryChunkStore })
 
-      var gotBuffer = false
-      var gotDone = false
       function maybeDone () {
         if (gotBuffer && gotDone) cb(null)
       }

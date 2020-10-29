@@ -1,11 +1,11 @@
-var fixtures = require('webtorrent-fixtures')
-var test = require('tape')
-var WebTorrent = require('../')
+const fixtures = require('webtorrent-fixtures')
+const test = require('tape')
+const WebTorrent = require('../')
 
 test('after client.destroy(), throw on client.add() or client.seed()', function (t) {
   t.plan(3)
 
-  var client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
@@ -23,7 +23,7 @@ test('after client.destroy(), throw on client.add() or client.seed()', function 
 test('after client.destroy(), no "torrent" or "ready" events emitted', function (t) {
   t.plan(1)
 
-  var client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
