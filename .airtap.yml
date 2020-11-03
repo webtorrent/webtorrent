@@ -1,14 +1,16 @@
 loopback: airtap.local
 browsers:
+  - name: Android
+ version: latest
+  - name: Android System WebView
+ version: 81.0.4044.138
   - name: chrome
-    version: latest
+ version: latest
   - name: firefox
-    version: latest
+ version: latest
   - name: safari
-    version: latest
+ version: latest
   - name: microsoftedge
-    version: latest
-  - name: android
-    version: latest
+ version: latest
   - name: iphone
-    version: latest
+ version: latest
