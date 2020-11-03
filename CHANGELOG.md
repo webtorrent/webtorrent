@@ -1,5 +1,9 @@
 # WebTorrent Version History
 
+## v0.110.1 - 2020-11-03
+
+- Fix BEP53 implementation
+
 ## v0.110.0 - 2020-11-03
 
 - Support Implement the peer address property (x.pe) from BEP09
