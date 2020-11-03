@@ -1,5 +1,9 @@
 # WebTorrent Version History
 
+## v0.110.0 - 2020-11-03
+
+- Support Implement the peer address property (x.pe) from BEP09
+
 ## v0.109.2 - 2020-10-27
 
 - Fix "Cannot read property 'utp' of null"
