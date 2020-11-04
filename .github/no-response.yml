@@ -1,13 +1,13 @@
+# ProBot No Response (https://probot.github.io/apps/no-response/)
+
 # Number of days of inactivity before an Issue is closed for lack of response
-daysUntilClose: 7
+daysUntilClose: 14
 
 # Label requiring a response
-responseRequiredLabel: "need more info"
+responseRequiredLabel: 'need more info'
 
 # Comment to post when closing an Issue for lack of response. Set to `false` to disable
 closeComment: >
-  This issue has been automatically closed because there has been no response
-  to our request for more information from the original author. With only the
-  information that is currently in the issue, we don't have enough information
-  to take action. Please reach out if you have or find the answers we need so
-  that we can investigate further.
+  This issue has been automatically closed because there was no response to a
+  request for more information from the issue opener. Please leave a comment or
+  open a new issue if you have additional information related to this issue.
