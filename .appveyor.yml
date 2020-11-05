@@ -2,6 +2,7 @@
 # http://www.appveyor.com/docs/lang/nodejs-iojs#line-endings
 init:
   - git config --global core.autocrlf input
+  - git config --system core.longpaths true
 
 # Test against these versions of Node.js
 # https://www.appveyor.com/docs/lang/nodejs-iojs#testing-under-multiple-versions-of-node-js-or-io-js
@@ -24,4 +25,5 @@ test_script:
 
 # Don't actually build.
 # https://www.appveyor.com/docs/lang/nodejs-iojs#quick-start
+test: on
 build: off
