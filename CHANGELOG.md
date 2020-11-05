@@ -1,5 +1,10 @@
 # WebTorrent Version History
 
+## v0.111.0 - 2020-11-05
+
+- Add Local Service Discovery (BEP14)
+- bitfield@4
+
 ## v0.110.1 - 2020-11-03
 
 - Fix BEP53 implementation
