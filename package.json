@@ -38,7 +38,7 @@
     "addr-to-ip-port": "^1.5.1",
     "bitfield": "^4.0.0",
     "bittorrent-dht": "^10.0.0",
-    "bittorrent-protocol": "^3.1.1",
+    "bittorrent-protocol": "^3.2.0",
     "chrome-net": "^3.3.4",
     "chunk-store-stream": "^4.1.1",
     "create-torrent": "^4.4.2",
@@ -73,7 +73,7 @@
     "torrent-discovery": "^9.3.0",
     "torrent-piece": "^2.0.0",
     "unordered-array-remove": "^1.0.2",
-    "ut_metadata": "^3.5.0",
+    "ut_metadata": "^3.5.2",
     "ut_pex": "^2.0.1",
     "utp-native": "^2.2.1"
   },
