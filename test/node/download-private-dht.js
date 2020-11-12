@@ -23,6 +23,7 @@ test('private torrent should not use DHT', function (t) {
     function (cb) {
       client = new WebTorrent({
         tracker: false,
+        lsd: false,
         dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
       })
 
@@ -72,8 +73,10 @@ test('public torrent should use DHT', function (t) {
     function (cb) {
       client = new WebTorrent({
         tracker: false,
+        lsd: false,
         dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
       })
+
       client.on('error', function (err) { t.fail(err) })
       client.on('warning', function (err) { t.fail(err) })
 
@@ -120,6 +123,7 @@ test('public torrent with forced private option should not use DHT', function (t
     function (cb) {
       client = new WebTorrent({
         tracker: false,
+        lsd: false,
         dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
       })
 
@@ -172,6 +176,7 @@ test('private torrent with forced public option should use DHT', function (t) {
     function (cb) {
       client = new WebTorrent({
         tracker: false,
+        lsd: false,
         dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
       })
 

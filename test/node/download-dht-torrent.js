@@ -28,6 +28,7 @@ test('Download using DHT (via .torrent file)', function (t) {
 
       client1 = new WebTorrent({
         tracker: false,
+        lsd: false,
         dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
       })
 
@@ -72,6 +73,7 @@ test('Download using DHT (via .torrent file)', function (t) {
     function (cb) {
       client2 = new WebTorrent({
         tracker: false,
+        lsd: false,
         dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
       })
 

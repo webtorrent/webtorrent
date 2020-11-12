@@ -28,6 +28,7 @@ test('Download using DHT (via magnet uri)', function (t) {
 
       client1 = new WebTorrent({
         tracker: false,
+        lsd: false,
         dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port, host: networkAddress.ipv4() }
       })
 
@@ -71,6 +72,7 @@ test('Download using DHT (via magnet uri)', function (t) {
 
       client2 = new WebTorrent({
         tracker: false,
+        lsd: false,
         dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port, host: networkAddress.ipv4() }
       })
 

@@ -20,7 +20,7 @@ if (!(global && global.process && global.process.versions && global.process.vers
   test('image append w/ query selector', function (t) {
     t.plan(6)
 
-    const client = new WebTorrent({ dht: false, tracker: false })
+    const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
 
     client.on('error', function (err) { t.fail(err) })
     client.on('warning', function (err) { t.fail(err) })
@@ -38,7 +38,7 @@ if (!(global && global.process && global.process.versions && global.process.vers
   test('image append w/ element', function (t) {
     t.plan(6)
 
-    const client = new WebTorrent({ dht: false, tracker: false })
+    const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
 
     client.on('error', function (err) { t.fail(err) })
     client.on('warning', function (err) { t.fail(err) })
@@ -56,7 +56,7 @@ if (!(global && global.process && global.process.versions && global.process.vers
   test('image render w/ query selector', function (t) {
     t.plan(6)
 
-    const client = new WebTorrent({ dht: false, tracker: false })
+    const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
 
     client.on('error', function (err) { t.fail(err) })
     client.on('warning', function (err) { t.fail(err) })
@@ -78,7 +78,7 @@ if (!(global && global.process && global.process.versions && global.process.vers
   test('image render w/ element', function (t) {
     t.plan(6)
 
-    const client = new WebTorrent({ dht: false, tracker: false })
+    const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
 
     client.on('error', function (err) { t.fail(err) })
     client.on('warning', function (err) { t.fail(err) })
@@ -100,7 +100,7 @@ if (!(global && global.process && global.process.versions && global.process.vers
 test('WebTorrent.WEBRTC_SUPPORT', function (t) {
   t.plan(2)
 
-  const client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })

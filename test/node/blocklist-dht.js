@@ -24,6 +24,7 @@ test('blocklist blocks peers discovered via DHT', function (t) {
 
       client1 = new WebTorrent({
         tracker: false,
+        lsd: false,
         dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
       })
       client1.on('error', function (err) { t.fail(err) })
@@ -61,6 +62,7 @@ test('blocklist blocks peers discovered via DHT', function (t) {
     function (cb) {
       client2 = new WebTorrent({
         tracker: false,
+        lsd: false,
         dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port },
         blocklist: ['127.0.0.1']
       })

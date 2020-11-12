@@ -5,7 +5,7 @@ const WebTorrent = require('../')
 test('client.add: duplicate trackers', function (t) {
   t.plan(3)
 
-  const client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
@@ -29,7 +29,7 @@ test('client.add: duplicate trackers, with multiple torrents', function (t) {
     announce: ['wss://example.com', 'wss://example.com', 'wss://example.com']
   }
 
-  const client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
@@ -66,7 +66,7 @@ test('client.add: duplicate trackers (including in .torrent file), multiple torr
   const parsedTorrentAlice = Object.assign({}, fixtures.alice.parsedTorrent)
   parsedTorrentAlice.announce = ['wss://example.com', 'wss://example.com', 'wss://example.com']
 
-  const client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })

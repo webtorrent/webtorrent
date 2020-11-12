@@ -7,8 +7,8 @@ const dgram = require('dgram')
 test('client.conn-pool: use TCP when uTP disabled', function (t) {
   t.plan(6)
 
-  const client1 = new WebTorrent({ dht: false, tracker: false, utp: false })
-  const client2 = new WebTorrent({ dht: false, tracker: false, utp: false })
+  const client1 = new WebTorrent({ dht: false, tracker: false, lsd: false, utp: false })
+  const client2 = new WebTorrent({ dht: false, tracker: false, lsd: false, utp: false })
 
   client1.on('error', function (err) { t.fail(err) })
   client1.on('warning', function (err) { t.fail(err) })
@@ -55,8 +55,8 @@ test('client.conn-pool: use TCP when uTP disabled', function (t) {
 test('client.conn-pool: use uTP when uTP enabled', function (t) {
   t.plan(6)
 
-  const client1 = new WebTorrent({ dht: false, tracker: false, utp: true })
-  const client2 = new WebTorrent({ dht: false, tracker: false, utp: true })
+  const client1 = new WebTorrent({ dht: false, tracker: false, lsd: false, utp: true })
+  const client2 = new WebTorrent({ dht: false, tracker: false, lsd: false, utp: true })
 
   client1.on('error', function (err) { t.fail(err) })
   client1.on('warning', function (err) { t.fail(err) })
@@ -108,8 +108,8 @@ test('client.conn-pool: fallback to TCP when uTP server failed', function (t) {
   const server = dgram.createSocket('udp4')
   server.bind(63000)
 
-  const client1 = new WebTorrent({ dht: false, tracker: false, utp: true, torrentPort: 63000 })
-  const client2 = new WebTorrent({ dht: false, tracker: false, utp: false })
+  const client1 = new WebTorrent({ dht: false, tracker: false, lsd: false, utp: true, torrentPort: 63000 })
+  const client2 = new WebTorrent({ dht: false, tracker: false, lsd: false, utp: false })
 
   client1.on('error', function (err) { t.fail(err) })
   client1.on('warning', function (err) { t.fail(err) })
@@ -159,8 +159,8 @@ test('client.conn-pool: fallback to TCP when uTP server failed', function (t) {
 test('client.conn-pool: fallback to TCP when remote client has uTP disabled', function (t) {
   t.plan(6)
 
-  const client1 = new WebTorrent({ dht: false, tracker: false, utp: true })
-  const client2 = new WebTorrent({ dht: false, tracker: false, utp: false })
+  const client1 = new WebTorrent({ dht: false, tracker: false, lsd: false, utp: true })
+  const client2 = new WebTorrent({ dht: false, tracker: false, lsd: false, utp: false })
 
   client1.on('error', function (err) { t.fail(err) })
   client1.on('warning', function (err) { t.fail(err) })

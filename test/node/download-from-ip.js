@@ -9,7 +9,7 @@ test('Download via torrent.addPeer()', (t) => {
   // if initial interest isn't set, then this test is delayed
   t.timeoutAfter(5000)
 
-  const seeder = new WebTorrent({ tracker: false, dht: false })
+  const seeder = new WebTorrent({ tracker: false, dht: false, lsd: false })
 
   seeder.on('error', (err) => t.fail(err))
   seeder.on('warning', (err) => t.fail(err))
@@ -29,7 +29,7 @@ test('Download via torrent.addPeer()', (t) => {
 
     // torrent data now loaded into seeder
 
-    const downloader = new WebTorrent({ tracker: false, dht: false })
+    const downloader = new WebTorrent({ tracker: false, dht: false, lsd: false })
 
     downloader.on('error', function (err) { t.fail(err) })
     downloader.on('warning', function (err) { t.fail(err) })
@@ -58,7 +58,7 @@ test('Download via magnet x.pe (BEP09)', (t) => {
   // if initial interest isn't set, then this test is delayed
   t.timeoutAfter(5000)
 
-  const seeder = new WebTorrent({ tracker: false, dht: false, torrentPort: 63000 })
+  const seeder = new WebTorrent({ tracker: false, dht: false, lsd: false, torrentPort: 63000 })
 
   seeder.on('error', (err) => t.fail(err))
   seeder.on('warning', (err) => t.fail(err))
@@ -78,7 +78,7 @@ test('Download via magnet x.pe (BEP09)', (t) => {
 
     // torrent data now loaded into seeder
 
-    const downloader = new WebTorrent({ tracker: false, dht: false })
+    const downloader = new WebTorrent({ tracker: false, dht: false, lsd: false })
 
     downloader.on('error', function (err) { t.fail(err) })
     downloader.on('warning', function (err) { t.fail(err) })
