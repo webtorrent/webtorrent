@@ -70,6 +70,7 @@ class WebTorrent extends EventEmitter {
     this.torrentPort = opts.torrentPort || 0
     this.dhtPort = opts.dhtPort || 0
     this.tracker = opts.tracker !== undefined ? opts.tracker : {}
+    this.lsd = opts.lsd === true
     this.torrents = []
     this.maxConns = Number(opts.maxConns) || 55
     this.utp = opts.utp === true
