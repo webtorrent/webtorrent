@@ -530,7 +530,7 @@ information on how to define a protocol extension.
 
 ## `torrent.on('noPeers', function (announceType) {})`
 
-Emitted whenever a DHT, tracker or LSD announce occurs, but no peers have been found.  `announceType` is either `'tracker'`, `'dht'` or `'lsd'` depending on which announce occurred to trigger this event.  Note that if you're attempting to discover peers from a tracker, a DHT and LSD, you'll see this event separately for each.
+Emitted whenever a DHT, tracker, or LSD announce occurs, but no peers have been found.  `announceType` is either `'tracker'`, `'dht'`, or `'lsd'` depending on which announce occurred to trigger this event.  Note that if you're attempting to discover peers from a tracker, a DHT, and LSD, you'll see this event separately for each.
 
 # File API
 
