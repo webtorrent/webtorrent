@@ -15,23 +15,17 @@ test('Download using LSD (via magnet uri)', function (t) {
   client2.on('error', function (err) { t.fail(err) })
   client2.on('warning', function (err) { t.fail(err) })
 
-  // Start seeding
+  const torrent = client1.add(fixtures.leaves.magnetURI, { store: MemoryChunkStore })
+
   client2.seed(fixtures.leaves.content, {
     name: 'Leaves of Grass by Walt Whitman.epub',
     announce: []
-  }, function (torrent) {
-    torrent.discovery.lsd._announce() // hack to send a lsd announce skipping 5min interval
   })
 
-  client2.on('listening', function () {
-    // Start downloading
-    const torrent = client1.add(fixtures.leaves.magnetURI, { store: MemoryChunkStore })
+  torrent.on('done', function () {
+    t.pass()
 
-    torrent.on('done', function () {
-      t.pass()
-
-      client1.destroy(function (err) { t.error(err, 'client 1 destroyed') })
-      client2.destroy(function (err) { t.error(err, 'client 2 destroyed') })
-    })
+    client1.destroy(function (err) { t.error(err, 'client 1 destroyed') })
+    client2.destroy(function (err) { t.error(err, 'client 2 destroyed') })
   })
 })
