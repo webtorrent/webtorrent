@@ -184,6 +184,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [peerwebsite]: https://peerweb.site
 [cipher-torrent]: https://torrent.cipherdogs.net
 [cipher-torrent-source]: https://github.com/CipherDogs/cipher-torrent
+[TorrentParts]: https://torrent.parts
 
 ## How does WebTorrent work?
 
