@@ -25,6 +25,7 @@ test('blocklist (single IP)', function (t) {
   const client = new WebTorrent({
     dht: false,
     tracker: false,
+    lsd: false,
     blocklist: ['1.2.3.4']
   })
   client.on('error', function (err) { t.fail(err) })
@@ -51,6 +52,7 @@ test('blocklist (array of IPs)', function (t) {
   const client = new WebTorrent({
     dht: false,
     tracker: false,
+    lsd: false,
     blocklist: ['1.2.3.4', '5.6.7.8']
   })
     .on('error', function (err) { t.fail(err) })
@@ -115,6 +117,7 @@ test('blocklist (array of IP ranges)', function (t) {
   const client = new WebTorrent({
     dht: false,
     tracker: false,
+    lsd: false,
     blocklist: [
       { start: '1.2.3.0', end: '1.2.3.255' },
       { start: '5.6.7.0', end: '5.6.7.255' }
@@ -147,6 +150,7 @@ test('blocklist (http url)', function (t) {
     const client = new WebTorrent({
       dht: false,
       tracker: false,
+      lsd: false,
       blocklist: url
     })
       .on('error', function (err) { t.fail(err) })
@@ -183,6 +187,7 @@ test('blocklist (http url with gzip encoding)', function (t) {
     const client = new WebTorrent({
       dht: false,
       tracker: false,
+      lsd: false,
       blocklist: url
     })
       .on('error', function (err) { t.fail(err) })
@@ -219,6 +224,7 @@ test('blocklist (http url with deflate encoding)', function (t) {
     const client = new WebTorrent({
       dht: false,
       tracker: false,
+      lsd: false,
       blocklist: url
     })
       .on('error', function (err) { t.fail(err) })
@@ -242,6 +248,7 @@ test('blocklist (fs path)', function (t) {
   const client = new WebTorrent({
     dht: false,
     tracker: false,
+    lsd: false,
     blocklist: fixtures.blocklist.path
   })
     .on('error', function (err) { t.fail(err) })
@@ -261,6 +268,7 @@ test('blocklist (fs path with gzip)', function (t) {
   const client = new WebTorrent({
     dht: false,
     tracker: false,
+    lsd: false,
     blocklist: fixtures.blocklist.gzipPath
   })
     .on('error', function (err) { t.fail(err) })

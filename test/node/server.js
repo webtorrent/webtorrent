@@ -7,7 +7,7 @@ const WebTorrent = require('../../')
 test('torrent.createServer: programmatic http server', function (t) {
   t.plan(9)
 
-  const client = new WebTorrent({ tracker: false, dht: false })
+  const client = new WebTorrent({ tracker: false, dht: false, lsd: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })

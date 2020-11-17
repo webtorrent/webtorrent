@@ -27,6 +27,7 @@ test('Seed and download a file at the same time', function (t) {
 
       client1 = new WebTorrent({
         tracker: false,
+        lsd: false,
         dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
       })
 
@@ -58,6 +59,7 @@ test('Seed and download a file at the same time', function (t) {
 
       client2 = new WebTorrent({
         tracker: false,
+        lsd: false,
         dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port }
       })
 

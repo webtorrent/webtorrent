@@ -5,7 +5,7 @@ const WebTorrent = require('../')
 test('torrent.destroy: destroy and remove torrent', function (t) {
   t.plan(5)
 
-  const client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })

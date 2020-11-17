@@ -68,7 +68,8 @@ they can connect to both normal *and* web peers. We hope other clients will foll
 - Supports advanced torrent client features
   - **magnet uri** support via **[ut_metadata](https://github.com/webtorrent/ut_metadata)**
   - **peer discovery** via **[dht](https://github.com/webtorrent/bittorrent-dht)**,
-    **[tracker](https://github.com/webtorrent/bittorrent-tracker)**, and
+    **[tracker](https://github.com/webtorrent/bittorrent-tracker)**,
+    **[lsd](https://github.com/webtorrent/bittorrent-lsd)**, and
     **[ut_pex](https://github.com/fisch0920/ut_pex)**
   - **[protocol extension api](https://github.com/webtorrent/bittorrent-protocol#extension-api)**
     for adding new extensions
@@ -298,11 +299,12 @@ These are the main modules that make up WebTorrent:
 | [bittorrent-peerid][bittorrent-peerid] | [![][bittorrent-peerid-ti]][bittorrent-peerid-tu] | [![][bittorrent-peerid-ni]][bittorrent-peerid-nu] | identify client name/version
 | [bittorrent-protocol][bittorrent-protocol] | [![][bittorrent-protocol-ti]][bittorrent-protocol-tu] | [![][bittorrent-protocol-ni]][bittorrent-protocol-nu] | bittorrent protocol stream
 | [bittorrent-tracker][bittorrent-tracker] | [![][bittorrent-tracker-ti]][bittorrent-tracker-tu] | [![][bittorrent-tracker-ni]][bittorrent-tracker-nu] | bittorrent tracker server/client
+| [bittorrent-lsd][bittorrent-lsd] | [![][bittorrent-lsd-ti]][bittorrent-lsd-tu]] | [![][bittorrent-lsd-ni]][bittorrent-lsd-nu] | bittorrent local service discovery
 | [create-torrent][create-torrent] | [![][create-torrent-ti]][create-torrent-tu] | [![][create-torrent-ni]][create-torrent-nu] | create .torrent files
 | [magnet-uri][magnet-uri] | [![][magnet-uri-ti]][magnet-uri-tu] | [![][magnet-uri-ni]][magnet-uri-nu] | parse magnet uris
 | [parse-torrent][parse-torrent] | [![][parse-torrent-ti]][parse-torrent-tu] | [![][parse-torrent-ni]][parse-torrent-nu] | parse torrent identifiers
 | [render-media][render-media] | [![][render-media-ti]][render-media-tu] | [![][render-media-ni]][render-media-nu] | intelligently render media files
-| [torrent-discovery][torrent-discovery] | [![][torrent-discovery-ti]][torrent-discovery-tu] | [![][torrent-discovery-ni]][torrent-discovery-nu] | find peers via dht and tracker
+| [torrent-discovery][torrent-discovery] | [![][torrent-discovery-ti]][torrent-discovery-tu] | [![][torrent-discovery-ni]][torrent-discovery-nu] | find peers via dht, tracker, and lsd
 | [ut_metadata][ut_metadata] | [![][ut_metadata-ti]][ut_metadata-tu] | [![][ut_metadata-ni]][ut_metadata-nu] | metadata for magnet uris (protocol extension)
 | [ut_pex][ut_pex] | [![][ut_pex-ti]][ut_pex-tu] | [![][ut_pex-ni]][ut_pex-nu] | peer discovery (protocol extension)
 
@@ -337,6 +339,12 @@ These are the main modules that make up WebTorrent:
 [bittorrent-tracker-tu]: https://travis-ci.org/webtorrent/bittorrent-tracker
 [bittorrent-tracker-ni]: https://img.shields.io/npm/v/bittorrent-tracker.svg
 [bittorrent-tracker-nu]: https://www.npmjs.com/package/bittorrent-tracker
+
+[bittorrent-lsd]: https://github.com/webtorrent/bittorrent-lsd
+[bittorrent-lsd-ti]: https://img.shields.io/travis/webtorrent/bittorrent-lsd/master.svg
+[bittorrent-lsd-tu]: https://travis-ci.org/webtorrent/bittorrent-lsd
+[bittorrent-lsd-ni]: https://img.shields.io/npm/v/bittorrent-lsd.svg
+[bittorrent-lsd-nu]: https://www.npmjs.com/package/bittorrent-lsd
 
 [create-torrent]: https://github.com/webtorrent/create-torrent
 [create-torrent-ti]: https://img.shields.io/travis/webtorrent/create-torrent/master.svg

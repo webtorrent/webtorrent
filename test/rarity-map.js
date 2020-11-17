@@ -17,6 +17,7 @@ test('Rarity map usage', function (t) {
     torrentPort: 6889,
     dht: false,
     tracker: false,
+    lsd: false,
     _remove: function () {}
   }
   const opts = {}

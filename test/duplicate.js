@@ -5,7 +5,7 @@ const WebTorrent = require('../')
 test('client.seed followed by duplicate client.add (sync)', function (t) {
   t.plan(6)
 
-  const client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
@@ -36,7 +36,7 @@ test('client.seed followed by duplicate client.add (sync)', function (t) {
 test('client.seed followed by duplicate client.add (async)', function (t) {
   t.plan(6)
 
-  const client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
@@ -67,7 +67,7 @@ test('client.seed followed by duplicate client.add (async)', function (t) {
 test('client.seed followed by two duplicate client.add calls (sync)', function (t) {
   t.plan(9)
 
-  const client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
@@ -110,7 +110,7 @@ test('client.seed followed by two duplicate client.add calls (sync)', function (
 test('client.seed followed by two duplicate client.add calls (async)', function (t) {
   t.plan(9)
 
-  const client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 
@@ -153,7 +153,7 @@ test('client.seed followed by two duplicate client.add calls (async)', function 
 test('successive sync client.add, client.remove, client.add, client.remove (sync)', function (t) {
   t.plan(3)
 
-  const client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })
 

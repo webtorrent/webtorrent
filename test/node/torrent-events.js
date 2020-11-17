@@ -6,8 +6,8 @@ const MemoryChunkStore = require('memory-chunk-store')
 test('client.add: emit torrent events in order', function (t) {
   t.plan(6)
 
-  const client1 = new WebTorrent({ dht: false, tracker: false })
-  const client2 = new WebTorrent({ dht: false, tracker: false })
+  const client1 = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client2 = new WebTorrent({ dht: false, tracker: false, lsd: false })
 
   client1.on('error', function (err) { t.fail(err) })
   client1.on('warning', function (err) { t.fail(err) })
@@ -54,7 +54,7 @@ test('client.add: emit torrent events in order', function (t) {
 test('client.seed: emit torrent events in order', function (t) {
   t.plan(5)
 
-  const client = new WebTorrent({ dht: false, tracker: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
 
   client.on('error', function (err) { t.fail(err) })
   client.on('warning', function (err) { t.fail(err) })

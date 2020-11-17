@@ -58,8 +58,9 @@ If `opts` is specified, then the default options (shown below) will be overridde
   peerId: String|Buffer,   // Wire protocol peer ID (default=randomly generated)
   tracker: Boolean|Object, // Enable trackers (default=true), or options object for Tracker
   dht: Boolean|Object,     // Enable DHT (default=true), or options object for DHT
-  webSeeds: Boolean        // Enable BEP19 web seeds (default=true)
-  utp: Boolean             // Enable BEP29 uTorrent transport protocol (default=false)
+  lsd: Boolean,            // Enable BEP14 local service discovery (default=true)
+  webSeeds: Boolean,       // Enable BEP19 web seeds (default=true)
+  utp: Boolean,            // Enable BEP29 uTorrent transport protocol (default=false)
 }
 ```
 
@@ -529,7 +530,7 @@ information on how to define a protocol extension.
 
 ## `torrent.on('noPeers', function (announceType) {})`
 
-Emitted whenever a DHT or tracker announce occurs, but no peers have been found.  `announceType` is either `'tracker'` or `'dht'` depending on which announce occurred to trigger this event.  Note that if you're attempting to discover peers from both a tracker and a DHT, you'll see this event separately for each.
+Emitted whenever a DHT, tracker, or LSD announce occurs, but no peers have been found.  `announceType` is either `'tracker'`, `'dht'`, or `'lsd'` depending on which announce occurred to trigger this event.  Note that if you're attempting to discover peers from a tracker, a DHT, and LSD, you'll see this event separately for each.
 
 # File API
 

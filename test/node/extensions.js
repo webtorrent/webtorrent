@@ -29,12 +29,12 @@ test('extension support', function (t) {
     }
   }
 
-  const client1 = new WebTorrent({ dht: false, tracker: false })
+  const client1 = new WebTorrent({ dht: false, tracker: false, lsd: false })
 
   client1.on('error', function (err) { t.fail(err) })
   client1.on('warning', function (err) { t.fail(err) })
 
-  const client2 = new WebTorrent({ dht: false, tracker: false })
+  const client2 = new WebTorrent({ dht: false, tracker: false, lsd: false })
 
   client2.on('error', function (err) { t.fail(err) })
   client2.on('warning', function (err) { t.fail(err) })
