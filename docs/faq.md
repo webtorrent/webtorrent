@@ -103,6 +103,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[PeerWebSite][peerwebsite]** - Peer to Peer Web Site hosting at your fingertips! Send full featured HTML (incl. CSS, JS) sites from your browser and attach files eg. videos, images, etc.
 - **[CipherTorrent][cipher-torrent]** - Online and offline browser torrent client ([source code][cipher-torrent-source])
 - **[Slingcode][Slingcode]** - make, run, and share web apps P2P in the browser.
+- **[Torrent🧲Parts][TorrentParts]** - A website to inspect and edit what's in your Torrent file or Magnet link
 - ***Your app here – [Send a pull request][pr] with your URL!***
 <!-- - **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source]) -->
 <!-- - **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s)) -->
@@ -183,6 +184,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [peerwebsite]: https://peerweb.site
 [cipher-torrent]: https://torrent.cipherdogs.net
 [cipher-torrent-source]: https://github.com/CipherDogs/cipher-torrent
+[TorrentParts]: https://torrent.parts
 
 ## How does WebTorrent work?
 
