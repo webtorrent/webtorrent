@@ -59,7 +59,7 @@
     "randombytes": "^2.1.0",
     "range-parser": "^1.2.1",
     "readable-stream": "^3.6.0",
-    "render-media": "^3.4.3",
+    "render-media": "^4.0.0",
     "run-parallel": "^1.1.10",
     "run-parallel-limit": "^1.0.6",
     "simple-concat": "^1.0.1",
