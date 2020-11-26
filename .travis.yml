@@ -11,7 +11,8 @@ addons:
     - airtap.local
 jobs:
   include:
-  - script: npm test
+  - os: linux
+    script: npm test
   - os: windows
     script: npm run test-node
   - os: osx
