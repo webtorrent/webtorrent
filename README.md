@@ -12,7 +12,6 @@
 <p align="center">
   <a href="https://discord.gg/cnXkm4Z"><img src="https://img.shields.io/discord/612575111718895616" alt="discord"></a>
   <a href="https://travis-ci.org/webtorrent/webtorrent"><img src="https://img.shields.io/travis/webtorrent/webtorrent/master.svg" alt="travis"></a>
-  <a href="https://ci.appveyor.com/project/webtorrent/webtorrent"><img src="https://ci.appveyor.com/api/projects/status/cgu85xlgl72uoswq/branch/master?svg=true" alt="appveyor"></a>
   <a href="https://www.npmjs.com/package/webtorrent"><img src="https://img.shields.io/npm/v/webtorrent.svg" alt="npm version"></a>
   <a href="https://www.npmjs.com/package/webtorrent"><img src="https://img.shields.io/npm/dm/webtorrent.svg" alt="npm downloads"></a>
   <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="Standard - JavaScript Style Guide"></a>
