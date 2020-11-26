@@ -10,11 +10,3 @@ addons:
   sauce_connect: true
   hosts:
     - airtap.local
-  # For Electron testing on Linux
-  # https://github.com/electron/electron/blob/master/docs/tutorial/testing-on-headless-ci.md
-  apt:
-    packages:
-      - xvfb
-before_script:
-  - export DISPLAY=':99.0'
-  - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
