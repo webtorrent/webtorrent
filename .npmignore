@@ -3,6 +3,7 @@
 .github/
 .travis.yml
 CONTRIBUTING.md
+docs/
 scripts/
 SECURITY.md
 test/
