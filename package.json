@@ -10,13 +10,13 @@
   "browser": {
     "./lib/server.js": false,
     "./lib/conn-pool.js": false,
+    "./lib/utp.js": false,
     "bittorrent-dht/client": false,
     "fs-chunk-store": "memory-chunk-store",
     "load-ip-set": false,
     "net": false,
     "os": false,
-    "ut_pex": false,
-    "utp-native": false
+    "ut_pex": false
   },
   "browserify": {
     "transform": [
@@ -27,12 +27,12 @@
     "url": "https://github.com/webtorrent/webtorrent/issues"
   },
   "chromeapp": {
+    "./lib/utp.js": false,
     "fs-chunk-store": "memory-chunk-store",
     "http": "http-node",
     "load-ip-set": false,
     "net": "chrome-net",
-    "os": false,
-    "utp-native": false
+    "os": false
   },
   "dependencies": {
     "addr-to-ip-port": "^1.5.1",
@@ -74,8 +74,7 @@
     "torrent-piece": "^2.0.0",
     "unordered-array-remove": "^1.0.2",
     "ut_metadata": "^3.5.2",
-    "ut_pex": "^2.0.1",
-    "utp-native": "^2.2.1"
+    "ut_pex": "^2.0.1"
   },
   "devDependencies": {
     "airtap": "^3.0.0",
@@ -91,6 +90,9 @@
     "standard": "*",
     "tape": "^5.0.1",
     "webtorrent-fixtures": "^1.7.3"
+  },
+  "optionalDependencies": {
+    "utp-native": "^2.2.1"
   },
   "engines": {
     "node": ">=10"
