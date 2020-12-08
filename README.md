@@ -15,6 +15,7 @@
   <a href="https://www.npmjs.com/package/webtorrent"><img src="https://img.shields.io/npm/v/webtorrent.svg" alt="npm version"></a>
   <a href="https://www.npmjs.com/package/webtorrent"><img src="https://img.shields.io/npm/dm/webtorrent.svg" alt="npm downloads"></a>
   <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="Standard - JavaScript Style Guide"></a>
+  <a href="https://www.deepcode.ai/app/gh/webtorrent/webtorrent/_/dashboard?utm_content=gh%2Fwebtorrent%2Fwebtorrent"><img src="https://www.deepcode.ai/api/gh/badge?key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwbGF0Zm9ybTEiOiJnaCIsIm93bmVyMSI6IndlYnRvcnJlbnQiLCJyZXBvMSI6IndlYnRvcnJlbnQiLCJpbmNsdWRlTGludCI6ZmFsc2UsImF1dGhvcklkIjoyMTE3NiwiaWF0IjoxNjA3NDU2Mzk0fQ.jeiPE2_LN_FQXvu64bUAWl0pjRH-2KN7Yc9ewHZCvKk" alt="deepcode"></a>
 </p>
 
 <h5 align="center">
