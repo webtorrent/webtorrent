@@ -55,6 +55,7 @@
     "package-json-versionify": "^1.0.4",
     "parse-torrent": "^9.1.0",
     "pump": "^3.0.0",
+    "queue-microtask": "^1.2.2",
     "random-iterate": "^1.0.1",
     "randombytes": "^2.1.0",
     "range-parser": "^1.2.1",
