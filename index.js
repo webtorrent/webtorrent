@@ -13,6 +13,7 @@ const path = require('path')
 const Peer = require('simple-peer')
 const randombytes = require('randombytes')
 const speedometer = require('speedometer')
+const queueMicrotask = require('queue-microtask')
 
 const ConnPool = require('./lib/conn-pool') // browser exclude
 const Torrent = require('./lib/torrent')
@@ -100,7 +101,7 @@ class WebTorrent extends EventEmitter {
     if (typeof ConnPool === 'function') {
       this._connPool = new ConnPool(this)
     } else {
-      process.nextTick(() => {
+      queueMicrotask(() => {
         this._onListening()
       })
     }
@@ -150,7 +151,7 @@ class WebTorrent extends EventEmitter {
         ready()
       })
     } else {
-      process.nextTick(ready)
+      queueMicrotask(ready)
     }
   }
 
