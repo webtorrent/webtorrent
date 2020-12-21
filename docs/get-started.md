@@ -98,7 +98,7 @@ var client = new WebTorrent()
 var magnetURI = 'magnet: ...'
 
 client.add(magnetURI, { path: '/path/to/folder' }, function (torrent) {
-  let isDone = false
+  var isDone = false
 
   torrent.on('done', function () {
     console.log('\ntorrent download finished')
