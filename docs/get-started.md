@@ -98,8 +98,15 @@ var client = new WebTorrent()
 var magnetURI = 'magnet: ...'
 
 client.add(magnetURI, { path: '/path/to/folder' }, function (torrent) {
+  let isDone = false
+
   torrent.on('done', function () {
-    console.log('torrent download finished')
+    console.log('\ntorrent download finished')
+    isDone = true
+  })
+
+  torrent.on('download', function (bytes) {
+    if (!isDone) process.stdout.write(`\rtotal: ${torrent.length}  progress: ${(client.progress * 100).toFixed(2)}%  ${Math.round(client.downloadSpeed / 1024).toFixed(1)} KB/s  downloading...`)
   })
 })
 ```
