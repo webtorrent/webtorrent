@@ -105,8 +105,8 @@ client.add(magnetURI, { path: '/path/to/folder' }, function (torrent) {
     isDone = true
   })
 
-  torrent.on('download', function (bytes) {
-    if (!isDone) process.stdout.write(`\rtotal: ${torrent.length}  progress: ${(client.progress * 100).toFixed(2)}%  ${Math.round(client.downloadSpeed / 1024).toFixed(1)} KB/s  downloading...`)
+  torrent.on('download', function () {
+    if (!isDone) process.stdout.write(`\rtotal: ${torrent.length}  progress: ${(torrent.progress * 100).toFixed(2)}%  ${Math.round(torrent.downloadSpeed / 1024).toFixed(1)} KB/s  downloading...`)
   })
 })
 ```
