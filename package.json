@@ -11,6 +11,7 @@
     "./lib/server.js": false,
     "./lib/conn-pool.js": false,
     "bittorrent-dht/client": false,
+    "fs": false,
     "fs-chunk-store": "memory-chunk-store",
     "load-ip-set": false,
     "net": false,
