@@ -304,8 +304,15 @@ class WebTorrent extends EventEmitter {
     else if (!Array.isArray(input)) input = [input]
 
     parallel(input.map(item => cb => {
-      if (isReadable(item)) concat(item, cb)
-      else cb(null, item)
+      if (isReadable(item)) {
+        concat(item, (err, buf) => {
+          if (err) return cb(err)
+          buf.name = item.name
+          cb(null, buf)
+        })
+      } else {
+        cb(null, item)
+      }
     }), (err, input) => {
       if (this.destroyed) return
       if (err) return torrent._destroy(err)
