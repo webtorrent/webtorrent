@@ -273,8 +273,8 @@ class WebTorrent extends EventEmitter {
     const onTorrent = torrent => {
       const tasks = [
         cb => {
-          // when a filesystem path is specified, files are already in the FS store
-          if (isFilePath) return cb()
+          // when a filesystem path is specified or the store is preloaded, files are already in the FS store
+          if (isFilePath || opts.preloadedStore) return cb()
           torrent.load(streams, cb)
         }
       ]
@@ -304,7 +304,7 @@ class WebTorrent extends EventEmitter {
     else if (!Array.isArray(input)) input = [input]
 
     parallel(input.map(item => cb => {
-      if (isReadable(item)) {
+      if (!opts.preloadedStore && isReadable(item)) {
         concat(item, (err, buf) => {
           if (err) return cb(err)
           buf.name = item.name
