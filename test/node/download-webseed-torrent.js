@@ -78,6 +78,7 @@ test('Download using webseed (via .torrent file)', function (t) {
 })
 
 test('Disable webseeds', function (t) {
+  t.plan(3)
   const parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
 
   const httpServer = http.createServer(function (req, res) {
@@ -115,7 +116,6 @@ test('Disable webseeds', function (t) {
     })
     httpServer.close(function () {
       t.pass('http server closed')
-      t.end()
     })
   })
 })
