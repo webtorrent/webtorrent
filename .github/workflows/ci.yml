@@ -20,7 +20,7 @@ jobs:
           node-version: ${{ runner.node }}
       - run: npm install
       - run: npm run build --if-present
-      - run: echo '127.0.0.1 airtap.local' >> /etc/hosts
+      - run: sudo sh -c "echo '127.0.0.1 airtap.local' >> /etc/hosts"
       - run: npm test
         env:
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
