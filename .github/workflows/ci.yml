@@ -21,3 +21,6 @@ jobs:
       - run: npm install
       - run: npm run build --if-present
       - run: npm test
+        env:
+          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
+          SAUCE_ACCESS_TOKEN: ${{ secrets.SAUCE_ACCESS_TOKEN }}
