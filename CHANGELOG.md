@@ -1,5 +1,9 @@
 # WebTorrent Version History
 
+## v0.112.0 - 2020-11-05
+
+- Ensure that `appendTo` callback is called once video tag is added to DOM, not after play (#1967)
+
 ## v0.111.0 - 2020-11-05
 
 - Add Local Service Discovery (BEP14)

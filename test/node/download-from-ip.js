@@ -69,7 +69,7 @@ test('Download via magnet x.pe (BEP09)', (t) => {
     // torrent metadata has been fetched -- sanity check it
     t.equal(torrent.name, 'Leaves of Grass by Walt Whitman.epub')
 
-    var names = ['Leaves of Grass by Walt Whitman.epub']
+    const names = ['Leaves of Grass by Walt Whitman.epub']
     t.deepEqual(torrent.files.map(function (file) { return file.name }), names)
   })
 

@@ -11,8 +11,7 @@
 
 <p align="center">
   <a href="https://discord.gg/cnXkm4Z"><img src="https://img.shields.io/discord/612575111718895616" alt="discord"></a>
-  <a href="https://travis-ci.org/webtorrent/webtorrent"><img src="https://img.shields.io/travis/webtorrent/webtorrent/master.svg" alt="travis"></a>
-  <a href="https://ci.appveyor.com/project/webtorrent/webtorrent"><img src="https://ci.appveyor.com/api/projects/status/cgu85xlgl72uoswq/branch/master?svg=true" alt="appveyor"></a>
+  <a href="https://github.com/webtorrent/webtorrent"><img src="https://img.shields.io/github/workflow/status/webtorrent/webtorrent/ci/master" alt="ci"></a>/actions
   <a href="https://www.npmjs.com/package/webtorrent"><img src="https://img.shields.io/npm/v/webtorrent.svg" alt="npm version"></a>
   <a href="https://www.npmjs.com/package/webtorrent"><img src="https://img.shields.io/npm/dm/webtorrent.svg" alt="npm downloads"></a>
   <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="Standard - JavaScript Style Guide"></a>
@@ -310,81 +309,81 @@ These are the main modules that make up WebTorrent:
 
 [webtorrent]: https://github.com/webtorrent/webtorrent
 [webtorrent-gitter-url]: https://gitter.im/webtorrent/webtorrent
-[webtorrent-ti]: https://img.shields.io/travis/webtorrent/webtorrent/master.svg
-[webtorrent-tu]: https://travis-ci.org/webtorrent/webtorrent
+[webtorrent-ti]: https://img.shields.io/ci/webtorrent/webtorrent/master.svg
+[webtorrent-tu]: https://ci-ci.org/webtorrent/webtorrent
 [webtorrent-ni]: https://img.shields.io/npm/v/webtorrent.svg
 [webtorrent-nu]: https://www.npmjs.com/package/webtorrent
 [webtorrent-desktop]: https://webtorrent.io/desktop
 
 [bittorrent-dht]: https://github.com/webtorrent/bittorrent-dht
-[bittorrent-dht-ti]: https://img.shields.io/travis/webtorrent/bittorrent-dht/master.svg
-[bittorrent-dht-tu]: https://travis-ci.org/webtorrent/bittorrent-dht
+[bittorrent-dht-ti]: https://img.shields.io/ci/webtorrent/bittorrent-dht/master.svg
+[bittorrent-dht-tu]: https://ci-ci.org/webtorrent/bittorrent-dht
 [bittorrent-dht-ni]: https://img.shields.io/npm/v/bittorrent-dht.svg
 [bittorrent-dht-nu]: https://www.npmjs.com/package/bittorrent-dht
 
 [bittorrent-peerid]: https://github.com/webtorrent/bittorrent-peerid
-[bittorrent-peerid-ti]: https://img.shields.io/travis/webtorrent/bittorrent-peerid.svg
-[bittorrent-peerid-tu]: https://travis-ci.org/webtorrent/bittorrent-peerid
+[bittorrent-peerid-ti]: https://img.shields.io/ci/webtorrent/bittorrent-peerid.svg
+[bittorrent-peerid-tu]: https://ci-ci.org/webtorrent/bittorrent-peerid
 [bittorrent-peerid-ni]: https://img.shields.io/npm/v/bittorrent-peerid.svg
 [bittorrent-peerid-nu]: https://www.npmjs.com/package/bittorrent-peerid
 
 [bittorrent-protocol]: https://github.com/webtorrent/bittorrent-protocol
-[bittorrent-protocol-ti]: https://img.shields.io/travis/webtorrent/bittorrent-protocol/master.svg
-[bittorrent-protocol-tu]: https://travis-ci.org/webtorrent/bittorrent-protocol
+[bittorrent-protocol-ti]: https://img.shields.io/ci/webtorrent/bittorrent-protocol/master.svg
+[bittorrent-protocol-tu]: https://ci-ci.org/webtorrent/bittorrent-protocol
 [bittorrent-protocol-ni]: https://img.shields.io/npm/v/bittorrent-protocol.svg
 [bittorrent-protocol-nu]: https://www.npmjs.com/package/bittorrent-protocol
 
 [bittorrent-tracker]: https://github.com/webtorrent/bittorrent-tracker
-[bittorrent-tracker-ti]: https://img.shields.io/travis/webtorrent/bittorrent-tracker/master.svg
-[bittorrent-tracker-tu]: https://travis-ci.org/webtorrent/bittorrent-tracker
+[bittorrent-tracker-ti]: https://img.shields.io/ci/webtorrent/bittorrent-tracker/master.svg
+[bittorrent-tracker-tu]: https://ci-ci.org/webtorrent/bittorrent-tracker
 [bittorrent-tracker-ni]: https://img.shields.io/npm/v/bittorrent-tracker.svg
 [bittorrent-tracker-nu]: https://www.npmjs.com/package/bittorrent-tracker
 
 [bittorrent-lsd]: https://github.com/webtorrent/bittorrent-lsd
-[bittorrent-lsd-ti]: https://img.shields.io/travis/webtorrent/bittorrent-lsd/master.svg
-[bittorrent-lsd-tu]: https://travis-ci.org/webtorrent/bittorrent-lsd
+[bittorrent-lsd-ti]: https://img.shields.io/ci/webtorrent/bittorrent-lsd/master.svg
+[bittorrent-lsd-tu]: https://ci-ci.org/webtorrent/bittorrent-lsd
 [bittorrent-lsd-ni]: https://img.shields.io/npm/v/bittorrent-lsd.svg
 [bittorrent-lsd-nu]: https://www.npmjs.com/package/bittorrent-lsd
 
 [create-torrent]: https://github.com/webtorrent/create-torrent
-[create-torrent-ti]: https://img.shields.io/travis/webtorrent/create-torrent/master.svg
-[create-torrent-tu]: https://travis-ci.org/webtorrent/create-torrent
+[create-torrent-ti]: https://img.shields.io/ci/webtorrent/create-torrent/master.svg
+[create-torrent-tu]: https://ci-ci.org/webtorrent/create-torrent
 [create-torrent-ni]: https://img.shields.io/npm/v/create-torrent.svg
 [create-torrent-nu]: https://www.npmjs.com/package/create-torrent
 
 [magnet-uri]: https://github.com/webtorrent/magnet-uri
-[magnet-uri-ti]: https://img.shields.io/travis/webtorrent/magnet-uri/master.svg
-[magnet-uri-tu]: https://travis-ci.org/webtorrent/magnet-uri
+[magnet-uri-ti]: https://img.shields.io/ci/webtorrent/magnet-uri/master.svg
+[magnet-uri-tu]: https://ci-ci.org/webtorrent/magnet-uri
 [magnet-uri-ni]: https://img.shields.io/npm/v/magnet-uri.svg
 [magnet-uri-nu]: https://www.npmjs.com/package/magnet-uri
 
 [parse-torrent]: https://github.com/webtorrent/parse-torrent
-[parse-torrent-ti]: https://img.shields.io/travis/webtorrent/parse-torrent/master.svg
-[parse-torrent-tu]: https://travis-ci.org/webtorrent/parse-torrent
+[parse-torrent-ti]: https://img.shields.io/ci/webtorrent/parse-torrent/master.svg
+[parse-torrent-tu]: https://ci-ci.org/webtorrent/parse-torrent
 [parse-torrent-ni]: https://img.shields.io/npm/v/parse-torrent.svg
 [parse-torrent-nu]: https://www.npmjs.com/package/parse-torrent
 
 [render-media]: https://github.com/feross/render-media
-[render-media-ti]: https://img.shields.io/travis/feross/render-media/master.svg
-[render-media-tu]: https://travis-ci.org/feross/render-media
+[render-media-ti]: https://img.shields.io/ci/feross/render-media/master.svg
+[render-media-tu]: https://ci-ci.org/feross/render-media
 [render-media-ni]: https://img.shields.io/npm/v/render-media.svg
 [render-media-nu]: https://www.npmjs.com/package/render-media
 
 [torrent-discovery]: https://github.com/webtorrent/torrent-discovery
-[torrent-discovery-ti]: https://img.shields.io/travis/webtorrent/torrent-discovery/master.svg
-[torrent-discovery-tu]: https://travis-ci.org/webtorrent/torrent-discovery
+[torrent-discovery-ti]: https://img.shields.io/ci/webtorrent/torrent-discovery/master.svg
+[torrent-discovery-tu]: https://ci-ci.org/webtorrent/torrent-discovery
 [torrent-discovery-ni]: https://img.shields.io/npm/v/torrent-discovery.svg
 [torrent-discovery-nu]: https://www.npmjs.com/package/torrent-discovery
 
 [ut_metadata]: https://github.com/webtorrent/ut_metadata
-[ut_metadata-ti]: https://img.shields.io/travis/webtorrent/ut_metadata/master.svg
-[ut_metadata-tu]: https://travis-ci.org/webtorrent/ut_metadata
+[ut_metadata-ti]: https://img.shields.io/ci/webtorrent/ut_metadata/master.svg
+[ut_metadata-tu]: https://ci-ci.org/webtorrent/ut_metadata
 [ut_metadata-ni]: https://img.shields.io/npm/v/ut_metadata.svg
 [ut_metadata-nu]: https://www.npmjs.com/package/ut_metadata
 
 [ut_pex]: https://github.com/webtorrent/ut_pex
-[ut_pex-ti]: https://img.shields.io/travis/webtorrent/ut_pex.svg
-[ut_pex-tu]: https://travis-ci.org/webtorrent/ut_pex
+[ut_pex-ti]: https://img.shields.io/ci/webtorrent/ut_pex.svg
+[ut_pex-tu]: https://ci-ci.org/webtorrent/ut_pex
 [ut_pex-ni]: https://img.shields.io/npm/v/ut_pex.svg
 [ut_pex-nu]: https://www.npmjs.com/package/ut_pex
 
