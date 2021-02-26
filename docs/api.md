@@ -348,7 +348,7 @@ The `peer` argument must be an address string in the format `12.34.56.78:4444` (
 normal TCP/uTP peers), or a [`simple-peer`](https://github.com/feross/simple-peer)
 instance (for WebRTC peers).
 
-## `torrent.addWebSeed(url)`
+## `torrent.addWebSeed(urlOrConn)`
 
 Add a web seed to the torrent swarm. For more information on BitTorrent web seeds, see
 [BEP19](http://www.bittorrent.org/beps/bep_0019.html).
@@ -356,7 +356,10 @@ Add a web seed to the torrent swarm. For more information on BitTorrent web seed
 In the browser, web seed servers must have proper CORS (Cross-origin resource sharing)
 headers so that data can be fetched across domain.
 
-The `url` argument is the web seed URL.
+The `urlOrConn` argument is either the web seed URL, or an object that provides a custom
+web seed implementation. A custom conn object is a duplex stream that speaks the bittorrent
+wire protocol and pretends to be a remote peer. It must have a `connId` property that
+uniquely identifies the custom web seed.
 
 ## `torrent.removePeer(peer)`
 
