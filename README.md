@@ -11,7 +11,7 @@
 
 <p align="center">
   <a href="https://discord.gg/cnXkm4Z"><img src="https://img.shields.io/discord/612575111718895616" alt="discord"></a>
-  <a href="https://github.com/webtorrent/webtorrent"><img src="https://img.shields.io/github/workflow/status/webtorrent/webtorrent/ci/master" alt="ci"></a>/actions
+  <a href="https://github.com/webtorrent/webtorrent/actions"><img src="https://img.shields.io/github/workflow/status/webtorrent/webtorrent/ci/master" alt="ci"></a>
   <a href="https://www.npmjs.com/package/webtorrent"><img src="https://img.shields.io/npm/v/webtorrent.svg" alt="npm version"></a>
   <a href="https://www.npmjs.com/package/webtorrent"><img src="https://img.shields.io/npm/dm/webtorrent.svg" alt="npm downloads"></a>
   <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="Standard - JavaScript Style Guide"></a>
