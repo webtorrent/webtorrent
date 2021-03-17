@@ -150,6 +150,7 @@
   },
   "standard": {
     "ignore": [
+      "hacks.js",
       "webtorrent.min.js",
       "webtorrent.chromeapp.js"
     ]
