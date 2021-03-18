@@ -42,6 +42,7 @@
     "bittorrent-protocol": "^3.2.0",
     "chrome-net": "^3.3.4",
     "chunk-store-stream": "^4.2.0",
+    "cpus": "^1.0.3",
     "create-torrent": "^4.4.4",
     "debug": "^4.3.1",
     "end-of-stream": "^1.4.4",
