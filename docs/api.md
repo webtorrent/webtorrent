@@ -93,6 +93,7 @@ If `opts` is specified, then the default options (shown below) will be overridde
   path: String,              // Folder to download files to (default=`/tmp/webtorrent/`)
   private: Boolean,          // If true, client will not share the hash with the DHT nor with PEX (default is the privacy of the parsed torrent)
   store: Function            // Custom chunk store (must follow [abstract-chunk-store](https://www.npmjs.com/package/abstract-chunk-store) API)
+  destroyStoreOnDestroy: Boolean // If truthy, client will delete the torrent's chunk store (e.g. files on disk) when the torrent is destroyed
 }
 ```
 
@@ -171,7 +172,8 @@ Always listen for the 'error' event.
 
 Remove a torrent from the client. Destroy all connections to peers and delete all saved file metadata.
 
-If `opts.destroyStore` is truthy, `store.destroy()` will be called, which will delete the torrent's files from the disk.
+If `opts.destroyStore` is specified, it will override `opts.destroyStoreOnDestroy` passed when the torrent was added.
+If truthy, `store.destroy()` will be called, which will delete the torrent's files from the disk.
 
 If `callback` is provided, it will be called when the torrent is fully destroyed,
 i.e. all open sockets are closed, and the storage is either closed or destroyed.
