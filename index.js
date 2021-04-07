@@ -76,18 +76,17 @@ class WebTorrent extends EventEmitter {
     this.torrents = []
     this.maxConns = Number(opts.maxConns) || 55
     this.utp = opts.utp === true
-    this.downloadLimit = Number(opts.downloadLimit) || Number.MAX_VALUE
-    this.uploadLimit = Number(opts.uploadLimit) || Number.MAX_VALUE
+    this.downloadLimit = Number(opts.downloadLimit)
+    this.uploadLimit = Number(opts.uploadLimit)
 
     this._debug(
       'new webtorrent (peerId %s, nodeId %s, port %s)',
       this.peerId, this.nodeId, this.torrentPort
     )
 
-    this.throttleGroups = {
-      down: new ThrottleGroup({ rate: this.downloadLimit }),
-      up: new ThrottleGroup({ rate: this.uploadLimit })
-    }
+    this.throttleGroups = {}
+    if (this.downloadLimit) this.throttleGroups.down = new ThrottleGroup({ rate: this.downloadLimit, chunksize: Math.min(this.downloadLimit / 10, 1000000) })
+    if (this.uploadLimit) this.throttleGroups.up = new ThrottleGroup({ rate: this.uploadLimit, chunksize: Math.min(this.uploadLimit / 10, 1000000) })
 
     if (this.tracker) {
       if (typeof this.tracker !== 'object') this.tracker = {}
@@ -383,7 +382,7 @@ class WebTorrent extends EventEmitter {
    * @param  {Number} rate
    */
   throttleDownload (rate) {
-    if (!Number(rate) || Number(rate) < 0) return
+    if (!(Number(rate) > 0)) return
     this.throttleGroups.down.bucket.bucketSize = rate
     this.throttleGroups.down.bucket.tokensPerInterval = rate
   }
@@ -393,7 +392,7 @@ class WebTorrent extends EventEmitter {
    * @param  {Number} rate
    */
   throttleUpload (rate) {
-    if (!Number(rate) || Number(rate) < 0) return
+    if (!(Number(rate) > 0)) return
     this.throttleGroups.up.bucket.bucketSize = rate
     this.throttleGroups.up.bucket.tokensPerInterval = rate
   }
