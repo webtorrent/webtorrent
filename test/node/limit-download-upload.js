@@ -7,8 +7,8 @@ const DOWNLOAD_SPEED_LIMIT = 200000
 const UPLOAD_SPEED_LIMIT = 200000
 
 test('limit: limit download speed when tcp connection', function (t) {
-  var client1 = new WebTorrent({ dht: false, tracker: false, downloadLimit: DOWNLOAD_SPEED_LIMIT })
-  var client2 = new WebTorrent({ dht: false, tracker: false })
+  const client1 = new WebTorrent({ dht: false, tracker: false, downloadLimit: DOWNLOAD_SPEED_LIMIT })
+  const client2 = new WebTorrent({ dht: false, tracker: false })
 
   client1.on('error', function (err) { t.fail(err) })
   client1.on('warning', function (err) { t.fail(err) })
@@ -26,7 +26,7 @@ test('limit: limit download speed when tcp connection', function (t) {
 
   client2.on('listening', function () {
     // Start downloading
-    var torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
+    const torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
 
     // Manually connect peers
     torrent.addPeer('127.0.0.1:' + client2.address().port)
@@ -51,8 +51,8 @@ test('limit: limit download speed when tcp connection', function (t) {
 })
 
 test('limit: limit upload speed when tcp connection', function (t) {
-  var client1 = new WebTorrent({ dht: false, tracker: false })
-  var client2 = new WebTorrent({ dht: false, tracker: false, uploadLimit: UPLOAD_SPEED_LIMIT })
+  const client1 = new WebTorrent({ dht: false, tracker: false })
+  const client2 = new WebTorrent({ dht: false, tracker: false, uploadLimit: UPLOAD_SPEED_LIMIT })
 
   client1.on('error', function (err) { t.fail(err) })
   client1.on('warning', function (err) { t.fail(err) })
@@ -74,7 +74,7 @@ test('limit: limit upload speed when tcp connection', function (t) {
 
   client2.on('listening', function () {
     // Start downloading
-    var _torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
+    const _torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
 
     // Manually connect peers
     _torrent.addPeer('127.0.0.1:' + client2.address().port)
@@ -95,8 +95,8 @@ test('limit: limit upload speed when tcp connection', function (t) {
 })
 
 test('limit: limit download speed when utp connection', function (t) {
-  var client1 = new WebTorrent({ dht: false, tracker: false, utp: true, downloadLimit: DOWNLOAD_SPEED_LIMIT })
-  var client2 = new WebTorrent({ dht: false, tracker: false, utp: true })
+  const client1 = new WebTorrent({ dht: false, tracker: false, utp: true, downloadLimit: DOWNLOAD_SPEED_LIMIT })
+  const client2 = new WebTorrent({ dht: false, tracker: false, utp: true })
 
   client1.on('error', function (err) { t.fail(err) })
   client1.on('warning', function (err) { t.fail(err) })
@@ -114,7 +114,7 @@ test('limit: limit download speed when utp connection', function (t) {
 
   client2.on('listening', function () {
     // Start downloading
-    var torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
+    const torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
 
     // Manually connect peers
     torrent.addPeer('127.0.0.1:' + client2.address().port)
@@ -139,8 +139,8 @@ test('limit: limit download speed when utp connection', function (t) {
 })
 
 test('limit: limit upload speed when utp connection', function (t) {
-  var client1 = new WebTorrent({ dht: false, tracker: false, utp: true })
-  var client2 = new WebTorrent({ dht: false, tracker: false, utp: true, uploadLimit: UPLOAD_SPEED_LIMIT })
+  const client1 = new WebTorrent({ dht: false, tracker: false, utp: true })
+  const client2 = new WebTorrent({ dht: false, tracker: false, utp: true, uploadLimit: UPLOAD_SPEED_LIMIT })
 
   client1.on('error', function (err) { t.fail(err) })
   client1.on('warning', function (err) { t.fail(err) })
@@ -162,7 +162,7 @@ test('limit: limit upload speed when utp connection', function (t) {
 
   client2.on('listening', function () {
     // Start downloading
-    var _torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
+    const _torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
 
     // Manually connect peers
     _torrent.addPeer('127.0.0.1:' + client2.address().port)
