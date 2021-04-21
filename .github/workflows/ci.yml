@@ -6,6 +6,7 @@ jobs:
   test:
     name: Node ${{ matrix.node }} / ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    environment: ci
     strategy:
       fail-fast: false
       matrix:
@@ -20,4 +21,8 @@ jobs:
           node-version: ${{ matrix.node }}
       - run: npm install
       - run: npm run build --if-present
+      - run: echo "127.0.0.1 airtap.local" | sudo tee -a /etc/hosts
       - run: npm test
+        env:
+          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
+          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
