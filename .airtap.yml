@@ -5,11 +5,11 @@ browsers:
     version: latest
   - name: safari
     version: latest
-  - name: microsoftedge
+  - name: edge
     version: latest
-  - name: android
+  - name: and_chr
     version: latest
-  - name: iphone
+  - name: ios_saf
     version: latest
 providers:
   - airtap-sauce
