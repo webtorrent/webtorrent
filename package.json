@@ -68,7 +68,7 @@
     "run-parallel-limit": "^1.0.6",
     "simple-concat": "^1.0.1",
     "simple-get": "^4.0.0",
-    "simple-peer": "^9.9.3",
+    "simple-peer": "^9.11.0",
     "simple-sha1": "^3.0.1",
     "speedometer": "^1.1.0",
     "stream-to-blob": "^2.0.1",
