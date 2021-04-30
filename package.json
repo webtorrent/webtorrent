@@ -84,7 +84,7 @@
   "devDependencies": {
     "airtap": "^4.0.3",
     "airtap-manual": "^1.0.0",
-    "airtap-sauce": "^1.1.0",
+    "airtap-sauce": "^1.1.2",
     "babel-minify": "^0.5.1",
     "bittorrent-tracker": "^9.16.0",
     "browserify": "^17.0.0",
