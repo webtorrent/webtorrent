@@ -39,7 +39,7 @@
     "addr-to-ip-port": "^1.5.1",
     "bitfield": "^4.0.0",
     "bittorrent-dht": "^10.0.0",
-    "bittorrent-protocol": "^3.2.0",
+    "bittorrent-protocol": "^3.3.1",
     "chrome-net": "^3.3.4",
     "chunk-store-stream": "^4.3.0",
     "cpus": "^1.0.3",
