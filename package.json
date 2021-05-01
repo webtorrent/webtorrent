@@ -65,7 +65,7 @@
     "readable-stream": "^3.6.0",
     "render-media": "^4.1.0",
     "run-parallel": "^1.2.0",
-    "run-parallel-limit": "^1.0.6",
+    "run-parallel-limit": "^1.1.0",
     "simple-concat": "^1.0.1",
     "simple-get": "^4.0.0",
     "simple-peer": "^9.11.0",
