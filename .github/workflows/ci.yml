@@ -1,12 +1,15 @@
 name: ci
-'on':
-  - push
-  - pull_request
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+    branches:
+    - master
 jobs:
   test:
     name: Node ${{ matrix.node }} / ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
-    environment: ci
     strategy:
       fail-fast: false
       matrix:
