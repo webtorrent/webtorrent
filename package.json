@@ -79,7 +79,7 @@
     "unordered-array-remove": "^1.0.2",
     "ut_metadata": "^3.5.2",
     "ut_pex": "^2.0.1",
-    "utp-native": "^2.3.0"
+    "utp-native": "^2.4.0"
   },
   "devDependencies": {
     "airtap": "^4.0.3",
