@@ -104,6 +104,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[CipherTorrent][cipher-torrent]** - Online and offline browser torrent client ([source code][cipher-torrent-source])
 - **[Slingcode][Slingcode]** - make, run, and share web apps P2P in the browser.
 - **[Torrent🧲Parts][TorrentParts]** - A website to inspect and edit what's in your Torrent file or Magnet link
+- **[Live On Torrent][liveontorrent]** - A free plataform to live streaming on browser.
 - **[WebTorrentPlayer][webtorrentplayer]** - High performance, no compromise video player for WebTorrent ([source code][webtorrentplayer-source])
 - ***Your app here – [Send a pull request][pr] with your URL!***
 <!-- - **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source]) -->
@@ -187,6 +188,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [cipher-torrent]: https://torrent.cipherdogs.net
 [cipher-torrent-source]: https://github.com/CipherDogs/cipher-torrent
 [TorrentParts]: https://torrent.parts
+[liveontorrent]: https://www.weboscoder.com/liveontorrent/
 [webtorrentplayer]: https://thaunknown.github.io/webtorrent-player/
 [webtorrentplayer-source]: https://github.com/ThaUnknown/webtorrent-player
 
