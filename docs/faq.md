@@ -59,6 +59,7 @@ There are also exciting **business use cases**, from CDNs to app delivery.
 WebTorrent is still pretty new, but it's already being used in cool ways:
 
 - **[WebTorrent Desktop][webtorrent-desktop]** - Streaming torrent app. For Mac, Windows, and Linux. ([source code][webtorrent-desktop-source])
+- **[Wormhole][wormhole]** – Simple, private file sharing (built by the WebTorrent team)
 - **[Instant.io][instant.io]** – Streaming file transfer over WebTorrent ([source code][instant.io-source])
 - **[GitTorrent][gittorrent]** - Decentralized GitHub using BitTorrent and Bitcoin ([source code][gittorrent-source])
 - **[File.pizza][filepizza]** - Free peer-to-peer file transfers in your browser ([source code][filepizza-source])
@@ -117,6 +118,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [webtorrent-clones]: https://github.com/DiegoRBaquero/awesome-webtorrent-clones
 [webtorrent-desktop]: https://webtorrent.io/desktop
 [webtorrent-desktop-source]: https://github.com/webtorrent/webtorrent-desktop
+[wormhole]: https://wormhole.app
 [instant.io-source]: https://github.com/webtorrent/instant.io
 [gittorrent]: http://blog.printf.net/articles/2015/05/29/announcing-gittorrent-a-decentralized-github/
 [gittorrent-source]: https://github.com/cjb/GitTorrent

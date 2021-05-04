@@ -18,7 +18,7 @@
 </p>
 
 <h5 align="center">
-  Sponsored by&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://brave.com" rel="nofollow"><img src="https://webtorrent.io/img/supporters/brave.png" alt="Brave" height=35 valign="middle"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://webtorrent.io/expressvpn" rel="nofollow"><img src="https://webtorrent.io/img/supporters/expressvpn.png" alt="ExpressVPN" height=30 valign="middle"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.enya.ai/?utm_source=github_webtorrent&utm_medium=web" rel="nofollow"><img src="https://webtorrent.io/img/supporters/enya.png" alt="Enya" height=30 valign="middle"></a>
+  Sponsored by&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://brave.com" rel="nofollow"><img src="https://webtorrent.io/img/supporters/brave.png" alt="Brave" height=35 valign="middle"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.wormhole.app/?utm_medium=sponsorship&utm_source=webtorrent&utm_campaign=feross"><img src="https://webtorrent.io/img/supporters/wormhole.png" alt="Wormhole" height=30 valign="middle"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://webtorrent.io/expressvpn" rel="nofollow"><img src="https://webtorrent.io/img/supporters/expressvpn.png" alt="ExpressVPN" height=30 valign="middle"></a>
 </h5>
 <br>
 
