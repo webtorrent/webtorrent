@@ -93,6 +93,7 @@ If `opts` is specified, then the default options (shown below) will be overridde
   path: String,              // Folder to download files to (default=`/tmp/webtorrent/`)
   private: Boolean,          // If true, client will not share the hash with the DHT nor with PEX (default is the privacy of the parsed torrent)
   store: Function            // Custom chunk store (must follow [abstract-chunk-store](https://www.npmjs.com/package/abstract-chunk-store) API)
+  destroyStoreOnDestroy: Boolean // If truthy, client will delete the torrent's chunk store (e.g. files on disk) when the torrent is destroyed
 }
 ```
 
@@ -171,7 +172,8 @@ Always listen for the 'error' event.
 
 Remove a torrent from the client. Destroy all connections to peers and delete all saved file metadata.
 
-If `opts.destroyStore` is truthy, `store.destroy()` will be called, which will delete the torrent's files from the disk.
+If `opts.destroyStore` is specified, it will override `opts.destroyStoreOnDestroy` passed when the torrent was added.
+If truthy, `store.destroy()` will be called, which will delete the torrent's files from the disk.
 
 If `callback` is provided, it will be called when the torrent is fully destroyed,
 i.e. all open sockets are closed, and the storage is either closed or destroyed.
@@ -348,7 +350,7 @@ The `peer` argument must be an address string in the format `12.34.56.78:4444` (
 normal TCP/uTP peers), or a [`simple-peer`](https://github.com/feross/simple-peer)
 instance (for WebRTC peers).
 
-## `torrent.addWebSeed(url)`
+## `torrent.addWebSeed(urlOrConn)`
 
 Add a web seed to the torrent swarm. For more information on BitTorrent web seeds, see
 [BEP19](http://www.bittorrent.org/beps/bep_0019.html).
@@ -356,7 +358,10 @@ Add a web seed to the torrent swarm. For more information on BitTorrent web seed
 In the browser, web seed servers must have proper CORS (Cross-origin resource sharing)
 headers so that data can be fetched across domain.
 
-The `url` argument is the web seed URL.
+The `urlOrConn` argument is either the web seed URL, or an object that provides a custom
+web seed implementation. A custom conn object is a duplex stream that speaks the bittorrent
+wire protocol and pretends to be a remote peer. It must have a `connId` property that
+uniquely identifies the custom web seed.
 
 ## `torrent.removePeer(peer)`
 

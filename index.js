@@ -13,6 +13,7 @@ const path = require('path')
 const Peer = require('simple-peer')
 const randombytes = require('randombytes')
 const speedometer = require('speedometer')
+const queueMicrotask = require('queue-microtask')
 
 const utp = require('./lib/utp')
 const ConnPool = require('./lib/conn-pool') // browser exclude
@@ -101,7 +102,7 @@ class WebTorrent extends EventEmitter {
     if (typeof ConnPool === 'function') {
       this._connPool = new ConnPool(this)
     } else {
-      process.nextTick(() => {
+      queueMicrotask(() => {
         this._onListening()
       })
     }
@@ -151,7 +152,7 @@ class WebTorrent extends EventEmitter {
         ready()
       })
     } else {
-      process.nextTick(ready)
+      queueMicrotask(ready)
     }
   }
 
@@ -273,8 +274,8 @@ class WebTorrent extends EventEmitter {
     const onTorrent = torrent => {
       const tasks = [
         cb => {
-          // when a filesystem path is specified, files are already in the FS store
-          if (isFilePath) return cb()
+          // when a filesystem path is specified or the store is preloaded, files are already in the FS store
+          if (isFilePath || opts.preloadedStore) return cb()
           torrent.load(streams, cb)
         }
       ]
@@ -304,8 +305,15 @@ class WebTorrent extends EventEmitter {
     else if (!Array.isArray(input)) input = [input]
 
     parallel(input.map(item => cb => {
-      if (isReadable(item)) concat(item, cb)
-      else cb(null, item)
+      if (!opts.preloadedStore && isReadable(item)) {
+        concat(item, (err, buf) => {
+          if (err) return cb(err)
+          buf.name = item.name
+          cb(null, buf)
+        })
+      } else {
+        cb(null, item)
+      }
     }), (err, input) => {
       if (this.destroyed) return
       if (err) return torrent._destroy(err)

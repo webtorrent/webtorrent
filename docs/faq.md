@@ -59,6 +59,7 @@ There are also exciting **business use cases**, from CDNs to app delivery.
 WebTorrent is still pretty new, but it's already being used in cool ways:
 
 - **[WebTorrent Desktop][webtorrent-desktop]** - Streaming torrent app. For Mac, Windows, and Linux. ([source code][webtorrent-desktop-source])
+- **[Wormhole][wormhole]** – Simple, private file sharing (built by the WebTorrent team)
 - **[Instant.io][instant.io]** – Streaming file transfer over WebTorrent ([source code][instant.io-source])
 - **[GitTorrent][gittorrent]** - Decentralized GitHub using BitTorrent and Bitcoin ([source code][gittorrent-source])
 - **[File.pizza][filepizza]** - Free peer-to-peer file transfers in your browser ([source code][filepizza-source])
@@ -99,11 +100,13 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Bugout][Bugout]** - build and run back-end web services in a browser tab.
 - **[P2P Media Loader][p2p-media-loader]** - engine for Hls.js and Shaka Player that enables P2P sharing of live and VOD streams over HLS or DASH protocols.
 - **[Hubzilla][hubzilla]** - WebTorrent player integration into posts ([source code][hubzilla-source])
-- **[Come Over][comeover]** - Video stream sharing to watch movies together.
+- **[Come Over][comeover]** - Video stream sharing to watch movies together ([source code][comeover-source])
 - **[PeerWebSite][peerwebsite]** - Peer to Peer Web Site hosting at your fingertips! Send full featured HTML (incl. CSS, JS) sites from your browser and attach files eg. videos, images, etc.
 - **[CipherTorrent][cipher-torrent]** - Online and offline browser torrent client ([source code][cipher-torrent-source])
 - **[Slingcode][Slingcode]** - make, run, and share web apps P2P in the browser.
 - **[Torrent🧲Parts][TorrentParts]** - A website to inspect and edit what's in your Torrent file or Magnet link
+- **[Live On Torrent][liveontorrent]** - A free plataform to live streaming on browser.
+- **[WebTorrentPlayer][webtorrentplayer]** - High performance, no compromise video player for WebTorrent ([source code][webtorrentplayer-source])
 - ***Your app here – [Send a pull request][pr] with your URL!***
 <!-- - **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source]) -->
 <!-- - **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s)) -->
@@ -116,6 +119,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [webtorrent-clones]: https://github.com/DiegoRBaquero/awesome-webtorrent-clones
 [webtorrent-desktop]: https://webtorrent.io/desktop
 [webtorrent-desktop-source]: https://github.com/webtorrent/webtorrent-desktop
+[wormhole]: https://wormhole.app
 [instant.io-source]: https://github.com/webtorrent/instant.io
 [gittorrent]: http://blog.printf.net/articles/2015/05/29/announcing-gittorrent-a-decentralized-github/
 [gittorrent-source]: https://github.com/cjb/GitTorrent
@@ -180,11 +184,15 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [p2p-media-loader]: https://github.com/novage/p2p-media-loader
 [hubzilla]: https://hubzilla.org
 [hubzilla-source]: https://github.com/demitas-ace/wtplayer/tree/master/wtplayer
-[comeover]: https://www.comeover.io
+[comeover]: https://luccadoret.github.io/comeover/home
+[comeover-source]: https://github.com/LucCADORET/comeover
 [peerwebsite]: https://peerweb.site
 [cipher-torrent]: https://torrent.cipherdogs.net
 [cipher-torrent-source]: https://github.com/CipherDogs/cipher-torrent
 [TorrentParts]: https://torrent.parts
+[liveontorrent]: https://www.weboscoder.com/liveontorrent/
+[webtorrentplayer]: https://thaunknown.github.io/webtorrent-player/
+[webtorrentplayer-source]: https://github.com/ThaUnknown/webtorrent-player
 
 ## How does WebTorrent work?
 
