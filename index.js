@@ -15,7 +15,6 @@ const randombytes = require('randombytes')
 const speedometer = require('speedometer')
 const queueMicrotask = require('queue-microtask')
 
-const utp = require('./lib/utp')
 const ConnPool = require('./lib/conn-pool') // browser exclude
 const Torrent = require('./lib/torrent')
 const VERSION = require('./package.json').version
@@ -430,7 +429,7 @@ class WebTorrent extends EventEmitter {
 }
 
 WebTorrent.WEBRTC_SUPPORT = Peer.WEBRTC_SUPPORT
-WebTorrent.UTP_SUPPORT = Object.keys(utp).length > 0
+WebTorrent.UTP_SUPPORT = ConnPool.UTP_SUPPORT
 WebTorrent.VERSION = VERSION
 
 /**
