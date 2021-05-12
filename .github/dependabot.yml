@@ -13,3 +13,4 @@ updates:
       interval: daily
     labels:
       - dependency
+    versioning-strategy: increase-if-necessary
