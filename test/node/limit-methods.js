@@ -35,7 +35,6 @@ function testSpeed (t, downloaderOpts, uploaderOpts, cb) {
     })
   })
 
-
   client2.on('listening', function () {
     // Start downloading
     const torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
@@ -60,7 +59,7 @@ test('Limit download speed by methods when tcp connection', function (t) {
   t.plan(3)
 
   testSpeed(t, { downloadLimit: DOWNLOAD_SPEED_LIMIT }, {}, function (downloadSpeeds) {
-      t.ok(downloadSpeeds.every(downloadSpeed => downloadSpeed <= DOWNLOAD_SPEED_LIMIT))
+    t.ok(downloadSpeeds.every(downloadSpeed => downloadSpeed <= DOWNLOAD_SPEED_LIMIT))
   })
 })
 
@@ -68,7 +67,7 @@ test('Limit upload speed by methods when tcp connection', function (t) {
   t.plan(3)
 
   testSpeed(t, {}, { uploadLimit: UPLOAD_SPEED_LIMIT }, function (_, uploadSpeeds) {
-      t.ok(uploadSpeeds.every(uploadSpeed => uploadSpeed <= UPLOAD_SPEED_LIMIT))
+    t.ok(uploadSpeeds.every(uploadSpeed => uploadSpeed <= UPLOAD_SPEED_LIMIT))
   })
 })
 
@@ -76,7 +75,7 @@ test('Limit download speed by methods when utp connection', function (t) {
   t.plan(3)
 
   testSpeed(t, { utp: true, downloadLimit: DOWNLOAD_SPEED_LIMIT }, { utp: true }, function (downloadSpeeds) {
-      t.ok(downloadSpeeds.every(downloadSpeed => downloadSpeed <= DOWNLOAD_SPEED_LIMIT))
+    t.ok(downloadSpeeds.every(downloadSpeed => downloadSpeed <= DOWNLOAD_SPEED_LIMIT))
   })
 })
 
@@ -84,7 +83,6 @@ test('Limit upload speed by methods when utp connection', function (t) {
   t.plan(3)
 
   testSpeed(t, { utp: true }, { utp: true, uploadLimit: UPLOAD_SPEED_LIMIT }, function (_, uploadSpeeds) {
-      t.ok(uploadSpeeds.every(uploadSpeed => uploadSpeed <= UPLOAD_SPEED_LIMIT))
+    t.ok(uploadSpeeds.every(uploadSpeed => uploadSpeed <= UPLOAD_SPEED_LIMIT))
   })
 })
-
