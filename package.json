@@ -157,5 +157,10 @@
       "webtorrent.min.js",
       "webtorrent.chromeapp.js"
     ]
+  },
+  "renovate": {
+    "extends": [
+      "github>webtorrent/renovate-config"
+    ]
   }
 }
