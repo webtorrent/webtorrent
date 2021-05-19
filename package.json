@@ -98,7 +98,7 @@
     "webtorrent-fixtures": "^1.7.3"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=v10.24.1"
   },
   "funding": [
     {
