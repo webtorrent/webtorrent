@@ -82,7 +82,7 @@
     "utp-native": "^2.4.0"
   },
   "devDependencies": {
-    "@webtorrent/semantic-release-config": "^1.0.0",
+    "@webtorrent/semantic-release-config": "^1.0.1",
     "airtap": "^4.0.3",
     "airtap-manual": "^1.0.0",
     "airtap-sauce": "^1.1.2",
