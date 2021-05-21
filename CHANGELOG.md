@@ -1,3 +1,32 @@
+# [1.0.0](https://github.com/webtorrent/webtorrent/compare/v0.118.0...v1.0.0) (2021-05-21)
+
+
+### Bug Fixes
+
+* bring back release config ([d78055b](https://github.com/webtorrent/webtorrent/commit/d78055b2fd6275f9ba18474f601c0a4d3284231c))
+* getAnnounceOpts ([#2075](https://github.com/webtorrent/webtorrent/issues/2075)) ([633b922](https://github.com/webtorrent/webtorrent/commit/633b9224b7c7176599a5e53775de1a48d8e864b5))
+* install config ([6ba44c4](https://github.com/webtorrent/webtorrent/commit/6ba44c444f6af6f070c3059ad00ca2d10868058d))
+* **deps:** update webtorrent ([18a8962](https://github.com/webtorrent/webtorrent/commit/18a8962328fb42e1ebc56ed5dbe73b97f096fbd1))
+* ci ([134721c](https://github.com/webtorrent/webtorrent/commit/134721c16d3338270cdcef300bb164720b1d3ae7))
+* github ci secrets ([fc7ec9f](https://github.com/webtorrent/webtorrent/commit/fc7ec9f223079a3c1a2a8b54a4cca022aef4c440))
+
+
+### chore
+
+* add release ([#2077](https://github.com/webtorrent/webtorrent/issues/2077)) ([db9de2d](https://github.com/webtorrent/webtorrent/commit/db9de2d99a260d68f2719396835a09b2d0742e9f))
+
+
+### Reverts
+
+* version strategy gh actions ([1cba675](https://github.com/webtorrent/webtorrent/commit/1cba6753d449ae46f287e9104ed1f0330d640911))
+
+
+### BREAKING CHANGES
+
+* chore: add release
+* add semantic release config
+* Update release.yml
+
 # WebTorrent Version History
 
 ## v0.112.0 - 2020-11-05
