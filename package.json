@@ -162,5 +162,8 @@
     "extends": [
       "github>webtorrent/renovate-config"
     ]
+  },
+  "release": {
+    "extends": "@webtorrent/semantic-release-config"
   }
 }
