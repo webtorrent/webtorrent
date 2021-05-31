@@ -555,7 +555,7 @@ File name, as specified by the torrent. *Example: 'some-filename.txt'*
 
 ## `file.path`
 
-File path, as specified by the torrent. *Example: 'some-folder/some-filename.txt'*
+File path, including torrent path. *Example: 'my-torrent/some-folder/some-filename.txt'*
 
 ## `file.length`
 
