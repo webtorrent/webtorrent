@@ -73,6 +73,7 @@ they can connect to both normal *and* web peers. We hope other clients will foll
   - **[protocol extension api](https://github.com/webtorrent/bittorrent-protocol#extension-api)**
     for adding new extensions
 - **Comprehensive test suite** (runs completely offline, so it's reliable and fast)
+- Check all the **[supported BEPs here](docs/bep_support.md)**
 
 #### Browser/WebRTC environment features
 
