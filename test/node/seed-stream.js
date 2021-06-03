@@ -1,8 +1,8 @@
-const Readable = require('readable-stream').Readable
-const series = require('run-series')
-const test = require('tape')
-const Tracker = require('bittorrent-tracker/server')
-const WebTorrent = require('../../')
+import { Readable } from 'readable-stream'
+import series from 'run-series'
+import test from 'tape'
+import Tracker from 'bittorrent-tracker/server'
+import WebTorrent from '../../index.js'
 
 test('client.seed: stream', function (t) {
   t.plan(9)

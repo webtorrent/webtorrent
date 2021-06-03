@@ -1,5 +1,5 @@
-const test = require('tape')
-const WebTorrent = require('../../')
+import test from 'tape'
+import WebTorrent from '../../index.js'
 
 const img = Buffer.from('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'base64')
 img.name = 'img.png'

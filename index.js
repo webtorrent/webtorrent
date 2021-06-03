@@ -1,23 +1,25 @@
 /*! webtorrent. MIT License. WebTorrent LLC <https://webtorrent.io/opensource> */
 /* global FileList */
 
-const { EventEmitter } = require('events')
-const concat = require('simple-concat')
-const createTorrent = require('create-torrent')
-const debug = require('debug')('webtorrent')
-const DHT = require('bittorrent-dht/client') // browser exclude
-const loadIPSet = require('load-ip-set') // browser exclude
-const parallel = require('run-parallel')
-const parseTorrent = require('parse-torrent')
-const path = require('path')
-const Peer = require('simple-peer')
-const randombytes = require('randombytes')
-const speedometer = require('speedometer')
-const queueMicrotask = require('queue-microtask')
+import { EventEmitter } from 'events'
+import concat from 'simple-concat'
+import createTorrent from 'create-torrent'
+import _debug from 'debug'
+import DHT from 'bittorrent-dht/client.js' // browser exclude
+import loadIPSet from 'load-ip-set' // browser exclude
+import parallel from 'run-parallel'
+import parseTorrent from 'parse-torrent'
+import path from 'path'
+import Peer from 'simple-peer'
+import randombytes from 'randombytes'
+import speedometer from 'speedometer'
+import queueMicrotask from 'queue-microtask'
 
-const ConnPool = require('./lib/conn-pool') // browser exclude
-const Torrent = require('./lib/torrent')
-const VERSION = require('./package.json').version
+import ConnPool from './lib/conn-pool.js' // browser exclude
+import Torrent from './lib/torrent.js'
+
+const VERSION = '0.0.0'
+const debug = _debug('webtorrent')
 
 /**
  * Version number in Azureus-style. Generated from major and minor semver version.
@@ -449,4 +451,4 @@ function isFileList (obj) {
   return typeof FileList !== 'undefined' && obj instanceof FileList
 }
 
-module.exports = WebTorrent
+export default WebTorrent

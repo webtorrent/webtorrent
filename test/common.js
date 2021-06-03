@@ -1,6 +1,6 @@
-const os = require('os')
-const fs = require('fs')
-const path = require('path')
+import os from 'os'
+import fs from 'fs'
+import path from 'path'
 
 exports.getDownloadPath = function (infix, infoHash) {
   let tmpPath

@@ -1,9 +1,9 @@
-const DHT = require('bittorrent-dht/server')
-const fixtures = require('webtorrent-fixtures')
-const series = require('run-series')
-const test = require('tape')
-const WebTorrent = require('../../')
-const common = require('../common')
+import DHT from 'bittorrent-dht/server'
+import fixtures from 'webtorrent-fixtures'
+import series from 'run-series'
+import test from 'tape'
+import WebTorrent from '../../index.js'
+import common from '../common.js'
 
 test('blocklist blocks peers discovered via DHT', function (t) {
   t.plan(8)

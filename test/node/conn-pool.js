@@ -1,8 +1,8 @@
-const test = require('tape')
-const fixtures = require('webtorrent-fixtures')
-const WebTorrent = require('../../')
-const MemoryChunkStore = require('memory-chunk-store')
-const dgram = require('dgram')
+import test from 'tape'
+import fixtures from 'webtorrent-fixtures'
+import WebTorrent from '../../index.js'
+import MemoryChunkStore from 'memory-chunk-store'
+import dgram from 'dgram'
 
 test('client.conn-pool: use TCP when uTP disabled', function (t) {
   t.plan(6)

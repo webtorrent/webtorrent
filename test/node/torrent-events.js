@@ -1,7 +1,7 @@
-const fixtures = require('webtorrent-fixtures')
-const test = require('tape')
-const WebTorrent = require('../../')
-const MemoryChunkStore = require('memory-chunk-store')
+import fixtures from 'webtorrent-fixtures'
+import test from 'tape'
+import MemoryChunkStore from 'memory-chunk-store'
+import WebTorrent from '../../index.js'
 
 test('client.add: emit torrent events in order', function (t) {
   t.plan(6)

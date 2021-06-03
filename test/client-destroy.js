@@ -1,6 +1,6 @@
-const fixtures = require('webtorrent-fixtures')
-const test = require('tape')
-const WebTorrent = require('../')
+import fixtures from 'webtorrent-fixtures'
+import test from 'tape'
+import WebTorrent from '../index.js'
 
 test('after client.destroy(), throw on client.add() or client.seed()', function (t) {
   t.plan(3)
