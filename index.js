@@ -1,5 +1,5 @@
 /*! webtorrent. MIT License. WebTorrent LLC <https://webtorrent.io/opensource> */
-/* global FileList */
+/* global FileList, ServiceWorker */
 
 const { EventEmitter } = require('events')
 const concat = require('simple-concat')
@@ -75,6 +75,7 @@ class WebTorrent extends EventEmitter {
     this.torrents = []
     this.maxConns = Number(opts.maxConns) || 55
     this.utp = opts.utp === true
+    this.serviceWorker = null
 
     this._debug(
       'new webtorrent (peerId %s, nodeId %s, port %s)',
@@ -153,6 +154,49 @@ class WebTorrent extends EventEmitter {
     } else {
       queueMicrotask(ready)
     }
+  }
+
+  /**
+   * Accepts an existing service worker registration [navigator.serviceWorker.controller]
+   * which must be activated, "creates" a file server for streamed file rendering to use.
+   *
+   * @param  {ServiceWorker} controller
+   * @param {function=} cb
+   * @return {null}
+   */
+  async registerWorker (controller, cb = () => {}) {
+    if (!(controller instanceof ServiceWorker)) throw new Error('Invalid worker registration')
+    if (controller.state !== 'activated') throw new Error('Worker isn\'t activated')
+
+    this.serviceWorker = controller
+
+    navigator.serviceWorker.addEventListener('message', event => {
+      if (!event.data.type || !event.data.type === 'webtorrent' || !event.data.url) return null
+      let [infoHash, ...filePath] = event.data.url.slice(event.data.url.indexOf(event.data.scope + 'webtorrent/') + 11 + event.data.scope.length).split('/')
+      filePath = decodeURI(filePath.join('/'))
+      if (!infoHash || !filePath) return null
+
+      const [port] = event.ports
+
+      const file = this.get(infoHash) && this.get(infoHash).files.find(file => file.path === filePath)
+      if (!file) return null
+
+      const [response, stream] = file._serve(event.data)
+      const asyncIterator = stream && stream[Symbol.asyncIterator]()
+
+      port.postMessage(response)
+      port.onmessage = async msg => {
+        if (msg.data) {
+          const chunk = (await asyncIterator.next()).value
+          port.postMessage(chunk)
+          if (!chunk) port.onmessage = null
+        } else {
+          stream.destroy()
+          port.onmessage = null
+        }
+      }
+    })
+    cb(this.serviceWorker)
   }
 
   get downloadSpeed () { return this._downloadSpeed() }
