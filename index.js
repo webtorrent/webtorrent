@@ -164,7 +164,7 @@ class WebTorrent extends EventEmitter {
    * @param {function=} cb
    * @return {null}
    */
-  async registerWorker (controller, cb = () => {}) {
+  loadWorker (controller, cb = () => {}) {
     if (!(controller instanceof ServiceWorker)) throw new Error('Invalid worker registration')
     if (controller.state !== 'activated') throw new Error('Worker isn\'t activated')
 
