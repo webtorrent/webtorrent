@@ -82,7 +82,7 @@ class WebTorrent extends EventEmitter {
     this._uploadLimit = Math.max((typeof opts.uploadLimit === 'number') ? opts.uploadLimit : -1, -1)
 
     if (opts.secure === true) {
-      require('./lib/peer').enableSecure();
+      require('./lib/peer').enableSecure()
     }
 
     this._debug(
@@ -453,13 +453,13 @@ class WebTorrent extends EventEmitter {
   }
 
   _getByHash (infoHashHash) {
-    var i, torrent
-    var len = this.torrents.length
-    var hReq2 = Buffer.from('req2', 'utf8').toString('hex')
-
-    for (i = 0; i < len; i++) {
+    for (let i = 0, torrent; i < this.torrents.length; i++) {
       torrent = this.torrents[i]
-      if (infoHashHash === sha1.sync(Buffer.from(hReq2 + torrent.infoHash, 'hex'))) {
+      if (!torrent.infoHashHash) {
+        const hReq2 = Buffer.from('req2', 'utf8').toString('hex')
+        torrent.infoHashHash = sha1.sync(Buffer.from(hReq2 + torrent.infoHash, 'hex'))
+      }
+      if (infoHashHash === torrent.infoHashHash) {
         return torrent
       }
     }
