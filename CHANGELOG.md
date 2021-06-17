@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/webtorrent/webtorrent/compare/v1.0.0...v1.0.1) (2021-06-17)
+
+
+### Bug Fixes
+
+* make utp-native optional ([#1966](https://github.com/webtorrent/webtorrent/issues/1966)) ([73c941c](https://github.com/webtorrent/webtorrent/commit/73c941c6eb3b539efbbbb499ab3d033531347b19))
+
 # [1.0.0](https://github.com/webtorrent/webtorrent/compare/v0.118.0...v1.0.0) (2021-05-21)
 
 
