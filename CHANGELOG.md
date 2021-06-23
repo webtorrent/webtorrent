@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/webtorrent/webtorrent/compare/v1.0.1...v1.0.2) (2021-06-23)
+
+
+### Bug Fixes
+
+* enable UTP by default if there's support ([0df9eb6](https://github.com/webtorrent/webtorrent/commit/0df9eb60171ff18cec052e8f31a515b341bdd03a))
+
 ## [1.0.1](https://github.com/webtorrent/webtorrent/compare/v1.0.0...v1.0.1) (2021-06-17)
 
 
