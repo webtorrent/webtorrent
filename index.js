@@ -74,7 +74,7 @@ class WebTorrent extends EventEmitter {
     this.lsd = opts.lsd !== false
     this.torrents = []
     this.maxConns = Number(opts.maxConns) || 55
-    this.utp = WebTorrent.UTP_SUPPORT && opts.utp === true
+    this.utp = WebTorrent.UTP_SUPPORT && opts.utp !== false
 
     this._debug(
       'new webtorrent (peerId %s, nodeId %s, port %s)',
