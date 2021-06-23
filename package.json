@@ -162,9 +162,6 @@
       "webtorrent.min.js",
       "sw.min.js",
       "webtorrent.chromeapp.js"
-    ],
-    "globals": [
-      "self"
     ]
   },
   "renovate": {

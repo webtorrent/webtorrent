@@ -1,5 +1,6 @@
 /*! webtorrent. MIT License. WebTorrent LLC <https://webtorrent.io/opensource> */
 /* global FileList, ServiceWorker */
+/* eslint-env browser */
 
 const { EventEmitter } = require('events')
 const concat = require('simple-concat')
@@ -75,7 +76,10 @@ class WebTorrent extends EventEmitter {
     this.torrents = []
     this.maxConns = Number(opts.maxConns) || 55
     this.utp = opts.utp === true
+
     this.serviceWorker = null
+    this.workerKeepAliveInterval = null
+    this.workerPortCount = 0
 
     this._debug(
       'new webtorrent (peerId %s, nodeId %s, port %s)',
@@ -167,12 +171,14 @@ class WebTorrent extends EventEmitter {
   loadWorker (controller, cb = () => {}) {
     if (!(controller instanceof ServiceWorker)) throw new Error('Invalid worker registration')
     if (controller.state !== 'activated') throw new Error('Worker isn\'t activated')
+    const keepAliveTime = 20000
 
     this.serviceWorker = controller
 
     navigator.serviceWorker.addEventListener('message', event => {
-      if (!event.data.type || !event.data.type === 'webtorrent' || !event.data.url) return null
-      let [infoHash, ...filePath] = event.data.url.slice(event.data.url.indexOf(event.data.scope + 'webtorrent/') + 11 + event.data.scope.length).split('/')
+      const { data } = event
+      if (!data.type || !data.type === 'webtorrent' || !data.url) return null
+      let [infoHash, ...filePath] = data.url.slice(data.url.indexOf(data.scope + 'webtorrent/') + 11 + data.scope.length).split('/')
       filePath = decodeURI(filePath.join('/'))
       if (!infoHash || !filePath) return null
 
@@ -181,18 +187,25 @@ class WebTorrent extends EventEmitter {
       const file = this.get(infoHash) && this.get(infoHash).files.find(file => file.path === filePath)
       if (!file) return null
 
-      const [response, stream] = file._serve(event.data)
+      const [response, stream] = file._serve(data)
       const asyncIterator = stream && stream[Symbol.asyncIterator]()
 
       port.postMessage(response)
+      this.workerPortCount++
       port.onmessage = async msg => {
         if (msg.data) {
           const chunk = (await asyncIterator.next()).value
           port.postMessage(chunk)
           if (!chunk) port.onmessage = null
+          if (!this.workerKeepAliveInterval) this.workerKeepAliveInterval = setInterval(() => fetch(`${this.serviceWorker.scriptURL.substr(0, this.serviceWorker.scriptURL.lastIndexOf('/') + 1).slice(window.location.origin.length)}webtorrent/keepalive/`), keepAliveTime)
         } else {
           stream.destroy()
           port.onmessage = null
+          this.workerPortCount--
+          if (!this.workerPortCount) {
+            clearInterval(this.workerKeepAliveInterval)
+            this.workerKeepAliveInterval = null
+          }
         }
       }
     })
