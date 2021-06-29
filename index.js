@@ -83,19 +83,7 @@ class WebTorrent extends EventEmitter {
 
     if (this.tracker) {
       if (typeof this.tracker !== 'object') this.tracker = {}
-      if (opts.rtcConfig) {
-        // TODO: remove in v1
-        console.warn('WebTorrent: opts.rtcConfig is deprecated. Use opts.tracker.rtcConfig instead')
-        this.tracker.rtcConfig = opts.rtcConfig
-      }
-      if (opts.wrtc) {
-        // TODO: remove in v1
-        console.warn('WebTorrent: opts.wrtc is deprecated. Use opts.tracker.wrtc instead')
-        this.tracker.wrtc = opts.wrtc
-      }
-      if (global.WRTC && !this.tracker.wrtc) {
-        this.tracker.wrtc = global.WRTC
-      }
+      if (global.WRTC && !this.tracker.wrtc) this.tracker.wrtc = global.WRTC
     }
 
     if (typeof ConnPool === 'function') {
@@ -195,12 +183,6 @@ class WebTorrent extends EventEmitter {
       }
     }
     return null
-  }
-
-  // TODO: remove in v1
-  download (torrentId, opts, ontorrent) {
-    console.warn('WebTorrent: client.download() is deprecated. Use client.add() instead')
-    return this.add(torrentId, opts, ontorrent)
   }
 
   /**
