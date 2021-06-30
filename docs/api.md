@@ -94,6 +94,7 @@ If `opts` is specified, then the default options (shown below) will be overridde
   private: Boolean,          // If true, client will not share the hash with the DHT nor with PEX (default is the privacy of the parsed torrent)
   store: Function            // Custom chunk store (must follow [abstract-chunk-store](https://www.npmjs.com/package/abstract-chunk-store) API)
   destroyStoreOnDestroy: Boolean // If truthy, client will delete the torrent's chunk store (e.g. files on disk) when the torrent is destroyed
+  storeCacheSlots: Number    // Number of chunk store entries (torrent pieces) to cache in memory [default=20]; 0 to disable caching
 }
 ```
 
@@ -110,7 +111,7 @@ If you provide `opts.store`, it will be called as
 
 * `storeOpts.length` - size of all the files in the torrent
 * `storeOpts.files` - an array of torrent file objects
-* `storeOpts.torrent` - the torrent instance being stored
+* `storeOpts.name` - the info hash of the torrent instance being stored
 
 **Note:** Downloading a torrent automatically seeds it, making it available for download by other peers.
 
