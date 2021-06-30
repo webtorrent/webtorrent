@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/webtorrent/webtorrent/compare/v1.0.2...v1.0.3) (2021-06-30)
+
+
+### Bug Fixes
+
+* remove deprecated functionality ([#2118](https://github.com/webtorrent/webtorrent/issues/2118)) ([2bf6cf4](https://github.com/webtorrent/webtorrent/commit/2bf6cf42e09c448cab0dddcd74ea9a49dc3f18a0))
+
 ## [1.0.2](https://github.com/webtorrent/webtorrent/compare/v1.0.1...v1.0.2) (2021-06-23)
 
 
