@@ -60,6 +60,7 @@ If `opts` is specified, then the default options (shown below) will be overridde
   dht: Boolean|Object,     // Enable DHT (default=true), or options object for DHT
   lsd: Boolean,            // Enable BEP14 local service discovery (default=true)
   webSeeds: Boolean,       // Enable BEP19 web seeds (default=true)
+  blocklist: Array|String,       // List of IP's to block
   utp: Boolean,            // Enable BEP29 uTorrent transport protocol (default=true)
 }
 ```
@@ -69,6 +70,9 @@ For possible values of `opts.dht` see the
 
 For possible values of `opts.tracker` see the
 [`bittorrent-tracker` documentation](https://github.com/webtorrent/bittorrent-tracker#client).
+
+For possible values of `opts.blocklist` see the
+[`load-ip-set` documentation](https://github.com/webtorrent/load-ip-set#usage).
 
 ## `client.add(torrentId, [opts], [function ontorrent (torrent) {}])`
 
@@ -89,12 +93,16 @@ If `opts` is specified, then the default options (shown below) will be overridde
 {
   announce: [String],        // Torrent trackers to use (added to list in .torrent or magnet uri)
   getAnnounceOpts: Function, // Custom callback to allow sending extra parameters to the tracker
+  urlList: [String],         // Array of web seeds
   maxWebConns: Number,       // Max number of simultaneous connections per web seed [default=4]
   path: String,              // Folder to download files to (default=`/tmp/webtorrent/`)
   private: Boolean,          // If true, client will not share the hash with the DHT nor with PEX (default is the privacy of the parsed torrent)
   store: Function            // Custom chunk store (must follow [abstract-chunk-store](https://www.npmjs.com/package/abstract-chunk-store) API)
   destroyStoreOnDestroy: Boolean // If truthy, client will delete the torrent's chunk store (e.g. files on disk) when the torrent is destroyed
   storeCacheSlots: Number    // Number of chunk store entries (torrent pieces) to cache in memory [default=20]; 0 to disable caching
+  skipVerify: Boolean,       // If true, client will skip verification of pieces for existing store and assume it's correct
+  preloadedStore: Function,  // Custom, pre-loaded chunk store (must follow [abstract-chunk-store](https://www.npmjs.com/package/abstract-chunk-store) API)
+  strategy: String           // Piece selection strategy, `rarest` or `sequential`(defaut=`sequential`)
 }
 ```
 
@@ -332,7 +340,8 @@ A comment optionnaly set by the author (string).
 
 Remove the torrent from its client. Destroy all connections to peers and delete all saved file metadata.
 
-If `opts.destroyStore` is truthy, `store.destroy()` will be called, which will delete the torrent's files from the disk.
+If `opts.destroyStore` is specified, it will override `opts.destroyStoreOnDestroy` passed when the torrent was added.
+If truthy, `store.destroy()` will be called, which will delete the torrent's files from the disk.
 
 If `callback` is provided, it will be called when the torrent is fully destroyed,
 i.e. all open sockets are closed, and the storage is either closed or destroyed.
@@ -560,15 +569,14 @@ Total *verified* bytes received from peers, for this file.
 
 File download progress, from 0 to 1.
 
-## `file.select()`
+## `file.select([priority])`
 
-Selects the file to be downloaded, but at a lower priority than files with streams.
+Selects the file to be downloaded, at the given `priority`.
 Useful if you know you need the file at a later stage.
 
-## `file.deselect()`
+## `file.deselect([priority])`
 
-Deselects the file, which means it won't be downloaded unless someone creates a stream
-for it.
+Deselects the file's specific priority, which means it won't be downloaded unless someone creates a stream for it.
 
 *Note: This method is currently not working as expected, see [dcposch answer on #164](https://github.com/webtorrent/webtorrent/issues/164) for a nice work around solution.
 
@@ -715,3 +723,41 @@ Piece length (in bytes). *Example: 12345*
 ## `piece.missing`
 
 Piece missing length (in bytes). *Example: 100*
+
+# Wire API
+
+## `wire.peerId`
+
+Remote peer id (hex string)
+
+## `wire.type`
+
+Connection type ('webrtc', 'tcpIncoming', 'tcpOutgoing', 'utpIncoming', 'utpOutgoing', 'webSeed')
+
+## `wire.uploaded`
+
+Total bytes uploaded to peer.
+
+## `wire.downloaded`
+
+Total bytes downloaded from peer.
+
+## `wire.uploadSpeed`
+
+Peer upload speed, in bytes/sec.
+
+## `wire.downloadSpeed`
+
+Peer download speed, in bytes/sec.
+
+## `wire.remoteAddress`
+
+Peer's remote address. Only exists for tcp/utp peers.
+
+## `wire.remotePort`
+
+Peer's remote port. Only exists for tcp/utp peers.
+
+## `wire.destroy()`
+
+Close the connection with the peer. This however doesn't prevent the peer from simply re-connecting.
