@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/webtorrent/webtorrent/compare/v1.1.0...v1.1.1) (2021-07-02)
+
+
+### Bug Fixes
+
+* Cleanup duplicated deselect() code ([#2113](https://github.com/webtorrent/webtorrent/issues/2113)) ([b94d713](https://github.com/webtorrent/webtorrent/commit/b94d71314bd7ae122c6150b6e92b3f2bd5da504a))
+
 # [1.1.0](https://github.com/webtorrent/webtorrent/compare/v1.0.4...v1.1.0) (2021-06-30)
 
 
