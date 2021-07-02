@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/webtorrent/webtorrent/compare/v1.0.4...v1.1.0) (2021-06-30)
+
+
+### Features
+
+* Use a cache on the chunk store ([#2095](https://github.com/webtorrent/webtorrent/issues/2095)) ([d540058](https://github.com/webtorrent/webtorrent/commit/d540058ebd7f32e613d26c33e8a99b16d39a13d8))
+
 ## [1.0.4](https://github.com/webtorrent/webtorrent/compare/v1.0.3...v1.0.4) (2021-06-30)
 
 ## [1.0.3](https://github.com/webtorrent/webtorrent/compare/v1.0.2...v1.0.3) (2021-06-30)

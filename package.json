@@ -1,7 +1,7 @@
 {
   "name": "webtorrent",
   "description": "Streaming torrent client",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "author": {
     "name": "WebTorrent LLC",
     "email": "feross@webtorrent.io",
@@ -40,6 +40,7 @@
     "bitfield": "^4.0.0",
     "bittorrent-dht": "^10.0.0",
     "bittorrent-protocol": "^3.3.1",
+    "cache-chunk-store": "^3.2.2",
     "chrome-net": "^3.3.4",
     "chunk-store-stream": "^4.3.0",
     "cpus": "^1.0.3",
