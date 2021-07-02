@@ -16,13 +16,13 @@ npm install webtorrent
 ## Quick Example
 
 ```js
-var client = new WebTorrent()
+const client = new WebTorrent()
 
-var torrentId = 'magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel.torrent'
+const torrentId = 'magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel.torrent'
 
 client.add(torrentId, function (torrent) {
   // Torrents can contain many files. Let's use the .mp4 file
-  var file = torrent.files.find(function (file) {
+  const file = torrent.files.find(function (file) {
     return file.name.endsWith('.mp4')
   })
 
@@ -152,7 +152,7 @@ the name is included in the object. For Buffer or Readable stream types, a `name
 can be set on the object, like this:
 
 ```js
-var buf = new Buffer('Some file content')
+const buf = new Buffer('Some file content')
 buf.name = 'Some file name'
 client.seed(buf, cb)
 ```
@@ -410,12 +410,12 @@ individual files at `/<index>` where `<index>` is the index in the `torrent.file
 Here is a usage example:
 
 ```js
-var client = new WebTorrent()
-var magnetURI = 'magnet: ...'
+const client = new WebTorrent()
+const magnetURI = 'magnet: ...'
 
 client.add(magnetURI, function (torrent) {
   // create HTTP server for this torrent
-  var server = torrent.createServer()
+  const server = torrent.createServer()
   server.listen(port) // start the server listening to a port
 
   // visit http://localhost:<port>/ to see a list of files
@@ -522,7 +522,7 @@ node.js-style duplex stream to the remote peer. This event can be used to specif
 Here is a usage example:
 
 ```js
-var MyExtension = require('./my-extension')
+const MyExtension = require('./my-extension')
 
 torrent1.on('wire', function (wire, addr) {
   console.log('connected to peer with address ' + addr)
@@ -698,7 +698,7 @@ This method is useful for creating a file download link, like this:
 ```js
 file.getBlobURL(function (err, url) {
   if (err) throw err
-  var a = document.createElement('a')
+  const a = document.createElement('a')
   a.download = file.name
   a.href = url
   a.textContent = 'Download ' + file.name
