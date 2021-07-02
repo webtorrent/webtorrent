@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/webtorrent/webtorrent/compare/v1.1.2...v1.1.3) (2021-07-02)
+
+
+### Bug Fixes
+
+* add preversion ([55fe206](https://github.com/webtorrent/webtorrent/commit/55fe206e3bd6b48e29018fb7f7bdf6e8055248a2))
+
 ## [1.1.2](https://github.com/webtorrent/webtorrent/compare/v1.1.1...v1.1.2) (2021-07-02)
 
 ## [1.1.1](https://github.com/webtorrent/webtorrent/compare/v1.1.0...v1.1.1) (2021-07-02)
