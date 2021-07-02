@@ -149,6 +149,7 @@
     "build-js": "browserify --standalone WebTorrent . | minify --mangle=false > webtorrent.min.js",
     "build-js-debug": "browserify --standalone WebTorrent . > webtorrent.debug.js",
     "prepublishOnly": "npm run build && npm run update-authors",
+    "preversion": "npm run build && npm run update-authors",
     "size": "npm run size-js && npm run size-disc",
     "size-disc": "browserify --full-paths . | discify --open",
     "size-js": "npm run build && cat webtorrent.min.js | gzip | wc -c",
