@@ -103,7 +103,7 @@
     "utp-native": "^2.4.0"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   },
   "funding": [
     {
@@ -171,7 +171,8 @@
     ],
     "lockFileMaintenance": {
       "enabled": false
-    }
+    },
+    "rangeStrategy": "bump"
   },
   "release": {
     "extends": "@webtorrent/semantic-release-config"
