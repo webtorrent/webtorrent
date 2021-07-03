@@ -39,7 +39,7 @@
     "addr-to-ip-port": "^1.5.1",
     "bitfield": "^4.0.0",
     "bittorrent-dht": "^10.0.0",
-    "bittorrent-protocol": "^3.3.1",
+    "bittorrent-protocol": "^3.4.1",
     "cache-chunk-store": "^3.2.2",
     "chrome-net": "^3.3.4",
     "chunk-store-stream": "^4.3.0",
@@ -79,7 +79,7 @@
     "torrent-piece": "^2.0.1",
     "unordered-array-remove": "^1.0.2",
     "ut_metadata": "^3.5.2",
-    "ut_pex": "^3.0.0"
+    "ut_pex": "^3.0.1"
   },
   "devDependencies": {
     "@webtorrent/semantic-release-config": "1.0.5",
@@ -87,7 +87,7 @@
     "airtap-manual": "1.0.0",
     "airtap-sauce": "1.1.2",
     "babel-minify": "0.5.1",
-    "bittorrent-tracker": "9.17.2",
+    "bittorrent-tracker": "9.17.3",
     "browserify": "17.0.0",
     "disc": "1.3.3",
     "finalhandler": "1.1.2",
@@ -100,7 +100,7 @@
     "webtorrent-fixtures": "1.7.3"
   },
   "optionalDependencies": {
-    "utp-native": "^2.4.0"
+    "utp-native": "^2.5.3"
   },
   "engines": {
     "node": ">=12"
