@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/webtorrent/webtorrent/compare/v1.1.3...v1.1.4) (2021-07-03)
+
+
+### Bug Fixes
+
+* **deps:** update webtorrent ([#2126](https://github.com/webtorrent/webtorrent/issues/2126)) ([87c69be](https://github.com/webtorrent/webtorrent/commit/87c69bea112b6a33175962fefac14c825a690312))
+
 ## [1.1.3](https://github.com/webtorrent/webtorrent/compare/v1.1.2...v1.1.3) (2021-07-02)
 
 
