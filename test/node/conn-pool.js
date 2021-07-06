@@ -100,6 +100,54 @@ test('client.conn-pool: use uTP when uTP enabled', function (t) {
   })
 })
 
+test('client.conn-pool: adding IPv6 peer when uTP enabled should fallback to TCP', function (t) {
+  t.plan(6)
+
+  const client1 = new WebTorrent({ dht: false, tracker: false, lsd: false, utp: true })
+  const client2 = new WebTorrent({ dht: false, tracker: false, lsd: false, utp: true })
+
+  client1.on('error', function (err) { t.fail(err) })
+  client1.on('warning', function (err) { t.fail(err) })
+
+  client2.on('error', function (err) { t.fail(err) })
+  client2.on('warning', function (err) { t.fail(err) })
+
+  // Start seeding
+  client2.seed(fixtures.leaves.content, {
+    name: 'Leaves of Grass by Walt Whitman.epub',
+    announce: []
+  })
+
+  client2.on('listening', function () {
+    // Start downloading
+    const torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
+
+    // Manually connect peers
+    torrent.addPeer('[::1]:' + client2.address().port)
+
+    let order = 0
+
+    torrent.on('infoHash', function () {
+      t.equal(++order, 1)
+    })
+
+    torrent.on('metadata', function () {
+      t.equal(++order, 2)
+    })
+
+    torrent.on('ready', function () {
+      t.equal(++order, 3)
+    })
+
+    torrent.on('done', function () {
+      t.equal(++order, 4)
+
+      client1.destroy(function (err) { t.error(err, 'client 1 destroyed') })
+      client2.destroy(function (err) { t.error(err, 'client 2 destroyed') })
+    })
+  })
+})
+
 // Warning: slow test as we need to rely on connection timeouts
 test('client.conn-pool: fallback to TCP when uTP server failed', function (t) {
   t.plan(6)
