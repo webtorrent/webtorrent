@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/webtorrent/webtorrent/compare/v1.1.4...v1.1.5) (2021-07-06)
+
+
+### Bug Fixes
+
+* ensure uTP peer address is IPv4 ([#2125](https://github.com/webtorrent/webtorrent/issues/2125)) ([100a2ae](https://github.com/webtorrent/webtorrent/commit/100a2aebe23420dd70842b3948896f8fecfee235))
+
 ## [1.1.4](https://github.com/webtorrent/webtorrent/compare/v1.1.3...v1.1.4) (2021-07-03)
 
 
