@@ -1,3 +1,10 @@
+## [1.1.6](https://github.com/webtorrent/webtorrent/compare/v1.1.5...v1.1.6) (2021-07-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bittorrent-protocol to ^3.4.2 ([#2132](https://github.com/webtorrent/webtorrent/issues/2132)) ([7223cbf](https://github.com/webtorrent/webtorrent/commit/7223cbf7918e543542acf9d53da4bec0753a5e00))
+
 ## [1.1.5](https://github.com/webtorrent/webtorrent/compare/v1.1.4...v1.1.5) (2021-07-06)
 
 
