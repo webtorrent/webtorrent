@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/webtorrent/webtorrent/compare/v1.1.6...v1.2.0) (2021-07-09)
+
+
+### Features
+
+* support adding paused torrents. ([#2004](https://github.com/webtorrent/webtorrent/issues/2004)) ([5c79c0a](https://github.com/webtorrent/webtorrent/commit/5c79c0a01424087e4c37776d86ef745191504df4))
+
 ## [1.1.6](https://github.com/webtorrent/webtorrent/compare/v1.1.5...v1.1.6) (2021-07-08)
 
 
