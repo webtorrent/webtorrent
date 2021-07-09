@@ -211,8 +211,8 @@ test('client.add: paused torrent', function (t) {
 
   const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
 
-  client.on('error', function (err) { t.fail(err) })
-  client.on('warning', function (err) { t.fail(err) })
+  client.on('error', (err) => t.fail(err))
+  client.on('warning', (err) => t.fail(err))
 
   const torrent = client.add(fixtures.leaves.magnetURI, { paused: true })
   t.equal(client.torrents.length, 1)
