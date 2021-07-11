@@ -46,6 +46,7 @@ test('client.select: whole torrent', function (t) {
 test('client.select: partial torrent', function (t) {
   t.plan(3)
 
+  let lastPiece
   setupClient(t, (torrent) => {
     lastPiece = Math.floor((torrent.pieces.length - 1) / 2)
     torrent.deselect(0, torrent.pieces.length)
@@ -61,7 +62,7 @@ test('client.deselect: whole torrent', function (t) {
   setupClient(t, (torrent) => {
     torrent.deselect(0, torrent.pieces.length - 1)
   }, (torrent) => {
-    t.equal(torrent.pieces.filter((a) => a === null).length,  0)
+    t.equal(torrent.pieces.filter((a) => a === null).length, 0)
   })
 })
 
