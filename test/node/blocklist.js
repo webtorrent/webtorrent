@@ -6,20 +6,20 @@ const WebTorrent = require('../../')
 const zlib = require('zlib')
 
 function assertBlocked (t, torrent, addr) {
-  torrent.once('blockedPeer', function (_addr) {
+  torrent.once('blockedPeer', _addr => {
     t.equal(addr, _addr)
   })
   t.notOk(torrent.addPeer(addr))
 }
 
 function assertReachable (t, torrent, addr) {
-  torrent.once('peer', function (_addr) {
+  torrent.once('peer', _addr => {
     t.equal(addr, _addr)
   })
   t.ok(torrent.addPeer(addr))
 }
 
-test('blocklist (single IP)', function (t) {
+test('blocklist (single IP)', t => {
   t.plan(9)
 
   const client = new WebTorrent({
@@ -28,25 +28,25 @@ test('blocklist (single IP)', function (t) {
     lsd: false,
     blocklist: ['1.2.3.4']
   })
-  client.on('error', function (err) { t.fail(err) })
-  client.on('warning', function (err) { t.fail(err) })
+  client.on('error', err => { t.fail(err) })
+  client.on('warning', err => { t.fail(err) })
 
   // blocklist isn't fully loaded until `ready` event
-  client.on('ready', function () {
-    client.add(fixtures.leaves.parsedTorrent, function (torrent) {
+  client.on('ready', () => {
+    client.add(fixtures.leaves.parsedTorrent, torrent => {
       assertBlocked(t, torrent, '1.2.3.4:1234')
       assertBlocked(t, torrent, '1.2.3.4:6969')
       assertReachable(t, torrent, '1.1.1.1:1234')
       assertReachable(t, torrent, '1.1.1.1:6969')
 
-      client.destroy(function (err) {
+      client.destroy(err => {
         t.error(err, 'client destroyed')
       })
     })
   })
 })
 
-test('blocklist (array of IPs)', function (t) {
+test('blocklist (array of IPs)', t => {
   t.plan(13)
 
   const client = new WebTorrent({
@@ -55,10 +55,10 @@ test('blocklist (array of IPs)', function (t) {
     lsd: false,
     blocklist: ['1.2.3.4', '5.6.7.8']
   })
-    .on('error', function (err) { t.fail(err) })
-    .on('warning', function (err) { t.fail(err) })
-    .on('ready', function () {
-      client.add(fixtures.leaves.parsedTorrent, function (torrent) {
+    .on('error', err => { t.fail(err) })
+    .on('warning', err => { t.fail(err) })
+    .on('ready', () => {
+      client.add(fixtures.leaves.parsedTorrent, torrent => {
         assertBlocked(t, torrent, '1.2.3.4:1234')
         assertBlocked(t, torrent, '1.2.3.4:6969')
         assertBlocked(t, torrent, '5.6.7.8:1234')
@@ -66,7 +66,7 @@ test('blocklist (array of IPs)', function (t) {
         assertReachable(t, torrent, '1.1.1.1:1234')
         assertReachable(t, torrent, '1.1.1.1:6969')
 
-        client.destroy(function (err) {
+        client.destroy(err => {
           t.error(err, 'client destroyed')
         })
       })
@@ -112,7 +112,7 @@ function assertList (t, torrent) {
   assertReachable(t, torrent, '1.2.2.0:6969')
 }
 
-test('blocklist (array of IP ranges)', function (t) {
+test('blocklist (array of IP ranges)', t => {
   t.plan(49)
   const client = new WebTorrent({
     dht: false,
@@ -123,45 +123,45 @@ test('blocklist (array of IP ranges)', function (t) {
       { start: '5.6.7.0', end: '5.6.7.255' }
     ]
   })
-    .on('error', function (err) { t.fail(err) })
-    .on('warning', function (err) { t.fail(err) })
-    .on('ready', function () {
-      client.add(fixtures.leaves.parsedTorrent, function (torrent) {
+    .on('error', err => { t.fail(err) })
+    .on('warning', err => { t.fail(err) })
+    .on('ready', () => {
+      client.add(fixtures.leaves.parsedTorrent, torrent => {
         assertList(t, torrent)
-        client.destroy(function (err) {
+        client.destroy(err => {
           t.error(err, 'client destroyed')
         })
       })
     })
 })
 
-test('blocklist (http url)', function (t) {
+test('blocklist (http url)', t => {
   t.plan(51)
-  const server = http.createServer(function (req, res) {
+  const server = http.createServer((req, res) => {
     // Check that WebTorrent declares a user agent
-    t.ok(req.headers['user-agent'].indexOf('WebTorrent') !== -1)
+    t.ok(req.headers['user-agent'].includes('WebTorrent'))
 
     fs.createReadStream(fixtures.blocklist.path).pipe(res)
   })
 
-  server.listen(0, function () {
+  server.listen(0, () => {
     const port = server.address().port
-    const url = 'http://127.0.0.1:' + port
+    const url = `http://127.0.0.1:${port}`
     const client = new WebTorrent({
       dht: false,
       tracker: false,
       lsd: false,
       blocklist: url
     })
-      .on('error', function (err) { t.fail(err) })
-      .on('warning', function (err) { t.fail(err) })
-      .on('ready', function () {
-        client.add(fixtures.leaves.parsedTorrent, function (torrent) {
+      .on('error', err => { t.fail(err) })
+      .on('warning', err => { t.fail(err) })
+      .on('ready', () => {
+        client.add(fixtures.leaves.parsedTorrent, torrent => {
           assertList(t, torrent)
-          client.destroy(function (err) {
+          client.destroy(err => {
             t.error(err, 'client destroyed')
           })
-          server.close(function () {
+          server.close(() => {
             t.pass('server closed')
           })
         })
@@ -169,11 +169,11 @@ test('blocklist (http url)', function (t) {
   })
 })
 
-test('blocklist (http url with gzip encoding)', function (t) {
+test('blocklist (http url with gzip encoding)', t => {
   t.plan(51)
-  const server = http.createServer(function (req, res) {
+  const server = http.createServer((req, res) => {
     // Check that WebTorrent declares a user agent
-    t.ok(req.headers['user-agent'].indexOf('WebTorrent') !== -1)
+    t.ok(req.headers['user-agent'].includes('WebTorrent'))
 
     res.setHeader('content-encoding', 'gzip')
     fs.createReadStream(fixtures.blocklist.path)
@@ -181,24 +181,24 @@ test('blocklist (http url with gzip encoding)', function (t) {
       .pipe(res)
   })
 
-  server.listen(0, function () {
+  server.listen(0, () => {
     const port = server.address().port
-    const url = 'http://127.0.0.1:' + port
+    const url = `http://127.0.0.1:${port}`
     const client = new WebTorrent({
       dht: false,
       tracker: false,
       lsd: false,
       blocklist: url
     })
-      .on('error', function (err) { t.fail(err) })
-      .on('warning', function (err) { t.fail(err) })
-      .on('ready', function () {
-        client.add(fixtures.leaves.parsedTorrent, function (torrent) {
+      .on('error', err => { t.fail(err) })
+      .on('warning', err => { t.fail(err) })
+      .on('ready', () => {
+        client.add(fixtures.leaves.parsedTorrent, torrent => {
           assertList(t, torrent)
-          client.destroy(function (err) {
+          client.destroy(err => {
             t.error(err, 'client destroyed')
           })
-          server.close(function () {
+          server.close(() => {
             t.pass('server closed')
           })
         })
@@ -206,11 +206,11 @@ test('blocklist (http url with gzip encoding)', function (t) {
   })
 })
 
-test('blocklist (http url with deflate encoding)', function (t) {
+test('blocklist (http url with deflate encoding)', t => {
   t.plan(51)
-  const server = http.createServer(function (req, res) {
+  const server = http.createServer((req, res) => {
     // Check that WebTorrent declares a user agent
-    t.ok(req.headers['user-agent'].indexOf('WebTorrent') !== -1)
+    t.ok(req.headers['user-agent'].includes('WebTorrent'))
 
     res.setHeader('content-encoding', 'deflate')
     fs.createReadStream(fixtures.blocklist.path)
@@ -218,24 +218,24 @@ test('blocklist (http url with deflate encoding)', function (t) {
       .pipe(res)
   })
 
-  server.listen(0, function () {
+  server.listen(0, () => {
     const port = server.address().port
-    const url = 'http://127.0.0.1:' + port
+    const url = `http://127.0.0.1:${port}`
     const client = new WebTorrent({
       dht: false,
       tracker: false,
       lsd: false,
       blocklist: url
     })
-      .on('error', function (err) { t.fail(err) })
-      .on('warning', function (err) { t.fail(err) })
-      .on('ready', function () {
-        client.add(fixtures.leaves.parsedTorrent, function (torrent) {
+      .on('error', err => { t.fail(err) })
+      .on('warning', err => { t.fail(err) })
+      .on('ready', () => {
+        client.add(fixtures.leaves.parsedTorrent, torrent => {
           assertList(t, torrent)
-          client.destroy(function (err) {
+          client.destroy(err => {
             t.error(err, 'client destroyed')
           })
-          server.close(function () {
+          server.close(() => {
             t.pass('server closed')
           })
         })
@@ -243,7 +243,7 @@ test('blocklist (http url with deflate encoding)', function (t) {
   })
 })
 
-test('blocklist (fs path)', function (t) {
+test('blocklist (fs path)', t => {
   t.plan(49)
   const client = new WebTorrent({
     dht: false,
@@ -251,19 +251,19 @@ test('blocklist (fs path)', function (t) {
     lsd: false,
     blocklist: fixtures.blocklist.path
   })
-    .on('error', function (err) { t.fail(err) })
-    .on('warning', function (err) { t.fail(err) })
-    .on('ready', function () {
-      client.add(fixtures.leaves.parsedTorrent, function (torrent) {
+    .on('error', err => { t.fail(err) })
+    .on('warning', err => { t.fail(err) })
+    .on('ready', () => {
+      client.add(fixtures.leaves.parsedTorrent, torrent => {
         assertList(t, torrent)
-        client.destroy(function (err) {
+        client.destroy(err => {
           t.error(err, 'client destroyed')
         })
       })
     })
 })
 
-test('blocklist (fs path with gzip)', function (t) {
+test('blocklist (fs path with gzip)', t => {
   t.plan(49)
   const client = new WebTorrent({
     dht: false,
@@ -271,12 +271,12 @@ test('blocklist (fs path with gzip)', function (t) {
     lsd: false,
     blocklist: fixtures.blocklist.gzipPath
   })
-    .on('error', function (err) { t.fail(err) })
-    .on('warning', function (err) { t.fail(err) })
-    .on('ready', function () {
-      client.add(fixtures.leaves.parsedTorrent, function (torrent) {
+    .on('error', err => { t.fail(err) })
+    .on('warning', err => { t.fail(err) })
+    .on('ready', () => {
+      client.add(fixtures.leaves.parsedTorrent, torrent => {
         assertList(t, torrent)
-        client.destroy(function (err) {
+        client.destroy(err => {
           t.error(err, 'client destroyed')
         })
       })

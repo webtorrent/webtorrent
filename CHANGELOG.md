@@ -1,3 +1,77 @@
+## [1.2.2](https://github.com/webtorrent/webtorrent/compare/v1.2.1...v1.2.2) (2021-07-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency debug to ^4.3.2 ([#2127](https://github.com/webtorrent/webtorrent/issues/2127)) ([33f813d](https://github.com/webtorrent/webtorrent/commit/33f813d0a882d9d8727f5875a48ae40aab780656))
+
+## [1.2.1](https://github.com/webtorrent/webtorrent/compare/v1.2.0...v1.2.1) (2021-07-11)
+
+
+### Bug Fixes
+
+* modernize code ([#2134](https://github.com/webtorrent/webtorrent/issues/2134)) ([46033ae](https://github.com/webtorrent/webtorrent/commit/46033ae52eca6e22301bb8ed9566c498d3494711))
+
+# [1.2.0](https://github.com/webtorrent/webtorrent/compare/v1.1.6...v1.2.0) (2021-07-09)
+
+
+### Features
+
+* support adding paused torrents. ([#2004](https://github.com/webtorrent/webtorrent/issues/2004)) ([5c79c0a](https://github.com/webtorrent/webtorrent/commit/5c79c0a01424087e4c37776d86ef745191504df4))
+
+## [1.1.6](https://github.com/webtorrent/webtorrent/compare/v1.1.5...v1.1.6) (2021-07-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bittorrent-protocol to ^3.4.2 ([#2132](https://github.com/webtorrent/webtorrent/issues/2132)) ([7223cbf](https://github.com/webtorrent/webtorrent/commit/7223cbf7918e543542acf9d53da4bec0753a5e00))
+
+## [1.1.5](https://github.com/webtorrent/webtorrent/compare/v1.1.4...v1.1.5) (2021-07-06)
+
+
+### Bug Fixes
+
+* ensure uTP peer address is IPv4 ([#2125](https://github.com/webtorrent/webtorrent/issues/2125)) ([100a2ae](https://github.com/webtorrent/webtorrent/commit/100a2aebe23420dd70842b3948896f8fecfee235))
+
+## [1.1.4](https://github.com/webtorrent/webtorrent/compare/v1.1.3...v1.1.4) (2021-07-03)
+
+
+### Bug Fixes
+
+* **deps:** update webtorrent ([#2126](https://github.com/webtorrent/webtorrent/issues/2126)) ([87c69be](https://github.com/webtorrent/webtorrent/commit/87c69bea112b6a33175962fefac14c825a690312))
+
+## [1.1.3](https://github.com/webtorrent/webtorrent/compare/v1.1.2...v1.1.3) (2021-07-02)
+
+
+### Bug Fixes
+
+* add preversion ([55fe206](https://github.com/webtorrent/webtorrent/commit/55fe206e3bd6b48e29018fb7f7bdf6e8055248a2))
+
+## [1.1.2](https://github.com/webtorrent/webtorrent/compare/v1.1.1...v1.1.2) (2021-07-02)
+
+## [1.1.1](https://github.com/webtorrent/webtorrent/compare/v1.1.0...v1.1.1) (2021-07-02)
+
+
+### Bug Fixes
+
+* Cleanup duplicated deselect() code ([#2113](https://github.com/webtorrent/webtorrent/issues/2113)) ([b94d713](https://github.com/webtorrent/webtorrent/commit/b94d71314bd7ae122c6150b6e92b3f2bd5da504a))
+
+# [1.1.0](https://github.com/webtorrent/webtorrent/compare/v1.0.4...v1.1.0) (2021-06-30)
+
+
+### Features
+
+* Use a cache on the chunk store ([#2095](https://github.com/webtorrent/webtorrent/issues/2095)) ([d540058](https://github.com/webtorrent/webtorrent/commit/d540058ebd7f32e613d26c33e8a99b16d39a13d8))
+
+## [1.0.4](https://github.com/webtorrent/webtorrent/compare/v1.0.3...v1.0.4) (2021-06-30)
+
+## [1.0.3](https://github.com/webtorrent/webtorrent/compare/v1.0.2...v1.0.3) (2021-06-30)
+
+
+### Bug Fixes
+
+* remove deprecated functionality ([#2118](https://github.com/webtorrent/webtorrent/issues/2118)) ([2bf6cf4](https://github.com/webtorrent/webtorrent/commit/2bf6cf42e09c448cab0dddcd74ea9a49dc3f18a0))
+
 ## [1.0.2](https://github.com/webtorrent/webtorrent/compare/v1.0.1...v1.0.2) (2021-06-23)
 
 
