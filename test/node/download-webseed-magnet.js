@@ -8,28 +8,28 @@ const serveStatic = require('serve-static')
 const test = require('tape')
 const WebTorrent = require('../../')
 
-test('Download using webseed (via magnet uri)', function (t) {
+test('Download using webseed (via magnet uri)', t => {
   t.plan(9)
 
   const serve = serveStatic(path.dirname(fixtures.leaves.contentPath))
-  const httpServer = http.createServer(function (req, res) {
+  const httpServer = http.createServer((req, res) => {
     const done = finalhandler(req, res)
     serve(req, res, done)
   })
   let client1, client2
 
-  httpServer.on('error', function (err) { t.fail(err) })
+  httpServer.on('error', err => { t.fail(err) })
 
   series([
-    function (cb) {
+    cb => {
       httpServer.listen(cb)
     },
 
-    function (cb) {
+    cb => {
       client1 = new WebTorrent({ dht: false, tracker: false, lsd: false })
 
-      client1.on('error', function (err) { t.fail(err) })
-      client1.on('warning', function (err) { t.fail(err) })
+      client1.on('error', err => { t.fail(err) })
+      client1.on('warning', err => { t.fail(err) })
 
       let gotTorrent = false
       let gotListening = false
@@ -37,7 +37,7 @@ test('Download using webseed (via magnet uri)', function (t) {
         if (gotTorrent && gotListening) cb(null)
       }
 
-      client1.on('torrent', function (torrent) {
+      client1.on('torrent', torrent => {
         // torrent metadata has been fetched -- sanity check it
         t.equal(torrent.name, 'Leaves of Grass by Walt Whitman.epub')
 
@@ -45,7 +45,7 @@ test('Download using webseed (via magnet uri)', function (t) {
           'Leaves of Grass by Walt Whitman.epub'
         ]
 
-        t.deepEqual(torrent.files.map(function (file) { return file.name }), names)
+        t.deepEqual(torrent.files.map(file => file.name), names)
 
         // NOTE: client1 is *NOT* a seeder. Just has the metadata.
         gotTorrent = true
@@ -54,27 +54,27 @@ test('Download using webseed (via magnet uri)', function (t) {
 
       const torrent = client1.add(fixtures.leaves.parsedTorrent, { store: MemoryChunkStore })
 
-      torrent.on('infoHash', function () {
+      torrent.on('infoHash', () => {
         gotListening = true
         maybeDone()
       })
     },
 
-    function (cb) {
+    cb => {
       client2 = new WebTorrent({ dht: false, tracker: false, lsd: false })
 
-      client2.on('error', function (err) { t.fail(err) })
-      client2.on('warning', function (err) { t.fail(err) })
+      client2.on('error', err => { t.fail(err) })
+      client2.on('warning', err => { t.fail(err) })
 
-      const webSeedUrl = 'http://localhost:' + httpServer.address().port + '/' + fixtures.leaves.parsedTorrent.name
-      const magnetURI = fixtures.leaves.magnetURI + '&ws=' + encodeURIComponent(webSeedUrl)
+      const webSeedUrl = `http://localhost:${httpServer.address().port}/${fixtures.leaves.parsedTorrent.name}`
+      const magnetURI = `${fixtures.leaves.magnetURI}&ws=${encodeURIComponent(webSeedUrl)}`
 
-      client2.on('torrent', function (torrent) {
+      client2.on('torrent', torrent => {
         let gotBuffer = false
         let torrentDone = false
 
-        torrent.files.forEach(function (file) {
-          file.getBuffer(function (err, buf) {
+        torrent.files.forEach(file => {
+          file.getBuffer((err, buf) => {
             t.error(err)
             t.deepEqual(buf, fixtures.leaves.content, 'downloaded correct content')
             gotBuffer = true
@@ -82,7 +82,7 @@ test('Download using webseed (via magnet uri)', function (t) {
           })
         })
 
-        torrent.once('done', function () {
+        torrent.once('done', () => {
           t.pass('client2 downloaded torrent from client1')
           torrentDone = true
           maybeDone()
@@ -95,19 +95,19 @@ test('Download using webseed (via magnet uri)', function (t) {
 
       const torrent = client2.add(magnetURI, { store: MemoryChunkStore })
 
-      torrent.on('infoHash', function () {
-        torrent.addPeer('127.0.0.1:' + client1.address().port)
+      torrent.on('infoHash', () => {
+        torrent.addPeer(`127.0.0.1:${client1.address().port}`)
       })
     }
-  ], function (err) {
+  ], err => {
     t.error(err)
-    client1.destroy(function (err) {
+    client1.destroy(err => {
       t.error(err, 'client destroyed')
     })
-    client2.destroy(function (err) {
+    client2.destroy(err => {
       t.error(err, 'client destroyed')
     })
-    httpServer.close(function () {
+    httpServer.close(() => {
       t.pass('http server closed')
     })
   })

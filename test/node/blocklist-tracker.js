@@ -5,19 +5,19 @@ const TrackerServer = require('bittorrent-tracker/server')
 const WebTorrent = require('../../')
 const common = require('../common')
 
-test('blocklist blocks peers discovered via tracker', function (t) {
+test('blocklist blocks peers discovered via tracker', t => {
   t.plan(9)
 
   const parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
   let tracker, client1, client2
 
   series([
-    function (cb) {
+    cb => {
       tracker = new TrackerServer({ udp: false, ws: false })
 
-      tracker.listen(function () {
+      tracker.listen(() => {
         const port = tracker.http.address().port
-        const announceUrl = 'http://127.0.0.1:' + port + '/announce'
+        const announceUrl = `http://127.0.0.1:${port}/announce`
 
         // Overwrite announce with our local tracker
         parsedTorrent.announce = announceUrl
@@ -25,70 +25,70 @@ test('blocklist blocks peers discovered via tracker', function (t) {
         cb(null)
       })
 
-      tracker.once('start', function () {
+      tracker.once('start', () => {
         t.pass('client1 connected to tracker')
 
-        tracker.once('start', function () {
+        tracker.once('start', () => {
           t.pass('client2 connected to tracker')
         })
       })
     },
 
-    function (cb) {
+    cb => {
       client1 = new WebTorrent({ dht: false, lsd: false })
-      client1.on('error', function (err) { t.fail(err) })
-      client1.on('warning', function (err) { t.fail(err) })
+      client1.on('error', err => { t.fail(err) })
+      client1.on('warning', err => { t.fail(err) })
 
       const torrent1 = client1.add(parsedTorrent, {
         path: common.getDownloadPath('client_1', parsedTorrent.infoHash)
       })
 
-      torrent1.on('invalidPeer', function () {
+      torrent1.on('invalidPeer', () => {
         t.pass('client1 found itself')
         cb(null)
       })
 
-      torrent1.on('blockedPeer', function () {
+      torrent1.on('blockedPeer', () => {
         t.fail('client1 should not block any peers')
       })
     },
 
-    function (cb) {
+    cb => {
       client2 = new WebTorrent({
         dht: false,
         lsd: false,
         blocklist: ['127.0.0.1']
       })
-      client2.on('error', function (err) { t.fail(err) })
-      client2.on('warning', function (err) { t.fail(err) })
+      client2.on('error', err => { t.fail(err) })
+      client2.on('warning', err => { t.fail(err) })
 
       const torrent2 = client2.add(parsedTorrent, {
         path: common.getDownloadPath('client_2', parsedTorrent.infoHash)
       })
 
-      torrent2.once('blockedPeer', function () {
+      torrent2.once('blockedPeer', () => {
         t.pass('client2 blocked first peer')
 
-        torrent2.once('blockedPeer', function () {
+        torrent2.once('blockedPeer', () => {
           t.pass('client2 blocked second peer')
           cb(null)
         })
       })
 
-      torrent2.on('peer', function () {
+      torrent2.on('peer', () => {
         t.fail('client2 should not find any peers')
       })
     }
 
-  ], function (err) {
+  ], err => {
     t.error(err)
-    tracker.close(function () {
+    tracker.close(() => {
       t.pass('tracker closed')
     })
-    client1.destroy(function (err) {
+    client1.destroy(err => {
       t.error(err, 'client1 destroyed')
     })
-    client2.destroy(function (err) {
+    client2.destroy(err => {
       t.error(err, 'client2 destroyed')
     })
   })

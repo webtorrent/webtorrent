@@ -73,6 +73,7 @@ they can connect to both normal *and* web peers. We hope other clients will foll
   - **[protocol extension api](https://github.com/webtorrent/bittorrent-protocol#extension-api)**
     for adding new extensions
 - **Comprehensive test suite** (runs completely offline, so it's reliable and fast)
+- Check all the **[supported BEPs here](docs/bep_support.md)**
 
 #### Browser/WebRTC environment features
 
@@ -132,10 +133,10 @@ standards (no plugins, just HTML5 and WebRTC)! It's easy to get started!
 ##### Downloading a file is simple:
 
 ```js
-var WebTorrent = require('webtorrent')
+const WebTorrent = require('webtorrent')
 
-var client = new WebTorrent()
-var magnetURI = '...'
+const client = new WebTorrent()
+const magnetURI = '...'
 
 client.add(magnetURI, function (torrent) {
   // Got torrent metadata!
@@ -152,10 +153,10 @@ client.add(magnetURI, function (torrent) {
 ##### Seeding a file is simple, too:
 
 ```js
-var dragDrop = require('drag-drop')
-var WebTorrent = require('webtorrent')
+const dragDrop = require('drag-drop')
+const WebTorrent = require('webtorrent')
 
-var client = new WebTorrent()
+const client = new WebTorrent()
 
 // When user drops files on the browser, create a new torrent and start seeding it!
 dragDrop('body', function (files) {

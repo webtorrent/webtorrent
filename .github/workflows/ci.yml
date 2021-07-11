@@ -1,11 +1,5 @@
 name: ci
-on:
-  push:
-    branches:
-    - master
-  pull_request:
-    branches:
-    - master
+on: [push,pull_request]
 jobs:
   test:
     name: Node ${{ matrix.node }} / ${{ matrix.os }}
