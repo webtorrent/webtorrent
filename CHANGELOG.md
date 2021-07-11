@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/webtorrent/webtorrent/compare/v1.2.0...v1.2.1) (2021-07-11)
+
+
+### Bug Fixes
+
+* modernize code ([#2134](https://github.com/webtorrent/webtorrent/issues/2134)) ([46033ae](https://github.com/webtorrent/webtorrent/commit/46033ae52eca6e22301bb8ed9566c498d3494711))
+
 # [1.2.0](https://github.com/webtorrent/webtorrent/compare/v1.1.6...v1.2.0) (2021-07-09)
 
 
