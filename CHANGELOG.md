@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/webtorrent/webtorrent/compare/v1.2.1...v1.2.2) (2021-07-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency debug to ^4.3.2 ([#2127](https://github.com/webtorrent/webtorrent/issues/2127)) ([33f813d](https://github.com/webtorrent/webtorrent/commit/33f813d0a882d9d8727f5875a48ae40aab780656))
+
 ## [1.2.1](https://github.com/webtorrent/webtorrent/compare/v1.2.0...v1.2.1) (2021-07-11)
 
 
