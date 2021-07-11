@@ -2,7 +2,7 @@ const os = require('os')
 const fs = require('fs')
 const path = require('path')
 
-exports.getDownloadPath = function (infix, infoHash) {
+exports.getDownloadPath = (infix, infoHash) => {
   let tmpPath
   try {
     tmpPath = path.join(fs.statSync('/tmp') && '/tmp')

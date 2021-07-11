@@ -16,13 +16,13 @@ npm install webtorrent
 ## Quick Example
 
 ```js
-var client = new WebTorrent()
+const client = new WebTorrent()
 
-var torrentId = 'magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel.torrent'
+const torrentId = 'magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel.torrent'
 
 client.add(torrentId, function (torrent) {
   // Torrents can contain many files. Let's use the .mp4 file
-  var file = torrent.files.find(function (file) {
+  const file = torrent.files.find(function (file) {
     return file.name.endsWith('.mp4')
   })
 
@@ -60,7 +60,8 @@ If `opts` is specified, then the default options (shown below) will be overridde
   dht: Boolean|Object,     // Enable DHT (default=true), or options object for DHT
   lsd: Boolean,            // Enable BEP14 local service discovery (default=true)
   webSeeds: Boolean,       // Enable BEP19 web seeds (default=true)
-  utp: Boolean,            // Enable BEP29 uTorrent transport protocol (default=false)
+  blocklist: Array|String,       // List of IP's to block
+  utp: Boolean,            // Enable BEP29 uTorrent transport protocol (default=true)
 }
 ```
 
@@ -69,6 +70,9 @@ For possible values of `opts.dht` see the
 
 For possible values of `opts.tracker` see the
 [`bittorrent-tracker` documentation](https://github.com/webtorrent/bittorrent-tracker#client).
+
+For possible values of `opts.blocklist` see the
+[`load-ip-set` documentation](https://github.com/webtorrent/load-ip-set#usage).
 
 ## `client.add(torrentId, [opts], [function ontorrent (torrent) {}])`
 
@@ -89,11 +93,16 @@ If `opts` is specified, then the default options (shown below) will be overridde
 {
   announce: [String],        // Torrent trackers to use (added to list in .torrent or magnet uri)
   getAnnounceOpts: Function, // Custom callback to allow sending extra parameters to the tracker
+  urlList: [String],         // Array of web seeds
   maxWebConns: Number,       // Max number of simultaneous connections per web seed [default=4]
   path: String,              // Folder to download files to (default=`/tmp/webtorrent/`)
   private: Boolean,          // If true, client will not share the hash with the DHT nor with PEX (default is the privacy of the parsed torrent)
   store: Function            // Custom chunk store (must follow [abstract-chunk-store](https://www.npmjs.com/package/abstract-chunk-store) API)
   destroyStoreOnDestroy: Boolean // If truthy, client will delete the torrent's chunk store (e.g. files on disk) when the torrent is destroyed
+  storeCacheSlots: Number    // Number of chunk store entries (torrent pieces) to cache in memory [default=20]; 0 to disable caching
+  skipVerify: Boolean,       // If true, client will skip verification of pieces for existing store and assume it's correct
+  preloadedStore: Function,  // Custom, pre-loaded chunk store (must follow [abstract-chunk-store](https://www.npmjs.com/package/abstract-chunk-store) API)
+  strategy: String           // Piece selection strategy, `rarest` or `sequential`(defaut=`sequential`)
 }
 ```
 
@@ -110,7 +119,7 @@ If you provide `opts.store`, it will be called as
 
 * `storeOpts.length` - size of all the files in the torrent
 * `storeOpts.files` - an array of torrent file objects
-* `storeOpts.torrent` - the torrent instance being stored
+* `storeOpts.name` - the info hash of the torrent instance being stored
 
 **Note:** Downloading a torrent automatically seeds it, making it available for download by other peers.
 
@@ -151,7 +160,7 @@ the name is included in the object. For Buffer or Readable stream types, a `name
 can be set on the object, like this:
 
 ```js
-var buf = new Buffer('Some file content')
+const buf = new Buffer('Some file content')
 buf.name = 'Some file name'
 client.seed(buf, cb)
 ```
@@ -331,7 +340,8 @@ A comment optionnaly set by the author (string).
 
 Remove the torrent from its client. Destroy all connections to peers and delete all saved file metadata.
 
-If `opts.destroyStore` is truthy, `store.destroy()` will be called, which will delete the torrent's files from the disk.
+If `opts.destroyStore` is specified, it will override `opts.destroyStoreOnDestroy` passed when the torrent was added.
+If truthy, `store.destroy()` will be called, which will delete the torrent's files from the disk.
 
 If `callback` is provided, it will be called when the torrent is fully destroyed,
 i.e. all open sockets are closed, and the storage is either closed or destroyed.
@@ -409,12 +419,12 @@ individual files at `/<index>` where `<index>` is the index in the `torrent.file
 Here is a usage example:
 
 ```js
-var client = new WebTorrent()
-var magnetURI = 'magnet: ...'
+const client = new WebTorrent()
+const magnetURI = 'magnet: ...'
 
 client.add(magnetURI, function (torrent) {
   // create HTTP server for this torrent
-  var server = torrent.createServer()
+  const server = torrent.createServer()
   server.listen(port) // start the server listening to a port
 
   // visit http://localhost:<port>/ to see a list of files
@@ -521,7 +531,7 @@ node.js-style duplex stream to the remote peer. This event can be used to specif
 Here is a usage example:
 
 ```js
-var MyExtension = require('./my-extension')
+const MyExtension = require('./my-extension')
 
 torrent1.on('wire', function (wire, addr) {
   console.log('connected to peer with address ' + addr)
@@ -559,15 +569,14 @@ Total *verified* bytes received from peers, for this file.
 
 File download progress, from 0 to 1.
 
-## `file.select()`
+## `file.select([priority])`
 
-Selects the file to be downloaded, but at a lower priority than files with streams.
+Selects the file to be downloaded, at the given `priority`.
 Useful if you know you need the file at a later stage.
 
-## `file.deselect()`
+## `file.deselect([priority])`
 
-Deselects the file, which means it won't be downloaded unless someone creates a stream
-for it.
+Deselects the file's specific priority, which means it won't be downloaded unless someone creates a stream for it.
 
 *Note: This method is currently not working as expected, see [dcposch answer on #164](https://github.com/webtorrent/webtorrent/issues/164) for a nice work around solution.
 
@@ -697,7 +706,7 @@ This method is useful for creating a file download link, like this:
 ```js
 file.getBlobURL(function (err, url) {
   if (err) throw err
-  var a = document.createElement('a')
+  const a = document.createElement('a')
   a.download = file.name
   a.href = url
   a.textContent = 'Download ' + file.name
@@ -714,3 +723,41 @@ Piece length (in bytes). *Example: 12345*
 ## `piece.missing`
 
 Piece missing length (in bytes). *Example: 100*
+
+# Wire API
+
+## `wire.peerId`
+
+Remote peer id (hex string)
+
+## `wire.type`
+
+Connection type ('webrtc', 'tcpIncoming', 'tcpOutgoing', 'utpIncoming', 'utpOutgoing', 'webSeed')
+
+## `wire.uploaded`
+
+Total bytes uploaded to peer.
+
+## `wire.downloaded`
+
+Total bytes downloaded from peer.
+
+## `wire.uploadSpeed`
+
+Peer upload speed, in bytes/sec.
+
+## `wire.downloadSpeed`
+
+Peer download speed, in bytes/sec.
+
+## `wire.remoteAddress`
+
+Peer's remote address. Only exists for tcp/utp peers.
+
+## `wire.remotePort`
+
+Peer's remote port. Only exists for tcp/utp peers.
+
+## `wire.destroy()`
+
+Close the connection with the peer. This however doesn't prevent the peer from simply re-connecting.

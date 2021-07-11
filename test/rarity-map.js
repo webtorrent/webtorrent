@@ -4,7 +4,7 @@ const test = require('tape')
 const Torrent = require('../lib/torrent')
 const Wire = require('bittorrent-protocol')
 
-test('Rarity map usage', function (t) {
+test('Rarity map usage', t => {
   t.plan(16)
 
   const numPieces = 4
@@ -18,11 +18,11 @@ test('Rarity map usage', function (t) {
     dht: false,
     tracker: false,
     lsd: false,
-    _remove: function () {}
+    _remove () {}
   }
   const opts = {}
   const torrent = new Torrent(torrentId, client, opts)
-  torrent.on('metadata', function () {
+  torrent.on('metadata', () => {
     torrent._onWire(new Wire())
     torrent._onWire(new Wire())
 
@@ -79,10 +79,10 @@ test('Rarity map usage', function (t) {
     t.equal(piece, 3)
 
     // test piece filter func
-    piece = rarityMap.getRarestPiece(function (i) { return i <= 1 })
+    piece = rarityMap.getRarestPiece(i => i <= 1)
     t.equal(piece, 0)
 
-    piece = rarityMap.getRarestPiece(function (i) { return i === 1 || i === 2 })
+    piece = rarityMap.getRarestPiece(i => i === 1 || i === 2)
     t.equal(piece, 2)
 
     function validateInitial () {
@@ -119,8 +119,8 @@ test('Rarity map usage', function (t) {
     }
   })
 
-  t.on('end', function () {
-    torrent.wires.forEach(function (wire) {
+  t.on('end', () => {
+    torrent.wires.forEach(wire => {
       wire.destroy()
     })
     torrent.destroy()
