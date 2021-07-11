@@ -7,11 +7,11 @@ test('extension support', t => {
   let extendedHandshakes = 0
 
   class Extension {
-    constructor(wire) {
+    constructor (wire) {
       wire.extendedHandshake.test = 'Hello, World!'
     }
 
-    onExtendedHandshake(extendedHandshake) {
+    onExtendedHandshake (extendedHandshake) {
       extendedHandshakes += 1
 
       t.equal(

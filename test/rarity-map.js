@@ -18,7 +18,7 @@ test('Rarity map usage', t => {
     dht: false,
     tracker: false,
     lsd: false,
-    _remove() {}
+    _remove () {}
   }
   const opts = {}
   const torrent = new Torrent(torrentId, client, opts)
