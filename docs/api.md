@@ -378,7 +378,7 @@ Selects a range of pieces to prioritize starting with `start` and ending with `e
 inclusive) at the given `priority`. `notify` is an optional callback to be called when the
 selection is updated with new data.
 
-## `torrent.deselect(start, end, priority)`
+## `torrent.deselect(start, end)`
 
 Deprioritizes a range of previously selected pieces.
 
