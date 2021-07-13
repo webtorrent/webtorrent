@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/webtorrent/webtorrent/compare/v1.2.2...v1.2.3) (2021-07-13)
+
+
+### Bug Fixes
+
+* store.put is async and might fail ([#2006](https://github.com/webtorrent/webtorrent/issues/2006)) ([3b3f65a](https://github.com/webtorrent/webtorrent/commit/3b3f65afaecb88dcdbb1f342a3643343eaf22c80))
+
 ## [1.2.2](https://github.com/webtorrent/webtorrent/compare/v1.2.1...v1.2.2) (2021-07-11)
 
 
