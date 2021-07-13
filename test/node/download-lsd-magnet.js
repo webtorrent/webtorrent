@@ -3,17 +3,17 @@ const MemoryChunkStore = require('memory-chunk-store')
 const test = require('tape')
 const WebTorrent = require('../../')
 
-test('Download using LSD (via magnet uri)', function (t) {
+test('Download using LSD (via magnet uri)', t => {
   t.plan(3)
 
   const client1 = new WebTorrent({ dht: false, tracker: false, lsd: true })
   const client2 = new WebTorrent({ dht: false, tracker: false, lsd: true })
 
-  client1.on('error', function (err) { t.fail(err) })
-  client1.on('warning', function (err) { t.fail(err) })
+  client1.on('error', err => { t.fail(err) })
+  client1.on('warning', err => { t.fail(err) })
 
-  client2.on('error', function (err) { t.fail(err) })
-  client2.on('warning', function (err) { t.fail(err) })
+  client2.on('error', err => { t.fail(err) })
+  client2.on('warning', err => { t.fail(err) })
 
   const torrent = client1.add(fixtures.leaves.magnetURI, { store: MemoryChunkStore })
 
@@ -22,10 +22,10 @@ test('Download using LSD (via magnet uri)', function (t) {
     announce: []
   })
 
-  torrent.on('done', function () {
+  torrent.on('done', () => {
     t.pass()
 
-    client1.destroy(function (err) { t.error(err, 'client 1 destroyed') })
-    client2.destroy(function (err) { t.error(err, 'client 2 destroyed') })
+    client1.destroy(err => { t.error(err, 'client 1 destroyed') })
+    client2.destroy(err => { t.error(err, 'client 2 destroyed') })
   })
 })

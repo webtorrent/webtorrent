@@ -59,6 +59,7 @@ There are also exciting **business use cases**, from CDNs to app delivery.
 WebTorrent is still pretty new, but it's already being used in cool ways:
 
 - **[WebTorrent Desktop][webtorrent-desktop]** - Streaming torrent app. For Mac, Windows, and Linux. ([source code][webtorrent-desktop-source])
+- **[Wormhole][wormhole]** – Simple, private file sharing (built by the WebTorrent team)
 - **[Instant.io][instant.io]** – Streaming file transfer over WebTorrent ([source code][instant.io-source])
 - **[GitTorrent][gittorrent]** - Decentralized GitHub using BitTorrent and Bitcoin ([source code][gittorrent-source])
 - **[File.pizza][filepizza]** - Free peer-to-peer file transfers in your browser ([source code][filepizza-source])
@@ -104,6 +105,8 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[CipherTorrent][cipher-torrent]** - Online and offline browser torrent client ([source code][cipher-torrent-source])
 - **[Slingcode][Slingcode]** - make, run, and share web apps P2P in the browser.
 - **[Torrent🧲Parts][TorrentParts]** - A website to inspect and edit what's in your Torrent file or Magnet link
+- **[Live On Torrent][liveontorrent]** - A free plataform to live streaming on browser.
+- **[WebTorrentPlayer][webtorrentplayer]** - High performance, no compromise video player for WebTorrent ([source code][webtorrentplayer-source])
 - ***Your app here – [Send a pull request][pr] with your URL!***
 <!-- - **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source]) -->
 <!-- - **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s)) -->
@@ -116,6 +119,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [webtorrent-clones]: https://github.com/DiegoRBaquero/awesome-webtorrent-clones
 [webtorrent-desktop]: https://webtorrent.io/desktop
 [webtorrent-desktop-source]: https://github.com/webtorrent/webtorrent-desktop
+[wormhole]: https://wormhole.app
 [instant.io-source]: https://github.com/webtorrent/instant.io
 [gittorrent]: http://blog.printf.net/articles/2015/05/29/announcing-gittorrent-a-decentralized-github/
 [gittorrent-source]: https://github.com/cjb/GitTorrent
@@ -186,6 +190,9 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [cipher-torrent]: https://torrent.cipherdogs.net
 [cipher-torrent-source]: https://github.com/CipherDogs/cipher-torrent
 [TorrentParts]: https://torrent.parts
+[liveontorrent]: https://www.weboscoder.com/liveontorrent/
+[webtorrentplayer]: https://thaunknown.github.io/webtorrent-player/
+[webtorrentplayer-source]: https://github.com/ThaUnknown/webtorrent-player
 
 ## How does WebTorrent work?
 
@@ -226,13 +233,13 @@ script on your page. If you use [browserify](http://browserify.org/), you can
 It's easy to download a torrent and add it to the page.
 
 ```js
-var client = new WebTorrent()
+const client = new WebTorrent()
 
-var torrentId = 'magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel.torrent'
+const torrentId = 'magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel.torrent'
 
 client.add(torrentId, function (torrent) {
   // Torrents can contain many files. Let's use the .mp4 file
-  var file = torrent.files.find(function (file) {
+  const file = torrent.files.find(function (file) {
     return file.name.endsWith('.mp4')
   })
   file.appendTo('body') // append the file to the DOM

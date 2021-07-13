@@ -1,8 +1,7 @@
-.airtap.yml
 .github/
-CONTRIBUTING.md
 docs/
 scripts/
-SECURITY.md
 test/
 
+.airtap.yml
+CONTRIBUTING.md
