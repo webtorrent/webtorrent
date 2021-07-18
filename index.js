@@ -77,8 +77,8 @@ class WebTorrent extends EventEmitter {
     this.maxConns = Number(opts.maxConns) || 55
     this.utp = WebTorrent.UTP_SUPPORT && opts.utp !== false
 
-    this._downloadLimit = Math.max(Number(opts.downloadLimit), -1)
-    this._uploadLimit = Math.max(Number(opts.uploadLimit), -1)
+    this._downloadLimit = Math.max(Number(opts.downloadLimit) || -1, -1)
+    this._uploadLimit = Math.max(Number(opts.uploadLimit) || -1, -1)
 
     this._debug(
       'new webtorrent (peerId %s, nodeId %s, port %s)',
@@ -367,7 +367,7 @@ class WebTorrent extends EventEmitter {
    */
   throttleDownload (rate) {
     rate = Number(rate)
-    if (isNaN(rate) || !isFinite(rate) || rate < -1) return
+    if (isNaN(rate) || !isFinite(rate) || rate < -1) return false
     this._downloadLimit = rate
     if (this._downloadLimit < 0) return this.throttleGroups.down.setEnabled(false)
     this.throttleGroups.down.setEnabled(true)
@@ -380,7 +380,7 @@ class WebTorrent extends EventEmitter {
    */
   throttleUpload (rate) {
     rate = Number(rate)
-    if (isNaN(rate) || !isFinite(rate) || rate < -1) return
+    if (isNaN(rate) || !isFinite(rate) || rate < -1) return false
     this._uploadLimit = rate
     if (this._uploadLimit < 0) return this.throttleGroups.up.setEnabled(false)
     this.throttleGroups.up.setEnabled(true)
