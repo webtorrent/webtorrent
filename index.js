@@ -14,6 +14,7 @@ const Peer = require('simple-peer')
 const randombytes = require('randombytes')
 const speedometer = require('speedometer')
 const ThrottleGroup = require('stream-throttle').ThrottleGroup
+const queueMicrotask = require('queue-microtask')
 
 const ConnPool = require('./lib/conn-pool') // browser exclude
 const Torrent = require('./lib/torrent')
@@ -74,7 +75,7 @@ class WebTorrent extends EventEmitter {
     this.lsd = opts.lsd !== false
     this.torrents = []
     this.maxConns = Number(opts.maxConns) || 55
-    this.utp = opts.utp === true
+    this.utp = WebTorrent.UTP_SUPPORT && opts.utp !== false
     this.downloadLimit = Number(opts.downloadLimit) || Number.MAX_VALUE
     this.uploadLimit = Number(opts.uploadLimit) || Number.MAX_VALUE
 
@@ -90,25 +91,13 @@ class WebTorrent extends EventEmitter {
 
     if (this.tracker) {
       if (typeof this.tracker !== 'object') this.tracker = {}
-      if (opts.rtcConfig) {
-        // TODO: remove in v1
-        console.warn('WebTorrent: opts.rtcConfig is deprecated. Use opts.tracker.rtcConfig instead')
-        this.tracker.rtcConfig = opts.rtcConfig
-      }
-      if (opts.wrtc) {
-        // TODO: remove in v1
-        console.warn('WebTorrent: opts.wrtc is deprecated. Use opts.tracker.wrtc instead')
-        this.tracker.wrtc = opts.wrtc
-      }
-      if (global.WRTC && !this.tracker.wrtc) {
-        this.tracker.wrtc = global.WRTC
-      }
+      if (global.WRTC && !this.tracker.wrtc) this.tracker.wrtc = global.WRTC
     }
 
     if (typeof ConnPool === 'function') {
       this._connPool = new ConnPool(this)
     } else {
-      process.nextTick(() => {
+      queueMicrotask(() => {
         this._onListening()
       })
     }
@@ -158,7 +147,7 @@ class WebTorrent extends EventEmitter {
         ready()
       })
     } else {
-      process.nextTick(ready)
+      queueMicrotask(ready)
     }
   }
 
@@ -202,12 +191,6 @@ class WebTorrent extends EventEmitter {
       }
     }
     return null
-  }
-
-  // TODO: remove in v1
-  download (torrentId, opts, ontorrent) {
-    console.warn('WebTorrent: client.download() is deprecated. Use client.add() instead')
-    return this.add(torrentId, opts, ontorrent)
   }
 
   /**
@@ -280,8 +263,8 @@ class WebTorrent extends EventEmitter {
     const onTorrent = torrent => {
       const tasks = [
         cb => {
-          // when a filesystem path is specified, files are already in the FS store
-          if (isFilePath) return cb()
+          // when a filesystem path is specified or the store is preloaded, files are already in the FS store
+          if (isFilePath || opts.preloadedStore) return cb()
           torrent.load(streams, cb)
         }
       ]
@@ -311,8 +294,15 @@ class WebTorrent extends EventEmitter {
     else if (!Array.isArray(input)) input = [input]
 
     parallel(input.map(item => cb => {
-      if (isReadable(item)) concat(item, cb)
-      else cb(null, item)
+      if (!opts.preloadedStore && isReadable(item)) {
+        concat(item, (err, buf) => {
+          if (err) return cb(err)
+          buf.name = item.name
+          cb(null, buf)
+        })
+      } else {
+        cb(null, item)
+      }
     }), (err, input) => {
       if (this.destroyed) return
       if (err) return torrent._destroy(err)
@@ -449,6 +439,7 @@ class WebTorrent extends EventEmitter {
 }
 
 WebTorrent.WEBRTC_SUPPORT = Peer.WEBRTC_SUPPORT
+WebTorrent.UTP_SUPPORT = ConnPool.UTP_SUPPORT
 WebTorrent.VERSION = VERSION
 
 /**
