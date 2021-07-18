@@ -1,3 +1,17 @@
+## [1.2.4](https://github.com/webtorrent/webtorrent/compare/v1.2.3...v1.2.4) (2021-07-13)
+
+
+### Bug Fixes
+
+* call public FileStream.destroy method so cb is defined ([#2135](https://github.com/webtorrent/webtorrent/issues/2135)) ([b035cbe](https://github.com/webtorrent/webtorrent/commit/b035cbe9ea59d3fcfc6467dcf4f2f49da2f7c3d8))
+
+## [1.2.3](https://github.com/webtorrent/webtorrent/compare/v1.2.2...v1.2.3) (2021-07-13)
+
+
+### Bug Fixes
+
+* store.put is async and might fail ([#2006](https://github.com/webtorrent/webtorrent/issues/2006)) ([3b3f65a](https://github.com/webtorrent/webtorrent/commit/3b3f65afaecb88dcdbb1f342a3643343eaf22c80))
+
 ## [1.2.2](https://github.com/webtorrent/webtorrent/compare/v1.2.1...v1.2.2) (2021-07-11)
 
 
