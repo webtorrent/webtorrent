@@ -1,7 +1,7 @@
 {
   "name": "webtorrent",
   "description": "Streaming torrent client",
-  "version": "1.0.0",
+  "version": "1.2.4",
   "author": {
     "name": "WebTorrent LLC",
     "email": "feross@webtorrent.io",
@@ -10,14 +10,14 @@
   "browser": {
     "./lib/server.js": false,
     "./lib/conn-pool.js": false,
+    "./lib/utp.js": false,
     "bittorrent-dht/client": false,
     "fs": false,
     "fs-chunk-store": "memory-chunk-store",
     "load-ip-set": false,
     "net": false,
     "os": false,
-    "ut_pex": false,
-    "utp-native": false
+    "ut_pex": false
   },
   "browserify": {
     "transform": [
@@ -28,23 +28,24 @@
     "url": "https://github.com/webtorrent/webtorrent/issues"
   },
   "chromeapp": {
+    "./lib/utp.js": false,
     "fs-chunk-store": "memory-chunk-store",
     "http": "http-node",
     "load-ip-set": false,
     "net": "chrome-net",
-    "os": false,
-    "utp-native": false
+    "os": false
   },
   "dependencies": {
     "addr-to-ip-port": "^1.5.1",
     "bitfield": "^4.0.0",
     "bittorrent-dht": "^10.0.0",
-    "bittorrent-protocol": "^3.3.1",
+    "bittorrent-protocol": "^3.4.2",
+    "cache-chunk-store": "^3.2.2",
     "chrome-net": "^3.3.4",
     "chunk-store-stream": "^4.3.0",
     "cpus": "^1.0.3",
     "create-torrent": "^4.7.0",
-    "debug": "^4.3.1",
+    "debug": "^4.3.2",
     "end-of-stream": "^1.4.4",
     "escape-html": "^1.0.3",
     "fs-chunk-store": "^2.0.3",
@@ -78,8 +79,7 @@
     "torrent-piece": "^2.0.1",
     "unordered-array-remove": "^1.0.2",
     "ut_metadata": "^3.5.2",
-    "ut_pex": "^3.0.0",
-    "utp-native": "^2.4.0"
+    "ut_pex": "^3.0.1"
   },
   "devDependencies": {
     "@webtorrent/semantic-release-config": "1.0.5",
@@ -87,20 +87,23 @@
     "airtap-manual": "1.0.0",
     "airtap-sauce": "1.1.2",
     "babel-minify": "0.5.1",
-    "bittorrent-tracker": "9.17.0",
+    "bittorrent-tracker": "9.17.3",
     "browserify": "17.0.0",
     "disc": "1.3.3",
     "finalhandler": "1.1.2",
     "network-address": "1.1.2",
     "run-series": "1.1.9",
-    "semantic-release": "17.4.3",
+    "semantic-release": "17.4.4",
     "serve-static": "1.14.1",
     "standard": "*",
     "tape": "5.2.2",
     "webtorrent-fixtures": "1.7.3"
   },
+  "optionalDependencies": {
+    "utp-native": "^2.5.3"
+  },
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   },
   "funding": [
     {
@@ -146,6 +149,7 @@
     "build-js": "browserify --standalone WebTorrent . | minify --mangle=false > webtorrent.min.js",
     "build-js-debug": "browserify --standalone WebTorrent . > webtorrent.debug.js",
     "prepublishOnly": "npm run build && npm run update-authors",
+    "preversion": "npm run build && npm run update-authors",
     "size": "npm run size-js && npm run size-disc",
     "size-disc": "browserify --full-paths . | discify --open",
     "size-js": "npm run build && cat webtorrent.min.js | gzip | wc -c",
@@ -167,7 +171,8 @@
     ],
     "lockFileMaintenance": {
       "enabled": false
-    }
+    },
+    "rangeStrategy": "bump"
   },
   "release": {
     "extends": "@webtorrent/semantic-release-config"

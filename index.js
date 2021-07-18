@@ -74,7 +74,7 @@ class WebTorrent extends EventEmitter {
     this.lsd = opts.lsd !== false
     this.torrents = []
     this.maxConns = Number(opts.maxConns) || 55
-    this.utp = opts.utp === true
+    this.utp = WebTorrent.UTP_SUPPORT && opts.utp !== false
 
     this._debug(
       'new webtorrent (peerId %s, nodeId %s, port %s)',
@@ -83,19 +83,7 @@ class WebTorrent extends EventEmitter {
 
     if (this.tracker) {
       if (typeof this.tracker !== 'object') this.tracker = {}
-      if (opts.rtcConfig) {
-        // TODO: remove in v1
-        console.warn('WebTorrent: opts.rtcConfig is deprecated. Use opts.tracker.rtcConfig instead')
-        this.tracker.rtcConfig = opts.rtcConfig
-      }
-      if (opts.wrtc) {
-        // TODO: remove in v1
-        console.warn('WebTorrent: opts.wrtc is deprecated. Use opts.tracker.wrtc instead')
-        this.tracker.wrtc = opts.wrtc
-      }
-      if (global.WRTC && !this.tracker.wrtc) {
-        this.tracker.wrtc = global.WRTC
-      }
+      if (global.WRTC && !this.tracker.wrtc) this.tracker.wrtc = global.WRTC
     }
 
     if (typeof ConnPool === 'function') {
@@ -195,12 +183,6 @@ class WebTorrent extends EventEmitter {
       }
     }
     return null
-  }
-
-  // TODO: remove in v1
-  download (torrentId, opts, ontorrent) {
-    console.warn('WebTorrent: client.download() is deprecated. Use client.add() instead')
-    return this.add(torrentId, opts, ontorrent)
   }
 
   /**
@@ -429,6 +411,7 @@ class WebTorrent extends EventEmitter {
 }
 
 WebTorrent.WEBRTC_SUPPORT = Peer.WEBRTC_SUPPORT
+WebTorrent.UTP_SUPPORT = ConnPool.UTP_SUPPORT
 WebTorrent.VERSION = VERSION
 
 /**

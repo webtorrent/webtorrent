@@ -28,7 +28,7 @@ npm install webtorrent
 Then use `WebTorrent` like this:
 
 ```js
-var WebTorrent = require('webtorrent')
+const WebTorrent = require('webtorrent')
 ```
 
 ## Quick Examples
@@ -36,16 +36,16 @@ var WebTorrent = require('webtorrent')
 ### Downloading a torrent (in the browser)
 
 ```js
-var WebTorrent = require('webtorrent')
+const WebTorrent = require('webtorrent')
 
-var client = new WebTorrent()
+const client = new WebTorrent()
 
 // Sintel, a free, Creative Commons movie
-var torrentId = 'magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel.torrent'
+const torrentId = 'magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel.torrent'
 
 client.add(torrentId, function (torrent) {
   // Torrents can contain many files. Let's use the .mp4 file
-  var file = torrent.files.find(function (file) {
+  const file = torrent.files.find(function (file) {
     return file.name.endsWith('.mp4')
   })
 
@@ -68,10 +68,10 @@ the needed torrent pieces from the network on-demand.
 ### Creating a new torrent and seed it (in the browser)
 
 ```js
-var dragDrop = require('drag-drop')
-var WebTorrent = require('webtorrent')
+const dragDrop = require('drag-drop')
+const WebTorrent = require('webtorrent')
 
-var client = new WebTorrent()
+const client = new WebTorrent()
 
 // When user drops files on the browser, create a new torrent and start seeding it!
 dragDrop('body', function (files) {
@@ -91,11 +91,11 @@ This exports a `DragDrop` function on `window`.
 ### Download and save a torrent (in Node.js)
 
 ```js
-var WebTorrent = require('webtorrent')
+const WebTorrent = require('webtorrent')
 
-var client = new WebTorrent()
+const client = new WebTorrent()
 
-var magnetURI = 'magnet: ...'
+const magnetURI = 'magnet: ...'
 
 client.add(magnetURI, { path: '/path/to/folder' }, function (torrent) {
   torrent.on('done', function () {
@@ -109,8 +109,8 @@ client.add(magnetURI, { path: '/path/to/folder' }, function (torrent) {
 **Note:** Seeding a torrent that can be downloaded by browser peers (i.e. with support for WebRTC) requires [webtorrent-hybrid](https://github.com/webtorrent/webtorrent-hybrid).
 
 ```js
-var WebTorrent = require('webtorrent-hybrid')
-var client = new WebTorrent()
+const WebTorrent = require('webtorrent-hybrid')
+const client = new WebTorrent()
 
 client.seed('/seed-me.txt', function (torrent) {
     console.log('Client is seeding ' + torrent.magnetURI)
@@ -149,7 +149,7 @@ downloaded.
     <script src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"></script>
 
     <script>
-      var client = new WebTorrent()
+      const client = new WebTorrent()
 
       client.on('error', function (err) {
         console.error('ERROR: ' + err.message)
@@ -158,7 +158,7 @@ downloaded.
       document.querySelector('form').addEventListener('submit', function (e) {
         e.preventDefault() // Prevent page refresh
 
-        var torrentId = document.querySelector('form input[name=torrentId]').value
+        const torrentId = document.querySelector('form input[name=torrentId]').value
         log('Adding ' + torrentId)
         client.add(torrentId, onTorrent)
       })
@@ -172,7 +172,7 @@ downloaded.
         )
 
         // Print out progress every 5 seconds
-        var interval = setInterval(function () {
+        const interval = setInterval(function () {
           log('Progress: ' + (torrent.progress * 100).toFixed(1) + '%')
         }, 5000)
 
@@ -194,7 +194,7 @@ downloaded.
       }
 
       function log (str) {
-        var p = document.createElement('p')
+        const p = document.createElement('p')
         p.innerHTML = str
         document.querySelector('.log').appendChild(p)
       }
@@ -305,25 +305,25 @@ or [Instant.io](https://instant.io) to seed torrents to the WebTorrent network.
     <script src="http://momentjs.com/downloads/moment.min.js"></script>
 
     <script>
-      var torrentId = 'https://webtorrent.io/torrents/sintel.torrent'
+      const torrentId = 'https://webtorrent.io/torrents/sintel.torrent'
 
-      var client = new WebTorrent()
+      const client = new WebTorrent()
 
       // HTML elements
-      var $body = document.body
-      var $progressBar = document.querySelector('#progressBar')
-      var $numPeers = document.querySelector('#numPeers')
-      var $downloaded = document.querySelector('#downloaded')
-      var $total = document.querySelector('#total')
-      var $remaining = document.querySelector('#remaining')
-      var $uploadSpeed = document.querySelector('#uploadSpeed')
-      var $downloadSpeed = document.querySelector('#downloadSpeed')
+      const $body = document.body
+      const $progressBar = document.querySelector('#progressBar')
+      const $numPeers = document.querySelector('#numPeers')
+      const $downloaded = document.querySelector('#downloaded')
+      const $total = document.querySelector('#total')
+      const $remaining = document.querySelector('#remaining')
+      const $uploadSpeed = document.querySelector('#uploadSpeed')
+      const $downloadSpeed = document.querySelector('#downloadSpeed')
 
       // Download the torrent
       client.add(torrentId, function (torrent) {
 
         // Torrents can contain many files. Let's use the .mp4 file
-        var file = torrent.files.find(function (file) {
+        const file = torrent.files.find(function (file) {
           return file.name.endsWith('.mp4')
         })
 
@@ -341,13 +341,13 @@ or [Instant.io](https://instant.io) to seed torrents to the WebTorrent network.
           $numPeers.innerHTML = torrent.numPeers + (torrent.numPeers === 1 ? ' peer' : ' peers')
 
           // Progress
-          var percent = Math.round(torrent.progress * 100 * 100) / 100
+          const percent = Math.round(torrent.progress * 100 * 100) / 100
           $progressBar.style.width = percent + '%'
           $downloaded.innerHTML = prettyBytes(torrent.downloaded)
           $total.innerHTML = prettyBytes(torrent.length)
 
           // Remaining time
-          var remaining
+          let remaining
           if (torrent.done) {
             remaining = 'Done.'
           } else {
@@ -368,12 +368,13 @@ or [Instant.io](https://instant.io) to seed torrents to the WebTorrent network.
 
       // Human readable bytes util
       function prettyBytes(num) {
-        var exponent, unit, neg = num < 0, units = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+        const units = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+        const neg = num < 0
         if (neg) num = -num
         if (num < 1) return (neg ? '-' : '') + num + ' B'
-        exponent = Math.min(Math.floor(Math.log(num) / Math.log(1000)), units.length - 1)
+        const exponent = Math.min(Math.floor(Math.log(num) / Math.log(1000)), units.length - 1)
+        const unit = units[exponent]
         num = Number((num / Math.pow(1000, exponent)).toFixed(2))
-        unit = units[exponent]
         return (neg ? '-' : '') + num + ' ' + unit
       }
     </script>
