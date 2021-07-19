@@ -194,7 +194,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [liveontorrent]: https://www.weboscoder.com/liveontorrent/
 [webtorrentplayer]: https://thaunknown.github.io/webtorrent-player/
 [webtorrentplayer-source]: https://github.com/ThaUnknown/webtorrent-player
-[storm]: https://github.com/nuzzesick/storm-desktop/
+[storm]: https://github.com/nuzzesick/storm-desktop
 
 ## How does WebTorrent work?
 
