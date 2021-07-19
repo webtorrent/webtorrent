@@ -714,6 +714,13 @@ file.getBlobURL(function (err, url) {
 })
 ```
 
+## `file.includes(piece)`
+Check if the piece number contains this file's data.
+
+## `file.on('done', function () {})`
+
+Emitted when the file has been downloaded.
+
 # Piece API
 
 ## `piece.length`
