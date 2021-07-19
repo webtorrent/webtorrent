@@ -107,6 +107,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Torrent🧲Parts][TorrentParts]** - A website to inspect and edit what's in your Torrent file or Magnet link
 - **[Live On Torrent][liveontorrent]** - A free plataform to live streaming on browser.
 - **[WebTorrentPlayer][webtorrentplayer]** - High performance, no compromise video player for WebTorrent ([source code][webtorrentplayer-source])
+- **[Storm][storm]** - A beautiful torrent client for desktop.
 - ***Your app here – [Send a pull request][pr] with your URL!***
 <!-- - **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source]) -->
 <!-- - **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s)) -->
@@ -193,6 +194,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [liveontorrent]: https://www.weboscoder.com/liveontorrent/
 [webtorrentplayer]: https://thaunknown.github.io/webtorrent-player/
 [webtorrentplayer-source]: https://github.com/ThaUnknown/webtorrent-player
+[storm]: https://github.com/nuzzesick/storm-desktop
 
 ## How does WebTorrent work?
 
