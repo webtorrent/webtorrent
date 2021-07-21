@@ -52,6 +52,9 @@ function magnetDownloadTest (t, serverType) {
       client1.on('warning', err => { t.fail(err) })
 
       client1.on('torrent', torrent => {
+        let noPeersDone = false
+        let torrentLoaded = false
+
         // torrent metadata has been fetched -- sanity check it
         t.equal(torrent.name, 'Leaves of Grass by Walt Whitman.epub')
 
@@ -61,13 +64,21 @@ function magnetDownloadTest (t, serverType) {
 
         torrent.once('noPeers', announceType => {
           t.equal(announceType, 'tracker', 'noPeers event seen with correct announceType')
+
+          noPeersDone = true
+          maybeDone()
         })
 
         t.deepEqual(torrent.files.map(file => file.name), names)
 
-        torrent.load(fs.createReadStream(fixtures.leaves.contentPath), err => {
-          cb(err)
+        torrent.load(fs.createReadStream(fixtures.leaves.contentPath), () => {
+          torrentLoaded = true
+          maybeDone()
         })
+
+        function maybeDone () {
+          if (noPeersDone && torrentLoaded) cb(null)
+        }
       })
 
       client1.add(parsedTorrent, { store: MemoryChunkStore })
