@@ -1,0 +1,23 @@
+name: Mark stale issues and pull requests
+
+on:
+  schedule:
+  - cron: '0 12 * * *'
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+
+    steps:
+    - uses: actions/stale@v4
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        stale-issue-message: 'Is this still relevant? If so, what is blocking it? Is there anything you can do to help move it forward?'
+        stale-pr-message: 'Is this still relevant? If so, what is blocking it? Is there anything you can do to help move it forward?'
+        exempt-issue-labels: accepted,blocked,bug,dependency,enhancement,'help wanted',question,security,meta
+        exempt-pr-labels: accepted,blocked,bug,dependency,enhancement,'help wanted',question,security,meta
+        stale-issue-label: 'stale'
+        stale-pr-label: 'stale'
