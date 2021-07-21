@@ -1,3 +1,10 @@
+## [1.2.5](https://github.com/webtorrent/webtorrent/compare/v1.2.4...v1.2.5) (2021-07-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bittorrent-dht to ^10.0.1 ([#2139](https://github.com/webtorrent/webtorrent/issues/2139)) ([8476d9c](https://github.com/webtorrent/webtorrent/commit/8476d9cd8b218b74bc3544de007680bcc1db9d31))
+
 ## [1.2.4](https://github.com/webtorrent/webtorrent/compare/v1.2.3...v1.2.4) (2021-07-13)
 
 
