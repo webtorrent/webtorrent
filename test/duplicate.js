@@ -2,30 +2,30 @@ const fixtures = require('webtorrent-fixtures')
 const test = require('tape')
 const WebTorrent = require('../')
 
-test('client.seed followed by duplicate client.add (sync)', function (t) {
+test('client.seed followed by duplicate client.add (sync)', t => {
   t.plan(6)
 
   const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
-  client.on('error', function (err) { t.fail(err) })
-  client.on('warning', function (err) { t.fail(err) })
+  client.on('error', err => { t.fail(err) })
+  client.on('warning', err => { t.fail(err) })
 
   client.seed(fixtures.leaves.content, {
     name: 'Leaves of Grass by Walt Whitman.epub',
     announce: []
-  }, function (torrent1) {
+  }, torrent1 => {
     t.equal(client.torrents.length, 1)
 
     const torrent2 = client.add(torrent1.infoHash)
 
-    torrent2.once('ready', function () {
+    torrent2.once('ready', () => {
       t.fail('torrent ready is not called')
     })
 
-    torrent2.once('error', function (err) {
+    torrent2.once('error', err => {
       t.ok(err, 'got expected error on duplicate add')
       t.equal(client.torrents.length, 1)
       t.ok(torrent2.destroyed)
-      client.destroy(function (err) {
+      client.destroy(err => {
         t.error(err, 'destroyed client')
         t.equal(client.torrents.length, 0)
       })
@@ -33,30 +33,30 @@ test('client.seed followed by duplicate client.add (sync)', function (t) {
   })
 })
 
-test('client.seed followed by duplicate client.add (async)', function (t) {
+test('client.seed followed by duplicate client.add (async)', t => {
   t.plan(6)
 
   const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
-  client.on('error', function (err) { t.fail(err) })
-  client.on('warning', function (err) { t.fail(err) })
+  client.on('error', err => { t.fail(err) })
+  client.on('warning', err => { t.fail(err) })
 
   client.seed(fixtures.leaves.content, {
     name: 'Leaves of Grass by Walt Whitman.epub',
     announce: []
-  }, function (torrent1) {
+  }, torrent1 => {
     t.equal(client.torrents.length, 1)
 
     const torrent2 = client.add(fixtures.leaves.torrentPath)
 
-    torrent2.once('ready', function () {
+    torrent2.once('ready', () => {
       t.fail('torrent ready is not called')
     })
 
-    torrent2.once('error', function (err) {
+    torrent2.once('error', err => {
       t.ok(err, 'got expected error on duplicate add')
       t.equal(client.torrents.length, 1)
       t.ok(torrent2.destroyed)
-      client.destroy(function (err) {
+      client.destroy(err => {
         t.error(err, 'destroyed client')
         t.equal(client.torrents.length, 0)
       })
@@ -64,41 +64,41 @@ test('client.seed followed by duplicate client.add (async)', function (t) {
   })
 })
 
-test('client.seed followed by two duplicate client.add calls (sync)', function (t) {
+test('client.seed followed by two duplicate client.add calls (sync)', t => {
   t.plan(9)
 
   const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
-  client.on('error', function (err) { t.fail(err) })
-  client.on('warning', function (err) { t.fail(err) })
+  client.on('error', err => { t.fail(err) })
+  client.on('warning', err => { t.fail(err) })
 
   client.seed(fixtures.leaves.content, {
     name: 'Leaves of Grass by Walt Whitman.epub',
     announce: []
-  }, function (torrent1) {
+  }, torrent1 => {
     t.equal(client.torrents.length, 1)
 
     const torrent2 = client.add(torrent1.infoHash)
 
-    torrent2.once('ready', function () {
+    torrent2.once('ready', () => {
       t.fail('torrent ready is not called')
     })
 
-    torrent2.once('error', function (err) {
+    torrent2.once('error', err => {
       t.ok(err, 'got expected error on duplicate add')
       t.equal(client.torrents.length, 1)
       t.ok(torrent2.destroyed)
 
       const torrent3 = client.add(torrent1.infoHash)
 
-      torrent3.once('ready', function () {
+      torrent3.once('ready', () => {
         t.fail('torrent ready is not called')
       })
 
-      torrent3.once('error', function (err) {
+      torrent3.once('error', err => {
         t.ok(err, 'got expected error on duplicate add')
         t.equal(client.torrents.length, 1)
         t.ok(torrent3.destroyed)
-        client.destroy(function (err) {
+        client.destroy(err => {
           t.error(err, 'destroyed client')
           t.equal(client.torrents.length, 0)
         })
@@ -107,41 +107,41 @@ test('client.seed followed by two duplicate client.add calls (sync)', function (
   })
 })
 
-test('client.seed followed by two duplicate client.add calls (async)', function (t) {
+test('client.seed followed by two duplicate client.add calls (async)', t => {
   t.plan(9)
 
   const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
-  client.on('error', function (err) { t.fail(err) })
-  client.on('warning', function (err) { t.fail(err) })
+  client.on('error', err => { t.fail(err) })
+  client.on('warning', err => { t.fail(err) })
 
   client.seed(fixtures.leaves.content, {
     name: 'Leaves of Grass by Walt Whitman.epub',
     announce: []
-  }, function (torrent1) {
+  }, torrent1 => {
     t.equal(client.torrents.length, 1)
 
     const torrent2 = client.add(fixtures.leaves.torrentPath)
 
-    torrent2.once('ready', function () {
+    torrent2.once('ready', () => {
       t.fail('torrent ready is not called')
     })
 
-    torrent2.once('error', function (err) {
+    torrent2.once('error', err => {
       t.ok(err, 'got expected error on duplicate add')
       t.equal(client.torrents.length, 1)
       t.ok(torrent2.destroyed)
 
       const torrent3 = client.add(fixtures.leaves.torrentPath)
 
-      torrent3.once('ready', function () {
+      torrent3.once('ready', () => {
         t.fail('torrent ready is not called')
       })
 
-      torrent3.once('error', function (err) {
+      torrent3.once('error', err => {
         t.ok(err, 'got expected error on duplicate add')
         t.equal(client.torrents.length, 1)
         t.ok(torrent3.destroyed)
-        client.destroy(function (err) {
+        client.destroy(err => {
           t.error(err, 'destroyed client')
           t.equal(client.torrents.length, 0)
         })
@@ -150,24 +150,24 @@ test('client.seed followed by two duplicate client.add calls (async)', function 
   })
 })
 
-test('successive sync client.add, client.remove, client.add, client.remove (sync)', function (t) {
+test('successive sync client.add, client.remove, client.add, client.remove (sync)', t => {
   t.plan(3)
 
   const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
-  client.on('error', function (err) { t.fail(err) })
-  client.on('warning', function (err) { t.fail(err) })
+  client.on('error', err => { t.fail(err) })
+  client.on('warning', err => { t.fail(err) })
 
   client.seed(fixtures.leaves.content, {
     name: 'Leaves of Grass by Walt Whitman.epub',
     announce: []
-  }, function (torrent1) {
+  }, torrent1 => {
     t.equal(client.torrents.length, 1)
 
     client.add(torrent1.infoHash)
     client.remove(torrent1.infoHash)
     client.add(torrent1.infoHash)
-    client.remove(torrent1.infoHash, function () {
-      client.destroy(function (err) {
+    client.remove(torrent1.infoHash, () => {
+      client.destroy(err => {
         t.error(err, 'destroyed client')
         t.equal(client.torrents.length, 0)
       })

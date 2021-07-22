@@ -7,55 +7,55 @@ const series = require('run-series')
 const test = require('tape')
 const WebTorrent = require('../../')
 
-test('Download using DHT (via magnet uri)', function (t) {
+test('Download using DHT (via magnet uri)', t => {
   t.plan(12)
 
   const dhtServer = new DHT({ bootstrap: false })
 
-  dhtServer.on('error', function (err) { t.fail(err) })
-  dhtServer.on('warning', function (err) { t.fail(err) })
+  dhtServer.on('error', err => { t.fail(err) })
+  dhtServer.on('warning', err => { t.fail(err) })
 
   let client1, client2
 
   series([
-    function (cb) {
+    cb => {
       dhtServer.listen(cb)
     },
 
-    function (cb) {
+    cb => {
       let announced = false
       let loaded = false
 
       client1 = new WebTorrent({
         tracker: false,
         lsd: false,
-        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port, host: networkAddress.ipv4() }
+        dht: { bootstrap: `127.0.0.1:${dhtServer.address().port}`, host: networkAddress.ipv4() }
       })
 
-      client1.dht.on('listening', function () {
+      client1.dht.on('listening', () => {
         t.equal(client1.dhtPort, client1.dht.address().port)
       })
 
-      client1.on('error', function (err) { t.fail(err) })
-      client1.on('warning', function (err) { t.fail(err) })
+      client1.on('error', err => { t.fail(err) })
+      client1.on('warning', err => { t.fail(err) })
 
       const torrent = client1.add(fixtures.leaves.parsedTorrent, { store: MemoryChunkStore })
 
-      torrent.on('dhtAnnounce', function () {
+      torrent.on('dhtAnnounce', () => {
         t.pass('finished dht announce')
         announced = true
         maybeDone()
       })
 
-      torrent.on('ready', function () {
+      torrent.on('ready', () => {
         // torrent metadata has been fetched -- sanity check it
         t.equal(torrent.name, 'Leaves of Grass by Walt Whitman.epub')
 
         const names = ['Leaves of Grass by Walt Whitman.epub']
-        t.deepEqual(torrent.files.map(function (file) { return file.name }), names)
+        t.deepEqual(torrent.files.map(file => file.name), names)
       })
 
-      torrent.load(fs.createReadStream(fixtures.leaves.contentPath), function (err) {
+      torrent.load(fs.createReadStream(fixtures.leaves.contentPath), err => {
         t.error(err)
         loaded = true
         maybeDone()
@@ -66,21 +66,21 @@ test('Download using DHT (via magnet uri)', function (t) {
       }
     },
 
-    function (cb) {
+    cb => {
       let gotBuffer = false
       let gotDone = false
 
       client2 = new WebTorrent({
         tracker: false,
         lsd: false,
-        dht: { bootstrap: '127.0.0.1:' + dhtServer.address().port, host: networkAddress.ipv4() }
+        dht: { bootstrap: `127.0.0.1:${dhtServer.address().port}`, host: networkAddress.ipv4() }
       })
 
-      client2.on('error', function (err) { t.fail(err) })
-      client2.on('warning', function (err) { t.fail(err) })
+      client2.on('error', err => { t.fail(err) })
+      client2.on('warning', err => { t.fail(err) })
 
-      client2.on('torrent', function (torrent) {
-        torrent.files[0].getBuffer(function (err, buf) {
+      client2.on('torrent', torrent => {
+        torrent.files[0].getBuffer((err, buf) => {
           t.error(err)
           t.deepEqual(buf, fixtures.leaves.content, 'downloaded correct content')
 
@@ -88,7 +88,7 @@ test('Download using DHT (via magnet uri)', function (t) {
           maybeDone()
         })
 
-        torrent.once('done', function () {
+        torrent.once('done', () => {
           t.pass('client2 downloaded torrent from client1')
 
           gotDone = true
@@ -102,16 +102,16 @@ test('Download using DHT (via magnet uri)', function (t) {
         if (gotBuffer && gotDone) cb(null)
       }
     }
-  ], function (err) {
+  ], err => {
     t.error(err)
 
-    client1.destroy(function (err) {
+    client1.destroy(err => {
       t.error(err, 'client1 destroyed')
     })
-    client2.destroy(function (err) {
+    client2.destroy(err => {
       t.error(err, 'client2 destroyed')
     })
-    dhtServer.destroy(function (err) {
+    dhtServer.destroy(err => {
       t.error(err, 'dht server destroyed')
     })
   })

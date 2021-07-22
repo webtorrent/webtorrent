@@ -6,11 +6,11 @@ const test = require('tape')
 const TrackerServer = require('bittorrent-tracker/server')
 const WebTorrent = require('../../')
 
-test('Download using UDP tracker (via magnet uri)', function (t) {
+test('Download using UDP tracker (via magnet uri)', t => {
   magnetDownloadTest(t, 'udp')
 })
 
-test('Download using HTTP tracker (via magnet uri)', function (t) {
+test('Download using HTTP tracker (via magnet uri)', t => {
   magnetDownloadTest(t, 'http')
 })
 
@@ -21,11 +21,11 @@ function magnetDownloadTest (t, serverType) {
     serverType === 'udp' ? { http: false, ws: false } : { udp: false, ws: false }
   )
 
-  tracker.on('error', function (err) { t.fail(err) })
-  tracker.on('warning', function (err) { t.fail(err) })
+  tracker.on('error', err => { t.fail(err) })
+  tracker.on('warning', err => { t.fail(err) })
 
   let trackerStartCount = 0
-  tracker.on('start', function () {
+  tracker.on('start', () => {
     trackerStartCount += 1
   })
 
@@ -33,25 +33,25 @@ function magnetDownloadTest (t, serverType) {
   let magnetURI, client1, client2
 
   series([
-    function (cb) {
+    cb => {
       tracker.listen(cb)
     },
 
-    function (cb) {
+    cb => {
       const port = tracker[serverType].address().port
       const announceUrl = serverType === 'http'
-        ? 'http://127.0.0.1:' + port + '/announce'
-        : 'udp://127.0.0.1:' + port
+        ? `http://127.0.0.1:${port}/announce`
+        : `udp://127.0.0.1:${port}`
 
       parsedTorrent.announce = [announceUrl]
-      magnetURI = 'magnet:?xt=urn:btih:' + parsedTorrent.infoHash + '&tr=' + encodeURIComponent(announceUrl)
+      magnetURI = `magnet:?xt=urn:btih:${parsedTorrent.infoHash}&tr=${encodeURIComponent(announceUrl)}`
 
       client1 = new WebTorrent({ dht: false, lsd: false })
 
-      client1.on('error', function (err) { t.fail(err) })
-      client1.on('warning', function (err) { t.fail(err) })
+      client1.on('error', err => { t.fail(err) })
+      client1.on('warning', err => { t.fail(err) })
 
-      client1.on('torrent', function (torrent) {
+      client1.on('torrent', torrent => {
         // torrent metadata has been fetched -- sanity check it
         t.equal(torrent.name, 'Leaves of Grass by Walt Whitman.epub')
 
@@ -59,13 +59,13 @@ function magnetDownloadTest (t, serverType) {
           'Leaves of Grass by Walt Whitman.epub'
         ]
 
-        torrent.once('noPeers', function (announceType) {
+        torrent.once('noPeers', announceType => {
           t.equal(announceType, 'tracker', 'noPeers event seen with correct announceType')
         })
 
-        t.deepEqual(torrent.files.map(function (file) { return file.name }), names)
+        t.deepEqual(torrent.files.map(file => file.name), names)
 
-        torrent.load(fs.createReadStream(fixtures.leaves.contentPath), function (err) {
+        torrent.load(fs.createReadStream(fixtures.leaves.contentPath), err => {
           cb(err)
         })
       })
@@ -73,18 +73,18 @@ function magnetDownloadTest (t, serverType) {
       client1.add(parsedTorrent, { store: MemoryChunkStore })
     },
 
-    function (cb) {
+    cb => {
       client2 = new WebTorrent({ dht: false, lsd: false })
 
-      client2.on('error', function (err) { t.fail(err) })
-      client2.on('warning', function (err) { t.fail(err) })
+      client2.on('error', err => { t.fail(err) })
+      client2.on('warning', err => { t.fail(err) })
 
-      client2.on('torrent', function (torrent) {
+      client2.on('torrent', torrent => {
         let gotBuffer = false
         let torrentDone = false
 
-        torrent.files.forEach(function (file) {
-          file.getBuffer(function (err, buf) {
+        torrent.files.forEach(file => {
+          file.getBuffer((err, buf) => {
             if (err) throw err
             t.deepEqual(buf, fixtures.leaves.content, 'downloaded correct content')
             gotBuffer = true
@@ -92,7 +92,7 @@ function magnetDownloadTest (t, serverType) {
           })
         })
 
-        torrent.once('done', function () {
+        torrent.once('done', () => {
           t.pass('client2 downloaded torrent from client1')
           torrentDone = true
           maybeDone()
@@ -106,18 +106,18 @@ function magnetDownloadTest (t, serverType) {
       client2.add(magnetURI, { store: MemoryChunkStore })
     }
 
-  ], function (err) {
+  ], err => {
     t.error(err)
 
     t.equal(trackerStartCount, 2)
 
-    tracker.close(function () {
+    tracker.close(() => {
       t.pass('tracker closed')
     })
-    client1.destroy(function (err) {
+    client1.destroy(err => {
       t.error(err, 'client1 destroyed')
     })
-    client2.destroy(function (err) {
+    client2.destroy(err => {
       t.error(err, 'client2 destroyed')
     })
   })
