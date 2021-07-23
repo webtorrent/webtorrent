@@ -60,8 +60,11 @@ If `opts` is specified, then the default options (shown below) will be overridde
   dht: Boolean|Object,     // Enable DHT (default=true), or options object for DHT
   lsd: Boolean,            // Enable BEP14 local service discovery (default=true)
   webSeeds: Boolean,       // Enable BEP19 web seeds (default=true)
+  utp: Boolean,            // Enable BEP29 uTorrent transport protocol (default=true)
   blocklist: Array|String,       // List of IP's to block
   utp: Boolean,            // Enable BEP29 uTorrent transport protocol (default=true)
+  downloadLimit: Number,   // Max download speed (bytes/sec) over all torrents (default=-1)
+  uploadLimit: Number,     // Max upload speed (bytes/sec) over all torrents (default=-1)
 }
 ```
 
@@ -73,6 +76,11 @@ For possible values of `opts.tracker` see the
 
 For possible values of `opts.blocklist` see the
 [`load-ip-set` documentation](https://github.com/webtorrent/load-ip-set#usage).
+
+For `downloadLimit` and `uploadLimit` the possible values can be:
+  - `> 0`. The client will set the throttle at that speed
+  - `0`. The client will block any data from being downloaded or uploaded
+  - `-1`. The client will is disable the throttling and use the whole bandwidth available
 
 ## `client.add(torrentId, [opts], [function ontorrent (torrent) {}])`
 
@@ -216,6 +224,19 @@ Total download progress for all **active** torrents, from 0 to 1.
 
 Aggregate "seed ratio" for all torrents (uploaded / downloaded).
 
+## `client.throttleDownload(rate)`
+
+Sets the maximum speed at which the client downloads the torrents, in bytes/sec.
+
+`rate` must be bigger or equal than zero, or `-1` to disable the download throttle and
+use the whole bandwidth of the connection.
+
+## `client.throttleUpload(rate)`
+
+Sets the maximum speed at which the client uploads the torrents, in bytes/sec.
+
+`rate` must be bigger or equal than zero, or `-1` to disable the upload throttle and
+use the whole bandwidth of the connection.
 
 # Torrent API
 
