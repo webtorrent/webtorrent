@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/webtorrent/webtorrent/compare/v1.2.6...v1.3.0) (2021-07-23)
+
+
+### Features
+
+* add speed limit to client ([#2062](https://github.com/webtorrent/webtorrent/issues/2062)) ([39bb33c](https://github.com/webtorrent/webtorrent/commit/39bb33c3cf694cdee45378ea4b30c66c93576d2a))
+
 ## [1.2.6](https://github.com/webtorrent/webtorrent/compare/v1.2.5...v1.2.6) (2021-07-23)
 
 
