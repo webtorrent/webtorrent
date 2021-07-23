@@ -36,7 +36,7 @@
     "os": false
   },
   "dependencies": {
-    "addr-to-ip-port": "^1.5.1",
+    "addr-to-ip-port": "^1.5.3",
     "bitfield": "^4.0.0",
     "bittorrent-dht": "^10.0.1",
     "bittorrent-protocol": "^3.4.2",
