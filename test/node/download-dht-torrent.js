@@ -29,7 +29,8 @@ test('Download using DHT (via .torrent file)', t => {
       client1 = new WebTorrent({
         tracker: false,
         lsd: false,
-        dht: { bootstrap: `127.0.0.1:${dhtServer.address().port}` }
+        dht: { bootstrap: `127.0.0.1:${dhtServer.address().port}` },
+        utPex: false
       })
 
       client1.dht.on('listening', () => {
@@ -74,7 +75,8 @@ test('Download using DHT (via .torrent file)', t => {
       client2 = new WebTorrent({
         tracker: false,
         lsd: false,
-        dht: { bootstrap: `127.0.0.1:${dhtServer.address().port}` }
+        dht: { bootstrap: `127.0.0.1:${dhtServer.address().port}` },
+        utPex: false
       })
 
       client2.on('error', err => { t.fail(err) })
