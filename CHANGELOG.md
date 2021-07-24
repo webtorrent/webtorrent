@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/webtorrent/webtorrent/compare/v1.3.0...v1.3.1) (2021-07-24)
+
+
+### Bug Fixes
+
+* speed limit for zero ([#2155](https://github.com/webtorrent/webtorrent/issues/2155)) ([88cca71](https://github.com/webtorrent/webtorrent/commit/88cca71fb46c1b9a65085ea674f5af5be4407a17))
+
 # [1.3.0](https://github.com/webtorrent/webtorrent/compare/v1.2.6...v1.3.0) (2021-07-23)
 
 
