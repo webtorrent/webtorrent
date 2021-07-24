@@ -310,6 +310,7 @@ These are the main modules that make up WebTorrent:
 
 [webtorrent]: https://github.com/webtorrent/webtorrent
 [webtorrent-gitter-url]: https://gitter.im/webtorrent/webtorrent
+
 [webtorrent-ti]: https://img.shields.io/github/workflow/status/webtorrent/webtorrent/ci/master
 [webtorrent-tu]: https://github.com/webtorrent/webtorrent/actions
 [webtorrent-ni]: https://img.shields.io/npm/v/webtorrent.svg
