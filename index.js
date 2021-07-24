@@ -77,8 +77,8 @@ class WebTorrent extends EventEmitter {
     this.maxConns = Number(opts.maxConns) || 55
     this.utp = WebTorrent.UTP_SUPPORT && opts.utp !== false
 
-    this._downloadLimit = Math.max(Number(opts.downloadLimit) || -1, -1)
-    this._uploadLimit = Math.max(Number(opts.uploadLimit) || -1, -1)
+    this._downloadLimit = Math.max((typeof opts.downloadLimit === 'number') ? opts.downloadLimit : -1, -1)
+    this._uploadLimit = Math.max((typeof opts.uploadLimit === 'number') ? opts.uploadLimit : -1, -1)
 
     this._debug(
       'new webtorrent (peerId %s, nodeId %s, port %s)',
