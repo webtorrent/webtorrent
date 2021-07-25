@@ -1,3 +1,10 @@
+## [1.3.3](https://github.com/webtorrent/webtorrent/compare/v1.3.2...v1.3.3) (2021-07-25)
+
+
+### Bug Fixes
+
+* log error when failing to load blocklist ip set ([c0a07fb](https://github.com/webtorrent/webtorrent/commit/c0a07fbbbc3fb39dfeddf76383f22710b8ee1d54))
+
 ## [1.3.2](https://github.com/webtorrent/webtorrent/compare/v1.3.1...v1.3.2) (2021-07-24)
 
 
