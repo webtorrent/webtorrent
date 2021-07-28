@@ -101,6 +101,7 @@ If `opts` is specified, then the default options (shown below) will be overridde
   destroyStoreOnDestroy: Boolean // If truthy, client will delete the torrent's chunk store (e.g. files on disk) when the torrent is destroyed
   storeCacheSlots: Number,   // Number of chunk store entries (torrent pieces) to cache in memory [default=20]; 0 to disable caching
   storeOpts: Object,         // Custom options passed to the store
+  addUID: Boolean,           // (Node.js only) If true, the torrent will be stored in it's infoHash folder to prevent file name collisions (default=false)
   skipVerify: Boolean,       // If true, client will skip verification of pieces for existing store and assume it's correct
   preloadedStore: Function,  // Custom, pre-loaded chunk store (must follow [abstract-chunk-store](https://www.npmjs.com/package/abstract-chunk-store) API)
   strategy: String           // Piece selection strategy, `rarest` or `sequential`(defaut=`sequential`)
