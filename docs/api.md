@@ -125,6 +125,7 @@ If you provide `opts.store`, it will be called as
 * `storeOpts.torrent` - the torrent instance being stored
 * `storeOpts.path` - path to the store, based on `opts.path`
 * `storeOpts.name` - the info hash of the torrent instance being stored
+* `storeOpts.addUID` - boolean which tells the store if it should include an UID in it's file paths
 
 **Note:** Downloading a torrent automatically seeds it, making it available for download by other peers.
 
