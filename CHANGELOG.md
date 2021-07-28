@@ -1,3 +1,45 @@
+## [1.3.3](https://github.com/webtorrent/webtorrent/compare/v1.3.2...v1.3.3) (2021-07-25)
+
+
+### Bug Fixes
+
+* log error when failing to load blocklist ip set ([c0a07fb](https://github.com/webtorrent/webtorrent/commit/c0a07fbbbc3fb39dfeddf76383f22710b8ee1d54))
+
+## [1.3.2](https://github.com/webtorrent/webtorrent/compare/v1.3.1...v1.3.2) (2021-07-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency speed-limiter to ^1.0.2 ([#2153](https://github.com/webtorrent/webtorrent/issues/2153)) ([17fb0e2](https://github.com/webtorrent/webtorrent/commit/17fb0e240fafc396bfd124ae667238c5c21d02e3))
+
+## [1.3.1](https://github.com/webtorrent/webtorrent/compare/v1.3.0...v1.3.1) (2021-07-24)
+
+
+### Bug Fixes
+
+* speed limit for zero ([#2155](https://github.com/webtorrent/webtorrent/issues/2155)) ([88cca71](https://github.com/webtorrent/webtorrent/commit/88cca71fb46c1b9a65085ea674f5af5be4407a17))
+
+# [1.3.0](https://github.com/webtorrent/webtorrent/compare/v1.2.6...v1.3.0) (2021-07-23)
+
+
+### Features
+
+* add speed limit to client ([#2062](https://github.com/webtorrent/webtorrent/issues/2062)) ([39bb33c](https://github.com/webtorrent/webtorrent/commit/39bb33c3cf694cdee45378ea4b30c66c93576d2a))
+
+## [1.2.6](https://github.com/webtorrent/webtorrent/compare/v1.2.5...v1.2.6) (2021-07-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency create-torrent to ^4.7.1 ([#2145](https://github.com/webtorrent/webtorrent/issues/2145)) ([a75f1aa](https://github.com/webtorrent/webtorrent/commit/a75f1aa4b6173a0958d3c367070e27f0ef4e5e54))
+
+## [1.2.5](https://github.com/webtorrent/webtorrent/compare/v1.2.4...v1.2.5) (2021-07-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bittorrent-dht to ^10.0.1 ([#2139](https://github.com/webtorrent/webtorrent/issues/2139)) ([8476d9c](https://github.com/webtorrent/webtorrent/commit/8476d9cd8b218b74bc3544de007680bcc1db9d31))
+
 ## [1.2.4](https://github.com/webtorrent/webtorrent/compare/v1.2.3...v1.2.4) (2021-07-13)
 
 

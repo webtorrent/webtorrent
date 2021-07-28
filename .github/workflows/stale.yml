@@ -17,7 +17,7 @@ jobs:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         stale-issue-message: 'Is this still relevant? If so, what is blocking it? Is there anything you can do to help move it forward?'
         stale-pr-message: 'Is this still relevant? If so, what is blocking it? Is there anything you can do to help move it forward?'
-        exempt-issue-labels: accepted,blocked,bug,dependency,enhancement,'help wanted',question,security,meta
+        exempt-issue-labels: accepted,blocked,bug,dependency,enhancement,question,security,meta
         exempt-pr-labels: accepted,blocked,bug,dependency,enhancement,'help wanted',question,security,meta
         stale-issue-label: 'stale'
         stale-pr-label: 'stale'

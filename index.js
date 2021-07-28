@@ -11,9 +11,10 @@ const parallel = require('run-parallel')
 const parseTorrent = require('parse-torrent')
 const path = require('path')
 const Peer = require('simple-peer')
+const queueMicrotask = require('queue-microtask')
 const randombytes = require('randombytes')
 const speedometer = require('speedometer')
-const queueMicrotask = require('queue-microtask')
+const { ThrottleGroup } = require('speed-limiter')
 
 const ConnPool = require('./lib/conn-pool') // browser exclude
 const Torrent = require('./lib/torrent')
@@ -76,10 +77,18 @@ class WebTorrent extends EventEmitter {
     this.maxConns = Number(opts.maxConns) || 55
     this.utp = WebTorrent.UTP_SUPPORT && opts.utp !== false
 
+    this._downloadLimit = Math.max((typeof opts.downloadLimit === 'number') ? opts.downloadLimit : -1, -1)
+    this._uploadLimit = Math.max((typeof opts.uploadLimit === 'number') ? opts.uploadLimit : -1, -1)
+
     this._debug(
       'new webtorrent (peerId %s, nodeId %s, port %s)',
       this.peerId, this.nodeId, this.torrentPort
     )
+
+    this.throttleGroups = {
+      down: new ThrottleGroup({ rate: Math.max(this._downloadLimit, 0), enabled: this._downloadLimit >= 0 }),
+      up: new ThrottleGroup({ rate: Math.max(this._uploadLimit, 0), enabled: this._uploadLimit >= 0 })
+    }
 
     if (this.tracker) {
       if (typeof this.tracker !== 'object') this.tracker = {}
@@ -134,7 +143,7 @@ class WebTorrent extends EventEmitter {
           'user-agent': `WebTorrent/${VERSION} (https://webtorrent.io)`
         }
       }, (err, ipSet) => {
-        if (err) return this.error(`Failed to load blocklist: ${err.message}`)
+        if (err) return console.error(`Failed to load blocklist: ${err.message}`)
         this.blocked = ipSet
         ready()
       })
@@ -353,6 +362,32 @@ class WebTorrent extends EventEmitter {
   }
 
   /**
+   * Set global download throttle rate.
+   * @param  {Number} rate (must be bigger or equal than zero, or -1 to disable throttling)
+   */
+  throttleDownload (rate) {
+    rate = Number(rate)
+    if (isNaN(rate) || !isFinite(rate) || rate < -1) return false
+    this._downloadLimit = rate
+    if (this._downloadLimit < 0) return this.throttleGroups.down.setEnabled(false)
+    this.throttleGroups.down.setEnabled(true)
+    this.throttleGroups.down.setRate(this._downloadLimit)
+  }
+
+  /**
+   * Set global upload throttle rate
+   * @param  {Number} rate (must be bigger or equal than zero, or -1 to disable throttling)
+   */
+  throttleUpload (rate) {
+    rate = Number(rate)
+    if (isNaN(rate) || !isFinite(rate) || rate < -1) return false
+    this._uploadLimit = rate
+    if (this._uploadLimit < 0) return this.throttleGroups.up.setEnabled(false)
+    this.throttleGroups.up.setEnabled(true)
+    this.throttleGroups.up.setRate(this._uploadLimit)
+  }
+
+  /**
    * Destroy the client, including all torrents and connections to peers.
    * @param  {function} cb
    */
@@ -388,6 +423,9 @@ class WebTorrent extends EventEmitter {
     this.torrents = []
     this._connPool = null
     this.dht = null
+
+    this.throttleGroups.down.destroy()
+    this.throttleGroups.up.destroy()
   }
 
   _onListening () {

@@ -20,9 +20,22 @@ test('torrent.createServer: programmatic http server', t => {
       const port = server.address().port
       t.pass(`server is listening on ${port}`)
 
+      let open = 2
+      const close = () => {
+        if (--open === 0) {
+          server.close(() => {
+            t.pass('server closed')
+          })
+          client.destroy(err => {
+            t.error(err, 'client destroyed')
+          })
+        }
+      }
+
       // Seeding after server is created should work
       torrent.load(fs.createReadStream(fixtures.leaves.contentPath), err => {
         t.error(err, 'loaded seed content into torrent')
+        close()
       })
 
       const host = `http://localhost:${port}`
@@ -38,12 +51,7 @@ test('torrent.createServer: programmatic http server', t => {
           t.error(err, 'got http response for /0')
           t.deepEqual(data, fixtures.leaves.content)
 
-          server.close(() => {
-            t.pass('server closed')
-          })
-          client.destroy(err => {
-            t.error(err, 'client destroyed')
-          })
+          close()
         })
       })
     })
