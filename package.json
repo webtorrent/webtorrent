@@ -170,9 +170,6 @@
     "extends": [
       "github>webtorrent/renovate-config"
     ],
-    "lockFileMaintenance": {
-      "enabled": false
-    },
     "rangeStrategy": "bump"
   },
   "release": {
