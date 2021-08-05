@@ -1,3 +1,10 @@
+## [1.3.7](https://github.com/webtorrent/webtorrent/compare/v1.3.6...v1.3.7) (2021-08-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency torrent-discovery to ^9.4.4 ([#2164](https://github.com/webtorrent/webtorrent/issues/2164)) ([fb59617](https://github.com/webtorrent/webtorrent/commit/fb59617c016d5e64a86b3d20032664ba751019a9))
+
 ## [1.3.6](https://github.com/webtorrent/webtorrent/compare/v1.3.5...v1.3.6) (2021-08-05)
 
 
