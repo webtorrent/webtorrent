@@ -38,7 +38,7 @@
   "dependencies": {
     "addr-to-ip-port": "^1.5.4",
     "bitfield": "^4.0.0",
-    "bittorrent-dht": "^10.0.1",
+    "bittorrent-dht": "^10.0.2",
     "bittorrent-protocol": "^3.4.3",
     "cache-chunk-store": "^3.2.2",
     "chrome-net": "^3.3.4",
