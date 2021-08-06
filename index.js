@@ -92,7 +92,7 @@ class WebTorrent extends EventEmitter {
 
     if (this.tracker) {
       if (typeof this.tracker !== 'object') this.tracker = {}
-      if (global.WRTC && !this.tracker.wrtc) this.tracker.wrtc = global.WRTC
+      if (globalThis.WRTC && !this.tracker.wrtc) this.tracker.wrtc = globalThis.WRTC
     }
 
     if (typeof ConnPool === 'function') {
