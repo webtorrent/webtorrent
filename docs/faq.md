@@ -109,7 +109,8 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[WebTorrentPlayer][webtorrentplayer]** - High performance, no compromise video player for WebTorrent ([source code][webtorrentplayer-source])
 - **[Storm][storm]** - A beautiful torrent client for desktop.
 - **[atorable-loader][atorable-loader-source]** - Resolves Webpack import/require() of a file into a Webtorrent magnet uri.
-- **[atorable-react][atorable-react]** -  React component that processes a Webtorrent magnet uri for viewing or other custom uses. ([code][atorable-react-source])
+- **[atorable-react][atorable-react]** -  React component that processes a Webtorrent magnet uri for viewing or other custom uses. ([source code][atorable-react-source])
+- **[Iris][iris-messenger]** - Decentralized social networking application. ([source code][iris-messenger-source])
 - ***Your app here – [Send a pull request][pr] with your URL!***
 <!-- - **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source]) -->
 <!-- - **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s)) -->
@@ -200,6 +201,8 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [atorable-loader-source]: https://github.com/Atorable/atorable-loader
 [atorable-react]: https://atorable.github.io/atorable-react/
 [atorable-react-source]: https://github.com/Atorable/atorable-react
+[iris-messenger]: https://iris.to
+[iris-messenger-source]: https://github.com/irislib/iris-messenger 
 
 ## How does WebTorrent work?
 
