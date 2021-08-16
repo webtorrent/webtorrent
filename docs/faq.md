@@ -109,7 +109,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[WebTorrentPlayer][webtorrentplayer]** - High performance, no compromise video player for WebTorrent ([source code][webtorrentplayer-source])
 - **[Storm][storm]** - A beautiful torrent client for desktop.
 - **[atorable-loader][atorable-loader-source]** - Resolves Webpack import/require() of a file into a Webtorrent magnet uri.
-- **[atorable-react][atorable-react]** -  React component that processes a Webtorrent magnet uri for viewing or other custom uses. ([code][atorable-react-source])
+- **[atorable-react][atorable-react]** -  React component that processes a Webtorrent magnet uri for viewing or other custom uses. ([source code][atorable-react-source])
 - **[Iris][iris-messenger]** - Decentralized social networking application. ([source code][iris-messenger-source])
 - ***Your app here – [Send a pull request][pr] with your URL!***
 <!-- - **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source]) -->
