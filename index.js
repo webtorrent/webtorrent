@@ -453,8 +453,7 @@ class WebTorrent extends EventEmitter {
   }
 
   _getByHash (infoHashHash) {
-    for (let i = 0, torrent; i < this.torrents.length; i++) {
-      torrent = this.torrents[i]
+    for (const torrent of this.torrents) {
       if (!torrent.infoHashHash) {
         torrent.infoHashHash = sha1.sync(Buffer.from('72657132' /* 'req2' */ + torrent.infoHash, 'hex'))
       }
