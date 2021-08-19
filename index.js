@@ -14,6 +14,7 @@ const path = require('path')
 const Peer = require('simple-peer')
 const queueMicrotask = require('queue-microtask')
 const randombytes = require('randombytes')
+const sha1 = require('simple-sha1')
 const speedometer = require('speedometer')
 const { ThrottleGroup } = require('speed-limiter')
 
@@ -81,9 +82,14 @@ class WebTorrent extends EventEmitter {
     this._downloadLimit = Math.max((typeof opts.downloadLimit === 'number') ? opts.downloadLimit : -1, -1)
     this._uploadLimit = Math.max((typeof opts.uploadLimit === 'number') ? opts.uploadLimit : -1, -1)
 
+
     this.serviceWorker = null
     this.workerKeepAliveInterval = null
     this.workerPortCount = 0
+
+    if (opts.secure === true) {
+      require('./lib/peer').enableSecure()
+    }
 
     this._debug(
       'new webtorrent (peerId %s, nodeId %s, port %s)',
@@ -512,6 +518,19 @@ class WebTorrent extends EventEmitter {
     const args = [].slice.call(arguments)
     args[0] = `[${this._debugId}] ${args[0]}`
     debug(...args)
+  }
+
+  _getByHash (infoHashHash) {
+    for (const torrent of this.torrents) {
+      if (!torrent.infoHashHash) {
+        torrent.infoHashHash = sha1.sync(Buffer.from('72657132' /* 'req2' */ + torrent.infoHash, 'hex'))
+      }
+      if (infoHashHash === torrent.infoHashHash) {
+        return torrent
+      }
+    }
+
+    return null
   }
 }
 

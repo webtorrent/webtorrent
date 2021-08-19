@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/webtorrent/webtorrent/compare/v1.3.10...v1.4.0) (2021-08-17)
+
+
+### Features
+
+* Add PE/MSE support ([#1820](https://github.com/webtorrent/webtorrent/issues/1820)) ([9938c94](https://github.com/webtorrent/webtorrent/commit/9938c949eee9c69c6774767e885e40f0a73898d9)), closes [#1384](https://github.com/webtorrent/webtorrent/issues/1384)
+
 ## [1.3.10](https://github.com/webtorrent/webtorrent/compare/v1.3.9...v1.3.10) (2021-08-16)
 
 ## [1.3.9](https://github.com/webtorrent/webtorrent/compare/v1.3.8...v1.3.9) (2021-08-06)
