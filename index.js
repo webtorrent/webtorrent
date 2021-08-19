@@ -82,7 +82,6 @@ class WebTorrent extends EventEmitter {
     this._downloadLimit = Math.max((typeof opts.downloadLimit === 'number') ? opts.downloadLimit : -1, -1)
     this._uploadLimit = Math.max((typeof opts.uploadLimit === 'number') ? opts.uploadLimit : -1, -1)
 
-
     this.serviceWorker = null
     this.workerKeepAliveInterval = null
     this.workerPortCount = 0
