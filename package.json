@@ -144,11 +144,13 @@
     "url": "git://github.com/webtorrent/webtorrent.git"
   },
   "scripts": {
-    "build": "npm run build-js && npm run build-chromeapp",
+    "build": "npm run build-js && npm run build-js-worker && npm run build-chromeapp",
     "build-chromeapp": "browserify --browser-field=chromeapp --standalone WebTorrent . | minify --mangle=false > webtorrent.chromeapp.js",
     "build-chromeapp-debug": "browserify --browser-field=chromeapp --standalone WebTorrent . > webtorrent.chromeapp.js",
     "build-js": "browserify --standalone WebTorrent . | minify --mangle=false > webtorrent.min.js",
+    "build-js-worker": "browserify ./lib/worker.js | minify --mangle=false > sw.min.js",
     "build-js-debug": "browserify --standalone WebTorrent . > webtorrent.debug.js",
+    "build-js-worker-debug": "browserify ./lib/worker.js > sw.debug.js",
     "prepublishOnly": "npm run build && npm run update-authors",
     "preversion": "npm run build && npm run update-authors",
     "size": "npm run size-js && npm run size-disc",
@@ -163,6 +165,7 @@
   "standard": {
     "ignore": [
       "webtorrent.min.js",
+      "sw.min.js",
       "webtorrent.chromeapp.js"
     ]
   },
