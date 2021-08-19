@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/webtorrent/webtorrent/compare/v1.4.0...v1.5.0) (2021-08-19)
+
+
+### Features
+
+* add service worker server as an alternative to renderMedia ([#2098](https://github.com/webtorrent/webtorrent/issues/2098)) ([604943e](https://github.com/webtorrent/webtorrent/commit/604943e325c68721251a71c29d94e6a07ce0b31c))
+
 # [1.4.0](https://github.com/webtorrent/webtorrent/compare/v1.3.10...v1.4.0) (2021-08-17)
 
 
