@@ -83,7 +83,7 @@
     "ut_pex": "^3.0.2"
   },
   "devDependencies": {
-    "@webtorrent/semantic-release-config": "1.0.6",
+    "@webtorrent/semantic-release-config": "1.0.7",
     "airtap": "4.0.3",
     "airtap-manual": "1.0.0",
     "airtap-sauce": "1.1.2",
