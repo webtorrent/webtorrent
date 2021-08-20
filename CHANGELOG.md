@@ -1,3 +1,105 @@
+## [1.5.3](https://github.com/webtorrent/webtorrent/compare/v1.5.2...v1.5.3) (2021-08-20)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @webtorrent/semantic-release-config to v1.0.7 ([#2175](https://github.com/webtorrent/webtorrent/issues/2175)) ([404de99](https://github.com/webtorrent/webtorrent/commit/404de999f7dd83e7884c23511e92a3f5b28d784d))
+
+## [1.5.2](https://github.com/webtorrent/webtorrent/compare/v1.5.1...v1.5.2) (2021-08-20)
+
+## [1.5.1](https://github.com/webtorrent/webtorrent/compare/v1.5.0...v1.5.1) (2021-08-20)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @webtorrent/semantic-release-config to v1.0.6 ([#2173](https://github.com/webtorrent/webtorrent/issues/2173)) ([210bda9](https://github.com/webtorrent/webtorrent/commit/210bda96533239c5a85eff4020c4684c29a3b758))
+
+# [1.5.0](https://github.com/webtorrent/webtorrent/compare/v1.4.0...v1.5.0) (2021-08-19)
+
+
+### Features
+
+* add service worker server as an alternative to renderMedia ([#2098](https://github.com/webtorrent/webtorrent/issues/2098)) ([604943e](https://github.com/webtorrent/webtorrent/commit/604943e325c68721251a71c29d94e6a07ce0b31c))
+
+# [1.4.0](https://github.com/webtorrent/webtorrent/compare/v1.3.10...v1.4.0) (2021-08-17)
+
+
+### Features
+
+* Add PE/MSE support ([#1820](https://github.com/webtorrent/webtorrent/issues/1820)) ([9938c94](https://github.com/webtorrent/webtorrent/commit/9938c949eee9c69c6774767e885e40f0a73898d9)), closes [#1384](https://github.com/webtorrent/webtorrent/issues/1384)
+
+## [1.3.10](https://github.com/webtorrent/webtorrent/compare/v1.3.9...v1.3.10) (2021-08-16)
+
+## [1.3.9](https://github.com/webtorrent/webtorrent/compare/v1.3.8...v1.3.9) (2021-08-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency create-torrent to ^5.0.1 ([#2167](https://github.com/webtorrent/webtorrent/issues/2167)) ([283cbf8](https://github.com/webtorrent/webtorrent/commit/283cbf84bffd4fbd0b267796dc45f00491bcdc92))
+
+## [1.3.8](https://github.com/webtorrent/webtorrent/compare/v1.3.7...v1.3.8) (2021-08-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency create-torrent to v5 ([#2165](https://github.com/webtorrent/webtorrent/issues/2165)) ([501fd9e](https://github.com/webtorrent/webtorrent/commit/501fd9ed79d1127d74a29c47e230697ed372ba5e))
+
+## [1.3.7](https://github.com/webtorrent/webtorrent/compare/v1.3.6...v1.3.7) (2021-08-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency torrent-discovery to ^9.4.4 ([#2164](https://github.com/webtorrent/webtorrent/issues/2164)) ([fb59617](https://github.com/webtorrent/webtorrent/commit/fb59617c016d5e64a86b3d20032664ba751019a9))
+
+## [1.3.6](https://github.com/webtorrent/webtorrent/compare/v1.3.5...v1.3.6) (2021-08-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bittorrent-dht to ^10.0.2 ([#2163](https://github.com/webtorrent/webtorrent/issues/2163)) ([fc89c78](https://github.com/webtorrent/webtorrent/commit/fc89c7822eecdece2b80bb2841e5131722f8bac3))
+
+## [1.3.5](https://github.com/webtorrent/webtorrent/compare/v1.3.4...v1.3.5) (2021-08-04)
+
+
+### Bug Fixes
+
+* **deps:** update webtorrent ([#2162](https://github.com/webtorrent/webtorrent/issues/2162)) ([a00688b](https://github.com/webtorrent/webtorrent/commit/a00688b881bdec5109eeb45b6c7186d771ce5788))
+
+## [1.3.4](https://github.com/webtorrent/webtorrent/compare/v1.3.3...v1.3.4) (2021-07-30)
+
+
+### Bug Fixes
+
+* **deps:** update webtorrent ([#2149](https://github.com/webtorrent/webtorrent/issues/2149)) ([d03203d](https://github.com/webtorrent/webtorrent/commit/d03203d01fe7a98b6d8631ebd0ceba2ea4b5ab22))
+
+## [1.3.3](https://github.com/webtorrent/webtorrent/compare/v1.3.2...v1.3.3) (2021-07-25)
+
+
+### Bug Fixes
+
+* log error when failing to load blocklist ip set ([c0a07fb](https://github.com/webtorrent/webtorrent/commit/c0a07fbbbc3fb39dfeddf76383f22710b8ee1d54))
+
+## [1.3.2](https://github.com/webtorrent/webtorrent/compare/v1.3.1...v1.3.2) (2021-07-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency speed-limiter to ^1.0.2 ([#2153](https://github.com/webtorrent/webtorrent/issues/2153)) ([17fb0e2](https://github.com/webtorrent/webtorrent/commit/17fb0e240fafc396bfd124ae667238c5c21d02e3))
+
+## [1.3.1](https://github.com/webtorrent/webtorrent/compare/v1.3.0...v1.3.1) (2021-07-24)
+
+
+### Bug Fixes
+
+* speed limit for zero ([#2155](https://github.com/webtorrent/webtorrent/issues/2155)) ([88cca71](https://github.com/webtorrent/webtorrent/commit/88cca71fb46c1b9a65085ea674f5af5be4407a17))
+
+# [1.3.0](https://github.com/webtorrent/webtorrent/compare/v1.2.6...v1.3.0) (2021-07-23)
+
+
+### Features
+
+* add speed limit to client ([#2062](https://github.com/webtorrent/webtorrent/issues/2062)) ([39bb33c](https://github.com/webtorrent/webtorrent/commit/39bb33c3cf694cdee45378ea4b30c66c93576d2a))
+
 ## [1.2.6](https://github.com/webtorrent/webtorrent/compare/v1.2.5...v1.2.6) (2021-07-23)
 
 
