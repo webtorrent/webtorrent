@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/webtorrent/webtorrent/compare/v1.5.0...v1.5.1) (2021-08-20)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @webtorrent/semantic-release-config to v1.0.6 ([#2173](https://github.com/webtorrent/webtorrent/issues/2173)) ([210bda9](https://github.com/webtorrent/webtorrent/commit/210bda96533239c5a85eff4020c4684c29a3b758))
+
 # [1.5.0](https://github.com/webtorrent/webtorrent/compare/v1.4.0...v1.5.0) (2021-08-19)
 
 
