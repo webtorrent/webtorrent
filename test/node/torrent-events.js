@@ -2,6 +2,7 @@ const fixtures = require('webtorrent-fixtures')
 const test = require('tape')
 const WebTorrent = require('../../')
 const MemoryChunkStore = require('memory-chunk-store')
+const randombytes = require('randombytes')
 
 test('client.add: emit torrent events in order', t => {
   t.plan(6)
@@ -79,5 +80,58 @@ test('client.seed: emit torrent events in order', t => {
     t.equal(++order, 4)
 
     client.destroy(err => { t.error(err, 'client destroyed') })
+  })
+})
+
+test('file.select: check multiple done events', t => {
+  t.plan(5)
+
+  const client1 = new WebTorrent({ dht: false, tracker: false, lsd: false, utp: false })
+  const client2 = new WebTorrent({ dht: false, tracker: false, lsd: false, utp: false })
+
+  client1.on('error', err => { t.fail(err) })
+  client1.on('warning', err => { t.fail(err) })
+
+  client2.on('error', err => { t.fail(err) })
+  client2.on('warning', err => { t.fail(err) })
+
+  const fileA = Buffer.from(randombytes(16 * 1024).toString('hex'))
+  const fileB = Buffer.from(randombytes(16 * 1024).toString('hex'))
+
+  // Start seeding
+  client2.seed([fileA, fileB], { announce: [] }, seedTorrent => {
+    // Select only fileA (index 0)
+    const magnet = seedTorrent.magnetURI + '&so=0'
+
+    // Start downloading
+    const torrent = client1.add(magnet, { store: MemoryChunkStore })
+
+    // Manually connect peers
+    torrent.addPeer(`127.0.0.1:${client2.address().port}`)
+
+    let order = 0
+
+    torrent.on('infoHash', () => {
+      t.equal(++order, 1)
+    })
+
+    torrent.on('metadata', () => {
+      t.equal(++order, 2)
+    })
+
+    torrent.on('ready', () => {
+      t.equal(++order, 3)
+    })
+
+    torrent.on('done', () => {
+      ++order
+
+      if (order === 4) {
+        torrent.files[1].select(0)
+      } else if (order === 5) {
+        client1.destroy(err => { t.error(err, 'client 1 destroyed') })
+        client2.destroy(err => { t.error(err, 'client 2 destroyed') })
+      }
+    })
   })
 })
