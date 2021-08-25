@@ -1,3 +1,10 @@
+## [1.5.4](https://github.com/webtorrent/webtorrent/compare/v1.5.3...v1.5.4) (2021-08-25)
+
+
+### Bug Fixes
+
+* handle done event when new files selected ([#2183](https://github.com/webtorrent/webtorrent/issues/2183)) ([c543788](https://github.com/webtorrent/webtorrent/commit/c5437886086f455c61f0ff71bbfecd3f9e6b2609))
+
 ## [1.5.3](https://github.com/webtorrent/webtorrent/compare/v1.5.2...v1.5.3) (2021-08-20)
 
 
