@@ -1,3 +1,10 @@
+## [1.5.5](https://github.com/webtorrent/webtorrent/compare/v1.5.4...v1.5.5) (2021-09-02)
+
+
+### Bug Fixes
+
+* DHT cleanup after torrent removal ([#2185](https://github.com/webtorrent/webtorrent/issues/2185)) ([320541f](https://github.com/webtorrent/webtorrent/commit/320541f271fdbd7303f544b6e99ab6b0a450fd8c)), closes [#1289](https://github.com/webtorrent/webtorrent/issues/1289)
+
 ## [1.5.4](https://github.com/webtorrent/webtorrent/compare/v1.5.3...v1.5.4) (2021-08-25)
 
 
