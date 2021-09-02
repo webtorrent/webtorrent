@@ -424,6 +424,9 @@ class WebTorrent extends EventEmitter {
     if (!torrent) return
     this.torrents.splice(this.torrents.indexOf(torrent), 1)
     torrent.destroy(opts, cb)
+    if (this.dht) {
+      this.dht._tables.remove(torrent.infoHash)
+    }
   }
 
   address () {
