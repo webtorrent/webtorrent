@@ -1,0 +1,14 @@
+{
+  "name": "Gdrive-Mirror-bot-Heroku",
+  "description": "This is a telegram bot writen in python for mirroring files on the internet to our beloved Google Drive.",
+  "logo": "https://telegra.ph/file/55cadc1697ae944a7f432.png",
+  "keywords": [
+    "telegram",
+    "mirror",
+    "googledrive"
+  ],
+  "repository": "https://github.com/sathishsksk/webtorrent",
+  "success_url": "https://github.com/sathishsksk/webtorrent",
+  "website": "https://github.com/sathishsksk/webtorrent",
+  "stack": "container"
+}
