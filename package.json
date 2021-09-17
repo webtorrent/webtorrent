@@ -17,6 +17,7 @@
     "load-ip-set": false,
     "net": false,
     "os": false,
+    "node-fetch": false,
     "ut_pex": false
   },
   "browserify": {
@@ -56,6 +57,7 @@
     "memory-chunk-store": "^1.3.5",
     "mime": "^2.5.2",
     "multistream": "^4.1.0",
+    "node-fetch": "^2.6.2",
     "package-json-versionify": "^1.0.4",
     "parse-torrent": "^9.1.4",
     "pump": "^3.0.0",
