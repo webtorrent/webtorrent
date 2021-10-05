@@ -1,3 +1,10 @@
+## [1.5.6](https://github.com/webtorrent/webtorrent/compare/v1.5.5...v1.5.6) (2021-10-05)
+
+
+### Bug Fixes
+
+* http-node git location ([67ddac0](https://github.com/webtorrent/webtorrent/commit/67ddac03bc02e2923ec30af7054745a395d0280c))
+
 ## [1.5.5](https://github.com/webtorrent/webtorrent/compare/v1.5.4...v1.5.5) (2021-09-02)
 
 
