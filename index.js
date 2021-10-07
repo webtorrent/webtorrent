@@ -2,8 +2,8 @@
 /* global FileList, ServiceWorker */
 /* eslint-env browser */
 
-const EventEmitter = require('node:events')
-const path = require('node:path')
+const EventEmitter = require('events')
+const path = require('path')
 const concat = require('simple-concat')
 const createTorrent = require('create-torrent')
 const debugFactory = require('debug')

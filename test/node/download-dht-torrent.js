@@ -1,4 +1,4 @@
-const fs = require('node:fs')
+const fs = require('fs')
 const DHT = require('bittorrent-dht/server')
 const fixtures = require('webtorrent-fixtures')
 const MemoryChunkStore = require('memory-chunk-store')

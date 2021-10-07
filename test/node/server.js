@@ -1,4 +1,4 @@
-const fs = require('node:fs')
+const fs = require('fs')
 const fixtures = require('webtorrent-fixtures')
 const get = require('simple-get')
 const test = require('tape')

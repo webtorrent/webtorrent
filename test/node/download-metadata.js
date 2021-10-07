@@ -1,4 +1,4 @@
-const http = require('node:http')
+const http = require('http')
 const fixtures = require('webtorrent-fixtures')
 const MemoryChunkStore = require('memory-chunk-store')
 const test = require('tape')

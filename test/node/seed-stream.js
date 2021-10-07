@@ -1,4 +1,4 @@
-const { Readable } = require('node:stream')
+const { Readable } = require('stream')
 const series = require('run-series')
 const test = require('tape')
 const Tracker = require('bittorrent-tracker/server')

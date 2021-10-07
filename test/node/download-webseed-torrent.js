@@ -1,5 +1,5 @@
-const http = require('node:http')
-const path = require('node:path')
+const http = require('http')
+const path = require('path')
 const finalhandler = require('finalhandler')
 const fixtures = require('webtorrent-fixtures')
 const MemoryChunkStore = require('memory-chunk-store')

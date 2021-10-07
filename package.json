@@ -103,7 +103,7 @@
     "utp-native": "^2.5.3"
   },
   "engines": {
-    "node": ">=12.20"
+    "node": ">=12"
   },
   "funding": [
     {

@@ -1,4 +1,4 @@
-const fs = require('node:fs')
+const fs = require('fs')
 const fixtures = require('webtorrent-fixtures')
 const MemoryChunkStore = require('memory-chunk-store')
 const series = require('run-series')
