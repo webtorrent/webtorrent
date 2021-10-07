@@ -1,8 +1,8 @@
+const fs = require('node:fs')
 const fixtures = require('webtorrent-fixtures')
-const fs = require('fs')
 const get = require('simple-get')
 const test = require('tape')
-const WebTorrent = require('../../')
+const WebTorrent = require('../../index.js')
 
 test('torrent.createServer: programmatic http server', t => {
   t.plan(9)

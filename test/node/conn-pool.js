@@ -1,8 +1,8 @@
 const test = require('tape')
 const fixtures = require('webtorrent-fixtures')
-const WebTorrent = require('../../')
 const MemoryChunkStore = require('memory-chunk-store')
 const dgram = require('dgram')
+const WebTorrent = require('../../index.js')
 
 test('client.conn-pool: use TCP when uTP disabled', t => {
   t.plan(6)

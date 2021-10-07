@@ -1,6 +1,6 @@
 const fixtures = require('webtorrent-fixtures')
 const test = require('tape')
-const WebTorrent = require('../')
+const WebTorrent = require('../index.js')
 
 test('client.remove: remove by Torrent object', t => {
   t.plan(5)

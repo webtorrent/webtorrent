@@ -1,7 +1,7 @@
 const fixtures = require('webtorrent-fixtures')
 const MemoryChunkStore = require('memory-chunk-store')
 const test = require('tape')
-const WebTorrent = require('../../')
+const WebTorrent = require('../../index.js')
 
 test('Download using LSD (via .torrent file)', t => {
   t.plan(3)

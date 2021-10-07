@@ -2,8 +2,8 @@ const fixtures = require('webtorrent-fixtures')
 const series = require('run-series')
 const test = require('tape')
 const TrackerServer = require('bittorrent-tracker/server')
-const WebTorrent = require('../../')
-const common = require('../common')
+const WebTorrent = require('../../index.js')
+const common = require('../common.js')
 
 test('blocklist blocks peers discovered via tracker', t => {
   t.plan(9)

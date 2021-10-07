@@ -1,8 +1,8 @@
+const fs = require('node:fs')
 const fixtures = require('webtorrent-fixtures')
-const fs = require('fs')
 const MemoryChunkStore = require('memory-chunk-store')
 const test = require('tape')
-const WebTorrent = require('../../')
+const WebTorrent = require('../../index.js')
 
 test('Download via torrent.addPeer()', (t) => {
   t.plan(7)

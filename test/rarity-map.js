@@ -1,8 +1,8 @@
 const fixtures = require('webtorrent-fixtures')
 const randombytes = require('randombytes')
 const test = require('tape')
-const Torrent = require('../lib/torrent')
 const Wire = require('bittorrent-protocol')
+const Torrent = require('../lib/torrent.js')
 
 test('Rarity map usage', t => {
   t.plan(16)

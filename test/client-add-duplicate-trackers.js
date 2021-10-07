@@ -1,6 +1,6 @@
 const fixtures = require('webtorrent-fixtures')
 const test = require('tape')
-const WebTorrent = require('../')
+const WebTorrent = require('../index.js')
 
 test('client.add: duplicate trackers', t => {
   t.plan(3)

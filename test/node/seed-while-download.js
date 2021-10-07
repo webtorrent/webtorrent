@@ -1,10 +1,10 @@
+const fs = require('node:fs')
 const DHT = require('bittorrent-dht/server')
 const fixtures = require('webtorrent-fixtures')
-const fs = require('fs')
 const MemoryChunkStore = require('memory-chunk-store')
 const series = require('run-series')
 const test = require('tape')
-const WebTorrent = require('../../')
+const WebTorrent = require('../../index.js')
 
 test('Seed and download a file at the same time', t => {
   t.plan(14)
