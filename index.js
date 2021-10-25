@@ -1,5 +1,6 @@
 /*! webtorrent. MIT License. WebTorrent LLC <https://webtorrent.io/opensource> */
-/* global FileList */
+/* global FileList, ServiceWorker */
+/* eslint-env browser */
 
 const { EventEmitter } = require('events')
 const concat = require('simple-concat')
@@ -13,6 +14,7 @@ const path = require('path')
 const Peer = require('simple-peer')
 const queueMicrotask = require('queue-microtask')
 const randombytes = require('randombytes')
+const sha1 = require('simple-sha1')
 const speedometer = require('speedometer')
 const { ThrottleGroup } = require('speed-limiter')
 
@@ -80,6 +82,14 @@ class WebTorrent extends EventEmitter {
     this._downloadLimit = Math.max((typeof opts.downloadLimit === 'number') ? opts.downloadLimit : -1, -1)
     this._uploadLimit = Math.max((typeof opts.uploadLimit === 'number') ? opts.uploadLimit : -1, -1)
 
+    this.serviceWorker = null
+    this.workerKeepAliveInterval = null
+    this.workerPortCount = 0
+
+    if (opts.secure === true) {
+      require('./lib/peer').enableSecure()
+    }
+
     this._debug(
       'new webtorrent (peerId %s, nodeId %s, port %s)',
       this.peerId, this.nodeId, this.torrentPort
@@ -92,7 +102,7 @@ class WebTorrent extends EventEmitter {
 
     if (this.tracker) {
       if (typeof this.tracker !== 'object') this.tracker = {}
-      if (global.WRTC && !this.tracker.wrtc) this.tracker.wrtc = global.WRTC
+      if (globalThis.WRTC && !this.tracker.wrtc) this.tracker.wrtc = globalThis.WRTC
     }
 
     if (typeof ConnPool === 'function') {
@@ -150,6 +160,68 @@ class WebTorrent extends EventEmitter {
     } else {
       queueMicrotask(ready)
     }
+  }
+
+  /**
+   * Accepts an existing service worker registration [navigator.serviceWorker.controller]
+   * which must be activated, "creates" a file server for streamed file rendering to use.
+   *
+   * @param  {ServiceWorker} controller
+   * @param {function=} cb
+   * @return {null}
+   */
+  loadWorker (controller, cb = () => {}) {
+    if (!(controller instanceof ServiceWorker)) throw new Error('Invalid worker registration')
+    if (controller.state !== 'activated') throw new Error('Worker isn\'t activated')
+    const keepAliveTime = 20000
+
+    this.serviceWorker = controller
+
+    navigator.serviceWorker.addEventListener('message', event => {
+      const { data } = event
+      if (!data.type || !data.type === 'webtorrent' || !data.url) return null
+      let [infoHash, ...filePath] = data.url.slice(data.url.indexOf(data.scope + 'webtorrent/') + 11 + data.scope.length).split('/')
+      filePath = decodeURI(filePath.join('/'))
+      if (!infoHash || !filePath) return null
+
+      const [port] = event.ports
+
+      const file = this.get(infoHash) && this.get(infoHash).files.find(file => file.path === filePath)
+      if (!file) return null
+
+      const [response, stream, raw] = file._serve(data)
+      const asyncIterator = stream && stream[Symbol.asyncIterator]()
+
+      const cleanup = () => {
+        port.onmessage = null
+        if (stream) stream.destroy()
+        if (raw) raw.destroy()
+        this.workerPortCount--
+        if (!this.workerPortCount) {
+          clearInterval(this.workerKeepAliveInterval)
+          this.workerKeepAliveInterval = null
+        }
+      }
+
+      port.onmessage = async msg => {
+        if (msg.data) {
+          let chunk
+          try {
+            chunk = (await asyncIterator.next()).value
+          } catch (e) {
+            // chunk is yet to be downloaded or it somehow failed, should this be logged?
+          }
+          port.postMessage(chunk)
+          if (!chunk) cleanup()
+          if (!this.workerKeepAliveInterval) this.workerKeepAliveInterval = setInterval(() => fetch(`${this.serviceWorker.scriptURL.substr(0, this.serviceWorker.scriptURL.lastIndexOf('/') + 1).slice(window.location.origin.length)}webtorrent/keepalive/`), keepAliveTime)
+        } else {
+          cleanup()
+        }
+      }
+      this.workerPortCount++
+      port.postMessage(response)
+    })
+    cb(this.serviceWorker)
   }
 
   get downloadSpeed () { return this._downloadSpeed() }
@@ -352,6 +424,9 @@ class WebTorrent extends EventEmitter {
     if (!torrent) return
     this.torrents.splice(this.torrents.indexOf(torrent), 1)
     torrent.destroy(opts, cb)
+    if (this.dht) {
+      this.dht._tables.remove(torrent.infoHash)
+    }
   }
 
   address () {
@@ -445,6 +520,19 @@ class WebTorrent extends EventEmitter {
     const args = [].slice.call(arguments)
     args[0] = `[${this._debugId}] ${args[0]}`
     debug(...args)
+  }
+
+  _getByHash (infoHashHash) {
+    for (const torrent of this.torrents) {
+      if (!torrent.infoHashHash) {
+        torrent.infoHashHash = sha1.sync(Buffer.from('72657132' /* 'req2' */ + torrent.infoHash, 'hex'))
+      }
+      if (infoHashHash === torrent.infoHashHash) {
+        return torrent
+      }
+    }
+
+    return null
   }
 }
 

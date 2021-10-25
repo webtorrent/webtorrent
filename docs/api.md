@@ -244,6 +244,10 @@ Sets the maximum speed at which the client uploads the torrents, in bytes/sec.
 `rate` must be bigger or equal than zero, or `-1` to disable the upload throttle and
 use the whole bandwidth of the connection.
 
+## `client.loadWorker(controller, [function callback (controller) {}])`  *(browser only)*
+
+Accepts an existing service worker registration [navigator.serviceWorker.controller] which must be activated, "creates" a file server for streamed file rendering to use.
+
 # Torrent API
 
 ## `torrent.name`
@@ -741,6 +745,97 @@ file.getBlobURL(function (err, url) {
 })
 ```
 
+## `file.streamTo(elem, [function callback (err, elem) {}])` *(browser only)*
+
+Requires `client.loadWorker` to be ran beforehand. Sets the element source to the file's streaming URL. Supports streaming, seeking and all browser codecs and containers.
+
+This method transfers data directly instead of building it into blobs, which means it uses less CPU and RAM than `renderTo`.
+
+Support table:
+|Containers|Chromium|Mobile Chromium|Edge Chromium|Firefox|
+|-|:-:|:-:|:-:|:-:|
+|3g2|✓|✓|✓|✓|
+|3gp|✓|✓|✓|✘|
+|avi|✘|✘|✘|✘|
+|m2ts|✘|✘|✓**|✘|
+|m4v etc.|✓*|✓*|✓*|✓*|
+|mp4|✓|✓|✓|✓|
+|mpeg|✘|✘|✘|✘|
+|mov|✓|✓|✓|✓|
+|ogm ogv|✓|✓|✓|✓|
+|webm|✓|✓|✓|✓|
+|mkv|✓|✓|✓|✘|
+
+\* Container might be supported, but the container's codecs might not be.  
+\*\* Documented as working, but can't reproduce.  
+
+|Video Codecs|Chromium|Mobile Chromium|Edge Chromium|Firefox|
+|-|:-:|:-:|:-:|:-:|
+|AV1|✓|✓|✓|✓|
+|H.263|✘|✘|✘|✘|
+|H.264|✓|✓|✓|✓|
+|H.265|✘|✘|✓*|✘|
+|MPEG-2/4|✘|✘|✘|✘|
+|Theora|✓|✘|✓|✓|
+|VP8/9|✓|✓|✓|✓|
+
+\* Requires MSStore extension which you can get by opening this link `ms-windows-store://pdp/?ProductId=9n4wgh0z6vhq` while using Edge.
+
+|Audio Codecs|Chromium|Mobile Chromium|Edge Chromium|Firefox|
+|-|:-:|:-:|:-:|:-:|
+|AAC|✓|✓|✓|✓|
+|AC3|✘|✘|✓|✘|
+|DTS|✘|✘|✘|✘|
+|EAC3|✘|✘|✓|✘|
+|FLAC|✓|✓*|✓|✓|
+|MP3|✓|✓|✓|✓|
+|Opus|✓|✓|✓|✓|
+|TrueHD|✘|✘|✘|✘|
+|Vorbis|✓|✓|✓|✓*|
+
+\* Might not work in some video containers.
+
+## `file.getStreamURL(elem, [function callback (err, elem) {}])` *(browser only)*
+
+Requires `client.loadWorker` to be ran beforehand. Sets the element source to the file's streaming URL.
+
+This method is useful for creating a file download link, like this:
+
+```js
+file.getBlobURL((err, url) => {
+  if (err) throw err
+  const a = document.createElement('a')
+  a.target = "_blank"
+  a.href = url
+  a.textContent = 'Download ' + file.name
+  document.body.append(a)
+})
+```
+
+## `file.on('stream', function ({ stream, file, req }, function pipeCallback) {})` *(browser only)*
+
+This is advanced functionality.
+
+Emitted every time when the file creates a new read stream used by the service worker streaming. For example every time the user seeks a video. This allows you to find out what parts of the file the browser is requesting, and how it's requesting them. Additionally it allows you to manipulate the data that's being streamed.
+
+Yields an object with 3 values and a function:
+- object - information about the request,
+  - `stream` - a [readable stream](https://nodejs.org/api/stream.html#stream_class_stream_readable) which the user can manipulate,
+  - `file` - the file object that's being streamed,
+  - `req` - all the request information which the browser made when requesting the data.
+- function - if you pipe the `stream`, use this function to callback the piped stream **synchronously!** Otherwise the playback is likely to break.
+
+Example usage:
+```js
+file.on('stream', ({ stream, file, req }, cb) => {
+  if (req.destination === 'audio' && file.name.endsWith('.dts')) {
+    const transcoder = new SomeAudioTranscoder()
+    stream.pipe(transcoder)
+    cb(transcoder)
+    // do other things
+  }
+})
+```
 # Piece API
 
 ## `piece.length`

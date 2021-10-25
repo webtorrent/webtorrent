@@ -71,7 +71,6 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[YouShark][youshark]** - Web music player for WebTorrent ([source code][youshark-source])
 - **[Twister][twister]** - Decentralized microblogging service, using WebTorrent for media attachments ([source code][twister-source])
 - **[PeerTube][peertube]** - Prototype of a decentralized video streaming platform in the web browser ([source code][peertube-source])
-- **[Cinematrix][cinematrix]** - Stream your favorite free content
 - **[webtorrent-cljs][webtorrent-cljs]** - Clojurescript wrapper for WebTorrent
 - **[Squidlink][squidlink]** - Transfer files from A to B without the Cloud ([source code][squidlink-source])
 - **[Web2web][web2web]** - Server-less & domain-less websites updatable via torrents and bitcoin blockchain ([source code][web2web-source])
@@ -109,7 +108,8 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[WebTorrentPlayer][webtorrentplayer]** - High performance, no compromise video player for WebTorrent ([source code][webtorrentplayer-source])
 - **[Storm][storm]** - A beautiful torrent client for desktop.
 - **[atorable-loader][atorable-loader-source]** - Resolves Webpack import/require() of a file into a Webtorrent magnet uri.
-- **[atorable-react][atorable-react]** -  React component that processes a Webtorrent magnet uri for viewing or other custom uses. ([code][atorable-react-source])
+- **[atorable-react][atorable-react]** -  React component that processes a Webtorrent magnet uri for viewing or other custom uses. ([source code][atorable-react-source])
+- **[Iris][iris-messenger]** - Decentralized social networking application. ([source code][iris-messenger-source])
 - ***Your app here – [Send a pull request][pr] with your URL!***
 <!-- - **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source]) -->
 <!-- - **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s)) -->
@@ -146,7 +146,6 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [twister-source]: https://github.com/miguelfreitas/twister-html
 [peertube]: http://peertube.cpy.re
 [peertube-source]: https://github.com/Chocobozzz/PeerTube
-[cinematrix]: http://cinematrix.one/
 [webtorrent-cljs]: https://github.com/cvillecsteele/webtorrent-cljs
 [squidlink]: http://squidl.ink
 [squidlink-source]: https://github.com/darkenvy/Squidl.ink
@@ -200,6 +199,8 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [atorable-loader-source]: https://github.com/Atorable/atorable-loader
 [atorable-react]: https://atorable.github.io/atorable-react/
 [atorable-react-source]: https://github.com/Atorable/atorable-react
+[iris-messenger]: https://iris.to
+[iris-messenger-source]: https://github.com/irislib/iris-messenger 
 
 ## How does WebTorrent work?
 
