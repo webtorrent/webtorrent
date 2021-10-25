@@ -105,9 +105,11 @@ If `opts` is specified, then the default options (shown below) will be overridde
   maxWebConns: Number,       // Max number of simultaneous connections per web seed [default=4]
   path: String,              // Folder to download files to (default=`/tmp/webtorrent/`)
   private: Boolean,          // If true, client will not share the hash with the DHT nor with PEX (default is the privacy of the parsed torrent)
-  store: Function            // Custom chunk store (must follow [abstract-chunk-store](https://www.npmjs.com/package/abstract-chunk-store) API)
+  store: Function,           // Custom chunk store (must follow [abstract-chunk-store](https://www.npmjs.com/package/abstract-chunk-store) API)
   destroyStoreOnDestroy: Boolean // If truthy, client will delete the torrent's chunk store (e.g. files on disk) when the torrent is destroyed
-  storeCacheSlots: Number    // Number of chunk store entries (torrent pieces) to cache in memory [default=20]; 0 to disable caching
+  storeCacheSlots: Number,   // Number of chunk store entries (torrent pieces) to cache in memory [default=20]; 0 to disable caching
+  storeOpts: Object,         // Custom options passed to the store
+  addUID: Boolean,           // (Node.js only) If true, the torrent will be stored in it's infoHash folder to prevent file name collisions (default=false)
   skipVerify: Boolean,       // If true, client will skip verification of pieces for existing store and assume it's correct
   preloadedStore: Function,  // Custom, pre-loaded chunk store (must follow [abstract-chunk-store](https://www.npmjs.com/package/abstract-chunk-store) API)
   strategy: String           // Piece selection strategy, `rarest` or `sequential`(defaut=`sequential`)
@@ -125,9 +127,13 @@ just want the file data, then use `ontorrent` or the 'torrent' event.
 If you provide `opts.store`, it will be called as
 `opts.store(chunkLength, storeOpts)` with:
 
+* `storeOpts` - custom `storeOpts` specified in `opts`
 * `storeOpts.length` - size of all the files in the torrent
 * `storeOpts.files` - an array of torrent file objects
+* `storeOpts.torrent` - the torrent instance being stored
+* `storeOpts.path` - path to the store, based on `opts.path`
 * `storeOpts.name` - the info hash of the torrent instance being stored
+* `storeOpts.addUID` - boolean which tells the store if it should include an UID in it's file paths
 
 **Note:** Downloading a torrent automatically seeds it, making it available for download by other peers.
 

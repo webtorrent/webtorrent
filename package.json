@@ -48,7 +48,7 @@
     "debug": "^4.3.2",
     "end-of-stream": "^1.4.4",
     "escape-html": "^1.0.3",
-    "fs-chunk-store": "^2.0.3",
+    "fs-chunk-store": "^2.0.4",
     "http-node": "github:webtorrent/http-node#webtorrent",
     "immediate-chunk-store": "^2.2.0",
     "load-ip-set": "^2.2.1",
