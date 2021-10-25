@@ -1,3 +1,10 @@
+## [1.5.7](https://github.com/webtorrent/webtorrent/compare/v1.5.6...v1.5.7) (2021-10-25)
+
+
+### Bug Fixes
+
+* add storeOpts, specify store path, align with docs ([#2121](https://github.com/webtorrent/webtorrent/issues/2121)) ([6cd9b5f](https://github.com/webtorrent/webtorrent/commit/6cd9b5f74d7cd676259cd11daa2a568a3c5666d9))
+
 ## [1.5.6](https://github.com/webtorrent/webtorrent/compare/v1.5.5...v1.5.6) (2021-10-05)
 
 
