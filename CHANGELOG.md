@@ -1,3 +1,10 @@
+## [1.5.8](https://github.com/webtorrent/webtorrent/compare/v1.5.7...v1.5.8) (2021-10-26)
+
+
+### Bug Fixes
+
+* Prep for esm ([#2205](https://github.com/webtorrent/webtorrent/issues/2205)) ([ba6b799](https://github.com/webtorrent/webtorrent/commit/ba6b799ff614fedf26a29448620604aae3d2afec))
+
 ## [1.5.7](https://github.com/webtorrent/webtorrent/compare/v1.5.6...v1.5.7) (2021-10-25)
 
 
