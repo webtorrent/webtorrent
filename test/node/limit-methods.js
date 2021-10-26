@@ -1,7 +1,7 @@
 const fixtures = require('webtorrent-fixtures')
 const test = require('tape')
-const WebTorrent = require('../../')
 const MemoryChunkStore = require('memory-chunk-store')
+const WebTorrent = require('../../index.js')
 
 const DOWNLOAD_SPEED_LIMIT = 200 * 1000 // 200 KB/s
 const UPLOAD_SPEED_LIMIT = 200 * 1000 // 200 KB/s

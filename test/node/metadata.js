@@ -1,6 +1,6 @@
 const fixtures = require('webtorrent-fixtures')
 const test = require('tape')
-const WebTorrent = require('../../')
+const WebTorrent = require('../../index.js')
 
 test('ut_metadata transfer', t => {
   t.plan(6)

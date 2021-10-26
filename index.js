@@ -2,25 +2,26 @@
 /* global FileList, ServiceWorker */
 /* eslint-env browser */
 
-const { EventEmitter } = require('events')
+const EventEmitter = require('events')
+const path = require('path')
 const concat = require('simple-concat')
 const createTorrent = require('create-torrent')
-const debug = require('debug')('webtorrent')
+const debugFactory = require('debug')
 const DHT = require('bittorrent-dht/client') // browser exclude
 const loadIPSet = require('load-ip-set') // browser exclude
 const parallel = require('run-parallel')
 const parseTorrent = require('parse-torrent')
-const path = require('path')
 const Peer = require('simple-peer')
 const queueMicrotask = require('queue-microtask')
 const randombytes = require('randombytes')
 const sha1 = require('simple-sha1')
 const speedometer = require('speedometer')
 const { ThrottleGroup } = require('speed-limiter')
+const ConnPool = require('./lib/conn-pool.js') // browser exclude
+const Torrent = require('./lib/torrent.js')
+const { version: VERSION } = require('./package.json')
 
-const ConnPool = require('./lib/conn-pool') // browser exclude
-const Torrent = require('./lib/torrent')
-const VERSION = require('./package.json').version
+const debug = debugFactory('webtorrent')
 
 /**
  * Version number in Azureus-style. Generated from major and minor semver version.
