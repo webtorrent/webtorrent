@@ -96,7 +96,7 @@
     "semantic-release": "18.0.0",
     "serve-static": "1.14.1",
     "standard": "*",
-    "tape": "5.3.1",
+    "tape": "5.3.2",
     "webtorrent-fixtures": "1.7.5"
   },
   "optionalDependencies": {
