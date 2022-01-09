@@ -395,7 +395,7 @@ class WebTorrent extends EventEmitter {
           if (existingTorrent) {
             console.warn("A torrent with the same seed is already in the client.")
             torrent._destroy();
-            if (typeof onseed === 'function') onseed(existingTorrent, {isDup: true})
+            if (typeof onseed === 'function') onseed(existingTorrent)
 
           } else {
             torrent._onTorrentId(torrentBuf)
