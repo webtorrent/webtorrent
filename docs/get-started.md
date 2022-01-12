@@ -109,7 +109,7 @@ client.add(magnetURI, { path: '/path/to/folder' }, function (torrent) {
 **Note:** Seeding a torrent that can be downloaded by browser peers (i.e. with support for WebRTC) requires [webtorrent-hybrid](https://github.com/webtorrent/webtorrent-hybrid).
 
 ```js
-const WebTorrent = require('webtorrent-hybrid')
+import WebTorrent from 'webtorrent-hybrid'
 const client = new WebTorrent()
 
 client.seed('/seed-me.txt', function (torrent) {
