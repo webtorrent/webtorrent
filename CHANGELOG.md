@@ -1,3 +1,10 @@
+## [1.5.10](https://github.com/webtorrent/webtorrent/compare/v1.5.9...v1.5.10) (2022-01-14)
+
+
+### Bug Fixes
+
+* use @webtorrent/http-node ([699d747](https://github.com/webtorrent/webtorrent/commit/699d747c477a26a5c8d4e6f1537e3e67b6c6ad94))
+
 ## [1.5.9](https://github.com/webtorrent/webtorrent/compare/v1.5.8...v1.5.9) (2022-01-12)
 
 ## [1.5.8](https://github.com/webtorrent/webtorrent/compare/v1.5.7...v1.5.8) (2021-10-26)
