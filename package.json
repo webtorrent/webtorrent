@@ -30,12 +30,13 @@
   "chromeapp": {
     "./lib/utp.js": false,
     "fs-chunk-store": "memory-chunk-store",
-    "http": "http-node",
+    "http": "@webtorrent/http-node",
     "load-ip-set": false,
     "net": "chrome-net",
     "os": false
   },
   "dependencies": {
+    "@webtorrent/http-node": "^1.3.0",
     "addr-to-ip-port": "^1.5.4",
     "bitfield": "^4.0.0",
     "bittorrent-dht": "^10.0.2",
@@ -49,7 +50,6 @@
     "end-of-stream": "^1.4.4",
     "escape-html": "^1.0.3",
     "fs-chunk-store": "^2.0.4",
-    "http-node": "github:webtorrent/http-node#webtorrent",
     "immediate-chunk-store": "^2.2.0",
     "load-ip-set": "^2.2.1",
     "lt_donthave": "^1.0.1",
