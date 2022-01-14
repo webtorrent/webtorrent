@@ -83,7 +83,7 @@
   },
   "devDependencies": {
     "@webtorrent/semantic-release-config": "1.0.7",
-    "airtap": "4.0.3",
+    "airtap": "4.0.4",
     "airtap-manual": "1.0.0",
     "airtap-sauce": "1.1.2",
     "babel-minify": "0.5.1",
