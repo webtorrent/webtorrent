@@ -1,3 +1,11 @@
+## [1.5.11](https://github.com/webtorrent/webtorrent/compare/v1.5.10...v1.5.11) (2022-01-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency debug to ^4.3.3 ([#2228](https://github.com/webtorrent/webtorrent/issues/2228)) ([e268096](https://github.com/webtorrent/webtorrent/commit/e268096c201bc0b9e28d9c94cd7b9287c9f0f2e8))
+* **deps:** update dependency mime to v3 ([#2216](https://github.com/webtorrent/webtorrent/issues/2216)) ([77da8cb](https://github.com/webtorrent/webtorrent/commit/77da8cb629078d55870684e56e0e0b2091c7e723))
+
 ## [1.5.10](https://github.com/webtorrent/webtorrent/compare/v1.5.9...v1.5.10) (2022-01-14)
 
 
