@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/webtorrent/webtorrent/compare/v1.5.11...v1.6.0) (2022-01-17)
+
+
+### Features
+
+* add BEP6 Fast Extension support ([#2243](https://github.com/webtorrent/webtorrent/issues/2243)) ([4f02de3](https://github.com/webtorrent/webtorrent/commit/4f02de3a445f3a9eb46c49a8964c9660bdf6e5d7))
+
 ## [1.5.11](https://github.com/webtorrent/webtorrent/compare/v1.5.10...v1.5.11) (2022-01-14)
 
 
