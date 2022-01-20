@@ -12,7 +12,6 @@ jobs:
         node:
           - '16'
           - '14'
-          - '12'
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
