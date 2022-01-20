@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/webtorrent/webtorrent/compare/v1.6.0...v1.7.0) (2022-01-20)
+
+
+### Features
+
+* add reqq field support ([#2246](https://github.com/webtorrent/webtorrent/issues/2246)) ([8de2a13](https://github.com/webtorrent/webtorrent/commit/8de2a136d68366d298e3ec01b5e4b17a4c4e074c))
+
 # [1.6.0](https://github.com/webtorrent/webtorrent/compare/v1.5.11...v1.6.0) (2022-01-17)
 
 
