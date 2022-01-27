@@ -1,5 +1,13 @@
 name: ci
-on: [push,pull_request]
+on:
+  push:
+    branches:
+      - master
+    tags-ignore:
+      - '*'
+  pull_request:
+    branches:
+      - master
 concurrency: 
   group: ${{ github.ref }}
   cancel-in-progress: true
