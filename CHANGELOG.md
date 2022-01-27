@@ -1,3 +1,43 @@
+## [1.7.2](https://github.com/webtorrent/webtorrent/compare/v1.7.1...v1.7.2) (2022-01-27)
+
+
+### Bug Fixes
+
+* **deps:** update webtorrent ([#2247](https://github.com/webtorrent/webtorrent/issues/2247)) ([6345ebe](https://github.com/webtorrent/webtorrent/commit/6345ebe4bae018a01bab3a25202a1864fb2230d5))
+
+## [1.7.1](https://github.com/webtorrent/webtorrent/compare/v1.7.0...v1.7.1) (2022-01-20)
+
+# [1.7.0](https://github.com/webtorrent/webtorrent/compare/v1.6.0...v1.7.0) (2022-01-20)
+
+
+### Features
+
+* add reqq field support ([#2246](https://github.com/webtorrent/webtorrent/issues/2246)) ([8de2a13](https://github.com/webtorrent/webtorrent/commit/8de2a136d68366d298e3ec01b5e4b17a4c4e074c))
+
+# [1.6.0](https://github.com/webtorrent/webtorrent/compare/v1.5.11...v1.6.0) (2022-01-17)
+
+
+### Features
+
+* add BEP6 Fast Extension support ([#2243](https://github.com/webtorrent/webtorrent/issues/2243)) ([4f02de3](https://github.com/webtorrent/webtorrent/commit/4f02de3a445f3a9eb46c49a8964c9660bdf6e5d7))
+
+## [1.5.11](https://github.com/webtorrent/webtorrent/compare/v1.5.10...v1.5.11) (2022-01-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency debug to ^4.3.3 ([#2228](https://github.com/webtorrent/webtorrent/issues/2228)) ([e268096](https://github.com/webtorrent/webtorrent/commit/e268096c201bc0b9e28d9c94cd7b9287c9f0f2e8))
+* **deps:** update dependency mime to v3 ([#2216](https://github.com/webtorrent/webtorrent/issues/2216)) ([77da8cb](https://github.com/webtorrent/webtorrent/commit/77da8cb629078d55870684e56e0e0b2091c7e723))
+
+## [1.5.10](https://github.com/webtorrent/webtorrent/compare/v1.5.9...v1.5.10) (2022-01-14)
+
+
+### Bug Fixes
+
+* use @webtorrent/http-node ([699d747](https://github.com/webtorrent/webtorrent/commit/699d747c477a26a5c8d4e6f1537e3e67b6c6ad94))
+
+## [1.5.9](https://github.com/webtorrent/webtorrent/compare/v1.5.8...v1.5.9) (2022-01-12)
+
 ## [1.5.8](https://github.com/webtorrent/webtorrent/compare/v1.5.7...v1.5.8) (2021-10-26)
 
 

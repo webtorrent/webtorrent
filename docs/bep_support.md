@@ -11,6 +11,7 @@ These are the [BitTorrent Extension Protocols (BEP)](https://www.bittorrent.org/
 | Name | Link | Node.js | Browser |
 |---|---|---|---|
 | Distributed hash table (DHT) | [BEP 5](https://www.bittorrent.org/beps/bep_0005.html) | :white_check_mark: | :heavy_minus_sign: |
+| Fast Extension | [BEP 6](https://www.bittorrent.org/beps/bep_0006.html) | :white_check_mark: | :white_check_mark: |
 | IPv6 Tracker Extension | [BEP 7](https://www.bittorrent.org/beps/bep_0007.html) | :heavy_minus_sign: | :heavy_minus_sign: |
 | Magnet links | [BEP 9](https://www.bittorrent.org/beps/bep_0009.html) | :white_check_mark: | :white_check_mark: |
 | Extension Protocol | [BEP 10](https://www.bittorrent.org/beps/bep_0010.html) | :white_check_mark: | :white_check_mark: |
