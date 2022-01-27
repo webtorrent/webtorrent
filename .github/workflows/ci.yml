@@ -1,5 +1,8 @@
 name: ci
 on: [push,pull_request]
+concurrency: 
+  group: ${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   test:
     name: Node ${{ matrix.node }} / ${{ matrix.os }}
