@@ -1,12 +1,12 @@
+const http = require('http')
+const path = require('path')
 const finalhandler = require('finalhandler')
 const fixtures = require('webtorrent-fixtures')
-const http = require('http')
 const MemoryChunkStore = require('memory-chunk-store')
-const path = require('path')
 const series = require('run-series')
 const serveStatic = require('serve-static')
 const test = require('tape')
-const WebTorrent = require('../../')
+const WebTorrent = require('../../index.js')
 
 // it should be fast to download a small torrent over local HTTP
 const WEB_SEED_TIMEOUT_MS = 500

@@ -1,12 +1,12 @@
-const finalhandler = require('finalhandler')
-const fixtures = require('webtorrent-fixtures')
 const http = require('http')
 const path = require('path')
+const finalhandler = require('finalhandler')
+const fixtures = require('webtorrent-fixtures')
 const MemoryChunkStore = require('memory-chunk-store')
 const series = require('run-series')
 const serveStatic = require('serve-static')
 const test = require('tape')
-const WebTorrent = require('../../')
+const WebTorrent = require('../../index.js')
 
 test('Download using webseed (via magnet uri)', t => {
   t.plan(9)

@@ -71,7 +71,6 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[YouShark][youshark]** - Web music player for WebTorrent ([source code][youshark-source])
 - **[Twister][twister]** - Decentralized microblogging service, using WebTorrent for media attachments ([source code][twister-source])
 - **[PeerTube][peertube]** - Prototype of a decentralized video streaming platform in the web browser ([source code][peertube-source])
-- **[Cinematrix][cinematrix]** - Stream your favorite free content
 - **[webtorrent-cljs][webtorrent-cljs]** - Clojurescript wrapper for WebTorrent
 - **[Squidlink][squidlink]** - Transfer files from A to B without the Cloud ([source code][squidlink-source])
 - **[Web2web][web2web]** - Server-less & domain-less websites updatable via torrents and bitcoin blockchain ([source code][web2web-source])
@@ -147,7 +146,6 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [twister-source]: https://github.com/miguelfreitas/twister-html
 [peertube]: http://peertube.cpy.re
 [peertube-source]: https://github.com/Chocobozzz/PeerTube
-[cinematrix]: http://cinematrix.one/
 [webtorrent-cljs]: https://github.com/cvillecsteele/webtorrent-cljs
 [squidlink]: http://squidl.ink
 [squidlink-source]: https://github.com/darkenvy/Squidl.ink

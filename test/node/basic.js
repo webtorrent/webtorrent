@@ -1,9 +1,9 @@
-const fixtures = require('webtorrent-fixtures')
 const fs = require('fs')
 const path = require('path')
 const http = require('http')
+const fixtures = require('webtorrent-fixtures')
 const test = require('tape')
-const WebTorrent = require('../../')
+const WebTorrent = require('../../index.js')
 
 test('WebTorrent.WEBRTC_SUPPORT', t => {
   t.plan(2)

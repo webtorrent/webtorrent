@@ -1,10 +1,10 @@
-const fixtures = require('webtorrent-fixtures')
 const fs = require('fs')
+const fixtures = require('webtorrent-fixtures')
 const MemoryChunkStore = require('memory-chunk-store')
 const series = require('run-series')
 const test = require('tape')
 const TrackerServer = require('bittorrent-tracker/server')
-const WebTorrent = require('../../')
+const WebTorrent = require('../../index.js')
 
 test('Download using UDP tracker (via magnet uri)', t => {
   magnetDownloadTest(t, 'udp')
