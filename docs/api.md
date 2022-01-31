@@ -248,6 +248,8 @@ use the whole bandwidth of the connection.
 
 Accepts an existing service worker registration [navigator.serviceWorker.controller] which must be activated, "creates" a file server for streamed file rendering to use.
 
+Needs either [this worker](https://github.com/webtorrent/webtorrent/blob/master/sw.min.js) to be used, or have [this functionality](https://github.com/webtorrent/webtorrent/blob/master/lib/worker.js) implemented.
+
 # Torrent API
 
 ## `torrent.name`
