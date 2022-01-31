@@ -797,12 +797,12 @@ Support table:
 
 ## `file.getStreamURL(elem, [function callback (err, elem) {}])` *(browser only)*
 
-Requires `client.loadWorker` to be ran beforehand. Sets the element source to the file's streaming URL.
+Requires `client.loadWorker` to be ran beforehand.
 
 This method is useful for creating a file download link, like this:
 
 ```js
-file.getBlobURL((err, url) => {
+file.getStreamURL((err, url) => {
   if (err) throw err
   const a = document.createElement('a')
   a.target = "_blank"
