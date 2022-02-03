@@ -393,7 +393,9 @@ class WebTorrent extends EventEmitter {
 
           const existingTorrent = this.get(torrentBuf)
           if (existingTorrent) {
-            torrent._destroy(new Error(`Cannot add duplicate torrent ${existingTorrent.infoHash}`))
+            console.warn('A torrent with the same id is already being seeded')
+            torrent._destroy()
+            if (typeof onseed === 'function') onseed(existingTorrent)
           } else {
             torrent._onTorrentId(torrentBuf)
           }

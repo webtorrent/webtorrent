@@ -74,3 +74,22 @@ test('client.seed: torrent file (Blob)', t => {
     client.destroy(err => { t.error(err, 'client destroyed') })
   })
 })
+
+test('client.seed: duplicate seed)', t => {
+  t.plan(4)
+
+  const client = new WebTorrent()
+
+  client.on('error', err => { t.fail(err) })
+  client.on('warning', err => { t.fail(err) })
+
+  client.seed(fixtures.leaves.content, function (torrent1) {
+    client.seed(fixtures.leaves.content, function (torrent2) {
+      t.equal(torrent1, torrent2)
+      t.equal(client.torrents.length, 1)
+
+      client.destroy(err => { t.error(err, 'client destroyed') })
+      t.equal(client.torrents.length, 0)
+    })
+  })
+})
