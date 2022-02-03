@@ -1,3 +1,10 @@
+## [1.7.4](https://github.com/webtorrent/webtorrent/compare/v1.7.3...v1.7.4) (2022-02-03)
+
+
+### Bug Fixes
+
+* getStreamURL docs ([#2257](https://github.com/webtorrent/webtorrent/issues/2257)) ([69bdd93](https://github.com/webtorrent/webtorrent/commit/69bdd93bdbe64ab9cc2c22e700560ecea02645e2))
+
 ## [1.7.3](https://github.com/webtorrent/webtorrent/compare/v1.7.2...v1.7.3) (2022-02-03)
 
 ## [1.7.2](https://github.com/webtorrent/webtorrent/compare/v1.7.1...v1.7.2) (2022-01-27)
