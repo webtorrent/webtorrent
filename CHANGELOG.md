@@ -1,3 +1,10 @@
+## [1.8.1](https://github.com/webtorrent/webtorrent/compare/v1.8.0...v1.8.1) (2022-02-03)
+
+
+### Bug Fixes
+
+* going for 1.8.1 ([e39057f](https://github.com/webtorrent/webtorrent/commit/e39057f634a66ce813482f87d2bfa862ebce5737))
+
 # [1.8.0](https://github.com/webtorrent/webtorrent/compare/v1.7.4...v1.8.0) (2022-02-03)
 
 
