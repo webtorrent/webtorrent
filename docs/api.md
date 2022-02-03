@@ -248,6 +248,8 @@ use the whole bandwidth of the connection.
 
 Accepts an existing service worker registration [navigator.serviceWorker.controller] which must be activated, "creates" a file server for streamed file rendering to use.
 
+Needs either [this worker](https://github.com/webtorrent/webtorrent/blob/master/sw.min.js) to be used, or have [this functionality](https://github.com/webtorrent/webtorrent/blob/master/lib/worker.js) implemented.
+
 # Torrent API
 
 ## `torrent.name`
@@ -797,12 +799,12 @@ Support table:
 
 ## `file.getStreamURL(elem, [function callback (err, elem) {}])` *(browser only)*
 
-Requires `client.loadWorker` to be ran beforehand. Sets the element source to the file's streaming URL.
+Requires `client.loadWorker` to be ran beforehand.
 
 This method is useful for creating a file download link, like this:
 
 ```js
-file.getBlobURL((err, url) => {
+file.getStreamURL((err, url) => {
   if (err) throw err
   const a = document.createElement('a')
   a.target = "_blank"
