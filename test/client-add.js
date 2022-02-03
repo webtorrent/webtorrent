@@ -1,6 +1,6 @@
 const fixtures = require('webtorrent-fixtures')
 const test = require('tape')
-const WebTorrent = require('../')
+const WebTorrent = require('../index.js')
 
 test('client.add: magnet uri, utf-8 string', t => {
   t.plan(6)

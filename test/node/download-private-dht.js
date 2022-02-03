@@ -3,7 +3,7 @@ const fixtures = require('webtorrent-fixtures')
 const MemoryChunkStore = require('memory-chunk-store')
 const series = require('run-series')
 const test = require('tape')
-const WebTorrent = require('../../')
+const WebTorrent = require('../../index.js')
 
 test('private torrent should not use DHT', t => {
   t.plan(4)
