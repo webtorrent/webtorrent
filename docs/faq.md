@@ -110,7 +110,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[atorable-loader][atorable-loader-source]** - Resolves Webpack import/require() of a file into a Webtorrent magnet uri.
 - **[atorable-react][atorable-react]** -  React component that processes a Webtorrent magnet uri for viewing or other custom uses. ([source code][atorable-react-source])
 - **[Iris][iris-messenger]** - Decentralized social networking application. ([source code][iris-messenger-source])
-- **[TorQuiX][TorQuiX]** - Web client for webtorrent-hybrid (Works in docker, in the future will be Android/Windows/Mac/Linux release). ([source code][TorQuiX-source])
+- **[TorQuiX][TorQuiX]** - Web client for webtorrent-hybrid (Works in docker, in the future will be Android/Windows/Mac/Linux release). ([source code][TorQuiX-source]) 
 - ***Your app here – [Send a pull request][pr] with your URL!***
 <!-- - **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source]) -->
 <!-- - **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s)) -->
