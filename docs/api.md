@@ -62,7 +62,6 @@ If `opts` is specified, then the default options (shown below) will be overridde
   webSeeds: Boolean,       // Enable BEP19 web seeds (default=true)
   utp: Boolean,            // Enable BEP29 uTorrent transport protocol (default=true)
   blocklist: Array|String, // List of IP's to block
-  utp: Boolean,            // Enable BEP29 uTorrent transport protocol (default=true)
   downloadLimit: Number,   // Max download speed (bytes/sec) over all torrents (default=-1)
   uploadLimit: Number,     // Max upload speed (bytes/sec) over all torrents (default=-1)
 }
