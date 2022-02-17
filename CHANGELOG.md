@@ -1,3 +1,10 @@
+## [1.8.2](https://github.com/webtorrent/webtorrent/compare/v1.8.1...v1.8.2) (2022-02-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency simple-peer to ^9.11.1 ([34df41a](https://github.com/webtorrent/webtorrent/commit/34df41a05438bcb765077187e04ac2d95d74ea74))
+
 ## [1.8.1](https://github.com/webtorrent/webtorrent/compare/v1.8.0...v1.8.1) (2022-02-03)
 
 
