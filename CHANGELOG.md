@@ -1,3 +1,10 @@
+## [1.8.5](https://github.com/webtorrent/webtorrent/compare/v1.8.4...v1.8.5) (2022-03-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency torrent-discovery to ^9.4.9 ([5a08647](https://github.com/webtorrent/webtorrent/commit/5a086471a8499ee41e16b4db20200baa0458d849))
+
 ## [1.8.4](https://github.com/webtorrent/webtorrent/compare/v1.8.3...v1.8.4) (2022-03-03)
 
 
