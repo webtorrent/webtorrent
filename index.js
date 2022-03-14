@@ -15,13 +15,13 @@ const Peer = require('simple-peer')
 const queueMicrotask = require('queue-microtask')
 const randombytes = require('randombytes')
 const sha1 = require('simple-sha1')
-const speedometer = require('speedometer')
 const { ThrottleGroup } = require('speed-limiter')
 const ConnPool = require('./lib/conn-pool.js') // browser exclude
 const Torrent = require('./lib/torrent.js')
 const { version: VERSION } = require('./package.json')
 
 const debug = debugFactory('webtorrent')
+const speedometer = require('./lib/speedometer')
 
 /**
  * Version number in Azureus-style. Generated from major and minor semver version.
