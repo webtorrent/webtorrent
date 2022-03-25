@@ -1,3 +1,10 @@
+## [1.8.8](https://github.com/webtorrent/webtorrent/compare/v1.8.7...v1.8.8) (2022-03-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency debug to ^4.3.4 ([017c488](https://github.com/webtorrent/webtorrent/commit/017c4889ff62d9b74a457fe8cf5d1699686a4754))
+
 ## [1.8.7](https://github.com/webtorrent/webtorrent/compare/v1.8.6...v1.8.7) (2022-03-24)
 
 ## [1.8.6](https://github.com/webtorrent/webtorrent/compare/v1.8.5...v1.8.6) (2022-03-11)
