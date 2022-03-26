@@ -1,3 +1,10 @@
+## [1.8.9](https://github.com/webtorrent/webtorrent/compare/v1.8.8...v1.8.9) (2022-03-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency parse-torrent to ^9.1.5 ([650a8c9](https://github.com/webtorrent/webtorrent/commit/650a8c93a68852da8beefd12c28a23ec4e1dc2a4))
+
 ## [1.8.8](https://github.com/webtorrent/webtorrent/compare/v1.8.7...v1.8.8) (2022-03-25)
 
 
