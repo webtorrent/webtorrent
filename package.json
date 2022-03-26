@@ -57,7 +57,7 @@
     "mime": "^3.0.0",
     "multistream": "^4.1.0",
     "package-json-versionify": "^1.0.4",
-    "parse-torrent": "^9.1.4",
+    "parse-torrent": "^9.1.5",
     "pump": "^3.0.0",
     "queue-microtask": "^1.2.3",
     "random-iterate": "^1.0.1",
