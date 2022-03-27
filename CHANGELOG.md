@@ -1,3 +1,10 @@
+## [1.8.10](https://github.com/webtorrent/webtorrent/compare/v1.8.9...v1.8.10) (2022-03-27)
+
+
+### Bug Fixes
+
+* web seed request URLs ([#2267](https://github.com/webtorrent/webtorrent/issues/2267)) ([5b4880a](https://github.com/webtorrent/webtorrent/commit/5b4880aee559b4b8d294503039d07af98b09418c))
+
 ## [1.8.9](https://github.com/webtorrent/webtorrent/compare/v1.8.8...v1.8.9) (2022-03-26)
 
 
