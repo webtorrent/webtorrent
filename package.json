@@ -49,7 +49,7 @@
     "debug": "^4.3.4",
     "end-of-stream": "^1.4.4",
     "escape-html": "^1.0.3",
-    "fs-chunk-store": "^2.0.4",
+    "fs-chunk-store": "^3.0.0",
     "immediate-chunk-store": "^2.2.0",
     "load-ip-set": "^2.2.1",
     "lt_donthave": "^1.0.1",
