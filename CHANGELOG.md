@@ -1,3 +1,10 @@
+## [1.8.13](https://github.com/webtorrent/webtorrent/compare/v1.8.12...v1.8.13) (2022-03-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency fs-chunk-store to ^2.0.5 ([2eef418](https://github.com/webtorrent/webtorrent/commit/2eef41884ffbee8f723ea2846e58756066983a0b))
+
 ## [1.8.12](https://github.com/webtorrent/webtorrent/compare/v1.8.11...v1.8.12) (2022-03-28)
 
 
