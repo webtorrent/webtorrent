@@ -82,6 +82,7 @@ class WebTorrent extends EventEmitter {
 
     this._downloadLimit = Math.max((typeof opts.downloadLimit === 'number') ? opts.downloadLimit : -1, -1)
     this._uploadLimit = Math.max((typeof opts.uploadLimit === 'number') ? opts.uploadLimit : -1, -1)
+    this.natTraversal = require('./lib/nat-traversal'); // browser exclude
 
     this.serviceWorker = null
     this.workerKeepAliveInterval = null
@@ -128,7 +129,14 @@ class WebTorrent extends EventEmitter {
 
       this.dht.once('listening', () => {
         const address = this.dht.address()
-        if (address) this.dhtPort = address.port
+        if (address) 
+        {
+          this.dhtPort = address.port
+          if(this.natTraversal.portMapping)
+          {
+            this.natTraversal.portMapping(this.dhtPort, 'udp')
+          }
+        }
       })
 
       // Ignore warning when there are > 10 torrents in the client
@@ -494,6 +502,13 @@ class WebTorrent extends EventEmitter {
       })
     }
 
+    if(this.natTraversal.destroy)
+    {
+      tasks.push(cb => {
+        this.natTraversal.destroy(cb)
+      })
+    }
+
     parallel(tasks, cb)
 
     if (err) this.emit('error', err)
@@ -513,7 +528,13 @@ class WebTorrent extends EventEmitter {
     if (this._connPool) {
       // Sometimes server.address() returns `null` in Docker.
       const address = this._connPool.tcpServer.address()
-      if (address) this.torrentPort = address.port
+      if (address) {
+        this.torrentPort = address.port
+        if (this.natTraversal.portMapping) {
+          this.natTraversal.portMapping(this.torrentPort, 'tcp')
+        }
+      }
+
     }
 
     this.emit('listening')
