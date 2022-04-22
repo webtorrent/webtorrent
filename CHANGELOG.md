@@ -1,3 +1,11 @@
+## [1.8.14](https://github.com/webtorrent/webtorrent/compare/v1.8.13...v1.8.14) (2022-04-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bitfield to ^4.1.0 ([#2303](https://github.com/webtorrent/webtorrent/issues/2303)) ([a778522](https://github.com/webtorrent/webtorrent/commit/a7785227d88fbac22a1b627460694b3523833fde))
+* **deps:** update dependency bittorrent-protocol to ^3.5.3 ([#2302](https://github.com/webtorrent/webtorrent/issues/2302)) ([11f9426](https://github.com/webtorrent/webtorrent/commit/11f9426ee9ef3b800ac978afa5082809eb87c545))
+
 ## [1.8.13](https://github.com/webtorrent/webtorrent/compare/v1.8.12...v1.8.13) (2022-03-30)
 
 
