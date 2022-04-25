@@ -131,7 +131,7 @@ class WebTorrent extends EventEmitter {
         const address = this.dht.address()
         if (address) {
           this.dhtPort = address.port
-          if (this.natTraversal.portMapping) {
+          if (this.natTraversal != null && this.natTraversal.portMapping) {
             this.natTraversal.portMapping(this.dhtPort, 'udp')
           }
         }
@@ -500,7 +500,7 @@ class WebTorrent extends EventEmitter {
       })
     }
 
-    if (this.natTraversal.destroy) {
+    if (this.natTraversal != null && this.natTraversal.destroy) {
       tasks.push(cb => {
         this.natTraversal.destroy(cb)
       })
@@ -527,7 +527,7 @@ class WebTorrent extends EventEmitter {
       const address = this._connPool.tcpServer.address()
       if (address) {
         this.torrentPort = address.port
-        if (this.natTraversal.portMapping) {
+        if (this.natTraversal != null && this.natTraversal.portMapping) {
           this.natTraversal.portMapping(this.torrentPort, 'tcp')
         }
       }
