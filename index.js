@@ -82,7 +82,7 @@ class WebTorrent extends EventEmitter {
 
     this._downloadLimit = Math.max((typeof opts.downloadLimit === 'number') ? opts.downloadLimit : -1, -1)
     this._uploadLimit = Math.max((typeof opts.uploadLimit === 'number') ? opts.uploadLimit : -1, -1)
-    this.natTraversal = require('./lib/nat-traversal'); // browser exclude
+    this.natTraversal = require('./lib/nat-traversal') // browser exclude
 
     this.serviceWorker = null
     this.workerKeepAliveInterval = null
@@ -129,11 +129,9 @@ class WebTorrent extends EventEmitter {
 
       this.dht.once('listening', () => {
         const address = this.dht.address()
-        if (address) 
-        {
+        if (address) {
           this.dhtPort = address.port
-          if(this.natTraversal.portMapping)
-          {
+          if (this.natTraversal.portMapping) {
             this.natTraversal.portMapping(this.dhtPort, 'udp')
           }
         }
@@ -502,8 +500,7 @@ class WebTorrent extends EventEmitter {
       })
     }
 
-    if(this.natTraversal.destroy)
-    {
+    if (this.natTraversal.destroy) {
       tasks.push(cb => {
         this.natTraversal.destroy(cb)
       })
@@ -534,7 +531,6 @@ class WebTorrent extends EventEmitter {
           this.natTraversal.portMapping(this.torrentPort, 'tcp')
         }
       }
-
     }
 
     this.emit('listening')
