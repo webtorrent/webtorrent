@@ -163,7 +163,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [dropclickpaste]: http://dropclickpaste.com/
 [filemap]: https://filemap.xyz
 [wtgc]: https://wtgc.firebaseapp.com
-[wtgc-source]: https://git.io/wtgc
+[wtgc-source]: https://github.com/FluorescentHallucinogen/webtorrent-googlecast
 [codedump]: http://ronsoros.github.io
 [codedump-source]: https://github.com/ronsoros/ronsoros.github.io/blob/master/index.html
 [lunik-torrent]: https://tcloud-lunik.herokuapp.com
