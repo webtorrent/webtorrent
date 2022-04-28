@@ -111,6 +111,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[atorable-react][atorable-react]** -  React component that processes a Webtorrent magnet uri for viewing or other custom uses. ([source code][atorable-react-source])
 - **[Iris][iris-messenger]** - Decentralized social networking application. ([source code][iris-messenger-source])
 - **[TorQuiX][TorQuiX]** - Web client for webtorrent-hybrid (Works in docker, in the future will be Android/Windows/Mac/Linux release). ([source code][TorQuiX-source]) 
+- **[Niwder][Niwder]** - Web based platform to transfer torrents to Mega.nz and Google Drive on the cloud. ([source code][Niwder-source])
 - ***Your app here – [Send a pull request][pr] with your URL!***
 <!-- - **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source]) -->
 <!-- - **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s)) -->
@@ -204,6 +205,8 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [iris-messenger-source]: https://github.com/irislib/iris-messenger
 [TorQuiX]: https://hub.docker.com/r/mauromazzocchetti/webtorrent-express-api
 [TorQuiX-source]: https://github.com/drakonkat/webtorrent-express-api
+[Niwder]: https://niwder.niweera.gq
+[Niwder-source]: https://github.com/Niweera/niwder
 
 ## How does WebTorrent work?
 
