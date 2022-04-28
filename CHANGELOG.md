@@ -1,3 +1,10 @@
+## [1.8.16](https://github.com/webtorrent/webtorrent/compare/v1.8.15...v1.8.16) (2022-04-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bittorrent-protocol to ^3.5.5 ([3522080](https://github.com/webtorrent/webtorrent/commit/35220804054c5369b5e88a39411125f0273b2adc))
+
 ## [1.8.15](https://github.com/webtorrent/webtorrent/compare/v1.8.14...v1.8.15) (2022-04-26)
 
 ## [1.8.14](https://github.com/webtorrent/webtorrent/compare/v1.8.13...v1.8.14) (2022-04-22)
