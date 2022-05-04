@@ -112,6 +112,9 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Iris][iris-messenger]** - Decentralized social networking application. ([source code][iris-messenger-source])
 - **[TorQuiX][TorQuiX]** - Web client for webtorrent-hybrid (Works in docker, in the future will be Android/Windows/Mac/Linux release). ([source code][TorQuiX-source]) 
 - **[Niwder][Niwder]** - Web based platform to transfer torrents to Mega.nz and Google Drive on the cloud. ([source code][Niwder-source])
+- **[Miru][miru-source]** - Stream anime torrents, real-time with no waiting for downloads. ([source code][miru-source])
+- **[Haven Torrent Client][haven-torrent-client]** - Simple and Fast Torrent Client for the web. ([source code][haven-torrent-client-source])
+
 - ***Your app here – [Send a pull request][pr] with your URL!***
 <!-- - **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source]) -->
 <!-- - **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s)) -->
@@ -207,6 +210,9 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [TorQuiX-source]: https://github.com/drakonkat/webtorrent-express-api
 [Niwder]: https://niwder.niweera.gq
 [Niwder-source]: https://github.com/Niweera/niwder
+[miru-source]: https://github.com/ThaUnknown/miru
+[haven-torrent-client]: https://haven.pages.dev/torrent-client/public/
+[haven-torrent-client-source]: https://github.com/ThaUnknown/pwa-haven/tree/main/torrent-client
 
 ## How does WebTorrent work?
 
