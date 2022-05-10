@@ -15,7 +15,7 @@ const Peer = require('simple-peer')
 const queueMicrotask = require('queue-microtask')
 const randombytes = require('randombytes')
 const sha1 = require('simple-sha1')
-const speedometer = require('speedometer')
+const throughput = require('throughput')
 const { ThrottleGroup } = require('speed-limiter')
 const ConnPool = require('./lib/conn-pool.js') // browser exclude
 const Torrent = require('./lib/torrent.js')
@@ -115,8 +115,8 @@ class WebTorrent extends EventEmitter {
     }
 
     // stats
-    this._downloadSpeed = speedometer()
-    this._uploadSpeed = speedometer()
+    this._downloadSpeed = throughput()
+    this._uploadSpeed = throughput()
 
     if (opts.dht !== false && typeof DHT === 'function' /* browser exclude */) {
       // use a single DHT instance for all torrents, so the routing table can be reused
