@@ -61,8 +61,11 @@ If `opts` is specified, then the default options (shown below) will be overridde
   lsd: Boolean,            // Enable BEP14 local service discovery (default=true)
   utPex: Boolean,          // Enable BEP11 Peer Exchange (default=true)
   webSeeds: Boolean,       // Enable BEP19 web seeds (default=true)
-  blocklist: Array|String,       // List of IP's to block
   utp: Boolean,            // Enable BEP29 uTorrent transport protocol (default=true)
+  blocklist: Array|String, // List of IP's to block
+  utp: Boolean,            // Enable BEP29 uTorrent transport protocol (default=true)
+  downloadLimit: Number,   // Max download speed (bytes/sec) over all torrents (default=-1)
+  uploadLimit: Number,     // Max upload speed (bytes/sec) over all torrents (default=-1)
 }
 ```
 
@@ -74,6 +77,11 @@ For possible values of `opts.tracker` see the
 
 For possible values of `opts.blocklist` see the
 [`load-ip-set` documentation](https://github.com/webtorrent/load-ip-set#usage).
+
+For `downloadLimit` and `uploadLimit` the possible values can be:
+  - `> 0`. The client will set the throttle at that speed
+  - `0`. The client will block any data from being downloaded or uploaded
+  - `-1`. The client will is disable the throttling and use the whole bandwidth available
 
 ## `client.add(torrentId, [opts], [function ontorrent (torrent) {}])`
 
@@ -101,6 +109,8 @@ If `opts` is specified, then the default options (shown below) will be overridde
   store: Function,           // Custom chunk store (must follow [abstract-chunk-store](https://www.npmjs.com/package/abstract-chunk-store) API)
   destroyStoreOnDestroy: Boolean, // If truthy, client will delete the torrent's chunk store (e.g. files on disk) when the torrent is destroyed
   storeCacheSlots: Number,   // Number of chunk store entries (torrent pieces) to cache in memory [default=20]; 0 to disable caching
+  storeOpts: Object,         // Custom options passed to the store
+  addUID: Boolean,           // (Node.js only) If true, the torrent will be stored in it's infoHash folder to prevent file name collisions (default=false)
   skipVerify: Boolean,       // If true, client will skip verification of pieces for existing store and assume it's correct
   preloadedStore: Function,  // Custom, pre-loaded chunk store (must follow [abstract-chunk-store](https://www.npmjs.com/package/abstract-chunk-store) API)
   strategy: String,          // Piece selection strategy, `rarest` or `sequential`(defaut=`sequential`)
@@ -119,9 +129,13 @@ just want the file data, then use `ontorrent` or the 'torrent' event.
 If you provide `opts.store`, it will be called as
 `opts.store(chunkLength, storeOpts)` with:
 
+* `storeOpts` - custom `storeOpts` specified in `opts`
 * `storeOpts.length` - size of all the files in the torrent
 * `storeOpts.files` - an array of torrent file objects
+* `storeOpts.torrent` - the torrent instance being stored
+* `storeOpts.path` - path to the store, based on `opts.path`
 * `storeOpts.name` - the info hash of the torrent instance being stored
+* `storeOpts.addUID` - boolean which tells the store if it should include an UID in it's file paths
 
 **Note:** Downloading a torrent automatically seeds it, making it available for download by other peers.
 
@@ -218,6 +232,23 @@ Total download progress for all **active** torrents, from 0 to 1.
 
 Aggregate "seed ratio" for all torrents (uploaded / downloaded).
 
+## `client.throttleDownload(rate)`
+
+Sets the maximum speed at which the client downloads the torrents, in bytes/sec.
+
+`rate` must be bigger or equal than zero, or `-1` to disable the download throttle and
+use the whole bandwidth of the connection.
+
+## `client.throttleUpload(rate)`
+
+Sets the maximum speed at which the client uploads the torrents, in bytes/sec.
+
+`rate` must be bigger or equal than zero, or `-1` to disable the upload throttle and
+use the whole bandwidth of the connection.
+
+## `client.loadWorker(controller, [function callback (controller) {}])`  *(browser only)*
+
+Accepts an existing service worker registration [navigator.serviceWorker.controller] which must be activated, "creates" a file server for streamed file rendering to use.
 
 # Torrent API
 
@@ -715,6 +746,105 @@ file.getBlobURL(function (err, url) {
   document.body.appendChild(a)
 })
 ```
+
+## `file.streamTo(elem, [function callback (err, elem) {}])` *(browser only)*
+
+Requires `client.loadWorker` to be ran beforehand. Sets the element source to the file's streaming URL. Supports streaming, seeking and all browser codecs and containers.
+
+This method transfers data directly instead of building it into blobs, which means it uses less CPU and RAM than `renderTo`.
+
+Support table:
+|Containers|Chromium|Mobile Chromium|Edge Chromium|Firefox|
+|-|:-:|:-:|:-:|:-:|
+|3g2|✓|✓|✓|✓|
+|3gp|✓|✓|✓|✘|
+|avi|✘|✘|✘|✘|
+|m2ts|✘|✘|✓**|✘|
+|m4v etc.|✓*|✓*|✓*|✓*|
+|mp4|✓|✓|✓|✓|
+|mpeg|✘|✘|✘|✘|
+|mov|✓|✓|✓|✓|
+|ogm ogv|✓|✓|✓|✓|
+|webm|✓|✓|✓|✓|
+|mkv|✓|✓|✓|✘|
+
+\* Container might be supported, but the container's codecs might not be.  
+\*\* Documented as working, but can't reproduce.  
+
+|Video Codecs|Chromium|Mobile Chromium|Edge Chromium|Firefox|
+|-|:-:|:-:|:-:|:-:|
+|AV1|✓|✓|✓|✓|
+|H.263|✘|✘|✘|✘|
+|H.264|✓|✓|✓|✓|
+|H.265|✘|✘|✓*|✘|
+|MPEG-2/4|✘|✘|✘|✘|
+|Theora|✓|✘|✓|✓|
+|VP8/9|✓|✓|✓|✓|
+
+\* Requires MSStore extension which you can get by opening this link `ms-windows-store://pdp/?ProductId=9n4wgh0z6vhq` while using Edge.
+
+|Audio Codecs|Chromium|Mobile Chromium|Edge Chromium|Firefox|
+|-|:-:|:-:|:-:|:-:|
+|AAC|✓|✓|✓|✓|
+|AC3|✘|✘|✓|✘|
+|DTS|✘|✘|✘|✘|
+|EAC3|✘|✘|✓|✘|
+|FLAC|✓|✓*|✓|✓|
+|MP3|✓|✓|✓|✓|
+|Opus|✓|✓|✓|✓|
+|TrueHD|✘|✘|✘|✘|
+|Vorbis|✓|✓|✓|✓*|
+
+\* Might not work in some video containers.
+
+## `file.getStreamURL(elem, [function callback (err, elem) {}])` *(browser only)*
+
+Requires `client.loadWorker` to be ran beforehand. Sets the element source to the file's streaming URL.
+
+This method is useful for creating a file download link, like this:
+
+```js
+file.getBlobURL((err, url) => {
+  if (err) throw err
+  const a = document.createElement('a')
+  a.target = "_blank"
+  a.href = url
+  a.textContent = 'Download ' + file.name
+  document.body.append(a)
+})
+```
+
+## `file.on('stream', function ({ stream, file, req }, function pipeCallback) {})` *(browser only)*
+
+This is advanced functionality.
+
+Emitted every time when the file creates a new read stream used by the service worker streaming. For example every time the user seeks a video. This allows you to find out what parts of the file the browser is requesting, and how it's requesting them. Additionally it allows you to manipulate the data that's being streamed.
+
+Yields an object with 3 values and a function:
+- object - information about the request,
+  - `stream` - a [readable stream](https://nodejs.org/api/stream.html#stream_class_stream_readable) which the user can manipulate,
+  - `file` - the file object that's being streamed,
+  - `req` - all the request information which the browser made when requesting the data.
+- function - if you pipe the `stream`, use this function to callback the piped stream **synchronously!** Otherwise the playback is likely to break.
+
+Example usage:
+```js
+file.on('stream', ({ stream, file, req }, cb) => {
+  if (req.destination === 'audio' && file.name.endsWith('.dts')) {
+    const transcoder = new SomeAudioTranscoder()
+    stream.pipe(transcoder)
+    cb(transcoder)
+    // do other things
+  }
+})
+```
+
+## `file.includes(piece)`
+Check if the piece number contains this file's data.
+
+## `file.on('done', function () {})`
+
+Emitted when the file has been downloaded.
 
 # Piece API
 
