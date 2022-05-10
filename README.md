@@ -143,9 +143,7 @@ client.add(magnetURI, function (torrent) {
   console.log('Client is downloading:', torrent.infoHash)
 
   torrent.files.forEach(function (file) {
-    // Display the file by appending it to the DOM. Supports video, audio, images, and
-    // more. Specify a container element (CSS selector or reference to DOM node).
-    file.appendTo('body')
+    document.body.append(file.name)
   })
 })
 ```
