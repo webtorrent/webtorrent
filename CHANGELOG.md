@@ -1,3 +1,10 @@
+## [1.8.17](https://github.com/webtorrent/webtorrent/compare/v1.8.16...v1.8.17) (2022-05-11)
+
+
+### Bug Fixes
+
+* measure transfer rates without using timeouts ([#2314](https://github.com/webtorrent/webtorrent/issues/2314)) ([522ee4c](https://github.com/webtorrent/webtorrent/commit/522ee4cd14d3b41e92c3978e9816cb66e00233f0))
+
 ## [1.8.16](https://github.com/webtorrent/webtorrent/compare/v1.8.15...v1.8.16) (2022-04-28)
 
 
