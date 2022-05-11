@@ -15,7 +15,7 @@ const Peer = require('simple-peer')
 const queueMicrotask = require('queue-microtask')
 const randombytes = require('randombytes')
 const sha1 = require('simple-sha1')
-const speedometer = require('speedometer')
+const throughput = require('throughput')
 const { ThrottleGroup } = require('speed-limiter')
 const ConnPool = require('./lib/conn-pool.js') // browser exclude
 const Torrent = require('./lib/torrent.js')
@@ -115,8 +115,8 @@ class WebTorrent extends EventEmitter {
     }
 
     // stats
-    this._downloadSpeed = speedometer()
-    this._uploadSpeed = speedometer()
+    this._downloadSpeed = throughput()
+    this._uploadSpeed = throughput()
 
     if (opts.dht !== false && typeof DHT === 'function' /* browser exclude */) {
       // use a single DHT instance for all torrents, so the routing table can be reused
@@ -214,7 +214,7 @@ class WebTorrent extends EventEmitter {
           }
           port.postMessage(chunk)
           if (!chunk) cleanup()
-          if (!this.workerKeepAliveInterval) this.workerKeepAliveInterval = setInterval(() => fetch(`${this.serviceWorker.scriptURL.substr(0, this.serviceWorker.scriptURL.lastIndexOf('/') + 1).slice(window.location.origin.length)}webtorrent/keepalive/`), keepAliveTime)
+          if (!this.workerKeepAliveInterval) this.workerKeepAliveInterval = setInterval(() => fetch(`${this.serviceWorker.scriptURL.slice(0, this.serviceWorker.scriptURL.lastIndexOf('/') + 1).slice(window.location.origin.length)}webtorrent/keepalive/`), keepAliveTime)
         } else {
           cleanup()
         }
@@ -393,7 +393,9 @@ class WebTorrent extends EventEmitter {
 
           const existingTorrent = this.get(torrentBuf)
           if (existingTorrent) {
-            torrent._destroy(new Error(`Cannot add duplicate torrent ${existingTorrent.infoHash}`))
+            console.warn('A torrent with the same id is already being seeded')
+            torrent._destroy()
+            if (typeof onseed === 'function') onseed(existingTorrent)
           } else {
             torrent._onTorrentId(torrentBuf)
           }
