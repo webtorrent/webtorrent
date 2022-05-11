@@ -110,9 +110,9 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[atorable-loader][atorable-loader-source]** - Resolves Webpack import/require() of a file into a Webtorrent magnet uri.
 - **[atorable-react][atorable-react]** -  React component that processes a Webtorrent magnet uri for viewing or other custom uses. ([source code][atorable-react-source])
 - **[Iris][iris-messenger]** - Decentralized social networking application. ([source code][iris-messenger-source])
-- **[TorQuiX][TorQuiX]** - Web client for webtorrent-hybrid (Works in docker, in the future will be Android/Windows/Mac/Linux release). ([source code][TorQuiX-source]) 
 - **[Miru][miru-source]** - Stream anime torrents, real-time with no waiting for downloads. ([source code][miru-source])
 - **[Haven Torrent Client][haven-torrent-client]** - Simple and Fast Torrent Client for the web. ([source code][haven-torrent-client-source])
+- **[CrawFish][CrawFish]** - Desktop/Web/Server torrent client, with streaming support and integrated search (Works in docker, windows and has a WebUI that can be accessed by remote). ([source code][CrawFish-source])
 - **[Niwder][Niwder]** - Web based platform to transfer torrents to Mega.nz and Google Drive on the cloud. ([source code][Niwder-source])
 - ***Your app here – [Send a pull request][pr] with your URL!***
 <!-- - **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source]) -->
@@ -205,8 +205,8 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [atorable-react-source]: https://github.com/Atorable/atorable-react
 [iris-messenger]: https://iris.to
 [iris-messenger-source]: https://github.com/irislib/iris-messenger
-[TorQuiX]: https://hub.docker.com/r/mauromazzocchetti/webtorrent-express-api
-[TorQuiX-source]: https://github.com/drakonkat/webtorrent-express-api
+[CrawFish]: https://github.com/drakonkat/crawfish/blob/main/README.md
+[CrawFish-source]: https://github.com/drakonkat/crawfish
 [miru-source]: https://github.com/ThaUnknown/miru
 [haven-torrent-client]: https://haven.pages.dev/torrent-client/public/
 [haven-torrent-client-source]: https://github.com/ThaUnknown/pwa-haven/tree/main/torrent-client
