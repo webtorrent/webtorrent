@@ -1,7 +1,7 @@
 {
   "name": "webtorrent",
   "description": "Streaming torrent client",
-  "version": "1.8.17",
+  "version": "1.8.18",
   "author": {
     "name": "WebTorrent LLC",
     "email": "feross@webtorrent.io",

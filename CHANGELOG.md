@@ -1,3 +1,10 @@
+## [1.8.18](https://github.com/webtorrent/webtorrent/compare/v1.8.17...v1.8.18) (2022-05-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bittorrent-tracker to v9.18.6 ([#2315](https://github.com/webtorrent/webtorrent/issues/2315)) ([b63d652](https://github.com/webtorrent/webtorrent/commit/b63d652229c4cf55a4eebbe95c98a62716bcc377))
+
 ## [1.8.17](https://github.com/webtorrent/webtorrent/compare/v1.8.16...v1.8.17) (2022-05-11)
 
 
