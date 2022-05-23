@@ -222,7 +222,7 @@ class WebTorrent extends EventEmitter {
       this.workerPortCount++
       port.postMessage(response)
     })
-    cb(this.serviceWorker)
+    cb(null, this.serviceWorker)
   }
 
   get downloadSpeed () { return this._downloadSpeed() }
