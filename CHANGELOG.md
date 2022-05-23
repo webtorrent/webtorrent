@@ -1,3 +1,10 @@
+## [1.8.21](https://github.com/webtorrent/webtorrent/compare/v1.8.20...v1.8.21) (2022-05-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency throughput to ^1.0.1 ([#2321](https://github.com/webtorrent/webtorrent/issues/2321)) ([d53d95e](https://github.com/webtorrent/webtorrent/commit/d53d95e1ed75a288cea706d65fb660f2be3a02a0))
+
 ## [1.8.20](https://github.com/webtorrent/webtorrent/compare/v1.8.19...v1.8.20) (2022-05-14)
 
 
