@@ -189,7 +189,7 @@ class WebTorrent extends EventEmitter {
       if (!infoHash || !filePath) return null
 
       const file = this.get(infoHash) && this.get(infoHash).files.find(file => file.path === filePath)
-      if (!file) return null
+      if (!file) return []
       return file._serve(data)
     }
 
@@ -199,6 +199,7 @@ class WebTorrent extends EventEmitter {
 
       const [port] = event.ports
       const [response, stream, raw] = opts.getStream ? opts.getStream(data) : getStream(data)
+      if (!response) return null
       const asyncIterator = stream && stream[Symbol.asyncIterator]()
 
       const cleanup = () => {
