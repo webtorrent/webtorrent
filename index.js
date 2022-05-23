@@ -168,29 +168,37 @@ class WebTorrent extends EventEmitter {
    * which must be activated, "creates" a file server for streamed file rendering to use.
    *
    * @param  {ServiceWorker} controller
+   * @param {object=} opts
    * @param {function=} cb
    * @return {null}
    */
-  loadWorker (controller, cb = () => {}) {
+  loadWorker (controller, opts = {}, cb = () => {}) {
+    if (typeof opts === 'function') {
+      cb = opts
+      opts = {}
+    }
     if (!(controller instanceof ServiceWorker)) throw new Error('Invalid worker registration')
     if (controller.state !== 'activated') throw new Error('Worker isn\'t activated')
     const keepAliveTime = 20000
 
     this.serviceWorker = controller
 
-    navigator.serviceWorker.addEventListener('message', event => {
-      const { data } = event
-      if (!data.type || !data.type === 'webtorrent' || !data.url) return null
+    function getStream (data) {
       let [infoHash, ...filePath] = data.url.slice(data.url.indexOf(data.scope + 'webtorrent/') + 11 + data.scope.length).split('/')
       filePath = decodeURI(filePath.join('/'))
       if (!infoHash || !filePath) return null
 
-      const [port] = event.ports
-
       const file = this.get(infoHash) && this.get(infoHash).files.find(file => file.path === filePath)
       if (!file) return null
+      return file._serve(data)
+    }
 
-      const [response, stream, raw] = file._serve(data)
+    navigator.serviceWorker.addEventListener('message', event => {
+      const { data } = event
+      if (!data.type || !data.type === 'webtorrent' || !data.url) return null
+
+      const [port] = event.ports
+      const [response, stream, raw] = opts.getStream ? opts.getStream(data) : getStream(data)
       const asyncIterator = stream && stream[Symbol.asyncIterator]()
 
       const cleanup = () => {
