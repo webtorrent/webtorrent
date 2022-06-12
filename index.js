@@ -198,7 +198,7 @@ class WebTorrent extends EventEmitter {
       if (!data.type || !data.type === 'webtorrent' || !data.url) return null
 
       const [port] = event.ports
-      const [response, stream, raw] = opts.getStream ? opts.getStream(data) : getStream(data)
+      const [response, stream, raw] = opts.getStream ? opts.getStream(getStream, data) : getStream(data)
       if (!response) return null
       const asyncIterator = stream && stream[Symbol.asyncIterator]()
 

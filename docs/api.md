@@ -243,11 +243,14 @@ Sets the maximum speed at which the client uploads the torrents, in bytes/sec.
 `rate` must be bigger or equal than zero, or `-1` to disable the upload throttle and
 use the whole bandwidth of the connection.
 
-## `client.loadWorker(controller, [function callback (controller) {}])`  *(browser only)*
+## `client.loadWorker(controller, [options], [function callback (controller) {}])`  *(browser only)*
 
 Accepts an existing service worker registration [navigator.serviceWorker.controller] which must be activated, "creates" a file server for streamed file rendering to use.
 
 Needs either [this worker](https://github.com/webtorrent/webtorrent/blob/master/sw.min.js) to be used, or have [this functionality](https://github.com/webtorrent/webtorrent/blob/master/lib/worker.js) implemented.
+
+Takes options.  
+* getStream(orig, data) - Allows you to override the default implementation of getStream.
 
 # Torrent API
 
