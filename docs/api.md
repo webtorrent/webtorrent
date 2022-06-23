@@ -27,7 +27,7 @@ client.add(torrentId, function (torrent) {
   })
 
   // Display the file by adding it to the DOM. Supports video, audio, image, etc. files
-  file.appendTo('body')
+  file.streamTo(document.querySelector('video'))
 })
 ```
 
@@ -644,80 +644,6 @@ file.getBuffer(function (err, buffer) {
   console.log(buffer) // <Buffer 00 98 00 01 ...>
 })
 ```
-
-## `file.appendTo(rootElem, [opts], [function callback (err, elem) {}])` *(browser only)*
-
-Show the file in a the browser by appending it to the DOM. This is a powerful function
-that handles many file types like video (.mp4, .webm, .m4v, etc.), audio (.m4a, .mp3,
-.wav, etc.), images (.jpg, .gif, .png, etc.), and other file formats (.pdf, .md, .txt,
-etc.).
-
-The file will be fetched from the network with highest priority and streamed into the page
-(if it's video or audio). In some cases, video or audio files will not be streamable
-because they're not in a format that the browser can stream so the file will be fully
-downloaded before being played. For other non-streamable file types like images and PDFs,
-the file will be downloaded then displayed.
-
-`rootElem` is a container element (CSS selector or reference to DOM node) that the content
-will be shown in. A new DOM node will be created for the content and appended to
-`rootElem`.
-
-If provided, `opts` can contain the following options:
-
-- `autoplay`: Autoplay video/audio files (default: `false`)
-- `muted`: Mute video/audio files (default: `false`)
-- `controls`: Show video/audio player controls (default: `true`)
-- `maxBlobLength`: Files above this size will skip the "blob" strategy and fail (default: `200 * 1000 * 1000` bytes)
-
-Note: Modern browsers tend to block media that autoplays with audio (here's the
-[Chrome policy](https://developers.google.com/web/updates/2017/09/autoplay-policy-changes)
-for instance) so if you set `autoplay` to `true`, it's a good idea to also set
-`muted` to `true`.
-
-If provided, `callback` will be called once the file is visible to the user.
-`callback` is called with an `Error` (or `null`) and the new DOM node that is
-displaying the content.
-
-```js
-file.appendTo('#containerElement', function (err, elem) {
-  if (err) throw err // file failed to download or display in the DOM
-  console.log('New DOM node with the content', elem)
-})
-```
-
-Streaming support depends on support for `MediaSource` API in the browser. All
-modern browsers have `MediaSource` support.
-
-For video and audio, webtorrent tries multiple methods of playing the file:
-
-- [`videostream`][videostream] -- best option, supports streaming **with seeking**,
-  but only works with MP4-based files for now (uses `MediaSource` API)
-- [`mediasource`][mediasource] -- supports more formats, supports streaming
-  **without seeking** (uses `MediaSource` API)
-- Blob URL -- supports the most formats of all (anything the `<video>` tag supports
-  from an http url), **with seeking**, but **does not support streaming** (entire
-  file must be downloaded first)
-
-[videostream]: https://www.npmjs.com/package/videostream
-[mediasource]: https://www.npmjs.com/package/mediasource
-
-The Blob URL strategy will not be attempted if the file is over
-`opts.maxBlobLength` (200 MB by default) since it requires the entire file to be
-downloaded before playback can start which gives the appearance of the `<video>`
-tag being stalled. If you increase the size, be sure to indicate loading progress
-to the user in the UI somehow.
-
-For other media formats, like images, the file is just added to the DOM.
-
-For text-based formats, like html files, pdfs, etc., the file is added to the DOM
-via a sandboxed `<iframe>` tag.
-
-## `file.renderTo(elem, [opts], [function callback (err, elem) {}])` *(browser only)*
-
-Like `file.appendTo` but renders directly into given element (or CSS selector). For
-example, to render a video, provide a `<video>` element like
-`file.renderTo('video#player')`.
-
 ## `file.getBlob(function callback (err, blob) {})` *(browser only)*
 
 Get a W3C `Blob` object which contains the file data.
@@ -750,8 +676,6 @@ file.getBlobURL(function (err, url) {
 ## `file.streamTo(elem, [function callback (err, elem) {}])` *(browser only)*
 
 Requires `client.loadWorker` to be ran beforehand. Sets the element source to the file's streaming URL. Supports streaming, seeking and all browser codecs and containers.
-
-This method transfers data directly instead of building it into blobs, which means it uses less CPU and RAM than `renderTo`.
 
 Support table:
 |Containers|Chromium|Mobile Chromium|Edge Chromium|Firefox|

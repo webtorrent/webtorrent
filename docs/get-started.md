@@ -43,6 +43,9 @@ const client = new WebTorrent()
 // Sintel, a free, Creative Commons movie
 const torrentId = 'magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel.torrent'
 
+navigator.serviceWorker.register('sw.min.js')
+// see tutorials.md for a full example of streaming media using service workers
+
 client.add(torrentId, function (torrent) {
   // Torrents can contain many files. Let's use the .mp4 file
   const file = torrent.files.find(function (file) {
@@ -51,7 +54,7 @@ client.add(torrentId, function (torrent) {
 
   // Display the file by adding it to the DOM.
   // Supports video, audio, image files, and more!
-  file.appendTo('body')
+  file.streamTo(document.querySelector('video'))
 })
 ```
 
@@ -183,7 +186,7 @@ downloaded.
 
         // Render all files into to the page
         torrent.files.forEach(function (file) {
-          file.appendTo('.log')
+          document.querySelector('.log').append(file.name)
           log('(Blob URLs only work if the file is loaded from a server. "http//localhost" works. "file://" does not.)')
           file.getBlobURL(function (err, url) {
             if (err) return log(err.message)
@@ -328,7 +331,7 @@ or [Instant.io](https://instant.io) to seed torrents to the WebTorrent network.
         })
 
         // Stream the file in the browser
-        file.appendTo('#output')
+        file.streamTo(document.querySelector('#output'))
 
         // Trigger statistics refresh
         torrent.on('done', onDone)
