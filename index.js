@@ -222,7 +222,11 @@ class WebTorrent extends EventEmitter {
       this.workerPortCount++
       port.postMessage(response)
     })
-    cb(this.serviceWorker)
+    // test if browser supports cancelling sw Readable Streams
+    fetch(`${this.serviceWorker.scriptURL.slice(0, this.serviceWorker.scriptURL.lastIndexOf('/') + 1).slice(window.location.origin.length)}webtorrent/cancel/`).then(res => {
+      res.body.cancel()
+    })
+    cb(null, this.serviceWorker)
   }
 
   get downloadSpeed () { return this._downloadSpeed() }
