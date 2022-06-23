@@ -1,3 +1,10 @@
+## [1.8.24](https://github.com/webtorrent/webtorrent/compare/v1.8.23...v1.8.24) (2022-06-23)
+
+
+### Bug Fixes
+
+* support stream cancelling ([#2335](https://github.com/webtorrent/webtorrent/issues/2335)) ([2e4f91f](https://github.com/webtorrent/webtorrent/commit/2e4f91f668ea867d768291e9efd3e1c1eb825b97))
+
 ## [1.8.23](https://github.com/webtorrent/webtorrent/compare/v1.8.22...v1.8.23) (2022-06-23)
 
 
