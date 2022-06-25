@@ -245,12 +245,86 @@ Sets the maximum speed at which the client uploads the torrents, in bytes/sec.
 `rate` must be bigger or equal than zero, or `-1` to disable the upload throttle and
 use the whole bandwidth of the connection.
 
-## `client.loadWorker(controller, [function callback (controller) {}])`  *(browser only)*
 
-Accepts an existing service worker registration [navigator.serviceWorker.controller] which must be activated, "creates" a file server for streamed file rendering to use.
+## `client.createServer([opts], force)`
 
-Needs either [this worker](https://github.com/webtorrent/webtorrent/blob/master/sw.min.js) to be used, or have [this functionality](https://github.com/webtorrent/webtorrent/blob/master/lib/worker.js) implemented.
+Create an http server to serve the contents of this torrent, dynamically fetching the needed torrent pieces to satisfy http requests. Range requests are supported.
+If `opts` is specified, it can have the following properties:
+```js
+{
+  origin: String // Allow requests from specific origin. `false` for same-origin. [default: '*']
+  hostname: String // If specified, only allow requests whose `Host` header matches this hostname. Note that you should not specify the port since this is automatically determined by the server. Ex: `localhost` [default: `undefined`]. NodeJS only.
+  path: String // Allows to overwrite the default `/webtorrent` base path. [default: '/webtorrent']. NodeJS only.
+  controller: ServiceWorkerRegistration // Accepts an existing service worker registration [await navigator.serviceWorker.getRegistration()]. Browser only. Required!
+}
+```
 
+If `force` is specified, it can force WebTorrent to use a specific implementation for enviorments which run both Node and Browser like NW.js or Electron. Allowed values:
+```js
+'browser' || 'node'
+```
+
+Visiting the root of the server `/` won't show anything. Visiting `/webtorrent/` will list all torrents. Access individual torrents at `/webtorrent/<infohash>` where `infohash` is the hash of the torrent. To acceess individual files, go to `/webtorrent/<infoHash>/<filepath>` where filepath is the file's path in the torrent.
+
+
+Here is a usage example for Node.js:
+
+```js
+const client = new WebTorrent()
+const magnetURI = 'magnet: ...'
+
+client.add(magnetURI, function (torrent) {
+  // create HTTP server for this torrent
+  const instance = torrent.createServer()
+  instance.server.listen(port) // start the server listening to a port
+
+  const url = torrent.files[0].getStreamURL()
+  console.log(url)
+
+  // visit http://localhost:<port>/webtorrent/ to see a list of torrents
+
+  // access individual torrents at http://localhost:<port>/webtorrent/<infoHash> where infoHash is the hash of the torrent
+
+  // later, cleanup...
+  instance.close()
+  client.destroy()
+})
+```
+
+In browser needs either [this worker](https://github.com/webtorrent/webtorrent/blob/master/sw.min.js) to be used, or have [this functionality](https://github.com/webtorrent/webtorrent/blob/master/lib/worker.js) implemented.
+
+Here is a user example for browser:
+
+```js
+const client = new WebTorrent()
+const magnetURI = 'magnet: ...'
+const player = document.querySelector('video')
+const scope = './'
+
+function download (instance) {
+  client.add(magnetURI, torrent => {
+    const url = torrent.files[0].getStreamURL()
+    console.log(url)
+
+    // visit <origin>/webtorrent/ to see a list of torrents, where origin is the worker registration scope.
+
+    // access individual torrents at /webtorrent/<infoHash> where infoHash is the hash of the torrent
+
+    // later, cleanup...
+    instance.close()
+    client.destroy()
+  })
+}
+navigator.serviceWorker.register('./sw.min.js', { scope }).then(reg => {
+  const worker = reg.active || reg.waiting || reg.installing
+  function checkState (worker) {
+    return worker.state === 'activated' && download(client.createServer({ controller: reg }))
+  }
+  if (!checkState(worker)) {
+    worker.addEventListener('statechange', ({ target }) => checkState(target))
+  }
+})
+```
 # Torrent API
 
 ## `torrent.name`
@@ -431,46 +505,6 @@ Deprioritizes a range of previously selected pieces.
 Marks a range of pieces as critical priority to be downloaded ASAP. From `start` to `end`
 (both inclusive).
 
-## `torrent.createServer([opts])`
-
-Create an http server to serve the contents of this torrent, dynamically fetching the
-needed torrent pieces to satisfy http requests. Range requests are supported.
-
-Returns an `http.Server` instance (got from calling `http.createServer`). If
-`opts` is specified, it can have the following properties:
-
-```js
-{
-  origin: String // Allow requests from specific origin. `false` for same-origin. [default: '*']
-  hostname: String // If specified, only allow requests whose `Host` header matches this hostname. Note that you should not specify the port since this is automatically determined by the server. Ex: `localhost` [default: `undefined`]
-}
-```
-
-Visiting the root of the server `/` will show a list of links to individual files. Access
-individual files at `/<index>` where `<index>` is the index in the `torrent.files` array
-(e.g. `/0`, `/1`, etc.)
-
-Here is a usage example:
-
-```js
-const client = new WebTorrent()
-const magnetURI = 'magnet: ...'
-
-client.add(magnetURI, function (torrent) {
-  // create HTTP server for this torrent
-  const server = torrent.createServer()
-  server.listen(port) // start the server listening to a port
-
-  // visit http://localhost:<port>/ to see a list of files
-
-  // access individual files at http://localhost:<port>/<index> where index is the index
-  // in the torrent.files array
-
-  // later, cleanup...
-  server.close()
-  client.destroy()
-})
-```
 
 ## `torrent.pause()`
 
@@ -674,9 +708,9 @@ file.getBlobURL(function (err, url) {
 })
 ```
 
-## `file.streamTo(elem, [function callback (err, elem) {}])` *(browser only)*
+## `file.streamTo(elem)` *(browser only)*
 
-Requires `client.loadWorker` to be ran beforehand. Sets the element source to the file's streaming URL. Supports streaming, seeking and all browser codecs and containers.
+Requires `client.createServer` to be ran beforehand. Sets the element source to the file's streaming URL. Supports streaming, seeking and all browser codecs and containers.
 
 Support table:
 |Containers|Chromium|Mobile Chromium|Edge Chromium|Firefox|
@@ -722,24 +756,23 @@ Support table:
 
 \* Might not work in some video containers.
 
-## `file.getStreamURL(elem, [function callback (err, elem) {}])` *(browser only)*
+## `file.getStreamURL()` *(browser only)*
 
-Requires `client.loadWorker` to be ran beforehand.
+Requires `client.createServer` to be ran beforehand.
 
 This method is useful for creating a file download link, like this:
 
 ```js
-file.getStreamURL((err, url) => {
-  if (err) throw err
-  const a = document.createElement('a')
-  a.target = "_blank"
-  a.href = url
-  a.textContent = 'Download ' + file.name
-  document.body.append(a)
-})
+const url = file.getStreamURL()
+if (err) throw err
+const a = document.createElement('a')
+a.target = "_blank"
+a.href = url
+a.textContent = 'Download ' + file.name
+document.body.append(a)
 ```
 
-## `file.on('stream', function ({ stream, file, req }, function pipeCallback) {})` *(browser only)*
+## `file.on('stream', function ({ stream, file, req }, function pipeCallback) {})`
 
 This is advanced functionality.
 
@@ -757,7 +790,6 @@ Example usage:
 file.on('stream', ({ stream, file, req }, cb) => {
   if (req.destination === 'audio' && file.name.endsWith('.dts')) {
     const transcoder = new SomeAudioTranscoder()
-    stream.pipe(transcoder)
     cb(transcoder)
     // do other things
   }

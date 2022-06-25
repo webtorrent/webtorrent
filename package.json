@@ -8,7 +8,6 @@
     "url": "https://webtorrent.io"
   },
   "browser": {
-    "./lib/server.js": false,
     "./lib/conn-pool.js": false,
     "./lib/utp.js": false,
     "bittorrent-dht/client": false,
