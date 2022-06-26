@@ -74,6 +74,7 @@
     "stream-to-blob": "^2.0.1",
     "stream-to-blob-url": "^3.0.2",
     "stream-with-known-length-to-buffer": "^1.0.4",
+    "streamx": "^2.12.4",
     "throughput": "^1.0.1",
     "torrent-discovery": "^9.4.13",
     "torrent-piece": "^2.0.1",
