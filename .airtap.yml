@@ -3,8 +3,9 @@ browsers:
     version: latest
   - name: firefox
     version: latest
-  - name: safari
-    version: latest
+  # https://github.com/airtap/sauce/issues/11
+  # - name: safari
+  #   version: latest
   - name: edge
     version: latest
   - name: and_chr
