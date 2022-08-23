@@ -93,7 +93,7 @@
     "finalhandler": "1.2.0",
     "network-address": "1.1.2",
     "run-series": "1.1.9",
-    "semantic-release": "19.0.3",
+    "semantic-release": "19.0.5",
     "serve-static": "1.15.0",
     "standard": "*",
     "tape": "5.6.0",
