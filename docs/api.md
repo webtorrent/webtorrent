@@ -273,22 +273,22 @@ Here is a usage example for Node.js:
 const client = new WebTorrent()
 const magnetURI = 'magnet: ...'
 
-client.add(magnetURI, function (torrent) {
+const instance = client.createServer()
+instance.server.listen(0) // start the server listening to a port
+// 0 automatically finds an open port instead of forcing a potentially used one
+client.add(magnetURI, torrent => {
   // create HTTP server for this torrent
-  const instance = torrent.createServer()
-  instance.server.listen(port) // start the server listening to a port
 
   const url = torrent.files[0].getStreamURL()
   console.log(url)
-
   // visit http://localhost:<port>/webtorrent/ to see a list of torrents
 
   // access individual torrents at http://localhost:<port>/webtorrent/<infoHash> where infoHash is the hash of the torrent
-
-  // later, cleanup...
-  instance.close()
-  client.destroy()
 })
+
+// later, cleanup...
+instance.close()
+client.destroy()
 ```
 
 In browser needs either [this worker](https://github.com/webtorrent/webtorrent/blob/master/sw.min.js) to be used, or have [this functionality](https://github.com/webtorrent/webtorrent/blob/master/lib/worker.js) implemented.
@@ -305,14 +305,9 @@ function download (instance) {
   client.add(magnetURI, torrent => {
     const url = torrent.files[0].getStreamURL()
     console.log(url)
-
     // visit <origin>/webtorrent/ to see a list of torrents, where origin is the worker registration scope.
 
     // access individual torrents at /webtorrent/<infoHash> where infoHash is the hash of the torrent
-
-    // later, cleanup...
-    instance.close()
-    client.destroy()
   })
 }
 navigator.serviceWorker.register('./sw.min.js', { scope }).then(reg => {
@@ -324,6 +319,10 @@ navigator.serviceWorker.register('./sw.min.js', { scope }).then(reg => {
     worker.addEventListener('statechange', ({ target }) => checkState(target))
   }
 })
+
+// later, cleanup...
+client._server.close()
+client.destroy()
 ```
 # Torrent API
 
