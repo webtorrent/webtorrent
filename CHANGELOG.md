@@ -1,3 +1,13 @@
+## [1.8.27](https://github.com/webtorrent/webtorrent/compare/v1.8.26...v1.8.27) (2022-09-02)
+
+
+### Bug Fixes
+
+* dedupe packages ([9ea33c2](https://github.com/webtorrent/webtorrent/commit/9ea33c2c1cd3ea9fcfa66569a3fb94148afd9869))
+* drop multi-stream ([5d87d1b](https://github.com/webtorrent/webtorrent/commit/5d87d1b32356f6b75ed4f9aefe91f3ddf1ecebdb))
+* null opts causing error ([3a8f901](https://github.com/webtorrent/webtorrent/commit/3a8f901a48503a5c767b6174904e2c062d403a6a))
+* use streamx instead of stream ([8b97ee8](https://github.com/webtorrent/webtorrent/commit/8b97ee8cc18b05e0d20135ea8f1651e97bb65c6f))
+
 ## [1.8.26](https://github.com/webtorrent/webtorrent/compare/v1.8.25...v1.8.26) (2022-07-04)
 
 
