@@ -73,7 +73,7 @@
     "simple-sha1": "^3.1.0",
     "speed-limiter": "^1.0.2",
     "stream-with-known-length-to-buffer": "^1.0.4",
-    "streamx": "^2.12.4",
+    "streamx": "^2.12.5",
     "throughput": "^1.0.1",
     "torrent-discovery": "^9.4.13",
     "torrent-piece": "^2.0.1",
