@@ -1,3 +1,11 @@
+## [1.8.28](https://github.com/webtorrent/webtorrent/compare/v1.8.27...v1.8.28) (2022-09-02)
+
+
+### Bug Fixes
+
+* **deps:** update dependency fast-blob-stream to ^1.1.1 ([a441dea](https://github.com/webtorrent/webtorrent/commit/a441dea5d1a20982e9ad3fbe5237bbb02fb55898))
+* **deps:** update dependency join-async-iterator to ^1.1.1 ([09b9958](https://github.com/webtorrent/webtorrent/commit/09b995814a2b5192cd9d9dd9a620d2b3dbdb5ab7))
+
 ## [1.8.27](https://github.com/webtorrent/webtorrent/compare/v1.8.26...v1.8.27) (2022-09-02)
 
 
