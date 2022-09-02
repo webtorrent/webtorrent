@@ -299,7 +299,6 @@ Here is a user example for browser:
 const client = new WebTorrent()
 const magnetURI = 'magnet: ...'
 const player = document.querySelector('video')
-const scope = './'
 
 function download (instance) {
   client.add(magnetURI, torrent => {
@@ -310,7 +309,7 @@ function download (instance) {
     // access individual torrents at /webtorrent/<infoHash> where infoHash is the hash of the torrent
   })
 }
-navigator.serviceWorker.register('./sw.min.js', { scope }).then(reg => {
+navigator.serviceWorker.register('./sw.min.js', { scope: './' }).then(reg => {
   const worker = reg.active || reg.waiting || reg.installing
   function checkState (worker) {
     return worker.state === 'activated' && download(client.createServer({ controller: reg }))
