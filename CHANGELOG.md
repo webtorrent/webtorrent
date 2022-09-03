@@ -1,3 +1,10 @@
+## [1.8.29](https://github.com/webtorrent/webtorrent/compare/v1.8.28...v1.8.29) (2022-09-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency create-torrent to ^5.0.6 ([03a0f50](https://github.com/webtorrent/webtorrent/commit/03a0f500013172a5070dd5e8e67063bea6eaf190))
+
 ## [1.8.28](https://github.com/webtorrent/webtorrent/compare/v1.8.27...v1.8.28) (2022-09-02)
 
 
