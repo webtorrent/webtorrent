@@ -287,7 +287,6 @@ class WebTorrent extends EventEmitter {
         if (t.infoHash === torrent.infoHash && t !== torrent) {
           torrent._destroy(new Error(`Cannot add duplicate torrent ${torrent.infoHash}`))
           ontorrent(t)
-          this.emit('torrent', t)
           return
         }
       }
