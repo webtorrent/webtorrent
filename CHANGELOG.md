@@ -1,3 +1,10 @@
+## [1.8.30](https://github.com/webtorrent/webtorrent/compare/v1.8.29...v1.8.30) (2022-09-12)
+
+
+### Bug Fixes
+
+* return duplicate torrent on Webtorrent.add() ([#2372](https://github.com/webtorrent/webtorrent/issues/2372)) ([05d27bf](https://github.com/webtorrent/webtorrent/commit/05d27bfd449aa705cefefe74d4a9eef327f63b4a))
+
 ## [1.8.29](https://github.com/webtorrent/webtorrent/compare/v1.8.28...v1.8.29) (2022-09-03)
 
 
