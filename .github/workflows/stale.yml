@@ -12,7 +12,7 @@ jobs:
       pull-requests: write
 
     steps:
-    - uses: actions/stale@v5
+    - uses: actions/stale@v6
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         stale-issue-message: 'Is this still relevant? If so, what is blocking it? Is there anything you can do to help move it forward?'
