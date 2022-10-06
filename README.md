@@ -69,7 +69,7 @@ they can connect to both normal *and* web peers. We hope other clients will foll
   - **peer discovery** via **[dht](https://github.com/webtorrent/bittorrent-dht)**,
     **[tracker](https://github.com/webtorrent/bittorrent-tracker)**,
     **[lsd](https://github.com/webtorrent/bittorrent-lsd)**, and
-    **[ut_pex](https://github.com/fisch0920/ut_pex)**
+    **[ut_pex](https://github.com/webtorrent/ut_pex)**
   - **[protocol extension api](https://github.com/webtorrent/bittorrent-protocol#extension-api)**
     for adding new extensions
 - **Comprehensive test suite** (runs completely offline, so it's reliable and fast)
