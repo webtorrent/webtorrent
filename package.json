@@ -40,7 +40,7 @@
     "addr-to-ip-port": "^1.5.4",
     "bitfield": "^4.1.0",
     "bittorrent-dht": "^10.0.6",
-    "bittorrent-protocol": "^3.5.5",
+    "bittorrent-protocol": "^4.0.1",
     "cache-chunk-store": "^3.2.2",
     "chrome-net": "^3.3.4",
     "chunk-store-stream": "^4.3.0",
