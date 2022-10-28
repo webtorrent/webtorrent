@@ -1,3 +1,15 @@
+# [1.9.0](https://github.com/webtorrent/webtorrent/compare/v1.8.32...v1.9.0) (2022-10-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency fs-chunk-store to v3 ([#2380](https://github.com/webtorrent/webtorrent/issues/2380)) ([9abd966](https://github.com/webtorrent/webtorrent/commit/9abd96691ab73ebc8fb10aa79a67b5db0c92ec72))
+
+
+### Features
+
+* add chitchatter link ([#2388](https://github.com/webtorrent/webtorrent/issues/2388)) ([7ef22f7](https://github.com/webtorrent/webtorrent/commit/7ef22f726bed2dfaa6f29ad633955f59db6a9022))
+
 ## [1.8.32](https://github.com/webtorrent/webtorrent/compare/v1.8.31...v1.8.32) (2022-10-09)
 
 
