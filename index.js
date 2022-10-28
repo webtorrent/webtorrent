@@ -1,5 +1,5 @@
 /*! webtorrent. MIT License. WebTorrent LLC <https://webtorrent.io/opensource> */
-/* global FileList, ServiceWorker */
+/* global FileList */
 /* eslint-env browser */
 
 const EventEmitter = require('events')
@@ -19,6 +19,7 @@ const throughput = require('throughput')
 const { ThrottleGroup } = require('speed-limiter')
 const ConnPool = require('./lib/conn-pool.js') // browser exclude
 const Torrent = require('./lib/torrent.js')
+const { NodeServer, BrowserServer } = require('./lib/server.js')
 const { version: VERSION } = require('./package.json')
 
 const debug = debugFactory('webtorrent')
@@ -83,10 +84,6 @@ class WebTorrent extends EventEmitter {
 
     this._downloadLimit = Math.max((typeof opts.downloadLimit === 'number') ? opts.downloadLimit : -1, -1)
     this._uploadLimit = Math.max((typeof opts.uploadLimit === 'number') ? opts.uploadLimit : -1, -1)
-
-    this.serviceWorker = null
-    this.workerKeepAliveInterval = null
-    this.workerPortCount = 0
 
     if (opts.secure === true) {
       require('./lib/peer').enableSecure()
@@ -165,69 +162,28 @@ class WebTorrent extends EventEmitter {
   }
 
   /**
-   * Accepts an existing service worker registration [navigator.serviceWorker.controller]
-   * which must be activated, "creates" a file server for streamed file rendering to use.
+   * Creates an http server to serve the contents of this torrent,
+   * dynamically fetching the needed torrent pieces to satisfy http requests.
+   * Range requests are supported.
    *
-   * @param  {ServiceWorker} controller
-   * @param {function=} cb
-   * @return {null}
+   * @param {Object} options
+   * @param {String} force
+   * @return {BrowserServer||NodeServer}
    */
-  loadWorker (controller, cb = () => {}) {
-    if (!(controller instanceof ServiceWorker)) throw new Error('Invalid worker registration')
-    if (controller.state !== 'activated') throw new Error('Worker isn\'t activated')
-    const keepAliveTime = 20000
-
-    this.serviceWorker = controller
-
-    navigator.serviceWorker.addEventListener('message', event => {
-      const { data } = event
-      if (!data.type || !data.type === 'webtorrent' || !data.url) return null
-      let [infoHash, ...filePath] = data.url.slice(data.url.indexOf(data.scope + 'webtorrent/') + 11 + data.scope.length).split('/')
-      filePath = decodeURI(filePath.join('/'))
-      if (!infoHash || !filePath) return null
-
-      const [port] = event.ports
-
-      const file = this.get(infoHash) && this.get(infoHash).files.find(file => file.path === filePath)
-      if (!file) return null
-
-      const [response, stream, raw] = file._serve(data)
-      const asyncIterator = stream && stream[Symbol.asyncIterator]()
-
-      const cleanup = () => {
-        port.onmessage = null
-        if (stream) stream.destroy()
-        if (raw) raw.destroy()
-        this.workerPortCount--
-        if (!this.workerPortCount) {
-          clearInterval(this.workerKeepAliveInterval)
-          this.workerKeepAliveInterval = null
-        }
-      }
-
-      port.onmessage = async msg => {
-        if (msg.data) {
-          let chunk
-          try {
-            chunk = (await asyncIterator.next()).value
-          } catch (e) {
-            // chunk is yet to be downloaded or it somehow failed, should this be logged?
-          }
-          port.postMessage(chunk)
-          if (!chunk) cleanup()
-          if (!this.workerKeepAliveInterval) this.workerKeepAliveInterval = setInterval(() => fetch(`${this.serviceWorker.scriptURL.slice(0, this.serviceWorker.scriptURL.lastIndexOf('/') + 1).slice(window.location.origin.length)}webtorrent/keepalive/`), keepAliveTime)
-        } else {
-          cleanup()
-        }
-      }
-      this.workerPortCount++
-      port.postMessage(response)
-    })
-    // test if browser supports cancelling sw Readable Streams
-    fetch(`${this.serviceWorker.scriptURL.slice(0, this.serviceWorker.scriptURL.lastIndexOf('/') + 1).slice(window.location.origin.length)}webtorrent/cancel/`).then(res => {
-      res.body.cancel()
-    })
-    cb(null, this.serviceWorker)
+  createServer (options, force) {
+    if (this.destroyed) throw new Error('torrent is destroyed')
+    if (this._server) throw new Error('server already created')
+    if ((typeof window === 'undefined' || force === 'node') && force !== 'browser') {
+      // node implementation
+      this._server = new NodeServer(this, options)
+      return this._server
+    } else {
+      // browser implementation
+      if (!(options?.controller instanceof ServiceWorkerRegistration)) throw new Error('Invalid worker registration')
+      if (options.controller.active.state !== 'activated') throw new Error('Worker isn\'t activated')
+      this._server = new BrowserServer(this, options)
+      return this._server
+    }
   }
 
   get downloadSpeed () { return this._downloadSpeed() }
