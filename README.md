@@ -18,7 +18,7 @@
 </p>
 
 <h5 align="center">
-  Sponsored by&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://brave.com" rel="nofollow"><img src="https://webtorrent.io/img/supporters/brave.png" alt="Brave" height=35 valign="middle"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.wormhole.app/?utm_medium=sponsorship&utm_source=webtorrent&utm_campaign=feross"><img src="https://webtorrent.io/img/supporters/wormhole.png" alt="Wormhole" height=30 valign="middle"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://webtorrent.io/expressvpn" rel="nofollow"><img src="https://webtorrent.io/img/supporters/expressvpn.png" alt="ExpressVPN" height=30 valign="middle"></a>
+  Sponsored by&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://socket.dev"><img src="https://webtorrent.io/img/supporters/socket.png" alt="Socket - JavaScript open source supply chain security" height=35 valign="middle"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.wormhole.app/?utm_medium=sponsorship&utm_source=webtorrent&utm_campaign=feross"><img src="https://webtorrent.io/img/supporters/wormhole.png" alt="Wormhole" height=30 valign="middle"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://webtorrent.io/expressvpn" rel="nofollow"><img src="https://webtorrent.io/img/supporters/expressvpn.png" alt="ExpressVPN" height=30 valign="middle"></a>
 </h5>
 <br>
 
@@ -69,7 +69,7 @@ they can connect to both normal *and* web peers. We hope other clients will foll
   - **peer discovery** via **[dht](https://github.com/webtorrent/bittorrent-dht)**,
     **[tracker](https://github.com/webtorrent/bittorrent-tracker)**,
     **[lsd](https://github.com/webtorrent/bittorrent-lsd)**, and
-    **[ut_pex](https://github.com/fisch0920/ut_pex)**
+    **[ut_pex](https://github.com/webtorrent/ut_pex)**
   - **[protocol extension api](https://github.com/webtorrent/bittorrent-protocol#extension-api)**
     for adding new extensions
 - **Comprehensive test suite** (runs completely offline, so it's reliable and fast)

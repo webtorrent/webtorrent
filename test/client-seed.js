@@ -75,7 +75,7 @@ test('client.seed: torrent file (Blob)', t => {
   })
 })
 
-test('client.seed: duplicate seed)', t => {
+test('client.seed: duplicate seed', t => {
   t.plan(4)
 
   const client = new WebTorrent()

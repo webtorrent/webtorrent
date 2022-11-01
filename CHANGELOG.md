@@ -1,3 +1,155 @@
+## [1.9.1](https://github.com/webtorrent/webtorrent/compare/v1.9.0...v1.9.1) (2022-10-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency streamx to ^2.12.5 ([#2366](https://github.com/webtorrent/webtorrent/issues/2366)) ([457a2d3](https://github.com/webtorrent/webtorrent/commit/457a2d3d5def6bb75d2551f34ab9fa350ec4a4e5))
+
+# [1.9.0](https://github.com/webtorrent/webtorrent/compare/v1.8.32...v1.9.0) (2022-10-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency fs-chunk-store to v3 ([#2380](https://github.com/webtorrent/webtorrent/issues/2380)) ([9abd966](https://github.com/webtorrent/webtorrent/commit/9abd96691ab73ebc8fb10aa79a67b5db0c92ec72))
+
+
+### Features
+
+* add chitchatter link ([#2388](https://github.com/webtorrent/webtorrent/issues/2388)) ([7ef22f7](https://github.com/webtorrent/webtorrent/commit/7ef22f726bed2dfaa6f29ad633955f59db6a9022))
+
+## [1.8.32](https://github.com/webtorrent/webtorrent/compare/v1.8.31...v1.8.32) (2022-10-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency torrent-discovery to ^9.4.14 ([8fadd4f](https://github.com/webtorrent/webtorrent/commit/8fadd4f437a9e60da4cbc49b3b6d6e65db38373f))
+
+## [1.8.31](https://github.com/webtorrent/webtorrent/compare/v1.8.30...v1.8.31) (2022-10-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bittorrent-dht to ^10.0.6 ([#2384](https://github.com/webtorrent/webtorrent/issues/2384)) ([34089f8](https://github.com/webtorrent/webtorrent/commit/34089f836bcb24df275f83b3026af548e32d02e9))
+
+## [1.8.30](https://github.com/webtorrent/webtorrent/compare/v1.8.29...v1.8.30) (2022-09-12)
+
+
+### Bug Fixes
+
+* return duplicate torrent on Webtorrent.add() ([#2372](https://github.com/webtorrent/webtorrent/issues/2372)) ([05d27bf](https://github.com/webtorrent/webtorrent/commit/05d27bfd449aa705cefefe74d4a9eef327f63b4a))
+
+## [1.8.29](https://github.com/webtorrent/webtorrent/compare/v1.8.28...v1.8.29) (2022-09-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency create-torrent to ^5.0.6 ([03a0f50](https://github.com/webtorrent/webtorrent/commit/03a0f500013172a5070dd5e8e67063bea6eaf190))
+
+## [1.8.28](https://github.com/webtorrent/webtorrent/compare/v1.8.27...v1.8.28) (2022-09-02)
+
+
+### Bug Fixes
+
+* **deps:** update dependency fast-blob-stream to ^1.1.1 ([a441dea](https://github.com/webtorrent/webtorrent/commit/a441dea5d1a20982e9ad3fbe5237bbb02fb55898))
+* **deps:** update dependency join-async-iterator to ^1.1.1 ([09b9958](https://github.com/webtorrent/webtorrent/commit/09b995814a2b5192cd9d9dd9a620d2b3dbdb5ab7))
+
+## [1.8.27](https://github.com/webtorrent/webtorrent/compare/v1.8.26...v1.8.27) (2022-09-02)
+
+
+### Bug Fixes
+
+* dedupe packages ([9ea33c2](https://github.com/webtorrent/webtorrent/commit/9ea33c2c1cd3ea9fcfa66569a3fb94148afd9869))
+* drop multi-stream ([5d87d1b](https://github.com/webtorrent/webtorrent/commit/5d87d1b32356f6b75ed4f9aefe91f3ddf1ecebdb))
+* null opts causing error ([3a8f901](https://github.com/webtorrent/webtorrent/commit/3a8f901a48503a5c767b6174904e2c062d403a6a))
+* use streamx instead of stream ([8b97ee8](https://github.com/webtorrent/webtorrent/commit/8b97ee8cc18b05e0d20135ea8f1651e97bb65c6f))
+
+## [1.8.26](https://github.com/webtorrent/webtorrent/compare/v1.8.25...v1.8.26) (2022-07-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency create-torrent to ^5.0.4 ([3728336](https://github.com/webtorrent/webtorrent/commit/37283369f3476d32ac9ca85c2c2da4bd4fee273c))
+
+## [1.8.25](https://github.com/webtorrent/webtorrent/compare/v1.8.24...v1.8.25) (2022-07-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency create-torrent to ^5.0.3 ([5009d10](https://github.com/webtorrent/webtorrent/commit/5009d1018bdec96afd4bf15e5f7143951623fd48))
+
+## [1.8.24](https://github.com/webtorrent/webtorrent/compare/v1.8.23...v1.8.24) (2022-06-23)
+
+
+### Bug Fixes
+
+* support stream cancelling ([#2335](https://github.com/webtorrent/webtorrent/issues/2335)) ([2e4f91f](https://github.com/webtorrent/webtorrent/commit/2e4f91f668ea867d768291e9efd3e1c1eb825b97))
+
+## [1.8.23](https://github.com/webtorrent/webtorrent/compare/v1.8.22...v1.8.23) (2022-06-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency torrent-discovery to ^9.4.13 ([1e3373a](https://github.com/webtorrent/webtorrent/commit/1e3373ab9e6dd16e5b10a2e32988386615f6cf28))
+
+## [1.8.22](https://github.com/webtorrent/webtorrent/compare/v1.8.21...v1.8.22) (2022-05-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bittorrent-dht to ^10.0.4 ([327d723](https://github.com/webtorrent/webtorrent/commit/327d7234a85f38bf8d397e41875a5603a8d175d1))
+
+## [1.8.21](https://github.com/webtorrent/webtorrent/compare/v1.8.20...v1.8.21) (2022-05-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency throughput to ^1.0.1 ([#2321](https://github.com/webtorrent/webtorrent/issues/2321)) ([d53d95e](https://github.com/webtorrent/webtorrent/commit/d53d95e1ed75a288cea706d65fb660f2be3a02a0))
+
+## [1.8.20](https://github.com/webtorrent/webtorrent/compare/v1.8.19...v1.8.20) (2022-05-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bittorrent-dht to ^10.0.3 ([#2320](https://github.com/webtorrent/webtorrent/issues/2320)) ([2ebbd8e](https://github.com/webtorrent/webtorrent/commit/2ebbd8eacfd0d7778357ca0f44ead331ba439a26))
+
+## [1.8.19](https://github.com/webtorrent/webtorrent/compare/v1.8.18...v1.8.19) (2022-05-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency torrent-discovery to ^9.4.12 ([36e931a](https://github.com/webtorrent/webtorrent/commit/36e931aff5e44fc5aa298a6166bfe7b4e1560499))
+
+## [1.8.18](https://github.com/webtorrent/webtorrent/compare/v1.8.17...v1.8.18) (2022-05-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bittorrent-tracker to v9.18.6 ([#2315](https://github.com/webtorrent/webtorrent/issues/2315)) ([b63d652](https://github.com/webtorrent/webtorrent/commit/b63d652229c4cf55a4eebbe95c98a62716bcc377))
+
+## [1.8.17](https://github.com/webtorrent/webtorrent/compare/v1.8.16...v1.8.17) (2022-05-11)
+
+
+### Bug Fixes
+
+* measure transfer rates without using timeouts ([#2314](https://github.com/webtorrent/webtorrent/issues/2314)) ([522ee4c](https://github.com/webtorrent/webtorrent/commit/522ee4cd14d3b41e92c3978e9816cb66e00233f0))
+
+## [1.8.16](https://github.com/webtorrent/webtorrent/compare/v1.8.15...v1.8.16) (2022-04-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bittorrent-protocol to ^3.5.5 ([3522080](https://github.com/webtorrent/webtorrent/commit/35220804054c5369b5e88a39411125f0273b2adc))
+
+## [1.8.15](https://github.com/webtorrent/webtorrent/compare/v1.8.14...v1.8.15) (2022-04-26)
+
+## [1.8.14](https://github.com/webtorrent/webtorrent/compare/v1.8.13...v1.8.14) (2022-04-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bitfield to ^4.1.0 ([#2303](https://github.com/webtorrent/webtorrent/issues/2303)) ([a778522](https://github.com/webtorrent/webtorrent/commit/a7785227d88fbac22a1b627460694b3523833fde))
+* **deps:** update dependency bittorrent-protocol to ^3.5.3 ([#2302](https://github.com/webtorrent/webtorrent/issues/2302)) ([11f9426](https://github.com/webtorrent/webtorrent/commit/11f9426ee9ef3b800ac978afa5082809eb87c545))
+
 ## [1.8.13](https://github.com/webtorrent/webtorrent/compare/v1.8.12...v1.8.13) (2022-03-30)
 
 
