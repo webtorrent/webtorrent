@@ -323,6 +323,8 @@ navigator.serviceWorker.register('./sw.min.js', { scope: './' }).then(reg => {
 client._server.close()
 client.destroy()
 ```
+Needs either [this worker](https://github.com/webtorrent/webtorrent/blob/master/sw.min.js) to be used, or have [this functionality](https://github.com/webtorrent/webtorrent/blob/master/lib/worker.js) implemented.
+
 # Torrent API
 
 ## `torrent.name`
