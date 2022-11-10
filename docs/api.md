@@ -599,7 +599,7 @@ node.js-style duplex stream to the remote peer. This event can be used to specif
 Here is a usage example:
 
 ```js
-const MyExtension = require('./my-extension')
+import MyExtension from './my-extension'
 
 torrent1.on('wire', function (wire, addr) {
   console.log('connected to peer with address ' + addr)
