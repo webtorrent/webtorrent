@@ -46,7 +46,6 @@
     "cpus": "^1.0.3",
     "create-torrent": "^5.0.6",
     "debug": "^4.3.4",
-    "end-of-stream": "^1.4.4",
     "escape-html": "^1.0.3",
     "fast-blob-stream": "^1.1.1",
     "fs-chunk-store": "^3.0.1",
