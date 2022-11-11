@@ -1,6 +1,6 @@
-const fixtures = require('webtorrent-fixtures')
-const test = require('tape')
-const WebTorrent = require('../index.js')
+import fixtures from 'webtorrent-fixtures'
+import test from 'tape'
+import WebTorrent from '../index.js'
 
 test('torrent.destroy: destroy and remove torrent', t => {
   t.plan(5)

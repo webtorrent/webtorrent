@@ -1,8 +1,8 @@
-const http = require('http')
-const fixtures = require('webtorrent-fixtures')
-const MemoryChunkStore = require('memory-chunk-store')
-const test = require('tape')
-const WebTorrent = require('../../index.js')
+import http from 'http'
+import fixtures from 'webtorrent-fixtures'
+import MemoryChunkStore from 'memory-chunk-store'
+import test from 'tape'
+import WebTorrent from '../../index.js'
 
 function createServer (data, cb) {
   const server = http.createServer((req, res) => {

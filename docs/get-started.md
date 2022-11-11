@@ -6,14 +6,14 @@ to get started!
 ## Install
 
 To start using WebTorrent, simply include the
-[`webtorrent.min.js`](https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js)
+[`webtorrent`](https://esm.sh/webtorrent)
 script on your page.
 
 ```html
-<script src="webtorrent.min.js"></script>
+<script type='module'>
+  import Webtorrent from 'https://esm.sh/webtorrent'
+</script>
 ```
-
-This provides a `WebTorrent` function on the `window` object.
 
 ### Browserify
 
@@ -28,7 +28,7 @@ npm install webtorrent
 Then use `WebTorrent` like this:
 
 ```js
-const WebTorrent = require('webtorrent')
+import Webtorrent from 'webtorrent'
 ```
 
 ## Quick Examples
@@ -36,7 +36,7 @@ const WebTorrent = require('webtorrent')
 ### Downloading a torrent (in the browser)
 
 ```js
-const WebTorrent = require('webtorrent')
+import Webtorrent from 'webtorrent'
 
 const client = new WebTorrent()
 
@@ -58,9 +58,7 @@ client.add(torrentId, function (torrent) {
 })
 ```
 
-This supports video, audio, images, PDFs, Markdown, [and more][render-media], right
-out of the box. There are additional ways to access file content directly, including
-as a node-style stream, Buffer, or Blob URL.
+This supports video, audio, images, PDFs, Markdown, right out of the box. There are additional ways to access file content directly, including as a node-style stream, Buffer, or Blob URL.
 
 Video and audio content can be streamed, i.e. playback will start before the full
 file is downloaded. Seeking works too – WebTorrent dynamically fetches
@@ -71,8 +69,8 @@ the needed torrent pieces from the network on-demand.
 ### Creating a new torrent and seed it (in the browser)
 
 ```js
-const dragDrop = require('drag-drop')
-const WebTorrent = require('webtorrent')
+import dragDrop from 'drag-drop'
+import Webtorrent from 'webtorrent'
 
 const client = new WebTorrent()
 
@@ -94,7 +92,7 @@ This exports a `DragDrop` function on `window`.
 ### Download and save a torrent (in Node.js)
 
 ```js
-const WebTorrent = require('webtorrent')
+import WebTorrent from 'webtorrent'
 
 const client = new WebTorrent()
 
@@ -148,10 +146,10 @@ downloaded.
     <h2>Log</h2>
     <div class="log"></div>
 
-    <!-- Include the latest version of WebTorrent -->
-    <script src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"></script>
-
-    <script>
+    <script type='module'>
+      // Include the latest version of WebTorrent
+      import Webtorrent from 'https://esm.sh/webtorrent'
+      
       const client = new WebTorrent()
 
       client.on('error', function (err) {
@@ -389,5 +387,4 @@ or [Instant.io](https://instant.io) to seed torrents to the WebTorrent network.
 
 Check out the [API Documentation](//webtorrent.io/docs) and [FAQ](//webtorrent.io/faq) for more details.
 
-[render-media]: https://github.com/feross/render-media/blob/master/index.js#L12-L20
 [drag-drop]: https://npmjs.com/package/drag-drop

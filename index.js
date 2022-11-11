@@ -2,25 +2,27 @@
 /* global FileList */
 /* eslint-env browser */
 
-const EventEmitter = require('events')
-const path = require('path')
-const concat = require('simple-concat')
-const createTorrent = require('create-torrent')
-const debugFactory = require('debug')
-const DHT = require('bittorrent-dht/client') // browser exclude
-const loadIPSet = require('load-ip-set') // browser exclude
-const parallel = require('run-parallel')
-const parseTorrent = require('parse-torrent')
-const Peer = require('simple-peer')
-const queueMicrotask = require('queue-microtask')
-const randombytes = require('randombytes')
-const sha1 = require('simple-sha1')
-const throughput = require('throughput')
-const { ThrottleGroup } = require('speed-limiter')
-const ConnPool = require('./lib/conn-pool.js') // browser exclude
-const Torrent = require('./lib/torrent.js')
-const { NodeServer, BrowserServer } = require('./lib/server.js')
-const { version: VERSION } = require('./package.json')
+import EventEmitter from 'events'
+import path from 'path'
+import concat from 'simple-concat'
+import createTorrent from 'create-torrent'
+import debugFactory from 'debug'
+import DHT from 'bittorrent-dht/client.js' // browser exclude
+import loadIPSet from 'load-ip-set' // browser exclude
+import parallel from 'run-parallel'
+import parseTorrent from 'parse-torrent'
+import Peer from 'simple-peer'
+import queueMicrotask from 'queue-microtask'
+import randombytes from 'randombytes'
+import sha1 from 'simple-sha1'
+import throughput from 'throughput'
+import { ThrottleGroup } from 'speed-limiter'
+import ConnPool from './lib/conn-pool.js' // browser exclude
+import Torrent from './lib/torrent.js'
+import { NodeServer, BrowserServer } from './lib/server.js'
+
+import info from './package.json' assert { type: 'json' }
+const VERSION = info.version
 
 const debug = debugFactory('webtorrent')
 
@@ -47,7 +49,7 @@ const VERSION_PREFIX = `-WW${VERSION_STR}-`
  * WebTorrent Client
  * @param {Object=} opts
  */
-class WebTorrent extends EventEmitter {
+export default class WebTorrent extends EventEmitter {
   constructor (opts = {}) {
     super()
 
@@ -86,7 +88,7 @@ class WebTorrent extends EventEmitter {
     this._uploadLimit = Math.max((typeof opts.uploadLimit === 'number') ? opts.uploadLimit : -1, -1)
 
     if (opts.secure === true) {
-      require('./lib/peer').enableSecure()
+      import('./lib/peer.js').then(({ enableSecure }) => enableSecure())
     }
 
     this._debug(
@@ -522,5 +524,3 @@ function isReadable (obj) {
 function isFileList (obj) {
   return typeof FileList !== 'undefined' && obj instanceof FileList
 }
-
-module.exports = WebTorrent
