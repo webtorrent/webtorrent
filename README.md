@@ -36,7 +36,7 @@ JavaScript&trade;. Note: WebTorrent does **not** support UDP/TCP peers in browse
 Simply include the
 [`webtorrent.min.js`](https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js) script
 on your page to start fetching files over WebRTC using the BitTorrent protocol, or
-`require('webtorrent')` with [browserify](http://browserify.org/). See [demo apps
+`import Webtorrent from 'webtorrent'` with [browserify](http://browserify.org/). See [demo apps
 ](#who-is-using-webtorrent-today) and [code examples](#usage) below.
 
 [![jsdelivr download count](https://data.jsdelivr.com/v1/package/npm/webtorrent/badge)](https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js)
@@ -69,7 +69,7 @@ they can connect to both normal *and* web peers. We hope other clients will foll
   - **peer discovery** via **[dht](https://github.com/webtorrent/bittorrent-dht)**,
     **[tracker](https://github.com/webtorrent/bittorrent-tracker)**,
     **[lsd](https://github.com/webtorrent/bittorrent-lsd)**, and
-    **[ut_pex](https://github.com/fisch0920/ut_pex)**
+    **[ut_pex](https://github.com/webtorrent/ut_pex)**
   - **[protocol extension api](https://github.com/webtorrent/bittorrent-protocol#extension-api)**
     for adding new extensions
 - **Comprehensive test suite** (runs completely offline, so it's reliable and fast)
@@ -91,7 +91,7 @@ they can connect to both normal *and* web peers. We hope other clients will foll
 
 ### Install
 
-To install WebTorrent for use in node or the browser with `require('webtorrent')`, run:
+To install WebTorrent for use in node or the browser with `import Webtorrent from 'webtorrent'`, run:
 
 ```bash
 npm install webtorrent
@@ -133,7 +133,7 @@ standards (no plugins, just HTML5 and WebRTC)! It's easy to get started!
 ##### Downloading a file is simple:
 
 ```js
-const WebTorrent = require('webtorrent')
+import WebTorrent from 'webtorrent'
 
 const client = new WebTorrent()
 const magnetURI = '...'
@@ -151,8 +151,8 @@ client.add(magnetURI, function (torrent) {
 ##### Seeding a file is simple, too:
 
 ```js
-const dragDrop = require('drag-drop')
-const WebTorrent = require('webtorrent')
+import dragDrop from 'drag-drop'
+import WebTorrent from 'webtorrent'
 
 const client = new WebTorrent()
 
@@ -186,7 +186,7 @@ bundler. However, webpack requires the following extra configuration:
 ```
 
 Or, you can just use the pre-built version via
-`require('webtorrent/webtorrent.min.js')` and skip the webpack configuration.
+`import 'webtorrent/webtorrent.min.js'` and skip the webpack configuration.
 
 ##### Script tag
 
@@ -195,14 +195,18 @@ WebTorrent is also available as a standalone script
 object, so it can be used with just a script tag:
 
 ```html
-<script src="webtorrent.min.js"></script>
+<script type='module'>
+  import Webtorrent from 'webtorrent.min.js'
+</script>
 ```
 
 The WebTorrent script is also hosted on fast, reliable CDN infrastructure (Cloudflare and
 MaxCDN) for easy inclusion on your site:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"></script>
+<script type='module'>
+  import Webtorrent from 'https://esm.sh/webtorrent'
+</script>
 ```
 
 ##### Chrome App
@@ -212,7 +216,9 @@ If you want to use WebTorrent in a
 following script:
 
 ```html
-<script src="webtorrent.chromeapp.js"></script>
+<script type='module'>
+  import Webtorrent from 'webtorrent.chromeapp.js'
+</script>
 ```
 
 Be sure to enable the `chrome.sockets.udp` and `chrome.sockets.tcp` permissions!

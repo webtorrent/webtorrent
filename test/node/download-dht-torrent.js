@@ -1,10 +1,10 @@
-const fs = require('fs')
-const DHT = require('bittorrent-dht/server')
-const fixtures = require('webtorrent-fixtures')
-const MemoryChunkStore = require('memory-chunk-store')
-const series = require('run-series')
-const test = require('tape')
-const WebTorrent = require('../../index.js')
+import fs from 'fs'
+import DHT from 'bittorrent-dht/server.js'
+import fixtures from 'webtorrent-fixtures'
+import MemoryChunkStore from 'memory-chunk-store'
+import series from 'run-series'
+import test from 'tape'
+import WebTorrent from '../../index.js'
 
 test('Download using DHT (via .torrent file)', t => {
   t.plan(10)

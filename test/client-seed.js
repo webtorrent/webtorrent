@@ -1,8 +1,8 @@
 /* global Blob */
 
-const fixtures = require('webtorrent-fixtures')
-const test = require('tape')
-const WebTorrent = require('../index.js')
+import fixtures from 'webtorrent-fixtures'
+import test from 'tape'
+import WebTorrent from '../index.js'
 
 test('client.seed: torrent file (Buffer)', t => {
   t.plan(6)
@@ -75,7 +75,7 @@ test('client.seed: torrent file (Blob)', t => {
   })
 })
 
-test('client.seed: duplicate seed)', t => {
+test('client.seed: duplicate seed', t => {
   t.plan(4)
 
   const client = new WebTorrent()

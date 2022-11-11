@@ -327,6 +327,8 @@ navigator.serviceWorker.register('./sw.min.js', { scope: './' }).then(reg => {
 client._server.close()
 client.destroy()
 ```
+Needs either [this worker](https://github.com/webtorrent/webtorrent/blob/master/sw.min.js) to be used, or have [this functionality](https://github.com/webtorrent/webtorrent/blob/master/lib/worker.js) implemented.
+
 # Torrent API
 
 ## `torrent.name`
@@ -601,7 +603,7 @@ node.js-style duplex stream to the remote peer. This event can be used to specif
 Here is a usage example:
 
 ```js
-const MyExtension = require('./my-extension')
+import MyExtension from './my-extension'
 
 torrent1.on('wire', function (wire, addr) {
   console.log('connected to peer with address ' + addr)

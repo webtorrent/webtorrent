@@ -114,6 +114,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Haven Torrent Client][haven-torrent-client]** - Simple and Fast Torrent Client for the web. ([source code][haven-torrent-client-source])
 - **[CrawFish][CrawFish]** - Desktop/Web/Server torrent client, with streaming support and integrated search (Works in docker, windows and has a WebUI that can be accessed by remote). ([source code][CrawFish-source])
 - **[Niwder][Niwder]** - Web based platform to transfer torrents to Mega.nz and Google Drive on the cloud. ([source code][Niwder-source])
+- **[Chitchatter][Chitchatter]** - A peer-to-peer chat app that is serverless, decentralized, and ephemeral. Uses WebTorrent to initiate peer connections. ([source code][Chitchatter-source])
 - ***Your app here – [Send a pull request][pr] with your URL!***
 <!-- - **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source]) -->
 <!-- - **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s)) -->
@@ -212,6 +213,8 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [haven-torrent-client-source]: https://github.com/ThaUnknown/pwa-haven/tree/main/torrent-client
 [Niwder]: https://niwder.niweera.gq
 [Niwder-source]: https://github.com/Niweera/niwder
+[Chitchatter]: https://chitchatter.im/
+[Chitchatter-source]: https://github.com/jeremyckahn/chitchatter
 
 ## How does WebTorrent work?
 
@@ -247,7 +250,7 @@ clients like Transmission, and uTorrent to add support for WebTorrent. **Vuze**
 To start using WebTorrent, simply include the
 [`webtorrent.min.js`](https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js)
 script on your page. If you use [browserify](http://browserify.org/), you can
-`npm install webtorrent` and `require('webtorrent')`.
+`npm install webtorrent` and `import Webtorrent from 'webtorrent'`.
 
 It's easy to download a torrent and add it to the page.
 

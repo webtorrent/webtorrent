@@ -1,9 +1,9 @@
-const fs = require('fs')
-const http = require('http')
-const zlib = require('zlib')
-const fixtures = require('webtorrent-fixtures')
-const test = require('tape')
-const WebTorrent = require('../../index.js')
+import fs from 'fs'
+import http from 'http'
+import zlib from 'zlib'
+import fixtures from 'webtorrent-fixtures'
+import test from 'tape'
+import WebTorrent from '../../index.js'
 
 function assertBlocked (t, torrent, addr) {
   torrent.once('blockedPeer', _addr => {

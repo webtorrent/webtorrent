@@ -1,8 +1,8 @@
-const fs = require('fs')
-const fixtures = require('webtorrent-fixtures')
-const get = require('simple-get')
-const test = require('tape')
-const WebTorrent = require('../../index.js')
+import fs from 'fs'
+import fixtures from 'webtorrent-fixtures'
+import get from 'simple-get'
+import test from 'tape'
+import WebTorrent from '../../index.js'
 
 test('torrent.createServer: programmatic http server', t => {
   t.plan(9)
