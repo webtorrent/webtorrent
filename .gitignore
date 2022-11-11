@@ -2,3 +2,4 @@ node_modules/
 package-lock.json
 webtorrent.debug.js
 sw.debug.js
+pnpm-lock.yaml
