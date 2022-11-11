@@ -53,7 +53,7 @@ test('client.add: emit torrent events in order', t => {
 })
 
 test('client.seed: emit torrent events in order', t => {
-  t.plan(5)
+  t.plan(6)
 
   const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
 
@@ -78,7 +78,9 @@ test('client.seed: emit torrent events in order', t => {
 
   torrent.on('done', () => {
     t.equal(++order, 4)
-
+  })
+  torrent.on('seed', () => {
+    t.equal(++order, 5)
     client.destroy(err => { t.error(err, 'client destroyed') })
   })
 })
