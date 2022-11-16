@@ -135,7 +135,7 @@ If you provide `opts.store`, it will be called as
 * `storeOpts.path` - path to the store, based on `opts.path`
 * `storeOpts.name` - the info hash of the torrent instance being stored
 * `storeOpts.addUID` - boolean which tells the store if it should include an UID in it's file paths
-* `storeOpts.onlyMem` - *(browser only)* boolean, if true tells the store to only use memory, not IDB/FSA (default: `true`)
+* `storeOpts.onlyMem` - *(browser only)* boolean, if true tells the store to only use memory, not IDB/FSA (default: `false`)
 * `storeOpts.rootDir` - *(browser only)* [FileSystemDirectoryHandle](https://developer.mozilla.org/en-US/docs/Web/API/FileSystemDirectoryHandle) - if supported by the browser, allows the user to specify a custom directory to stores the files in, retaining the torrent's folder and file structure
 
 **Note (browser only):** If onlyMem is false, and you don't want to retain data across sessions, make sure to manually destroy the torrent store when the page closes (More on how below). This has to happen on the `beforeunload` event at latest, in order for the data to be removed. [About page lifecycles.](https://developers.google.com/web/updates/2018/07/page-lifecycle-api)
