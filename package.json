@@ -46,7 +46,7 @@
     "escape-html": "^1.0.3",
     "fast-blob-stream": "^1.1.1",
     "fs-chunk-store": "^3.0.1",
-    "hybrid-chunk-store": "^1.1.1",
+    "hybrid-chunk-store": "^1.1.2",
     "immediate-chunk-store": "^2.2.0",
     "join-async-iterator": "^1.1.1",
     "load-ip-set": "^2.2.1",

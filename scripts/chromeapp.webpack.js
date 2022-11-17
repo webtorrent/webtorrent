@@ -12,7 +12,7 @@ export default {
       ...info.chromeapp,
       crypto: false,
       timers: 'timers-browserify',
-      zlib: '/lib/_inflate-sync-web.js',
+      zlib: '/polyfills/inflate-sync-web.js',
       stream: 'stream-browserify',
       path: 'path-browserify'
     }
@@ -31,7 +31,7 @@ export default {
   },
   plugins: [
     new webpack.ProvidePlugin({
-      process: '/lib/_process-fast.js',
+      process: '/polyfills/process-fast.js',
       Buffer: ['buffer', 'Buffer']
     }),
     new webpack.DefinePlugin({
