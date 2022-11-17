@@ -1,4 +1,5 @@
 import webpack from 'webpack'
+import TerserPlugin from 'terser-webpack-plugin'
 import info from '../package.json' assert { type: 'json' }
 
 /** @type {import('webpack').WebpackOptionsNormalized} */
@@ -36,5 +37,16 @@ export default {
     new webpack.DefinePlugin({
       global: 'globalThis'
     })
-  ]
+  ],
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin({
+      terserOptions: {
+        format: {
+          comments: false
+        }
+      },
+      extractComments: false
+    })]
+  }
 }

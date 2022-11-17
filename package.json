@@ -100,6 +100,7 @@
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
     "tape": "5.6.1",
+    "terser-webpack-plugin": "^5.3.6",
     "timers-browserify": "^2.0.12",
     "webpack": "^5.75.0",
     "webpack-cli": "^4.10.0",
