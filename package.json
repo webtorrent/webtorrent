@@ -19,11 +19,6 @@
     "os": false,
     "ut_pex": false
   },
-  "browserify": {
-    "transform": [
-      "package-json-versionify"
-    ]
-  },
   "bugs": {
     "url": "https://github.com/webtorrent/webtorrent/issues"
   },
@@ -81,15 +76,17 @@
     "ut_pex": "^3.0.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.20.2",
+    "@babel/plugin-syntax-import-assertions": "7.20.0",
+    "@babel/preset-env": "^7.20.2",
     "@webtorrent/semantic-release-config": "1.0.8",
     "airtap": "4.0.4",
     "airtap-manual": "1.0.0",
     "airtap-sauce": "1.1.2",
-    "babel-minify": "0.5.2",
+    "babelify": "10.0.0",
     "bittorrent-tracker": "9.19.0",
     "browserify": "17.0.0",
     "disc": "1.3.3",
-    "esmify": "^2.1.1",
     "finalhandler": "1.2.0",
     "network-address": "1.1.2",
     "run-series": "1.1.9",
