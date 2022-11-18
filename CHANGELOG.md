@@ -1,3 +1,10 @@
+## [1.9.3](https://github.com/webtorrent/webtorrent/compare/v1.9.2...v1.9.3) (2022-11-18)
+
+
+### Bug Fixes
+
+* removePeer error after destroy ([36a64a1](https://github.com/webtorrent/webtorrent/commit/36a64a1b5680929841e91cee5aef07b8b1359b7c))
+
 ## [1.9.2](https://github.com/webtorrent/webtorrent/compare/v1.9.1...v1.9.2) (2022-11-11)
 
 
