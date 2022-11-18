@@ -13,7 +13,7 @@ export default {
       crypto: false,
       timers: 'timers-browserify',
       zlib: '/polyfills/inflate-sync-web.js',
-      stream: 'stream-browserify',
+      stream: 'readable-stream',
       path: 'path-browserify'
     }
   },

@@ -97,7 +97,6 @@
     "semantic-release": "19.0.5",
     "serve-static": "1.15.0",
     "standard": "*",
-    "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
     "tape": "5.6.1",
     "terser-webpack-plugin": "^5.3.6",

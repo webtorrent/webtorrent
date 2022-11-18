@@ -13,7 +13,7 @@ export default {
       crypto: false,
       http: 'stream-http',
       https: 'stream-http',
-      stream: 'stream-browserify',
+      stream: 'readable-stream',
       path: 'path-browserify'
     }
   },
