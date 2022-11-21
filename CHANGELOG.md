@@ -1,3 +1,10 @@
+## [1.9.4](https://github.com/webtorrent/webtorrent/compare/v1.9.3...v1.9.4) (2022-11-21)
+
+
+### Bug Fixes
+
+* typo in `removePeer` ([#2408](https://github.com/webtorrent/webtorrent/issues/2408)) ([83d5f72](https://github.com/webtorrent/webtorrent/commit/83d5f728b261bae5ff05160898738434f7512abb))
+
 ## [1.9.3](https://github.com/webtorrent/webtorrent/compare/v1.9.2...v1.9.3) (2022-11-18)
 
 
