@@ -4,7 +4,7 @@ import get from 'simple-get'
 import test from 'tape'
 import WebTorrent from '../../index.js'
 
-test('torrent.createServer: programmatic http server', t => {
+test('client.createServer: programmatic http server', t => {
   t.plan(9)
 
   const client = new WebTorrent({ tracker: false, dht: false, lsd: false })
@@ -14,7 +14,7 @@ test('torrent.createServer: programmatic http server', t => {
 
   client.add(fixtures.leaves.torrent, torrent => {
     t.pass('got "torrent" event')
-    const { server } = client.createServer()
+    const server = client.createServer()
 
     server.listen(0, () => {
       const port = server.address().port

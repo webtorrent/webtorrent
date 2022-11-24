@@ -458,6 +458,12 @@ export default class WebTorrent extends EventEmitter {
       })
     }
 
+    if (this._server) {
+      tasks.push(cb => {
+        this._server.destroy(cb)
+      })
+    }
+
     parallel(tasks, cb)
 
     if (err) this.emit('error', err)
