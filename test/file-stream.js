@@ -4,7 +4,14 @@ const WebTorrent = require('..')
 test('file-stream fetches chunks in parallel, works for large files', (t) => {
   t.plan(2)
   const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
-  const startingData = Buffer.from('0'.repeat(1024 * 1024 * 100))
+  const length = 1024 * 1024 * 11;
+  let idx = 0;
+  let data = '0';
+  while (data.length < length) {
+    data += `${idx}`;
+    idx++
+  }
+  const startingData = Buffer.from(data)
   client.seed(startingData, {
     announce: []
   }, torrent => {
@@ -39,7 +46,14 @@ test('file-stream fetches chunks in parallel, works for large files', (t) => {
 test('file-stream works for small files', (t) => {
   t.plan(1)
   const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
-  const startingData = Buffer.from('0'.repeat(1023 * 100))
+  const length = 1023 * 100;
+  let idx = 0;
+  let data = '0';
+  while (data.length < length) {
+    data += `${idx}`;
+    idx++
+  }
+  const startingData = Buffer.from(data)
   client.seed(startingData, {
     dht: false,
     announce: []
