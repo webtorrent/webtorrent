@@ -1,7 +1,7 @@
 const test = require('tape')
 const WebTorrent = require('..')
 
-test('file-stream supports a readsize option', (t) => {
+test('file-stream fetches chunks in parallel', (t) => {
   t.plan(2)
   const client = new WebTorrent({ dht: false, announce: [] })
   const startingData = Buffer.from('0'.repeat(1024 * 1024 * 100))
