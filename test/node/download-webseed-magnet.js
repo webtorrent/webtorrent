@@ -76,7 +76,7 @@ test('Download using webseed (via magnet uri)', t => {
         torrent.files.forEach(file => {
           file.getBuffer((err, buf) => {
             t.error(err)
-            t.deepEqual(buf, fixtures.leaves.content, 'downloaded correct content')
+            t.deepEqual(buf, new Uint8Array(fixtures.leaves.content), 'downloaded correct content')
             gotBuffer = true
             maybeDone()
           })

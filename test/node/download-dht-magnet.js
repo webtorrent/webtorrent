@@ -82,7 +82,7 @@ test('Download using DHT (via magnet uri)', t => {
       client2.on('torrent', torrent => {
         torrent.files[0].getBuffer((err, buf) => {
           t.error(err)
-          t.deepEqual(buf, fixtures.leaves.content, 'downloaded correct content')
+          t.deepEqual(buf, new Uint8Array(fixtures.leaves.content), 'downloaded correct content')
 
           gotBuffer = true
           maybeDone()

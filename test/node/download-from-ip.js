@@ -42,7 +42,7 @@ test('Download via torrent.addPeer()', (t) => {
           file.getBuffer((err, buf) => {
             t.error(err)
 
-            t.deepEqual(buf, fixtures.leaves.content, 'downloaded correct content')
+            t.deepEqual(buf, new Uint8Array(fixtures.leaves.content), 'downloaded correct content')
 
             seeder.destroy((err) => t.error(err, 'seeder destroyed'))
             downloader.destroy((err) => t.error(err, 'downloader destroyed'))
@@ -93,7 +93,7 @@ test('Download via magnet x.pe (BEP09)', (t) => {
           file.getBuffer((err, buf) => {
             t.error(err)
 
-            t.deepEqual(buf, fixtures.leaves.content, 'downloaded correct content')
+            t.deepEqual(buf, new Uint8Array(fixtures.leaves.content), 'downloaded correct content')
 
             seeder.destroy((err) => t.error(err, 'seeder destroyed'))
             downloader.destroy((err) => t.error(err, 'downloader destroyed'))

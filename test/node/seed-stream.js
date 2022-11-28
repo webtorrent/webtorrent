@@ -56,7 +56,7 @@ test('client.seed: stream', t => {
         t.equal(dl.files[0].length, 12)
         dl.files[0].getBuffer((err, buf) => {
           t.error(err)
-          t.equal(buf.toString('utf8'), 'HELLO WORLD\n', 'content')
+          t.equal(Buffer.from(buf).toString('utf8'), 'HELLO WORLD\n', 'content')
 
           cb(null)
         })

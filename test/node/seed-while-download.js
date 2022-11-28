@@ -96,7 +96,7 @@ test('Seed and download a file at the same time', t => {
       client1.on('torrent', torrent => {
         torrent.files[0].getBuffer((err, buf) => {
           t.error(err)
-          t.deepEqual(buf, fixtures.alice.content, 'client1 downloaded correct content')
+          t.deepEqual(buf, new Uint8Array(fixtures.alice.content), 'client1 downloaded correct content')
           gotBuffer1 = true
           maybeDone()
         })
@@ -113,7 +113,7 @@ test('Seed and download a file at the same time', t => {
       client2.on('torrent', torrent => {
         torrent.files[0].getBuffer((err, buf) => {
           t.error(err)
-          t.deepEqual(buf, fixtures.leaves.content, 'client2 downloaded correct content')
+          t.deepEqual(buf, new Uint8Array(fixtures.leaves.content), 'client2 downloaded correct content')
           gotBuffer2 = true
           maybeDone()
         })
