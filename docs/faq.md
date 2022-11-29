@@ -79,7 +79,6 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[TorrentMedia][torrentmedia]** - Fully-featured desktop WebTorrent client
 - **[Gaia 3D Star Map][gaia]** - 2 million stars, rendered in 3D with WebGL, WebVR, and WebTorrent
 - **[Watchtor][watchtor]** - A minimalistic approach for online torrent watching ([source code][watchtor-source])
-- **[DropClickPaste][dropclickpaste]** - Drop Dead Simple Content Sharing
 - **[FileMap][filemap]** - Share files by pinning them to geographic locations
 - **[WebTorrent Google Cast (WTGC)][wtgc]** - Play WebTorrent media on Google Cast devices ([source code][wtgc-source])
 - **[CodeDump][codedump]** - A WebTorrent based code pastebin ([source code][codedump-source])
@@ -164,7 +163,6 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [gaia]: http://charliehoey.com/threejs-demos/gaia_dr1.html
 [watchtor]: https://open-watchtor.hashbase.io
 [watchtor-source]: https://github.com/codealchemist/watchtor
-[dropclickpaste]: http://dropclickpaste.com/
 [filemap]: https://filemap.xyz
 [wtgc]: https://wtgc.firebaseapp.com
 [wtgc-source]: https://github.com/FluorescentHallucinogen/webtorrent-googlecast
