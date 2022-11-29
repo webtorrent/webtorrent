@@ -163,7 +163,6 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [gaia]: http://charliehoey.com/threejs-demos/gaia_dr1.html
 [watchtor]: https://open-watchtor.hashbase.io
 [watchtor-source]: https://github.com/codealchemist/watchtor
-[dropclickpaste]: http://dropclickpaste.com/
 [filemap]: https://filemap.xyz
 [wtgc]: https://wtgc.firebaseapp.com
 [wtgc-source]: https://github.com/FluorescentHallucinogen/webtorrent-googlecast
