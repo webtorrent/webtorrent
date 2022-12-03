@@ -1,3 +1,10 @@
+## [1.9.5](https://github.com/webtorrent/webtorrent/compare/v1.9.4...v1.9.5) (2022-12-03)
+
+
+### Bug Fixes
+
+* infinite error loop, connecting after destroy ([79dbf69](https://github.com/webtorrent/webtorrent/commit/79dbf697cb50dc64e42139581603ac228003e1f4))
+
 ## [1.9.4](https://github.com/webtorrent/webtorrent/compare/v1.9.3...v1.9.4) (2022-11-21)
 
 
