@@ -1,3 +1,10 @@
+## [1.9.6](https://github.com/webtorrent/webtorrent/compare/v1.9.5...v1.9.6) (2022-12-03)
+
+
+### Bug Fixes
+
+* fix: fix: error loop ([14fe83f](https://github.com/webtorrent/webtorrent/commit/14fe83fe0088123b7caab4372217bc151094f9a3))
+
 ## [1.9.5](https://github.com/webtorrent/webtorrent/compare/v1.9.4...v1.9.5) (2022-12-03)
 
 
