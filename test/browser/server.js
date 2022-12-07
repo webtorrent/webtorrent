@@ -18,7 +18,7 @@ if (!global?.process?.versions?.electron) {
 
     client.seed(img, torrent => {
       t.throws(() => {
-        torrent.files[0].getStreamURL()
+        return torrent.files[0].streamURL
       }, 'Stream URL without server')
       function checkState (worker, controller) {
         if (worker.state !== 'activated') {
@@ -30,7 +30,7 @@ if (!global?.process?.versions?.electron) {
           t.throws(() => {
             client.createServer({ controller })
           }, 'Server already registered')
-          t.ok(torrent.files[0].getStreamURL(), 'get file URL')
+          t.ok(torrent.files[0].streamURL, 'get file URL')
           client.destroy(err => {
             t.error(err, 'client destroyed')
             t.end()
@@ -61,11 +61,11 @@ if (!global?.process?.versions?.electron) {
       navigator.serviceWorker.getRegistration().then(controller => {
         client.createServer({ controller })
         client.seed(img, async torrent => {
-          const src = torrent.files[0].getStreamURL()
+          const src = torrent.files[0].streamURL
           t.ok(typeof src === 'string', 'source is string')
           t.ok(src.endsWith('/webtorrent/db19b51fe04aaf14fd4c9be77f5eeeb2d8789b5c/img.png'), 'source URL is correct')
 
-          const res = await fetch(torrent.files[0].getStreamURL())
+          const res = await fetch(torrent.files[0].streamURL)
           const data = new Uint8Array(await res.arrayBuffer())
           const original = new Uint8Array(img)
           t.deepEqual(data, original)
@@ -90,7 +90,7 @@ if (!global?.process?.versions?.electron) {
         client.createServer({ controller })
         client.add('https://webtorrent.io/torrents/sintel.torrent', torrent => {
           video.addEventListener('loadedmetadata', () => {
-            t.equal(Math.floor(video.duration), 888, 'Video metadata')
+            t.equal(Math.floor(video.duration), 888, 'Video metadata is ok')
             client.destroy(err => {
               t.error(err, 'client destroyed')
             })
@@ -140,11 +140,17 @@ if (!global?.process?.versions?.electron) {
               t.error(err, `got http response for /${path}/${torrent.files[0].path}`)
               t.deepEqual(data, fixtures.leaves.content)
 
-              server.close(() => {
-                t.pass('server closed')
-              })
-              client.destroy(err => {
-                t.error(err, 'client destroyed')
+              // test streamURL
+              get.concat(torrent.files[0].streamURL, (err, res, data) => {
+                t.error(err, `got http response for ${torrent.files[0].streamURL} via streamURL`)
+                t.deepEqual(data, fixtures.leaves.content)
+
+                server.close(() => {
+                  t.pass('server closed')
+                })
+                client.destroy(err => {
+                  t.error(err, 'client destroyed')
+                })
               })
             })
           })

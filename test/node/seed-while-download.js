@@ -7,7 +7,7 @@ import test from 'tape'
 import WebTorrent from '../../index.js'
 
 test('Seed and download a file at the same time', t => {
-  t.plan(14)
+  t.plan(12)
 
   const dhtServer = new DHT({ bootstrap: false })
 
@@ -93,36 +93,42 @@ test('Seed and download a file at the same time', t => {
 
       client1.add(fixtures.alice.magnetURI, { store: MemoryChunkStore })
 
-      client1.on('torrent', torrent => {
-        torrent.files[0].getBuffer((err, buf) => {
-          t.error(err)
-          t.deepEqual(buf, new Uint8Array(fixtures.alice.content), 'client1 downloaded correct content')
-          gotBuffer1 = true
-          maybeDone()
-        })
-
+      client1.on('torrent', async torrent => {
         torrent.once('done', () => {
           t.pass('client1 downloaded torrent from client2')
           gotDone1 = true
           maybeDone()
         })
+
+        try {
+          const ab = await torrent.files[0].arrayBuffer()
+          t.deepEqual(new Uint8Array(ab), new Uint8Array(fixtures.alice.content), 'client1 downloaded correct content')
+        } catch (err) {
+          t.error(err)
+        }
+
+        gotBuffer1 = true
+        maybeDone()
       })
 
       client2.add(fixtures.leaves.magnetURI, { store: MemoryChunkStore })
 
-      client2.on('torrent', torrent => {
-        torrent.files[0].getBuffer((err, buf) => {
-          t.error(err)
-          t.deepEqual(buf, new Uint8Array(fixtures.leaves.content), 'client2 downloaded correct content')
-          gotBuffer2 = true
-          maybeDone()
-        })
-
+      client2.on('torrent', async torrent => {
         torrent.once('done', () => {
           t.pass('client2 downloaded torrent from client1')
           gotDone2 = true
           maybeDone()
         })
+
+        try {
+          const ab = await torrent.files[0].arrayBuffer()
+          t.deepEqual(new Uint8Array(ab), new Uint8Array(fixtures.leaves.content), 'client1 downloaded correct content')
+        } catch (err) {
+          t.error(err)
+        }
+
+        gotBuffer2 = true
+        maybeDone()
       })
 
       function maybeDone () {

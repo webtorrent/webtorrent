@@ -12,7 +12,7 @@ import WebTorrent from '../../index.js'
 const WEB_SEED_TIMEOUT_MS = 500
 
 test('Download using webseed (via .torrent file)', t => {
-  t.plan(6)
+  t.plan(5)
   t.timeoutAfter(WEB_SEED_TIMEOUT_MS)
 
   const parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
@@ -40,18 +40,12 @@ test('Download using webseed (via .torrent file)', t => {
       client.on('error', err => { t.fail(err) })
       client.on('warning', err => { t.fail(err) })
 
-      client.on('torrent', torrent => {
+      client.on('torrent', async torrent => {
         let gotBuffer = false
         let torrentDone = false
-
-        torrent.files.forEach(file => {
-          file.getBuffer((err, buf) => {
-            t.error(err)
-            t.deepEqual(buf, new Uint8Array(fixtures.leaves.content), 'downloaded correct content')
-            gotBuffer = true
-            maybeDone()
-          })
-        })
+        function maybeDone () {
+          if (gotBuffer && torrentDone) cb(null)
+        }
 
         torrent.once('done', () => {
           t.pass('client downloaded torrent from webseed')
@@ -59,8 +53,16 @@ test('Download using webseed (via .torrent file)', t => {
           maybeDone()
         })
 
-        function maybeDone () {
-          if (gotBuffer && torrentDone) cb(null)
+        for (const file of torrent.files) {
+          try {
+            const ab = await file.arrayBuffer()
+            t.deepEqual(new Uint8Array(ab), new Uint8Array(fixtures.leaves.content), 'downloaded correct content')
+          } catch (err) {
+            t.error(err)
+          }
+
+          gotBuffer = true
+          maybeDone()
         }
       })
 

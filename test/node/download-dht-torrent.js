@@ -82,18 +82,12 @@ test('Download using DHT (via .torrent file)', t => {
       client2.on('error', err => { t.fail(err) })
       client2.on('warning', err => { t.fail(err) })
 
-      client2.on('torrent', torrent => {
+      client2.on('torrent', async torrent => {
         let torrentDone = false
         let gotBuffer = false
-
-        torrent.files.forEach(file => {
-          file.getBuffer((err, buf) => {
-            if (err) throw err
-            t.deepEqual(buf, new Uint8Array(fixtures.leaves.content), 'downloaded correct content')
-            gotBuffer = true
-            maybeDone()
-          })
-        })
+        function maybeDone () {
+          if (torrentDone && gotBuffer) cb(null)
+        }
 
         torrent.once('done', () => {
           t.pass('client2 downloaded torrent from client1')
@@ -101,8 +95,15 @@ test('Download using DHT (via .torrent file)', t => {
           maybeDone()
         })
 
-        function maybeDone () {
-          if (torrentDone && gotBuffer) cb(null)
+        for (const file of torrent.files) {
+          try {
+            const ab = await file.arrayBuffer()
+            t.deepEqual(new Uint8Array(ab), new Uint8Array(fixtures.leaves.content), 'downloaded correct content')
+          } catch (err) {
+            t.error(err)
+          }
+          gotBuffer = true
+          maybeDone()
         }
       })
 

@@ -91,6 +91,7 @@
     "semantic-release": "19.0.5",
     "serve-static": "1.15.0",
     "standard": "*",
+    "tap-spec": "^5.0.0",
     "tape": "5.6.1",
     "webtorrent-fixtures": "1.7.5"
   },
@@ -150,10 +151,10 @@
     "size": "npm run size-js && npm run size-disc",
     "size-disc": "browserify -p esmify --full-paths . | discify --open",
     "size-js": "npm run build && cat webtorrent.min.js | gzip | wc -c",
-    "test": "standard && npm run test-node && npm run test-browser",
-    "test-browser": "airtap --concurrency 1 -- test/*.js test/browser/*.js",
-    "test-browser-local": "airtap --preset local -- test/*.js test/browser/*.js",
-    "test-node": "tape test/*.js test/node/*.js",
+    "test": "standard && npm run test-node && npm run test-browser | tap-spec",
+    "test-browser": "airtap --concurrency 1 -- test/*.js test/browser/*.js | tap-spec",
+    "test-browser-local": "airtap --preset local -- test/*.js test/browser/*.js | tap-spec",
+    "test-node": "tape test/*.js test/node/*.js | tap-spec",
     "update-authors": "./scripts/update-authors.sh"
   },
   "standard": {
