@@ -14,7 +14,7 @@ import parseTorrent from 'parse-torrent'
 import Peer from 'simple-peer'
 import queueMicrotask from 'queue-microtask'
 import randombytes from 'randombytes'
-import sha1 from 'simple-sha1'
+import { hash, hex2arr, arr2hex, arr2base, text2arr } from 'uint8-util'
 import throughput from 'throughput'
 import { ThrottleGroup } from 'speed-limiter'
 import ConnPool from './lib/conn-pool.js' // browser exclude
@@ -55,23 +55,23 @@ export default class WebTorrent extends EventEmitter {
 
     if (typeof opts.peerId === 'string') {
       this.peerId = opts.peerId
-    } else if (Buffer.isBuffer(opts.peerId)) {
-      this.peerId = opts.peerId.toString('hex')
+    } else if (ArrayBuffer.isView(opts.peerId)) {
+      this.peerId = arr2hex(opts.peerId)
     } else {
-      this.peerId = Buffer.from(VERSION_PREFIX + randombytes(9).toString('base64')).toString('hex')
+      this.peerId = arr2hex(text2arr(VERSION_PREFIX + arr2base(randombytes(9))))
     }
-    this.peerIdBuffer = Buffer.from(this.peerId, 'hex')
+    this.peerIdBuffer = hex2arr(this.peerId)
 
     if (typeof opts.nodeId === 'string') {
       this.nodeId = opts.nodeId
-    } else if (Buffer.isBuffer(opts.nodeId)) {
-      this.nodeId = opts.nodeId.toString('hex')
+    } else if (ArrayBuffer.isView(opts.nodeId)) {
+      this.nodeId = arr2hex(opts.nodeId)
     } else {
-      this.nodeId = randombytes(20).toString('hex')
+      this.nodeId = arr2hex(randombytes(20))
     }
-    this.nodeIdBuffer = Buffer.from(this.nodeId, 'hex')
+    this.nodeIdBuffer = hex2arr(this.nodeId)
 
-    this._debugId = this.peerId.toString('hex').substring(0, 7)
+    this._debugId = arr2hex(this.peerId).substring(0, 7)
 
     this.destroyed = false
     this.listening = false
@@ -495,10 +495,10 @@ export default class WebTorrent extends EventEmitter {
     debug(...args)
   }
 
-  _getByHash (infoHashHash) {
+  async _getByHash (infoHashHash) {
     for (const torrent of this.torrents) {
       if (!torrent.infoHashHash) {
-        torrent.infoHashHash = sha1.sync(Buffer.from('72657132' /* 'req2' */ + torrent.infoHash, 'hex'))
+        torrent.infoHashHash = await hash(hex2arr('72657132' /* 'req2' */ + torrent.infoHash), 'hex')
       }
       if (infoHashHash === torrent.infoHashHash) {
         return torrent
