@@ -9,7 +9,7 @@ import test from 'tape'
 import WebTorrent from '../../index.js'
 
 test('Download using webseed (via magnet uri)', t => {
-  t.plan(9)
+  t.plan(8)
 
   const serve = serveStatic(path.dirname(fixtures.leaves.contentPath))
   const httpServer = http.createServer((req, res) => {
@@ -69,18 +69,12 @@ test('Download using webseed (via magnet uri)', t => {
       const webSeedUrl = `http://localhost:${httpServer.address().port}/${fixtures.leaves.parsedTorrent.name}`
       const magnetURI = `${fixtures.leaves.magnetURI}&ws=${encodeURIComponent(webSeedUrl)}`
 
-      client2.on('torrent', torrent => {
+      client2.on('torrent', async torrent => {
         let gotBuffer = false
         let torrentDone = false
-
-        torrent.files.forEach(file => {
-          file.getBuffer((err, buf) => {
-            t.error(err)
-            t.deepEqual(buf, fixtures.leaves.content, 'downloaded correct content')
-            gotBuffer = true
-            maybeDone()
-          })
-        })
+        function maybeDone () {
+          if (gotBuffer && torrentDone) cb(null)
+        }
 
         torrent.once('done', () => {
           t.pass('client2 downloaded torrent from client1')
@@ -88,8 +82,16 @@ test('Download using webseed (via magnet uri)', t => {
           maybeDone()
         })
 
-        function maybeDone () {
-          if (gotBuffer && torrentDone) cb(null)
+        for (const file of torrent.files) {
+          try {
+            const ab = await file.arrayBuffer()
+            t.deepEqual(new Uint8Array(ab), new Uint8Array(fixtures.leaves.content), 'downloaded correct content')
+          } catch (err) {
+            t.error(err)
+          }
+
+          gotBuffer = true
+          maybeDone()
         }
       })
 

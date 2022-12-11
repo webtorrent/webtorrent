@@ -90,18 +90,12 @@ function magnetDownloadTest (t, serverType) {
       client2.on('error', err => { t.fail(err) })
       client2.on('warning', err => { t.fail(err) })
 
-      client2.on('torrent', torrent => {
+      client2.on('torrent', async torrent => {
         let gotBuffer = false
         let torrentDone = false
-
-        torrent.files.forEach(file => {
-          file.getBuffer((err, buf) => {
-            if (err) throw err
-            t.deepEqual(buf, fixtures.leaves.content, 'downloaded correct content')
-            gotBuffer = true
-            maybeDone()
-          })
-        })
+        function maybeDone () {
+          if (gotBuffer && torrentDone) cb(null)
+        }
 
         torrent.once('done', () => {
           t.pass('client2 downloaded torrent from client1')
@@ -109,8 +103,16 @@ function magnetDownloadTest (t, serverType) {
           maybeDone()
         })
 
-        function maybeDone () {
-          if (gotBuffer && torrentDone) cb(null)
+        for (const file of torrent.files) {
+          try {
+            const ab = await file.arrayBuffer()
+            t.deepEqual(new Uint8Array(ab), new Uint8Array(fixtures.leaves.content), 'downloaded correct content')
+          } catch (err) {
+            t.error(err)
+          }
+
+          gotBuffer = true
+          maybeDone()
         }
       })
 

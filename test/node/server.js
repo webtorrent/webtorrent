@@ -52,7 +52,13 @@ test('client.createServer: programmatic http server', t => {
           t.error(err, `got http response for /${path}/${torrent.files[0].path}`)
           t.deepEqual(data, fixtures.leaves.content)
 
-          close()
+          // test streamURL
+          get.concat(torrent.files[0].streamURL, (err, res, data) => {
+            t.error(err, `got http response for ${torrent.files[0].streamURL} via streamURL`)
+            t.deepEqual(data, fixtures.leaves.content)
+
+            close()
+          })
         })
       })
     })
