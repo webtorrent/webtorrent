@@ -64,12 +64,12 @@
     "simple-concat": "^1.0.1",
     "simple-get": "^4.0.1",
     "simple-peer": "^9.11.1",
-    "simple-sha1": "^3.1.0",
     "speed-limiter": "^1.0.2",
     "streamx": "^2.12.5",
     "throughput": "^1.0.1",
     "torrent-discovery": "^9.4.14",
     "torrent-piece": "^2.0.1",
+    "uint8-util": "^2.1.4",
     "unordered-array-remove": "^1.0.2",
     "ut_metadata": "^3.5.2",
     "ut_pex": "^3.0.2"
