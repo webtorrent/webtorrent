@@ -606,11 +606,9 @@ File download progress, from 0 to 1.
 Selects the file to be downloaded, at the given `priority`.
 Useful if you know you need the file at a later stage.
 
-## `file.deselect([priority])`
+## `file.deselect()`
 
-Deselects the file's specific priority, which means it won't be downloaded unless someone creates a stream for it.
-
-*Note: This method is currently not working as expected, see [dcposch answer on #164](https://github.com/webtorrent/webtorrent/issues/164) for a nice work around solution.
+Deselects the file's, which means it won't be downloaded unless someone creates a stream for it.
 
 ## `stream = file.createReadStream([opts])`
 
