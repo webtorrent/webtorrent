@@ -5,7 +5,7 @@ import test from 'tape'
 import WebTorrent from '../../index.js'
 
 test('client.createServer: programmatic http server', t => {
-  t.plan(9)
+  t.plan(11)
 
   const client = new WebTorrent({ tracker: false, dht: false, lsd: false })
 
@@ -53,7 +53,7 @@ test('client.createServer: programmatic http server', t => {
           t.deepEqual(data, fixtures.leaves.content)
 
           // test streamURL
-          get.concat(torrent.files[0].streamURL, (err, res, data) => {
+          get.concat(host + torrent.files[0].streamURL, (err, res, data) => {
             t.error(err, `got http response for ${torrent.files[0].streamURL} via streamURL`)
             t.deepEqual(data, fixtures.leaves.content)
 

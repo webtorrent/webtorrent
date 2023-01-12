@@ -36,7 +36,7 @@ JavaScript&trade;. Note: WebTorrent does **not** support UDP/TCP peers in browse
 Simply include the
 [`webtorrent.min.js`](https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js) script
 on your page to start fetching files over WebRTC using the BitTorrent protocol, or
-`import Webtorrent from 'webtorrent'` with [browserify](http://browserify.org/). See [demo apps
+`import WebTorrent from 'webtorrent'` with [browserify](http://browserify.org/) or [webpack](https://webpack.js.org/). See [demo apps
 ](#who-is-using-webtorrent-today) and [code examples](#usage) below.
 
 [![jsdelivr download count](https://data.jsdelivr.com/v1/package/npm/webtorrent/badge)](https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js)
@@ -80,7 +80,7 @@ they can connect to both normal *and* web peers. We hope other clients will foll
 - **WebRTC data channels** for lightweight peer-to-peer communication with **no plugins**
 - **No silos.** WebTorrent is a P2P network for the **entire web.** WebTorrent clients
   running on one domain can connect to clients on any other domain.
-- Stream video torrents into a `<video>` tag (`webm (vp8, vp9)` or `mp4 (h.264)`)
+- Stream video torrents into a `<video>` tag (`webm, mkv, mp4, ogv, mov, etc (AV1, H264, HEVC*, VP8, VP9, AAC, FLAC, MP3, OPUS, Vorbis, etc)`)
 - Supports Chrome, Firefox, Opera and Safari.
 
 <p align="center">
@@ -91,7 +91,7 @@ they can connect to both normal *and* web peers. We hope other clients will foll
 
 ### Install
 
-To install WebTorrent for use in node or the browser with `import Webtorrent from 'webtorrent'`, run:
+To install WebTorrent for use in node or the browser with `import WebTorrent from 'webtorrent'`, run:
 
 ```bash
 npm install webtorrent
@@ -138,13 +138,13 @@ import WebTorrent from 'webtorrent'
 const client = new WebTorrent()
 const magnetURI = '...'
 
-client.add(magnetURI, function (torrent) {
+client.add(magnetURI, torrent => {
   // Got torrent metadata!
   console.log('Client is downloading:', torrent.infoHash)
 
-  torrent.files.forEach(function (file) {
+  for (const file of torrent.files) {
     document.body.append(file.name)
-  })
+  }
 })
 ```
 
@@ -157,8 +157,8 @@ import WebTorrent from 'webtorrent'
 const client = new WebTorrent()
 
 // When user drops files on the browser, create a new torrent and start seeding it!
-dragDrop('body', function (files) {
-  client.seed(files, function (torrent) {
+dragDrop('body', files => {
+  client.seed(files, torrent => {
     console.log('Client is seeding:', torrent.infoHash)
   })
 })
@@ -174,19 +174,11 @@ you use [node](http://nodejs.org/)-style require() to organize your browser code
 ##### Webpack
 
 WebTorrent also works with [webpack](https://webpack.js.org/), another module
-bundler. However, webpack requires the following extra configuration:
+bundler. However, webpack requires extra configuration which you can find in [the webpack bundle config used by webtorrent](/scripts/browser.webpack.js).
 
-```js
-{
-  target: 'web',
-  node: {
-    fs: 'empty'
-  }
-}
-```
 
 Or, you can just use the pre-built version via
-`import 'webtorrent/webtorrent.min.js'` and skip the webpack configuration.
+`import WebTorrent from 'webtorrent/dist/webtorrent.min.js'` and skip the webpack configuration.
 
 ##### Script tag
 
@@ -196,7 +188,7 @@ object, so it can be used with just a script tag:
 
 ```html
 <script type='module'>
-  import Webtorrent from 'webtorrent.min.js'
+  import WebTorrent from 'webtorrent.min.js'
 </script>
 ```
 
@@ -205,7 +197,7 @@ MaxCDN) for easy inclusion on your site:
 
 ```html
 <script type='module'>
-  import Webtorrent from 'https://esm.sh/webtorrent'
+  import WebTorrent from 'https://esm.sh/webtorrent'
 </script>
 ```
 
@@ -217,7 +209,7 @@ following script:
 
 ```html
 <script type='module'>
-  import Webtorrent from 'webtorrent.chromeapp.js'
+  import WebTorrent from 'webtorrent.chromeapp.js'
 </script>
 ```
 
@@ -405,7 +397,7 @@ DEBUG=* webtorrent
 In the **browser**, enable debug logs by running this in the developer console:
 
 ```js
-localStorage.debug = '*'
+localStorage.setItem('debug', '*')
 ```
 
 Disable by running this:
