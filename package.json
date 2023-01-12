@@ -78,7 +78,7 @@
     "torrent-discovery": "^9.4.15",
     "torrent-piece": "^2.0.1",
     "unordered-array-remove": "^1.0.2",
-    "ut_metadata": "^3.5.2",
+    "ut_metadata": "^4.0.2",
     "ut_pex": "^3.0.2"
   },
   "devDependencies": {
