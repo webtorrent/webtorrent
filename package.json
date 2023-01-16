@@ -96,7 +96,7 @@
     "semantic-release": "20.0.2",
     "serve-static": "1.15.0",
     "standard": "*",
-    "tape": "5.6.1",
+    "tape": "5.6.3",
     "webtorrent-fixtures": "1.7.5"
   },
   "optionalDependencies": {
