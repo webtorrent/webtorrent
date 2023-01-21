@@ -1,3 +1,10 @@
+## [1.9.7](https://github.com/webtorrent/webtorrent/compare/v1.9.6...v1.9.7) (2023-01-12)
+
+
+### Bug Fixes
+
+* **deps:** update webtorrent ([#2424](https://github.com/webtorrent/webtorrent/issues/2424)) ([1b002db](https://github.com/webtorrent/webtorrent/commit/1b002db3ec5395c3bccec3619480e3ad9af30e25))
+
 ## [1.9.6](https://github.com/webtorrent/webtorrent/compare/v1.9.5...v1.9.6) (2022-12-03)
 
 
