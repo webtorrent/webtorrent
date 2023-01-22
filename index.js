@@ -1,7 +1,4 @@
 /*! webtorrent. MIT License. WebTorrent LLC <https://webtorrent.io/opensource> */
-/* global FileList */
-/* eslint-env browser */
-
 import EventEmitter from 'events'
 import path from 'path'
 import concat from 'simple-concat'

@@ -36,8 +36,8 @@
     "@webtorrent/http-node": "^1.3.0",
     "addr-to-ip-port": "^1.5.4",
     "bitfield": "^4.1.0",
-    "bittorrent-protocol": "^4.0.1",
     "bittorrent-dht": "^10.0.7",
+    "bittorrent-protocol": "^4.0.1",
     "cache-chunk-store": "^3.2.2",
     "chunk-store-iterator": "^1.0.2",
     "cpus": "^1.0.3",
@@ -76,6 +76,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.20.2",
+    "@babel/eslint-parser": "^7.19.1",
     "@babel/plugin-syntax-import-assertions": "7.20.0",
     "@babel/preset-env": "7.20.2",
     "@webtorrent/semantic-release-config": "1.0.8",
@@ -87,6 +88,11 @@
     "buffer": "^6.0.3",
     "chrome-net": "^3.3.4",
     "disc": "1.3.3",
+    "eslint": "^8.32.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-promise": "^6.1.1",
     "finalhandler": "1.2.0",
     "network-address": "1.1.2",
     "pako": "^2.1.0",
@@ -94,7 +100,6 @@
     "run-series": "1.1.9",
     "semantic-release": "20.0.2",
     "serve-static": "1.15.0",
-    "standard": "*",
     "stream-http": "^3.2.0",
     "tap-spec": "^5.0.0",
     "tape": "5.6.3",
@@ -157,19 +162,11 @@
     "size": "npm run size-js && npm run size-disc",
     "size-disc": "npm run build-js && cat ./dist/webtorrent.min.js | discify --open",
     "size-js": "npm run build-js && cat ./dist/webtorrent.min.js | gzip | wc -c",
-    "test": "standard && npm run test-node && npm run test-browser | tap-spec",
+    "test": "eslint . && npm run test-node && npm run test-browser | tap-spec",
     "test-browser": "airtap --concurrency 1 -- test/*.js test/browser/*.js | tap-spec",
     "test-browser-local": "airtap --preset local -- test/*.js test/browser/*.js | tap-spec",
     "test-node": "tape test/*.js test/node/*.js | tap-spec",
-
     "update-authors": "./scripts/update-authors.sh"
-  },
-  "standard": {
-    "ignore": [
-      "webtorrent.min.js",
-      "sw.min.js",
-      "webtorrent.chromeapp.js"
-    ]
   },
   "renovate": {
     "extends": [
