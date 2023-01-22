@@ -1,3 +1,45 @@
+## [1.9.7](https://github.com/webtorrent/webtorrent/compare/v1.9.6...v1.9.7) (2023-01-12)
+
+
+### Bug Fixes
+
+* **deps:** update webtorrent ([#2424](https://github.com/webtorrent/webtorrent/issues/2424)) ([1b002db](https://github.com/webtorrent/webtorrent/commit/1b002db3ec5395c3bccec3619480e3ad9af30e25))
+
+## [1.9.6](https://github.com/webtorrent/webtorrent/compare/v1.9.5...v1.9.6) (2022-12-03)
+
+
+### Bug Fixes
+
+* fix: fix: error loop ([14fe83f](https://github.com/webtorrent/webtorrent/commit/14fe83fe0088123b7caab4372217bc151094f9a3))
+
+## [1.9.5](https://github.com/webtorrent/webtorrent/compare/v1.9.4...v1.9.5) (2022-12-03)
+
+
+### Bug Fixes
+
+* infinite error loop, connecting after destroy ([79dbf69](https://github.com/webtorrent/webtorrent/commit/79dbf697cb50dc64e42139581603ac228003e1f4))
+
+## [1.9.4](https://github.com/webtorrent/webtorrent/compare/v1.9.3...v1.9.4) (2022-11-21)
+
+
+### Bug Fixes
+
+* typo in `removePeer` ([#2408](https://github.com/webtorrent/webtorrent/issues/2408)) ([83d5f72](https://github.com/webtorrent/webtorrent/commit/83d5f728b261bae5ff05160898738434f7512abb))
+
+## [1.9.3](https://github.com/webtorrent/webtorrent/compare/v1.9.2...v1.9.3) (2022-11-18)
+
+
+### Bug Fixes
+
+* removePeer error after destroy ([36a64a1](https://github.com/webtorrent/webtorrent/commit/36a64a1b5680929841e91cee5aef07b8b1359b7c))
+
+## [1.9.2](https://github.com/webtorrent/webtorrent/compare/v1.9.1...v1.9.2) (2022-11-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency create-torrent to ^5.0.9 ([#2392](https://github.com/webtorrent/webtorrent/issues/2392)) ([d5139ed](https://github.com/webtorrent/webtorrent/commit/d5139edf6dc91b04dd729b5d6aa08c111502b25a))
+
 ## [1.9.1](https://github.com/webtorrent/webtorrent/compare/v1.9.0...v1.9.1) (2022-10-28)
 
 
