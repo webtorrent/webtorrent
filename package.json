@@ -162,8 +162,8 @@
     "size": "npm run size-js && npm run size-disc",
     "size-disc": "npm run build-js && cat ./dist/webtorrent.min.js | discify --open",
     "size-js": "npm run build-js && cat ./dist/webtorrent.min.js | gzip | wc -c",
-    "test": "eslint . && npm run test-node && npm run test-browser | tap-spec",
-    "test-browser": "airtap --concurrency 1 -- test/*.js test/browser/*.js | tap-spec",
+    "test": "eslint . && npm run test-node && npm run test-browser",
+    "test-browser": "airtap --concurrency 1 -- test/*.js test/browser/*.js",
     "test-browser-local": "airtap --preset local -- test/*.js test/browser/*.js | tap-spec",
     "test-node": "tape test/*.js test/node/*.js | tap-spec",
     "update-authors": "./scripts/update-authors.sh"
