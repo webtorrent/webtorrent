@@ -1,5 +1,3 @@
-/* global Blob */
-
 import fixtures from 'webtorrent-fixtures'
 import test from 'tape'
 import WebTorrent from '../index.js'
