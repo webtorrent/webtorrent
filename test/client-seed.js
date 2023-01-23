@@ -1,8 +1,6 @@
-/* global Blob */
-
-const fixtures = require('webtorrent-fixtures')
-const test = require('tape')
-const WebTorrent = require('../index.js')
+import fixtures from 'webtorrent-fixtures'
+import test from 'tape'
+import WebTorrent from '../index.js'
 
 test('client.seed: torrent file (Buffer)', t => {
   t.plan(6)

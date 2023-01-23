@@ -1,11 +1,11 @@
-const fs = require('fs')
-const fixtures = require('webtorrent-fixtures')
-const get = require('simple-get')
-const test = require('tape')
-const WebTorrent = require('../../index.js')
+import fs from 'fs'
+import fixtures from 'webtorrent-fixtures'
+import get from 'simple-get'
+import test from 'tape'
+import WebTorrent from '../../index.js'
 
-test('torrent.createServer: programmatic http server', t => {
-  t.plan(9)
+test('client.createServer: programmatic http server', t => {
+  t.plan(11)
 
   const client = new WebTorrent({ tracker: false, dht: false, lsd: false })
 
@@ -14,7 +14,7 @@ test('torrent.createServer: programmatic http server', t => {
 
   client.add(fixtures.leaves.torrent, torrent => {
     t.pass('got "torrent" event')
-    const server = torrent.createServer()
+    const server = client.createServer()
 
     server.listen(0, () => {
       const port = server.address().port
@@ -39,19 +39,26 @@ test('torrent.createServer: programmatic http server', t => {
       })
 
       const host = `http://localhost:${port}`
+      const path = `webtorrent/${torrent.infoHash}`
 
       // Index page should list files in the torrent
-      get.concat(`${host}/`, (err, res, data) => {
-        t.error(err, 'got http response for /')
+      get.concat(`${host}/${path}/`, (err, res, data) => {
+        t.error(err, `got http response for /${path}`)
         data = data.toString()
         t.ok(data.includes('Leaves of Grass by Walt Whitman.epub'))
 
         // Verify file content for first (and only) file
-        get.concat(`${host}/0`, (err, res, data) => {
-          t.error(err, 'got http response for /0')
+        get.concat(`${host}/${path}/${torrent.files[0].path}`, (err, res, data) => {
+          t.error(err, `got http response for /${path}/${torrent.files[0].path}`)
           t.deepEqual(data, fixtures.leaves.content)
 
-          close()
+          // test streamURL
+          get.concat(host + torrent.files[0].streamURL, (err, res, data) => {
+            t.error(err, `got http response for ${torrent.files[0].streamURL} via streamURL`)
+            t.deepEqual(data, fixtures.leaves.content)
+
+            close()
+          })
         })
       })
     })

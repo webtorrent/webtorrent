@@ -1,9 +1,9 @@
-const fs = require('fs')
-const path = require('path')
-const http = require('http')
-const fixtures = require('webtorrent-fixtures')
-const test = require('tape')
-const WebTorrent = require('../../index.js')
+import fs from 'fs'
+import path from 'path'
+import http from 'http'
+import fixtures from 'webtorrent-fixtures'
+import test from 'tape'
+import WebTorrent from '../../index.js'
 
 test('WebTorrent.WEBRTC_SUPPORT', t => {
   t.plan(2)

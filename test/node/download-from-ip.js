@@ -1,11 +1,11 @@
-const fs = require('fs')
-const fixtures = require('webtorrent-fixtures')
-const MemoryChunkStore = require('memory-chunk-store')
-const test = require('tape')
-const WebTorrent = require('../../index.js')
+import fs from 'fs'
+import fixtures from 'webtorrent-fixtures'
+import MemoryChunkStore from 'memory-chunk-store'
+import test from 'tape'
+import WebTorrent from '../../index.js'
 
 test('Download via torrent.addPeer()', (t) => {
-  t.plan(7)
+  t.plan(6)
   // if initial interest isn't set, then this test is delayed
   t.timeoutAfter(5000)
 
@@ -37,24 +37,24 @@ test('Download via torrent.addPeer()', (t) => {
     downloader.add(fixtures.leaves.parsedTorrent, { store: MemoryChunkStore }, (torrent) => {
       torrent.addPeer(`localhost:${seeder.torrentPort}`)
 
-      torrent.once('done', () => {
-        torrent.files.forEach((file) => {
-          file.getBuffer((err, buf) => {
+      torrent.once('done', async () => {
+        for (const file of torrent.files) {
+          try {
+            const ab = await file.arrayBuffer()
+            t.deepEqual(new Uint8Array(ab), new Uint8Array(fixtures.leaves.content), 'downloaded correct content')
+          } catch (err) {
             t.error(err)
-
-            t.deepEqual(buf, fixtures.leaves.content, 'downloaded correct content')
-
-            seeder.destroy((err) => t.error(err, 'seeder destroyed'))
-            downloader.destroy((err) => t.error(err, 'downloader destroyed'))
-          })
-        })
+          }
+          seeder.destroy((err) => t.error(err, 'seeder destroyed'))
+          downloader.destroy((err) => t.error(err, 'downloader destroyed'))
+        }
       })
     })
   })
 })
 
 test('Download via magnet x.pe (BEP09)', (t) => {
-  t.plan(7)
+  t.plan(6)
   // if initial interest isn't set, then this test is delayed
   t.timeoutAfter(5000)
 
@@ -88,17 +88,18 @@ test('Download via magnet x.pe (BEP09)', (t) => {
     const magnetURI = fixtures.leaves.magnetURI + `&x.pe=${peerAddress}`
 
     downloader.add(magnetURI, { store: MemoryChunkStore }, (torrent) => {
-      torrent.once('done', () => {
-        torrent.files.forEach((file) => {
-          file.getBuffer((err, buf) => {
+      torrent.once('done', async () => {
+        for (const file of torrent.files) {
+          try {
+            const ab = await file.arrayBuffer()
+            t.deepEqual(new Uint8Array(ab), new Uint8Array(fixtures.leaves.content), 'downloaded correct content')
+          } catch (err) {
             t.error(err)
+          }
 
-            t.deepEqual(buf, fixtures.leaves.content, 'downloaded correct content')
-
-            seeder.destroy((err) => t.error(err, 'seeder destroyed'))
-            downloader.destroy((err) => t.error(err, 'downloader destroyed'))
-          })
-        })
+          seeder.destroy((err) => t.error(err, 'seeder destroyed'))
+          downloader.destroy((err) => t.error(err, 'downloader destroyed'))
+        }
       })
     })
   })
