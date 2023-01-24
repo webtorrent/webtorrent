@@ -1,3 +1,55 @@
+# [2.0.0](https://github.com/webtorrent/webtorrent/compare/v1.9.7...v2.0.0) (2023-01-23)
+
+
+### Bug Fixes
+
+* dependencies ([9bd7933](https://github.com/webtorrent/webtorrent/commit/9bd7933e4a1858dac20a668d1a12c26903cf77e5))
+* deprecate render-media ([#2180](https://github.com/webtorrent/webtorrent/issues/2180)) ([8b5ecea](https://github.com/webtorrent/webtorrent/commit/8b5ecea9a12be44fb258b2da31c3e1e35e9b725e))
+* **deps:** update dependency streamx to ^2.13.1 ([#2430](https://github.com/webtorrent/webtorrent/issues/2430)) ([fb5f5a6](https://github.com/webtorrent/webtorrent/commit/fb5f5a65f373a61b41d83b7ec5a5c0ca85eb7343))
+* **deps:** update dependency streamx to ^2.13.2 ([#2438](https://github.com/webtorrent/webtorrent/issues/2438)) ([4a177d7](https://github.com/webtorrent/webtorrent/commit/4a177d737a123aec2362b8be6c75a6dbabb991ec))
+* documentation, unity ([9ae5f17](https://github.com/webtorrent/webtorrent/commit/9ae5f177de6b7ba40440740b885098c58229e445))
+* ESM browser tests ([975c463](https://github.com/webtorrent/webtorrent/commit/975c46399fbda71a0baac1c81798156789fd83ca))
+* remove dead code ([2839c7a](https://github.com/webtorrent/webtorrent/commit/2839c7a55222d5b74feb2ce423b3cc2be61ee4e8))
+* remove tap-spec where it's not necessary ([5188eca](https://github.com/webtorrent/webtorrent/commit/5188ecac01b30115b20e87bfc4fec46348ea7f8d))
+* revert bittorent-protocol ver ([28df830](https://github.com/webtorrent/webtorrent/commit/28df830b2273200cf499fb3327259cd4c9c49eb9))
+* standard [whitespace] ([a4bc0c3](https://github.com/webtorrent/webtorrent/commit/a4bc0c3c5167405d0b93f8f061d9bad3229414fd))
+* standard linting ([a64a719](https://github.com/webtorrent/webtorrent/commit/a64a719e6a854f8d22d5b37781ee268441ca967d))
+
+
+### Continuous Integration
+
+* fix release node 18 ([25eb995](https://github.com/webtorrent/webtorrent/commit/25eb995c9804a0a4e6022e0be3b0b7e46ce60656))
+
+
+* Merge pull request #2260 from webtorrent/v2 ([f8c545a](https://github.com/webtorrent/webtorrent/commit/f8c545a7da0f0fb9a35c4377d249ee1e946540c4)), closes [#2260](https://github.com/webtorrent/webtorrent/issues/2260)
+* feat, perf: w3c-like File, file-iterator (#2414) ([69d85a8](https://github.com/webtorrent/webtorrent/commit/69d85a8b2d05f09702df5df40894c4e56c22d52d)), closes [#2414](https://github.com/webtorrent/webtorrent/issues/2414)
+
+
+### Features
+
+* esm ([98353d9](https://github.com/webtorrent/webtorrent/commit/98353d910a11e5cc90b4ed86bca558586cb787d5))
+* rescan of torrent should get all (in)valid events ([#1903](https://github.com/webtorrent/webtorrent/issues/1903)) ([4745739](https://github.com/webtorrent/webtorrent/commit/474573930a0f3c1cac242fb3b9616db881462d00))
+* sw-renderer tests ([73aff7f](https://github.com/webtorrent/webtorrent/commit/73aff7f1c22d340470777e462f9465736d0ed46d))
+* unify HTTP server and SW renderer ([7aeea17](https://github.com/webtorrent/webtorrent/commit/7aeea1757000741a04409dadeaf9fab3966b399d))
+* use storage (FSA+IDB) instead of memory in browser ([00e1c9f](https://github.com/webtorrent/webtorrent/commit/00e1c9f16d5d82bf1bfe3f889d29d8ce450fc787))
+
+
+### Performance Improvements
+
+* drop browserify ([c73d28e](https://github.com/webtorrent/webtorrent/commit/c73d28e7c17ebeb1921871275adb7a7899dada91))
+* drop chunk store stream ([cf4d593](https://github.com/webtorrent/webtorrent/commit/cf4d5938084f01f3004884f26abaea65fc3cb365))
+* drop rusha, drop Buffer ([#2390](https://github.com/webtorrent/webtorrent/issues/2390)) ([9ac1dfa](https://github.com/webtorrent/webtorrent/commit/9ac1dfacb25af85bfe2360fdc1872e41034e9efb))
+* use mime-lite ([c83734c](https://github.com/webtorrent/webtorrent/commit/c83734c5a2e0ba0fe789dda81f5f610581b4c973))
+
+
+### BREAKING CHANGES
+
+* v2
+* ESM only, drop node 12 and ndoe 14
+* deprecate getBuffer
+
+* fix: reading when destroyed
+
 ## [1.9.7](https://github.com/webtorrent/webtorrent/compare/v1.9.6...v1.9.7) (2023-01-12)
 
 
