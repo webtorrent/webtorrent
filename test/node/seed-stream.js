@@ -1,7 +1,7 @@
 import { Readable } from 'stream'
 import series from 'run-series'
 import test from 'tape'
-import Tracker from 'bittorrent-tracker/server.js'
+import { Server as Tracker } from 'bittorrent-tracker'
 import WebTorrent from '../../index.js'
 
 test('client.seed: stream', t => {

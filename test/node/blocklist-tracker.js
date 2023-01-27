@@ -1,7 +1,7 @@
 import fixtures from 'webtorrent-fixtures'
 import series from 'run-series'
 import test from 'tape'
-import TrackerServer from 'bittorrent-tracker/server.js'
+import { Server as TrackerServer } from 'bittorrent-tracker'
 import WebTorrent from '../../index.js'
 import common from '../common.js'
 

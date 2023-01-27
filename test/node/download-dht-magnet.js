@@ -1,5 +1,5 @@
 import fs from 'fs'
-import DHT from 'bittorrent-dht/server.js'
+import { Server as DHT } from 'bittorrent-dht'
 import fixtures from 'webtorrent-fixtures'
 import MemoryChunkStore from 'memory-chunk-store'
 import networkAddress from 'network-address'
