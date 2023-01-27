@@ -201,7 +201,7 @@ destroyed and all torrents are removed and cleaned up when this occurs.
 
 Always listen for the 'error' event.
 
-## `client.remove(torrentId, [opts], [function callback (err) {}])`
+## `await client.remove(torrentId, [opts], [function callback (err) {}])`
 
 Remove a torrent from the client. Destroy all connections to peers and delete all saved file metadata.
 
@@ -219,9 +219,9 @@ Destroy the client, including all torrents and connections to peers. If `callbac
 
 An array of all torrents in the client.
 
-## `client.get(torrentId)`
+## `await client.get(torrentId)`
 
-Returns the torrent with the given `torrentId`. Convenience method. Easier than searching
+Returns a promise which resolves the torrent with the given `torrentId`. Convenience method. Easier than searching
 through the `client.torrents` array. Returns `null` if no matching torrent found.
 
 ## `client.downloadSpeed`
