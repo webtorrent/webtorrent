@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/webtorrent/webtorrent/compare/v2.0.1...v2.0.2) (2023-01-28)
+
+
+### Performance Improvements
+
+* drop streamx ([#2462](https://github.com/webtorrent/webtorrent/issues/2462)) ([cde79ed](https://github.com/webtorrent/webtorrent/commit/cde79edf540932f10c9af26ccc5c56489e362a9f))
+
 ## [2.0.1](https://github.com/webtorrent/webtorrent/compare/v2.0.0...v2.0.1) (2023-01-25)
 
 
