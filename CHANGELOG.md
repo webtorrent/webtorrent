@@ -1,3 +1,24 @@
+## [2.0.4](https://github.com/webtorrent/webtorrent/compare/v2.0.3...v2.0.4) (2023-01-28)
+
+
+### Bug Fixes
+
+* make server index pages return links with absolute urls ([#2455](https://github.com/webtorrent/webtorrent/issues/2455)) ([f2687e2](https://github.com/webtorrent/webtorrent/commit/f2687e28ea370c8e9e2ec4a8ed15c398c01f645a)), closes [#2454](https://github.com/webtorrent/webtorrent/issues/2454)
+
+## [2.0.3](https://github.com/webtorrent/webtorrent/compare/v2.0.2...v2.0.3) (2023-01-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency fs-chunk-store to ^4.0.1 ([#2463](https://github.com/webtorrent/webtorrent/issues/2463)) ([bb7c640](https://github.com/webtorrent/webtorrent/commit/bb7c6405b264223d7af13e21c654e575c2499b79))
+
+## [2.0.2](https://github.com/webtorrent/webtorrent/compare/v2.0.1...v2.0.2) (2023-01-28)
+
+
+### Performance Improvements
+
+* drop streamx ([#2462](https://github.com/webtorrent/webtorrent/issues/2462)) ([cde79ed](https://github.com/webtorrent/webtorrent/commit/cde79edf540932f10c9af26ccc5c56489e362a9f))
+
 ## [2.0.1](https://github.com/webtorrent/webtorrent/compare/v2.0.0...v2.0.1) (2023-01-25)
 
 

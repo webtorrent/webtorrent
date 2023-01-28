@@ -1,4 +1,4 @@
-import DHT from 'bittorrent-dht/server.js'
+import { Server as DHT } from 'bittorrent-dht'
 import fixtures from 'webtorrent-fixtures'
 import series from 'run-series'
 import test from 'tape'
