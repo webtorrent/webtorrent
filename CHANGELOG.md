@@ -1,3 +1,10 @@
+## [2.0.4](https://github.com/webtorrent/webtorrent/compare/v2.0.3...v2.0.4) (2023-01-28)
+
+
+### Bug Fixes
+
+* make server index pages return links with absolute urls ([#2455](https://github.com/webtorrent/webtorrent/issues/2455)) ([f2687e2](https://github.com/webtorrent/webtorrent/commit/f2687e28ea370c8e9e2ec4a8ed15c398c01f645a)), closes [#2454](https://github.com/webtorrent/webtorrent/issues/2454)
+
 ## [2.0.3](https://github.com/webtorrent/webtorrent/compare/v2.0.2...v2.0.3) (2023-01-28)
 
 
