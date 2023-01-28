@@ -2,9 +2,9 @@
 import EventEmitter from 'events'
 import path from 'path'
 import concat from 'simple-concat'
-import createTorrent from 'create-torrent'
+import createTorrent, { parseInput } from 'create-torrent'
 import debugFactory from 'debug'
-import DHT from 'bittorrent-dht/client.js' // browser exclude
+import { Client as DHT } from 'bittorrent-dht' // browser exclude
 import loadIPSet from 'load-ip-set' // browser exclude
 import parallel from 'run-parallel'
 import parseTorrent from 'parse-torrent'
@@ -342,7 +342,7 @@ export default class WebTorrent extends EventEmitter {
       if (this.destroyed) return
       if (err) return torrent._destroy(err)
 
-      createTorrent.parseInput(input, opts, (err, files) => {
+      parseInput(input, opts, (err, files) => {
         if (this.destroyed) return
         if (err) return torrent._destroy(err)
 

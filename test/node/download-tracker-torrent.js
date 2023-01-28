@@ -3,7 +3,7 @@ import fixtures from 'webtorrent-fixtures'
 import MemoryChunkStore from 'memory-chunk-store'
 import series from 'run-series'
 import test from 'tape'
-import TrackerServer from 'bittorrent-tracker/server.js'
+import { Server as TrackerServer } from 'bittorrent-tracker'
 import WebTorrent from '../../index.js'
 
 test('Download using UDP tracker (via .torrent file)', t => {
