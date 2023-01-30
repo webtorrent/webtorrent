@@ -163,7 +163,6 @@ test('successive sync client.add, client.remove, client.add, client.remove (sync
   }, torrent1 => {
     t.equal(client.torrents.length, 1)
 
-    client.add(torrent1.infoHash)
     client.remove(torrent1.infoHash, () => {
       client.add(torrent1.infoHash)
       client.remove(torrent1.infoHash, () => {
