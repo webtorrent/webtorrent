@@ -1,3 +1,10 @@
+## [2.0.6](https://github.com/webtorrent/webtorrent/compare/v2.0.5...v2.0.6) (2023-01-30)
+
+
+### Performance Improvements
+
+* drop simple-get ([#2448](https://github.com/webtorrent/webtorrent/issues/2448)) ([b3c8376](https://github.com/webtorrent/webtorrent/commit/b3c83763abc964b705d66272ec7d76300ca0e4d2))
+
 ## [2.0.5](https://github.com/webtorrent/webtorrent/compare/v2.0.4...v2.0.5) (2023-01-30)
 
 
