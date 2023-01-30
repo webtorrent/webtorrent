@@ -39,8 +39,10 @@ function testSpeed (t, downloaderOpts, uploaderOpts, cb) {
     // Start downloading
     const torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
 
-    // Manually connect peers
-    torrent.addPeer(`127.0.0.1:${client2.address().port}`)
+    torrent.once('infoHash', () => {
+      // Manually connect peers
+      torrent.addPeer(`127.0.0.1:${client2.address().port}`)
+    })
 
     torrent.on('download', () => {
       downloadSpeeds.push(torrent.downloadSpeed)

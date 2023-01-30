@@ -13,10 +13,10 @@ test('client.remove: remove by Torrent object', t => {
   const torrent = client.add(fixtures.leaves.parsedTorrent.infoHash)
   t.equal(client.torrents.length, 1)
 
-  torrent.on('infoHash', () => {
+  torrent.on('infoHash', async () => {
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
 
-    client.remove(torrent, err => { t.error(err, 'torrent destroyed') })
+    await client.remove(torrent, err => { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(err => { t.error(err, 'client destroyed') })

@@ -13,11 +13,11 @@ test('client.add: magnet uri, utf-8 string', t => {
   const torrent = client.add(fixtures.leaves.magnetURI)
   t.equal(client.torrents.length, 1)
 
-  torrent.on('infoHash', () => {
+  torrent.on('infoHash', async () => {
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
     t.equal(torrent.magnetURI, fixtures.leaves.magnetURI)
 
-    client.remove(fixtures.leaves.magnetURI, err => { t.error(err, 'torrent destroyed') })
+    await client.remove(fixtures.leaves.magnetURI, err => { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(err => { t.error(err, 'client destroyed') })
@@ -35,11 +35,12 @@ test('client.add: torrent file, buffer', t => {
   const torrent = client.add(fixtures.leaves.torrent)
   t.equal(client.torrents.length, 1)
 
-  torrent.on('infoHash', () => {
+  torrent.on('infoHash', async () => {
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
     t.equal(torrent.magnetURI, fixtures.leaves.magnetURI)
 
-    client.remove(fixtures.leaves.torrent, err => { t.error(err, 'torrent destroyed') })
+    await client.remove(fixtures.leaves.torrent, err => { t.error(err, 'torrent destroyed') })
+    console.log(client.torrents.length)
     t.equal(client.torrents.length, 0)
 
     client.destroy(err => { t.error(err, 'client destroyed') })
@@ -57,11 +58,11 @@ test('client.add: info hash, hex string', t => {
   const torrent = client.add(fixtures.leaves.parsedTorrent.infoHash)
   t.equal(client.torrents.length, 1)
 
-  torrent.on('infoHash', () => {
+  torrent.on('infoHash', async () => {
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
     t.equal(torrent.magnetURI, `magnet:?xt=urn:btih:${fixtures.leaves.parsedTorrent.infoHash}`)
 
-    client.remove(fixtures.leaves.parsedTorrent.infoHash, err => { t.error(err, 'torrent destroyed') })
+    await client.remove(fixtures.leaves.parsedTorrent.infoHash, err => { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(err => { t.error(err, 'client destroyed') })
@@ -79,11 +80,11 @@ test('client.add: info hash, buffer', t => {
   const torrent = client.add(fixtures.leaves.parsedTorrent.infoHashBuffer)
   t.equal(client.torrents.length, 1)
 
-  torrent.on('infoHash', () => {
+  torrent.on('infoHash', async () => {
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
     t.ok(torrent.magnetURI.indexOf(`magnet:?xt=urn:btih:${fixtures.leaves.parsedTorrent.infoHash}`) === 0)
 
-    client.remove(Buffer.from(fixtures.leaves.parsedTorrent.infoHash, 'hex'), err => { t.error(err, 'torrent destroyed') })
+    await client.remove(Buffer.from(fixtures.leaves.parsedTorrent.infoHash, 'hex'), err => { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(err => { t.error(err, 'client destroyed') })
@@ -101,11 +102,11 @@ test('client.add: parsed torrent, from `parse-torrent`', t => {
   const torrent = client.add(fixtures.leaves.parsedTorrent)
   t.equal(client.torrents.length, 1)
 
-  torrent.on('infoHash', () => {
+  torrent.on('infoHash', async () => {
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
     t.equal(torrent.magnetURI, fixtures.leaves.magnetURI)
 
-    client.remove(fixtures.leaves.parsedTorrent, err => { t.error(err, 'torrent destroyed') })
+    await client.remove(fixtures.leaves.parsedTorrent, err => { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(err => { t.error(err, 'client destroyed') })
@@ -126,7 +127,7 @@ test('client.add: parsed torrent, with string type announce property', t => {
   const torrent = client.add(parsedTorrent)
   t.equal(client.torrents.length, 1)
 
-  torrent.on('infoHash', () => {
+  torrent.on('infoHash', async () => {
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
 
     const expectedMagnetURI = `${fixtures.leaves.magnetURI}&tr=${encodeURIComponent('http://tracker.local:80')}`
@@ -135,7 +136,7 @@ test('client.add: parsed torrent, with string type announce property', t => {
     // `torrent.announce` must always be an array
     t.deepEqual(torrent.announce, ['http://tracker.local:80'])
 
-    client.remove(fixtures.leaves.parsedTorrent, err => { t.error(err, 'torrent destroyed') })
+    await client.remove(fixtures.leaves.parsedTorrent, err => { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(err => { t.error(err, 'client destroyed') })
@@ -156,7 +157,7 @@ test('client.add: parsed torrent, with array type announce property', t => {
   const torrent = client.add(parsedTorrent)
   t.equal(client.torrents.length, 1)
 
-  torrent.on('infoHash', () => {
+  torrent.on('infoHash', async () => {
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
 
     const expectedMagnetURI = `${fixtures.leaves.magnetURI}&tr=${encodeURIComponent('http://tracker.local:80')}&tr=${encodeURIComponent('http://tracker.local:81')}`
@@ -164,7 +165,7 @@ test('client.add: parsed torrent, with array type announce property', t => {
 
     t.deepEqual(torrent.announce, ['http://tracker.local:80', 'http://tracker.local:81'])
 
-    client.remove(fixtures.leaves.parsedTorrent, err => { t.error(err, 'torrent destroyed') })
+    await client.remove(fixtures.leaves.parsedTorrent, err => { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(err => { t.error(err, 'client destroyed') })
@@ -214,10 +215,10 @@ test('client.add: paused torrent', t => {
   const torrent = client.add(fixtures.leaves.magnetURI, { paused: true })
   t.equal(client.torrents.length, 1)
 
-  torrent.on('infoHash', () => {
+  torrent.on('infoHash', async () => {
     t.equal(torrent.paused, true)
 
-    client.remove(fixtures.leaves.magnetURI, err => { t.error(err, 'torrent destroyed') })
+    await client.remove(fixtures.leaves.magnetURI, err => { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(err => { t.error(err, 'client destroyed') })
