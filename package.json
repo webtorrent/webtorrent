@@ -12,6 +12,7 @@
     "./lib/conn-pool.js": false,
     "./lib/utp.js": false,
     "bittorrent-dht": false,
+    "http": false,
     "fs": false,
     "fs-chunk-store": "hybrid-chunk-store",
     "load-ip-set": false,
