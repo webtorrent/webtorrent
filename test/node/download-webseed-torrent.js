@@ -74,8 +74,12 @@ test('Download using webseed (via .torrent file)', t => {
       t.error(err, 'client destroyed')
     })
     httpServer.close(() => {
-      t.pass('http server closed')
+      // FIXME: t.pass was moved outside of this function because node native fetch keeps
+      // connections open for longer, this isn't an issue in the node-fetch package
+      // this causes the http server take much longer to close, even tho all request
+      // have already been settled
     })
+    t.pass('http server closed')
   })
 })
 

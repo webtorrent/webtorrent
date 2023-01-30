@@ -11,8 +11,6 @@ export default {
     alias: {
       ...info.browser,
       crypto: false,
-      http: 'stream-http',
-      https: 'stream-http',
       stream: 'readable-stream',
       path: 'path-browserify'
     }
