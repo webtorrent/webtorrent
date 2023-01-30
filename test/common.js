@@ -1,8 +1,8 @@
-const os = require('os')
-const fs = require('fs')
-const path = require('path')
+import os from 'os'
+import fs from 'fs'
+import path from 'path'
 
-exports.getDownloadPath = (infix, infoHash) => {
+const getDownloadPath = (infix, infoHash) => {
   let tmpPath
   try {
     tmpPath = path.join(fs.statSync('/tmp') && '/tmp')
@@ -11,3 +11,5 @@ exports.getDownloadPath = (infix, infoHash) => {
   }
   return path.join(tmpPath, 'webtorrent', 'test', infix, infoHash)
 }
+
+export default { getDownloadPath }

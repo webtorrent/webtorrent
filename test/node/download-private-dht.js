@@ -1,9 +1,9 @@
-const DHT = require('bittorrent-dht/server')
-const fixtures = require('webtorrent-fixtures')
-const MemoryChunkStore = require('memory-chunk-store')
-const series = require('run-series')
-const test = require('tape')
-const WebTorrent = require('../../index.js')
+import { Server as DHT } from 'bittorrent-dht'
+import fixtures from 'webtorrent-fixtures'
+import MemoryChunkStore from 'memory-chunk-store'
+import series from 'run-series'
+import test from 'tape'
+import WebTorrent from '../../index.js'
 
 test('private torrent should not use DHT', t => {
   t.plan(4)

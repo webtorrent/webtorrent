@@ -1,14 +1,14 @@
-const fs = require('fs')
-const DHT = require('bittorrent-dht/server')
-const fixtures = require('webtorrent-fixtures')
-const MemoryChunkStore = require('memory-chunk-store')
-const networkAddress = require('network-address')
-const series = require('run-series')
-const test = require('tape')
-const WebTorrent = require('../../index.js')
+import fs from 'fs'
+import { Server as DHT } from 'bittorrent-dht'
+import fixtures from 'webtorrent-fixtures'
+import MemoryChunkStore from 'memory-chunk-store'
+import networkAddress from 'network-address'
+import series from 'run-series'
+import test from 'tape'
+import WebTorrent from '../../index.js'
 
 test('Download using DHT (via magnet uri)', t => {
-  t.plan(12)
+  t.plan(11)
 
   const dhtServer = new DHT({ bootstrap: false })
 
@@ -79,21 +79,23 @@ test('Download using DHT (via magnet uri)', t => {
       client2.on('error', err => { t.fail(err) })
       client2.on('warning', err => { t.fail(err) })
 
-      client2.on('torrent', torrent => {
-        torrent.files[0].getBuffer((err, buf) => {
-          t.error(err)
-          t.deepEqual(buf, fixtures.leaves.content, 'downloaded correct content')
-
-          gotBuffer = true
-          maybeDone()
-        })
-
+      client2.on('torrent', async torrent => {
         torrent.once('done', () => {
           t.pass('client2 downloaded torrent from client1')
 
           gotDone = true
           maybeDone()
         })
+
+        try {
+          const ab = await torrent.files[0].arrayBuffer()
+          t.deepEqual(new Uint8Array(ab), new Uint8Array(fixtures.leaves.content), 'downloaded correct content')
+        } catch (err) {
+          t.error(err)
+        }
+
+        gotBuffer = true
+        maybeDone()
       })
 
       client2.add(fixtures.leaves.magnetURI, { store: MemoryChunkStore })

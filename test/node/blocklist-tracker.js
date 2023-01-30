@@ -1,9 +1,9 @@
-const fixtures = require('webtorrent-fixtures')
-const series = require('run-series')
-const test = require('tape')
-const TrackerServer = require('bittorrent-tracker/server')
-const WebTorrent = require('../../index.js')
-const common = require('../common.js')
+import fixtures from 'webtorrent-fixtures'
+import series from 'run-series'
+import test from 'tape'
+import { Server as TrackerServer } from 'bittorrent-tracker'
+import WebTorrent from '../../index.js'
+import common from '../common.js'
 
 test('blocklist blocks peers discovered via tracker', t => {
   t.plan(9)

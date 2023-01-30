@@ -1,11 +1,11 @@
-const { Readable } = require('stream')
-const series = require('run-series')
-const test = require('tape')
-const Tracker = require('bittorrent-tracker/server')
-const WebTorrent = require('../../index.js')
+import { Readable } from 'stream'
+import series from 'run-series'
+import test from 'tape'
+import { Server as Tracker } from 'bittorrent-tracker'
+import WebTorrent from '../../index.js'
 
 test('client.seed: stream', t => {
-  t.plan(9)
+  t.plan(8)
 
   const tracker = new Tracker({ udp: false, ws: false })
 
@@ -50,16 +50,18 @@ test('client.seed: stream', t => {
       client.on('error', err => { t.fail(err) })
       client.on('warning', err => { t.fail(err) })
 
-      client.add(magnetURI, dl => {
+      client.add(magnetURI, async dl => {
         t.equal(dl.files.length, 1)
         t.equal(dl.files[0].name, 'hello.txt')
         t.equal(dl.files[0].length, 12)
-        dl.files[0].getBuffer((err, buf) => {
+        try {
+          const buf = await dl.files[0].arrayBuffer()
+          t.equal(Buffer.from(buf).toString('utf8'), 'HELLO WORLD\n', 'content')
+        } catch (err) {
           t.error(err)
-          t.equal(buf.toString('utf8'), 'HELLO WORLD\n', 'content')
+        }
 
-          cb(null)
-        })
+        cb(null)
       })
     }
   ], err => {
