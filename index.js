@@ -208,19 +208,19 @@ export default class WebTorrent extends EventEmitter {
    * found.
    *
    * @param  {string|Buffer|Object|Torrent} torrentId
-   * @return {Torrent|null}
+   * @return {Promise<Torrent|null>}
    */
-  get (torrentId) {
+  async get (torrentId) {
     if (torrentId instanceof Torrent) {
       if (this.torrents.includes(torrentId)) return torrentId
     } else {
+      const torrents = this.torrents
       let parsed
-      try { parsed = parseTorrent(torrentId) } catch (err) {}
-
+      try { parsed = await parseTorrent(torrentId) } catch (err) {}
       if (!parsed) return null
       if (!parsed.infoHash) throw new Error('Invalid torrent identifier')
 
-      for (const torrent of this.torrents) {
+      for (const torrent of torrents) {
         if (torrent.infoHash === parsed.infoHash) return torrent
       }
     }
@@ -348,11 +348,11 @@ export default class WebTorrent extends EventEmitter {
 
         streams = files.map(file => file.getStream)
 
-        createTorrent(input, opts, (err, torrentBuf) => {
+        createTorrent(input, opts, async (err, torrentBuf) => {
           if (this.destroyed) return
           if (err) return torrent._destroy(err)
 
-          const existingTorrent = this.get(torrentBuf)
+          const existingTorrent = await this.get(torrentBuf)
           if (existingTorrent) {
             console.warn('A torrent with the same id is already being seeded')
             torrent._destroy()
@@ -372,20 +372,18 @@ export default class WebTorrent extends EventEmitter {
    * @param  {string|Buffer|Torrent}   torrentId
    * @param  {function} cb
    */
-  remove (torrentId, opts, cb) {
+  async remove (torrentId, opts, cb) {
     if (typeof opts === 'function') return this.remove(torrentId, null, opts)
 
     this._debug('remove')
-    const torrent = this.get(torrentId)
+    const torrent = await this.get(torrentId)
     if (!torrent) throw new Error(`No torrent with id ${torrentId}`)
-    this._remove(torrentId, opts, cb)
+    this._remove(torrent, opts, cb)
   }
 
-  _remove (torrentId, opts, cb) {
-    if (typeof opts === 'function') return this._remove(torrentId, null, opts)
-
-    const torrent = this.get(torrentId)
+  _remove (torrent, opts, cb) {
     if (!torrent) return
+    if (typeof opts === 'function') return this._remove(torrent, null, opts)
     this.torrents.splice(this.torrents.indexOf(torrent), 1)
     torrent.destroy(opts, cb)
     if (this.dht) {

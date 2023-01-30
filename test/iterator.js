@@ -14,7 +14,7 @@ test('file iterator: use chunk store iterator if done', t => {
   client.seed(fixtures.leaves.content, {
     name: 'Leaves of Grass by Walt Whitman.epub',
     announce: []
-  }, torrent => {
+  }, async torrent => {
     t.equal(client.torrents.length, 1)
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
     t.equal(torrent.magnetURI, fixtures.leaves.magnetURI)
@@ -24,7 +24,7 @@ test('file iterator: use chunk store iterator if done', t => {
     t.ok(!(iterator instanceof FileIterator), 'iterator isn\'t FileIterator')
     iterator.return()
 
-    client.remove(torrent, err => { t.error(err, 'torrent removed') })
+    await client.remove(torrent, err => { t.error(err, 'torrent removed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(err => { t.error(err, 'client destroyed') })
@@ -42,7 +42,7 @@ test('file iterator: use file iterator if not done', t => {
   const torrent = client.add(fixtures.leaves.torrent)
   t.equal(client.torrents.length, 1)
 
-  torrent.on('ready', () => {
+  torrent.on('ready', async () => {
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
     t.equal(torrent.magnetURI, fixtures.leaves.magnetURI)
 
@@ -51,7 +51,7 @@ test('file iterator: use file iterator if not done', t => {
     t.ok(iterator instanceof FileIterator, 'iterator is FileIterator')
     iterator.return()
 
-    client.remove(fixtures.leaves.torrent, err => { t.error(err, 'torrent destroyed') })
+    await client.remove(fixtures.leaves.torrent, err => { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(err => { t.error(err, 'client destroyed') })

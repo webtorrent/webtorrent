@@ -36,12 +36,12 @@ test('client.add: http url to a torrent file, string', t => {
     client.on('error', err => { t.fail(err) })
     client.on('warning', err => { t.fail(err) })
 
-    client.add(url, torrent => {
+    client.add(url, async torrent => {
       t.equal(client.torrents.length, 1)
       t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
       t.equal(torrent.magnetURI, fixtures.leaves.magnetURI)
 
-      client.remove(torrent, err => { t.error(err, 'torrent destroyed') })
+      await client.remove(torrent, err => { t.error(err, 'torrent destroyed') })
       t.equal(client.torrents.length, 0)
 
       server.close(() => { t.pass('http server closed') })
@@ -58,12 +58,12 @@ test('client.add: filesystem path to a torrent file, string', t => {
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
 
-  client.add(fixtures.leaves.torrentPath, torrent => {
+  client.add(fixtures.leaves.torrentPath, async torrent => {
     t.equal(client.torrents.length, 1)
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
     t.equal(torrent.magnetURI, fixtures.leaves.magnetURI)
 
-    client.remove(torrent, err => { t.error(err, 'torrent destroyed') })
+    await client.remove(torrent, err => { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(err => { t.error(err, 'client destroyed') })
@@ -81,12 +81,12 @@ test('client.seed: filesystem path to file, string', t => {
   client.seed(fixtures.leaves.contentPath, {
     name: 'Leaves of Grass by Walt Whitman.epub',
     announce: []
-  }, torrent => {
+  }, async torrent => {
     t.equal(client.torrents.length, 1)
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
     t.equal(torrent.magnetURI, fixtures.leaves.magnetURI)
 
-    client.remove(torrent, err => { t.error(err, 'torrent destroyed') })
+    await client.remove(torrent, err => { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(err => { t.error(err, 'client destroyed') })
@@ -101,12 +101,12 @@ test('client.seed: filesystem path to folder with one file, string', t => {
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
 
-  client.seed(fixtures.folder.contentPath, { announce: [] }, torrent => {
+  client.seed(fixtures.folder.contentPath, { announce: [] }, async torrent => {
     t.equal(client.torrents.length, 1)
     t.equal(torrent.infoHash, fixtures.folder.parsedTorrent.infoHash)
     t.equal(torrent.magnetURI, fixtures.folder.magnetURI)
 
-    client.remove(torrent, err => { t.error(err, 'torrent destroyed') })
+    await client.remove(torrent, err => { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(err => { t.error(err, 'client destroyed') })
@@ -121,7 +121,7 @@ test('client.seed: filesystem path to folder with multiple files, string', t => 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
 
-  client.seed(fixtures.numbers.contentPath, { announce: [] }, torrent => {
+  client.seed(fixtures.numbers.contentPath, { announce: [] }, async torrent => {
     t.equal(client.torrents.length, 1)
     t.equal(torrent.infoHash, fixtures.numbers.parsedTorrent.infoHash)
     t.equal(torrent.magnetURI, fixtures.numbers.magnetURI)
@@ -137,7 +137,7 @@ test('client.seed: filesystem path to folder with multiple files, string', t => 
       { length: 3, downloaded: 3 }
     ], 'expected downloaded to be calculated correctly')
 
-    client.remove(torrent, err => { t.error(err, 'torrent destroyed') })
+    await client.remove(torrent, err => { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(err => { t.error(err, 'client destroyed') })

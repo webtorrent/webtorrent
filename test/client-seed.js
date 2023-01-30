@@ -13,12 +13,12 @@ test('client.seed: torrent file (Buffer)', t => {
   client.seed(fixtures.leaves.content, {
     name: 'Leaves of Grass by Walt Whitman.epub',
     announce: []
-  }, torrent => {
+  }, async torrent => {
     t.equal(client.torrents.length, 1)
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
     t.equal(torrent.magnetURI, fixtures.leaves.magnetURI)
 
-    client.remove(torrent, err => { t.error(err, 'torrent removed') })
+    await client.remove(torrent, err => { t.error(err, 'torrent removed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(err => { t.error(err, 'client destroyed') })
@@ -36,12 +36,12 @@ test('client.seed: torrent file (Buffer), set name on buffer', t => {
   const buf = Buffer.from(fixtures.leaves.content)
   buf.name = 'Leaves of Grass by Walt Whitman.epub'
 
-  client.seed(buf, { announce: [] }, torrent => {
+  client.seed(buf, { announce: [] }, async torrent => {
     t.equal(client.torrents.length, 1)
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
     t.equal(torrent.magnetURI, fixtures.leaves.magnetURI)
 
-    client.remove(torrent, err => { t.error(err, 'torrent removed') })
+    await client.remove(torrent, err => { t.error(err, 'torrent removed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(err => { t.error(err, 'client destroyed') })
@@ -61,12 +61,12 @@ test('client.seed: torrent file (Blob)', t => {
   client.seed(new Blob([fixtures.leaves.content]), {
     name: 'Leaves of Grass by Walt Whitman.epub',
     announce: []
-  }, torrent => {
+  }, async torrent => {
     t.equal(client.torrents.length, 1)
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
     t.equal(torrent.magnetURI, fixtures.leaves.magnetURI)
 
-    client.remove(torrent, err => { t.error(err, 'torrent removed') })
+    await client.remove(torrent, err => { t.error(err, 'torrent removed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(err => { t.error(err, 'client destroyed') })

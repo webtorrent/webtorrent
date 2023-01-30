@@ -14,9 +14,9 @@ test('client.add: duplicate trackers', t => {
     announce: ['wss://example.com', 'wss://example.com', 'wss://example.com']
   })
 
-  torrent.on('ready', () => {
+  torrent.on('ready', async () => {
     t.equal(torrent.magnetURI, `${fixtures.leaves.magnetURI}&tr=${encodeURIComponent('wss://example.com')}`)
-    client.remove(fixtures.leaves.magnetURI, err => { t.error(err, 'torrent destroyed') })
+    await client.remove(fixtures.leaves.magnetURI, err => { t.error(err, 'torrent destroyed') })
     client.destroy(err => { t.error(err, 'client destroyed') })
   })
 })
@@ -41,11 +41,11 @@ test('client.add: duplicate trackers, with multiple torrents', t => {
 
     const torrent2 = client.add(fixtures.alice.torrent, opts)
 
-    torrent2.on('ready', () => {
+    torrent2.on('ready', async () => {
       t.equal(torrent2.magnetURI, `${fixtures.alice.magnetURI}&tr=${encodeURIComponent('wss://example.com')}`)
 
-      torrent1.destroy(err => { t.error(err, 'torrent1 destroyed') })
-      torrent2.destroy(err => { t.error(err, 'torrent2 destroyed') })
+      await torrent1.destroy(err => { t.error(err, 'torrent1 destroyed') })
+      await torrent2.destroy(err => { t.error(err, 'torrent2 destroyed') })
       client.destroy(err => { t.error(err, 'client destroyed') })
     })
   })
@@ -78,11 +78,11 @@ test('client.add: duplicate trackers (including in .torrent file), multiple torr
 
     const torrent2 = client.add(parsedTorrentAlice, opts)
 
-    torrent2.on('ready', () => {
+    torrent2.on('ready', async () => {
       t.equal(torrent2.magnetURI, `${fixtures.alice.magnetURI}&tr=${encodeURIComponent('wss://example.com')}`)
 
-      torrent1.destroy(err => { t.error(err, 'torrent1 destroyed') })
-      torrent2.destroy(err => { t.error(err, 'torrent2 destroyed') })
+      await torrent1.destroy(err => { t.error(err, 'torrent1 destroyed') })
+      await torrent2.destroy(err => { t.error(err, 'torrent2 destroyed') })
       client.destroy(err => { t.error(err, 'client destroyed') })
     })
   })
