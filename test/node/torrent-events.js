@@ -26,12 +26,11 @@ test('client.add: emit torrent events in order', t => {
     // Start downloading
     const torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
 
-    // Manually connect peers
-    torrent.addPeer(`127.0.0.1:${client2.address().port}`)
-
     let order = 0
 
     torrent.on('infoHash', () => {
+      // Manually connect peers
+      torrent.addPeer(`127.0.0.1:${client2.address().port}`)
       t.equal(++order, 1)
     })
 
@@ -108,12 +107,11 @@ test('file.select: check multiple done events', t => {
     // Start downloading
     const torrent = client1.add(magnet, { store: MemoryChunkStore })
 
-    // Manually connect peers
-    torrent.addPeer(`127.0.0.1:${client2.address().port}`)
-
     let order = 0
 
     torrent.on('infoHash', () => {
+      // Manually connect peers
+      torrent.addPeer(`127.0.0.1:${client2.address().port}`)
       t.equal(++order, 1)
     })
 
