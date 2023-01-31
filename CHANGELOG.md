@@ -1,3 +1,10 @@
+## [2.0.7](https://github.com/webtorrent/webtorrent/compare/v2.0.6...v2.0.7) (2023-01-31)
+
+
+### Bug Fixes
+
+* **deps:** update dependency parse-torrent to ^11.0.5 ([#2470](https://github.com/webtorrent/webtorrent/issues/2470)) ([9447cd6](https://github.com/webtorrent/webtorrent/commit/9447cd65d522cd84d2abbe36bf9bc950631e6b7c))
+
 ## [2.0.6](https://github.com/webtorrent/webtorrent/compare/v2.0.5...v2.0.6) (2023-01-30)
 
 
