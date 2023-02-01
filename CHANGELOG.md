@@ -1,3 +1,10 @@
+## [2.0.11](https://github.com/webtorrent/webtorrent/compare/v2.0.10...v2.0.11) (2023-02-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency cross-fetch-ponyfill to ^1.0.3 ([#2477](https://github.com/webtorrent/webtorrent/issues/2477)) ([970d937](https://github.com/webtorrent/webtorrent/commit/970d937b9086d5a72f0ec4608e232deb951236a8))
+
 ## [2.0.10](https://github.com/webtorrent/webtorrent/compare/v2.0.9...v2.0.10) (2023-02-01)
 
 
