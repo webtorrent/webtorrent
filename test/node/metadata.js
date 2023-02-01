@@ -23,6 +23,9 @@ test('ut_metadata transfer', t => {
   client1.add(fixtures.leaves.torrent)
 
   client1.on('torrent', torrent1 => {
+    // TODO: remove these 2 lines once we replace airtap
+    fixtures.leaves.parsedTorrent.info.name = new Uint8Array(fixtures.leaves.parsedTorrent.info.name)
+    fixtures.leaves.parsedTorrent.info.pieces = new Uint8Array(fixtures.leaves.parsedTorrent.info.pieces)
     t.deepEqual(torrent1.info, fixtures.leaves.parsedTorrent.info)
 
     // client2 starts with infohash

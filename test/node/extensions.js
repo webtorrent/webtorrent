@@ -15,7 +15,7 @@ test('extension support', t => {
       extendedHandshakes += 1
 
       t.equal(
-        extendedHandshake.test.toString(), 'Hello, World!',
+        Buffer.from(extendedHandshake.test).toString(), 'Hello, World!',
         'handshake.test === Hello, World!'
       )
 
