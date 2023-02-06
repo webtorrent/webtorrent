@@ -70,7 +70,7 @@
     "throughput": "^1.0.1",
     "torrent-discovery": "^10.0.6",
     "torrent-piece": "^2.0.1",
-    "uint8-util": "^2.1.7",
+    "uint8-util": "^2.1.9",
     "unordered-array-remove": "^1.0.2",
     "ut_metadata": "^4.0.2",
     "ut_pex": "^4.0.3"
