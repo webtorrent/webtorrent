@@ -1,3 +1,10 @@
+## [2.0.13](https://github.com/webtorrent/webtorrent/compare/v2.0.12...v2.0.13) (2023-02-13)
+
+
+### Bug Fixes
+
+* **deps:** update dependency hybrid-chunk-store to ^1.2.0 ([#2482](https://github.com/webtorrent/webtorrent/issues/2482)) ([792876b](https://github.com/webtorrent/webtorrent/commit/792876b10bcd5d6a16f98bb93f95ab691447df79))
+
 ## [2.0.12](https://github.com/webtorrent/webtorrent/compare/v2.0.11...v2.0.12) (2023-02-06)
 
 
