@@ -1,3 +1,10 @@
+## [2.0.14](https://github.com/webtorrent/webtorrent/compare/v2.0.13...v2.0.14) (2023-02-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency create-torrent to ^6.0.10 ([d9e6784](https://github.com/webtorrent/webtorrent/commit/d9e678471124638c1ffa4b305d4fa6bc1165aa4f))
+
 ## [2.0.13](https://github.com/webtorrent/webtorrent/compare/v2.0.12...v2.0.13) (2023-02-13)
 
 
