@@ -1,3 +1,10 @@
+## [2.0.15](https://github.com/webtorrent/webtorrent/compare/v2.0.14...v2.0.15) (2023-03-20)
+
+
+### Bug Fixes
+
+* Replace setting blob 'mimeType' property with 'type' ([#2502](https://github.com/webtorrent/webtorrent/issues/2502)) ([869bdcd](https://github.com/webtorrent/webtorrent/commit/869bdcd438052ac6a23dd3ac73c77146cd853c83))
+
 ## [2.0.14](https://github.com/webtorrent/webtorrent/compare/v2.0.13...v2.0.14) (2023-02-22)
 
 
