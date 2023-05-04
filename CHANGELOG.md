@@ -1,3 +1,10 @@
+## [2.0.17](https://github.com/webtorrent/webtorrent/compare/v2.0.16...v2.0.17) (2023-05-04)
+
+
+### Bug Fixes
+
+* http rejections handling ([#2525](https://github.com/webtorrent/webtorrent/issues/2525)) ([6232ea0](https://github.com/webtorrent/webtorrent/commit/6232ea0ab10b29a7c92697d9376c8065eaf29e6e))
+
 ## [2.0.16](https://github.com/webtorrent/webtorrent/compare/v2.0.15...v2.0.16) (2023-04-03)
 
 
