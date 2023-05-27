@@ -1,3 +1,10 @@
+## [2.0.19](https://github.com/webtorrent/webtorrent/compare/v2.0.18...v2.0.19) (2023-05-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency torrent-discovery to ^10.0.8 ([714535b](https://github.com/webtorrent/webtorrent/commit/714535bc30466c5bf84a9c544747b9a16b57a21d))
+
 ## [2.0.18](https://github.com/webtorrent/webtorrent/compare/v2.0.17...v2.0.18) (2023-05-07)
 
 
