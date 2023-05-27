@@ -1,3 +1,10 @@
+## [2.0.21](https://github.com/webtorrent/webtorrent/compare/v2.0.20...v2.0.21) (2023-05-27)
+
+
+### Performance Improvements
+
+* reduce the impact of request idle callback ([#2542](https://github.com/webtorrent/webtorrent/issues/2542)) ([36a3e36](https://github.com/webtorrent/webtorrent/commit/36a3e3617a03a39b1fbceadf265ab297ae647500))
+
 ## [2.0.20](https://github.com/webtorrent/webtorrent/compare/v2.0.19...v2.0.20) (2023-05-27)
 
 
