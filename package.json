@@ -68,7 +68,7 @@
     "speed-limiter": "^1.0.2",
     "streamx": "^2.13.2",
     "throughput": "^1.0.1",
-    "torrent-discovery": "^10.0.8",
+    "torrent-discovery": "^10.0.9",
     "torrent-piece": "^2.0.1",
     "uint8-util": "^2.1.9",
     "unordered-array-remove": "^1.0.2",
