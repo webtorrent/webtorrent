@@ -92,7 +92,7 @@
     "eslint": "^8.41.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-n": "^15.7.0",
+    "eslint-plugin-n": "^16.0.0",
     "eslint-plugin-promise": "^6.1.1",
     "finalhandler": "1.2.0",
     "network-address": "1.1.2",
