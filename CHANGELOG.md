@@ -1,3 +1,10 @@
+## [2.0.20](https://github.com/webtorrent/webtorrent/compare/v2.0.19...v2.0.20) (2023-05-27)
+
+
+### Bug Fixes
+
+* replace simple-peer with maintained one ([#2540](https://github.com/webtorrent/webtorrent/issues/2540)) ([2994641](https://github.com/webtorrent/webtorrent/commit/29946414dbc53a23adf61e91d302fa1ea82f543f))
+
 ## [2.0.19](https://github.com/webtorrent/webtorrent/compare/v2.0.18...v2.0.19) (2023-05-27)
 
 
