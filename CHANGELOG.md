@@ -1,3 +1,10 @@
+## [2.0.23](https://github.com/webtorrent/webtorrent/compare/v2.0.22...v2.0.23) (2023-05-28)
+
+
+### Bug Fixes
+
+* drop randombytes ([#2546](https://github.com/webtorrent/webtorrent/issues/2546)) ([06b6548](https://github.com/webtorrent/webtorrent/commit/06b6548fab240f425704abe044dea1be5c5662fe))
+
 ## [2.0.22](https://github.com/webtorrent/webtorrent/compare/v2.0.21...v2.0.22) (2023-05-27)
 
 
