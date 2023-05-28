@@ -10,8 +10,7 @@ import parallel from 'run-parallel'
 import parseTorrent from 'parse-torrent'
 import Peer from '@thaunknown/simple-peer'
 import queueMicrotask from 'queue-microtask'
-import randombytes from 'randombytes'
-import { hash, hex2arr, arr2hex, arr2base, text2arr } from 'uint8-util'
+import { hash, hex2arr, arr2hex, arr2base, text2arr, randomBytes } from 'uint8-util'
 import throughput from 'throughput'
 import { ThrottleGroup } from 'speed-limiter'
 import ConnPool from './lib/conn-pool.js' // browser exclude
@@ -55,7 +54,7 @@ export default class WebTorrent extends EventEmitter {
     } else if (ArrayBuffer.isView(opts.peerId)) {
       this.peerId = arr2hex(opts.peerId)
     } else {
-      this.peerId = arr2hex(text2arr(VERSION_PREFIX + arr2base(randombytes(9))))
+      this.peerId = arr2hex(text2arr(VERSION_PREFIX + arr2base(randomBytes(9))))
     }
     this.peerIdBuffer = hex2arr(this.peerId)
 
@@ -64,7 +63,7 @@ export default class WebTorrent extends EventEmitter {
     } else if (ArrayBuffer.isView(opts.nodeId)) {
       this.nodeId = arr2hex(opts.nodeId)
     } else {
-      this.nodeId = arr2hex(randombytes(20))
+      this.nodeId = arr2hex(randomBytes(20))
     }
     this.nodeIdBuffer = hex2arr(this.nodeId)
 
