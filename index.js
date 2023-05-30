@@ -1,7 +1,6 @@
 /*! webtorrent. MIT License. WebTorrent LLC <https://webtorrent.io/opensource> */
 import EventEmitter from 'events'
 import path from 'path'
-import concat from 'simple-concat'
 import createTorrent, { parseInput } from 'create-torrent'
 import debugFactory from 'debug'
 import { Client as DHT } from 'bittorrent-dht' // browser exclude
@@ -10,7 +9,7 @@ import parallel from 'run-parallel'
 import parseTorrent from 'parse-torrent'
 import Peer from '@thaunknown/simple-peer'
 import queueMicrotask from 'queue-microtask'
-import { hash, hex2arr, arr2hex, arr2base, text2arr, randomBytes } from 'uint8-util'
+import { hash, hex2arr, arr2hex, arr2base, text2arr, randomBytes, concat } from 'uint8-util'
 import throughput from 'throughput'
 import { ThrottleGroup } from 'speed-limiter'
 import ConnPool from './lib/conn-pool.js' // browser exclude
@@ -327,13 +326,19 @@ export default class WebTorrent extends EventEmitter {
     if (isFileList(input)) input = Array.from(input)
     else if (!Array.isArray(input)) input = [input]
 
-    parallel(input.map(item => cb => {
+    parallel(input.map(item => async cb => {
       if (!opts.preloadedStore && isReadable(item)) {
-        concat(item, (err, buf) => {
-          if (err) return cb(err)
-          buf.name = item.name
-          cb(null, buf)
-        })
+        const chunks = []
+        try {
+          for await (const chunk of item) {
+            chunks.push(chunk)
+          }
+        } catch (err) {
+          return cb(err)
+        }
+        const buf = concat(chunks)
+        buf.name = item.name
+        cb(null, buf)
       } else {
         cb(null, item)
       }
