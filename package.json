@@ -63,7 +63,6 @@
     "range-parser": "^1.2.1",
     "run-parallel": "^1.2.0",
     "run-parallel-limit": "^1.1.0",
-    "simple-concat": "^1.0.1",
     "speed-limiter": "^1.0.2",
     "streamx": "^2.13.2",
     "throughput": "^1.0.1",
