@@ -1,3 +1,10 @@
+## [2.0.25](https://github.com/webtorrent/webtorrent/compare/v2.0.24...v2.0.25) (2023-05-30)
+
+
+### Bug Fixes
+
+* drop simple-concat ([#2552](https://github.com/webtorrent/webtorrent/issues/2552)) ([1243a76](https://github.com/webtorrent/webtorrent/commit/1243a76e51228e469568a52c94dc9bf666ee93be))
+
 ## [2.0.24](https://github.com/webtorrent/webtorrent/compare/v2.0.23...v2.0.24) (2023-05-30)
 
 
