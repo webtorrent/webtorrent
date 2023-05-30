@@ -1,3 +1,10 @@
+## [2.0.24](https://github.com/webtorrent/webtorrent/compare/v2.0.23...v2.0.24) (2023-05-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bittorrent-protocol to ^4.1.7 ([#2551](https://github.com/webtorrent/webtorrent/issues/2551)) ([da87d38](https://github.com/webtorrent/webtorrent/commit/da87d3827fef1e16405328c16c4f21d4e943c4e2))
+
 ## [2.0.23](https://github.com/webtorrent/webtorrent/compare/v2.0.22...v2.0.23) (2023-05-28)
 
 
