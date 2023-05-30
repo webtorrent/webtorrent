@@ -311,7 +311,7 @@ const player = document.querySelector('video')
 
 function download (instance) {
   client.add(magnetURI, torrent => {
-    const url = torrent.files[0].getStreamURL()
+    const url = torrent.files[0].streamURL
     console.log(url)
     // visit <origin>/webtorrent/ to see a list of torrents, where origin is the worker registration scope.
 
