@@ -1,3 +1,10 @@
+## [2.0.27](https://github.com/webtorrent/webtorrent/compare/v2.0.26...v2.0.27) (2023-05-31)
+
+
+### Bug Fixes
+
+* **deps:** update dependency lt_donthave to v2 ([#2555](https://github.com/webtorrent/webtorrent/issues/2555)) ([21e5007](https://github.com/webtorrent/webtorrent/commit/21e5007e111de492ce46c6d858c7b4a6b05523af))
+
 ## [2.0.26](https://github.com/webtorrent/webtorrent/compare/v2.0.25...v2.0.26) (2023-05-31)
 
 
