@@ -15,6 +15,7 @@ import { ThrottleGroup } from 'speed-limiter'
 import ConnPool from './lib/conn-pool.js' // browser exclude
 import Torrent from './lib/torrent.js'
 import { NodeServer, BrowserServer } from './lib/server.js'
+import natTraversal from './lib/nat-traversal.js' // browser exclude
 
 import info from './package.json' assert { type: 'json' }
 const VERSION = info.version
@@ -82,6 +83,8 @@ export default class WebTorrent extends EventEmitter {
     this._downloadLimit = Math.max((typeof opts.downloadLimit === 'number') ? opts.downloadLimit : -1, -1)
     this._uploadLimit = Math.max((typeof opts.uploadLimit === 'number') ? opts.uploadLimit : -1, -1)
 
+    this.natTraversal = natTraversal
+
     if (opts.secure === true) {
       import('./lib/peer.js').then(({ enableSecure }) => enableSecure())
     }
@@ -123,7 +126,12 @@ export default class WebTorrent extends EventEmitter {
 
       this.dht.once('listening', () => {
         const address = this.dht.address()
-        if (address) this.dhtPort = address.port
+        if (address) {
+          this.dhtPort = address.port
+          if (this.natTraversal != null) {
+            this.natTraversal.portMapping(this.dhtPort, 'udp')
+          }
+        }
       })
 
       // Ignore warning when there are > 10 torrents in the client
@@ -482,7 +490,12 @@ export default class WebTorrent extends EventEmitter {
     if (this._connPool) {
       // Sometimes server.address() returns `null` in Docker.
       const address = this._connPool.tcpServer.address()
-      if (address) this.torrentPort = address.port
+      if (address) {
+        this.torrentPort = address.port
+        if (this.natTraversal != null) {
+          this.natTraversal.portMapping(this.torrentPort, 'tcp')
+        }
+      }
     }
 
     this.emit('listening')
