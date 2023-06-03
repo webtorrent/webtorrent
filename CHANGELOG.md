@@ -1,3 +1,10 @@
+## [2.0.28](https://github.com/webtorrent/webtorrent/compare/v2.0.27...v2.0.28) (2023-06-03)
+
+
+### Bug Fixes
+
+* attempt to fix saucelabs CI ([#2557](https://github.com/webtorrent/webtorrent/issues/2557)) ([c89c27d](https://github.com/webtorrent/webtorrent/commit/c89c27d546bb89cfbe897f144afe48559452816f))
+
 ## [2.0.27](https://github.com/webtorrent/webtorrent/compare/v2.0.26...v2.0.27) (2023-05-31)
 
 
