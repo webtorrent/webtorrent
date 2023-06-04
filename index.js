@@ -15,7 +15,7 @@ import { ThrottleGroup } from 'speed-limiter'
 import ConnPool from './lib/conn-pool.js' // browser exclude
 import Torrent from './lib/torrent.js'
 import { NodeServer, BrowserServer } from './lib/server.js'
-import natTraversal from './lib/nat-traversal.js' // browser exclude
+import natApi from '@silentbot1/nat-api' // browser exclude
 
 import info from './package.json' assert { type: 'json' }
 const VERSION = info.version
@@ -76,6 +76,7 @@ export default class WebTorrent extends EventEmitter {
     this.tracker = opts.tracker !== undefined ? opts.tracker : {}
     this.lsd = opts.lsd !== false
     this.utPex = opts.utPex !== false
+    this.natPmp = opts.natPmp || true
     this.torrents = []
     this.maxConns = Number(opts.maxConns) || 55
     this.utp = WebTorrent.UTP_SUPPORT && opts.utp !== false
@@ -83,7 +84,7 @@ export default class WebTorrent extends EventEmitter {
     this._downloadLimit = Math.max((typeof opts.downloadLimit === 'number') ? opts.downloadLimit : -1, -1)
     this._uploadLimit = Math.max((typeof opts.uploadLimit === 'number') ? opts.uploadLimit : -1, -1)
 
-    this.natTraversal = natTraversal
+    this.natTraversal = new natApi({ enablePMP: this.natPmp })
 
     if (opts.secure === true) {
       import('./lib/peer.js').then(({ enableSecure }) => enableSecure())
@@ -129,7 +130,7 @@ export default class WebTorrent extends EventEmitter {
         if (address) {
           this.dhtPort = address.port
           if (this.natTraversal != null) {
-            this.natTraversal.portMapping(this.dhtPort, 'udp')
+            this.natTraversal.map({ publicPort: this.dhtPort, privatePort: this.dhtPort, protocol: 'udp', description: 'WebTorrent DHT' })
           }
         }
       })
@@ -471,6 +472,14 @@ export default class WebTorrent extends EventEmitter {
       })
     }
 
+    if (this.natTraversal) {
+      tasks.push(cb => {
+        this.natTraversal.destroy()
+          .then(cb)
+          .catch(cb)
+      })
+    }
+
     parallel(tasks, cb)
 
     if (err) this.emit('error', err)
@@ -493,7 +502,7 @@ export default class WebTorrent extends EventEmitter {
       if (address) {
         this.torrentPort = address.port
         if (this.natTraversal != null) {
-          this.natTraversal.portMapping(this.torrentPort, 'tcp')
+          this.natTraversal.map({ publicPort: this.torrentPort, privatePort: this.torrentPort, protocol: 'tcp', description: 'WebTorrent Torrent' })
         }
       }
     }
