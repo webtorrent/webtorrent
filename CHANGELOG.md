@@ -1,3 +1,10 @@
+## [2.0.29](https://github.com/webtorrent/webtorrent/compare/v2.0.28...v2.0.29) (2023-06-04)
+
+
+### Bug Fixes
+
+* utp ([#2561](https://github.com/webtorrent/webtorrent/issues/2561)) ([e4b2e34](https://github.com/webtorrent/webtorrent/commit/e4b2e34a69b6a09197b1cd8406f19fe2099c76a5))
+
 ## [2.0.28](https://github.com/webtorrent/webtorrent/compare/v2.0.27...v2.0.28) (2023-06-03)
 
 
