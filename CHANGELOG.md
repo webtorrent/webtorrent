@@ -1,3 +1,10 @@
+## [2.0.30](https://github.com/webtorrent/webtorrent/compare/v2.0.29...v2.0.30) (2023-06-05)
+
+
+### Bug Fixes
+
+* utp support bundlers and preprocessors ([#2564](https://github.com/webtorrent/webtorrent/issues/2564)) ([8b13937](https://github.com/webtorrent/webtorrent/commit/8b13937289629eeceb59a8dc8a9d4336d8f91ae7))
+
 ## [2.0.29](https://github.com/webtorrent/webtorrent/compare/v2.0.28...v2.0.29) (2023-06-04)
 
 
