@@ -10,7 +10,7 @@
   "type": "module",
   "browser": {
     "./lib/conn-pool.js": false,
-    "./lib/utp.js": false,
+    "./lib/utp.cjs": false,
     "bittorrent-dht": false,
     "http": false,
     "fs": false,
@@ -24,7 +24,7 @@
     "url": "https://github.com/webtorrent/webtorrent/issues"
   },
   "chromeapp": {
-    "./lib/utp.js": false,
+    "./lib/utp.cjs": false,
     "fs-chunk-store": "memory-chunk-store",
     "http": "@webtorrent/http-node",
     "https": "@webtorrent/http-node",
