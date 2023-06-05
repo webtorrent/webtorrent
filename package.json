@@ -1,7 +1,7 @@
 {
   "name": "webtorrent",
   "description": "Streaming torrent client",
-  "version": "2.0.27",
+  "version": "2.0.30",
   "author": {
     "name": "WebTorrent LLC",
     "email": "feross@webtorrent.io",
@@ -10,7 +10,7 @@
   "type": "module",
   "browser": {
     "./lib/conn-pool.js": false,
-    "./lib/utp.js": false,
+    "./lib/utp.cjs": false,
     "bittorrent-dht": false,
     "http": false,
     "fs": false,
@@ -24,7 +24,7 @@
     "url": "https://github.com/webtorrent/webtorrent/issues"
   },
   "chromeapp": {
-    "./lib/utp.js": false,
+    "./lib/utp.cjs": false,
     "fs-chunk-store": "memory-chunk-store",
     "http": "@webtorrent/http-node",
     "https": "@webtorrent/http-node",
@@ -81,6 +81,7 @@
     "airtap": "4.0.4",
     "airtap-manual": "1.0.0",
     "airtap-sauce": "1.1.2",
+    "airtap-system": "^0.1.0",
     "babelify": "10.0.0",
     "bittorrent-tracker": "10.0.6",
     "buffer": "^6.0.3",
@@ -99,8 +100,9 @@
     "semantic-release": "20.1.3",
     "serve-static": "1.15.0",
     "stream-http": "^3.2.0",
+    "tap-parser": "^13.0.1",
     "tap-spec": "^5.0.0",
-    "tape": "5.6.3",
+    "tape": "^5.6.3",
     "terser-webpack-plugin": "^5.3.9",
     "timers-browserify": "^2.0.12",
     "webpack": "^5.85.0",
@@ -161,7 +163,7 @@
     "size-disc": "npm run build-js && cat ./dist/webtorrent.min.js | discify --open",
     "size-js": "npm run build-js && cat ./dist/webtorrent.min.js | gzip | wc -c",
     "test": "eslint . && npm run test-node && npm run test-browser",
-    "test-browser": "airtap --concurrency 1 -- test/*.js test/browser/*.js",
+    "test-browser": "airtap --concurrency 1 --all -- test/*.js test/browser/*.js | tap-spec",
     "test-browser-local": "airtap --preset local -- test/*.js test/browser/*.js | tap-spec",
     "test-node": "tape test/*.js test/node/*.js | tap-spec",
     "update-authors": "./scripts/update-authors.sh"

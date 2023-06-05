@@ -1,3 +1,24 @@
+## [2.0.30](https://github.com/webtorrent/webtorrent/compare/v2.0.29...v2.0.30) (2023-06-05)
+
+
+### Bug Fixes
+
+* utp support bundlers and preprocessors ([#2564](https://github.com/webtorrent/webtorrent/issues/2564)) ([8b13937](https://github.com/webtorrent/webtorrent/commit/8b13937289629eeceb59a8dc8a9d4336d8f91ae7))
+
+## [2.0.29](https://github.com/webtorrent/webtorrent/compare/v2.0.28...v2.0.29) (2023-06-04)
+
+
+### Bug Fixes
+
+* utp ([#2561](https://github.com/webtorrent/webtorrent/issues/2561)) ([e4b2e34](https://github.com/webtorrent/webtorrent/commit/e4b2e34a69b6a09197b1cd8406f19fe2099c76a5))
+
+## [2.0.28](https://github.com/webtorrent/webtorrent/compare/v2.0.27...v2.0.28) (2023-06-03)
+
+
+### Bug Fixes
+
+* attempt to fix saucelabs CI ([#2557](https://github.com/webtorrent/webtorrent/issues/2557)) ([c89c27d](https://github.com/webtorrent/webtorrent/commit/c89c27d546bb89cfbe897f144afe48559452816f))
+
 ## [2.0.27](https://github.com/webtorrent/webtorrent/compare/v2.0.26...v2.0.27) (2023-05-31)
 
 
