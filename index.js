@@ -15,7 +15,7 @@ import { ThrottleGroup } from 'speed-limiter'
 import ConnPool from './lib/conn-pool.js' // browser exclude
 import Torrent from './lib/torrent.js'
 import { NodeServer, BrowserServer } from './lib/server.js'
-import NatApi from '@silentbot1/nat-api' // browser exclude
+import NatAPI from '@silentbot1/nat-api' // browser exclude
 
 import info from './package.json' assert { type: 'json' }
 const VERSION = info.version
