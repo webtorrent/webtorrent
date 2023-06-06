@@ -15,7 +15,7 @@ import { ThrottleGroup } from 'speed-limiter'
 import ConnPool from './lib/conn-pool.js' // browser exclude
 import Torrent from './lib/torrent.js'
 import { NodeServer, BrowserServer } from './lib/server.js'
-import natApi from '@silentbot1/nat-api' // browser exclude
+import NatApi from '@silentbot1/nat-api' // browser exclude
 
 import info from './package.json' assert { type: 'json' }
 const VERSION = info.version
@@ -85,7 +85,7 @@ export default class WebTorrent extends EventEmitter {
     this._downloadLimit = Math.max((typeof opts.downloadLimit === 'number') ? opts.downloadLimit : -1, -1)
     this._uploadLimit = Math.max((typeof opts.uploadLimit === 'number') ? opts.uploadLimit : -1, -1)
 
-    this.natTraversal = this.natUpnp ? new natApi({ enablePMP: this.natPmp }) : null
+    this.natTraversal = this.natUpnp && new NatAPI({ enablePMP: this.natPmp })
 
     if (opts.secure === true) {
       import('./lib/peer.js').then(({ enableSecure }) => enableSecure())
@@ -131,11 +131,9 @@ export default class WebTorrent extends EventEmitter {
         if (address) {
           this.dhtPort = address.port
           if (this.natTraversal != null) {
-            try {
-              this.natTraversal.map({ publicPort: this.dhtPort, privatePort: this.dhtPort, protocol: 'udp', description: 'WebTorrent DHT' })
-            } catch (err) {
+            this.natTraversal.map({ publicPort: this.dhtPort, privatePort: this.dhtPort, protocol: 'udp', description: 'WebTorrent DHT' }).catch(err => {
               debug('error mapping DHT port via UPnP/PMP: %o', err)
-            }
+            })
           }
         }
       })
@@ -481,7 +479,6 @@ export default class WebTorrent extends EventEmitter {
       tasks.push(cb => {
         this.natTraversal.destroy()
           .then(cb)
-          .catch(cb)
       })
     }
 
@@ -507,11 +504,9 @@ export default class WebTorrent extends EventEmitter {
       if (address) {
         this.torrentPort = address.port
         if (this.natTraversal != null) {
-          try {
-            this.natTraversal.map({ publicPort: this.torrentPort, privatePort: this.torrentPort, protocol: this.utp ? null : 'tcp', description: 'WebTorrent Torrent' })
-          } catch (err) {
+          this.natTraversal.map({ publicPort: this.torrentPort, privatePort: this.torrentPort, protocol: this.utp ? null : 'tcp', description: 'WebTorrent Torrent' }).catch(err => {
             debug('error mapping WebTorrent port via UPnP/PMP: %o', err)
-          }
+          })
         }
       }
     }
