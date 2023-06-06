@@ -84,7 +84,9 @@ For possible values of `opts.tracker` see the
 For possible values of `opts.blocklist` see the
 [`load-ip-set` documentation](https://github.com/webtorrent/load-ip-set#usage).
 
-For `opts.natUpnp` and `opts.natPmp`, PMP will be attempted first, then fallback to UPNP, if both are set to `true`.
+For `opts.natUpnp` and `opts.natPmp`, if both are set to `true`, PMP will be attempted first, then fallback to UPNP. 
+
+For `opts.natUpnp`, if set to `false`, `opts.natPmp` will be ignored and PMP will **not** be attempted even if `true`.
 
 For `downloadLimit` and `uploadLimit` the possible values can be:
   - `> 0`. The client will set the throttle at that speed
