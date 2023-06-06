@@ -1,3 +1,52 @@
+## [2.0.34](https://github.com/webtorrent/webtorrent/compare/v2.0.33...v2.0.34) (2023-06-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency torrent-discovery to ^10.0.10 ([#2569](https://github.com/webtorrent/webtorrent/issues/2569)) ([31796f8](https://github.com/webtorrent/webtorrent/commit/31796f82f24ed4da2f634eec84203b49688b589c))
+
+## [2.0.33](https://github.com/webtorrent/webtorrent/compare/v2.0.32...v2.0.33) (2023-06-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency streamx to ^2.14.0 ([#2568](https://github.com/webtorrent/webtorrent/issues/2568)) ([29f412a](https://github.com/webtorrent/webtorrent/commit/29f412a665b95bdb35d10c5129271705edc1e184))
+
+## [2.0.32](https://github.com/webtorrent/webtorrent/compare/v2.0.31...v2.0.32) (2023-06-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency streamx to ^2.13.3 ([#2562](https://github.com/webtorrent/webtorrent/issues/2562)) ([11f86db](https://github.com/webtorrent/webtorrent/commit/11f86dbf495f2e16952054f3f0cea76d6a812fce))
+
+## [2.0.31](https://github.com/webtorrent/webtorrent/compare/v2.0.30...v2.0.31) (2023-06-05)
+
+
+### Bug Fixes
+
+* correctly destroy piped streams in server ([#2565](https://github.com/webtorrent/webtorrent/issues/2565)) ([86eda0a](https://github.com/webtorrent/webtorrent/commit/86eda0a470c4a5418a15ad55c31648ee043270c3))
+
+## [2.0.30](https://github.com/webtorrent/webtorrent/compare/v2.0.29...v2.0.30) (2023-06-05)
+
+
+### Bug Fixes
+
+* utp support bundlers and preprocessors ([#2564](https://github.com/webtorrent/webtorrent/issues/2564)) ([8b13937](https://github.com/webtorrent/webtorrent/commit/8b13937289629eeceb59a8dc8a9d4336d8f91ae7))
+
+## [2.0.29](https://github.com/webtorrent/webtorrent/compare/v2.0.28...v2.0.29) (2023-06-04)
+
+
+### Bug Fixes
+
+* utp ([#2561](https://github.com/webtorrent/webtorrent/issues/2561)) ([e4b2e34](https://github.com/webtorrent/webtorrent/commit/e4b2e34a69b6a09197b1cd8406f19fe2099c76a5))
+
+## [2.0.28](https://github.com/webtorrent/webtorrent/compare/v2.0.27...v2.0.28) (2023-06-03)
+
+
+### Bug Fixes
+
+* attempt to fix saucelabs CI ([#2557](https://github.com/webtorrent/webtorrent/issues/2557)) ([c89c27d](https://github.com/webtorrent/webtorrent/commit/c89c27d546bb89cfbe897f144afe48559452816f))
+
 ## [2.0.27](https://github.com/webtorrent/webtorrent/compare/v2.0.26...v2.0.27) (2023-05-31)
 
 
