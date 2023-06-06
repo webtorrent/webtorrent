@@ -26,6 +26,7 @@
   },
   "chromeapp": {
     "./lib/utp.cjs": false,
+    "@silentbot1/nat-api": false,
     "fs-chunk-store": "memory-chunk-store",
     "http": "@webtorrent/http-node",
     "https": "@webtorrent/http-node",
