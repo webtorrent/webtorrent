@@ -270,6 +270,7 @@ If `opts` is specified, it can have the following properties:
   origin: String // Allow requests from specific origin. `false` for same-origin. [default: '*']
   hostname: String // If specified, only allow requests whose `Host` header matches this hostname. Note that you should not specify the port since this is automatically determined by the server. Ex: `localhost` [default: `undefined`]. NodeJS only.
   path: String // Allows to overwrite the default `/webtorrent` base path. [default: '/webtorrent']. NodeJS only.
+  nat: Boolean // Enable NAT traversal via Upnp / Pmp if the client has this enabled [default: false]. NodeJS only.
   controller: ServiceWorkerRegistration // Accepts an existing service worker registration [await navigator.serviceWorker.getRegistration()]. Browser only. Required!
 }
 ```
