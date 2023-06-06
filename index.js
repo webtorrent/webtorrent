@@ -509,7 +509,7 @@ export default class WebTorrent extends EventEmitter {
         if (this.natTraversal != null) {
           try {
             this.natTraversal.map({ publicPort: this.torrentPort, privatePort: this.torrentPort, protocol: this.utp ? null : 'tcp', description: 'WebTorrent Torrent' })
-          }catch (err) {
+          } catch (err) {
             debug('error mapping WebTorrent port via UPnP/PMP: %o', err)
           }
         }
