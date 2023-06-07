@@ -1,3 +1,10 @@
+## [2.0.35](https://github.com/webtorrent/webtorrent/compare/v2.0.34...v2.0.35) (2023-06-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency semantic-release to v21 ([#2510](https://github.com/webtorrent/webtorrent/issues/2510)) ([e74b843](https://github.com/webtorrent/webtorrent/commit/e74b843f2f102d590d68db1db15ea7ac840fc485))
+
 ## [2.0.34](https://github.com/webtorrent/webtorrent/compare/v2.0.33...v2.0.34) (2023-06-05)
 
 
