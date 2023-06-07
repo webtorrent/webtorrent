@@ -85,7 +85,10 @@ export default class WebTorrent extends EventEmitter {
     this._downloadLimit = Math.max((typeof opts.downloadLimit === 'number') ? opts.downloadLimit : -1, -1)
     this._uploadLimit = Math.max((typeof opts.uploadLimit === 'number') ? opts.uploadLimit : -1, -1)
 
-    this.natTraversal = this.natUpnp && new NatAPI({ enablePMP: this.natPmp })
+    this.natTraversal = (this.natUpnp || this.natPmp) && new NatAPI({
+      enableUPNP: this.natUpnp,
+      enablePMP: this.natPmp
+    })
 
     if (opts.secure === true) {
       import('./lib/peer.js').then(({ enableSecure }) => enableSecure())
@@ -478,7 +481,7 @@ export default class WebTorrent extends EventEmitter {
     if (this.natTraversal) {
       tasks.push(cb => {
         this.natTraversal.destroy()
-          .then(cb)
+          .then(() => cb())
       })
     }
 
