@@ -12,12 +12,13 @@ import queueMicrotask from 'queue-microtask'
 import { hash, hex2arr, arr2hex, arr2base, text2arr, randomBytes, concat } from 'uint8-util'
 import throughput from 'throughput'
 import { ThrottleGroup } from 'speed-limiter'
+import NatAPI from '@silentbot1/nat-api' // browser exclude
 import ConnPool from './lib/conn-pool.js' // browser exclude
 import Torrent from './lib/torrent.js'
 import { NodeServer, BrowserServer } from './lib/server.js'
-import NatAPI from '@silentbot1/nat-api' // browser exclude
 
 import info from './package.json' assert { type: 'json' }
+
 const VERSION = info.version
 
 const debug = debugFactory('webtorrent')
