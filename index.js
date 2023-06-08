@@ -76,8 +76,8 @@ export default class WebTorrent extends EventEmitter {
     this.tracker = opts.tracker !== undefined ? opts.tracker : {}
     this.lsd = opts.lsd !== false
     this.utPex = opts.utPex !== false
-    this.natUpnp = opts.natUpnp || true
-    this.natPmp = opts.natPmp || true
+    this.natUpnp = opts.natUpnp !== true
+    this.natPmp = opts.natPmp !== true
     this.torrents = []
     this.maxConns = Number(opts.maxConns) || 55
     this.utp = WebTorrent.UTP_SUPPORT && opts.utp !== false
