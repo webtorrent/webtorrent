@@ -136,8 +136,13 @@ export default class WebTorrent extends EventEmitter {
         const address = this.dht.address()
         if (address) {
           this.dhtPort = address.port
-          if (this.natTraversal != null) {
-            this.natTraversal.map({ publicPort: this.dhtPort, privatePort: this.dhtPort, protocol: 'udp', description: 'WebTorrent DHT' }).catch(err => {
+          if (this.natTraversal) {
+            this.natTraversal.map({
+              publicPort: this.dhtPort,
+              privatePort: this.dhtPort,
+              protocol: 'udp',
+              description: 'WebTorrent DHT'
+            }).catch(err => {
               debug('error mapping DHT port via UPnP/PMP: %o', err)
             })
           }
@@ -509,8 +514,13 @@ export default class WebTorrent extends EventEmitter {
       const address = this._connPool.tcpServer.address()
       if (address) {
         this.torrentPort = address.port
-        if (this.natTraversal != null) {
-          this.natTraversal.map({ publicPort: this.torrentPort, privatePort: this.torrentPort, protocol: this.utp ? null : 'tcp', description: 'WebTorrent Torrent' }).catch(err => {
+        if (this.natTraversal) {
+          this.natTraversal.map({
+            publicPort: this.torrentPort,
+            privatePort: this.torrentPort,
+            protocol: this.utp ? null : 'tcp',
+            description: 'WebTorrent Torrent'
+          }).catch(err => {
             debug('error mapping WebTorrent port via UPnP/PMP: %o', err)
           })
         }
