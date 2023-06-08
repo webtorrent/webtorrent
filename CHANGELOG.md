@@ -1,3 +1,10 @@
+## [2.0.37](https://github.com/webtorrent/webtorrent/compare/v2.0.36...v2.0.37) (2023-06-08)
+
+
+### Bug Fixes
+
+* dont encode url path ([#2573](https://github.com/webtorrent/webtorrent/issues/2573)) ([13ad0fb](https://github.com/webtorrent/webtorrent/commit/13ad0fb4f20d6035889569a55c89d4ef813a246d))
+
 ## [2.0.36](https://github.com/webtorrent/webtorrent/compare/v2.0.35...v2.0.36) (2023-06-08)
 
 
