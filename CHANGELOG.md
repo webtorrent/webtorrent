@@ -1,3 +1,45 @@
+## [2.0.36](https://github.com/webtorrent/webtorrent/compare/v2.0.35...v2.0.36) (2023-06-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency torrent-discovery to ^10.0.11 ([9415322](https://github.com/webtorrent/webtorrent/commit/94153227df2e0371af11dedf24cb1bd429dc2760))
+
+## [2.0.35](https://github.com/webtorrent/webtorrent/compare/v2.0.34...v2.0.35) (2023-06-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency semantic-release to v21 ([#2510](https://github.com/webtorrent/webtorrent/issues/2510)) ([e74b843](https://github.com/webtorrent/webtorrent/commit/e74b843f2f102d590d68db1db15ea7ac840fc485))
+
+## [2.0.34](https://github.com/webtorrent/webtorrent/compare/v2.0.33...v2.0.34) (2023-06-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency torrent-discovery to ^10.0.10 ([#2569](https://github.com/webtorrent/webtorrent/issues/2569)) ([31796f8](https://github.com/webtorrent/webtorrent/commit/31796f82f24ed4da2f634eec84203b49688b589c))
+
+## [2.0.33](https://github.com/webtorrent/webtorrent/compare/v2.0.32...v2.0.33) (2023-06-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency streamx to ^2.14.0 ([#2568](https://github.com/webtorrent/webtorrent/issues/2568)) ([29f412a](https://github.com/webtorrent/webtorrent/commit/29f412a665b95bdb35d10c5129271705edc1e184))
+
+## [2.0.32](https://github.com/webtorrent/webtorrent/compare/v2.0.31...v2.0.32) (2023-06-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency streamx to ^2.13.3 ([#2562](https://github.com/webtorrent/webtorrent/issues/2562)) ([11f86db](https://github.com/webtorrent/webtorrent/commit/11f86dbf495f2e16952054f3f0cea76d6a812fce))
+
+## [2.0.31](https://github.com/webtorrent/webtorrent/compare/v2.0.30...v2.0.31) (2023-06-05)
+
+
+### Bug Fixes
+
+* correctly destroy piped streams in server ([#2565](https://github.com/webtorrent/webtorrent/issues/2565)) ([86eda0a](https://github.com/webtorrent/webtorrent/commit/86eda0a470c4a5418a15ad55c31648ee043270c3))
+
 ## [2.0.30](https://github.com/webtorrent/webtorrent/compare/v2.0.29...v2.0.30) (2023-06-05)
 
 
