@@ -26,17 +26,17 @@
   },
   "chromeapp": {
     "./lib/utp.cjs": false,
-    "@silentbot1/nat-api": false,
     "fs-chunk-store": "memory-chunk-store",
     "http": "@webtorrent/http-node",
     "https": "@webtorrent/http-node",
     "load-ip-set": false,
     "net": "chrome-net",
+    "dgram": "chrome-dgram",
     "fs": false,
     "os": false
   },
   "dependencies": {
-    "@silentbot1/nat-api": "^0.4.3",
+    "@silentbot1/nat-api": "^0.4.4",
     "@thaunknown/simple-peer": "^9.12.0",
     "@webtorrent/http-node": "^1.3.0",
     "addr-to-ip-port": "^2.0.0",
@@ -88,6 +88,7 @@
     "babelify": "10.0.0",
     "bittorrent-tracker": "10.0.7",
     "buffer": "^6.0.3",
+    "chrome-dgram": "^3.0.6",
     "chrome-net": "^3.3.4",
     "disc": "1.3.3",
     "eslint": "^8.42.0",
