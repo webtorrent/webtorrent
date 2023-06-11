@@ -59,19 +59,45 @@ If `opts` is specified, then the default options (shown below) will be overridde
 ```js
 {
   maxConns: Number,        // Max number of connections per torrent (default=55)
-  nodeId: String|Uint8Array,   // DHT protocol node ID (default=randomly generated)
-  peerId: String|Uint8Array,   // Wire protocol peer ID (default=randomly generated)
-  tracker: Boolean|Object, // Enable trackers (default=true), or options object for Tracker
-  dht: Boolean|Object,     // Enable DHT (default=true), or options object for DHT
-  lsd: Boolean,            // Enable BEP14 local service discovery (default=true)
-  utPex: Boolean,          // Enable BEP11 Peer Exchange (default=true)
-  natUpnp: Boolean,        // Enable NAT port mapping via NAT-UPnP (default=true). NodeJS only.
-  natPmp: Boolean,         // Enable NAT port mapping via NAT-PMP (default=false). NodeJS only.
-  webSeeds: Boolean,       // Enable BEP19 web seeds (default=true)
-  utp: Boolean,            // Enable BEP29 uTorrent transport protocol (default=true)
-  blocklist: Array|String, // List of IP's to block
-  downloadLimit: Number,   // Max download speed (bytes/sec) over all torrents (default=-1)
-  uploadLimit: Number,     // Max upload speed (bytes/sec) over all torrents (default=-1)
+          nodeId
+:
+  String | Uint8Array,   // DHT protocol node ID (default=randomly generated)
+          peerId
+:
+  String | Uint8Array,   // Wire protocol peer ID (default=randomly generated)
+          tracker
+:
+  Boolean | Object, // Enable trackers (default=true), or options object for Tracker
+          dht
+:
+  Boolean | Object,     // Enable DHT (default=true), or options object for DHT
+          lsd
+:
+  Boolean,            // Enable BEP14 local service discovery (default=true)
+          utPex
+:
+  Boolean,          // Enable BEP11 Peer Exchange (default=true)
+          natUpnp
+:
+  Boolean | String, // Enable NAT port mapping via NAT-UPnP (default=true). Enables permanent ttl as a fallback if set to 'permanent'. NodeJS only.
+          natPmp
+:
+  Boolean,         // Enable NAT port mapping via NAT-PMP (default=true). NodeJS only.
+          webSeeds
+:
+  Boolean,       // Enable BEP19 web seeds (default=true)
+          utp
+:
+  Boolean,            // Enable BEP29 uTorrent transport protocol (default=true)
+          blocklist
+:
+  Array | String, // List of IP's to block
+          downloadLimit
+:
+  Number,   // Max download speed (bytes/sec) over all torrents (default=-1)
+          uploadLimit
+:
+  Number,     // Max upload speed (bytes/sec) over all torrents (default=-1)
 }
 ```
 
@@ -84,9 +110,11 @@ For possible values of `opts.tracker` see the
 For possible values of `opts.blocklist` see the
 [`load-ip-set` documentation](https://github.com/webtorrent/load-ip-set#usage).
 
-For `opts.natUpnp` and `opts.natPmp`, if both are set to `true`, PMP will be attempted first, then fallback to UPNP. NodeJS only.
+For `opts.natUpnp` and `opts.natPmp`, if both are set to `true`, PMP will be attempted first, then fallback to UPNP.
+NodeJS only.
 
-For `opts.natUpnp`, if set to `false`, `opts.natPmp` will be ignored and PMP will **not** be attempted even if `true`. NodeJS only.
+For `opts.natUpnp`, if set to `permanent`, a permanent ttl will be used for UPNP if the router only supports permanent
+leases. NodeJS only.
 
 For `downloadLimit` and `uploadLimit` the possible values can be:
   - `> 0`. The client will set the throttle at that speed
