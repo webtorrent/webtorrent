@@ -89,7 +89,8 @@ export default class WebTorrent extends EventEmitter {
     if ((this.natUpnp || this.natPmp) && typeof NatAPI === 'function') {
       this.natTraversal = new NatAPI({
         enableUPNP: this.natUpnp,
-        enablePMP: this.natPmp
+        enablePMP: this.natPmp,
+        upnpPermanentFallback: opts.natUpnp === 'permanent'
       })
     }
 
