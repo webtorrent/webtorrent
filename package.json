@@ -31,6 +31,7 @@
     "https": "@webtorrent/http-node",
     "load-ip-set": false,
     "net": "chrome-net",
+    "querystring": "querystring",
     "fs": false,
     "os": false
   },
@@ -98,6 +99,7 @@
     "network-address": "1.1.2",
     "pako": "^2.1.0",
     "path-browserify": "^1.0.1",
+    "querystring": "^0.2.1",
     "run-series": "1.1.9",
     "semantic-release": "21.0.3",
     "serve-static": "1.15.0",
