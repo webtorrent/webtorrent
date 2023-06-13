@@ -11,7 +11,7 @@ if (!global?.process?.versions?.electron) {
   const img = Buffer.from('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'base64')
   img.name = 'img.png'
   test('SW Registration and errors', t => {
-    const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+    const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
     client.on('error', err => { t.fail(err) })
     client.on('warning', err => { t.fail(err) })
@@ -53,7 +53,7 @@ if (!global?.process?.versions?.electron) {
   })
   test('SW renderer image', t => {
     t.plan(4)
-    const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+    const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
     client.on('error', err => { t.fail(err) })
     client.on('warning', err => { t.fail(err) })
@@ -81,7 +81,7 @@ if (!global?.process?.versions?.electron) {
   // this hangs on CI
   // test('SW renderer video', t => {
   //   t.plan(4)
-  //   const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  //   const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   //   client.on('error', err => { t.fail(err) })
   //   client.on('warning', err => { t.fail(err) })

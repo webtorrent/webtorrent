@@ -8,7 +8,7 @@ import WebTorrent from '../../index.js'
 test('WebTorrent.WEBRTC_SUPPORT', t => {
   t.plan(2)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
@@ -31,7 +31,7 @@ test('client.add: http url to a torrent file, string', t => {
   server.listen(0, () => {
     const port = server.address().port
     const url = `http://127.0.0.1:${port}`
-    const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+    const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
     client.on('error', err => { t.fail(err) })
     client.on('warning', err => { t.fail(err) })
@@ -53,7 +53,7 @@ test('client.add: http url to a torrent file, string', t => {
 test('client.add: filesystem path to a torrent file, string', t => {
   t.plan(6)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
@@ -73,7 +73,7 @@ test('client.add: filesystem path to a torrent file, string', t => {
 test('client.seed: filesystem path to file, string', t => {
   t.plan(6)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
@@ -96,7 +96,7 @@ test('client.seed: filesystem path to file, string', t => {
 test('client.seed: filesystem path to folder with one file, string', t => {
   t.plan(6)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
@@ -116,7 +116,7 @@ test('client.seed: filesystem path to folder with one file, string', t => {
 test('client.seed: filesystem path to folder with multiple files, string', t => {
   t.plan(7)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
@@ -147,7 +147,7 @@ test('client.seed: filesystem path to folder with multiple files, string', t => 
 test('client.add: invalid torrent id: invalid filesystem path', t => {
   t.plan(3)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => {
     t.ok(err instanceof Error)
@@ -163,7 +163,7 @@ test('client.add: invalid torrent id: invalid filesystem path', t => {
 test('client.remove: opts.destroyStore', t => {
   t.plan(2)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
@@ -186,7 +186,7 @@ test('client.remove: opts.destroyStore', t => {
 test('torrent.destroy: opts.destroyStore', t => {
   t.plan(2)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })

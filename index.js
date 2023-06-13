@@ -12,6 +12,7 @@ import queueMicrotask from 'queue-microtask'
 import { hash, hex2arr, arr2hex, arr2base, text2arr, randomBytes, concat } from 'uint8-util'
 import throughput from 'throughput'
 import { ThrottleGroup } from 'speed-limiter'
+import NatAPI from '@silentbot1/nat-api' // browser exclude
 import ConnPool from './lib/conn-pool.js' // browser exclude
 import Torrent from './lib/torrent.js'
 import { NodeServer, BrowserServer } from './lib/server.js'
@@ -75,12 +76,22 @@ export default class WebTorrent extends EventEmitter {
     this.tracker = opts.tracker !== undefined ? opts.tracker : {}
     this.lsd = opts.lsd !== false
     this.utPex = opts.utPex !== false
+    this.natUpnp = opts.natUpnp ?? true
+    this.natPmp = opts.natPmp ?? true
     this.torrents = []
     this.maxConns = Number(opts.maxConns) || 55
     this.utp = WebTorrent.UTP_SUPPORT && opts.utp !== false
 
     this._downloadLimit = Math.max((typeof opts.downloadLimit === 'number') ? opts.downloadLimit : -1, -1)
     this._uploadLimit = Math.max((typeof opts.uploadLimit === 'number') ? opts.uploadLimit : -1, -1)
+
+    if ((this.natUpnp || this.natPmp) && typeof NatAPI === 'function') {
+      this.natTraversal = new NatAPI({
+        enableUPNP: this.natUpnp,
+        enablePMP: this.natPmp,
+        upnpPermanentFallback: opts.natUpnp === 'permanent'
+      })
+    }
 
     if (opts.secure === true) {
       import('./lib/peer.js').then(({ enableSecure }) => enableSecure())
@@ -123,7 +134,19 @@ export default class WebTorrent extends EventEmitter {
 
       this.dht.once('listening', () => {
         const address = this.dht.address()
-        if (address) this.dhtPort = address.port
+        if (address) {
+          this.dhtPort = address.port
+          if (this.natTraversal) {
+            this.natTraversal.map({
+              publicPort: this.dhtPort,
+              privatePort: this.dhtPort,
+              protocol: 'udp',
+              description: 'WebTorrent DHT'
+            }).catch(err => {
+              debug('error mapping DHT port via UPnP/PMP: %o', err)
+            })
+          }
+        }
       })
 
       // Ignore warning when there are > 10 torrents in the client
@@ -463,6 +486,13 @@ export default class WebTorrent extends EventEmitter {
       })
     }
 
+    if (this.natTraversal) {
+      tasks.push(cb => {
+        this.natTraversal.destroy()
+          .then(() => cb())
+      })
+    }
+
     parallel(tasks, cb)
 
     if (err) this.emit('error', err)
@@ -482,7 +512,19 @@ export default class WebTorrent extends EventEmitter {
     if (this._connPool) {
       // Sometimes server.address() returns `null` in Docker.
       const address = this._connPool.tcpServer.address()
-      if (address) this.torrentPort = address.port
+      if (address) {
+        this.torrentPort = address.port
+        if (this.natTraversal) {
+          this.natTraversal.map({
+            publicPort: this.torrentPort,
+            privatePort: this.torrentPort,
+            protocol: this.utp ? null : 'tcp',
+            description: 'WebTorrent Torrent'
+          }).catch(err => {
+            debug('error mapping WebTorrent port via UPnP/PMP: %o', err)
+          })
+        }
+      }
     }
 
     this.emit('listening')
