@@ -101,7 +101,7 @@
     "path-browserify": "^1.0.1",
     "querystring": "^0.2.1",
     "run-series": "1.1.9",
-    "semantic-release": "21.0.3",
+    "semantic-release": "21.0.5",
     "serve-static": "1.15.0",
     "stream-http": "^3.2.0",
     "tap-parser": "^13.0.1",
