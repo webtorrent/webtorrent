@@ -5,7 +5,7 @@ import WebTorrent from '../index.js'
 test('client.add: magnet uri, utf-8 string', t => {
   t.plan(6)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
@@ -27,7 +27,7 @@ test('client.add: magnet uri, utf-8 string', t => {
 test('client.add: torrent file, buffer', t => {
   t.plan(6)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
@@ -50,7 +50,7 @@ test('client.add: torrent file, buffer', t => {
 test('client.add: info hash, hex string', t => {
   t.plan(6)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
@@ -72,7 +72,7 @@ test('client.add: info hash, hex string', t => {
 test('client.add: info hash, buffer', t => {
   t.plan(6)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
@@ -94,7 +94,7 @@ test('client.add: info hash, buffer', t => {
 test('client.add: parsed torrent, from `parse-torrent`', t => {
   t.plan(6)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
@@ -116,7 +116,7 @@ test('client.add: parsed torrent, from `parse-torrent`', t => {
 test('client.add: parsed torrent, with string type announce property', t => {
   t.plan(7)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
@@ -146,7 +146,7 @@ test('client.add: parsed torrent, with string type announce property', t => {
 test('client.add: parsed torrent, with array type announce property', t => {
   t.plan(7)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
@@ -175,7 +175,7 @@ test('client.add: parsed torrent, with array type announce property', t => {
 test('client.add: invalid torrent id: empty string', t => {
   t.plan(3)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => {
     t.ok(err instanceof Error)
@@ -191,7 +191,7 @@ test('client.add: invalid torrent id: empty string', t => {
 test('client.add: invalid torrent id: short buffer', t => {
   t.plan(3)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => {
     t.ok(err instanceof Error)
@@ -207,7 +207,7 @@ test('client.add: invalid torrent id: short buffer', t => {
 test('client.add: paused torrent', t => {
   t.plan(5)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', (err) => { t.fail(err) })
   client.on('warning', (err) => { t.fail(err) })

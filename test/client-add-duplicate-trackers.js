@@ -5,7 +5,7 @@ import WebTorrent from '../index.js'
 test('client.add: duplicate trackers', t => {
   t.plan(3)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
@@ -29,7 +29,7 @@ test('client.add: duplicate trackers, with multiple torrents', t => {
     announce: ['wss://example.com', 'wss://example.com', 'wss://example.com']
   }
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
@@ -66,7 +66,7 @@ test('client.add: duplicate trackers (including in .torrent file), multiple torr
   const parsedTorrentAlice = Object.assign({}, fixtures.alice.parsedTorrent)
   parsedTorrentAlice.announce = ['wss://example.com', 'wss://example.com', 'wss://example.com']
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })

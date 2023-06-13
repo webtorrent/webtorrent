@@ -5,7 +5,7 @@ import WebTorrent from '../index.js'
 test('client.seed followed by duplicate client.add (sync)', t => {
   t.plan(6)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
 
@@ -36,7 +36,7 @@ test('client.seed followed by duplicate client.add (sync)', t => {
 test('client.seed followed by duplicate client.add (async)', t => {
   t.plan(6)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
 
@@ -67,7 +67,7 @@ test('client.seed followed by duplicate client.add (async)', t => {
 test('client.seed followed by two duplicate client.add calls (sync)', t => {
   t.plan(9)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
 
@@ -110,7 +110,7 @@ test('client.seed followed by two duplicate client.add calls (sync)', t => {
 test('client.seed followed by two duplicate client.add calls (async)', t => {
   t.plan(9)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
 
@@ -153,7 +153,7 @@ test('client.seed followed by two duplicate client.add calls (async)', t => {
 test('successive sync client.add, client.remove, client.add, client.remove (sync)', t => {
   t.plan(3)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
 

@@ -35,7 +35,7 @@ test('Download using webseed (via .torrent file)', t => {
         `http://localhost:${httpServer.address().port}/${fixtures.leaves.parsedTorrent.name}`
       ]
 
-      client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+      client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
       client.on('error', err => { t.fail(err) })
       client.on('warning', err => { t.fail(err) })

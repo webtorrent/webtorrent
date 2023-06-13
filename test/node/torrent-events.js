@@ -7,8 +7,8 @@ import WebTorrent from '../../index.js'
 test('client.add: emit torrent events in order', t => {
   t.plan(6)
 
-  const client1 = new WebTorrent({ dht: false, tracker: false, lsd: false })
-  const client2 = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client1 = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
+  const client2 = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client1.on('error', err => { t.fail(err) })
   client1.on('warning', err => { t.fail(err) })
@@ -54,7 +54,7 @@ test('client.add: emit torrent events in order', t => {
 test('client.seed: emit torrent events in order', t => {
   t.plan(6)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })

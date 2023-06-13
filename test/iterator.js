@@ -6,7 +6,7 @@ import WebTorrent from '../index.js'
 test('file iterator: use chunk store iterator if done', t => {
   t.plan(8)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
@@ -34,7 +34,7 @@ test('file iterator: use chunk store iterator if done', t => {
 test('file iterator: use file iterator if not done', t => {
   t.plan(8)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
