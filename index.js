@@ -18,7 +18,6 @@ import Torrent from './lib/torrent.js'
 import { NodeServer, BrowserServer } from './lib/server.js'
 
 import info from './package.json' assert { type: 'json' }
-
 const VERSION = info.version
 
 const debug = debugFactory('webtorrent')
