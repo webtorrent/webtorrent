@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/webtorrent/webtorrent/compare/v2.1.0...v2.1.1) (2023-06-15)
+
+
+### Bug Fixes
+
+* Revert "fix: correctly destroy piped streams in server" ([#2585](https://github.com/webtorrent/webtorrent/issues/2585)) ([e3c9269](https://github.com/webtorrent/webtorrent/commit/e3c9269b9f9deba824559054ea6ba2e369357b60)), closes [#2565](https://github.com/webtorrent/webtorrent/issues/2565)
+
 # [2.1.0](https://github.com/webtorrent/webtorrent/compare/v2.0.37...v2.1.0) (2023-06-13)
 
 
