@@ -19,6 +19,7 @@
     "load-ip-set": false,
     "net": false,
     "os": false,
+    "stream": false,
     "ut_pex": false
   },
   "bugs": {
@@ -33,6 +34,7 @@
     "net": "chrome-net",
     "querystring": "querystring",
     "fs": false,
+    "stream": false,
     "os": false
   },
   "dependencies": {
