@@ -1,3 +1,10 @@
+## [2.1.8](https://github.com/webtorrent/webtorrent/compare/v2.1.7...v2.1.8) (2023-06-16)
+
+
+### Performance Improvements
+
+* use peer/lite ([#2591](https://github.com/webtorrent/webtorrent/issues/2591)) ([4e853f0](https://github.com/webtorrent/webtorrent/commit/4e853f0e965bbca21033c3912f8cc990b35ac2bf))
+
 ## [2.1.7](https://github.com/webtorrent/webtorrent/compare/v2.1.6...v2.1.7) (2023-06-16)
 
 
