@@ -1,3 +1,10 @@
+## [2.1.2](https://github.com/webtorrent/webtorrent/compare/v2.1.1...v2.1.2) (2023-06-16)
+
+
+### Bug Fixes
+
+* **deps:** update dependency fs-chunk-store to ^4.1.0 ([c9103bf](https://github.com/webtorrent/webtorrent/commit/c9103bf410ad81d9afd3683a9c856bcbe3bf5079))
+
 ## [2.1.1](https://github.com/webtorrent/webtorrent/compare/v2.1.0...v2.1.1) (2023-06-15)
 
 
