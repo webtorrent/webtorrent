@@ -10,11 +10,11 @@ export default {
     aliasFields: ['chromeapp'],
     alias: {
       ...info.chromeapp,
-      crypto: false,
-      timers: 'timers-browserify',
-      zlib: '/polyfills/inflate-sync-web.js',
+      path: 'path-esm',
       stream: 'readable-stream',
-      path: 'path-browserify'
+      timers: 'timers-browserify',
+      querystring: 'querystring',
+      zlib: '/polyfills/inflate-sync-web.js'
     }
   },
   output: {

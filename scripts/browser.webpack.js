@@ -10,9 +10,7 @@ export default {
     aliasFields: ['browser'],
     alias: {
       ...info.browser,
-      crypto: false,
-      stream: 'readable-stream',
-      path: 'path-browserify'
+      path: 'path-esm'
     }
   },
   output: {
