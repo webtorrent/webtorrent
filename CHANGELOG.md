@@ -1,3 +1,10 @@
+## [2.1.6](https://github.com/webtorrent/webtorrent/compare/v2.1.5...v2.1.6) (2023-06-16)
+
+
+### Performance Improvements
+
+* use path-esm as polyfill for path ([#2587](https://github.com/webtorrent/webtorrent/issues/2587)) ([6e08b00](https://github.com/webtorrent/webtorrent/commit/6e08b0069f1c7d7357ac56fcff9a81e0e07ff452))
+
 ## [2.1.5](https://github.com/webtorrent/webtorrent/compare/v2.1.4...v2.1.5) (2023-06-16)
 
 
