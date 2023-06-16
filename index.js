@@ -7,7 +7,7 @@ import { Client as DHT } from 'bittorrent-dht' // browser exclude
 import loadIPSet from 'load-ip-set' // browser exclude
 import parallel from 'run-parallel'
 import parseTorrent from 'parse-torrent'
-import Peer from '@thaunknown/simple-peer'
+import Peer from '@thaunknown/simple-peer/lite.js'
 import queueMicrotask from 'queue-microtask'
 import { hash, hex2arr, arr2hex, arr2base, text2arr, randomBytes, concat } from 'uint8-util'
 import throughput from 'throughput'
