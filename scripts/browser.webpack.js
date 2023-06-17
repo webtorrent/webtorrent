@@ -27,8 +27,7 @@ export default {
   },
   plugins: [
     new webpack.ProvidePlugin({
-      process: '/polyfills/process-fast.js',
-      Buffer: ['buffer', 'Buffer']
+      process: '/polyfills/process-fast.js'
     }),
     new webpack.DefinePlugin({
       global: 'globalThis'
