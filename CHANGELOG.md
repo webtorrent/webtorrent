@@ -1,3 +1,10 @@
+## [2.1.9](https://github.com/webtorrent/webtorrent/compare/v2.1.8...v2.1.9) (2023-06-17)
+
+
+### Bug Fixes
+
+* **deps:** update webtorrent ([#2592](https://github.com/webtorrent/webtorrent/issues/2592)) ([0c62c36](https://github.com/webtorrent/webtorrent/commit/0c62c366b0310161c2d98a658515dac3f0d16502))
+
 ## [2.1.8](https://github.com/webtorrent/webtorrent/compare/v2.1.7...v2.1.8) (2023-06-16)
 
 
