@@ -630,6 +630,10 @@ information on how to define a protocol extension.
 
 Emitted every couple of seconds when no peers have been found. `announceType` is either `'tracker'`, `'dht'`, `'lsd'`, or `'ut_pex'` depending on which announce occurred to trigger this event. Note that if you're attempting to discover peers from a tracker, a DHT, a LSD, and PEX you'll see this event separately for each.
 
+## `torrent.on('verified', function (index) {})`
+
+Emitted every time a piece is verified, the value of the event is the index of the verified piece.
+
 # File API
 
 Webtorrent Files closely mimic W3C [Files](https://developer.mozilla.org/en-US/docs/Web/API/File)/[Blobs](https://developer.mozilla.org/en-US/docs/Web/API/Blob) except for `slice` where instead you pass the offsets as objects to the arrayBuffer/stream/createReadStream functions.
