@@ -1,3 +1,10 @@
+## [2.1.12](https://github.com/webtorrent/webtorrent/compare/v2.1.11...v2.1.12) (2023-07-05)
+
+
+### Bug Fixes
+
+* perf: faster stream resolution ([#2607](https://github.com/webtorrent/webtorrent/issues/2607)) ([e692270](https://github.com/webtorrent/webtorrent/commit/e692270cf9ba7d793b4b35b509ac0572f07477ce))
+
 ## [2.1.11](https://github.com/webtorrent/webtorrent/compare/v2.1.10...v2.1.11) (2023-06-17)
 
 
