@@ -1,3 +1,17 @@
+## [2.1.11](https://github.com/webtorrent/webtorrent/compare/v2.1.10...v2.1.11) (2023-06-17)
+
+
+### Performance Improvements
+
+* drop buffer ([#2596](https://github.com/webtorrent/webtorrent/issues/2596)) ([7679994](https://github.com/webtorrent/webtorrent/commit/76799949239b784f98ccfc45210f68c7233e74ac))
+
+## [2.1.10](https://github.com/webtorrent/webtorrent/compare/v2.1.9...v2.1.10) (2023-06-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency hybrid-chunk-store to ^1.2.2 ([#2595](https://github.com/webtorrent/webtorrent/issues/2595)) ([b04cc7a](https://github.com/webtorrent/webtorrent/commit/b04cc7a8ca3d555ebaecff0c3b90f91bc31d1508))
+
 ## [2.1.9](https://github.com/webtorrent/webtorrent/compare/v2.1.8...v2.1.9) (2023-06-17)
 
 
