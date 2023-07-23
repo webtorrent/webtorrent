@@ -1,3 +1,10 @@
+## [2.1.14](https://github.com/webtorrent/webtorrent/compare/v2.1.13...v2.1.14) (2023-07-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency torrent-piece to v3 ([#2623](https://github.com/webtorrent/webtorrent/issues/2623)) ([7fb7afa](https://github.com/webtorrent/webtorrent/commit/7fb7afab083551c9d6e60998eeb1837f80b45b6c))
+
 ## [2.1.13](https://github.com/webtorrent/webtorrent/compare/v2.1.12...v2.1.13) (2023-07-19)
 
 
