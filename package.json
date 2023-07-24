@@ -82,7 +82,7 @@
     "@babel/eslint-parser": "^7.22.9",
     "@babel/plugin-syntax-import-assertions": "7.22.5",
     "@babel/preset-env": "7.22.9",
-    "@webtorrent/semantic-release-config": "1.0.9",
+    "@webtorrent/semantic-release-config": "1.0.10",
     "airtap": "4.0.4",
     "airtap-manual": "1.0.0",
     "airtap-sauce": "1.1.2",
