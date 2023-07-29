@@ -113,7 +113,7 @@
     "timers-browserify": "^2.0.12",
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4",
-    "webtorrent-fixtures": "1.7.5"
+    "webtorrent-fixtures": "2.0.2"
   },
   "optionalDependencies": {
     "utp-native": "^2.5.3"
