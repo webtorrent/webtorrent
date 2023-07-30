@@ -1,3 +1,10 @@
+## [2.1.16](https://github.com/webtorrent/webtorrent/compare/v2.1.15...v2.1.16) (2023-07-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency uint8-util to ^2.2.2 ([#2633](https://github.com/webtorrent/webtorrent/issues/2633)) ([8478be4](https://github.com/webtorrent/webtorrent/commit/8478be42b694eaaf7370ca5f8370973683bca0f8))
+
 ## [2.1.15](https://github.com/webtorrent/webtorrent/compare/v2.1.14...v2.1.15) (2023-07-24)
 
 
