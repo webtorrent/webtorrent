@@ -1,3 +1,10 @@
+## [2.1.20](https://github.com/webtorrent/webtorrent/compare/v2.1.19...v2.1.20) (2023-08-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ut_metadata to ^4.0.3 ([c62044a](https://github.com/webtorrent/webtorrent/commit/c62044ae9fe5399526a896cb1bce1f16ff79b87f))
+
 ## [2.1.19](https://github.com/webtorrent/webtorrent/compare/v2.1.18...v2.1.19) (2023-08-10)
 
 
