@@ -1,3 +1,10 @@
+## [2.1.24](https://github.com/webtorrent/webtorrent/compare/v2.1.23...v2.1.24) (2023-08-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bittorrent-protocol to ^4.1.11 ([701280f](https://github.com/webtorrent/webtorrent/commit/701280f635e375b0166c902925dadb6fa31c424c))
+
 ## [2.1.23](https://github.com/webtorrent/webtorrent/compare/v2.1.22...v2.1.23) (2023-08-10)
 
 
