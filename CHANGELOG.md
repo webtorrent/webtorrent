@@ -1,3 +1,10 @@
+## [2.1.26](https://github.com/webtorrent/webtorrent/compare/v2.1.25...v2.1.26) (2023-10-02)
+
+
+### Bug Fixes
+
+* incorrect File.stream() object this reference ([#2672](https://github.com/webtorrent/webtorrent/issues/2672)) ([8577a47](https://github.com/webtorrent/webtorrent/commit/8577a4719e32ece57f8e9d30df4c7e819e1b0f70))
+
 ## [2.1.25](https://github.com/webtorrent/webtorrent/compare/v2.1.24...v2.1.25) (2023-08-11)
 
 
