@@ -108,7 +108,7 @@
     "stream-http": "^3.2.0",
     "tap-parser": "^15.2.0",
     "tap-spec": "^5.0.0",
-    "tape": "^5.7.0",
+    "tape": "^5.7.1",
     "terser-webpack-plugin": "^5.3.9",
     "timers-browserify": "^2.0.12",
     "webpack": "^5.88.2",
