@@ -8,9 +8,7 @@ test('Rarity map usage', t => {
   t.plan(16)
 
   const numPieces = 4
-  const torrentId = Object.assign({}, fixtures.numbers.parsedTorrent, {
-    pieces: Array(numPieces)
-  })
+  const torrentId = { ...fixtures.numbers.parsedTorrent, pieces: Array(numPieces)}
   const client = {
     listening: true,
     peerId: randombytes(20).toString('hex'),
