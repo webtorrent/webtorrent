@@ -126,7 +126,7 @@ export default class WebTorrent extends EventEmitter {
 
     if (opts.dht !== false && typeof DHT === 'function' /* browser exclude */) {
       // use a single DHT instance for all torrents, so the routing table can be reused
-      this.dht = new DHT(Object.assign({}, { nodeId: this.nodeId }, opts.dht))
+      this.dht = new DHT({ nodeId: this.nodeId, ...opts.dht })
 
       this.dht.once('error', err => {
         this._destroy(err)
