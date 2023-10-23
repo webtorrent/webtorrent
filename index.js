@@ -229,23 +229,15 @@ export default class WebTorrent extends EventEmitter {
    * found.
    *
    * @param  {string|Buffer|Object|Torrent} torrentId
-   * @return {Promise<Torrent|null>}
+   * @return {Torrent|null}
    */
-  async get (torrentId) {
+  get (torrentId) {
     if (torrentId instanceof Torrent) {
-      if (this.torrents.includes(torrentId)) return torrentId
-    } else {
-      const torrents = this.torrents
-      let parsed
-      try { parsed = await parseTorrent(torrentId) } catch (err) {}
-      if (!parsed) return null
-      if (!parsed.infoHash) throw new Error('Invalid torrent identifier')
-
-      for (const torrent of torrents) {
-        if (torrent.infoHash === parsed.infoHash) return torrent
-      }
+      return this.torrents.includes(torrentId) ? torrentId : null;
     }
-    return null
+    const torrents = this.torrents
+    const { infoHash } = parseTorrent(torrentId)
+    return torrents.find(torrent => torrent.infoHash === infoHash)
   }
 
   /**
@@ -305,7 +297,7 @@ export default class WebTorrent extends EventEmitter {
     if (typeof opts === 'function') [opts, onseed] = [{}, opts]
 
     this._debug('seed')
-    opts = opts ? Object.assign({}, opts) : {}
+    opts = opts ? { ...opts } : {}
 
     // no need to verify the hashes we create
     opts.skipVerify = true
@@ -378,8 +370,7 @@ export default class WebTorrent extends EventEmitter {
         createTorrent(input, opts, async (err, torrentBuf) => {
           if (this.destroyed) return
           if (err) return torrent._destroy(err)
-
-          const existingTorrent = await this.get(torrentBuf)
+          const existingTorrent = this.get(torrentBuf)
           if (existingTorrent) {
             console.warn('A torrent with the same id is already being seeded')
             torrent._destroy()
@@ -399,18 +390,11 @@ export default class WebTorrent extends EventEmitter {
    * @param  {string|Buffer|Torrent}   torrentId
    * @param  {function} cb
    */
-  async remove (torrentId, opts, cb) {
+  remove (torrentId, opts, cb) {
     if (typeof opts === 'function') return this.remove(torrentId, null, opts)
-
     this._debug('remove')
-    const torrent = await this.get(torrentId)
+    const torrent = this.get(torrentId)
     if (!torrent) throw new Error(`No torrent with id ${torrentId}`)
-    this._remove(torrent, opts, cb)
-  }
-
-  _remove (torrent, opts, cb) {
-    if (!torrent) return
-    if (typeof opts === 'function') return this._remove(torrent, null, opts)
     this.torrents.splice(this.torrents.indexOf(torrent), 1)
     torrent.destroy(opts, cb)
     if (this.dht) {
