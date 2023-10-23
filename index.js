@@ -393,7 +393,7 @@ export default class WebTorrent extends EventEmitter {
     if (typeof opts === 'function') return this.remove(torrentId, null, opts)
     this._debug('remove')
     const torrent = this.get(torrentId)
-    if (!torrent) throw new Error(`No torrent with id ${torrentId}`)
+    if (!torrent) return;
     this.torrents.splice(this.torrents.indexOf(torrent), 1)
     torrent.destroy(opts, cb)
     if (this.dht) {
