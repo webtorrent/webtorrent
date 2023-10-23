@@ -235,9 +235,8 @@ export default class WebTorrent extends EventEmitter {
     if (torrentId instanceof Torrent) {
       return this.torrents.includes(torrentId) ? torrentId : null;
     }
-    const torrents = this.torrents
     const { infoHash } = parseTorrent(torrentId)
-    return torrents.find(torrent => torrent.infoHash === infoHash)
+    return this.torrents.find(torrent => torrent.infoHash === infoHash)
   }
 
   /**
