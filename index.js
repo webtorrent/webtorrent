@@ -273,7 +273,7 @@ export default class WebTorrent extends EventEmitter {
     }
 
     this._debug('add')
-    opts = opts ? Object.assign({}, opts) : {}
+    opts = opts ? { ...opts } : {}
 
     const torrent = new Torrent(torrentId, this, opts)
     this.torrents.push(torrent)
