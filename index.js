@@ -266,7 +266,7 @@ export default class WebTorrent extends EventEmitter {
    */
   async add (torrentId, opts = {}, ontorrent = () => {}) {
     const parsedTorrent = await torrentIdToParsedTorrent(torrentId)
-    _addSync(parsedTorrent, opts, ontorrent)
+    this._addSync(parsedTorrent, opts, ontorrent)
   }
 
   // TODO: Remove `add` and use this to avoid having both a Promise and a callback.
