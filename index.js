@@ -1,4 +1,5 @@
 /*! webtorrent. MIT License. WebTorrent LLC <https://webtorrent.io/opensource> */
+import parseTorrent, { remote } from 'parse-torrent'
 import EventEmitter from 'events'
 import path from 'path'
 import createTorrent, { parseInput } from 'create-torrent'
