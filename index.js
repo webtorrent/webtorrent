@@ -240,12 +240,19 @@ export default class WebTorrent extends EventEmitter {
   }
 
   /**
-   * Start downloading a new torrent. Aliased as `client.download`.
+   * Start downloading a new torrent.
    * @param {string|Buffer|Object} torrentId
    * @param {Object} opts torrent-specific options
    * @param {function=} ontorrent called when the torrent is ready (has metadata)
+   * @returns {Promise<Torrent>}
    */
-  add (torrentId, opts = {}, ontorrent = () => {}) {
+  async add (torrentId, opts = {}, ontorrent = () => {}) {
+    const parsedTorrent = await torrentIdToParsedTorrent(torrentId)
+    _addSync(parsedTorrent, opts, ontorrent)
+  }
+
+  // TODO: Remove `add` and use this to avoid having both a Promise and a callback.
+  _addSync (parsedTorrent, opts, ontorrent) {
     if (this.destroyed) throw new Error('client is destroyed')
     if (typeof opts === 'function') [opts, ontorrent] = [{}, opts]
 
