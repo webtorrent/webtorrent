@@ -41,6 +41,24 @@ const VERSION_STR = VERSION
  */
 const VERSION_PREFIX = `-WW${VERSION_STR}-`
 
+
+const torrentIdToParsedTorrent = (torrentId) =>
+  new Promise((resolve) => {
+    let parsedTorrent;
+    try {
+      parsedTorrent = parseTorrent(torrentId);
+    } catch (err) {}
+    if (parsedTorrent?.infoHash) {
+      resolve(parsedTorrent);
+    } else {
+      remote(torrentId, (err, parsedTorrent) => {
+        if (err) reject();
+        resolve(parsedTorrent);
+      });
+    }
+  });
+
+
 /**
  * WebTorrent Client
  * @param {Object=} opts
@@ -282,7 +300,7 @@ export default class WebTorrent extends EventEmitter {
     this._debug('add')
     opts = opts ? { ...opts } : {}
 
-    const torrent = new Torrent(torrentId, this, opts)
+    const torrent = new Torrent(parsedTorrent, this, opts)
     this.torrents.push(torrent)
 
     torrent.once('_infoHash', onInfoHash)
