@@ -404,7 +404,7 @@ export default class WebTorrent extends EventEmitter {
 
     this._debug('remove')
     const torrent = await this.get(torrentId)
-    if (!torrent) throw new Error(`No torrent with id ${torrentId}`)
+    if (!torrent) return
     this._remove(torrent, opts, cb)
   }
 
