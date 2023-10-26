@@ -291,6 +291,7 @@ export default class WebTorrent extends EventEmitter {
     if (opts.timeout) {
       timeout = setTimeout(() => {
         torrent._destroy()
+        if (opts.onTimeout) opts.onTimeout()
       }, opts.timeout)
     }
 
@@ -301,6 +302,12 @@ export default class WebTorrent extends EventEmitter {
     torrent.once('close', onClose)
 
     return torrent
+  }
+
+  addV2 (torrentId, timeout) {
+    return new Promise((resolve, reject)=> {
+      this.add(torrentId, { timeout, onTimeout: reject }, resolve)
+    })
   }
 
   /**
