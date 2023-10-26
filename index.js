@@ -271,6 +271,7 @@ export default class WebTorrent extends EventEmitter {
 
     const onReady = () => {
       if (this.destroyed) return
+      if (timeout) clearTimeout(timeout)
       ontorrent(torrent)
       this.emit('torrent', torrent)
     }
@@ -285,6 +286,14 @@ export default class WebTorrent extends EventEmitter {
     opts = opts ? Object.assign({}, opts) : {}
 
     const torrent = new Torrent(torrentId, this, opts)
+
+    let timeout
+    if (opts.timeout) {
+      timeout = setTimeout(() => {
+        torrent._destroy()
+      }, opts.timeout)
+    }
+
     this.torrents.push(torrent)
 
     torrent.once('_infoHash', onInfoHash)
