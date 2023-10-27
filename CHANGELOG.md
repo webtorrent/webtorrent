@@ -1251,7 +1251,7 @@
 ## v0.107.4 - 2019-08-19
 
 - Added api documentation for some torrent properties
-- Bug fix: trackers now recieve 0 while seeding file instead of the file size
+- Bug fix: trackers now receive 0 while seeding file instead of the file size
 - Updated org-wide security policies and contributing guidelines
 
 ## v0.107.3 - 2019-08-10
