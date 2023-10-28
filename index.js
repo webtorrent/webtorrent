@@ -321,7 +321,7 @@ export default class WebTorrent extends EventEmitter {
     if (typeof opts === 'function') [opts, onseed] = [{}, opts]
 
     this._debug('seed')
-    opts = opts ? Object.assign({}, opts) : {}
+    opts = opts ? { ...opts } : {}
 
     // no need to verify the hashes we create
     opts.skipVerify = true
