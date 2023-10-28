@@ -305,7 +305,7 @@ export default class WebTorrent extends EventEmitter {
   }
 
   addV2 (torrentId, timeout) {
-    return new Promise((resolve, reject)=> {
+    return new Promise((resolve, reject) => {
       this.add(torrentId, { timeout, onTimeout: reject }, resolve)
     })
   }
