@@ -249,7 +249,7 @@ export default class WebTorrent extends EventEmitter {
   }
 
   /**
-   * Start downloading a new torrent. Aliased as `client.download`.
+   * Start downloading a new torrent.
    * @param {string|Buffer|Object} torrentId
    * @param {Object} opts torrent-specific options
    * @param {function=} ontorrent called when the torrent is ready (has metadata)
@@ -304,6 +304,11 @@ export default class WebTorrent extends EventEmitter {
     return torrent
   }
 
+  /**
+   * @param {string|Buffer|Object} torrentId
+   * @param {number} timeout in milliseconds
+   * @returns {Promise<Torrent>}
+   */
   addWithTimeout (torrentId, timeout) {
     return new Promise((resolve, reject) => {
       this.add(torrentId, { timeout, onTimeout: reject }, resolve)
