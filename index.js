@@ -232,20 +232,14 @@ export default class WebTorrent extends EventEmitter {
    * @return {Promise<Torrent|null>}
    */
   async get (torrentId) {
-    if (torrentId instanceof Torrent) {
-      if (this.torrents.includes(torrentId)) return torrentId
-    } else {
-      const torrents = this.torrents
-      let parsed
-      try { parsed = await parseTorrent(torrentId) } catch (err) {}
-      if (!parsed) return null
-      if (!parsed.infoHash) throw new Error('Invalid torrent identifier')
-
-      for (const torrent of torrents) {
-        if (torrent.infoHash === parsed.infoHash) return torrent
-      }
-    }
-    return null
+    if (torrentId instanceof Torrent && this.torrents.includes(torrentId)) { return torrentId }
+    let parsed
+    try {
+      parsed = await parseTorrent(torrentId)
+    } catch (err) {}
+    if (!parsed) return null
+    if (!parsed.infoHash) throw new Error('Invalid torrent identifier')
+    return this.torrents.find(({ infoHash }) => infoHash === parsed.infoHash)
   }
 
   /**
@@ -422,21 +416,15 @@ export default class WebTorrent extends EventEmitter {
    */
   async remove (torrentId, opts, cb) {
     if (typeof opts === 'function') return this.remove(torrentId, null, opts)
-
     this._debug('remove')
     const torrent = await this.get(torrentId)
-    if (!torrent) return
-    this._remove(torrent, opts, cb)
-  }
-
-  _remove (torrent, opts, cb) {
-    if (!torrent) return
-    if (typeof opts === 'function') return this._remove(torrent, null, opts)
+    if (!torrent) {
+      cb()
+      return
+    }
     this.torrents.splice(this.torrents.indexOf(torrent), 1)
     torrent.destroy(opts, cb)
-    if (this.dht) {
-      this.dht._tables.remove(torrent.infoHash)
-    }
+    if (this.dht) this.dht._tables.remove(torrent.infoHash)
   }
 
   address () {
