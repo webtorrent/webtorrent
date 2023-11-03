@@ -419,7 +419,7 @@ export default class WebTorrent extends EventEmitter {
     this._debug('remove')
     const torrent = await this.get(torrentId)
     if (!torrent) {
-      cb()
+      if (cb) cb()
       return
     }
     this.torrents.splice(this.torrents.indexOf(torrent), 1)
