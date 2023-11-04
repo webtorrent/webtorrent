@@ -103,7 +103,7 @@
     "path-esm": "^1.0.0",
     "querystring": "^0.2.1",
     "run-series": "1.1.9",
-    "semantic-release": "22.0.6",
+    "semantic-release": "22.0.7",
     "serve-static": "1.15.0",
     "stream-http": "^3.2.0",
     "tap-parser": "^15.2.0",
