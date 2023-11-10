@@ -106,7 +106,7 @@
     "semantic-release": "22.0.7",
     "serve-static": "1.15.0",
     "stream-http": "^3.2.0",
-    "tap-parser": "^15.2.0",
+    "tap-parser": "^15.3.1",
     "tap-spec": "^5.0.0",
     "tape": "^5.7.2",
     "terser-webpack-plugin": "^5.3.9",
