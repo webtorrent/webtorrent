@@ -1,4 +1,4 @@
-/** @type {import('webpack').WebpackOptionsNormalized} */
+/** @type {import('webpack').Configuration} */
 export default {
   entry: './lib/worker.js',
   devtool: 'source-map',
