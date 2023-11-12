@@ -1,3 +1,10 @@
+## [2.1.29](https://github.com/webtorrent/webtorrent/compare/v2.1.28...v2.1.29) (2023-11-12)
+
+
+### Bug Fixes
+
+* chromeapp build ([#2704](https://github.com/webtorrent/webtorrent/issues/2704)) ([ed9f368](https://github.com/webtorrent/webtorrent/commit/ed9f368fbbcb076f963e26a627ef6bc36b91a4b2))
+
 ## [2.1.28](https://github.com/webtorrent/webtorrent/compare/v2.1.27...v2.1.28) (2023-11-09)
 
 
