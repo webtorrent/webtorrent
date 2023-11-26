@@ -125,7 +125,7 @@ If `opts` is specified, then the default options (shown below) will be overridde
   preloadedStore: Function,  // Custom, pre-loaded chunk store (must follow [abstract-chunk-store](https://www.npmjs.com/package/abstract-chunk-store) API)
   strategy: String,          // Piece selection strategy, `rarest` or `sequential`(defaut=`sequential`)
   noPeersIntervalTime: Number, // The amount of time (in seconds) to wait between each check of the `noPeers` event (default=30)
-  paused: Boolean,           // If true, set the torrent in a paused state (default=false)
+  paused: Boolean,           // If true, create the torrent in a paused state (default=false)
 }
 ```
 
