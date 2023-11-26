@@ -1,3 +1,31 @@
+## [2.1.29](https://github.com/webtorrent/webtorrent/compare/v2.1.28...v2.1.29) (2023-11-12)
+
+
+### Bug Fixes
+
+* chromeapp build ([#2704](https://github.com/webtorrent/webtorrent/issues/2704)) ([ed9f368](https://github.com/webtorrent/webtorrent/commit/ed9f368fbbcb076f963e26a627ef6bc36b91a4b2))
+
+## [2.1.28](https://github.com/webtorrent/webtorrent/compare/v2.1.27...v2.1.28) (2023-11-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency torrent-discovery to v11 ([#2702](https://github.com/webtorrent/webtorrent/issues/2702)) ([62ff1bf](https://github.com/webtorrent/webtorrent/commit/62ff1bf6559474eb114f131c30eed18ff485afc0))
+
+## [2.1.27](https://github.com/webtorrent/webtorrent/compare/v2.1.26...v2.1.27) (2023-10-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency uint8-util to ^2.2.4 ([#2653](https://github.com/webtorrent/webtorrent/issues/2653)) ([26ab5d3](https://github.com/webtorrent/webtorrent/commit/26ab5d3e2196cc92edde3d89c1b8877a1385700a))
+
+## [2.1.26](https://github.com/webtorrent/webtorrent/compare/v2.1.25...v2.1.26) (2023-10-02)
+
+
+### Bug Fixes
+
+* incorrect File.stream() object this reference ([#2672](https://github.com/webtorrent/webtorrent/issues/2672)) ([8577a47](https://github.com/webtorrent/webtorrent/commit/8577a4719e32ece57f8e9d30df4c7e819e1b0f70))
+
 ## [2.1.25](https://github.com/webtorrent/webtorrent/compare/v2.1.24...v2.1.25) (2023-08-11)
 
 
