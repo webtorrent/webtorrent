@@ -1,3 +1,10 @@
+## [2.1.32](https://github.com/webtorrent/webtorrent/compare/v2.1.31...v2.1.32) (2023-12-12)
+
+
+### Bug Fixes
+
+* **deps:** update dependency create-torrent to ^6.0.16 ([97c0af1](https://github.com/webtorrent/webtorrent/commit/97c0af1e165f77f912e133fdf896d8cea3a5476a))
+
 ## [2.1.31](https://github.com/webtorrent/webtorrent/compare/v2.1.30...v2.1.31) (2023-12-11)
 
 
