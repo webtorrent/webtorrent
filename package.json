@@ -110,7 +110,7 @@
     "tap-parser": "^15.3.1",
     "tap-spec": "^5.0.0",
     "tape": "^5.7.2",
-    "terser-webpack-plugin": "^5.3.9",
+    "terser-webpack-plugin": "^5.3.10",
     "timers-browserify": "^2.0.12",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4",
