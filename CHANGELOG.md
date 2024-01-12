@@ -1,3 +1,10 @@
+## [2.1.33](https://github.com/webtorrent/webtorrent/compare/v2.1.32...v2.1.33) (2024-01-12)
+
+
+### Bug Fixes
+
+* malformed debug ID ([#2733](https://github.com/webtorrent/webtorrent/issues/2733)) ([2453316](https://github.com/webtorrent/webtorrent/commit/24533162fada3d93404bfe104f5a0b9861350d0d))
+
 ## [2.1.32](https://github.com/webtorrent/webtorrent/compare/v2.1.31...v2.1.32) (2023-12-12)
 
 
