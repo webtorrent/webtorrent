@@ -67,7 +67,7 @@ export default class WebTorrent extends EventEmitter {
     }
     this.nodeIdBuffer = hex2arr(this.nodeId)
 
-    this._debugId = arr2hex(this.peerId).substring(0, 7)
+    this._debugId = this.peerId.substring(0, 7)
 
     this.destroyed = false
     this.listening = false
