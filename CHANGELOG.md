@@ -1,3 +1,10 @@
+## [2.1.34](https://github.com/webtorrent/webtorrent/compare/v2.1.33...v2.1.34) (2024-01-16)
+
+
+### Bug Fixes
+
+* **deps:** update webtorrent ([0585322](https://github.com/webtorrent/webtorrent/commit/058532277f6e3a80cf9a772e3d8ca45ec7a41762))
+
 ## [2.1.33](https://github.com/webtorrent/webtorrent/compare/v2.1.32...v2.1.33) (2024-01-12)
 
 
