@@ -305,8 +305,15 @@ export default class WebTorrent extends EventEmitter {
    */
   addWithTimeout (torrentId, timeout) {
     return new Promise((resolve, reject) => {
-      this.add(torrentId, { timeout, onTimeout: reject }, resolve)
-    })
+      this.add(
+        torrentId,
+        {
+          timeout,
+          onTimeout: () => reject(new Error("Timed out waiting for torrent")),
+        },
+        resolve,
+      );
+    });
   }
 
   /**
