@@ -512,7 +512,7 @@ Selects a range of pieces to prioritize starting with `start` and ending with `e
 inclusive) at the given `priority`. `notify` is an optional callback to be called when the
 selection is updated with new data.
 
-## `torrent.deselect(start, end, priority)`
+## `torrent.deselect(start, end)`
 
 Deprioritizes a range of previously selected pieces.
 
@@ -668,7 +668,7 @@ File download progress, from 0 to 1.
 Selects the file to be downloaded, at the given `priority`.
 Useful if you know you need the file at a later stage.
 
-## `file.deselect([priority])`
+## `file.deselect()`
 
 Deselects the file's specific priority, which means it won't be downloaded unless someone creates a stream for it.
 
