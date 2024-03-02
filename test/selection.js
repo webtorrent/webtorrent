@@ -59,7 +59,7 @@ test('Selections', (t) => {
         selection = new Selection()
         selection.insert(existing)
         selection.remove(newItem)
-        t.deepEqual(selection._items, expectedRemoveResult)
+        assertArrayContentsEqual(t, selection._items, expectedRemoveResult)
         s.end()
       })
     }
@@ -71,7 +71,7 @@ test('Selections', (t) => {
         selection = new Selection()
         selection.insert(existing)
         selection.insert(newItem)
-        t.deepEqual(selection._items, [...expectedRemoveResult, newItem])
+        assertArrayContentsEqual(t, selection._items, [...expectedRemoveResult, newItem])
         s.end()
       })
     }
