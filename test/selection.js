@@ -38,7 +38,7 @@ const testCases = {
 test('Selections', (t) => {
   for (const [functionName, { fn, cases }] of Object.entries(testCases)) {
     for (const { newItem, existing } of cases) {
-      t.test(`should return true for newItem: ${s(newItem)} and existing: ${s(existing)} and everything else should be false`, (s) => {
+      t.test(`should return true for newItem: ${toString(newItem)} and existing: ${toString(existing)} and everything else should be false`, (s) => {
         t.equal(fn(newItem, existing), true)
         for (const otherFn of Object.keys(testCases)) {
           if (otherFn !== functionName) {
@@ -55,7 +55,7 @@ test('Selections', (t) => {
 
   for (const { cases } of Object.values(testCases)) {
     for (const { newItem, existing, expectedRemoveResult } of cases) {
-      t.test(`should remove the given item: ${s(newItem)} from existing selection: ${s(existing)} and leave: ${s2(expectedRemoveResult)}`, (s) => {
+      t.test(`should remove the given item: ${toString(newItem)} from existing selection: ${toString(existing)} and leave: ${toString(expectedRemoveResult)}`, (s) => {
         selection = new Selection()
         selection.insert(existing)
         selection.remove(newItem)
@@ -67,7 +67,7 @@ test('Selections', (t) => {
 
   for (const { cases } of Object.values(testCases)) {
     for (const { newItem, existing, expectedRemoveResult } of cases) {
-      t.test(`should truncate the existing item: ${s(existing)} to prevent overlapping with the new selection: ${s(newItem)}`, (s) => {
+      t.test(`should truncate the existing item: ${toString(existing)} to prevent overlapping with the new selection: ${toString(newItem)}`, (s) => {
         selection = new Selection()
         selection.insert(existing)
         selection.insert(newItem)
@@ -91,25 +91,20 @@ test('Selections', (t) => {
 })
 
 /**
- *
- * @param {{from: number, to: number}} param0
+ * Converts a selection or an array of selections to a human-readable string
+ * @param {{from: number, to: number} | Array<{from: number, to: number}>} param
  * @returns {string}
  */
-function s ({ from, to }) {
-  return `[${from}-${to}]`
+function toString (param) {
+  if (!Array.isArray(param)) {
+    const { from, to } = param
+    return `[${from}-${to}]`
+  }
+  return `[${param.map(toString).join(', ')}]`
 }
 
 /**
- *
- * @param {Array<{from: number, to: number}>} arr
- * @returns {string}
- */
-function s2 (arr) {
-  return `[${arr.map(s).join(', ')}]`
-}
-
-/**
- *
+ * Asserts that the given arrays of selections have the same from-to pairs, regardless of order
  * @param {import('tape').Test} t
  * @param {Array<Selection>} actual
  * @param {Array<Selection>} expected
