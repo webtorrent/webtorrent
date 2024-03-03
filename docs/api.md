@@ -126,7 +126,7 @@ If `opts` is specified, then the default options (shown below) will be overridde
   strategy: String,          // Piece selection strategy, `rarest` or `sequential`(defaut=`sequential`)
   noPeersIntervalTime: Number, // The amount of time (in seconds) to wait between each check of the `noPeers` event (default=30)
   paused: Boolean,           // If true, create the torrent in a paused state (default=false)
-  deselect: Boolean        // If true, create the torrent with no pieces selected (default=false)
+  deselect: Boolean          // If true, create the torrent with no pieces selected (default=false)
 }
 ```
 
