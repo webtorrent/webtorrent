@@ -3,7 +3,7 @@ import MemoryChunkStore from 'memory-chunk-store'
 import test from 'tape'
 import WebTorrent from '../index.js'
 
-function setupClient (t, onTorrent, onDone) {
+function setupClient ({ t, onTorrent, onDone, addTorrentProps = {} }) {
   const client1 = new WebTorrent({ dht: false, tracker: false, lsd: false })
   client1.on('error', function (err) { t.fail(err) })
   client1.on('warning', function (err) { t.fail(err) })
@@ -19,7 +19,7 @@ function setupClient (t, onTorrent, onDone) {
     announce: [],
     store: MemoryChunkStore
   }, () => {
-    client2.add(parsedTorrent, { store: MemoryChunkStore }, (torrent) => {
+    client2.add(parsedTorrent, { store: MemoryChunkStore, ...addTorrentProps }, (torrent) => {
       onTorrent(torrent)
 
       torrent.addPeer(`localhost:${client1.torrentPort}`)
@@ -37,10 +37,14 @@ function setupClient (t, onTorrent, onDone) {
 test('client.select: whole torrent', function (t) {
   t.plan(3)
 
-  setupClient(t, (torrent) => {
-    torrent.select(0, torrent.pieces.length - 1)
-  }, (torrent) => {
-    t.equal(torrent.pieces.filter((a) => a === null).length, torrent.pieces.length)
+  setupClient({
+    t,
+    onTorrent: (torrent) => {
+      torrent.select(0, torrent.pieces.length - 1)
+    },
+    onDone: (torrent) => {
+      t.equal(torrent.pieces.filter((a) => a === null).length, torrent.pieces.length)
+    }
   })
 })
 
@@ -48,22 +52,43 @@ test('client.select: partial torrent', function (t) {
   t.plan(3)
 
   let lastPiece
-  setupClient(t, (torrent) => {
-    lastPiece = Math.floor((torrent.pieces.length - 1) / 2)
-    torrent.deselect(0, torrent.pieces.length - 1)
-    torrent.select(0, lastPiece)
-  }, (torrent) => {
-    t.equal(torrent.pieces.filter((a) => a === null).length, (lastPiece + 1))
+  setupClient({
+    t,
+    onTorrent: (torrent) => {
+      lastPiece = Math.floor((torrent.pieces.length - 1) / 2)
+      torrent.deselect(0, torrent.pieces.length - 1)
+      torrent.select(0, lastPiece)
+    },
+    onDone: (torrent) => {
+      t.equal(torrent.pieces.filter((a) => a === null).length, (lastPiece + 1))
+    }
   })
 })
 
 test('client.deselect: whole torrent', function (t) {
   t.plan(3)
 
-  setupClient(t, (torrent) => {
-    torrent.deselect(0, torrent.pieces.length - 1)
-  }, (torrent) => {
-    t.equal(torrent.pieces.filter((a) => a === null).length, 0)
+  setupClient({
+    t,
+    onTorrent: (torrent) => {
+      torrent.deselect(0, torrent.pieces.length - 1)
+    },
+    onDone: (torrent) => {
+      t.equal(torrent.pieces.filter((a) => a === null).length, 0)
+    }
+  })
+})
+
+test('client.deselect: whole torrent - start as deselected', function (t) {
+  t.plan(3)
+
+  setupClient({
+    t,
+    onTorrent: () => {},
+    addTorrentProps: { deselect: true },
+    onDone: (torrent) => {
+      t.equal(torrent.pieces.filter((a) => a === null).length, 0)
+    }
   })
 })
 
@@ -71,10 +96,14 @@ test('client.deselect: partial torrent', function (t) {
   t.plan(3)
 
   let lastPiece
-  setupClient(t, (torrent) => {
-    lastPiece = Math.floor((torrent.pieces.length - 1) / 2)
-    torrent.deselect(0, lastPiece)
-  }, (torrent) => {
-    t.equal(torrent.pieces.filter((a) => a === null).length, (torrent.pieces.length - 1 - lastPiece))
+  setupClient({
+    t,
+    onTorrent: (torrent) => {
+      lastPiece = Math.floor((torrent.pieces.length - 1) / 2)
+      torrent.deselect(0, lastPiece)
+    },
+    onDone: (torrent) => {
+      t.equal(torrent.pieces.filter((a) => a === null).length, (torrent.pieces.length - 1 - lastPiece))
+    }
   })
 })
