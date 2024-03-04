@@ -1,7 +1,7 @@
 import fixtures from 'webtorrent-fixtures'
 import MemoryChunkStore from 'memory-chunk-store'
 import test from 'tape'
-import WebTorrent from '../index.js'
+import WebTorrent from '../../index.js'
 
 function setupClient ({ t, onTorrent, onDone, addTorrentProps = {} }) {
   const client1 = new WebTorrent({ dht: false, tracker: false, lsd: false })
