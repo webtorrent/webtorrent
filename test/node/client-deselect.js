@@ -51,16 +51,16 @@ test('client.select: whole torrent', function (t) {
 test('client.select: partial torrent', function (t) {
   t.plan(3)
 
-  let lastPiece
+  let lastPieceIndex
   setupClient({
     t,
     onTorrent: (torrent) => {
-      lastPiece = Math.floor((torrent.pieces.length - 1) / 2)
+      lastPieceIndex = Math.floor((torrent.pieces.length - 1) / 2)
       torrent.deselect(0, torrent.pieces.length - 1)
-      torrent.select(0, lastPiece)
+      torrent.select(0, lastPieceIndex)
     },
     onDone: (torrent) => {
-      t.equal(torrent.pieces.filter((a) => a === null).length, (lastPiece + 1))
+      t.equal(torrent.pieces.filter((a) => a === null).length, (lastPieceIndex + 1))
     }
   })
 })
@@ -95,15 +95,15 @@ test('client.deselect: whole torrent - start as deselected', function (t) {
 test('client.deselect: partial torrent', function (t) {
   t.plan(3)
 
-  let lastPiece
+  let lastPieceIndex
   setupClient({
     t,
     onTorrent: (torrent) => {
-      lastPiece = Math.floor((torrent.pieces.length - 1) / 2)
-      torrent.deselect(0, lastPiece)
+      lastPieceIndex = Math.floor((torrent.pieces.length - 1) / 2)
+      torrent.deselect(0, lastPieceIndex)
     },
     onDone: (torrent) => {
-      t.equal(torrent.pieces.filter((a) => a === null).length, (torrent.pieces.length - 1 - lastPiece))
+      t.equal(torrent.pieces.filter((a) => a === null).length, (torrent.pieces.length - 1 - lastPieceIndex))
     }
   })
 })
