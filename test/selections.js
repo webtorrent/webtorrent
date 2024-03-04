@@ -1,4 +1,4 @@
-import { Selection, isCoveringExisting, isInsideExisting, isLowerIntersecting, isUpperIntersecting } from '../lib/selection.js'
+import { Selections, isCoveringExisting, isInsideExisting, isLowerIntersecting, isUpperIntersecting } from '../lib/selections.js'
 import test from 'tape'
 
 const testCases = {
@@ -50,13 +50,13 @@ test('Selections', (t) => {
     }
   }
 
-  /** @type {Selection} */
+  /** @type {Selections} */
   let selection
 
   for (const { cases } of Object.values(testCases)) {
     for (const { newItem, existing, expectedRemoveResult } of cases) {
       t.test(`should remove the given item: ${toString(newItem)} from existing selection: ${toString(existing)} and leave: ${toString(expectedRemoveResult)}`, (s) => {
-        selection = new Selection()
+        selection = new Selections()
         selection.insert(existing)
         selection.remove(newItem)
         assertArrayContentsEqual(t, selection._items, expectedRemoveResult)
@@ -68,7 +68,7 @@ test('Selections', (t) => {
   for (const { cases } of Object.values(testCases)) {
     for (const { newItem, existing, expectedRemoveResult } of cases) {
       t.test(`should truncate the existing item: ${toString(existing)} to prevent overlapping with the new selection: ${toString(newItem)}`, (s) => {
-        selection = new Selection()
+        selection = new Selections()
         selection.insert(existing)
         selection.insert(newItem)
         assertArrayContentsEqual(t, selection._items, [...expectedRemoveResult, newItem])
@@ -78,7 +78,7 @@ test('Selections', (t) => {
   }
 
   t.test('should insert large selection and truncate or delete existing selections', (s) => {
-    selection = new Selection()
+    selection = new Selections()
     selection.insert({ from: 5, to: 10 })
     selection.insert({ from: 11, to: 19 })
     selection.insert({ from: 20, to: 40 })
@@ -106,8 +106,8 @@ function toString (param) {
 /**
  * Asserts that the given arrays of selections have the same from-to pairs, regardless of order
  * @param {import('tape').Test} t
- * @param {Array<Selection>} actual
- * @param {Array<Selection>} expected
+ * @param {Array<Selections>} actual
+ * @param {Array<Selections>} expected
  */
 function assertArrayContentsEqual (t, actual, expected) {
   t.equal(actual.length, expected.length)
