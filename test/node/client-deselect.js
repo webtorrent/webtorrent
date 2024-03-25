@@ -86,7 +86,7 @@ test('client.deselect: whole torrent - start as deselected', function (t) {
   })
 })
 
-test('client.deselect: partial torrent', function (t) {
+test('client.deselect: partial torrent - second half deselected', function (t) {
   let lastPieceIndex
   setupClient({
     t,
@@ -96,6 +96,22 @@ test('client.deselect: partial torrent', function (t) {
     },
     onDone: (torrent) => {
       t.equal(torrent.pieces.filter((a) => a === null).length, (torrent.pieces.length - 1 - lastPieceIndex))
+      assertSelectionsEquals(t, torrent._selections, [[lastPieceIndex + 1, torrent.pieces.length - 1]])
+    }
+  })
+})
+
+test('client.deselect: partial torrent - second half deselected', function (t) {
+  let lastPieceIndex
+  setupClient({
+    t,
+    onTorrent: (torrent) => {
+      lastPieceIndex = Math.floor((torrent.pieces.length - 1) / 2)
+      torrent.deselect(lastPieceIndex, torrent.pieces.length - 1)
+    },
+    onDone: (torrent) => {
+      t.equal(torrent.pieces.filter((a) => a === null).length, (torrent.pieces.length - 1 - lastPieceIndex))
+      assertSelectionsEquals(t, torrent._selections, [[0, lastPieceIndex - 1]])
     }
   })
 })
@@ -115,12 +131,12 @@ test('client.deselect: multiple overlapping ranges', function (t) {
 
       torrent.deselect(4, 8)
       torrent.deselect(14, 17)
-      torrent.deselect(20, 22)
-      t.assert(torrent._selections.length === 4)
-      assertSelectionsEquals(t, torrent._selections, [[0, 3], [9, 11], [12, 13], [18, 19]])
+      torrent.deselect(20, 21)
+      t.assert(torrent._selections.length === 5)
+      assertSelectionsEquals(t, torrent._selections, [[0, 3], [9, 11], [12, 13], [18, 19], [22, 22]])
     },
     onDone: (torrent) => {
-      t.equal(torrent.pieces.filter((a) => a === null).length, 11)
+      t.equal(torrent.pieces.filter((a) => a === null).length, 12)
     }
   })
 })
