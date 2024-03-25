@@ -27,16 +27,16 @@ function setupClient ({ t, onTorrent, onDone, addTorrentProps = {} }) {
       torrent.once('done', () => {
         onDone(torrent)
 
-        client1.destroy(function (err) { t.error(err, 'client1 destroyed') })
-        client2.destroy(function (err) { t.error(err, 'client2 destroyed') })
+        Promise.all([
+          new Promise((resolve) => client1.destroy(function (err) { t.error(err, 'client1 destroyed'); resolve() })),
+          new Promise((resolve) => client2.destroy(function (err) { t.error(err, 'client2 destroyed'); resolve() }))
+        ]).then(() => t.end())
       })
     })
   })
 }
 
 test('client.select: whole torrent', function (t) {
-  t.plan(3)
-
   setupClient({
     t,
     onTorrent: (torrent) => {
@@ -49,8 +49,6 @@ test('client.select: whole torrent', function (t) {
 })
 
 test('client.select: partial torrent', function (t) {
-  t.plan(3)
-
   let lastPieceIndex
   setupClient({
     t,
@@ -66,8 +64,6 @@ test('client.select: partial torrent', function (t) {
 })
 
 test('client.deselect: whole torrent', function (t) {
-  t.plan(3)
-
   setupClient({
     t,
     onTorrent: (torrent) => {
@@ -80,8 +76,6 @@ test('client.deselect: whole torrent', function (t) {
 })
 
 test('client.deselect: whole torrent - start as deselected', function (t) {
-  t.plan(3)
-
   setupClient({
     t,
     onTorrent: () => {},
@@ -93,8 +87,6 @@ test('client.deselect: whole torrent - start as deselected', function (t) {
 })
 
 test('client.deselect: partial torrent', function (t) {
-  t.plan(3)
-
   let lastPieceIndex
   setupClient({
     t,
@@ -107,3 +99,46 @@ test('client.deselect: partial torrent', function (t) {
     }
   })
 })
+
+test('client.deselect: multiple overlapping ranges', function (t) {
+  setupClient({
+    t,
+    addTorrentProps: { deselect: true },
+    onTorrent: (/** @type {import('../../lib/torrent.js').default} */torrent) => {
+      torrent.select(3, 10)
+      torrent.select(5, 12)
+      torrent.select(12, 18)
+      torrent.select(15, 22)
+      torrent.select(0, 4)
+      t.assert(torrent._selections.length === 4)
+      assertSelectionsEquals(t, torrent._selections, [[0, 4], [5, 11], [12, 14], [15, 22]])
+
+      torrent.deselect(4, 8)
+      torrent.deselect(14, 17)
+      torrent.deselect(20, 22)
+      t.assert(torrent._selections.length === 4)
+      assertSelectionsEquals(t, torrent._selections, [[0, 3], [9, 11], [12, 13], [18, 19]])
+    },
+    onDone: (torrent) => {
+      t.equal(torrent.pieces.filter((a) => a === null).length, 11)
+    }
+  })
+})
+
+/**
+ * @param {import('tape').Test} t
+ * @param {import('../../lib/selections.js').Selections} selections
+ * @param {[number,number][]} expected
+ */
+function assertSelectionsEquals (t, selections, expected) {
+  t.equal(selections.length, expected.length)
+  const selectionItems = [...selections._items]
+  selectionItems.sort((a, b) => a.from - b.from)
+  expected.sort((a, b) => a[0] - b[0])
+
+  for (let i = 0; i < expected.length; i++) {
+    const actualRange = [selectionItems[i].from, selectionItems[i].to]
+    const expectedRange = expected[i]
+    t.deepEqual(actualRange, expectedRange)
+  }
+}
