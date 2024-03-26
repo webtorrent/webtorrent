@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/webtorrent/webtorrent/compare/v2.1.37...v2.2.0) (2024-03-26)
+
+
+### Features
+
+* Refactor selections with non-overlapping data structure ([#2757](https://github.com/webtorrent/webtorrent/issues/2757)) ([467f30c](https://github.com/webtorrent/webtorrent/commit/467f30ccb48d318e7cf9e801d40ec3158fa220f6))
+
 ## [2.1.37](https://github.com/webtorrent/webtorrent/compare/v2.1.36...v2.1.37) (2024-03-04)
 
 
