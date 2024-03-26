@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: 18
       - name: Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.npm
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package.json') }}
