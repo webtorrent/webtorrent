@@ -52,7 +52,7 @@
     "debug": "^4.3.4",
     "escape-html": "^1.0.3",
     "fs-chunk-store": "^4.1.0",
-    "hybrid-chunk-store": "^1.2.2",
+    "hybrid-chunk-store": "^1.2.4",
     "immediate-chunk-store": "^2.2.0",
     "join-async-iterator": "^1.1.1",
     "load-ip-set": "^3.0.1",
