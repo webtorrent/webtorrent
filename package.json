@@ -41,7 +41,7 @@
     "@thaunknown/simple-peer": "^9.12.1",
     "@webtorrent/http-node": "^1.3.0",
     "addr-to-ip-port": "^2.0.0",
-    "bitfield": "^4.1.0",
+    "bitfield": "^4.2.0",
     "bittorrent-dht": "^11.0.5",
     "bittorrent-protocol": "^4.1.11",
     "cache-chunk-store": "^3.2.2",
