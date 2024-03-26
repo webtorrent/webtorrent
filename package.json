@@ -104,7 +104,7 @@
     "path-esm": "^1.0.0",
     "querystring": "^0.2.1",
     "run-series": "1.1.9",
-    "semantic-release": "22.0.12",
+    "semantic-release": "23.0.6",
     "serve-static": "1.15.0",
     "stream-browserify": "^3.0.0",
     "tap-parser": "^15.3.1",
