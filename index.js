@@ -290,7 +290,8 @@ export default class WebTorrent extends EventEmitter {
     torrent.once('_infoHash', onInfoHash)
     torrent.once('ready', onReady)
     torrent.once('close', onClose)
-
+    
+    this.emit('add', torrent)
     return torrent
   }
 
@@ -416,6 +417,7 @@ export default class WebTorrent extends EventEmitter {
     if (this.dht) {
       this.dht._tables.remove(torrent.infoHash)
     }
+    this.emit('remove', torrent);
   }
 
   address () {
