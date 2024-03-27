@@ -290,7 +290,7 @@ export default class WebTorrent extends EventEmitter {
     torrent.once('_infoHash', onInfoHash)
     torrent.once('ready', onReady)
     torrent.once('close', onClose)
-    
+
     this.emit('add', torrent)
     return torrent
   }
@@ -412,7 +412,9 @@ export default class WebTorrent extends EventEmitter {
   _remove (torrent, opts, cb) {
     if (!torrent) return
     if (typeof opts === 'function') return this._remove(torrent, null, opts)
-    this.torrents.splice(this.torrents.indexOf(torrent), 1)
+    var index = this.torrents.indexOf(torrent);
+    if (index === -1) return
+    this.torrents.splice(index, 1)
     torrent.destroy(opts, cb)
     if (this.dht) {
       this.dht._tables.remove(torrent.infoHash)
