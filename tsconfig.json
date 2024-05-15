@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "declaration": true,
+    "outDir": "dist"
+  },
+  "include": ["index.js", "lib/**/*"]
+}

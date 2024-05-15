@@ -112,6 +112,7 @@
     "tape": "^5.7.5",
     "terser-webpack-plugin": "^5.3.10",
     "timers-browserify": "^2.0.12",
+    "typescript": "~5.4.5",
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4",
     "webtorrent-fixtures": "1.7.5"
@@ -155,6 +156,7 @@
   ],
   "license": "MIT",
   "main": "index.js",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git://github.com/webtorrent/webtorrent.git"
@@ -164,6 +166,7 @@
     "build-chromeapp": "webpack --config ./scripts/chromeapp.webpack.js",
     "build-js": "webpack --config ./scripts/browser.webpack.js",
     "build-js-worker": "webpack --config ./scripts/worker.webpack.js",
+    "build-d-ts": "rm -rf dist/**/*.d.ts  &&  tsc --emitDeclarationOnly",
     "prepublishOnly": "npm run build && npm run update-authors",
     "preversion": "npm run build && npm run update-authors",
     "size": "npm run size-js && npm run size-disc",
