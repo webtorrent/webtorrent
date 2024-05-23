@@ -120,7 +120,7 @@
     "utp-native": "^2.5.3"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "funding": [
     {
