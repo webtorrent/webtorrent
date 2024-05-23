@@ -13,7 +13,7 @@ test('WebTorrent.WEBRTC_SUPPORT', t => {
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
 
-  t.equal(WebTorrent.WEBRTC_SUPPORT, false)
+  t.equal(WebTorrent.WEBRTC_SUPPORT, true)
 
   client.destroy(err => {
     t.error(err, 'client destroyed')
