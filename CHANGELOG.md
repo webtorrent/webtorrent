@@ -1,3 +1,10 @@
+## [2.2.2](https://github.com/webtorrent/webtorrent/compare/v2.2.1...v2.2.2) (2024-05-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency torrent-discovery to ^11.0.4 ([9841d3d](https://github.com/webtorrent/webtorrent/commit/9841d3d99e7329a57abb40f9ef80dc914db6699e))
+
 ## [2.2.1](https://github.com/webtorrent/webtorrent/compare/v2.2.0...v2.2.1) (2024-03-26)
 
 
