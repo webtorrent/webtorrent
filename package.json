@@ -70,7 +70,7 @@
     "speed-limiter": "^1.0.2",
     "streamx": "^2.16.1",
     "throughput": "^1.0.1",
-    "torrent-discovery": "^11.0.2",
+    "torrent-discovery": "^11.0.4",
     "torrent-piece": "^3.0.0",
     "uint8-util": "^2.2.4",
     "unordered-array-remove": "^1.0.2",
