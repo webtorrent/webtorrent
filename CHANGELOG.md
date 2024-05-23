@@ -1,3 +1,10 @@
+# [2.3.0](https://github.com/webtorrent/webtorrent/compare/v2.2.2...v2.3.0) (2024-05-23)
+
+
+### Features
+
+* Built-in-webrtc ([#2786](https://github.com/webtorrent/webtorrent/issues/2786)) ([c693f9e](https://github.com/webtorrent/webtorrent/commit/c693f9ea91c32b0f8e81d2d57476405fda86c7a7))
+
 ## [2.2.2](https://github.com/webtorrent/webtorrent/compare/v2.2.1...v2.2.2) (2024-05-23)
 
 
