@@ -1,3 +1,10 @@
+## [2.3.2](https://github.com/webtorrent/webtorrent/compare/v2.3.1...v2.3.2) (2024-05-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bitfield to ^4.2.0 ([#2730](https://github.com/webtorrent/webtorrent/issues/2730)) ([867e4f2](https://github.com/webtorrent/webtorrent/commit/867e4f2cabcc4087fc55ef3cc0bc1e5f2d75fb21))
+
 ## [2.3.1](https://github.com/webtorrent/webtorrent/compare/v2.3.0...v2.3.1) (2024-05-23)
 
 
