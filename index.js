@@ -419,7 +419,7 @@ export default class WebTorrent extends EventEmitter {
     if (this.dht) {
       this.dht._tables.remove(torrent.infoHash)
     }
-    this.emit('remove', torrent);
+    this.emit('remove', torrent)
   }
 
   address () {
