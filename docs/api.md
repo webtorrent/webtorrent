@@ -198,6 +198,14 @@ buf.name = 'Some file name'
 client.seed(buf, cb)
 ```
 
+## `client.on('add', function (torrent) {})`
+
+Emitted when a torrent is added to client.torrents. This allows attaching to torrent events that may be emitted before the client 'torrent' event is emitted. See the torrent section for more info on what methods a `torrent` has.
+
+## `client.on('remove', function (torrent) {})`
+
+Emitted when a torrent is removed from client.torrents. See the torrent section for more info on what methods a `torrent` has.
+
 ## `client.on('torrent', function (torrent) {})`
 
 Emitted when a torrent is ready to be used (i.e. metadata is available and store is
