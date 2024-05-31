@@ -412,7 +412,7 @@ export default class WebTorrent extends EventEmitter {
   _remove (torrent, opts, cb) {
     if (!torrent) return
     if (typeof opts === 'function') return this._remove(torrent, null, opts)
-    var index = this.torrents.indexOf(torrent);
+    const index = this.torrents.indexOf(torrent)
     if (index === -1) return
     this.torrents.splice(index, 1)
     torrent.destroy(opts, cb)
