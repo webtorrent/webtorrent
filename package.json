@@ -49,7 +49,7 @@
     "cpus": "^1.0.3",
     "create-torrent": "^6.0.17",
     "cross-fetch-ponyfill": "^1.0.3",
-    "debug": "^4.3.4",
+    "debug": "^4.3.5",
     "escape-html": "^1.0.3",
     "fs-chunk-store": "^4.1.0",
     "hybrid-chunk-store": "^1.2.4",
