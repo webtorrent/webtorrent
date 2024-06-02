@@ -1,3 +1,10 @@
+## [2.3.6](https://github.com/webtorrent/webtorrent/compare/v2.3.5...v2.3.6) (2024-06-02)
+
+
+### Bug Fixes
+
+* **deps:** update webtorrent to ^11.0.6 ([63061c6](https://github.com/webtorrent/webtorrent/commit/63061c68dcd070db982e824eaccee755429f3549))
+
 ## [2.3.5](https://github.com/webtorrent/webtorrent/compare/v2.3.4...v2.3.5) (2024-06-01)
 
 
