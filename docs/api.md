@@ -69,6 +69,7 @@ If `opts` is specified, then the default options (shown below) will be overridde
   natPmp: Boolean,         // Enable NAT port mapping via NAT-PMP (default=true). NodeJS only.
   webSeeds: Boolean,       // Enable BEP19 web seeds (default=true)
   utp: Boolean,            // Enable BEP29 uTorrent transport protocol (default=true)
+  seedOutgoingConnections: Boolean // Enable outgoing connections when seeding (default=true)
   blocklist: Array|String, // List of IP's to block
   downloadLimit: Number,   // Max download speed (bytes/sec) over all torrents (default=-1)
   uploadLimit: Number,     // Max upload speed (bytes/sec) over all torrents (default=-1)
@@ -87,6 +88,8 @@ For possible values of `opts.blocklist` see the
 For `opts.natUpnp` and `opts.natPmp`, if both are set to `true`, PMP will be attempted first, then fallback to UPNP. NodeJS only.
 
 For `opts.natUpnp`, if set to `true`, a temporary mapping is used, if set to `permanent`, a permanent TTL will be used for UPNP if the router only supports permanent leases. NodeJS only.
+
+For `opts.seedOutgoingConnections`, if set `true`, outgoing connections will be established while seeding, otherwise, only inbound connections will be responded to.
 
 For `downloadLimit` and `uploadLimit` the possible values can be:
   - `> 0`. The client will set the throttle at that speed
