@@ -1,3 +1,10 @@
+# [2.4.0](https://github.com/webtorrent/webtorrent/compare/v2.3.6...v2.4.0) (2024-06-06)
+
+
+### Features
+
+* add `opts.seedOutgoingConnections` to allow controlling outbound connections for seeding. ([#2803](https://github.com/webtorrent/webtorrent/issues/2803)) ([d40616f](https://github.com/webtorrent/webtorrent/commit/d40616f27d1b584b1a8db66e75638298388505c9))
+
 ## [2.3.6](https://github.com/webtorrent/webtorrent/compare/v2.3.5...v2.3.6) (2024-06-02)
 
 
