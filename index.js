@@ -17,7 +17,7 @@ import ConnPool from './lib/conn-pool.js' // browser exclude
 import Torrent from './lib/torrent.js'
 import { NodeServer, BrowserServer } from './lib/server.js'
 
-import info from './package.json' assert { type: 'json' }
+import info from './config.cjs'
 const VERSION = info.version
 
 const debug = debugFactory('webtorrent')
