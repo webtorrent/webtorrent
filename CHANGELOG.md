@@ -1,3 +1,5 @@
+## [2.4.1](https://github.com/webtorrent/webtorrent/compare/v2.4.0...v2.4.1) (2024-06-13)
+
 # [2.4.0](https://github.com/webtorrent/webtorrent/compare/v2.3.6...v2.4.0) (2024-06-06)
 
 
