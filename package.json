@@ -109,7 +109,7 @@
     "stream-browserify": "^3.0.0",
     "tap-parser": "^16.0.1",
     "tap-spec": "^5.0.0",
-    "tape": "^5.7.5",
+    "tape": "^5.8.0",
     "terser-webpack-plugin": "^5.3.10",
     "timers-browserify": "^2.0.12",
     "webpack": "^5.91.0",
