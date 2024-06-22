@@ -1,3 +1,10 @@
+## [2.4.2](https://github.com/webtorrent/webtorrent/compare/v2.4.1...v2.4.2) (2024-06-22)
+
+
+### Bug Fixes
+
+* allow client level default trackers to be set ([#2815](https://github.com/webtorrent/webtorrent/issues/2815)) ([a0e056d](https://github.com/webtorrent/webtorrent/commit/a0e056dc01c08c78e8b5ab33b3f50b7e96b37825))
+
 ## [2.4.1](https://github.com/webtorrent/webtorrent/compare/v2.4.0...v2.4.1) (2024-06-13)
 
 # [2.4.0](https://github.com/webtorrent/webtorrent/compare/v2.3.6...v2.4.0) (2024-06-06)
