@@ -162,11 +162,11 @@
     "url": "git://github.com/webtorrent/webtorrent.git"
   },
   "scripts": {
-    "build": "npm run build-js && npm run build-js-worker && npm run build-chromeapp",
+    "build": "npm run build-js && npm run build-d-ts && npm run build-js-worker && npm run build-chromeapp",
     "build-chromeapp": "webpack --config ./scripts/chromeapp.webpack.js",
     "build-js": "webpack --config ./scripts/browser.webpack.js",
     "build-js-worker": "webpack --config ./scripts/worker.webpack.js",
-    "build-d-ts": "rm -rf dist/**/*.d.ts  &&  tsc --emitDeclarationOnly",
+    "build-d-ts": "npx rimraf -g dist/**/*.d.ts  &&  tsc --emitDeclarationOnly",
     "prepublishOnly": "npm run build && npm run update-authors",
     "preversion": "npm run build && npm run update-authors",
     "size": "npm run size-js && npm run size-disc",
