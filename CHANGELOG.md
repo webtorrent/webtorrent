@@ -1,3 +1,75 @@
+## [2.4.2](https://github.com/webtorrent/webtorrent/compare/v2.4.1...v2.4.2) (2024-06-22)
+
+
+### Bug Fixes
+
+* allow client level default trackers to be set ([#2815](https://github.com/webtorrent/webtorrent/issues/2815)) ([a0e056d](https://github.com/webtorrent/webtorrent/commit/a0e056dc01c08c78e8b5ab33b3f50b7e96b37825))
+
+## [2.4.1](https://github.com/webtorrent/webtorrent/compare/v2.4.0...v2.4.1) (2024-06-13)
+
+# [2.4.0](https://github.com/webtorrent/webtorrent/compare/v2.3.6...v2.4.0) (2024-06-06)
+
+
+### Features
+
+* add `opts.seedOutgoingConnections` to allow controlling outbound connections for seeding. ([#2803](https://github.com/webtorrent/webtorrent/issues/2803)) ([d40616f](https://github.com/webtorrent/webtorrent/commit/d40616f27d1b584b1a8db66e75638298388505c9))
+
+## [2.3.6](https://github.com/webtorrent/webtorrent/compare/v2.3.5...v2.3.6) (2024-06-02)
+
+
+### Bug Fixes
+
+* **deps:** update webtorrent to ^11.0.6 ([63061c6](https://github.com/webtorrent/webtorrent/commit/63061c68dcd070db982e824eaccee755429f3549))
+
+## [2.3.5](https://github.com/webtorrent/webtorrent/compare/v2.3.4...v2.3.5) (2024-06-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency torrent-discovery to ^11.0.5 ([4742c01](https://github.com/webtorrent/webtorrent/commit/4742c01560e9f28d2d5bd194f6b84f3b5889ecd1))
+
+## [2.3.4](https://github.com/webtorrent/webtorrent/compare/v2.3.3...v2.3.4) (2024-06-01)
+
+
+### Bug Fixes
+
+* **deps:** update webtorrent ([6ff995f](https://github.com/webtorrent/webtorrent/commit/6ff995fafffb59138f31705fdca5944b0eafbb0c))
+
+## [2.3.3](https://github.com/webtorrent/webtorrent/compare/v2.3.2...v2.3.3) (2024-06-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency debug to ^4.3.5 ([4a47201](https://github.com/webtorrent/webtorrent/commit/4a472018dfc5c6ca218d5a1b7ba4683aa8e312a7))
+
+## [2.3.2](https://github.com/webtorrent/webtorrent/compare/v2.3.1...v2.3.2) (2024-05-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bitfield to ^4.2.0 ([#2730](https://github.com/webtorrent/webtorrent/issues/2730)) ([867e4f2](https://github.com/webtorrent/webtorrent/commit/867e4f2cabcc4087fc55ef3cc0bc1e5f2d75fb21))
+
+## [2.3.1](https://github.com/webtorrent/webtorrent/compare/v2.3.0...v2.3.1) (2024-05-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency uint8-util to ^2.2.5 ([#2784](https://github.com/webtorrent/webtorrent/issues/2784)) ([3c3993f](https://github.com/webtorrent/webtorrent/commit/3c3993fb8c49c99214f7dce514b8751f37f4a277))
+
+# [2.3.0](https://github.com/webtorrent/webtorrent/compare/v2.2.2...v2.3.0) (2024-05-23)
+
+
+### Features
+
+* Built-in-webrtc ([#2786](https://github.com/webtorrent/webtorrent/issues/2786)) ([c693f9e](https://github.com/webtorrent/webtorrent/commit/c693f9ea91c32b0f8e81d2d57476405fda86c7a7))
+
+## [2.2.2](https://github.com/webtorrent/webtorrent/compare/v2.2.1...v2.2.2) (2024-05-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency torrent-discovery to ^11.0.4 ([9841d3d](https://github.com/webtorrent/webtorrent/commit/9841d3d99e7329a57abb40f9ef80dc914db6699e))
+
 ## [2.2.1](https://github.com/webtorrent/webtorrent/compare/v2.2.0...v2.2.1) (2024-03-26)
 
 
