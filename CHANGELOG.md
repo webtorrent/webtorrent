@@ -1,3 +1,11 @@
+## [2.4.3](https://github.com/webtorrent/webtorrent/compare/v2.4.2...v2.4.3) (2024-06-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @thaunknown/simple-peer to ^10.0.8 ([27e34e5](https://github.com/webtorrent/webtorrent/commit/27e34e5059281af5a9d0de4231d3304fd71c5bda))
+* **deps:** update dependency hybrid-chunk-store to ^1.2.6 ([#2818](https://github.com/webtorrent/webtorrent/issues/2818)) ([478c691](https://github.com/webtorrent/webtorrent/commit/478c691bd89ab54f9e76dcddce7eb0f56d8bca68))
+
 ## [2.4.2](https://github.com/webtorrent/webtorrent/compare/v2.4.1...v2.4.2) (2024-06-22)
 
 
