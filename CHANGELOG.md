@@ -1,3 +1,24 @@
+## [2.4.7](https://github.com/webtorrent/webtorrent/compare/v2.4.6...v2.4.7) (2024-06-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency parse-torrent to ^11.0.17 ([72f4abc](https://github.com/webtorrent/webtorrent/commit/72f4abc2963b985faa905cbea2da77f84600c706))
+
+## [2.4.6](https://github.com/webtorrent/webtorrent/compare/v2.4.5...v2.4.6) (2024-06-29)
+
+
+### Bug Fixes
+
+* revert streamx to 2.17 ([#2819](https://github.com/webtorrent/webtorrent/issues/2819)) ([f4465d0](https://github.com/webtorrent/webtorrent/commit/f4465d043f301452682a8db562d90123b94cd58e))
+
+## [2.4.5](https://github.com/webtorrent/webtorrent/compare/v2.4.4...v2.4.5) (2024-06-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bittorrent-protocol to ^4.1.13 ([d596da6](https://github.com/webtorrent/webtorrent/commit/d596da6da8ea3f6f2f65947ab9e15fcebbb2ba9c))
+
 ## [2.4.4](https://github.com/webtorrent/webtorrent/compare/v2.4.3...v2.4.4) (2024-06-28)
 
 
