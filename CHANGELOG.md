@@ -1,3 +1,10 @@
+## [2.4.11](https://github.com/webtorrent/webtorrent/compare/v2.4.10...v2.4.11) (2024-06-29)
+
+
+### Bug Fixes
+
+* revert "fix: drop IDB chunk store ([#2553](https://github.com/webtorrent/webtorrent/issues/2553))" ([#2828](https://github.com/webtorrent/webtorrent/issues/2828)) ([348fba5](https://github.com/webtorrent/webtorrent/commit/348fba52e02670b506461f401cd067a759963b58))
+
 ## [2.4.10](https://github.com/webtorrent/webtorrent/compare/v2.4.9...v2.4.10) (2024-06-29)
 
 
