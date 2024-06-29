@@ -1,7 +1,7 @@
 {
   "name": "webtorrent",
   "description": "Streaming torrent client",
-  "version": "2.4.4",
+  "version": "2.4.5",
   "author": {
     "name": "WebTorrent LLC",
     "email": "feross@webtorrent.io",
@@ -43,7 +43,7 @@
     "addr-to-ip-port": "^2.0.0",
     "bitfield": "^4.2.0",
     "bittorrent-dht": "^11.0.6",
-    "bittorrent-protocol": "^4.1.12",
+    "bittorrent-protocol": "^4.1.13",
     "cache-chunk-store": "^3.2.2",
     "chunk-store-iterator": "^1.0.3",
     "cpus": "^1.0.3",
