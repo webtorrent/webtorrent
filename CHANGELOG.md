@@ -1,3 +1,10 @@
+## [2.4.6](https://github.com/webtorrent/webtorrent/compare/v2.4.5...v2.4.6) (2024-06-29)
+
+
+### Bug Fixes
+
+* revert streamx to 2.17 ([#2819](https://github.com/webtorrent/webtorrent/issues/2819)) ([f4465d0](https://github.com/webtorrent/webtorrent/commit/f4465d043f301452682a8db562d90123b94cd58e))
+
 ## [2.4.5](https://github.com/webtorrent/webtorrent/compare/v2.4.4...v2.4.5) (2024-06-29)
 
 
