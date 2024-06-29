@@ -27,7 +27,8 @@ export default {
   },
   plugins: [
     new webpack.ProvidePlugin({
-      process: '/polyfills/process-fast.js'
+      process: '/polyfills/process-fast.js',
+      createWritable: '/polyfills/create-writable.js'
     }),
     new webpack.DefinePlugin({
       global: 'globalThis'
