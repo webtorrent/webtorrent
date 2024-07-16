@@ -78,7 +78,7 @@
     "ut_pex": "^4.0.4"
   },
   "devDependencies": {
-    "@babel/core": "7.24.8",
+    "@babel/core": "7.24.9",
     "@babel/eslint-parser": "^7.24.8",
     "@babel/plugin-syntax-import-assertions": "7.24.7",
     "@babel/preset-env": "7.24.8",
