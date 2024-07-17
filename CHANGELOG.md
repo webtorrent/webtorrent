@@ -1,3 +1,10 @@
+## [2.4.12](https://github.com/webtorrent/webtorrent/compare/v2.4.11...v2.4.12) (2024-07-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @thaunknown/simple-peer to ^10.0.10 ([09d7ea0](https://github.com/webtorrent/webtorrent/commit/09d7ea08cc461902aab6c9fc699f7962b1d977bd))
+
 ## [2.4.11](https://github.com/webtorrent/webtorrent/compare/v2.4.10...v2.4.11) (2024-06-29)
 
 
