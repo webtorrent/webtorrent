@@ -1,3 +1,10 @@
+## [2.4.14](https://github.com/webtorrent/webtorrent/compare/v2.4.13...v2.4.14) (2024-07-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency debug to ^4.3.6 ([c6dde2c](https://github.com/webtorrent/webtorrent/commit/c6dde2c95fb06cf6b5668225d3a1bdfa3a59c053))
+
 ## [2.4.13](https://github.com/webtorrent/webtorrent/compare/v2.4.12...v2.4.13) (2024-07-28)
 
 
