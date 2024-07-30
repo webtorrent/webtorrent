@@ -1,18 +1,18 @@
-const http = require('http')
-const path = require('path')
-const finalhandler = require('finalhandler')
-const fixtures = require('webtorrent-fixtures')
-const MemoryChunkStore = require('memory-chunk-store')
-const series = require('run-series')
-const serveStatic = require('serve-static')
-const test = require('tape')
-const WebTorrent = require('../../index.js')
+import http from 'http'
+import path from 'path'
+import finalhandler from 'finalhandler'
+import fixtures from 'webtorrent-fixtures'
+import MemoryChunkStore from 'memory-chunk-store'
+import series from 'run-series'
+import serveStatic from 'serve-static'
+import test from 'tape'
+import WebTorrent from '../../index.js'
 
 // it should be fast to download a small torrent over local HTTP
 const WEB_SEED_TIMEOUT_MS = 500
 
 test('Download using webseed (via .torrent file)', t => {
-  t.plan(6)
+  t.plan(5)
   t.timeoutAfter(WEB_SEED_TIMEOUT_MS)
 
   const parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
@@ -35,23 +35,17 @@ test('Download using webseed (via .torrent file)', t => {
         `http://localhost:${httpServer.address().port}/${fixtures.leaves.parsedTorrent.name}`
       ]
 
-      client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+      client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
       client.on('error', err => { t.fail(err) })
       client.on('warning', err => { t.fail(err) })
 
-      client.on('torrent', torrent => {
+      client.on('torrent', async torrent => {
         let gotBuffer = false
         let torrentDone = false
-
-        torrent.files.forEach(file => {
-          file.getBuffer((err, buf) => {
-            t.error(err)
-            t.deepEqual(buf, fixtures.leaves.content, 'downloaded correct content')
-            gotBuffer = true
-            maybeDone()
-          })
-        })
+        function maybeDone () {
+          if (gotBuffer && torrentDone) cb(null)
+        }
 
         torrent.once('done', () => {
           t.pass('client downloaded torrent from webseed')
@@ -59,8 +53,16 @@ test('Download using webseed (via .torrent file)', t => {
           maybeDone()
         })
 
-        function maybeDone () {
-          if (gotBuffer && torrentDone) cb(null)
+        for (const file of torrent.files) {
+          try {
+            const ab = await file.arrayBuffer()
+            t.deepEqual(new Uint8Array(ab), new Uint8Array(fixtures.leaves.content), 'downloaded correct content')
+          } catch (err) {
+            t.error(err)
+          }
+
+          gotBuffer = true
+          maybeDone()
         }
       })
 
@@ -72,8 +74,12 @@ test('Download using webseed (via .torrent file)', t => {
       t.error(err, 'client destroyed')
     })
     httpServer.close(() => {
-      t.pass('http server closed')
+      // FIXME: t.pass was moved outside of this function because node native fetch keeps
+      // connections open for longer, this isn't an issue in the node-fetch package
+      // this causes the http server take much longer to close, even tho all request
+      // have already been settled
     })
+    t.pass('http server closed')
   })
 })
 

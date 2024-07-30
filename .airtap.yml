@@ -13,9 +13,19 @@ browsers:
   - name: ios_saf
     version: latest
 providers:
-  - airtap-sauce
+  - airtap-system
 presets:
   local:
     providers: airtap-manual
     browsers:
       - name: manual
+  sauce:
+  # Not used yet pending https://github.com/SocketDev/wormhole-crypto/issues/5
+  # and https://github.com/airtap/airtap/issues/311
+    providers: airtap-sauce
+browserify:
+  - transform: babelify
+    global: true
+    presets: ['@babel/preset-env']
+    plugins: ['@babel/plugin-syntax-import-assertions']
+server: './scripts/browser-serve.js'

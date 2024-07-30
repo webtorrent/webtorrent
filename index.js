@@ -1,25 +1,23 @@
 /*! webtorrent. MIT License. WebTorrent LLC <https://webtorrent.io/opensource> */
-/* global FileList, ServiceWorker */
-/* eslint-env browser */
+import EventEmitter from 'events'
+import path from 'path'
+import createTorrent, { parseInput } from 'create-torrent'
+import debugFactory from 'debug'
+import { Client as DHT } from 'bittorrent-dht' // browser exclude
+import loadIPSet from 'load-ip-set' // browser exclude
+import parallel from 'run-parallel'
+import parseTorrent from 'parse-torrent'
+import Peer from '@thaunknown/simple-peer/lite.js'
+import queueMicrotask from 'queue-microtask'
+import { hash, hex2arr, arr2hex, arr2base, text2arr, randomBytes, concat } from 'uint8-util'
+import throughput from 'throughput'
+import { ThrottleGroup } from 'speed-limiter'
+import NatAPI from '@silentbot1/nat-api' // browser exclude
+import ConnPool from './lib/conn-pool.js' // browser exclude
+import Torrent from './lib/torrent.js'
+import { NodeServer, BrowserServer } from './lib/server.js'
 
-const EventEmitter = require('events')
-const path = require('path')
-const concat = require('simple-concat')
-const createTorrent = require('create-torrent')
-const debugFactory = require('debug')
-const DHT = require('bittorrent-dht/client') // browser exclude
-const loadIPSet = require('load-ip-set') // browser exclude
-const parallel = require('run-parallel')
-const parseTorrent = require('parse-torrent')
-const Peer = require('simple-peer')
-const queueMicrotask = require('queue-microtask')
-const randombytes = require('randombytes')
-const sha1 = require('simple-sha1')
-const throughput = require('throughput')
-const { ThrottleGroup } = require('speed-limiter')
-const ConnPool = require('./lib/conn-pool.js') // browser exclude
-const Torrent = require('./lib/torrent.js')
-const { version: VERSION } = require('./package.json')
+import VERSION from './version.cjs'
 
 const debug = debugFactory('webtorrent')
 
@@ -46,29 +44,29 @@ const VERSION_PREFIX = `-WW${VERSION_STR}-`
  * WebTorrent Client
  * @param {Object=} opts
  */
-class WebTorrent extends EventEmitter {
+export default class WebTorrent extends EventEmitter {
   constructor (opts = {}) {
     super()
 
     if (typeof opts.peerId === 'string') {
       this.peerId = opts.peerId
-    } else if (Buffer.isBuffer(opts.peerId)) {
-      this.peerId = opts.peerId.toString('hex')
+    } else if (ArrayBuffer.isView(opts.peerId)) {
+      this.peerId = arr2hex(opts.peerId)
     } else {
-      this.peerId = Buffer.from(VERSION_PREFIX + randombytes(9).toString('base64')).toString('hex')
+      this.peerId = arr2hex(text2arr(VERSION_PREFIX + arr2base(randomBytes(9))))
     }
-    this.peerIdBuffer = Buffer.from(this.peerId, 'hex')
+    this.peerIdBuffer = hex2arr(this.peerId)
 
     if (typeof opts.nodeId === 'string') {
       this.nodeId = opts.nodeId
-    } else if (Buffer.isBuffer(opts.nodeId)) {
-      this.nodeId = opts.nodeId.toString('hex')
+    } else if (ArrayBuffer.isView(opts.nodeId)) {
+      this.nodeId = arr2hex(opts.nodeId)
     } else {
-      this.nodeId = randombytes(20).toString('hex')
+      this.nodeId = arr2hex(randomBytes(20))
     }
-    this.nodeIdBuffer = Buffer.from(this.nodeId, 'hex')
+    this.nodeIdBuffer = hex2arr(this.nodeId)
 
-    this._debugId = this.peerId.toString('hex').substring(0, 7)
+    this._debugId = this.peerId.substring(0, 7)
 
     this.destroyed = false
     this.listening = false
@@ -76,19 +74,27 @@ class WebTorrent extends EventEmitter {
     this.dhtPort = opts.dhtPort || 0
     this.tracker = opts.tracker !== undefined ? opts.tracker : {}
     this.lsd = opts.lsd !== false
+    this.utPex = opts.utPex !== false
+    this.natUpnp = opts.natUpnp ?? true
+    this.natPmp = opts.natPmp ?? true
     this.torrents = []
     this.maxConns = Number(opts.maxConns) || 55
     this.utp = WebTorrent.UTP_SUPPORT && opts.utp !== false
+    this.seedOutgoingConnections = opts.seedOutgoingConnections ?? true
 
     this._downloadLimit = Math.max((typeof opts.downloadLimit === 'number') ? opts.downloadLimit : -1, -1)
     this._uploadLimit = Math.max((typeof opts.uploadLimit === 'number') ? opts.uploadLimit : -1, -1)
 
-    this.serviceWorker = null
-    this.workerKeepAliveInterval = null
-    this.workerPortCount = 0
+    if ((this.natUpnp || this.natPmp) && typeof NatAPI === 'function') {
+      this.natTraversal = new NatAPI({
+        enableUPNP: this.natUpnp,
+        enablePMP: this.natPmp,
+        upnpPermanentFallback: opts.natUpnp === 'permanent'
+      })
+    }
 
     if (opts.secure === true) {
-      require('./lib/peer').enableSecure()
+      import('./lib/peer.js').then(({ enableSecure }) => enableSecure())
     }
 
     this._debug(
@@ -128,7 +134,19 @@ class WebTorrent extends EventEmitter {
 
       this.dht.once('listening', () => {
         const address = this.dht.address()
-        if (address) this.dhtPort = address.port
+        if (address) {
+          this.dhtPort = address.port
+          if (this.natTraversal) {
+            this.natTraversal.map({
+              publicPort: this.dhtPort,
+              privatePort: this.dhtPort,
+              protocol: 'udp',
+              description: 'WebTorrent DHT'
+            }).catch(err => {
+              debug('error mapping DHT port via UPnP/PMP: %o', err)
+            })
+          }
+        }
       })
 
       // Ignore warning when there are > 10 torrents in the client
@@ -164,65 +182,28 @@ class WebTorrent extends EventEmitter {
   }
 
   /**
-   * Accepts an existing service worker registration [navigator.serviceWorker.controller]
-   * which must be activated, "creates" a file server for streamed file rendering to use.
+   * Creates an http server to serve the contents of this torrent,
+   * dynamically fetching the needed torrent pieces to satisfy http requests.
+   * Range requests are supported.
    *
-   * @param  {ServiceWorker} controller
-   * @param {function=} cb
-   * @return {null}
+   * @param {Object} options
+   * @param {String} force
+   * @return {BrowserServer||NodeServer}
    */
-  loadWorker (controller, cb = () => {}) {
-    if (!(controller instanceof ServiceWorker)) throw new Error('Invalid worker registration')
-    if (controller.state !== 'activated') throw new Error('Worker isn\'t activated')
-    const keepAliveTime = 20000
-
-    this.serviceWorker = controller
-
-    navigator.serviceWorker.addEventListener('message', event => {
-      const { data } = event
-      if (!data.type || !data.type === 'webtorrent' || !data.url) return null
-      let [infoHash, ...filePath] = data.url.slice(data.url.indexOf(data.scope + 'webtorrent/') + 11 + data.scope.length).split('/')
-      filePath = decodeURI(filePath.join('/'))
-      if (!infoHash || !filePath) return null
-
-      const [port] = event.ports
-
-      const file = this.get(infoHash) && this.get(infoHash).files.find(file => file.path === filePath)
-      if (!file) return null
-
-      const [response, stream, raw] = file._serve(data)
-      const asyncIterator = stream && stream[Symbol.asyncIterator]()
-
-      const cleanup = () => {
-        port.onmessage = null
-        if (stream) stream.destroy()
-        if (raw) raw.destroy()
-        this.workerPortCount--
-        if (!this.workerPortCount) {
-          clearInterval(this.workerKeepAliveInterval)
-          this.workerKeepAliveInterval = null
-        }
-      }
-
-      port.onmessage = async msg => {
-        if (msg.data) {
-          let chunk
-          try {
-            chunk = (await asyncIterator.next()).value
-          } catch (e) {
-            // chunk is yet to be downloaded or it somehow failed, should this be logged?
-          }
-          port.postMessage(chunk)
-          if (!chunk) cleanup()
-          if (!this.workerKeepAliveInterval) this.workerKeepAliveInterval = setInterval(() => fetch(`${this.serviceWorker.scriptURL.slice(0, this.serviceWorker.scriptURL.lastIndexOf('/') + 1).slice(window.location.origin.length)}webtorrent/keepalive/`), keepAliveTime)
-        } else {
-          cleanup()
-        }
-      }
-      this.workerPortCount++
-      port.postMessage(response)
-    })
-    cb(this.serviceWorker)
+  createServer (options, force) {
+    if (this.destroyed) throw new Error('torrent is destroyed')
+    if (this._server) throw new Error('server already created')
+    if ((typeof window === 'undefined' || force === 'node') && force !== 'browser') {
+      // node implementation
+      this._server = new NodeServer(this, options)
+      return this._server
+    } else {
+      // browser implementation
+      if (!(options?.controller instanceof ServiceWorkerRegistration)) throw new Error('Invalid worker registration')
+      if (options.controller.active.state !== 'activated') throw new Error('Worker isn\'t activated')
+      this._server = new BrowserServer(this, options)
+      return this._server
+    }
   }
 
   get downloadSpeed () { return this._downloadSpeed() }
@@ -248,19 +229,19 @@ class WebTorrent extends EventEmitter {
    * found.
    *
    * @param  {string|Buffer|Object|Torrent} torrentId
-   * @return {Torrent|null}
+   * @return {Promise<Torrent|null>}
    */
-  get (torrentId) {
+  async get (torrentId) {
     if (torrentId instanceof Torrent) {
       if (this.torrents.includes(torrentId)) return torrentId
     } else {
+      const torrents = this.torrents
       let parsed
-      try { parsed = parseTorrent(torrentId) } catch (err) {}
-
+      try { parsed = await parseTorrent(torrentId) } catch (err) {}
       if (!parsed) return null
       if (!parsed.infoHash) throw new Error('Invalid torrent identifier')
 
-      for (const torrent of this.torrents) {
+      for (const torrent of torrents) {
         if (torrent.infoHash === parsed.infoHash) return torrent
       }
     }
@@ -282,6 +263,7 @@ class WebTorrent extends EventEmitter {
       for (const t of this.torrents) {
         if (t.infoHash === torrent.infoHash && t !== torrent) {
           torrent._destroy(new Error(`Cannot add duplicate torrent ${torrent.infoHash}`))
+          ontorrent(t)
           return
         }
       }
@@ -309,6 +291,7 @@ class WebTorrent extends EventEmitter {
     torrent.once('ready', onReady)
     torrent.once('close', onClose)
 
+    this.emit('add', torrent)
     return torrent
   }
 
@@ -367,13 +350,19 @@ class WebTorrent extends EventEmitter {
     if (isFileList(input)) input = Array.from(input)
     else if (!Array.isArray(input)) input = [input]
 
-    parallel(input.map(item => cb => {
+    parallel(input.map(item => async cb => {
       if (!opts.preloadedStore && isReadable(item)) {
-        concat(item, (err, buf) => {
-          if (err) return cb(err)
-          buf.name = item.name
-          cb(null, buf)
-        })
+        const chunks = []
+        try {
+          for await (const chunk of item) {
+            chunks.push(chunk)
+          }
+        } catch (err) {
+          return cb(err)
+        }
+        const buf = concat(chunks)
+        buf.name = item.name
+        cb(null, buf)
       } else {
         cb(null, item)
       }
@@ -381,17 +370,17 @@ class WebTorrent extends EventEmitter {
       if (this.destroyed) return
       if (err) return torrent._destroy(err)
 
-      createTorrent.parseInput(input, opts, (err, files) => {
+      parseInput(input, opts, (err, files) => {
         if (this.destroyed) return
         if (err) return torrent._destroy(err)
 
         streams = files.map(file => file.getStream)
 
-        createTorrent(input, opts, (err, torrentBuf) => {
+        createTorrent(input, opts, async (err, torrentBuf) => {
           if (this.destroyed) return
           if (err) return torrent._destroy(err)
 
-          const existingTorrent = this.get(torrentBuf)
+          const existingTorrent = await this.get(torrentBuf)
           if (existingTorrent) {
             console.warn('A torrent with the same id is already being seeded')
             torrent._destroy()
@@ -411,25 +400,26 @@ class WebTorrent extends EventEmitter {
    * @param  {string|Buffer|Torrent}   torrentId
    * @param  {function} cb
    */
-  remove (torrentId, opts, cb) {
+  async remove (torrentId, opts, cb) {
     if (typeof opts === 'function') return this.remove(torrentId, null, opts)
 
     this._debug('remove')
-    const torrent = this.get(torrentId)
+    const torrent = await this.get(torrentId)
     if (!torrent) throw new Error(`No torrent with id ${torrentId}`)
-    this._remove(torrentId, opts, cb)
+    this._remove(torrent, opts, cb)
   }
 
-  _remove (torrentId, opts, cb) {
-    if (typeof opts === 'function') return this._remove(torrentId, null, opts)
-
-    const torrent = this.get(torrentId)
+  _remove (torrent, opts, cb) {
     if (!torrent) return
-    this.torrents.splice(this.torrents.indexOf(torrent), 1)
+    if (typeof opts === 'function') return this._remove(torrent, null, opts)
+    const index = this.torrents.indexOf(torrent)
+    if (index === -1) return
+    this.torrents.splice(index, 1)
     torrent.destroy(opts, cb)
     if (this.dht) {
       this.dht._tables.remove(torrent.infoHash)
     }
+    this.emit('remove', torrent)
   }
 
   address () {
@@ -494,6 +484,19 @@ class WebTorrent extends EventEmitter {
       })
     }
 
+    if (this._server) {
+      tasks.push(cb => {
+        this._server.destroy(cb)
+      })
+    }
+
+    if (this.natTraversal) {
+      tasks.push(cb => {
+        this.natTraversal.destroy()
+          .then(() => cb())
+      })
+    }
+
     parallel(tasks, cb)
 
     if (err) this.emit('error', err)
@@ -513,7 +516,19 @@ class WebTorrent extends EventEmitter {
     if (this._connPool) {
       // Sometimes server.address() returns `null` in Docker.
       const address = this._connPool.tcpServer.address()
-      if (address) this.torrentPort = address.port
+      if (address) {
+        this.torrentPort = address.port
+        if (this.natTraversal) {
+          this.natTraversal.map({
+            publicPort: this.torrentPort,
+            privatePort: this.torrentPort,
+            protocol: this.utp ? null : 'tcp',
+            description: 'WebTorrent Torrent'
+          }).catch(err => {
+            debug('error mapping WebTorrent port via UPnP/PMP: %o', err)
+          })
+        }
+      }
     }
 
     this.emit('listening')
@@ -525,10 +540,10 @@ class WebTorrent extends EventEmitter {
     debug(...args)
   }
 
-  _getByHash (infoHashHash) {
+  async _getByHash (infoHashHash) {
     for (const torrent of this.torrents) {
       if (!torrent.infoHashHash) {
-        torrent.infoHashHash = sha1.sync(Buffer.from('72657132' /* 'req2' */ + torrent.infoHash, 'hex'))
+        torrent.infoHashHash = await hash(hex2arr('72657132' /* 'req2' */ + torrent.infoHash), 'hex')
       }
       if (infoHashHash === torrent.infoHashHash) {
         return torrent
@@ -560,5 +575,3 @@ function isReadable (obj) {
 function isFileList (obj) {
   return typeof FileList !== 'undefined' && obj instanceof FileList
 }
-
-module.exports = WebTorrent

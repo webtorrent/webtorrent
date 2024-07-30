@@ -1,10 +1,10 @@
-const fs = require('fs')
-const DHT = require('bittorrent-dht/server')
-const fixtures = require('webtorrent-fixtures')
-const MemoryChunkStore = require('memory-chunk-store')
-const series = require('run-series')
-const test = require('tape')
-const WebTorrent = require('../../index.js')
+import fs from 'fs'
+import { Server as DHT } from 'bittorrent-dht'
+import fixtures from 'webtorrent-fixtures'
+import MemoryChunkStore from 'memory-chunk-store'
+import series from 'run-series'
+import test from 'tape'
+import WebTorrent from '../../index.js'
 
 test('Download using DHT (via .torrent file)', t => {
   t.plan(10)
@@ -29,7 +29,8 @@ test('Download using DHT (via .torrent file)', t => {
       client1 = new WebTorrent({
         tracker: false,
         lsd: false,
-        dht: { bootstrap: `127.0.0.1:${dhtServer.address().port}` }
+        dht: { bootstrap: `127.0.0.1:${dhtServer.address().port}` },
+        utPex: false
       })
 
       client1.dht.on('listening', () => {
@@ -74,24 +75,19 @@ test('Download using DHT (via .torrent file)', t => {
       client2 = new WebTorrent({
         tracker: false,
         lsd: false,
-        dht: { bootstrap: `127.0.0.1:${dhtServer.address().port}` }
+        dht: { bootstrap: `127.0.0.1:${dhtServer.address().port}` },
+        utPex: false
       })
 
       client2.on('error', err => { t.fail(err) })
       client2.on('warning', err => { t.fail(err) })
 
-      client2.on('torrent', torrent => {
+      client2.on('torrent', async torrent => {
         let torrentDone = false
         let gotBuffer = false
-
-        torrent.files.forEach(file => {
-          file.getBuffer((err, buf) => {
-            if (err) throw err
-            t.deepEqual(buf, fixtures.leaves.content, 'downloaded correct content')
-            gotBuffer = true
-            maybeDone()
-          })
-        })
+        function maybeDone () {
+          if (torrentDone && gotBuffer) cb(null)
+        }
 
         torrent.once('done', () => {
           t.pass('client2 downloaded torrent from client1')
@@ -99,8 +95,15 @@ test('Download using DHT (via .torrent file)', t => {
           maybeDone()
         })
 
-        function maybeDone () {
-          if (torrentDone && gotBuffer) cb(null)
+        for (const file of torrent.files) {
+          try {
+            const ab = await file.arrayBuffer()
+            t.deepEqual(new Uint8Array(ab), new Uint8Array(fixtures.leaves.content), 'downloaded correct content')
+          } catch (err) {
+            t.error(err)
+          }
+          gotBuffer = true
+          maybeDone()
         }
       })
 

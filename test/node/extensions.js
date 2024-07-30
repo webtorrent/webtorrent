@@ -1,6 +1,6 @@
-const fixtures = require('webtorrent-fixtures')
-const test = require('tape')
-const WebTorrent = require('../../index.js')
+import fixtures from 'webtorrent-fixtures'
+import test from 'tape'
+import WebTorrent from '../../index.js'
 
 test('extension support', t => {
   t.plan(6)
@@ -15,7 +15,7 @@ test('extension support', t => {
       extendedHandshakes += 1
 
       t.equal(
-        extendedHandshake.test.toString(), 'Hello, World!',
+        Buffer.from(extendedHandshake.test).toString(), 'Hello, World!',
         'handshake.test === Hello, World!'
       )
 
@@ -32,12 +32,12 @@ test('extension support', t => {
 
   Extension.prototype.name = 'wt_test'
 
-  const client1 = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client1 = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client1.on('error', err => { t.fail(err) })
   client1.on('warning', err => { t.fail(err) })
 
-  const client2 = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client2 = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client2.on('error', err => { t.fail(err) })
   client2.on('warning', err => { t.fail(err) })

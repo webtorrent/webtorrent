@@ -1,19 +1,19 @@
-const fs = require('fs')
-const path = require('path')
-const http = require('http')
-const fixtures = require('webtorrent-fixtures')
-const test = require('tape')
-const WebTorrent = require('../../index.js')
+import fs from 'fs'
+import path from 'path'
+import http from 'http'
+import fixtures from 'webtorrent-fixtures'
+import test from 'tape'
+import WebTorrent from '../../index.js'
 
 test('WebTorrent.WEBRTC_SUPPORT', t => {
   t.plan(2)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
 
-  t.equal(WebTorrent.WEBRTC_SUPPORT, false)
+  t.equal(WebTorrent.WEBRTC_SUPPORT, true)
 
   client.destroy(err => {
     t.error(err, 'client destroyed')
@@ -31,17 +31,17 @@ test('client.add: http url to a torrent file, string', t => {
   server.listen(0, () => {
     const port = server.address().port
     const url = `http://127.0.0.1:${port}`
-    const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+    const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
     client.on('error', err => { t.fail(err) })
     client.on('warning', err => { t.fail(err) })
 
-    client.add(url, torrent => {
+    client.add(url, async torrent => {
       t.equal(client.torrents.length, 1)
       t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
       t.equal(torrent.magnetURI, fixtures.leaves.magnetURI)
 
-      client.remove(torrent, err => { t.error(err, 'torrent destroyed') })
+      await client.remove(torrent, err => { t.error(err, 'torrent destroyed') })
       t.equal(client.torrents.length, 0)
 
       server.close(() => { t.pass('http server closed') })
@@ -53,17 +53,17 @@ test('client.add: http url to a torrent file, string', t => {
 test('client.add: filesystem path to a torrent file, string', t => {
   t.plan(6)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
 
-  client.add(fixtures.leaves.torrentPath, torrent => {
+  client.add(fixtures.leaves.torrentPath, async torrent => {
     t.equal(client.torrents.length, 1)
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
     t.equal(torrent.magnetURI, fixtures.leaves.magnetURI)
 
-    client.remove(torrent, err => { t.error(err, 'torrent destroyed') })
+    await client.remove(torrent, err => { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(err => { t.error(err, 'client destroyed') })
@@ -73,7 +73,7 @@ test('client.add: filesystem path to a torrent file, string', t => {
 test('client.seed: filesystem path to file, string', t => {
   t.plan(6)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
@@ -81,12 +81,12 @@ test('client.seed: filesystem path to file, string', t => {
   client.seed(fixtures.leaves.contentPath, {
     name: 'Leaves of Grass by Walt Whitman.epub',
     announce: []
-  }, torrent => {
+  }, async torrent => {
     t.equal(client.torrents.length, 1)
     t.equal(torrent.infoHash, fixtures.leaves.parsedTorrent.infoHash)
     t.equal(torrent.magnetURI, fixtures.leaves.magnetURI)
 
-    client.remove(torrent, err => { t.error(err, 'torrent destroyed') })
+    await client.remove(torrent, err => { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(err => { t.error(err, 'client destroyed') })
@@ -96,17 +96,17 @@ test('client.seed: filesystem path to file, string', t => {
 test('client.seed: filesystem path to folder with one file, string', t => {
   t.plan(6)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
 
-  client.seed(fixtures.folder.contentPath, { announce: [] }, torrent => {
+  client.seed(fixtures.folder.contentPath, { announce: [] }, async torrent => {
     t.equal(client.torrents.length, 1)
     t.equal(torrent.infoHash, fixtures.folder.parsedTorrent.infoHash)
     t.equal(torrent.magnetURI, fixtures.folder.magnetURI)
 
-    client.remove(torrent, err => { t.error(err, 'torrent destroyed') })
+    await client.remove(torrent, err => { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(err => { t.error(err, 'client destroyed') })
@@ -116,12 +116,12 @@ test('client.seed: filesystem path to folder with one file, string', t => {
 test('client.seed: filesystem path to folder with multiple files, string', t => {
   t.plan(7)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
 
-  client.seed(fixtures.numbers.contentPath, { announce: [] }, torrent => {
+  client.seed(fixtures.numbers.contentPath, { announce: [] }, async torrent => {
     t.equal(client.torrents.length, 1)
     t.equal(torrent.infoHash, fixtures.numbers.parsedTorrent.infoHash)
     t.equal(torrent.magnetURI, fixtures.numbers.magnetURI)
@@ -137,7 +137,7 @@ test('client.seed: filesystem path to folder with multiple files, string', t => 
       { length: 3, downloaded: 3 }
     ], 'expected downloaded to be calculated correctly')
 
-    client.remove(torrent, err => { t.error(err, 'torrent destroyed') })
+    await client.remove(torrent, err => { t.error(err, 'torrent destroyed') })
     t.equal(client.torrents.length, 0)
 
     client.destroy(err => { t.error(err, 'client destroyed') })
@@ -147,7 +147,7 @@ test('client.seed: filesystem path to folder with multiple files, string', t => 
 test('client.add: invalid torrent id: invalid filesystem path', t => {
   t.plan(3)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => {
     t.ok(err instanceof Error)
@@ -163,7 +163,7 @@ test('client.add: invalid torrent id: invalid filesystem path', t => {
 test('client.remove: opts.destroyStore', t => {
   t.plan(2)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
@@ -186,7 +186,7 @@ test('client.remove: opts.destroyStore', t => {
 test('torrent.destroy: opts.destroyStore', t => {
   t.plan(2)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })

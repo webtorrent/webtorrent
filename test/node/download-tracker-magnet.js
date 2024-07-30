@@ -1,10 +1,10 @@
-const fs = require('fs')
-const fixtures = require('webtorrent-fixtures')
-const MemoryChunkStore = require('memory-chunk-store')
-const series = require('run-series')
-const test = require('tape')
-const TrackerServer = require('bittorrent-tracker/server')
-const WebTorrent = require('../../index.js')
+import fs from 'fs'
+import fixtures from 'webtorrent-fixtures'
+import MemoryChunkStore from 'memory-chunk-store'
+import series from 'run-series'
+import test from 'tape'
+import { Server as TrackerServer } from 'bittorrent-tracker'
+import WebTorrent from '../../index.js'
 
 test('Download using UDP tracker (via magnet uri)', t => {
   magnetDownloadTest(t, 'udp')
@@ -14,12 +14,20 @@ test('Download using HTTP tracker (via magnet uri)', t => {
   magnetDownloadTest(t, 'http')
 })
 
+test('Download using WS tracker (via magnet uri)', t => {
+  magnetDownloadTest(t, 'ws')
+})
+
+const TRACKER_CONFIG_MAP = {
+  udp: { http: false, ws: false },
+  http: { udp: false, ws: false },
+  ws: { udp: false, http: false, ws: true }
+}
+
 function magnetDownloadTest (t, serverType) {
   t.plan(10)
 
-  const tracker = new TrackerServer(
-    serverType === 'udp' ? { http: false, ws: false } : { udp: false, ws: false }
-  )
+  const tracker = new TrackerServer(TRACKER_CONFIG_MAP[serverType])
 
   tracker.on('error', err => { t.fail(err) })
   tracker.on('warning', err => { t.fail(err) })
@@ -39,9 +47,7 @@ function magnetDownloadTest (t, serverType) {
 
     cb => {
       const port = tracker[serverType].address().port
-      const announceUrl = serverType === 'http'
-        ? `http://127.0.0.1:${port}/announce`
-        : `udp://127.0.0.1:${port}`
+      const announceUrl = `${serverType}://127.0.0.1:${port}/announce`
 
       parsedTorrent.announce = [announceUrl]
       magnetURI = `magnet:?xt=urn:btih:${parsedTorrent.infoHash}&tr=${encodeURIComponent(announceUrl)}`
@@ -52,6 +58,9 @@ function magnetDownloadTest (t, serverType) {
       client1.on('warning', err => { t.fail(err) })
 
       client1.on('torrent', torrent => {
+        let noPeersDone = false
+        let torrentLoaded = false
+
         // torrent metadata has been fetched -- sanity check it
         t.equal(torrent.name, 'Leaves of Grass by Walt Whitman.epub')
 
@@ -61,13 +70,21 @@ function magnetDownloadTest (t, serverType) {
 
         torrent.once('noPeers', announceType => {
           t.equal(announceType, 'tracker', 'noPeers event seen with correct announceType')
+
+          noPeersDone = true
+          maybeDone()
         })
 
         t.deepEqual(torrent.files.map(file => file.name), names)
 
-        torrent.load(fs.createReadStream(fixtures.leaves.contentPath), err => {
-          cb(err)
+        torrent.load(fs.createReadStream(fixtures.leaves.contentPath), () => {
+          torrentLoaded = true
+          maybeDone()
         })
+
+        function maybeDone () {
+          if (noPeersDone && torrentLoaded) cb(null)
+        }
       })
 
       client1.add(parsedTorrent, { store: MemoryChunkStore })
@@ -79,18 +96,12 @@ function magnetDownloadTest (t, serverType) {
       client2.on('error', err => { t.fail(err) })
       client2.on('warning', err => { t.fail(err) })
 
-      client2.on('torrent', torrent => {
+      client2.on('torrent', async torrent => {
         let gotBuffer = false
         let torrentDone = false
-
-        torrent.files.forEach(file => {
-          file.getBuffer((err, buf) => {
-            if (err) throw err
-            t.deepEqual(buf, fixtures.leaves.content, 'downloaded correct content')
-            gotBuffer = true
-            maybeDone()
-          })
-        })
+        function maybeDone () {
+          if (gotBuffer && torrentDone) cb(null)
+        }
 
         torrent.once('done', () => {
           t.pass('client2 downloaded torrent from client1')
@@ -98,8 +109,16 @@ function magnetDownloadTest (t, serverType) {
           maybeDone()
         })
 
-        function maybeDone () {
-          if (gotBuffer && torrentDone) cb(null)
+        for (const file of torrent.files) {
+          try {
+            const ab = await file.arrayBuffer()
+            t.deepEqual(new Uint8Array(ab), new Uint8Array(fixtures.leaves.content), 'downloaded correct content')
+          } catch (err) {
+            t.error(err)
+          }
+
+          gotBuffer = true
+          maybeDone()
         }
       })
 

@@ -1,6 +1,6 @@
-// var randombytes = require('randombytes')
-// var Swarm = require('../lib/swarm')
-// var test = require('tape')
+// var randombytes from 'randombytes')
+// var Swarm from '../lib/swarm')
+// var test from 'tape')
 
 // var infoHash = 'd2474e86c95b19b8bcfdb92bc12c9d44667cfa36'
 // var infoHash2 = 'd2474e86c95b19b8bcfdb92bc12c9d44667cfa37'

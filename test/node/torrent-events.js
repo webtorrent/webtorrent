@@ -1,14 +1,14 @@
-const fixtures = require('webtorrent-fixtures')
-const test = require('tape')
-const MemoryChunkStore = require('memory-chunk-store')
-const randombytes = require('randombytes')
-const WebTorrent = require('../../index.js')
+import fixtures from 'webtorrent-fixtures'
+import test from 'tape'
+import MemoryChunkStore from 'memory-chunk-store'
+import randombytes from 'randombytes'
+import WebTorrent from '../../index.js'
 
 test('client.add: emit torrent events in order', t => {
   t.plan(6)
 
-  const client1 = new WebTorrent({ dht: false, tracker: false, lsd: false })
-  const client2 = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client1 = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
+  const client2 = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client1.on('error', err => { t.fail(err) })
   client1.on('warning', err => { t.fail(err) })
@@ -26,12 +26,11 @@ test('client.add: emit torrent events in order', t => {
     // Start downloading
     const torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
 
-    // Manually connect peers
-    torrent.addPeer(`127.0.0.1:${client2.address().port}`)
-
     let order = 0
 
     torrent.on('infoHash', () => {
+      // Manually connect peers
+      torrent.addPeer(`127.0.0.1:${client2.address().port}`)
       t.equal(++order, 1)
     })
 
@@ -53,9 +52,9 @@ test('client.add: emit torrent events in order', t => {
 })
 
 test('client.seed: emit torrent events in order', t => {
-  t.plan(5)
+  t.plan(6)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
@@ -78,7 +77,9 @@ test('client.seed: emit torrent events in order', t => {
 
   torrent.on('done', () => {
     t.equal(++order, 4)
-
+  })
+  torrent.on('seed', () => {
+    t.equal(++order, 5)
     client.destroy(err => { t.error(err, 'client destroyed') })
   })
 })
@@ -106,12 +107,11 @@ test('file.select: check multiple done events', t => {
     // Start downloading
     const torrent = client1.add(magnet, { store: MemoryChunkStore })
 
-    // Manually connect peers
-    torrent.addPeer(`127.0.0.1:${client2.address().port}`)
-
     let order = 0
 
     torrent.on('infoHash', () => {
+      // Manually connect peers
+      torrent.addPeer(`127.0.0.1:${client2.address().port}`)
       t.equal(++order, 1)
     })
 

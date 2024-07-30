@@ -1,8 +1,8 @@
-const test = require('tape')
-const fixtures = require('webtorrent-fixtures')
-const MemoryChunkStore = require('memory-chunk-store')
-const dgram = require('dgram')
-const WebTorrent = require('../../index.js')
+import test from 'tape'
+import fixtures from 'webtorrent-fixtures'
+import MemoryChunkStore from 'memory-chunk-store'
+import dgram from 'dgram'
+import WebTorrent from '../../index.js'
 
 test('client.conn-pool: use TCP when uTP disabled', t => {
   t.plan(6)
@@ -26,12 +26,11 @@ test('client.conn-pool: use TCP when uTP disabled', t => {
     // Start downloading
     const torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
 
-    // Manually connect peers
-    torrent.addPeer(`127.0.0.1:${client2.address().port}`)
-
     let order = 0
 
     torrent.on('infoHash', () => {
+      // Manually connect peers
+      torrent.addPeer(`127.0.0.1:${client2.address().port}`)
       t.equal(++order, 1)
     })
 
@@ -74,12 +73,11 @@ test('client.conn-pool: use uTP when uTP enabled', t => {
     // Start downloading
     const torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
 
-    // Manually connect peers
-    torrent.addPeer(`127.0.0.1:${client2.address().port}`)
-
     let order = 0
 
     torrent.on('infoHash', () => {
+      // Manually connect peers
+      torrent.addPeer(`127.0.0.1:${client2.address().port}`)
       t.equal(++order, 1)
     })
 
@@ -122,12 +120,11 @@ test('client.conn-pool: adding IPv6 peer when uTP enabled should fallback to TCP
     // Start downloading
     const torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
 
-    // Manually connect peers
-    torrent.addPeer(`[::1]:${client2.address().port}`)
-
     let order = 0
 
     torrent.on('infoHash', () => {
+      // Manually connect peers
+      torrent.addPeer(`[::1]:${client2.address().port}`)
       t.equal(++order, 1)
     })
 
@@ -175,12 +172,11 @@ test('client.conn-pool: fallback to TCP when uTP server failed', t => {
     // Start downloading
     const torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
 
-    // Manually connect peers
-    torrent.addPeer(`127.0.0.1:${client2.address().port}`)
-
     let order = 0
 
     torrent.on('infoHash', () => {
+      // Manually connect peers
+      torrent.addPeer(`127.0.0.1:${client2.address().port}`)
       t.equal(++order, 1)
     })
 
@@ -226,12 +222,11 @@ test('client.conn-pool: fallback to TCP when remote client has uTP disabled', t 
     // Start downloading
     const torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
 
-    // Manually connect peers
-    torrent.addPeer(`127.0.0.1:${client2.address().port}`)
-
     let order = 0
 
     torrent.on('infoHash', () => {
+      // Manually connect peers
+      torrent.addPeer(`127.0.0.1:${client2.address().port}`)
       t.equal(++order, 1)
     })
 

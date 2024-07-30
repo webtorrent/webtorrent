@@ -1,11 +1,11 @@
-const fixtures = require('webtorrent-fixtures')
-const test = require('tape')
-const WebTorrent = require('../index.js')
+import fixtures from 'webtorrent-fixtures'
+import test from 'tape'
+import WebTorrent from '../index.js'
 
 test('torrent.destroy: destroy and remove torrent', t => {
   t.plan(5)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })

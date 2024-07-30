@@ -1,8 +1,8 @@
-const http = require('http')
-const fixtures = require('webtorrent-fixtures')
-const MemoryChunkStore = require('memory-chunk-store')
-const test = require('tape')
-const WebTorrent = require('../../index.js')
+import http from 'http'
+import fixtures from 'webtorrent-fixtures'
+import MemoryChunkStore from 'memory-chunk-store'
+import test from 'tape'
+import WebTorrent from '../../index.js'
 
 function createServer (data, cb) {
   const server = http.createServer((req, res) => {
@@ -26,7 +26,7 @@ function createServer (data, cb) {
 test('Download metadata for magnet URI with xs parameter', t => {
   t.plan(3)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
@@ -44,7 +44,7 @@ test('Download metadata for magnet URI with xs parameter', t => {
 test('Download metadata for magnet URI with 2 xs parameters', t => {
   t.plan(4)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
@@ -70,7 +70,7 @@ test('Download metadata for magnet URI with 2 xs parameters', t => {
 test('Download metadata for magnet URI with 2 xs parameters, with 1 invalid protocol', t => {
   t.plan(3)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
@@ -91,7 +91,7 @@ test('Download metadata for magnet URI with 2 xs parameters, with 1 invalid prot
 test('Download metadata for magnet URI with 2 xs parameters, with 1 404 URL', t => {
   t.plan(3)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
@@ -112,7 +112,7 @@ test('Download metadata for magnet URI with 2 xs parameters, with 1 404 URL', t 
 test('Download metadata magnet URI with unsupported protocol in xs parameter', t => {
   t.plan(1)
 
-  const client = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
   client.on('error', err => { t.fail(err) })
   client.on('warning', err => { t.fail(err) })
