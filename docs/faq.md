@@ -114,6 +114,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[CrawFish][CrawFish]** - Desktop/Web/Server torrent client, with streaming support and integrated search (Works in docker, windows and has a WebUI that can be accessed by remote). ([source code][CrawFish-source])
 - **[Niwder][Niwder]** - Web based platform to transfer torrents to Mega.nz and Google Drive on the cloud. ([source code][Niwder-source])
 - **[Chitchatter][Chitchatter]** - A peer-to-peer chat app that is serverless, decentralized, and ephemeral. Uses WebTorrent to initiate peer connections. ([source code][Chitchatter-source])
+- **[WizTorrent][WizTorrent]** - Desktop torrent client, streaming support, integrated jackett/searx/RSS support, share your files with a short link (Available for Mac/Linux/Windows, coming soon to android)
 - ***Your app here – [Send a pull request][pr] with your URL!***
 <!-- - **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source]) -->
 <!-- - **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s)) -->
@@ -205,6 +206,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [iris-messenger]: https://iris.to
 [iris-messenger-source]: https://github.com/irislib/iris-messenger
 [CrawFish]: https://github.com/drakonkat/crawfish/blob/main/README.md
+[WizTorrent]: https://www.wiztorrent.com/
 [CrawFish-source]: https://github.com/drakonkat/crawfish
 [miru-source]: https://github.com/ThaUnknown/miru
 [haven-torrent-client]: https://haven.pages.dev/torrent-client/public/
