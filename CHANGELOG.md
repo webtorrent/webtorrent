@@ -1,3 +1,24 @@
+## [2.4.14](https://github.com/webtorrent/webtorrent/compare/v2.4.13...v2.4.14) (2024-07-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency debug to ^4.3.6 ([c6dde2c](https://github.com/webtorrent/webtorrent/commit/c6dde2c95fb06cf6b5668225d3a1bdfa3a59c053))
+
+## [2.4.13](https://github.com/webtorrent/webtorrent/compare/v2.4.12...v2.4.13) (2024-07-28)
+
+
+### Bug Fixes
+
+* **deps:** update webtorrent ([9eb656f](https://github.com/webtorrent/webtorrent/commit/9eb656f81016dffcc178ece9f15402ef63bc6a99))
+
+## [2.4.12](https://github.com/webtorrent/webtorrent/compare/v2.4.11...v2.4.12) (2024-07-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @thaunknown/simple-peer to ^10.0.10 ([09d7ea0](https://github.com/webtorrent/webtorrent/commit/09d7ea08cc461902aab6c9fc699f7962b1d977bd))
+
 ## [2.4.11](https://github.com/webtorrent/webtorrent/compare/v2.4.10...v2.4.11) (2024-06-29)
 
 
