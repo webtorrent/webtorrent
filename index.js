@@ -264,8 +264,8 @@ export default class WebTorrent extends EventEmitter {
     }
 
     const onReady = () => {
-      if (this.destroyed) return
       if (timeout) clearTimeout(timeout)
+      if (this.destroyed) return
       ontorrent(torrent)
       this.emit('torrent', torrent)
     }
