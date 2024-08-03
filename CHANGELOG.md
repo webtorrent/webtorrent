@@ -1,3 +1,10 @@
+## [2.4.15](https://github.com/webtorrent/webtorrent/compare/v2.4.14...v2.4.15) (2024-08-03)
+
+
+### Bug Fixes
+
+* custom length file buffer ([#2843](https://github.com/webtorrent/webtorrent/issues/2843)) ([5d40ad1](https://github.com/webtorrent/webtorrent/commit/5d40ad166ea531e1be9d07511c6245135ea9d87e))
+
 ## [2.4.14](https://github.com/webtorrent/webtorrent/compare/v2.4.13...v2.4.14) (2024-07-28)
 
 
