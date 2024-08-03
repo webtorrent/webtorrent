@@ -17,8 +17,7 @@ import ConnPool from './lib/conn-pool.js' // browser exclude
 import Torrent from './lib/torrent.js'
 import { NodeServer, BrowserServer } from './lib/server.js'
 
-import info from './package.json' assert { type: 'json' }
-const VERSION = info.version
+import VERSION from './version.cjs'
 
 const debug = debugFactory('webtorrent')
 
@@ -67,7 +66,7 @@ export default class WebTorrent extends EventEmitter {
     }
     this.nodeIdBuffer = hex2arr(this.nodeId)
 
-    this._debugId = arr2hex(this.peerId).substring(0, 7)
+    this._debugId = this.peerId.substring(0, 7)
 
     this.destroyed = false
     this.listening = false
@@ -81,6 +80,7 @@ export default class WebTorrent extends EventEmitter {
     this.torrents = []
     this.maxConns = Number(opts.maxConns) || 55
     this.utp = WebTorrent.UTP_SUPPORT && opts.utp !== false
+    this.seedOutgoingConnections = opts.seedOutgoingConnections ?? true
 
     this._downloadLimit = Math.max((typeof opts.downloadLimit === 'number') ? opts.downloadLimit : -1, -1)
     this._uploadLimit = Math.max((typeof opts.uploadLimit === 'number') ? opts.uploadLimit : -1, -1)
@@ -295,6 +295,7 @@ export default class WebTorrent extends EventEmitter {
     torrent.once('ready', onReady)
     torrent.once('close', onClose)
 
+    this.emit('add', torrent)
     return torrent
   }
 
@@ -429,9 +430,20 @@ export default class WebTorrent extends EventEmitter {
       if (cb) cb()
       return
     }
-    this.torrents.splice(this.torrents.indexOf(torrent), 1)
+    this._remove(torrent, opts, cb)
+  }
+
+  _remove (torrent, opts, cb) {
+    if (!torrent) return
+    if (typeof opts === 'function') return this._remove(torrent, null, opts)
+    const index = this.torrents.indexOf(torrent)
+    if (index === -1) return
+    this.torrents.splice(index, 1)
     torrent.destroy(opts, cb)
-    if (this.dht) this.dht._tables.remove(torrent.infoHash)
+    if (this.dht) {
+      this.dht._tables.remove(torrent.infoHash)
+    }
+    this.emit('remove', torrent)
   }
 
   address () {

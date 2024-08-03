@@ -14,15 +14,23 @@ test('Download using HTTP tracker (via .torrent file)', t => {
   torrentDownloadTest(t, 'http')
 })
 
+test('Download using WS tracker (via .torrent file)', t => {
+  torrentDownloadTest(t, 'ws')
+})
+
+const TRACKER_CONFIG_MAP = {
+  udp: { http: false, ws: false },
+  http: { udp: false, ws: false },
+  ws: { udp: false, http: false, ws: true }
+}
+
 function torrentDownloadTest (t, serverType) {
   t.plan(9)
 
   let trackerStartCount = 0
   const parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
 
-  const tracker = new TrackerServer(
-    serverType === 'udp' ? { http: false, ws: false } : { udp: false, ws: false }
-  )
+  const tracker = new TrackerServer(TRACKER_CONFIG_MAP[serverType])
 
   tracker.on('error', err => { t.fail(err) })
   tracker.on('warning', err => { t.fail(err) })
@@ -45,10 +53,7 @@ function torrentDownloadTest (t, serverType) {
 
       const port = tracker[serverType].address().port
 
-      const announceUrl = serverType === 'http'
-        ? `http://127.0.0.1:${port}/announce`
-        : `udp://127.0.0.1:${port}`
-
+      const announceUrl = `${serverType}://127.0.0.1:${port}/announce`
       // Overwrite announce with our local tracker
       parsedTorrent.announce = [announceUrl]
 

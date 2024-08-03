@@ -69,6 +69,7 @@ If `opts` is specified, then the default options (shown below) will be overridde
   natPmp: Boolean,         // Enable NAT port mapping via NAT-PMP (default=true). NodeJS only.
   webSeeds: Boolean,       // Enable BEP19 web seeds (default=true)
   utp: Boolean,            // Enable BEP29 uTorrent transport protocol (default=true)
+  seedOutgoingConnections: Boolean // Enable outgoing connections when seeding (default=true)
   blocklist: Array|String, // List of IP's to block
   downloadLimit: Number,   // Max download speed (bytes/sec) over all torrents (default=-1)
   uploadLimit: Number,     // Max upload speed (bytes/sec) over all torrents (default=-1)
@@ -87,6 +88,8 @@ For possible values of `opts.blocklist` see the
 For `opts.natUpnp` and `opts.natPmp`, if both are set to `true`, PMP will be attempted first, then fallback to UPNP. NodeJS only.
 
 For `opts.natUpnp`, if set to `true`, a temporary mapping is used, if set to `permanent`, a permanent TTL will be used for UPNP if the router only supports permanent leases. NodeJS only.
+
+For `opts.seedOutgoingConnections`, if set `true`, outgoing connections will be established while seeding, otherwise, only inbound connections will be responded to.
 
 For `downloadLimit` and `uploadLimit` the possible values can be:
   - `> 0`. The client will set the throttle at that speed
@@ -124,7 +127,10 @@ If `opts` is specified, then the default options (shown below) will be overridde
   skipVerify: Boolean,       // If true, client will skip verification of pieces for existing store and assume it's correct
   preloadedStore: Function,  // Custom, pre-loaded chunk store (must follow [abstract-chunk-store](https://www.npmjs.com/package/abstract-chunk-store) API)
   strategy: String,          // Piece selection strategy, `rarest` or `sequential`(defaut=`sequential`)
-  noPeersIntervalTime: Number // The amount of time (in seconds) to wait between each check of the `noPeers` event (default=30)
+  noPeersIntervalTime: Number, // The amount of time (in seconds) to wait between each check of the `noPeers` event (default=30)
+  paused: Boolean,           // If true, create the torrent in a paused state (default=false)
+  deselect: Boolean,         // If true, create the torrent with no pieces selected (default=false)
+  alwaysChokeSeeders: Boolean // If true, client will automatically choke seeders if it's seeding. (default=true)
 }
 ```
 
@@ -194,6 +200,14 @@ const buf = new Uint8Array('Some file content')
 buf.name = 'Some file name'
 client.seed(buf, cb)
 ```
+
+## `client.on('add', function (torrent) {})`
+
+Emitted when a torrent is added to client.torrents. This allows attaching to torrent events that may be emitted before the client 'torrent' event is emitted. See the torrent section for more info on what methods a `torrent` has.
+
+## `client.on('remove', function (torrent) {})`
+
+Emitted when a torrent is removed from client.torrents. See the torrent section for more info on what methods a `torrent` has.
 
 ## `client.on('torrent', function (torrent) {})`
 
@@ -511,7 +525,7 @@ Selects a range of pieces to prioritize starting with `start` and ending with `e
 inclusive) at the given `priority`. `notify` is an optional callback to be called when the
 selection is updated with new data.
 
-## `torrent.deselect(start, end, priority)`
+## `torrent.deselect(start, end)`
 
 Deprioritizes a range of previously selected pieces.
 
@@ -667,7 +681,7 @@ File download progress, from 0 to 1.
 Selects the file to be downloaded, at the given `priority`.
 Useful if you know you need the file at a later stage.
 
-## `file.deselect([priority])`
+## `file.deselect()`
 
 Deselects the file's specific priority, which means it won't be downloaded unless someone creates a stream for it.
 

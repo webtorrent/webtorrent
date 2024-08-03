@@ -2,7 +2,7 @@ import webpack from 'webpack'
 import TerserPlugin from 'terser-webpack-plugin'
 import info from '../package.json' assert { type: 'json' }
 
-/** @type {import('webpack').WebpackOptionsNormalized} */
+/** @type {import('webpack').Configuration} */
 export default {
   entry: './index.js',
   devtool: 'source-map',
