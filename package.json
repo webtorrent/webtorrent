@@ -1,7 +1,7 @@
 {
   "name": "webtorrent",
   "description": "Streaming torrent client",
-  "version": "2.4.15",
+  "version": "2.5.0",
   "author": {
     "name": "WebTorrent LLC",
     "email": "feross@webtorrent.io",
@@ -15,7 +15,7 @@
     "bittorrent-dht": false,
     "crypto": false,
     "fs": false,
-    "fs-chunk-store": "hybrid-chunk-store",
+    "fs-chunk-store": "fsa-chunk-store",
     "http": false,
     "load-ip-set": false,
     "net": false,
@@ -52,7 +52,7 @@
     "debug": "^4.3.6",
     "escape-html": "^1.0.3",
     "fs-chunk-store": "^4.1.0",
-    "hybrid-chunk-store": "^1.2.6",
+    "fsa-chunk-store": "^1.3.0",
     "immediate-chunk-store": "^2.2.0",
     "join-async-iterator": "^1.1.1",
     "load-ip-set": "^3.0.1",
