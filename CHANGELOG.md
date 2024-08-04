@@ -1,3 +1,10 @@
+# [2.5.0](https://github.com/webtorrent/webtorrent/compare/v2.4.15...v2.5.0) (2024-08-04)
+
+
+### Features
+
+* drop IDB ([#2851](https://github.com/webtorrent/webtorrent/issues/2851)) ([dc26aa6](https://github.com/webtorrent/webtorrent/commit/dc26aa6363d6004518de4f7ffc1d6a3968543a26))
+
 ## [2.4.15](https://github.com/webtorrent/webtorrent/compare/v2.4.14...v2.4.15) (2024-08-03)
 
 
