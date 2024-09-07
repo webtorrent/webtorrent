@@ -97,7 +97,7 @@
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-n": "^16.6.2",
-    "eslint-plugin-promise": "^6.2.0",
+    "eslint-plugin-promise": "^6.6.0",
     "finalhandler": "1.2.0",
     "network-address": "1.1.2",
     "pako": "^2.1.0",
