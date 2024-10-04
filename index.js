@@ -248,7 +248,28 @@ export default class WebTorrent extends EventEmitter {
    * @param {Object} opts torrent-specific options
    * @param {function=} ontorrent called when the torrent is ready (has metadata)
    */
-  add (torrentId, opts = {}, ontorrent = () => {}) {
+   add (torrentId, opts, ontorrent) {
+    if (opts.timeout) {
+      if (ontorrent) {
+        throw new Error(
+          "using timeout will return a promise, no need to add a callback",
+        );
+      }
+      return new Promise((resolve, reject) => {
+        this._add(
+          torrentId,
+          {
+            ...opts,
+            onTimeout: () => reject(new Error("Timed out waiting for torrent")),
+          },
+          resolve,
+        );
+      });
+    }
+    return this._add(opts ?? {}, ontorrent ?? (() => {}));
+  }
+
+  _add (torrentId, opts, ontorrent) {
     if (this.destroyed) throw new Error('client is destroyed')
     if (typeof opts === 'function') [opts, ontorrent] = [{}, opts]
 
@@ -297,24 +318,6 @@ export default class WebTorrent extends EventEmitter {
 
     this.emit('add', torrent)
     return torrent
-  }
-
-  /**
-   * @param {string|Buffer|Object} torrentId
-   * @param {number} timeout in milliseconds
-   * @returns {Promise<Torrent>}
-   */
-  addWithTimeout (torrentId, timeout) {
-    return new Promise((resolve, reject) => {
-      this.add(
-        torrentId,
-        {
-          timeout,
-          onTimeout: () => reject(new Error("Timed out waiting for torrent")),
-        },
-        resolve,
-      );
-    });
   }
 
   /**
