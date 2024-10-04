@@ -232,29 +232,44 @@ export default class WebTorrent extends EventEmitter {
    * @return {Promise<Torrent|null>}
    */
   async get (torrentId) {
-    if (torrentId instanceof Torrent) {
-      if (this.torrents.includes(torrentId)) return torrentId
-    } else {
-      const torrents = this.torrents
-      let parsed
-      try { parsed = await parseTorrent(torrentId) } catch (err) {}
-      if (!parsed) return null
-      if (!parsed.infoHash) throw new Error('Invalid torrent identifier')
-
-      for (const torrent of torrents) {
-        if (torrent.infoHash === parsed.infoHash) return torrent
-      }
-    }
-    return null
+    if (torrentId instanceof Torrent && this.torrents.includes(torrentId)) { return torrentId }
+    let parsed
+    try {
+      parsed = await parseTorrent(torrentId)
+    } catch (err) {}
+    if (!parsed) return null
+    if (!parsed.infoHash) throw new Error('Invalid torrent identifier')
+    return this.torrents.find(({ infoHash }) => infoHash === parsed.infoHash)
   }
 
   /**
-   * Start downloading a new torrent. Aliased as `client.download`.
+   * Start downloading a new torrent.
    * @param {string|Buffer|Object} torrentId
    * @param {Object} opts torrent-specific options
    * @param {function=} ontorrent called when the torrent is ready (has metadata)
    */
-  add (torrentId, opts = {}, ontorrent = () => {}) {
+   add (torrentId, opts, ontorrent) {
+    if (opts.timeout) {
+      if (ontorrent) {
+        throw new Error(
+          "using timeout will return a promise, no need to add a callback",
+        );
+      }
+      return new Promise((resolve, reject) => {
+        this._add(
+          torrentId,
+          {
+            ...opts,
+            onTimeout: () => reject(new Error("Timed out waiting for torrent")),
+          },
+          resolve,
+        );
+      });
+    }
+    return this._add(opts ?? {}, ontorrent ?? (() => {}));
+  }
+
+  _add (torrentId, opts, ontorrent) {
     if (this.destroyed) throw new Error('client is destroyed')
     if (typeof opts === 'function') [opts, ontorrent] = [{}, opts]
 
@@ -270,6 +285,7 @@ export default class WebTorrent extends EventEmitter {
     }
 
     const onReady = () => {
+      if (timeout) clearTimeout(timeout)
       if (this.destroyed) return
       ontorrent(torrent)
       this.emit('torrent', torrent)
@@ -282,9 +298,18 @@ export default class WebTorrent extends EventEmitter {
     }
 
     this._debug('add')
-    opts = opts ? Object.assign({}, opts) : {}
+    opts = opts ? { ...opts } : {}
 
     const torrent = new Torrent(torrentId, this, opts)
+
+    let timeout
+    if (opts.timeout) {
+      timeout = setTimeout(() => {
+        torrent._destroy()
+        if (opts.onTimeout) opts.onTimeout()
+      }, opts.timeout)
+    }
+
     this.torrents.push(torrent)
 
     torrent.once('_infoHash', onInfoHash)
@@ -306,7 +331,7 @@ export default class WebTorrent extends EventEmitter {
     if (typeof opts === 'function') [opts, onseed] = [{}, opts]
 
     this._debug('seed')
-    opts = opts ? Object.assign({}, opts) : {}
+    opts = opts ? { ...opts } : {}
 
     // no need to verify the hashes we create
     opts.skipVerify = true
@@ -402,10 +427,12 @@ export default class WebTorrent extends EventEmitter {
    */
   async remove (torrentId, opts, cb) {
     if (typeof opts === 'function') return this.remove(torrentId, null, opts)
-
     this._debug('remove')
     const torrent = await this.get(torrentId)
-    if (!torrent) throw new Error(`No torrent with id ${torrentId}`)
+    if (!torrent) {
+      if (cb) cb()
+      return
+    }
     this._remove(torrent, opts, cb)
   }
 
