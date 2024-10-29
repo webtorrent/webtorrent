@@ -125,7 +125,7 @@ If `opts` is specified, then the default options (shown below) will be overridde
   storeOpts: Object,         // Custom options passed to the store
   addUID: Boolean,           // (Node.js only) If true, the torrent will be stored in it's infoHash folder to prevent file name collisions (default=false)
   skipVerify: Boolean,       // If true, client will skip verification of pieces for existing store and assume it's correct
-  saveProgress: Boolean,     // If true, client will save what pieces are downloaded in a file in the filesystem, if the torrent will be added again the future the file will be loaded and it will be used instead of verification
+  saveProgress: Boolean,     // If true, client will save what pieces are downloaded in a file in the filesystem, if the torrent will be added again in the future the file will be loaded and it will be used instead of verification
   preloadedStore: Function,  // Custom, pre-loaded chunk store (must follow [abstract-chunk-store](https://www.npmjs.com/package/abstract-chunk-store) API)
   strategy: String,          // Piece selection strategy, `rarest` or `sequential`(defaut=`sequential`)
   noPeersIntervalTime: Number, // The amount of time (in seconds) to wait between each check of the `noPeers` event (default=30)
