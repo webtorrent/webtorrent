@@ -125,7 +125,7 @@ If `opts` is specified, then the default options (shown below) will be overridde
   storeOpts: Object,         // Custom options passed to the store
   addUID: Boolean,           // (Node.js only) If true, the torrent will be stored in it's infoHash folder to prevent file name collisions (default=false)
   skipVerify: Boolean,       // If true, client will skip verification of pieces for existing store and assume it's correct
-  bitfield: BitField,        // Preloaded bitfield to use to know hwat pieces are already downloaded (must follow [BitField](https://www.npmjs.com/package/bitfield) API)
+  bitfield: BitField,        // Preloaded bitfield to use to know what pieces are already downloaded (must follow [BitField](https://www.npmjs.com/package/bitfield) API)
   preloadedStore: Function,  // Custom, pre-loaded chunk store (must follow [abstract-chunk-store](https://www.npmjs.com/package/abstract-chunk-store) API)
   strategy: String,          // Piece selection strategy, `rarest` or `sequential`(defaut=`sequential`)
   noPeersIntervalTime: Number, // The amount of time (in seconds) to wait between each check of the `noPeers` event (default=30)
@@ -647,7 +647,7 @@ Emitted every couple of seconds when no peers have been found. `announceType` is
 
 ## `torrent.on('verified', function (index, isStartup) {})`
 
-Emitted every time a piece is verified, the values of the event are the index of the verified piece, and if it is the initial verification of a new piece downloaded.
+Emitted every time a piece is verified, the values of the event are the index of the verified piece, and if it is the initial verification or a new piece downloaded.
 
 # File API
 
