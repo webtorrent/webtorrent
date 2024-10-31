@@ -645,9 +645,9 @@ information on how to define a protocol extension.
 
 Emitted every couple of seconds when no peers have been found. `announceType` is either `'tracker'`, `'dht'`, `'lsd'`, or `'ut_pex'` depending on which announce occurred to trigger this event. Note that if you're attempting to discover peers from a tracker, a DHT, a LSD, and PEX you'll see this event separately for each.
 
-## `torrent.on('verified', function (index, isStartup) {})`
+## `torrent.on('verified', function (index) {})`
 
-Emitted every time a piece is verified, the values of the event are the index of the verified piece, and if it is the initial verification or a new piece downloaded.
+Emitted every time a piece is verified, the value of the event is the index of the verified piece.
 
 # File API
 
