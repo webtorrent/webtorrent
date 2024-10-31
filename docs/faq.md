@@ -114,6 +114,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[CrawFish][CrawFish]** - Desktop/Web/Server torrent client, with streaming support and integrated search (Works in docker, windows and has a WebUI that can be accessed by remote). ([source code][CrawFish-source])
 - **[Niwder][Niwder]** - Web based platform to transfer torrents to Mega.nz and Google Drive on the cloud. ([source code][Niwder-source])
 - **[Chitchatter][Chitchatter]** - A peer-to-peer chat app that is serverless, decentralized, and ephemeral. Uses WebTorrent to initiate peer connections. ([source code][Chitchatter-source])
+- **[P2PFileShare][P2PFileShare]** - A peer-to-peer file-sharing app that allows users to send and receive files directly from your browser.
 - ***Your app here – [Send a pull request][pr] with your URL!***
 <!-- - **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source]) -->
 <!-- - **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s)) -->
@@ -213,6 +214,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [Niwder-source]: https://github.com/Niweera/niwder
 [Chitchatter]: https://chitchatter.im/
 [Chitchatter-source]: https://github.com/jeremyckahn/chitchatter
+[P2PFileShare]: https://p2pfileshare.com
 
 ## How does WebTorrent work?
 
