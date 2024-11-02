@@ -88,7 +88,7 @@
     "airtap-sauce": "1.1.2",
     "airtap-system": "^0.1.0",
     "babelify": "10.0.0",
-    "bittorrent-tracker": "11.1.1",
+    "bittorrent-tracker": "github:uriva/bittorrent-tracker#c2620bbb1f33e10f27564e8f4106e96a2b612202",
     "buffer": "^6.0.3",
     "chrome-net": "^3.3.4",
     "crypto-browserify": "^3.12.0",
