@@ -70,7 +70,7 @@
     "speed-limiter": "^1.0.2",
     "streamx": "2.17.0",
     "throughput": "^1.0.1",
-    "torrent-discovery": "^11.0.8",
+    "torrent-discovery": "github:uriva/torrent-discovery#0d9c1a4d625953043ded1c14aa50b07b319f5c9c",
     "torrent-piece": "^3.0.0",
     "uint8-util": "^2.2.5",
     "unordered-array-remove": "^1.0.2",
