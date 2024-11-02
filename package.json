@@ -116,6 +116,9 @@
     "webpack-cli": "^5.1.4",
     "webtorrent-fixtures": "1.7.5"
   },
+  "resolutions": {
+    "bittorrent-tracker": "github:uriva/bittorrent-tracker#c2620bbb1f33e10f27564e8f4106e96a2b612202"
+  },
   "optionalDependencies": {
     "utp-native": "^2.5.3"
   },
