@@ -248,25 +248,25 @@ export default class WebTorrent extends EventEmitter {
    * @param {Object} opts torrent-specific options
    * @param {function=} ontorrent called when the torrent is ready (has metadata)
    */
-   add (torrentId, opts, ontorrent) {
+  add (torrentId, opts, ontorrent) {
     if (opts.timeout) {
       if (ontorrent) {
         throw new Error(
-          "using timeout will return a promise, no need to add a callback",
-        );
+          'using timeout will return a promise, no need to add a callback'
+        )
       }
       return new Promise((resolve, reject) => {
         this._add(
           torrentId,
           {
             ...opts,
-            onTimeout: () => reject(new Error("Timed out waiting for torrent")),
+            onTimeout: () => reject(new Error('Timed out waiting for torrent'))
           },
-          resolve,
-        );
-      });
+          resolve
+        )
+      })
     }
-    return this._add(opts ?? {}, ontorrent ?? (() => {}));
+    return this._add(opts ?? {}, ontorrent ?? (() => {}))
   }
 
   _add (torrentId, opts, ontorrent) {
