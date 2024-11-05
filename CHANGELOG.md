@@ -1,3 +1,10 @@
+## [2.5.2](https://github.com/webtorrent/webtorrent/compare/v2.5.1...v2.5.2) (2024-11-05)
+
+
+### Bug Fixes
+
+* parse host even if this.client.blocked is false, to allow line 868 to pass correctly and default to utp. ([#2805](https://github.com/webtorrent/webtorrent/issues/2805)) ([beef270](https://github.com/webtorrent/webtorrent/commit/beef270d62e749c406637da8d82e2e5f85a03020))
+
 ## [2.5.1](https://github.com/webtorrent/webtorrent/compare/v2.5.0...v2.5.1) (2024-09-07)
 
 
