@@ -1,3 +1,118 @@
+## [2.5.1](https://github.com/webtorrent/webtorrent/compare/v2.5.0...v2.5.1) (2024-09-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency debug to ^4.3.7 ([69c1441](https://github.com/webtorrent/webtorrent/commit/69c14418af5fe724dc294ca5469d7c3188542b88))
+
+# [2.5.0](https://github.com/webtorrent/webtorrent/compare/v2.4.15...v2.5.0) (2024-08-04)
+
+
+### Features
+
+* drop IDB ([#2851](https://github.com/webtorrent/webtorrent/issues/2851)) ([dc26aa6](https://github.com/webtorrent/webtorrent/commit/dc26aa6363d6004518de4f7ffc1d6a3968543a26))
+
+## [2.4.15](https://github.com/webtorrent/webtorrent/compare/v2.4.14...v2.4.15) (2024-08-03)
+
+
+### Bug Fixes
+
+* custom length file buffer ([#2843](https://github.com/webtorrent/webtorrent/issues/2843)) ([5d40ad1](https://github.com/webtorrent/webtorrent/commit/5d40ad166ea531e1be9d07511c6245135ea9d87e))
+
+## [2.4.14](https://github.com/webtorrent/webtorrent/compare/v2.4.13...v2.4.14) (2024-07-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency debug to ^4.3.6 ([c6dde2c](https://github.com/webtorrent/webtorrent/commit/c6dde2c95fb06cf6b5668225d3a1bdfa3a59c053))
+
+## [2.4.13](https://github.com/webtorrent/webtorrent/compare/v2.4.12...v2.4.13) (2024-07-28)
+
+
+### Bug Fixes
+
+* **deps:** update webtorrent ([9eb656f](https://github.com/webtorrent/webtorrent/commit/9eb656f81016dffcc178ece9f15402ef63bc6a99))
+
+## [2.4.12](https://github.com/webtorrent/webtorrent/compare/v2.4.11...v2.4.12) (2024-07-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @thaunknown/simple-peer to ^10.0.10 ([09d7ea0](https://github.com/webtorrent/webtorrent/commit/09d7ea08cc461902aab6c9fc699f7962b1d977bd))
+
+## [2.4.11](https://github.com/webtorrent/webtorrent/compare/v2.4.10...v2.4.11) (2024-06-29)
+
+
+### Bug Fixes
+
+* revert "fix: drop IDB chunk store ([#2553](https://github.com/webtorrent/webtorrent/issues/2553))" ([#2828](https://github.com/webtorrent/webtorrent/issues/2828)) ([348fba5](https://github.com/webtorrent/webtorrent/commit/348fba52e02670b506461f401cd067a759963b58))
+
+## [2.4.10](https://github.com/webtorrent/webtorrent/compare/v2.4.9...v2.4.10) (2024-06-29)
+
+
+### Bug Fixes
+
+* force streamx version ([#2826](https://github.com/webtorrent/webtorrent/issues/2826)) ([1f96952](https://github.com/webtorrent/webtorrent/commit/1f96952dbac120a52c27d5a65cb4384d28f748ab))
+
+## [2.4.9](https://github.com/webtorrent/webtorrent/compare/v2.4.8...v2.4.9) (2024-06-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @thaunknown/simple-peer to ^10.0.9 ([fc54e8e](https://github.com/webtorrent/webtorrent/commit/fc54e8e3c1fba34ca87b2312a91f72ecdfc26907))
+
+## [2.4.8](https://github.com/webtorrent/webtorrent/compare/v2.4.7...v2.4.8) (2024-06-29)
+
+
+### Bug Fixes
+
+* drop IDB chunk store ([#2553](https://github.com/webtorrent/webtorrent/issues/2553)) ([18a4683](https://github.com/webtorrent/webtorrent/commit/18a468304c3826da42d6e4a4bc7e074ea9297187))
+
+## [2.4.7](https://github.com/webtorrent/webtorrent/compare/v2.4.6...v2.4.7) (2024-06-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency parse-torrent to ^11.0.17 ([72f4abc](https://github.com/webtorrent/webtorrent/commit/72f4abc2963b985faa905cbea2da77f84600c706))
+
+## [2.4.6](https://github.com/webtorrent/webtorrent/compare/v2.4.5...v2.4.6) (2024-06-29)
+
+
+### Bug Fixes
+
+* revert streamx to 2.17 ([#2819](https://github.com/webtorrent/webtorrent/issues/2819)) ([f4465d0](https://github.com/webtorrent/webtorrent/commit/f4465d043f301452682a8db562d90123b94cd58e))
+
+## [2.4.5](https://github.com/webtorrent/webtorrent/compare/v2.4.4...v2.4.5) (2024-06-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bittorrent-protocol to ^4.1.13 ([d596da6](https://github.com/webtorrent/webtorrent/commit/d596da6da8ea3f6f2f65947ab9e15fcebbb2ba9c))
+
+## [2.4.4](https://github.com/webtorrent/webtorrent/compare/v2.4.3...v2.4.4) (2024-06-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency streamx to ^2.18.0 ([#2798](https://github.com/webtorrent/webtorrent/issues/2798)) ([20e18b3](https://github.com/webtorrent/webtorrent/commit/20e18b3dbc9be6c2e9abfadaf041e986b99fa690))
+
+## [2.4.3](https://github.com/webtorrent/webtorrent/compare/v2.4.2...v2.4.3) (2024-06-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @thaunknown/simple-peer to ^10.0.8 ([27e34e5](https://github.com/webtorrent/webtorrent/commit/27e34e5059281af5a9d0de4231d3304fd71c5bda))
+* **deps:** update dependency hybrid-chunk-store to ^1.2.6 ([#2818](https://github.com/webtorrent/webtorrent/issues/2818)) ([478c691](https://github.com/webtorrent/webtorrent/commit/478c691bd89ab54f9e76dcddce7eb0f56d8bca68))
+
+## [2.4.2](https://github.com/webtorrent/webtorrent/compare/v2.4.1...v2.4.2) (2024-06-22)
+
+
+### Bug Fixes
+
+* allow client level default trackers to be set ([#2815](https://github.com/webtorrent/webtorrent/issues/2815)) ([a0e056d](https://github.com/webtorrent/webtorrent/commit/a0e056dc01c08c78e8b5ab33b3f50b7e96b37825))
+
+## [2.4.1](https://github.com/webtorrent/webtorrent/compare/v2.4.0...v2.4.1) (2024-06-13)
+
 # [2.4.0](https://github.com/webtorrent/webtorrent/compare/v2.3.6...v2.4.0) (2024-06-06)
 
 
