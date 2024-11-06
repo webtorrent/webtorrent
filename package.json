@@ -105,7 +105,7 @@
     "querystring": "^0.2.1",
     "run-series": "1.1.9",
     "semantic-release": "22.0.12",
-    "serve-static": "1.16.0",
+    "serve-static": "1.16.2",
     "stream-browserify": "^3.0.0",
     "tap-parser": "^16.0.1",
     "tap-spec": "^5.0.0",
