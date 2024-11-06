@@ -1,3 +1,10 @@
+## [2.5.4](https://github.com/webtorrent/webtorrent/compare/v2.5.3...v2.5.4) (2024-11-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency pump to ^3.0.2 ([#2864](https://github.com/webtorrent/webtorrent/issues/2864)) ([019f115](https://github.com/webtorrent/webtorrent/commit/019f115031003a6cb119d13527bd6faaf5bfad8c))
+
 ## [2.5.3](https://github.com/webtorrent/webtorrent/compare/v2.5.2...v2.5.3) (2024-11-05)
 
 
