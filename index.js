@@ -251,7 +251,7 @@ export default class WebTorrent extends EventEmitter {
   /**
    * Start downloading a new torrent. Aliased as `client.download`.
    * @param {string|Buffer|Object} torrentId
-   * @param {Object} opts torrent-specific options
+   * @param {import('./lib/torent.js').TorrentOpts} opts torrent-specific options
    * @param {function=} ontorrent called when the torrent is ready (has metadata)
    */
   add (torrentId, opts = {}, ontorrent = () => {}) {
