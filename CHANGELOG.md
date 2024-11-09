@@ -1,3 +1,31 @@
+## [2.5.5](https://github.com/webtorrent/webtorrent/compare/v2.5.4...v2.5.5) (2024-11-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency streamx to v2.20.1 ([#2855](https://github.com/webtorrent/webtorrent/issues/2855)) ([6618cee](https://github.com/webtorrent/webtorrent/commit/6618cee538264639f92d436ee253e321a284777e))
+
+## [2.5.4](https://github.com/webtorrent/webtorrent/compare/v2.5.3...v2.5.4) (2024-11-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency pump to ^3.0.2 ([#2864](https://github.com/webtorrent/webtorrent/issues/2864)) ([019f115](https://github.com/webtorrent/webtorrent/commit/019f115031003a6cb119d13527bd6faaf5bfad8c))
+
+## [2.5.3](https://github.com/webtorrent/webtorrent/compare/v2.5.2...v2.5.3) (2024-11-05)
+
+
+### Bug Fixes
+
+* **deps:** update webtorrent ([c5eed32](https://github.com/webtorrent/webtorrent/commit/c5eed329cf06dc2638ddae4193f6c1af83d557d0))
+
+## [2.5.2](https://github.com/webtorrent/webtorrent/compare/v2.5.1...v2.5.2) (2024-11-05)
+
+
+### Bug Fixes
+
+* parse host even if this.client.blocked is false, to allow line 868 to pass correctly and default to utp. ([#2805](https://github.com/webtorrent/webtorrent/issues/2805)) ([beef270](https://github.com/webtorrent/webtorrent/commit/beef270d62e749c406637da8d82e2e5f85a03020))
+
 ## [2.5.1](https://github.com/webtorrent/webtorrent/compare/v2.5.0...v2.5.1) (2024-09-07)
 
 
