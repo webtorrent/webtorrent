@@ -320,7 +320,7 @@ instance.close()
 client.destroy()
 ```
 
-In browser needs either [this worker](https://github.com/webtorrent/webtorrent/blob/master/sw.min.js) to be used, or have [this functionality](https://github.com/webtorrent/webtorrent/blob/master/lib/worker.js) implemented.
+In browser needs either [this worker](https://github.com/webtorrent/webtorrent/blob/master/dist/sw.min.js) to be used, or have [this functionality](https://github.com/webtorrent/webtorrent/blob/master/lib/worker.js) implemented.
 
 Here is a user example for browser:
 
@@ -352,7 +352,7 @@ navigator.serviceWorker.register('./sw.min.js', { scope: './' }).then(reg => {
 client._server.close()
 client.destroy()
 ```
-Needs either [this worker](https://github.com/webtorrent/webtorrent/blob/master/sw.min.js) to be used, or have [this functionality](https://github.com/webtorrent/webtorrent/blob/master/lib/worker.js) implemented.
+Needs either [this worker](https://github.com/webtorrent/webtorrent/blob/master/dist/sw.min.js) to be used, or have [this functionality](https://github.com/webtorrent/webtorrent/blob/master/lib/worker.js) implemented.
 
 # Torrent API
 
