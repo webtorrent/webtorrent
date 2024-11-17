@@ -71,7 +71,7 @@ export default class WebTorrent extends EventEmitter {
     this.destroyed = false
     this.listening = false
     this.torrentPort = opts.torrentPort || 0
-    this.torrentHost = opts.torrentHost || '::'
+    this.torrentHost = opts.torrentHost
     this.dhtPort = opts.dhtPort || 0
     this.tracker = opts.tracker !== undefined ? opts.tracker : {}
     this.lsd = opts.lsd !== false
