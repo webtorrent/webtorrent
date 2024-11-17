@@ -1,3 +1,10 @@
+## [2.5.6](https://github.com/webtorrent/webtorrent/compare/v2.5.5...v2.5.6) (2024-11-17)
+
+
+### Bug Fixes
+
+* uTP error on setup ([#2892](https://github.com/webtorrent/webtorrent/issues/2892)) ([283fd76](https://github.com/webtorrent/webtorrent/commit/283fd76b8ed0589c397711510d1efddf18297967))
+
 ## [2.5.5](https://github.com/webtorrent/webtorrent/compare/v2.5.4...v2.5.5) (2024-11-06)
 
 
