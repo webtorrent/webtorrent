@@ -251,8 +251,8 @@ export default class WebTorrent extends EventEmitter {
   /**
    * Start downloading a new torrent. Aliased as `client.download`.
    * @param {string|Buffer|Object} torrentId
-   * @param {import('./lib/torent.js').TorrentOpts} opts torrent-specific options
-   * @param {function=} ontorrent called when the torrent is ready (has metadata)
+   * @param {import('./lib/torrent.js').TorrentOpts} opts torrent-specific options
+   * @param {function(torrent: Torrent): void=} ontorrent called when the torrent is ready (has metadata)
    */
   add (torrentId, opts = {}, ontorrent = () => {}) {
     if (this.destroyed) throw new Error('client is destroyed')
