@@ -147,7 +147,7 @@ test('client.conn-pool: adding IPv6 peer when uTP enabled should fallback to TCP
 
 // Warning: slow test as we need to rely on connection timeouts
 test('client.conn-pool: fallback to TCP when uTP server failed', t => {
-  t.plan(6)
+  t.plan(7)
 
   // force uTP server failure
   const server = dgram.createSocket('udp4')
@@ -156,7 +156,7 @@ test('client.conn-pool: fallback to TCP when uTP server failed', t => {
   const client1 = new WebTorrent({ dht: false, tracker: false, lsd: false, utp: true, torrentPort: 63000 })
   const client2 = new WebTorrent({ dht: false, tracker: false, lsd: false, utp: false })
 
-  client1.on('error', err => { t.fail(err) })
+  client1.on('error', err => { t.equal(err.toString(), 'Error: address already in use') })
   client1.on('warning', err => { t.fail(err) })
 
   client2.on('error', err => { t.fail(err) })
