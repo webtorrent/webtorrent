@@ -22,8 +22,8 @@ export default class Torrent {
     _rechokeNumSlots: number;
     _rechokeOptimisticWire: any;
     _rechokeOptimisticTime: number;
-    _rechokeIntervalId: NodeJS.Timeout;
-    _noPeersIntervalId: NodeJS.Timeout;
+    _rechokeIntervalId: NodeJS.Timeout | null;
+    _noPeersIntervalId: NodeJS.Timeout | null;
     _noPeersIntervalTime: number;
     _startAsDeselected: any;
     ready: boolean;
@@ -54,7 +54,7 @@ export default class Torrent {
     get progress(): number;
     get ratio(): number;
     get numPeers(): number;
-    get torrentFileBlob(): Blob;
+    get torrentFileBlob(): Blob | null;
     get _numQueued(): number;
     get _numConns(): number;
     _onTorrentId(torrentId: any): Promise<void>;
@@ -67,15 +67,15 @@ export default class Torrent {
     _startDiscovery(): void;
     discovery: any;
     _getMetadataFromServer(): void;
-    _xsRequestsController: AbortController;
+    _xsRequestsController: AbortController | null | undefined;
     /**
      * Called when the full torrent metadata is received.
      */
     _onMetadata(metadata: any): Promise<any>;
-    _rarityMap: RarityMap;
-    _hashes: any[];
-    _reservations: any[][];
-    bitfield: BitField;
+    _rarityMap: RarityMap | null | undefined;
+    _hashes: any[] | undefined;
+    _reservations: never[][] | undefined;
+    bitfield: BitField | undefined;
     getFileModtimes(cb: any): void;
     _verifyPieces(cb: any): void;
     rescanFiles(cb: any): void;
@@ -92,7 +92,7 @@ export default class Torrent {
     destroy(opts: any, cb: any): any;
     _destroy(err: any, opts: any, cb: any): any;
     addPeer(peer: any, source: any): boolean;
-    _addPeer(peer: any, type: any, source: any): Peer;
+    _addPeer(peer: any, type: any, source: any): Peer | null;
     addWebSeed(urlOrConn: any): void;
     /**
      * Called whenever a new incoming TCP peer connects to this torrent swarm. Called with a
@@ -144,7 +144,7 @@ export default class Torrent {
      * Attempts to request a block from the given wire.
      */
     _request(wire: any, index: any, hotswap: any): boolean;
-    _checkDone(): boolean;
+    _checkDone(): boolean | undefined;
     load(streams: any, cb: any): Promise<any>;
     pause(): void;
     resume(): void;

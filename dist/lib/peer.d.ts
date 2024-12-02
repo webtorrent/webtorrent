@@ -46,9 +46,9 @@ declare class Peer {
     onHandshake(infoHash: string, peerId: string): void;
     handshake(): void;
     startConnectTimeout(): void;
-    connectTimeout: NodeJS.Timeout;
+    connectTimeout: NodeJS.Timeout | undefined;
     startHandshakeTimeout(): void;
-    handshakeTimeout: NodeJS.Timeout;
+    handshakeTimeout: NodeJS.Timeout | undefined;
     destroy(err: any): void;
 }
 declare namespace Peer {

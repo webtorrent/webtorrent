@@ -11,5 +11,6 @@
         "outDir": "dist",
         "declarationMap": true,
         "resolveJsonModule": true,
+        "strict": true,
     }
 }

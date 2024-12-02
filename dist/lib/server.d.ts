@@ -4,6 +4,7 @@ export class NodeServer extends ServerBase {
     _listen: any;
     _close: any;
     sockets: Set<any>;
+    closed: boolean;
     pathname: any;
     wrapRequest(req: any, res: any): any;
     onConnection(socket: any): void;
@@ -14,7 +15,7 @@ export class NodeServer extends ServerBase {
 export class BrowserServer extends ServerBase {
     constructor(client: any, opts: any);
     registration: any;
-    workerKeepAliveInterval: NodeJS.Timeout;
+    workerKeepAliveInterval: NodeJS.Timeout | null;
     workerPortCount: number;
     pathname: string;
     _address: {
@@ -22,8 +23,8 @@ export class BrowserServer extends ServerBase {
         family: string;
         address: string;
     };
-    boundHandler: any;
-    wrapRequest(event: any): any;
+    boundHandler: (event: any) => null | undefined;
+    wrapRequest(event: any): null | undefined;
     listen(_: any, cb: any): void;
     address(): {
         port: string;
@@ -47,7 +48,7 @@ declare class ServerBase {
     isOriginAllowed(req: any): boolean;
     onRequest(req: any, cb: any): Promise<any>;
     close(cb?: () => void): void;
-    closed: boolean;
+    closed: boolean | undefined;
     destroy(cb?: () => void): void;
 }
 export {};

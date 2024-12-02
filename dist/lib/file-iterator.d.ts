@@ -25,7 +25,7 @@ export default class FileIterator {
         done: boolean;
     }>;
     throw(err: any): Promise<void>;
-    destroy(cb: () => void, err: any): void;
+    destroy(cb: (() => void) | undefined, err: any): void;
     [Symbol.asyncIterator](): this;
 }
 //# sourceMappingURL=file-iterator.d.ts.map

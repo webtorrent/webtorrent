@@ -31,7 +31,7 @@ declare class WebTorrent {
         down: any;
         up: any;
     };
-    _connPool: ConnPool;
+    _connPool: ConnPool | undefined;
     _downloadSpeed: any;
     _uploadSpeed: any;
     dht: any;
@@ -47,8 +47,8 @@ declare class WebTorrent {
      * @param {String} force
      * @return {BrowserServer||NodeServer}
      */
-    createServer(options: any, force: string): BrowserServer;
-    _server: NodeServer | BrowserServer;
+    createServer(options: Object, force: string): BrowserServer;
+    _server: NodeServer | BrowserServer | undefined;
     get downloadSpeed(): any;
     get uploadSpeed(): any;
     get progress(): number;
@@ -61,21 +61,21 @@ declare class WebTorrent {
      * @param  {string|Buffer|Object|Torrent} torrentId
      * @return {Promise<Torrent|null>}
      */
-    get(torrentId: string | Buffer | any | Torrent): Promise<Torrent | null>;
+    get(torrentId: string | Buffer | Object | Torrent): Promise<Torrent | null>;
     /**
      * Start downloading a new torrent. Aliased as `client.download`.
      * @param {string|Buffer|Object} torrentId
      * @param {Object} opts torrent-specific options
      * @param {function=} ontorrent called when the torrent is ready (has metadata)
      */
-    add(torrentId: string | Buffer | any, opts?: any, ontorrent?: Function | undefined): Torrent;
+    add(torrentId: string | Buffer | Object, opts?: Object, ontorrent?: Function | undefined): Torrent;
     /**
      * Start seeding a new file/folder.
      * @param  {string|File|FileList|Buffer|Array.<string|File|Buffer>} input
      * @param  {Object=} opts
      * @param  {function=} onseed called when torrent is seeding
      */
-    seed(input: string | File | FileList | Buffer | Array<string | File | Buffer>, opts?: any | undefined, onseed?: Function | undefined): Torrent;
+    seed(input: string | File | FileList | Buffer | Array<string | File | Buffer>, opts?: Object | undefined, onseed?: Function | undefined): Torrent;
     /**
      * Remove a torrent from the client.
      * @param  {string|Buffer|Torrent}   torrentId
