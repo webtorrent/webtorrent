@@ -1,2 +1,4 @@
+import * as PACKAGE from './package.json'
+
 // Exports package.json to work around "with" and "assert" for backwards compatability.
-module.exports = require('./package.json').version
+export default PACKAGE.version

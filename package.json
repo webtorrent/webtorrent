@@ -112,6 +112,7 @@
     "tape": "^5.9.0",
     "terser-webpack-plugin": "^5.3.10",
     "timers-browserify": "^2.0.12",
+    "typescript": "^5.7.2",
     "webpack": "^5.96.1",
     "webpack-cli": "^5.1.4",
     "webtorrent-fixtures": "1.7.5"
@@ -173,7 +174,8 @@
     "test-browser": "airtap --concurrency 1 --all -- test/*.js test/browser/*.js | tap-spec",
     "test-browser-local": "airtap --preset local -- test/*.js test/browser/*.js | tap-spec",
     "test-node": "tape test/*.js test/node/*.js | tap-spec",
-    "update-authors": "./scripts/update-authors.sh"
+    "update-authors": "./scripts/update-authors.sh",
+    "types": "tsc"
   },
   "renovate": {
     "extends": [
