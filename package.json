@@ -8,6 +8,7 @@
     "url": "https://webtorrent.io"
   },
   "type": "module",
+  "types": "dist/index.d.ts",
   "browser": {
     "./lib/conn-pool.js": false,
     "./lib/utp.cjs": false,
