@@ -1,3 +1,10 @@
+## [2.5.8](https://github.com/webtorrent/webtorrent/compare/v2.5.7...v2.5.8) (2024-12-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency debug to ^4.4.0 ([#2899](https://github.com/webtorrent/webtorrent/issues/2899)) ([1dd3c1a](https://github.com/webtorrent/webtorrent/commit/1dd3c1a45bca399d9800932318525881224527a4))
+
 ## [2.5.7](https://github.com/webtorrent/webtorrent/compare/v2.5.6...v2.5.7) (2024-11-23)
 
 
