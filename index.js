@@ -17,7 +17,7 @@ import ConnPool from './lib/conn-pool.js' // browser exclude
 import Torrent from './lib/torrent.js'
 import { NodeServer, BrowserServer } from './lib/server.js'
 
-import VERSION from './version.cjs'
+import VERSION from './version.js'
 
 const debug = debugFactory('webtorrent')
 
@@ -55,6 +55,8 @@ export default class WebTorrent extends EventEmitter {
     } else {
       this.peerId = arr2hex(text2arr(VERSION_PREFIX + arr2base(randomBytes(9))))
     }
+
+    /** @type {Uint8Array} */
     this.peerIdBuffer = hex2arr(this.peerId)
 
     if (typeof opts.nodeId === 'string') {
@@ -64,6 +66,8 @@ export default class WebTorrent extends EventEmitter {
     } else {
       this.nodeId = arr2hex(randomBytes(20))
     }
+
+    /** @type {Uint8Array} */
     this.nodeIdBuffer = hex2arr(this.nodeId)
 
     this._debugId = this.peerId.substring(0, 7)
@@ -556,6 +560,7 @@ export default class WebTorrent extends EventEmitter {
 
 WebTorrent.WEBRTC_SUPPORT = Peer.WEBRTC_SUPPORT
 WebTorrent.UTP_SUPPORT = ConnPool.UTP_SUPPORT
+/** @type {string} */
 WebTorrent.VERSION = VERSION
 
 /**
