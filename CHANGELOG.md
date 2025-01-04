@@ -1,3 +1,10 @@
+## [2.5.12](https://github.com/webtorrent/webtorrent/compare/v2.5.11...v2.5.12) (2025-01-04)
+
+
+### Bug Fixes
+
+* **deps:** update webtorrent ([#2910](https://github.com/webtorrent/webtorrent/issues/2910)) ([53049b6](https://github.com/webtorrent/webtorrent/commit/53049b6121d1ea4116d41ebec79b49cd8146ac3d))
+
 ## [2.5.11](https://github.com/webtorrent/webtorrent/compare/v2.5.10...v2.5.11) (2024-12-28)
 
 
