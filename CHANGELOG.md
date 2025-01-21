@@ -1,3 +1,10 @@
+## [2.5.14](https://github.com/webtorrent/webtorrent/compare/v2.5.13...v2.5.14) (2025-01-21)
+
+
+### Bug Fixes
+
+* noPeers not working correctly ([#2915](https://github.com/webtorrent/webtorrent/issues/2915)) ([62b4118](https://github.com/webtorrent/webtorrent/commit/62b41182ac71acee82cb53ed490f35ad1710ca1f))
+
 ## [2.5.13](https://github.com/webtorrent/webtorrent/compare/v2.5.12...v2.5.13) (2025-01-20)
 
 
