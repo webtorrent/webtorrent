@@ -3,12 +3,12 @@ import MemoryChunkStore from 'memory-chunk-store'
 import test from 'tape'
 import WebTorrent from '../../index.js'
 
-function setupClient ({ t, onTorrent, onDone, addTorrentProps = {} }) {
-  const client1 = new WebTorrent({ dht: false, tracker: false, lsd: false })
+function setupClient ({ t, onTorrent, onIdle, addTorrentProps = {} }) {
+  const client1 = new WebTorrent({ dht: false, tracker: false, lsd: false, utp: false })
   client1.on('error', function (err) { t.fail(err) })
   client1.on('warning', function (err) { t.fail(err) })
 
-  const client2 = new WebTorrent({ dht: false, tracker: false, lsd: false })
+  const client2 = new WebTorrent({ dht: false, tracker: false, lsd: false, utp: false })
   client2.on('error', function (err) { t.fail(err) })
   client2.on('warning', function (err) { t.fail(err) })
 
@@ -24,8 +24,8 @@ function setupClient ({ t, onTorrent, onDone, addTorrentProps = {} }) {
 
       torrent.addPeer(`localhost:${client1.torrentPort}`)
 
-      torrent.once('done', () => {
-        onDone(torrent)
+      torrent.once('idle', () => {
+        onIdle(torrent)
 
         Promise.all([
           new Promise((resolve) => client1.destroy(function (err) { t.error(err, 'client1 destroyed'); resolve() })),
@@ -42,7 +42,7 @@ test('client.select: whole torrent', function (t) {
     onTorrent: (torrent) => {
       torrent.select(0, torrent.pieces.length - 1)
     },
-    onDone: (torrent) => {
+    onIdle: (torrent) => {
       t.equal(torrent.pieces.filter((a) => a === null).length, torrent.pieces.length)
     }
   })
@@ -57,7 +57,7 @@ test('client.select: partial torrent', function (t) {
       torrent.deselect(0, torrent.pieces.length - 1)
       torrent.select(0, lastPieceIndex)
     },
-    onDone: (torrent) => {
+    onIdle: (torrent) => {
       t.equal(torrent.pieces.filter((a) => a === null).length, (lastPieceIndex + 1))
     }
   })
@@ -69,7 +69,7 @@ test('client.deselect: whole torrent', function (t) {
     onTorrent: (torrent) => {
       torrent.deselect(0, torrent.pieces.length - 1)
     },
-    onDone: (torrent) => {
+    onIdle: (torrent) => {
       t.equal(torrent.pieces.filter((a) => a === null).length, 0)
     }
   })
@@ -80,7 +80,7 @@ test('client.deselect: whole torrent - start as deselected', function (t) {
     t,
     onTorrent: () => {},
     addTorrentProps: { deselect: true },
-    onDone: (torrent) => {
+    onIdle: (torrent) => {
       t.equal(torrent.pieces.filter((a) => a === null).length, 0)
     }
   })
@@ -94,9 +94,10 @@ test('client.deselect: partial torrent - second half deselected', function (t) {
       lastPieceIndex = Math.floor((torrent.pieces.length - 1) / 2)
       torrent.deselect(0, lastPieceIndex)
     },
-    onDone: (torrent) => {
+    onIdle: (torrent) => {
       t.equal(torrent.pieces.filter((a) => a === null).length, (torrent.pieces.length - 1 - lastPieceIndex))
-      assertSelectionsEquals(t, torrent._selections, [[lastPieceIndex + 1, torrent.pieces.length - 1]])
+      // this test used to check the remaining selections, but now checking on idle removes the selections, so they don't exist
+      // assertSelectionsEquals(t, torrent._selections, [[lastPieceIndex + 1, torrent.pieces.length - 1]])
     }
   })
 })
@@ -109,9 +110,10 @@ test('client.deselect: partial torrent - second half deselected', function (t) {
       lastPieceIndex = Math.floor((torrent.pieces.length - 1) / 2)
       torrent.deselect(lastPieceIndex, torrent.pieces.length - 1)
     },
-    onDone: (torrent) => {
+    onIdle: (torrent) => {
       t.equal(torrent.pieces.filter((a) => a === null).length, (torrent.pieces.length - 1 - lastPieceIndex))
-      assertSelectionsEquals(t, torrent._selections, [[0, lastPieceIndex - 1]])
+      // this test used to check the remaining selections, but now checking on idle removes the selections, so they don't exist
+      // assertSelectionsEquals(t, torrent._selections, [[0, lastPieceIndex - 1]])
     }
   })
 })
@@ -135,7 +137,7 @@ test('client.deselect: multiple overlapping ranges', function (t) {
       t.assert(torrent._selections.length === 5)
       assertSelectionsEquals(t, torrent._selections, [[0, 3], [9, 11], [12, 13], [18, 19], [22, 22]])
     },
-    onDone: (torrent) => {
+    onIdle: (torrent) => {
       t.equal(torrent.pieces.filter((a) => a === null).length, 12)
     }
   })

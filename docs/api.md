@@ -586,6 +586,12 @@ torrent errors. Torrent errors are not fatal, and the client is still usable
 afterwards. Therefore, always listen for errors in both places
 (`client.on('error')` and `torrent.on('error')`).
 
+## `torrent.on('idle', function () {})`
+
+Emitted when the torrent has no more active selections to download, and starts idling 
+or seeding. This can happen when a file is fully downloaded, or when the desired pieces
+have been downloaded.
+
 ## `torrent.on('done', function () {})`
 
 Emitted when all the torrent files have been downloaded.
@@ -685,8 +691,6 @@ Useful if you know you need the file at a later stage.
 ## `file.deselect()`
 
 Deselects the file's specific priority, which means it won't be downloaded unless someone creates a stream for it.
-
-*Note: This method is currently not working as expected, see [dcposch answer on #164](https://github.com/webtorrent/webtorrent/issues/164) for a nice work around solution.
 
 ## `stream = file.createReadStream([opts])`
 

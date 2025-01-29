@@ -84,7 +84,7 @@ test('client.seed: emit torrent events in order', t => {
   })
 })
 
-test('file.select: check multiple done events', t => {
+test('file.select: check multiple idle events', t => {
   t.plan(5)
 
   const client1 = new WebTorrent({ dht: false, tracker: false, lsd: false, utp: false })
@@ -123,7 +123,7 @@ test('file.select: check multiple done events', t => {
       t.equal(++order, 3)
     })
 
-    torrent.on('done', () => {
+    torrent.on('idle', () => {
       ++order
 
       if (order === 4) {

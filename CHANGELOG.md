@@ -1,3 +1,31 @@
+## [2.5.15](https://github.com/webtorrent/webtorrent/compare/v2.5.14...v2.5.15) (2025-01-29)
+
+
+### Bug Fixes
+
+* bad done and select behavior and documentation ([#2916](https://github.com/webtorrent/webtorrent/issues/2916)) ([8237d5f](https://github.com/webtorrent/webtorrent/commit/8237d5fa23c9f8f46a0d1ad7bc820ff661ee5ba6))
+
+## [2.5.14](https://github.com/webtorrent/webtorrent/compare/v2.5.13...v2.5.14) (2025-01-21)
+
+
+### Bug Fixes
+
+* noPeers not working correctly ([#2915](https://github.com/webtorrent/webtorrent/issues/2915)) ([62b4118](https://github.com/webtorrent/webtorrent/commit/62b41182ac71acee82cb53ed490f35ad1710ca1f))
+
+## [2.5.13](https://github.com/webtorrent/webtorrent/compare/v2.5.12...v2.5.13) (2025-01-20)
+
+
+### Bug Fixes
+
+* **deps:** update webtorrent ([#2914](https://github.com/webtorrent/webtorrent/issues/2914)) ([e4f237d](https://github.com/webtorrent/webtorrent/commit/e4f237d9b0118146e7dced65fd5a8690b5771682))
+
+## [2.5.12](https://github.com/webtorrent/webtorrent/compare/v2.5.11...v2.5.12) (2025-01-04)
+
+
+### Bug Fixes
+
+* **deps:** update webtorrent ([#2910](https://github.com/webtorrent/webtorrent/issues/2910)) ([53049b6](https://github.com/webtorrent/webtorrent/commit/53049b6121d1ea4116d41ebec79b49cd8146ac3d))
+
 ## [2.5.11](https://github.com/webtorrent/webtorrent/compare/v2.5.10...v2.5.11) (2024-12-28)
 
 
