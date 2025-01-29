@@ -1,3 +1,10 @@
+## [2.5.15](https://github.com/webtorrent/webtorrent/compare/v2.5.14...v2.5.15) (2025-01-29)
+
+
+### Bug Fixes
+
+* bad done and select behavior and documentation ([#2916](https://github.com/webtorrent/webtorrent/issues/2916)) ([8237d5f](https://github.com/webtorrent/webtorrent/commit/8237d5fa23c9f8f46a0d1ad7bc820ff661ee5ba6))
+
 ## [2.5.14](https://github.com/webtorrent/webtorrent/compare/v2.5.13...v2.5.14) (2025-01-21)
 
 
