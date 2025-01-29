@@ -1,3 +1,10 @@
+## [2.5.16](https://github.com/webtorrent/webtorrent/compare/v2.5.15...v2.5.16) (2025-01-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency streamx to v2.21.1 ([#2898](https://github.com/webtorrent/webtorrent/issues/2898)) ([7727845](https://github.com/webtorrent/webtorrent/commit/772784501d7e2aaa170344c79eb3c490634c64cd))
+
 ## [2.5.15](https://github.com/webtorrent/webtorrent/compare/v2.5.14...v2.5.15) (2025-01-29)
 
 
