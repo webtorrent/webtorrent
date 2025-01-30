@@ -1,3 +1,10 @@
+## [2.5.17](https://github.com/webtorrent/webtorrent/compare/v2.5.16...v2.5.17) (2025-01-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency torrent-piece to ^3.0.1 ([#2920](https://github.com/webtorrent/webtorrent/issues/2920)) ([86d7980](https://github.com/webtorrent/webtorrent/commit/86d7980ff64161449ace94dba9f66520d038fad9))
+
 ## [2.5.16](https://github.com/webtorrent/webtorrent/compare/v2.5.15...v2.5.16) (2025-01-29)
 
 
