@@ -115,6 +115,8 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Niwder][Niwder]** - Web based platform to transfer torrents to Mega.nz and Google Drive on the cloud. ([source code][Niwder-source])
 - **[Chitchatter][Chitchatter]** - A peer-to-peer chat app that is serverless, decentralized, and ephemeral. Uses WebTorrent to initiate peer connections. ([source code][Chitchatter-source])
 - **[P2PFileShare][P2PFileShare]** - A peer-to-peer file-sharing app that allows users to send and receive files directly from your browser.
+- **[anacrolix/torrent library][anacrolix-torrent-source]** - A full-featured BitTorrent client package written in Golang. Some popular clients built using it, such as [distribyted][distribyted-source] and [confluence][confluence-source], enable WebTorrent support by default.
+- **[libtorrent library][libtorrent-tracking-pr]** has experimental (disabled-by-default) support for WebTorrent
 - ***Your app here – [Send a pull request][pr] with your URL!***
 <!-- - **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source]) -->
 <!-- - **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s)) -->
@@ -215,6 +217,10 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [Chitchatter]: https://chitchatter.im/
 [Chitchatter-source]: https://github.com/jeremyckahn/chitchatter
 [P2PFileShare]: https://p2pfileshare.com
+[anacrolix-torrent-source]: https://github.com/anacrolix/torrent
+[distribyted-source]: https://github.com/distribyted/distribyted
+[confluence]: https://github.com/anacrolix/confluence
+[libtorrent-tracking-pr]: https://github.com/arvidn/libtorrent/pull/4123
 
 ## How does WebTorrent work?
 
