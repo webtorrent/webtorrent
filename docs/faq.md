@@ -116,7 +116,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[Chitchatter][Chitchatter]** - A peer-to-peer chat app that is serverless, decentralized, and ephemeral. Uses WebTorrent to initiate peer connections. ([source code][Chitchatter-source])
 - **[P2PFileShare][P2PFileShare]** - A peer-to-peer file-sharing app that allows users to send and receive files directly from your browser.
 - **[anacrolix/torrent library][anacrolix-torrent-source]** - A full-featured BitTorrent Golang client package. Some popular torrent clients built with it, such as [distribyted][distribyted-source] and [confluence][confluence-source], enable WebTorrent support by default.
-- **[libtorrent library][libtorrent]** has experimental (disabled by default) support for WebTorrent ([tracking](libtorrent-tracking-pr)).
+- **[libtorrent library][libtorrent]** has experimental (disabled by default) support for WebTorrent ([tracking][libtorrent-tracking-pr]).
 - ***Your app here – [Send a pull request][pr] with your URL!***
 <!-- - **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source]) -->
 <!-- - **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s)) -->
