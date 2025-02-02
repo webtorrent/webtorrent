@@ -1,3 +1,5 @@
+## [2.5.18](https://github.com/webtorrent/webtorrent/compare/v2.5.17...v2.5.18) (2025-02-02)
+
 ## [2.5.17](https://github.com/webtorrent/webtorrent/compare/v2.5.16...v2.5.17) (2025-01-30)
 
 
