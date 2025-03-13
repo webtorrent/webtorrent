@@ -23,6 +23,7 @@ These are the [BitTorrent Extension Protocols (BEP)](https://www.bittorrent.org/
 | Private Torrents | [BEP 27](https://www.bittorrent.org/beps/bep_0027.html) | :white_check_mark: | :white_check_mark: |
 | uTorrent transport protocol (uTP) | [BEP 29](https://www.bittorrent.org/beps/bep_0029.html) | :white_check_mark: | :x: |
 | DHT Extensions for IPv6 | [BEP 32](https://www.bittorrent.org/beps/bep_0032.html) | :heavy_minus_sign: [bittorrent-dht#88](https://github.com/webtorrent/bittorrent-dht/issues/88) | :heavy_minus_sign: |
+| Storing arbitrary data in the DHT | [BEP 44](https://www.bittorrent.org/beps/bep_0044.html) | :heavy_minus_sign: | :heavy_minus_sign: |
 | Updating Torrents Via DHT Mutable Items | [BEP 46](https://www.bittorrent.org/beps/bep_0046.html) | :heavy_minus_sign: [webtorrent#886](https://github.com/webtorrent/webtorrent/issues/886) | :heavy_minus_sign: [webtorrent#886](https://github.com/webtorrent/webtorrent/issues/886) |
 | Tracker Protocol Extension: Scrape | [BEP 48](https://www.bittorrent.org/beps/bep_0048.html) | :white_check_mark: | :white_check_mark: |
 | Magnet URI extension - Select specific file indices for download | [BEP 53](https://www.bittorrent.org/beps/bep_0053.html) | :white_check_mark: | :white_check_mark: |
