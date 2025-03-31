@@ -1,7 +1,7 @@
 {
   "name": "webtorrent",
   "description": "Streaming torrent client",
-  "version": "2.5.15",
+  "version": "2.5.19",
   "author": {
     "name": "WebTorrent LLC",
     "email": "feross@webtorrent.io",
@@ -68,20 +68,20 @@
     "run-parallel": "^1.2.0",
     "run-parallel-limit": "^1.1.0",
     "speed-limiter": "^1.0.2",
-    "streamx": "2.20.2",
+    "streamx": "2.22.0",
     "throughput": "^1.0.1",
     "torrent-discovery": "^11.0.15",
-    "torrent-piece": "^3.0.0",
+    "torrent-piece": "^3.0.1",
     "uint8-util": "^2.2.5",
     "unordered-array-remove": "^1.0.2",
     "ut_metadata": "^4.0.3",
     "ut_pex": "^4.0.4"
   },
   "devDependencies": {
-    "@babel/core": "7.26.7",
-    "@babel/eslint-parser": "^7.26.5",
+    "@babel/core": "7.26.9",
+    "@babel/eslint-parser": "^7.26.8",
     "@babel/plugin-syntax-import-assertions": "7.26.0",
-    "@babel/preset-env": "7.26.7",
+    "@babel/preset-env": "7.26.9",
     "@webtorrent/semantic-release-config": "1.0.10",
     "airtap": "4.0.4",
     "airtap-manual": "1.0.0",
@@ -112,8 +112,8 @@
     "tape": "^5.9.0",
     "terser-webpack-plugin": "^5.3.11",
     "timers-browserify": "^2.0.12",
-    "webpack": "^5.97.1",
-    "webpack-cli": "^5.1.4",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1",
     "webtorrent-fixtures": "1.7.5"
   },
   "optionalDependencies": {
