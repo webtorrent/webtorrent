@@ -43,7 +43,7 @@ test('blocklist blocks peers discovered via tracker', t => {
         path: common.getDownloadPath('client_1', parsedTorrent.infoHash)
       })
 
-      torrent1.once('invalidPeer', () => {
+      torrent1.on('invalidPeer', () => {
         t.pass('client1 found itself')
         cb(null)
       })
