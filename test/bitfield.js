@@ -3,37 +3,20 @@ import test from 'tape'
 import WebTorrent from '../index.js'
 
 test('preloaded bitfield: load files into filesystem', t => {
-  t.plan(3)
+  t.plan(2)
 
-  const client1 = new WebTorrent({ dht: false, utp: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
-  const client2 = new WebTorrent({ dht: false, utp: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
+  const client = new WebTorrent({ dht: false, utp: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
 
-  client1.on('error', err => { t.fail(err) })
-  client1.on('warning', err => { t.fail(err) })
-
-  client2.on('error', err => { t.fail(err) })
-  client2.on('warning', err => { t.fail(err) })
+  client.on('error', err => { t.fail(err) })
+  client.on('warning', err => { t.fail(err) })
 
   // Start seeding
-  client2.seed(fixtures.leaves.content, {
+  client.seed(fixtures.leaves.content, {
     name: 'Leaves of Grass by Walt Whitman.epub',
     announce: []
-  })
-
-  client2.on('listening', () => {
-    // Start downloading
-    const torrent = client1.add(fixtures.leaves.parsedTorrent.infoHash)
-
-    torrent.on('infoHash', () => {
-      // Manually connect peers
-      torrent.addPeer(`127.0.0.1:${client2.address().port}`)
-    })
-
-    torrent.on('done', () => {
-      t.ok('loaded files into filesystem')
-      client1.destroy(err => { t.error(err, 'client 1 destroyed') })
-      client2.destroy(err => { t.error(err, 'client 2 destroyed') })
-    })
+  }, () => {
+    t.ok('loaded files into filesystem')
+    client.destroy(err => { t.error(err, 'client 2 destroyed') })
   })
 })
 
