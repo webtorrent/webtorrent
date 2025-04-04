@@ -78,8 +78,8 @@
     "ut_pex": "^4.0.4"
   },
   "devDependencies": {
-    "@babel/core": "7.26.9",
-    "@babel/eslint-parser": "^7.26.8",
+    "@babel/core": "7.26.10",
+    "@babel/eslint-parser": "^7.27.0",
     "@babel/plugin-syntax-import-assertions": "7.26.0",
     "@babel/preset-env": "7.26.9",
     "@webtorrent/semantic-release-config": "1.0.10",
