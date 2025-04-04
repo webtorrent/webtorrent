@@ -45,7 +45,7 @@
     "bittorrent-dht": "^11.0.9",
     "bittorrent-protocol": "^4.1.16",
     "cache-chunk-store": "^3.2.2",
-    "chunk-store-iterator": "^1.0.3",
+    "chunk-store-iterator": "^1.0.4",
     "cpus": "^1.0.3",
     "create-torrent": "^6.1.0",
     "cross-fetch-ponyfill": "^1.0.3",
