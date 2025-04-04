@@ -1,3 +1,10 @@
+# [2.6.0](https://github.com/webtorrent/webtorrent/compare/v2.5.19...v2.6.0) (2025-04-04)
+
+
+### Features
+
+* add an option to store the bitfield in the file system ([#2878](https://github.com/webtorrent/webtorrent/issues/2878)) ([e29a474](https://github.com/webtorrent/webtorrent/commit/e29a4740b45995719652a1886a42f816e38fa456))
+
 ## [2.5.19](https://github.com/webtorrent/webtorrent/compare/v2.5.18...v2.5.19) (2025-02-05)
 
 
