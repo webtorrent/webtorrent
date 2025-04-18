@@ -1,3 +1,10 @@
+## [2.6.2](https://github.com/webtorrent/webtorrent/compare/v2.6.1...v2.6.2) (2025-04-18)
+
+
+### Bug Fixes
+
+* null body on OPTIONS ([#2942](https://github.com/webtorrent/webtorrent/issues/2942)) ([76b508a](https://github.com/webtorrent/webtorrent/commit/76b508aa3482697dfad11d42d7d34de52484e65b))
+
 ## [2.6.1](https://github.com/webtorrent/webtorrent/compare/v2.6.0...v2.6.1) (2025-04-18)
 
 
