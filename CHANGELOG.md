@@ -1,3 +1,10 @@
+## [2.6.5](https://github.com/webtorrent/webtorrent/compare/v2.6.4...v2.6.5) (2025-05-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bittorrent-dht to ^11.0.10 ([#2950](https://github.com/webtorrent/webtorrent/issues/2950)) ([effaf4e](https://github.com/webtorrent/webtorrent/commit/effaf4e55e30d91362b924a774ba243bea86d09c))
+
 ## [2.6.4](https://github.com/webtorrent/webtorrent/compare/v2.6.3...v2.6.4) (2025-05-14)
 
 
