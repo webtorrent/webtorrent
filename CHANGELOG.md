@@ -1,3 +1,10 @@
+## [2.6.7](https://github.com/webtorrent/webtorrent/compare/v2.6.6...v2.6.7) (2025-05-16)
+
+
+### Bug Fixes
+
+* removing stream selections ([#2952](https://github.com/webtorrent/webtorrent/issues/2952)) ([a5cbad0](https://github.com/webtorrent/webtorrent/commit/a5cbad0bfdf1bf8ebdc3c4f4e1500e183a8cd51a))
+
 ## [2.6.6](https://github.com/webtorrent/webtorrent/compare/v2.6.5...v2.6.6) (2025-05-15)
 
 
