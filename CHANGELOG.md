@@ -1,3 +1,10 @@
+## [2.6.8](https://github.com/webtorrent/webtorrent/compare/v2.6.7...v2.6.8) (2025-05-23)
+
+
+### Bug Fixes
+
+* bad file iterator code ([#2953](https://github.com/webtorrent/webtorrent/issues/2953)) ([b119706](https://github.com/webtorrent/webtorrent/commit/b119706f2a521b728e4e1ddea13c2802507968d9))
+
 ## [2.6.7](https://github.com/webtorrent/webtorrent/compare/v2.6.6...v2.6.7) (2025-05-16)
 
 
