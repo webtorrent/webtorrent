@@ -61,7 +61,7 @@
     "mime": "^3.0.0",
     "once": "^1.4.0",
     "parse-torrent": "^11.0.18",
-    "pump": "^3.0.2",
+    "pump": "^3.0.3",
     "queue-microtask": "^1.2.3",
     "random-iterate": "^1.0.1",
     "range-parser": "^1.2.1",
