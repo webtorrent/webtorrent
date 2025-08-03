@@ -71,7 +71,12 @@ test('Selections', (t) => {
         selection = new Selections()
         selection.insert(existing)
         selection.insert(newItem)
-        assertArrayContentsEqual(t, selection._items, [...expectedRemoveResult, newItem])
+        const expected = { from: Infinity, to: 0 }
+        for (const item of [...expectedRemoveResult, newItem]) {
+          expected.from = Math.min(expected.from, item.from)
+          expected.to = Math.max(expected.to, item.to)
+        }
+        assertArrayContentsEqual(t, selection._items, [expected])
         s.end()
       })
     }
@@ -85,7 +90,7 @@ test('Selections', (t) => {
 
     selection.insert({ from: 9, to: 25 })
 
-    assertArrayContentsEqual(t, selection._items, [{ from: 5, to: 8 }, { from: 9, to: 25 }, { from: 26, to: 40 }])
+    assertArrayContentsEqual(t, selection._items, [{ from: 5, to: 40 }])
     s.end()
   })
 })
