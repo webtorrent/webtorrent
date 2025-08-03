@@ -1,3 +1,10 @@
+# [2.7.0](https://github.com/webtorrent/webtorrent/compare/v2.6.10...v2.7.0) (2025-08-03)
+
+
+### Features
+
+* peers as map for performance ([#2970](https://github.com/webtorrent/webtorrent/issues/2970)) ([92db29f](https://github.com/webtorrent/webtorrent/commit/92db29f8172c27d8bdb33600e151576699d28b0c))
+
 ## [2.6.10](https://github.com/webtorrent/webtorrent/compare/v2.6.9...v2.6.10) (2025-06-28)
 
 
