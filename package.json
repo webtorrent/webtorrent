@@ -173,6 +173,7 @@
     "test-browser": "airtap --concurrency 1 --all -- test/*.js test/browser/*.js | tap-spec",
     "test-browser-local": "airtap --preset local -- test/*.js test/browser/*.js | tap-spec",
     "test-node": "tape test/*.js test/node/*.js | tap-spec",
+    "test-single": "tape test/node/client-deselect.js | tap-spec",
     "update-authors": "./scripts/update-authors.sh"
   },
   "renovate": {

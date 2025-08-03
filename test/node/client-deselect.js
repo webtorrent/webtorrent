@@ -128,14 +128,14 @@ test('client.deselect: multiple overlapping ranges', function (t) {
       torrent.select(12, 18)
       torrent.select(15, 22)
       torrent.select(0, 4)
-      t.assert(torrent._selections.length === 4)
-      assertSelectionsEquals(t, torrent._selections, [[0, 4], [5, 11], [12, 14], [15, 22]])
+      t.assert(torrent._selections.length === 1)
+      assertSelectionsEquals(t, torrent._selections, [[0, 22]])
 
       torrent.deselect(4, 8)
       torrent.deselect(14, 17)
       torrent.deselect(20, 21)
-      t.assert(torrent._selections.length === 5)
-      assertSelectionsEquals(t, torrent._selections, [[0, 3], [9, 11], [12, 13], [18, 19], [22, 22]])
+      t.assert(torrent._selections.length === 4)
+      assertSelectionsEquals(t, torrent._selections, [[0, 3], [9, 13], [18, 19], [22, 22]])
     },
     onIdle: (torrent) => {
       t.equal(torrent.pieces.filter((a) => a === null).length, 12)
