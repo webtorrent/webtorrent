@@ -1,3 +1,10 @@
+## [2.8.2](https://github.com/webtorrent/webtorrent/compare/v2.8.1...v2.8.2) (2025-08-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bittorrent-protocol to ^4.1.20 ([#2974](https://github.com/webtorrent/webtorrent/issues/2974)) ([6618b21](https://github.com/webtorrent/webtorrent/commit/6618b21fd975213898a9e6b475f7c258b7d37aa1))
+
 ## [2.8.1](https://github.com/webtorrent/webtorrent/compare/v2.8.0...v2.8.1) (2025-08-05)
 
 
