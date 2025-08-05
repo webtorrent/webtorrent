@@ -43,7 +43,7 @@
     "addr-to-ip-port": "^2.0.0",
     "bitfield": "^4.2.0",
     "bittorrent-dht": "^11.0.10",
-    "bittorrent-protocol": "^4.1.19",
+    "bittorrent-protocol": "^4.1.20",
     "cache-chunk-store": "^3.2.2",
     "chunk-store-iterator": "^1.0.4",
     "cpus": "^1.0.3",
