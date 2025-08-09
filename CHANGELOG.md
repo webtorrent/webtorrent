@@ -1,3 +1,10 @@
+## [2.8.3](https://github.com/webtorrent/webtorrent/compare/v2.8.2...v2.8.3) (2025-08-09)
+
+
+### Bug Fixes
+
+* connect event name typo ([#2975](https://github.com/webtorrent/webtorrent/issues/2975)) ([30b535a](https://github.com/webtorrent/webtorrent/commit/30b535aca2d1e44231d6c6714134254b4c38c47d))
+
 ## [2.8.2](https://github.com/webtorrent/webtorrent/compare/v2.8.1...v2.8.2) (2025-08-05)
 
 
