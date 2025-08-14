@@ -1,3 +1,10 @@
+## [2.8.4](https://github.com/webtorrent/webtorrent/compare/v2.8.3...v2.8.4) (2025-08-14)
+
+
+### Bug Fixes
+
+* connect count ([#2979](https://github.com/webtorrent/webtorrent/issues/2979)) ([ec009c8](https://github.com/webtorrent/webtorrent/commit/ec009c8476badbb7fac7b035f9a2c18a1019f81f))
+
 ## [2.8.3](https://github.com/webtorrent/webtorrent/compare/v2.8.2...v2.8.3) (2025-08-09)
 
 
