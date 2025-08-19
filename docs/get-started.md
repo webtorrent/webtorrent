@@ -111,7 +111,7 @@ client.add(magnetURI, { path: '/path/to/folder' }, torrent => {
 ### Creating a new torrent and seed it (in Node.js)
 
 ```js
-import WebTorrent from 'webtorrent-hybrid'
+import WebTorrent from 'webtorrent'
 const client = new WebTorrent()
 
 client.seed('/seed-me.txt', torrent => {
