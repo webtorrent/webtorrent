@@ -94,7 +94,7 @@ For `opts.seedOutgoingConnections`, if set `true`, outgoing connections will be 
 For `downloadLimit` and `uploadLimit` the possible values can be:
   - `> 0`. The client will set the throttle at that speed
   - `0`. The client will block any data from being downloaded or uploaded
-  - `-1`. The client will is disable the throttling and use the whole bandwidth available
+  - `-1`. The client will disable the throttling and use the whole bandwidth available
 
 ## `client.add(torrentId, [opts], [function ontorrent (torrent) {}])`
 
@@ -173,7 +173,7 @@ Start seeding a new torrent.
 - Node [Buffer](https://nodejs.org/api/buffer.html) object
 - Node [Readable stream](https://nodejs.org/api/stream.html#stream_class_stream_readable) object
 
-Or, an **array of of any of those values**.
+Or, an **array of any of those values**.
 
 If `opts` is specified, it should contain the following types of options:
 
@@ -294,7 +294,7 @@ If `force` is specified, it can force WebTorrent to use a specific implementatio
 'browser' || 'node'
 ```
 
-Visiting the root of the server `/` won't show anything. Visiting `/webtorrent/` will list all torrents. Access individual torrents at `/webtorrent/<infohash>` where `infohash` is the hash of the torrent. To acceess individual files, go to `/webtorrent/<infoHash>/<filepath>` where filepath is the file's path in the torrent.
+Visiting the root of the server `/` won't show anything. Visiting `/webtorrent/` will list all torrents. Access individual torrents at `/webtorrent/<infohash>` where `infohash` is the hash of the torrent. To access individual files, go to `/webtorrent/<infoHash>/<filepath>` where filepath is the file's path in the torrent.
 
 
 Here is a usage example for Node.js:
@@ -472,7 +472,7 @@ Author of the torrent (string).
 
 ## `torrent.comment`
 
-A comment optionnaly set by the author (string).
+A comment optionally set by the author (string).
 
 ## `torrent.destroy([opts], [callback])`
 
@@ -588,7 +588,7 @@ afterwards. Therefore, always listen for errors in both places
 
 ## `torrent.on('idle', function () {})`
 
-Emitted when the torrent has no more active selections to download, and starts idling 
+Emitted when the torrent has no more active selections to download, and starts idling
 or seeding. This can happen when a file is fully downloaded, or when the desired pieces
 have been downloaded.
 
@@ -601,7 +601,7 @@ Here is a usage example:
 ```js
 torrent.on('done', () => {
   console.log('torrent finished downloading')
-  for (const file of torrent.files) { 
+  for (const file of torrent.files) {
     // do something with file
   }
 })

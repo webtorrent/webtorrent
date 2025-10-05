@@ -491,7 +491,7 @@ with the MediaSource API? Our thinking was: Why add inventing a new wire protoco
 and several algorithms to the table?
 
 It's true that the BitTorrent protocol is dated in some ways. For example, it uses
-it's own strange data encoding called "bencoding". If it were invented today, it
+its own strange data encoding called "bencoding". If it were invented today, it
 would probably just use JSON or MessagePack. But, this doesn't matter -- BitTorrent
 works really well, and we care more about building robust and useful software than
 conceptual purity or the latest software fashions.
