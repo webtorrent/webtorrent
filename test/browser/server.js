@@ -3,11 +3,13 @@ import WebTorrent from '../../index.js'
 import fixtures from 'webtorrent-fixtures'
 import get from 'simple-get'
 
-// The image append/render tests don't work in electron, so skip them
-// TODO get these working
-// logic taken from https://github.com/atom/electron/issues/2288#issuecomment-123147993
+// Check if we're in an environment that supports service workers
+// Feature detection is better than user agent sniffing
+const hasServiceWorkerSupport = typeof navigator !== 'undefined' &&
+                               'serviceWorker' in navigator &&
+                               typeof ServiceWorker !== 'undefined'
 
-if (!global?.process?.versions?.electron) {
+if (hasServiceWorkerSupport) {
   const img = Buffer.from('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'base64')
   img.name = 'img.png'
   test('SW Registration and errors', t => {
@@ -156,6 +158,29 @@ if (!global?.process?.versions?.electron) {
             })
           })
         })
+      })
+    })
+  })
+} else {
+  // For environments without service worker support (e.g., Electron)
+  // Run a basic test to verify WebTorrent works without service workers
+  test('WebTorrent basic functionality (no service workers)', t => {
+    const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
+
+    client.on('error', err => { t.fail(err) })
+    client.on('warning', err => { t.fail(err) })
+
+    const img = Buffer.from('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'base64')
+    img.name = 'img.png'
+
+    client.seed(img, torrent => {
+      t.ok(torrent.files.length === 1, 'torrent has 1 file')
+      t.ok(torrent.files[0].name === 'img.png', 'file has correct name')
+      t.ok(torrent.files[0].length > 0, 'file has content')
+
+      client.destroy(err => {
+        t.error(err, 'client destroyed')
+        t.end()
       })
     })
   })
