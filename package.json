@@ -37,7 +37,7 @@
     "os": false
   },
   "dependencies": {
-    "@silentbot1/nat-api": "^0.4.8",
+    "@silentbot1/nat-api": "^0.4.9",
     "@thaunknown/simple-peer": "^10.0.11",
     "@webtorrent/http-node": "^1.3.0",
     "addr-to-ip-port": "^2.0.0",
