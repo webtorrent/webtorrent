@@ -435,9 +435,9 @@ export default class WebTorrent extends EventEmitter {
    */
   throttleDownload (rate) {
     rate = Number(rate)
-    if (isNaN(rate) || !isFinite(rate) || rate < -1) return false
-    this._downloadLimit = rate
-    if (this._downloadLimit < 0) return this.throttleGroups.down.setEnabled(false)
+    if (isNaN(rate) || !isFinite(rate) || (rate < 0 && rate !== -1)) return false
+    this._downloadLimit = Math.round(rate)
+    if (this._downloadLimit === -1) return this.throttleGroups.down.setEnabled(false)
     this.throttleGroups.down.setEnabled(true)
     this.throttleGroups.down.setRate(this._downloadLimit)
   }
@@ -448,9 +448,9 @@ export default class WebTorrent extends EventEmitter {
    */
   throttleUpload (rate) {
     rate = Number(rate)
-    if (isNaN(rate) || !isFinite(rate) || rate < -1) return false
-    this._uploadLimit = rate
-    if (this._uploadLimit < 0) return this.throttleGroups.up.setEnabled(false)
+    if (isNaN(rate) || !isFinite(rate) || (rate < 0 && rate !== -1)) return false
+    this._uploadLimit = Math.round(rate)
+    if (this._uploadLimit === -1) return this.throttleGroups.up.setEnabled(false)
     this.throttleGroups.up.setEnabled(true)
     this.throttleGroups.up.setRate(this._uploadLimit)
   }
