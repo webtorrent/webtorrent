@@ -11,7 +11,7 @@ script on your page.
 
 ```html
 <script type='module'>
-  import WebTorrent from 'https://esm.sh/webtorrent'
+  import WebTorrent from 'https://esm.sh/webtorrent/dist/webtorrent.min.js'
 </script>
 ```
 
@@ -151,7 +151,7 @@ downloaded.
 
     <script type='module'>
       // Include the latest version of WebTorrent
-      import WebTorrent from 'https://esm.sh/webtorrent'
+      import WebTorrent from 'https://esm.sh/webtorrent/dist/webtorrent.min.js'
       
       const client = new WebTorrent()
 
@@ -228,175 +228,179 @@ or [Instant.io](https://instant.io) to seed torrents to the WebTorrent network.
 ```html
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>WebTorrent video player</title>
-    <style>
-      #output video {
-        width: 100%;
-      }
-      #progressBar {
-        height: 5px;
-        width: 0%;
-        background-color: #35b44f;
-        transition: width .4s ease-in-out;
-      }
-      body.is-seed .show-seed {
-        display: inline;
-      }
-      body.is-seed .show-leech {
-        display: none;
-      }
-      .show-seed {
-        display: none;
-      }
-      #status code {
-        font-size: 90%;
-        font-weight: 700;
-        margin-left: 3px;
-        margin-right: 3px;
-        border-bottom: 1px dashed rgba(255,255,255,0.3);
-      }
 
-      .is-seed {
-        background-color: #154820;
-        transition: .5s .5s background-color ease-in-out;
-      }
-      body {
-        background-color: #2a3749;
-        margin: 0;
-        height: 100%;
-      }
-      #status {
-        color: #fff;
-        font-size: 17px;
-        padding: 5px;
-      }
-      a:link, a:visited {
-        color: #30a247;
-        text-decoration: none;
-      }
-    </style>
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8">
+  <title>WebTorrent video player</title>
+  <style>
+    #output video {
+      width: 100%;
+    }
+
+    #progressBar {
+      height: 5px;
+      width: 0%;
+      background-color: #35b44f;
+      transition: width .4s ease-in-out;
+    }
+
+    body.is-seed .show-seed {
+      display: inline;
+    }
+
+    body.is-seed .show-leech {
+      display: none;
+    }
+
+    .show-seed {
+      display: none;
+    }
+
+    #status code {
+      font-size: 90%;
+      font-weight: 700;
+      margin-left: 3px;
+      margin-right: 3px;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.3);
+    }
+
+    .is-seed {
+      background-color: #154820;
+      transition: .5s .5s background-color ease-in-out;
+    }
+
+    body {
+      background-color: #2a3749;
+      margin: 0;
+      height: 100%;
+    }
+
+    #status {
+      color: #fff;
+      font-size: 17px;
+      padding: 5px;
+    }
+
+    a:link,
+    a:visited {
+      color: #30a247;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div id="progressBar"></div>
+    <video id="output" controls></video>
+  </div>
+  <!-- Statistics -->
+  <div id="status">
     <div>
-      <div id="progressBar"></div>
-      <video id="output" controls></video>
-    </div>
-    <!-- Statistics -->
-    <div id="status">
-      <div>
-        <span class="show-leech">Downloading </span>
-        <span class="show-seed">Seeding </span>
-        <code>
+      <span class="show-leech">Downloading </span>
+      <span class="show-seed">Seeding </span>
+      <code>
           <!-- Informative link to the torrent file -->
           <a id="torrentLink" href="https://webtorrent.io/torrents/sintel.torrent">sintel.torrent</a>
         </code>
-        <span class="show-leech"> from </span>
-        <span class="show-seed"> to </span>
-        <code id="numPeers">0 peers</code>.
-      </div>
-      <div>
-        <code id="downloaded"></code>
-        of <code id="total"></code>
-        — <span id="remaining"></span><br/>
-        &#x2198;<code id="downloadSpeed">0 b/s</code>
-        / &#x2197;<code id="uploadSpeed">0 b/s</code>
-      </div>
+      <span class="show-leech"> from </span>
+      <span class="show-seed"> to </span>
+      <code id="numPeers">0 peers</code>.
     </div>
-    
-    <!-- Moment is used to show a human-readable remaining time -->
-    <script src="http://momentjs.com/downloads/moment.min.js"></script>
+    <div>
+      <code id="downloaded"></code>
+      of <code id="total"></code>
+      — <span id="remaining"></span><br />
+      &#x2198;<code id="downloadSpeed">0 b/s</code>
+      / &#x2197;<code id="uploadSpeed">0 b/s</code>
+    </div>
+  </div>
 
-    <script type="module">
-      // Include the latest version of WebTorrent
-      import WebTorrent from './webtorrent.min.js'
+  <!-- Moment is used to show a human-readable remaining time -->
+  <script src="http://momentjs.com/downloads/moment.min.js"></script>
 
-      const torrentId = 'https://webtorrent.io/torrents/sintel.torrent'
+  <script type="module">
+    // Include the latest version of WebTorrent
+    import WebTorrent from './webtorrent.min.js'
 
-      const client = new WebTorrent()
+    const torrentId = 'https://webtorrent.io/torrents/sintel.torrent'
 
-      // HTML elements
-      const $body = document.body
-      const $progressBar = document.querySelector('#progressBar')
-      const $numPeers = document.querySelector('#numPeers')
-      const $downloaded = document.querySelector('#downloaded')
-      const $total = document.querySelector('#total')
-      const $remaining = document.querySelector('#remaining')
-      const $uploadSpeed = document.querySelector('#uploadSpeed')
-      const $downloadSpeed = document.querySelector('#downloadSpeed')
+    const client = new WebTorrent()
 
-      navigator.serviceWorker.register('./sw.min.js', { scope: './' }).then(reg => {
-        const worker = reg.active || reg.waiting || reg.installing
-        function checkState (worker) {
-          return worker.state === 'activated' && client.createServer({ controller: reg }) && download()
-        }
-        if (!checkState(worker)) {
-          worker.addEventListener('statechange', ({ target }) => checkState(target))
-        }
+    // HTML elements
+    const $body = document.body
+    const $progressBar = document.querySelector('#progressBar')
+    const $numPeers = document.querySelector('#numPeers')
+    const $downloaded = document.querySelector('#downloaded')
+    const $total = document.querySelector('#total')
+    const $remaining = document.querySelector('#remaining')
+    const $uploadSpeed = document.querySelector('#uploadSpeed')
+    const $downloadSpeed = document.querySelector('#downloadSpeed')
+
+    const controller = await navigator.serviceWorker.register('./sw.min.js', { scope: './' })
+    await navigator.serviceWorker.ready
+    client.createServer({ controller })
+
+    // Download the torrent
+    client.add(torrentId, torrent => {
+      // Torrents can contain many files. Let's use the .mp4 file
+      const file = torrent.files.find(file => {
+        return file.name.endsWith('.mp4')
       })
 
-      function download () {
-        // Download the torrent
-        client.add(torrentId, torrent => {
-          // Torrents can contain many files. Let's use the .mp4 file
-          const file = torrent.files.find(file => {
-            return file.name.endsWith('.mp4')
-          })
+      // Stream the file in the browser
+      file.streamTo(document.querySelector('#output'))
 
-          // Stream the file in the browser
-          file.streamTo(document.querySelector('#output'))
+      // Trigger statistics refresh
+      torrent.on('done', onDone)
+      setInterval(onProgress, 500)
+      onProgress()
 
-          // Trigger statistics refresh
-          torrent.on('done', onDone)
-          setInterval(onProgress, 500)
-          onProgress()
+      // Statistics
+      function onProgress () {
+        // Peers
+        $numPeers.innerHTML = torrent.numPeers + (torrent.numPeers === 1 ? ' peer' : ' peers')
 
-          // Statistics
-          function onProgress () {
-          // Peers
-            $numPeers.innerHTML = torrent.numPeers + (torrent.numPeers === 1 ? ' peer' : ' peers')
+        // Progress
+        const percent = Math.round(torrent.progress * 100 * 100) / 100
+        $progressBar.style.width = percent + '%'
+        $downloaded.innerHTML = prettyBytes(torrent.downloaded)
+        $total.innerHTML = prettyBytes(torrent.length)
 
-            // Progress
-            const percent = Math.round(torrent.progress * 100 * 100) / 100
-            $progressBar.style.width = percent + '%'
-            $downloaded.innerHTML = prettyBytes(torrent.downloaded)
-            $total.innerHTML = prettyBytes(torrent.length)
+        // Remaining time
+        let remaining
+        if (torrent.done) {
+          remaining = 'Done.'
+        } else {
+          remaining = moment.duration(torrent.timeRemaining / 1000, 'seconds').humanize()
+          remaining = remaining[0].toUpperCase() + remaining.substring(1) + ' remaining.'
+        }
+        $remaining.innerHTML = remaining
 
-            // Remaining time
-            let remaining
-            if (torrent.done) {
-              remaining = 'Done.'
-            } else {
-              remaining = moment.duration(torrent.timeRemaining / 1000, 'seconds').humanize()
-              remaining = remaining[0].toUpperCase() + remaining.substring(1) + ' remaining.'
-            }
-            $remaining.innerHTML = remaining
-
-            // Speed rates
-            $downloadSpeed.innerHTML = prettyBytes(torrent.downloadSpeed) + '/s'
-            $uploadSpeed.innerHTML = prettyBytes(torrent.uploadSpeed) + '/s'
-          }
-          function onDone () {
-            $body.className += ' is-seed'
-            onProgress()
-          }
-        })
+        // Speed rates
+        $downloadSpeed.innerHTML = prettyBytes(torrent.downloadSpeed) + '/s'
+        $uploadSpeed.innerHTML = prettyBytes(torrent.uploadSpeed) + '/s'
       }
-
-      // Human readable bytes util
-      function prettyBytes (num) {
-        const units = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
-        const neg = num < 0
-        if (neg) num = -num
-        if (num < 1) return (neg ? '-' : '') + num + ' B'
-        const exponent = Math.min(Math.floor(Math.log(num) / Math.log(1000)), units.length - 1)
-        const unit = units[exponent]
-        num = Number((num / Math.pow(1000, exponent)).toFixed(2))
-        return (neg ? '-' : '') + num + ' ' + unit
+      function onDone () {
+        $body.className += ' is-seed'
+        onProgress()
       }
-    </script>
-  </body>
+    })
+
+    // Human readable bytes util
+    function prettyBytes (num) {
+      const units = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+      const neg = num < 0
+      if (neg) num = -num
+      if (num < 1) return (neg ? '-' : '') + num + ' B'
+      const exponent = Math.min(Math.floor(Math.log(num) / Math.log(1000)), units.length - 1)
+      const unit = units[exponent]
+      num = Number((num / Math.pow(1000, exponent)).toFixed(2))
+      return (neg ? '-' : '') + num + ' ' + unit
+    }
+  </script>
+</body>
+
 </html>
 ```
 

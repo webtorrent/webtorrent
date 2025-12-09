@@ -330,23 +330,15 @@ const client = new WebTorrent()
 const magnetURI = 'magnet: ...'
 const player = document.querySelector('video')
 
-function download (instance) {
-  client.add(magnetURI, torrent => {
-    const url = torrent.files[0].streamURL
-    console.log(url)
-    // visit <origin>/webtorrent/ to see a list of torrents, where origin is the worker registration scope.
+const controller = await navigator.serviceWorker.register('./sw.min.js', { scope: './' })
+await navigator.serviceWorker.ready
+client.createServer({ controller })
 
-    // access individual torrents at /webtorrent/<infoHash> where infoHash is the hash of the torrent
-  })
-}
-navigator.serviceWorker.register('./sw.min.js', { scope: './' }).then(reg => {
-  const worker = reg.active || reg.waiting || reg.installing
-  function checkState (worker) {
-    return worker.state === 'activated' && download(client.createServer({ controller: reg }))
-  }
-  if (!checkState(worker)) {
-    worker.addEventListener('statechange', ({ target }) => checkState(target))
-  }
+client.add(magnetURI, torrent => {
+  const url = torrent.files[0].streamURL
+  console.log(url)
+  // visit <origin>/webtorrent/ to see a list of torrents, where origin is the worker registration scope.
+  // access individual torrents at /webtorrent/<infoHash> where infoHash is the hash of the torrent
 })
 
 // later, cleanup...

@@ -21,7 +21,7 @@ if (!global?.process?.versions?.electron) {
         return torrent.files[0].streamURL
       }, 'Stream URL without server')
       function checkState (worker, controller) {
-        if (worker.state !== 'activated') {
+        if (worker.state !== 'activated' && worker.state !== 'activating') {
           t.throws(() => {
             client.createServer({ controller })
           }, 'Invalid worker state')
@@ -33,18 +33,22 @@ if (!global?.process?.versions?.electron) {
           t.ok(torrent.files[0].streamURL, 'get file URL')
           client.destroy(err => {
             t.error(err, 'client destroyed')
-            t.end()
+            controller.unregister().then(() => {
+              t.ok('service worker unregistered')
+              t.end()
+            }).catch(err => {
+              t.error(err, 'unregister error')
+            })
           })
 
           return true
         }
       }
       try {
-        navigator.serviceWorker.register('/sw.min.js', { scope: './' }).then(reg => {
-          const worker = reg.active || reg.waiting || reg.installing
-          if (!checkState(worker)) {
-            worker.addEventListener('statechange', ({ target }) => checkState(target, reg))
-          }
+        navigator.serviceWorker.register('./sw.min.js', { scope: './' }).then(() => {
+          navigator.serviceWorker.ready.then(controller => {
+            checkState(controller.active, controller)
+          })
         })
       } catch (e) {
         t.err(e)
@@ -58,19 +62,21 @@ if (!global?.process?.versions?.electron) {
     client.on('error', err => { t.fail(err) })
     client.on('warning', err => { t.fail(err) })
     try {
-      navigator.serviceWorker.getRegistration().then(controller => {
-        client.createServer({ controller })
-        client.seed(img, async torrent => {
-          const src = torrent.files[0].streamURL
-          t.ok(typeof src === 'string', 'source is string')
-          t.ok(src.endsWith('/webtorrent/db19b51fe04aaf14fd4c9be77f5eeeb2d8789b5c/img.png'), 'source URL is correct')
+      navigator.serviceWorker.register('./sw.min.js', { scope: './' }).then(() => {
+        navigator.serviceWorker.ready.then(controller => {
+          client.createServer({ controller })
+          client.seed(img, async torrent => {
+            const src = torrent.files[0].streamURL
+            t.ok(typeof src === 'string', 'source is string')
+            t.ok(src.endsWith('/webtorrent/db19b51fe04aaf14fd4c9be77f5eeeb2d8789b5c/img.png'), 'source URL is correct')
 
-          const res = await fetch(torrent.files[0].streamURL)
-          const data = new Uint8Array(await res.arrayBuffer())
-          const original = new Uint8Array(img)
-          t.deepEqual(data, original)
-          client.destroy(err => {
-            t.error(err, 'client destroyed')
+            const res = await fetch(torrent.files[0].streamURL)
+            const data = new Uint8Array(await res.arrayBuffer())
+            const original = new Uint8Array(img)
+            t.deepEqual(data, original)
+            client.destroy(err => {
+              t.error(err, 'client destroyed')
+            })
           })
         })
       })
