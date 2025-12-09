@@ -1,3 +1,10 @@
+## [2.8.5](https://github.com/webtorrent/webtorrent/compare/v2.8.4...v2.8.5) (2025-11-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @silentbot1/nat-api to ^0.4.9 ([#2992](https://github.com/webtorrent/webtorrent/issues/2992)) ([15923e5](https://github.com/webtorrent/webtorrent/commit/15923e5238e068721da3399611e3eb6e3a27035b))
+
 ## [2.8.4](https://github.com/webtorrent/webtorrent/compare/v2.8.3...v2.8.4) (2025-08-14)
 
 

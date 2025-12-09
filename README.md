@@ -31,7 +31,7 @@ other torrent clients.
 
 In the browser, WebTorrent uses **WebRTC** (data channels) for peer-to-peer transport.
 It can be used **without** browser plugins, extensions, or installations. It's Just
-JavaScript&trade;. Note: WebTorrent does **not** support UDP/TCP peers in browser.
+JavaScript™. Note: WebTorrent does **not** support UDP/TCP peers in browser.
 
 Simply include the
 [`webtorrent.min.js`](https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js) script
@@ -192,12 +192,11 @@ object, so it can be used with just a script tag:
 </script>
 ```
 
-The WebTorrent script is also hosted on fast, reliable CDN infrastructure (Cloudflare and
-MaxCDN) for easy inclusion on your site:
+The WebTorrent script is also hosted on fast, reliable CDN infrastructure for easy inclusion on your site:
 
 ```html
 <script type='module'>
-  import WebTorrent from 'https://esm.sh/webtorrent'
+  import WebTorrent from 'https://esm.sh/webtorrent/dist/webtorrent.min.js'
 </script>
 ```
 
@@ -278,7 +277,7 @@ In addition to magnet uris, WebTorrent supports [many ways](docs/api.md#clientad
 
 Most of the active development is happening inside of small npm packages which are used by WebTorrent.
 
-#### The Node Way&trade;
+#### The Node Way™
 
 > "When applications are done well, they are just the really application-specific, brackish residue that can't be so easily abstracted away. All the nice, reusable components sublimate away onto github and npm where everybody can collaborate to advance the commons." — substack from ["how I write modules"](https://gist.github.com/substack/5075355)
 
