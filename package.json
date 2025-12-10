@@ -83,7 +83,7 @@
     "@babel/plugin-syntax-import-assertions": "7.27.1",
     "@babel/preset-env": "7.28.5",
     "@webtorrent/semantic-release-config": "1.0.10",
-    "airtap": "4.0.4",
+    "airtap": "5.0.0",
     "airtap-manual": "1.0.0",
     "airtap-sauce": "1.1.2",
     "airtap-system": "^0.1.0",
