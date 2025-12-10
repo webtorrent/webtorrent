@@ -98,7 +98,7 @@
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-promise": "^6.6.0",
-    "finalhandler": "2.1.0",
+    "finalhandler": "2.1.1",
     "network-address": "1.1.2",
     "pako": "^2.1.0",
     "path-esm": "^1.0.0",
