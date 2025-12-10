@@ -186,9 +186,9 @@ export default class WebTorrent extends EventEmitter {
    * dynamically fetching the needed torrent pieces to satisfy http requests.
    * Range requests are supported.
    *
-   * @param {Object} options
-   * @param {String} force
-   * @return {BrowserServer||NodeServer}
+   * @param {{controller: ServiceWorkerRegistration}} options
+   * @param {'browser' | 'node'} [force]
+   * @return {BrowserServer | NodeServer}
    */
   createServer (options, force) {
     if (this.destroyed) throw new Error('torrent is destroyed')
@@ -200,7 +200,7 @@ export default class WebTorrent extends EventEmitter {
     } else {
       // browser implementation
       if (!(options?.controller instanceof ServiceWorkerRegistration)) throw new Error('Invalid worker registration')
-      if (options.controller.active.state !== 'activated') throw new Error('Worker isn\'t activated')
+      if (options.controller.active?.state !== 'activated' && options.controller.active?.state !== 'activating') throw new Error('Worker isn\'t activated')
       this._server = new BrowserServer(this, options)
       return this._server
     }
