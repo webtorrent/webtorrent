@@ -130,6 +130,7 @@ If `opts` is specified, then the default options (shown below) will be overridde
   noPeersIntervalTime: Number, // The amount of time (in seconds) to wait between each check of the `noPeers` event (default=30)
   paused: Boolean,           // If true, create the torrent in a paused state (default=false)
   deselect: Boolean,         // If true, create the torrent with no pieces selected (default=false)
+  selectOnly: String | Array // BEP53 compliant string or Array of integer indices of files to select
   alwaysChokeSeeders: Boolean // If true, client will automatically choke seeders if it's seeding. (default=true)
 }
 ```
