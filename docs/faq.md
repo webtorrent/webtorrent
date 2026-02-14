@@ -116,6 +116,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[P2PFileShare][P2PFileShare]** - A peer-to-peer file-sharing app that allows users to send and receive files directly from your browser.
 - **[anacrolix/torrent library][anacrolix-torrent-source]** - A full-featured BitTorrent Golang client package. Some popular torrent clients built with it, such as [distribyted][distribyted-source] and [confluence][confluence-source], enable WebTorrent support by default.
 - **[libtorrent library][libtorrent]** has experimental (disabled by default) support for WebTorrent ([tracking][libtorrent-tracking-pr]).
+- **[PeerSky Browser]** - A peer‑to‑peer web browser with native BitTorrent support and built‑in download/streaming powered by WebTorrent. ([source code](https://github.com/p2plabsxyz/peersky-browser))
 - ***Your app here – [Send a pull request][pr] with your URL!***
 <!-- - **[PeerCloud][peercloud]** - Serverless websites via WebTorrent ([source code][peercloud-source]) -->
 <!-- - **[Niagara][niagara]** - Video player webtorrent with subtitles (zipped .srt(s)) -->
@@ -323,6 +324,7 @@ Right now, we know of these WebRTC-capable torrent clients:
 - **[Instant.io][instant.io]** - Simple WebTorrent client in a website
 - **[βTorrent][btorrent]** - Fully-featured browser WebTorrent client ([source code][btorrent-source])
 - **[TorrentMedia][torrentmedia]** - Desktop WebTorrent client
+- **[PeerSky Browser]** - A peer‑to‑peer web browser with native BitTorrent support and built‑in download/streaming powered by WebTorrent. ([source code](https://github.com/p2plabsxyz/peersky-browser))
 - *More coming soon – [Send a PR][pr] to add your client to the list!*
 
 ### A bit more about `webtorrent-hybrid`
