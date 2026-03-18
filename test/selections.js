@@ -82,6 +82,40 @@ test('Selections', (t) => {
     }
   }
 
+  t.test('contains should return true for pieces inside a selection range', (s) => {
+    selection = new Selections()
+    selection.insert({ from: 10, to: 20 })
+    selection.insert({ from: 30, to: 40 })
+
+    t.equal(selection.contains(10), true, 'start of first range')
+    t.equal(selection.contains(15), true, 'middle of first range')
+    t.equal(selection.contains(20), true, 'end of first range')
+    t.equal(selection.contains(30), true, 'start of second range')
+    t.equal(selection.contains(35), true, 'middle of second range')
+    t.equal(selection.contains(5), false, 'before all ranges')
+    t.equal(selection.contains(25), false, 'between ranges')
+    t.equal(selection.contains(45), false, 'after all ranges')
+    s.end()
+  })
+
+  t.test('contains should ignore stream selections', (s) => {
+    selection = new Selections()
+    selection.insert({ from: 10, to: 20, isStreamSelection: true })
+
+    t.equal(selection.contains(15), false, 'stream selections not counted')
+
+    selection.insert({ from: 10, to: 20 }) // add a non-stream selection
+    t.equal(selection.contains(15), true, 'non-stream selection counted')
+    s.end()
+  })
+
+  t.test('contains on empty selections returns false', (s) => {
+    selection = new Selections()
+    t.equal(selection.contains(0), false)
+    t.equal(selection.contains(100), false)
+    s.end()
+  })
+
   t.test('should insert large selection and truncate or delete existing selections', (s) => {
     selection = new Selections()
     selection.insert({ from: 5, to: 10 })
