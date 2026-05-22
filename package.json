@@ -74,7 +74,7 @@
     "torrent-piece": "^3.0.2",
     "uint8-util": "^2.2.6",
     "unordered-array-remove": "^1.0.2",
-    "ut_metadata": "^4.0.3",
+    "ut_metadata": "^5.0.0",
     "ut_pex": "^4.0.4"
   },
   "devDependencies": {
