@@ -542,6 +542,10 @@ export default class WebTorrent extends EventEmitter {
     debug(...args)
   }
 
+  get _utpServer () {
+    return this._connPool?.utpServer || null
+  }
+
   async _getByHash (infoHashHash) {
     for (const torrent of this.torrents) {
       if (!torrent.infoHashHash) {
