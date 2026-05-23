@@ -6,8 +6,10 @@ on:
       - master
 
 permissions:
-  id-token: write  # Required for OIDC
-  contents: read
+  contents: write # to be able to publish a GitHub release
+  issues: write # to be able to comment on released issues
+  pull-requests: write # to be able to comment on released pull requests
+  id-token: write # to enable use of OIDC for trusted publishing and npm provenance
 
 jobs:
   release:
@@ -21,7 +23,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: 24.15.0
+          node-version: 24
       - name: Cache
         uses: actions/cache@v5
         with:
@@ -31,10 +33,7 @@ jobs:
             ${{ runner.os }}-npm-
       - name: Install dependencies
         run: npm i
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release
