@@ -66,6 +66,8 @@ export default class WebTorrent extends EventEmitter {
     }
     this.nodeIdBuffer = hex2arr(this.nodeId)
 
+    this.userAgent = opts.userAgent ?? `WebTorrent/${VERSION} (https://webtorrent.io)`
+
     this._debugId = this.peerId.substring(0, 7)
 
     this.destroyed = false
