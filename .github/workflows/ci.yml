@@ -21,8 +21,8 @@ jobs:
         os:
           - ubuntu-latest
         node:
-          - '18'
-          - '16'
+          - '24'
+          - '22'
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
