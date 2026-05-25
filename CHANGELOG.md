@@ -1,3 +1,10 @@
+## [3.0.5](https://github.com/webtorrent/webtorrent/compare/v3.0.4...v3.0.5) (2026-05-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency create-torrent to ^6.1.2 ([#3051](https://github.com/webtorrent/webtorrent/issues/3051)) ([397028a](https://github.com/webtorrent/webtorrent/commit/397028a1416f894293a4787c687a14eb6f6e91f8))
+
 ## [3.0.4](https://github.com/webtorrent/webtorrent/compare/v3.0.3...v3.0.4) (2026-05-25)
 
 
