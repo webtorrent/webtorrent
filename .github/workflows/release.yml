@@ -24,13 +24,6 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 24
-      - name: Cache
-        uses: actions/cache@v5
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
       - name: Install dependencies
         run: npm i
       - name: Release

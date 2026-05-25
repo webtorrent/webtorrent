@@ -109,6 +109,7 @@ test('Download using webseed (via magnet uri)', t => {
     client2.destroy(err => {
       t.error(err, 'client destroyed')
     })
+    httpServer.closeAllConnections?.()
     httpServer.close(() => {
       t.pass('http server closed')
     })

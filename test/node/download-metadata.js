@@ -36,6 +36,7 @@ test('Download metadata for magnet URI with xs parameter', t => {
     client.add(`${fixtures.leaves.magnetURI}&xs=${encodedUrl}`, { store: MemoryChunkStore }, torrent => {
       t.equal(torrent.files[0].name, 'Leaves of Grass by Walt Whitman.epub')
       client.destroy(err => { t.error(err, 'client destroyed') })
+      server.closeAllConnections?.()
       server.close(() => { t.pass('server closed') })
     })
   })
@@ -60,7 +61,9 @@ test('Download metadata for magnet URI with 2 xs parameters', t => {
       client.add(uri, { store: MemoryChunkStore }, torrent => {
         t.equal(torrent.files[0].name, 'Leaves of Grass by Walt Whitman.epub')
         client.destroy(err => { t.error(err, 'client destroyed') })
+        server1.closeAllConnections?.()
         server1.close(() => { t.pass('server closed') })
+        server2.closeAllConnections?.()
         server2.close(() => { t.pass('server closed') })
       })
     })
@@ -83,6 +86,7 @@ test('Download metadata for magnet URI with 2 xs parameters, with 1 invalid prot
     client.add(uri, { store: MemoryChunkStore }, torrent => {
       t.equal(torrent.files[0].name, 'Leaves of Grass by Walt Whitman.epub')
       client.destroy(err => { t.error(err, 'client destroyed') })
+      server.closeAllConnections?.()
       server.close(() => { t.pass('server closed') })
     })
   })
@@ -104,6 +108,7 @@ test('Download metadata for magnet URI with 2 xs parameters, with 1 404 URL', t 
     client.add(uri, { store: MemoryChunkStore }, torrent => {
       t.equal(torrent.files[0].name, 'Leaves of Grass by Walt Whitman.epub')
       client.destroy(err => { t.error(err, 'client destroyed') })
+      server.closeAllConnections?.()
       server.close(() => { t.pass('server closed') })
     })
   })

@@ -29,9 +29,27 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - run: npm install
-      - run: npm run build --if-present
       - run: echo "127.0.0.1 airtap.local" | sudo tee -a /etc/hosts
-      - run: npm test
+      - run: npm run lint
+      - run: npm run test-node
+  test-browser:
+    name: Browser
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+        node:
+          - '24'
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - run: npm install
+      - run: npm run build
+      - run: npm run test-browser
         env:
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
