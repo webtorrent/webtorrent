@@ -95,9 +95,7 @@ export default class WebTorrent extends EventEmitter {
       })
     }
 
-    if (opts.secure === true) {
-      import('./lib/peer.js').then(({ enableSecure }) => enableSecure())
-    }
+    this.secure = opts.secure ?? 0
 
     this._debug(
       'new webtorrent (peerId %s, nodeId %s, port %s)',

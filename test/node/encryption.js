@@ -16,11 +16,9 @@ function createClient (opts = {}) {
   })
 }
 
-test('PE/MSE: encrypted transfer with secure:true', t => {
-  t.plan(4)
-
-  const seeder = createClient({ secure: true })
-  const downloader = createClient({ secure: true })
+function runTransferTest (t, seederLevel, downloaderLevel, expectedMethod) {
+  const seeder = createClient({ secure: seederLevel })
+  const downloader = createClient({ secure: downloaderLevel })
 
   seeder.on('error', err => { t.fail(err) })
   seeder.on('warning', err => { t.fail(err) })
@@ -42,76 +40,51 @@ test('PE/MSE: encrypted transfer with secure:true', t => {
       let wiresChecked = 0
       torrent2.on('wire', wire => {
         wiresChecked++
-        t.ok(wire._cryptoHandshakeDone, 'crypto handshake completed on wire ' + wiresChecked)
-        t.equal(wire._encryptionMethod, 2, 'wire ' + wiresChecked + ' uses RC4 encryption')
+        if (expectedMethod != null) {
+          t.ok(wire._cryptoHandshakeDone, 'crypto handshake completed on wire ' + wiresChecked)
+          t.equal(wire._encryptionMethod, expectedMethod, 'wire ' + wiresChecked + ' uses encryption method ' + expectedMethod)
+        }
       })
 
       torrent2.on('done', () => {
-        t.pass('download completed over encrypted connection')
+        t.pass('download completed (seeder=' + seederLevel + ', downloader=' + downloaderLevel + ')')
         downloader.destroy(() => seeder.destroy())
       })
     })
   })
+}
+
+test('PE/MSE: no encryption with secure: 0+0', t => {
+  t.plan(2)
+  runTransferTest(t, 0, 0, null)
 })
 
-test('PE/MSE: no encryption with secure:false', t => {
-  t.plan(2)
-
-  const seeder = createClient({ secure: false })
-  const downloader = createClient({ secure: false })
-
-  seeder.on('error', err => { t.fail(err) })
-  seeder.on('warning', err => { t.fail(err) })
-  downloader.on('error', err => { t.fail(err) })
-  downloader.on('warning', err => { t.fail(err) })
-
-  const torrent1 = seeder.add(fixtures.leaves.parsedTorrent, { store: MemoryChunkStore })
-
-  torrent1.on('ready', () => {
-    torrent1.load(fs.createReadStream(leavesContentPath), err => {
-      t.error(err, 'seeder loaded content')
-
-      const torrent2 = downloader.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
-
-      torrent2.on('infoHash', () => {
-        torrent2.addPeer(`127.0.0.1:${seeder.torrentPort}`)
-      })
-
-      torrent2.on('done', () => {
-        t.pass('download completed without encryption')
-        downloader.destroy(() => seeder.destroy())
-      })
-    })
-  })
+test('PE/MSE: encrypted transfer with secure: 2+2', t => {
+  t.plan(4)
+  runTransferTest(t, 2, 2, 2)
 })
 
-test('PE/MSE: encrypted seeder accepts plain downloader', t => {
+test('PE/MSE: encrypted transfer with secure: 1+1 (prefer plaintext)', t => {
+  t.plan(4)
+  runTransferTest(t, 1, 1, 1)
+})
+
+test('PE/MSE: encrypted seeder=2 accepts plain downloader=0', t => {
   t.plan(2)
+  runTransferTest(t, 2, 0, null)
+})
 
-  const seeder = createClient({ secure: true })
-  const downloader = createClient({ secure: false })
+test('PE/MSE: encrypted seeder=1 accepts plain downloader=0', t => {
+  t.plan(2)
+  runTransferTest(t, 1, 0, null)
+})
 
-  seeder.on('error', err => { t.fail(err) })
-  seeder.on('warning', err => { t.fail(err) })
-  downloader.on('error', err => { t.fail(err) })
-  downloader.on('warning', err => { t.fail(err) })
+test('PE/MSE: mixed secure: 1+2 (initiator plaintext, responder RC4)', t => {
+  t.plan(4)
+  runTransferTest(t, 2, 1, 1)
+})
 
-  const torrent1 = seeder.add(fixtures.leaves.parsedTorrent, { store: MemoryChunkStore })
-
-  torrent1.on('ready', () => {
-    torrent1.load(fs.createReadStream(leavesContentPath), err => {
-      t.error(err, 'seeder loaded content')
-
-      const torrent2 = downloader.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
-
-      torrent2.on('infoHash', () => {
-        torrent2.addPeer(`127.0.0.1:${seeder.torrentPort}`)
-      })
-
-      torrent2.on('done', () => {
-        t.pass('download completed (seeder encrypted accepts plain downloader)')
-        downloader.destroy(() => seeder.destroy())
-      })
-    })
-  })
+test('PE/MSE: mixed secure: 2+1 (initiator RC4, responder plaintext)', t => {
+  t.plan(4)
+  runTransferTest(t, 1, 2, 1)
 })
