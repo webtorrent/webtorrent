@@ -1,3 +1,10 @@
+## [3.0.3](https://github.com/webtorrent/webtorrent/compare/v3.0.2...v3.0.3) (2026-05-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bittorrent-dht to ^11.0.12 ([#3049](https://github.com/webtorrent/webtorrent/issues/3049)) ([61b6829](https://github.com/webtorrent/webtorrent/commit/61b682908e51ea9df251533866a34df56d916387))
+
 ## [3.0.2](https://github.com/webtorrent/webtorrent/compare/v3.0.1...v3.0.2) (2026-05-25)
 
 ## [3.0.1](https://github.com/webtorrent/webtorrent/compare/v3.0.0...v3.0.1) (2026-05-25)
