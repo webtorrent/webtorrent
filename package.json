@@ -112,7 +112,7 @@
     "tape": "^5.9.0",
     "terser-webpack-plugin": "^5.6.0",
     "timers-browserify": "^2.0.12",
-    "webpack": "^5.107.0",
+    "webpack": "^5.107.1",
     "webpack-cli": "^7.0.2",
     "webtorrent-fixtures": "1.7.5"
   },
