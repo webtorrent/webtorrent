@@ -44,6 +44,7 @@ test('client.add: http url to a torrent file, string', t => {
       await client.remove(torrent, err => { t.error(err, 'torrent destroyed') })
       t.equal(client.torrents.length, 0)
 
+      server.closeAllConnections?.()
       server.close(() => { t.pass('http server closed') })
       client.destroy(err => { t.error(err, 'client destroyed') })
     })

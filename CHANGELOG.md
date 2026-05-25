@@ -1,3 +1,50 @@
+## [3.0.1](https://github.com/webtorrent/webtorrent/compare/v3.0.0...v3.0.1) (2026-05-25)
+
+
+### Bug Fixes
+
+* **deps:** update webtorrent ([#3048](https://github.com/webtorrent/webtorrent/issues/3048)) ([8df348c](https://github.com/webtorrent/webtorrent/commit/8df348c875632f27f607d7982da6996487241d08))
+
+# [3.0.0](https://github.com/webtorrent/webtorrent/compare/v2.8.5...v3.0.0) (2026-05-24)
+
+
+### Bug Fixes
+
+* **ci:** permissions to release ([3a5fa92](https://github.com/webtorrent/webtorrent/commit/3a5fa92809ba50d93b312b3b910f6a85c1c73227))
+* **deps:** update dependency bitfield to v5 ([#3028](https://github.com/webtorrent/webtorrent/issues/3028)) ([64cf6c3](https://github.com/webtorrent/webtorrent/commit/64cf6c3e106065db2f8d28292fd8a4d2ace4ed5a))
+* **deps:** update dependency bittorrent-protocol to v5 ([#3021](https://github.com/webtorrent/webtorrent/issues/3021)) ([91351a5](https://github.com/webtorrent/webtorrent/commit/91351a505c626ed901dd7b4c2dff14a69a559d00))
+* **deps:** update dependency debug to ^4.4.3 ([#2993](https://github.com/webtorrent/webtorrent/issues/2993)) ([7909a3e](https://github.com/webtorrent/webtorrent/commit/7909a3ecb9d02af447c1e3a580012e300374218c))
+* **deps:** update dependency pump to ^3.0.3 ([#2963](https://github.com/webtorrent/webtorrent/issues/2963)) ([efadcdd](https://github.com/webtorrent/webtorrent/commit/efadcddd2ecf289e6cca2dfe0c6903142352e7fd))
+* **deps:** update dependency streamx to v2.25.0 ([#3024](https://github.com/webtorrent/webtorrent/issues/3024)) ([2343c88](https://github.com/webtorrent/webtorrent/commit/2343c881c3bdd478723038f5777bd2ed461c082b))
+* **deps:** update dependency uint8-util to ^2.2.6 ([#3023](https://github.com/webtorrent/webtorrent/issues/3023)) ([79c6cdb](https://github.com/webtorrent/webtorrent/commit/79c6cdbe5384675ea37c5381de266032546936f5))
+* **deps:** update dependency ut_metadata to v5 ([#3026](https://github.com/webtorrent/webtorrent/issues/3026)) ([cf40b0f](https://github.com/webtorrent/webtorrent/commit/cf40b0f06581f4254d883740083e2a0182ea31f5))
+* **deps:** update webtorrent ([#3025](https://github.com/webtorrent/webtorrent/issues/3025)) ([ceeca15](https://github.com/webtorrent/webtorrent/commit/ceeca15788e01a605879686779790fa59c0070b7))
+* port and connection exhaustion ([#3019](https://github.com/webtorrent/webtorrent/issues/3019)) ([6fb0c21](https://github.com/webtorrent/webtorrent/commit/6fb0c21c8a95f021d69851afd2fff2cc89543e30))
+* setting throttleDownload as a float causes error ([#2994](https://github.com/webtorrent/webtorrent/issues/2994)) ([52ef175](https://github.com/webtorrent/webtorrent/commit/52ef1754245b5699d7d71ff5de27cc3f42e96de2))
+* simplify service worker documentation ([#2996](https://github.com/webtorrent/webtorrent/issues/2996)) ([40c1381](https://github.com/webtorrent/webtorrent/commit/40c13811e30202091779f80e5b9e92b8497d2bee))
+* **webpack:** update import assertion for package.json ([143e5cb](https://github.com/webtorrent/webtorrent/commit/143e5cb66dae7bbe49ec8cbff440273f6cf42d51))
+
+
+### chore
+
+* bump minimum Node to 22+ ([3449fc5](https://github.com/webtorrent/webtorrent/commit/3449fc5d562fe130251dff8aff31d66a531483de)), closes [#3043](https://github.com/webtorrent/webtorrent/issues/3043) [#3044](https://github.com/webtorrent/webtorrent/issues/3044)
+
+
+### Features
+
+* allow specifying UA ([#3020](https://github.com/webtorrent/webtorrent/issues/3020)) ([0937dcf](https://github.com/webtorrent/webtorrent/commit/0937dcfbae1cb1e30e1397206cae3abdfc56fed6))
+
+
+### Performance Improvements
+
+* dont spam downloadSpeed, calculate requests correctly for webseeds ([#3001](https://github.com/webtorrent/webtorrent/issues/3001)) ([fd8f39e](https://github.com/webtorrent/webtorrent/commit/fd8f39e1560c5ae5db6b12153077877f0f33b076))
+
+
+### BREAKING CHANGES
+
+* Node 22+
+* **webpack:** Requires Node 22+
+
 ## [2.8.5](https://github.com/webtorrent/webtorrent/compare/v2.8.4...v2.8.5) (2025-11-30)
 
 

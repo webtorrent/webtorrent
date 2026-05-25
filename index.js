@@ -66,6 +66,8 @@ export default class WebTorrent extends EventEmitter {
     }
     this.nodeIdBuffer = hex2arr(this.nodeId)
 
+    this.userAgent = opts.userAgent ?? `WebTorrent/${VERSION} (https://webtorrent.io)`
+
     this._debugId = this.peerId.substring(0, 7)
 
     this.destroyed = false
@@ -538,6 +540,10 @@ export default class WebTorrent extends EventEmitter {
     const args = [].slice.call(arguments)
     args[0] = `[${this._debugId}] ${args[0]}`
     debug(...args)
+  }
+
+  get _utpServer () {
+    return this._connPool?.utpServer || null
   }
 
   async _getByHash (infoHashHash) {

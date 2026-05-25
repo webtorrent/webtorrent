@@ -40,7 +40,7 @@ test('Download using DHT (via .torrent file)', t => {
       client1.on('error', err => { t.fail(err) })
       client1.on('warning', err => { t.fail(err) })
 
-      const torrent = client1.add(fixtures.leaves.parsedTorrent, { store: MemoryChunkStore })
+      const torrent = client1.add(fixtures.leaves.parsedTorrent, { store: MemoryChunkStore, noPeersIntervalTime: 10 })
 
       torrent.on('ready', () => {
         // torrent metadata has been fetched -- sanity check it
