@@ -73,6 +73,7 @@ test('Download using webseed (via .torrent file)', t => {
     client.destroy(err => {
       t.error(err, 'client destroyed')
     })
+    httpServer.closeAllConnections?.()
     httpServer.close(() => {
       // FIXME: t.pass was moved outside of this function because node native fetch keeps
       // connections open for longer, this isn't an issue in the node-fetch package
@@ -120,6 +121,7 @@ test('Disable webseeds', t => {
     client.destroy(err => {
       t.error(err, 'client destroyed')
     })
+    httpServer.closeAllConnections?.()
     httpServer.close(() => {
       t.pass('http server closed')
     })

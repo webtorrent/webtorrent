@@ -161,6 +161,7 @@ test('blocklist (http url)', t => {
           client.destroy(err => {
             t.error(err, 'client destroyed')
           })
+          server.closeAllConnections?.()
           server.close(() => {
             t.pass('server closed')
           })
@@ -198,6 +199,7 @@ test('blocklist (http url with gzip encoding)', t => {
           client.destroy(err => {
             t.error(err, 'client destroyed')
           })
+          server.closeAllConnections?.()
           server.close(() => {
             t.pass('server closed')
           })
@@ -235,6 +237,7 @@ test('blocklist (http url with deflate encoding)', t => {
           client.destroy(err => {
             t.error(err, 'client destroyed')
           })
+          server.closeAllConnections?.()
           server.close(() => {
             t.pass('server closed')
           })
