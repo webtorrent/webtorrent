@@ -98,7 +98,7 @@ export default class WebTorrent extends EventEmitter {
 
     this.secure = Number(opts.secure ?? 1)
 
-    if (this.secure === 2 && !Wire.nativeRC4) console.warn('Native RC4 implementation is not available. This WILL cause performance issues when using `opts.secure=2`. Consider enabling ``--openssl-legacy-provider` or using `opts.secure=1` instead.')
+    if (this.secure === 2 && !Wire.nativeRC4) console.warn('Native RC4 implementation is not available. This WILL cause performance issues when using `opts.secure=2`. Consider enabling `--openssl-legacy-provider` or using `opts.secure=1` instead.')
 
     this._debug(
       'new webtorrent (peerId %s, nodeId %s, port %s)',
