@@ -71,7 +71,7 @@
     "streamx": "2.25.0",
     "throughput": "^1.0.2",
     "torrent-discovery": "^11.0.21",
-    "torrent-piece": "^4.0.0",
+    "torrent-piece": "^4.0.1",
     "uint8-util": "^2.2.6",
     "unordered-array-remove": "^1.0.2",
     "ut_metadata": "^5.0.1",
