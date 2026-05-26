@@ -1,3 +1,11 @@
+## [3.0.9](https://github.com/webtorrent/webtorrent/compare/v3.0.8...v3.0.9) (2026-05-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency load-ip-set to ^3.0.2 ([#3056](https://github.com/webtorrent/webtorrent/issues/3056)) ([5bdf3a3](https://github.com/webtorrent/webtorrent/commit/5bdf3a3446f94992f47e18c14bec5ae1d82b55d9))
+* **deps:** update dependency torrent-piece to v4 ([#3057](https://github.com/webtorrent/webtorrent/issues/3057)) ([12297b7](https://github.com/webtorrent/webtorrent/commit/12297b7c90d6e266523350048bf6aabf30ae5263))
+
 ## [3.0.8](https://github.com/webtorrent/webtorrent/compare/v3.0.7...v3.0.8) (2026-05-26)
 
 
