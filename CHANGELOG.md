@@ -1,3 +1,40 @@
+## [3.0.6](https://github.com/webtorrent/webtorrent/compare/v3.0.5...v3.0.6) (2026-05-26)
+
+
+### Bug Fixes
+
+* **deps:** update webtorrent ([#3052](https://github.com/webtorrent/webtorrent/issues/3052)) ([9539a5c](https://github.com/webtorrent/webtorrent/commit/9539a5c733f353277ee02eb72ecc7a9c13b77d4a))
+
+## [3.0.5](https://github.com/webtorrent/webtorrent/compare/v3.0.4...v3.0.5) (2026-05-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency create-torrent to ^6.1.2 ([#3051](https://github.com/webtorrent/webtorrent/issues/3051)) ([397028a](https://github.com/webtorrent/webtorrent/commit/397028a1416f894293a4787c687a14eb6f6e91f8))
+
+## [3.0.4](https://github.com/webtorrent/webtorrent/compare/v3.0.3...v3.0.4) (2026-05-25)
+
+
+### Bug Fixes
+
+* **deps:** update webtorrent ([#3050](https://github.com/webtorrent/webtorrent/issues/3050)) ([21e2950](https://github.com/webtorrent/webtorrent/commit/21e29503dd96f0c86388d712ddaac92f9a0a1e2b))
+
+## [3.0.3](https://github.com/webtorrent/webtorrent/compare/v3.0.2...v3.0.3) (2026-05-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bittorrent-dht to ^11.0.12 ([#3049](https://github.com/webtorrent/webtorrent/issues/3049)) ([61b6829](https://github.com/webtorrent/webtorrent/commit/61b682908e51ea9df251533866a34df56d916387))
+
+## [3.0.2](https://github.com/webtorrent/webtorrent/compare/v3.0.1...v3.0.2) (2026-05-25)
+
+## [3.0.1](https://github.com/webtorrent/webtorrent/compare/v3.0.0...v3.0.1) (2026-05-25)
+
+
+### Bug Fixes
+
+* **deps:** update webtorrent ([#3048](https://github.com/webtorrent/webtorrent/issues/3048)) ([8df348c](https://github.com/webtorrent/webtorrent/commit/8df348c875632f27f607d7982da6996487241d08))
+
 # [3.0.0](https://github.com/webtorrent/webtorrent/compare/v2.8.5...v3.0.0) (2026-05-24)
 
 

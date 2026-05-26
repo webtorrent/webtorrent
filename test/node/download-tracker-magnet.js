@@ -87,7 +87,7 @@ function magnetDownloadTest (t, serverType) {
         }
       })
 
-      client1.add(parsedTorrent, { store: MemoryChunkStore })
+      client1.add(parsedTorrent, { store: MemoryChunkStore, noPeersIntervalTime: 10 })
     },
 
     cb => {
