@@ -72,6 +72,7 @@ If `opts` is specified, then the default options (shown below) will be overridde
   blocklist: Array|String, // List of IP's to block
   downloadLimit: Number,   // Max download speed (bytes/sec) over all torrents (default=-1)
   uploadLimit: Number,     // Max upload speed (bytes/sec) over all torrents (default=-1)
+  secure: Number           // Enable RC4 encryption (default=1). Allowed values: 0, 1, 2
 }
 ```
 
@@ -94,6 +95,11 @@ For `downloadLimit` and `uploadLimit` the possible values can be:
   - `> 0`. The client will set the throttle at that speed
   - `0`. The client will block any data from being downloaded or uploaded
   - `-1`. The client will is disable the throttling and use the whole bandwidth available
+
+For `secure` the possible values can be:
+  - `0`. RC4 encryption is disabled.
+  - `1`. RC4 encryption is enabled for handshake only. Has close to 0 performance impact.
+  - `2`. RC4 encryption is enabled for handshake and payload. Consider using `--openssl-legacy-provider` for a native RC4 implementation, which offers much better performance than the JS version.
 
 ## `client.add(torrentId, [opts], [function ontorrent (torrent) {}])`
 

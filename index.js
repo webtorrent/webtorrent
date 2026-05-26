@@ -1,6 +1,7 @@
 /*! webtorrent. MIT License. WebTorrent LLC <https://webtorrent.io/opensource> */
 import EventEmitter from 'events'
 import path from 'path'
+import Wire from 'bittorrent-protocol'
 import createTorrent, { parseInput } from 'create-torrent'
 import debugFactory from 'debug'
 import { Client as DHT } from 'bittorrent-dht' // browser exclude
@@ -95,9 +96,9 @@ export default class WebTorrent extends EventEmitter {
       })
     }
 
-    if (opts.secure === true) {
-      import('./lib/peer.js').then(({ enableSecure }) => enableSecure())
-    }
+    this.secure = Number(opts.secure ?? 1)
+
+    if (this.secure === 2 && !Wire.nativeRC4) console.warn('Native RC4 implementation is not available. This WILL cause performance issues when using `opts.secure=2`. Consider enabling `--openssl-legacy-provider` or using `opts.secure=1` instead.')
 
     this._debug(
       'new webtorrent (peerId %s, nodeId %s, port %s)',
