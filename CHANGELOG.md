@@ -1,3 +1,10 @@
+## [3.0.10](https://github.com/webtorrent/webtorrent/compare/v3.0.9...v3.0.10) (2026-05-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency torrent-piece to ^4.0.1 ([#3059](https://github.com/webtorrent/webtorrent/issues/3059)) ([f734c27](https://github.com/webtorrent/webtorrent/commit/f734c279cecb766320a54f18641c6a2b2f2a5fbd))
+
 ## [3.0.9](https://github.com/webtorrent/webtorrent/compare/v3.0.8...v3.0.9) (2026-05-26)
 
 
