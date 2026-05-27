@@ -75,7 +75,7 @@
     "uint8-util": "^2.2.6",
     "unordered-array-remove": "^1.0.2",
     "ut_metadata": "^5.0.1",
-    "ut_pex": "^4.0.4"
+    "ut_pex": "^5.0.2"
   },
   "devDependencies": {
     "@babel/core": "7.29.7",
