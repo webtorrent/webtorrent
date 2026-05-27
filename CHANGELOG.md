@@ -1,3 +1,10 @@
+## [3.0.13](https://github.com/webtorrent/webtorrent/compare/v3.0.12...v3.0.13) (2026-05-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bittorrent-protocol to ^5.0.6 ([#3061](https://github.com/webtorrent/webtorrent/issues/3061)) ([f64f8a0](https://github.com/webtorrent/webtorrent/commit/f64f8a01868e2b3decfd8311e2631763c00c9c42))
+
 ## [3.0.12](https://github.com/webtorrent/webtorrent/compare/v3.0.11...v3.0.12) (2026-05-27)
 
 
