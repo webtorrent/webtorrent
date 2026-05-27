@@ -1,3 +1,10 @@
+## [3.0.12](https://github.com/webtorrent/webtorrent/compare/v3.0.11...v3.0.12) (2026-05-27)
+
+
+### Bug Fixes
+
+* pe tests ([#3060](https://github.com/webtorrent/webtorrent/issues/3060)) ([bc76c3d](https://github.com/webtorrent/webtorrent/commit/bc76c3dc0671657762a656475dd4d35f676e757b))
+
 ## [3.0.11](https://github.com/webtorrent/webtorrent/compare/v3.0.10...v3.0.11) (2026-05-27)
 
 
