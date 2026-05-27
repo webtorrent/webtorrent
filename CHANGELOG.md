@@ -1,3 +1,10 @@
+## [3.0.11](https://github.com/webtorrent/webtorrent/compare/v3.0.10...v3.0.11) (2026-05-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ut_pex to v5 ([#3058](https://github.com/webtorrent/webtorrent/issues/3058)) ([47d3b7b](https://github.com/webtorrent/webtorrent/commit/47d3b7bae7fc7aa31236fe5d30e0d899433bca0d))
+
 ## [3.0.10](https://github.com/webtorrent/webtorrent/compare/v3.0.9...v3.0.10) (2026-05-26)
 
 
