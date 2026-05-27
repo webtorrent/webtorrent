@@ -79,12 +79,12 @@ test('PE/MSE: encrypted seeder=1 accepts plain downloader=0', t => {
   runTransferTest(t, 1, 0, null)
 })
 
-test('PE/MSE: mixed secure: 1+2 (initiator plaintext, responder RC4)', t => {
+test('PE/MSE: mixed secure: 1+2 (initiator offers both, responder RC4)', t => {
   t.plan(4)
-  runTransferTest(t, 2, 1, 1)
+  runTransferTest(t, 2, 1, 2)
 })
 
-test('PE/MSE: mixed secure: 2+1 (initiator RC4, responder plaintext)', t => {
+test('PE/MSE: mixed secure: 2+1 (initiator RC4 only, responder accepts RC4)', t => {
   t.plan(4)
-  runTransferTest(t, 1, 2, 1)
+  runTransferTest(t, 1, 2, 2)
 })
