@@ -1,3 +1,10 @@
+## [3.0.14](https://github.com/webtorrent/webtorrent/compare/v3.0.13...v3.0.14) (2026-05-28)
+
+
+### Bug Fixes
+
+* http server encoding ([#3064](https://github.com/webtorrent/webtorrent/issues/3064)) ([9c5b70d](https://github.com/webtorrent/webtorrent/commit/9c5b70d5136f17c5537fece13a0805b859410481))
+
 ## [3.0.13](https://github.com/webtorrent/webtorrent/compare/v3.0.12...v3.0.13) (2026-05-27)
 
 
