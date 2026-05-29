@@ -1,3 +1,10 @@
+## [3.0.16](https://github.com/webtorrent/webtorrent/compare/v3.0.15...v3.0.16) (2026-05-29)
+
+
+### Bug Fixes
+
+* **perf:** utp speed ([#3068](https://github.com/webtorrent/webtorrent/issues/3068)) ([668ccdd](https://github.com/webtorrent/webtorrent/commit/668ccdd5fc38065a84282103209380f7e9c743cf))
+
 ## [3.0.15](https://github.com/webtorrent/webtorrent/compare/v3.0.14...v3.0.15) (2026-05-29)
 
 
