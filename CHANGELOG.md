@@ -1,3 +1,10 @@
+## [3.0.15](https://github.com/webtorrent/webtorrent/compare/v3.0.14...v3.0.15) (2026-05-29)
+
+
+### Bug Fixes
+
+* server path2 ([#3067](https://github.com/webtorrent/webtorrent/issues/3067)) ([6498e62](https://github.com/webtorrent/webtorrent/commit/6498e62d755e6c01ca48ae5f3296016a300d08b2))
+
 ## [3.0.14](https://github.com/webtorrent/webtorrent/compare/v3.0.13...v3.0.14) (2026-05-28)
 
 
