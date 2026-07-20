@@ -82,11 +82,15 @@ export default class WebTorrent extends EventEmitter {
     this.natPmp = opts.natPmp ?? true
     this.torrents = []
     this.maxConns = Number(opts.maxConns) || 55
+    this.connectionBudget = Number(opts.connectionBudget) || 500
     this.utp = WebTorrent.UTP_SUPPORT && opts.utp !== false
     this.seedOutgoingConnections = opts.seedOutgoingConnections ?? true
 
     this._downloadLimit = Math.max((typeof opts.downloadLimit === 'number') ? opts.downloadLimit : -1, -1)
     this._uploadLimit = Math.max((typeof opts.uploadLimit === 'number') ? opts.uploadLimit : -1, -1)
+
+    this._ipObservations = {}
+    this._bestLocalIP = null
 
     if ((this.natUpnp || this.natPmp) && typeof NatAPI === 'function') {
       this.natTraversal = new NatAPI({
@@ -458,6 +462,22 @@ export default class WebTorrent extends EventEmitter {
     this.throttleGroups.up.setRate(this._uploadLimit)
   }
 
+  get _totalConns () {
+    let total = 0
+    for (const t of this.torrents) {
+      if (!t.destroyed) total += t._numConns
+    }
+    return total
+  }
+
+  get _totalPending () {
+    let total = 0
+    for (const t of this.torrents) {
+      if (!t.destroyed) total += t._numPending
+    }
+    return total
+  }
+
   /**
    * Destroy the client, including all torrents and connections to peers.
    * @param  {function} cb
@@ -530,11 +550,25 @@ export default class WebTorrent extends EventEmitter {
           }).catch(err => {
             debug('error mapping WebTorrent port via UPnP/PMP: %o', err)
           })
+          this.natTraversal.externalIp().then(ip => this._recordIP(ip)).catch(() => {})
         }
       }
     }
 
     this.emit('listening')
+  }
+
+  /**
+   * @param  {string=} ip
+   */
+  _recordIP (ip) {
+    if (!ip || typeof ip !== 'string') return
+    const count = (this._ipObservations[ip] || 0) + 1
+    this._ipObservations[ip] = count
+    if (!this._bestLocalIP || count > this._ipObservations[this._bestLocalIP]) {
+      this._bestLocalIP = ip
+    }
+    return this._bestLocalIP
   }
 
   _debug () {
