@@ -78,10 +78,10 @@
     "ut_pex": "^5.0.2"
   },
   "devDependencies": {
-    "@babel/core": "7.29.7",
-    "@babel/eslint-parser": "^7.29.7",
+    "@babel/core": "8.0.1",
+    "@babel/eslint-parser": "^8.0.1",
     "@babel/plugin-syntax-import-assertions": "7.29.7",
-    "@babel/preset-env": "7.29.7",
+    "@babel/preset-env": "8.0.2",
     "@webtorrent/semantic-release-config": "1.0.11",
     "airtap": "5.0.0",
     "airtap-manual": "1.0.0",
