@@ -68,7 +68,7 @@
     "run-parallel": "^1.2.0",
     "run-parallel-limit": "^1.1.0",
     "speed-limiter": "^1.0.2",
-    "streamx": "2.25.0",
+    "streamx": "2.28.0",
     "throughput": "^1.0.2",
     "torrent-discovery": "^11.0.21",
     "torrent-piece": "^4.0.1",
