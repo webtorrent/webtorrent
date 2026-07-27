@@ -117,7 +117,7 @@
     "webtorrent-fixtures": "1.7.5"
   },
   "optionalDependencies": {
-    "utp-native": "^2.5.3"
+    "@thaunknown/utp-native": "^2.5.7"
   },
   "engines": {
     "node": ">=22"
