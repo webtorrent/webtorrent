@@ -23,7 +23,8 @@ export default {
   mode: 'production',
   target: 'web',
   experiments: {
-    outputModule: true
+    outputModule: true,
+    typescript: false
   },
   plugins: [
     new webpack.ProvidePlugin({
