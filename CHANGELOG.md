@@ -1,3 +1,10 @@
+## [3.0.19](https://github.com/webtorrent/webtorrent/compare/v3.0.18...v3.0.19) (2026-07-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency range-parser to ^1.3.0 ([#3080](https://github.com/webtorrent/webtorrent/issues/3080)) ([a310780](https://github.com/webtorrent/webtorrent/commit/a31078047ac166dd4d62e48856a30b518392ba40))
+
 ## [3.0.18](https://github.com/webtorrent/webtorrent/compare/v3.0.17...v3.0.18) (2026-07-27)
 
 
