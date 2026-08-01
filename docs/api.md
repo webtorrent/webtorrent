@@ -58,6 +58,7 @@ If `opts` is specified, then the default options (shown below) will be overridde
 ```js
 {
   maxConns: Number,        // Max number of connections per torrent (default=55)
+  connectionBudget: Number,  // Connection budget target across all torrents (default=200)
   nodeId: String|Uint8Array,   // DHT protocol node ID (default=randomly generated)
   peerId: String|Uint8Array,   // Wire protocol peer ID (default=randomly generated)
   tracker: Boolean|Object, // Enable trackers (default=true), or options object for Tracker
@@ -95,6 +96,10 @@ For `downloadLimit` and `uploadLimit` the possible values can be:
   - `> 0`. The client will set the throttle at that speed
   - `0`. The client will block any data from being downloaded or uploaded
   - `-1`. The client will is disable the throttling and use the whole bandwidth available
+
+`connectionBudget` is a priority-based connection budget target across all torrents. Not a hard cap, when the budget is fully utilized, torrents at or above their fair share are limited, leaving room for others to catch up.
+
+Each priority point gets a base allocation (`connectionBudget / totalPriority`, minimum 1). A priority-3 torrent always gets 3x the slots of a priority-1 torrent.
 
 For `secure` the possible values can be:
   - `0`. RC4 encryption is disabled.
@@ -136,7 +141,8 @@ If `opts` is specified, then the default options (shown below) will be overridde
   noPeersIntervalTime: Number, // The amount of time (in seconds) to wait between each check of the `noPeers` event (default=30)
   paused: Boolean,           // If true, create the torrent in a paused state (default=false)
   deselect: Boolean,         // If true, create the torrent with no pieces selected (default=false)
-  alwaysChokeSeeders: Boolean // If true, client will automatically choke seeders if it's seeding. (default=true)
+  alwaysChokeSeeders: Boolean, // If true, client will automatically choke seeders if it's seeding. (default=true)
+  priority: Number           // Torrent priority for connection budget allocation (default=1, higher = preferred)
 }
 ```
 
@@ -480,6 +486,17 @@ If truthy, `store.destroy()` will be called, which will delete the torrent's fil
 
 If `callback` is provided, it will be called when the torrent is fully destroyed,
 i.e. all open sockets are closed, and the storage is either closed or destroyed.
+
+## `torrent.setPriority(priority)`
+
+Sets the torrent's priority (minimum `1`). The connection budget target (`connectionBudget`)
+is shared across all torrents based on priority — a priority-3 torrent always gets 3x the
+target of a priority-1 torrent. Targets are recalculated immediately when priorities change
+or torrents are added/removed.
+
+The budget is a target, not a hard cap. Torrents never lose existing peers when their target
+shrinks; they simply stop accepting new ones until peers disconnect naturally. The per-torrent
+`maxConns` still applies as an absolute upper bound.
 
 ## `torrent.addPeer(peer)`
 
