@@ -72,6 +72,8 @@ If `opts` is specified, then the default options (shown below) will be overridde
   blocklist: Array|String, // List of IP's to block
   downloadLimit: Number,   // Max download speed (bytes/sec) over all torrents (default=-1)
   uploadLimit: Number,     // Max upload speed (bytes/sec) over all torrents (default=-1)
+  torrentDownloadLimit: Number, // Default per-torrent download speed limit (bytes/sec) for new torrents (default=-1)
+  torrentUploadLimit: Number,   // Default per-torrent upload speed limit (bytes/sec) for new torrents (default=-1)
   secure: Number           // Enable RC4 encryption (default=1). Allowed values: 0, 1, 2
 }
 ```
@@ -91,10 +93,12 @@ For `opts.natUpnp`, if set to `true`, a temporary mapping is used, if set to `pe
 
 For `opts.seedOutgoingConnections`, if set `true`, outgoing connections will be established while seeding, otherwise, only inbound connections will be responded to.
 
-For `downloadLimit` and `uploadLimit` the possible values can be:
+For `downloadLimit`, `uploadLimit`, `torrentDownloadLimit` and `torrentUploadLimit` the possible values can be:
   - `> 0`. The client will set the throttle at that speed
   - `0`. The client will block any data from being downloaded or uploaded
-  - `-1`. The client will is disable the throttling and use the whole bandwidth available
+  - `-1`. The client will disable the throttling and use the whole bandwidth available
+
+Per-torrent limits are independent of global limits - the effective rate is the minimum of the two.
 
 For `secure` the possible values can be:
   - `0`. RC4 encryption is disabled.
@@ -136,7 +140,9 @@ If `opts` is specified, then the default options (shown below) will be overridde
   noPeersIntervalTime: Number, // The amount of time (in seconds) to wait between each check of the `noPeers` event (default=30)
   paused: Boolean,           // If true, create the torrent in a paused state (default=false)
   deselect: Boolean,         // If true, create the torrent with no pieces selected (default=false)
-  alwaysChokeSeeders: Boolean // If true, client will automatically choke seeders if it's seeding. (default=true)
+  alwaysChokeSeeders: Boolean, // If true, client will automatically choke seeders if it's seeding. (default=true)
+  downloadSpeedLimit: Number, // Per-torrent download speed limit (bytes/sec) over all peers for this torrent (default=-1)
+  uploadSpeedLimit: Number   // Per-torrent upload speed limit (bytes/sec) over all peers for this torrent (default=-1)
 }
 ```
 
@@ -280,6 +286,29 @@ Sets the maximum speed at which the client uploads the torrents, in bytes/sec.
 `rate` must be bigger or equal than zero, or `-1` to disable the upload throttle and
 use the whole bandwidth of the connection.
 
+## `client.throttleTorrentDownload(rate)`
+
+Sets the default per-torrent download throttle rate for all new torrents, and applies it
+to all existing torrents immediately.
+
+`rate` must be bigger or equal than zero, or `-1` to disable the download throttle and
+use the whole bandwidth of the connection.
+
+Per-torrent limits are independent of the global limit set by `client.throttleDownload()`.
+The effective download rate for a torrent is the minimum of its per-torrent limit and the
+global limit.
+
+## `client.throttleTorrentUpload(rate)`
+
+Sets the default per-torrent upload throttle rate for all new torrents, and applies it
+to all existing torrents immediately.
+
+`rate` must be bigger or equal than zero, or `-1` to disable the upload throttle and
+use the whole bandwidth of the connection.
+
+Per-torrent limits are independent of the global limit set by `client.throttleUpload()`.
+The effective upload rate for a torrent is the minimum of its per-torrent limit and the
+global limit.
 
 ## `client.createServer([opts], force)`
 
@@ -507,6 +536,28 @@ The `urlOrConn` argument is either the web seed URL, or an object that provides 
 web seed implementation. A custom conn object is a duplex stream that speaks the bittorrent
 wire protocol and pretends to be a remote peer. It must have a `connId` property that
 uniquely identifies the custom web seed.
+
+## `torrent.throttleDownloadSpeed(rate)`
+
+Sets the per-torrent download throttle rate for this torrent.
+
+`rate` must be bigger or equal than zero, or `-1` to disable the download throttle and
+use the whole bandwidth of the connection.
+
+Per-torrent limits are independent of the global limit set by `client.throttleDownload()`.
+The effective download rate for a torrent is the minimum of its per-torrent limit and the
+global limit.
+
+## `torrent.throttleUploadSpeed(rate)`
+
+Sets the per-torrent upload throttle rate for this torrent.
+
+`rate` must be bigger or equal than zero, or `-1` to disable the upload throttle and
+use the whole bandwidth of the connection.
+
+Per-torrent limits are independent of the global limit set by `client.throttleUpload()`.
+The effective upload rate for a torrent is the minimum of its per-torrent limit and the
+global limit.
 
 ## `torrent.removePeer(peer)`
 

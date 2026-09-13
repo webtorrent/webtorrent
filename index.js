@@ -87,6 +87,8 @@ export default class WebTorrent extends EventEmitter {
 
     this._downloadLimit = Math.max((typeof opts.downloadLimit === 'number') ? opts.downloadLimit : -1, -1)
     this._uploadLimit = Math.max((typeof opts.uploadLimit === 'number') ? opts.uploadLimit : -1, -1)
+    this._torrentDownloadLimit = Math.max((typeof opts.torrentDownloadLimit === 'number') ? opts.torrentDownloadLimit : -1, -1)
+    this._torrentUploadLimit = Math.max((typeof opts.torrentUploadLimit === 'number') ? opts.torrentUploadLimit : -1, -1)
 
     if ((this.natUpnp || this.natPmp) && typeof NatAPI === 'function') {
       this.natTraversal = new NatAPI({
@@ -287,6 +289,13 @@ export default class WebTorrent extends EventEmitter {
     this._debug('add')
     opts = opts ? Object.assign({}, opts) : {}
 
+    if (typeof opts.downloadSpeedLimit !== 'number') {
+      opts.downloadSpeedLimit = this._torrentDownloadLimit
+    }
+    if (typeof opts.uploadSpeedLimit !== 'number') {
+      opts.uploadSpeedLimit = this._torrentUploadLimit
+    }
+
     const torrent = new Torrent(torrentId, this, opts)
     this.torrents.push(torrent)
 
@@ -456,6 +465,34 @@ export default class WebTorrent extends EventEmitter {
     if (this._uploadLimit === -1) return this.throttleGroups.up.setEnabled(false)
     this.throttleGroups.up.setEnabled(true)
     this.throttleGroups.up.setRate(this._uploadLimit)
+  }
+
+  /**
+   * Set default per-torrent download throttle rate for all new torrents.
+   * Also applies to all existing torrents.
+   * @param  {Number} rate (must be bigger or equal than zero, or -1 to disable throttling)
+   */
+  throttleTorrentDownload (rate) {
+    rate = Number(rate)
+    if (isNaN(rate) || !isFinite(rate) || (rate < 0 && rate !== -1)) return false
+    this._torrentDownloadLimit = Math.round(rate)
+    for (const torrent of this.torrents) {
+      torrent.throttleDownloadSpeed(this._torrentDownloadLimit)
+    }
+  }
+
+  /**
+   * Set default per-torrent upload throttle rate for all new torrents.
+   * Also applies to all existing torrents.
+   * @param  {Number} rate (must be bigger or equal than zero, or -1 to disable throttling)
+   */
+  throttleTorrentUpload (rate) {
+    rate = Number(rate)
+    if (isNaN(rate) || !isFinite(rate) || (rate < 0 && rate !== -1)) return false
+    this._torrentUploadLimit = Math.round(rate)
+    for (const torrent of this.torrents) {
+      torrent.throttleUploadSpeed(this._torrentUploadLimit)
+    }
   }
 
   /**
