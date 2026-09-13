@@ -315,9 +315,26 @@ export default class WebTorrent extends EventEmitter {
     opts.skipVerify = true
 
     const isFilePath = typeof input === 'string'
+    const isFilePathArray = Array.isArray(input) && input.length > 1 && input.every(item => typeof item === 'string')
 
     // When seeding from fs path, initialize store from that path to avoid a copy
     if (isFilePath) opts.path = path.dirname(input)
+    else if (isFilePathArray && opts.name === undefined) {
+      let commonDir = path.dirname(path.resolve(input[0]))
+
+      for (const filePath of input.slice(1)) {
+        const fileDir = path.dirname(path.resolve(filePath))
+
+        while (commonDir !== path.dirname(commonDir)) {
+          const relativePath = path.relative(commonDir, fileDir)
+          if (relativePath !== '..' && !relativePath.startsWith(`..${path.sep}`) && !path.isAbsolute(relativePath)) break
+          commonDir = path.dirname(commonDir)
+        }
+      }
+
+      const name = path.basename(commonDir)
+      if (name) opts.name = name
+    }
     if (!opts.createdBy) opts.createdBy = `WebTorrent/${VERSION_STR}`
 
     const onTorrent = torrent => {
