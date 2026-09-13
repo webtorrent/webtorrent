@@ -1,3 +1,39 @@
+## [3.0.21](https://github.com/webtorrent/webtorrent/compare/v3.0.20...v3.0.21) (2026-07-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency streamx to v2.28.0 ([#3062](https://github.com/webtorrent/webtorrent/issues/3062)) ([4df7cda](https://github.com/webtorrent/webtorrent/commit/4df7cda7a3e03ff07c56352d23bfe27493bdcc55))
+
+## [3.0.20](https://github.com/webtorrent/webtorrent/compare/v3.0.19...v3.0.20) (2026-07-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency bittorrent-protocol to ^5.0.9 ([#3097](https://github.com/webtorrent/webtorrent/issues/3097)) ([6d5c5ce](https://github.com/webtorrent/webtorrent/commit/6d5c5ceb5fabfd6fd2818afa137337a7ca6c509a))
+
+## [3.0.19](https://github.com/webtorrent/webtorrent/compare/v3.0.18...v3.0.19) (2026-07-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency range-parser to ^1.3.0 ([#3080](https://github.com/webtorrent/webtorrent/issues/3080)) ([a310780](https://github.com/webtorrent/webtorrent/commit/a31078047ac166dd4d62e48856a30b518392ba40))
+
+## [3.0.18](https://github.com/webtorrent/webtorrent/compare/v3.0.17...v3.0.18) (2026-07-27)
+
+
+### Bug Fixes
+
+* **deps:** update webtorrent ([#3094](https://github.com/webtorrent/webtorrent/issues/3094)) ([1f0753f](https://github.com/webtorrent/webtorrent/commit/1f0753f7da66eea3cad36e6eacfd5ecc7465e704))
+
+## [3.0.17](https://github.com/webtorrent/webtorrent/compare/v3.0.16...v3.0.17) (2026-07-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency uint8-util to ^2.3.2 ([#3093](https://github.com/webtorrent/webtorrent/issues/3093)) ([aeb7dc5](https://github.com/webtorrent/webtorrent/commit/aeb7dc5ff859dac94ab5eb63621f01a3140c815f))
+* **deps:** update webtorrent ([#3090](https://github.com/webtorrent/webtorrent/issues/3090)) ([8810191](https://github.com/webtorrent/webtorrent/commit/88101915149dd8225d82ebe3c222e084862e7e53))
+
 ## [3.0.16](https://github.com/webtorrent/webtorrent/compare/v3.0.15...v3.0.16) (2026-05-29)
 
 
