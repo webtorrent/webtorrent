@@ -163,6 +163,10 @@ export default class WebTorrent extends EventEmitter {
     // Enable or disable BEP19 (Web Seeds). Enabled by default:
     this.enableWebSeeds = opts.webSeeds !== false
 
+    // Extra headers merged into every webseed HTTP request.
+    // Object, or (url) => headers so credentials can be refreshed per request.
+    this._webSeedHeaders = opts.webSeedHeaders
+
     const ready = () => {
       if (this.destroyed) return
       this.ready = true
