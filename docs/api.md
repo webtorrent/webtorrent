@@ -67,6 +67,7 @@ If `opts` is specified, then the default options (shown below) will be overridde
   natUpnp: Boolean | String, // Enable NAT port mapping via NAT-UPnP (default=true). NodeJS only
   natPmp: Boolean,         // Enable NAT port mapping via NAT-PMP (default=true). NodeJS only.
   webSeeds: Boolean,       // Enable BEP19 web seeds (default=true)
+  webSeedHeaders: Object|Function, // Extra headers merged into every webseed HTTP request (default=undefined)
   utp: Boolean,            // Enable BEP29 uTorrent transport protocol (default=true)
   seedOutgoingConnections: Boolean // Enable outgoing connections when seeding (default=true)
   blocklist: Array|String, // List of IP's to block
@@ -90,6 +91,8 @@ For `opts.natUpnp` and `opts.natPmp`, if both are set to `true`, PMP will be att
 For `opts.natUpnp`, if set to `true`, a temporary mapping is used, if set to `permanent`, a permanent TTL will be used for UPNP if the router only supports permanent leases. NodeJS only.
 
 For `opts.seedOutgoingConnections`, if set `true`, outgoing connections will be established while seeding, otherwise, only inbound connections will be responded to.
+
+For `opts.webSeedHeaders`, extra HTTP headers are merged into every BEP19 web seed request. Pass a plain object, or a function `(url) => headers` that is evaluated per request so credentials (for example CloudFront signed cookies) can be refreshed without re-adding the torrent. Built-in `Range` headers always take precedence over extra headers.
 
 For `downloadLimit` and `uploadLimit` the possible values can be:
   - `> 0`. The client will set the throttle at that speed
