@@ -3,11 +3,7 @@ import MemoryChunkStore from 'memory-chunk-store'
 import test from 'tape'
 import WebTorrent from '../../index.js'
 
-// A piece is nulled when it verifies, but `bitfield` is set from an async store
-// callback, so there is a window in which `pieces[index]` is null and
-// `bitfield.get(index)` is still false. Everything that reads a piece without
-// checking throws in that window. `deselect` widens the window enormously,
-// which is why streaming clients see it constantly.
+// Test null pieces with unset bitfield bits.
 function withTorrent (t, run) {
   const client = new WebTorrent({ dht: false, tracker: false, lsd: false, utp: false })
   client.on('error', err => { t.fail(err) })
