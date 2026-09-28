@@ -98,7 +98,7 @@ WebTorrent is still pretty new, but it's already being used in cool ways:
 - **[P2P Media Loader][p2p-media-loader]** - engine for Hls.js and Shaka Player that enables P2P sharing of live and VOD streams over HLS or DASH protocols.
 - **[Hubzilla][hubzilla]** - WebTorrent player integration into posts ([source code][hubzilla-source])
 - **[Come Over][comeover]** - Video stream sharing to watch movies together ([source code][comeover-source])
-- **[PeerWebSite][peerwebsite]** - Peer to Peer Web Site hosting at your fingertips! Send full featured HTML (incl. CSS, JS) sites from your browser and attach files eg. videos, images, etc.
+- **[decentral.ninja][DCN]** - WEB3.0 Chat to communicate anonymously through decentralized networks. Using CRDTs (offline-first PWA), Websocket, WebRTC, WebTorrent, IPFS and all fully end-to-end encrypted.
 - **[CipherTorrent][cipher-torrent]** - Online and offline browser torrent client ([source code][cipher-torrent-source])
 - **[Slingcode][Slingcode]** - make, run, and share web apps P2P in the browser.
 - **[Torrent🧲Parts][TorrentParts]** - A website to inspect and edit what's in your Torrent file or Magnet link
@@ -191,7 +191,7 @@ There's also a list of WebTorrent-powered alternatives to centralized services h
 [hubzilla-source]: https://github.com/demitas-ace/wtplayer/tree/master/wtplayer
 [comeover]: https://luccadoret.github.io/comeover/home
 [comeover-source]: https://github.com/LucCADORET/comeover
-[peerwebsite]: https://peerweb.site
+[DCN]: https://decentral.ninja
 [cipher-torrent]: https://torrent.cipherdogs.net
 [cipher-torrent-source]: https://github.com/CipherDogs/cipher-torrent
 [TorrentParts]: https://torrent.parts
