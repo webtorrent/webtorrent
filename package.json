@@ -79,7 +79,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.29.7",
-    "@babel/eslint-parser": "^7.29.7",
+    "@babel/eslint-parser": "^7.29.9",
     "@babel/plugin-syntax-import-assertions": "7.29.7",
     "@babel/preset-env": "7.29.7",
     "@webtorrent/semantic-release-config": "1.0.11",
