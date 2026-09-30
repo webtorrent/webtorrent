@@ -84,7 +84,96 @@ test('Download using webseed (via .torrent file)', t => {
   })
 })
 
-test('Disable webseeds', t => {
+test('Download using webseed with extra headers', t => {
+  t.plan(6)
+  t.timeoutAfter(WEB_SEED_TIMEOUT_MS)
+
+  const parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
+  let sawCookie = false
+  let headersHookCalled = false
+
+  const httpServer = http.createServer((req, res) => {
+    if (req.headers.cookie !== 'secret=yes') {
+      res.statusCode = 401
+      res.end()
+      return
+    }
+    sawCookie = true
+    const done = finalhandler(req, res)
+    serveStatic(path.dirname(fixtures.leaves.contentPath))(req, res, done)
+  })
+  let client
+
+  httpServer.on('error', err => { t.fail(err) })
+
+  series([
+    cb => {
+      httpServer.listen(cb)
+    },
+
+    cb => {
+      parsedTorrent.urlList = [
+        `http://localhost:${httpServer.address().port}/${fixtures.leaves.parsedTorrent.name}`
+      ]
+
+      client = new WebTorrent({
+        dht: false,
+        tracker: false,
+        lsd: false,
+        natUpnp: false,
+        natPmp: false,
+        webSeedHeaders: (url) => {
+          if (!headersHookCalled) {
+            headersHookCalled = true
+            t.ok(url.startsWith('http://localhost:'), 'webSeedHeaders receives request url')
+          }
+          return { cookie: 'secret=yes' }
+        }
+      })
+
+      client.on('error', err => { t.fail(err) })
+      client.on('warning', err => { t.fail(err) })
+
+      client.on('torrent', async torrent => {
+        let gotBuffer = false
+        let torrentDone = false
+        function maybeDone () {
+          if (gotBuffer && torrentDone) cb(null)
+        }
+
+        torrent.once('done', () => {
+          t.ok(sawCookie, 'webseed server received cookie header')
+          t.pass('client downloaded torrent from authenticated webseed')
+          torrentDone = true
+          maybeDone()
+        })
+
+        for (const file of torrent.files) {
+          try {
+            const ab = await file.arrayBuffer()
+            t.deepEqual(new Uint8Array(ab), new Uint8Array(fixtures.leaves.content), 'downloaded correct content')
+          } catch (err) {
+            t.error(err)
+          }
+
+          gotBuffer = true
+          maybeDone()
+        }
+      })
+
+      client.add(parsedTorrent, { store: MemoryChunkStore })
+    }
+  ], err => {
+    t.error(err)
+    client.destroy(err => {
+      t.error(err, 'client destroyed')
+    })
+    httpServer.closeAllConnections?.()
+    httpServer.close(() => {})
+    t.pass('http server closed')
+  })
+})
+
   t.plan(3)
   const parsedTorrent = Object.assign({}, fixtures.leaves.parsedTorrent)
 
