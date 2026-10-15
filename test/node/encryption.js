@@ -88,3 +88,45 @@ test('PE/MSE: mixed secure: 2+1 (initiator RC4 only, responder accepts RC4)', t 
   t.plan(4)
   runTransferTest(t, 1, 2, 2)
 })
+
+test('PE/MSE: encrypted incoming peer is rejected by a paused torrent without crashing', t => {
+  t.plan(5)
+
+  const seeder = createClient({ secure: 1 })
+  const downloader = createClient({ secure: 1 })
+
+  seeder.on('error', err => { t.fail(err) })
+  seeder.on('warning', err => { t.fail(err) })
+  downloader.on('error', err => { t.fail(err) })
+  downloader.on('warning', err => { t.fail(err) })
+
+  seeder.seed(fixtures.leaves.content, {
+    name: 'Leaves of Grass by Walt Whitman.epub',
+    announce: []
+  }, torrent1 => {
+    torrent1.pause()
+    t.ok(torrent1.paused, 'seeder torrent is paused')
+
+    // The paused torrent rejects the incoming peer, which closes the connection
+    // before the encryption handshake is completed
+    seeder._connPool.tcpServer.once('connection', conn => {
+      conn.once('close', () => {
+        t.equal(torrent1.wires.length, 0, 'paused torrent has no wires')
+        t.equal(torrent1.numPeers, 0, 'paused torrent has no peers')
+
+        downloader.destroy(err => { t.error(err, 'downloader destroyed') })
+        seeder.destroy(err => { t.error(err, 'seeder destroyed') })
+      })
+    })
+
+    const torrent2 = downloader.add(fixtures.leaves.parsedTorrent.infoHash, { store: MemoryChunkStore })
+
+    torrent2.on('wire', () => {
+      t.fail('downloader should not complete a handshake with a paused torrent')
+    })
+
+    torrent2.on('infoHash', () => {
+      torrent2.addPeer(`127.0.0.1:${seeder.torrentPort}`)
+    })
+  })
+})
