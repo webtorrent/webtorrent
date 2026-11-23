@@ -145,6 +145,54 @@ test('client.seed: filesystem path to folder with multiple files, string', t => 
   })
 })
 
+test('client.seed: file.downloaded when file ends on a piece boundary', t => {
+  t.plan(6)
+
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
+
+  client.on('error', err => { t.fail(err) })
+  client.on('warning', err => { t.fail(err) })
+
+  const pieceLength = 16384
+  const content = Buffer.alloc(pieceLength * 2, 0x61)
+  content.name = 'boundary.bin'
+
+  client.seed(content, { announce: [], pieceLength }, torrent => {
+    const file = torrent.files[0]
+
+    t.equal(file.length, pieceLength * 2, 'file length')
+    t.equal(file.done, true, 'file is fully seeded')
+    t.equal(torrent.downloaded, file.length, 'torrent downloaded')
+    t.equal(file.downloaded, file.length, 'file downloaded')
+    t.equal(file.progress, 1, 'file progress')
+
+    client.destroy(err => { t.error(err, 'client destroyed') })
+  })
+})
+
+test('client.seed: file.downloaded when a single piece is the whole file', t => {
+  t.plan(4)
+
+  const client = new WebTorrent({ dht: false, tracker: false, lsd: false, natUpnp: false, natPmp: false })
+
+  client.on('error', err => { t.fail(err) })
+  client.on('warning', err => { t.fail(err) })
+
+  const pieceLength = 16384
+  const content = Buffer.alloc(pieceLength, 0x61)
+  content.name = 'single-piece.bin'
+
+  client.seed(content, { announce: [], pieceLength }, torrent => {
+    const file = torrent.files[0]
+
+    t.equal(file.done, true, 'file is fully seeded')
+    t.equal(file.downloaded, pieceLength, 'file downloaded')
+    t.equal(file.progress, 1, 'file progress')
+
+    client.destroy(err => { t.error(err, 'client destroyed') })
+  })
+})
+
 test('client.add: invalid torrent id: invalid filesystem path', t => {
   t.plan(3)
 
